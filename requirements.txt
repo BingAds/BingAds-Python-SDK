@@ -1,0 +1,13 @@
+suds-jurko==0.6.0
+requests==2.4.3
+future==0.14.3
+six==1.8.0
+enum34==1.0.4
+chardet==2.3.0
+pytest
+mock
+parameterizedtestcase
+coverage
+flake8
+setuptools
+Sphinx
