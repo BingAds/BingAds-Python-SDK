@@ -1,0 +1,126 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}.</h2>
+
+{% if user.is_authenticated  %}
+
+{% if errors %}
+<div class="jumbotron">
+    <section id="errors">
+        <h1>Errors occurred in your last request to Bing Ads API.</h1>
+        <table class="table" style="width:100%">
+            <tr class="row">
+                <th class="col-md-10">Code</th>
+                <th class="col-md-10">ErrorCode</th>
+                <th class="col-md-10">Message</th>
+            </tr>
+            {% for error in errors %}
+            <tr class="row">
+                <td class="col-md-10">{{ error.Code }}</td> 
+                <td class="col-md-10">{{ error.ErrorCode }}</td> 
+                <td class="col-md-10">{{ error.Message }}</td> 
+            </tr>
+            {% endfor %}
+        </table> 
+    </section>
+</div>
+{% endif %}
+
+{% if accounts  %}
+
+<h3>User Details</h3>
+<table class="table" style="width:100%">
+    <tr class="row">
+        <th class="col-md-10">Id</th>
+        <th class="col-md-10">UserName</th> 
+    </tr>
+    <tr class="row">
+        <td class="col-md-10">{{ bingadsuser.Id }}</td>
+        <td class="col-md-10">{{ bingadsuser.UserName }}</td> 
+    </tr>
+</table> 
+
+<h3>Account Details</h3>
+<table class="table" style="width:100%">
+    <tr class="row">
+        <th class="col-md-10">Id</th>
+        <th class="col-md-10">Name</th> 
+    </tr>
+    {% for account in accounts %}
+    <tr class="row">
+        <td class="col-md-10">{{ account.Id }}</td>
+        <td class="col-md-10">{{ account.Name }}</td> 
+    </tr>
+    {% endfor %}
+</table> 
+
+<h3>Campaign Details</h3>
+<table class="table" style="width:100%">
+    <tr class="row">
+        <th class="col-md-10">Campaign Id</th>
+        <th class="col-md-10">Parent Account Id</th>
+        <th class="col-md-10">Name</th> 
+        <th class="col-md-10">BudgetType</th>
+    </tr>
+    {% for campaign in campaigns %}
+    <tr class="row">
+        <td class="col-md-10">{{ campaign.campaign.Id }}</td>
+        <td class="col-md-10">{{ campaign.account_id }}</td>
+        <td class="col-md-10">{{ campaign.campaign.Name }}</td> 
+        <td class="col-md-10">{{ campaign.campaign.BudgetType }}</td>
+    </tr>
+    {% endfor %}
+</table> 
+
+<h3>Ad Group Details</h3>
+<table class="table" style="width:100%">
+    <tr class="row">
+        <th class="col-md-10">Ad Group Id</th>
+        <th class="col-md-10">Parent Campaign Id</th>
+        <th class="col-md-10">Name</th> 
+        <th class="col-md-10">BudgetType</th>
+    </tr>
+    {% for ad_group in ad_groups %}
+    <tr class="row">
+        <td class="col-md-10">{{ ad_group.ad_group.Id }}</td>
+        <td class="col-md-10">{{ ad_group.campaign_id }}</td>
+        <td class="col-md-10">{{ ad_group.ad_group.AdDistribution }}</td> 
+        <td class="col-md-10">{{ ad_group.ad_group.Language }}</td>
+    </tr>
+    {% endfor %}
+</table> 
+
+{% else  %}
+
+<div class="jumbotron">
+    <h1>Enable Bing Ads Access</h1>
+    <h3>The user doesn't have access to any accounts or campaign data.</h3>
+    <p class="lead">
+        Before you can get campaign data you must provide your Bing Ads user credentials.</p>
+    <p><a href="{% url 'home' %}">Home</a></p>
+</div>
+
+{% endif %}
+
+{% else %}
+
+<div class="jumbotron">
+    <h1>Bing Ads Example Web Application</h1>
+    <p class="lead">
+        Before you can provide your Bing Ads user credentials and access Bing Ads data, please login or sign up for access to this web application. 
+    </p>
+    <p><a href="{% url 'login' %}">Log in</a></p>
+</div>
+
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}
