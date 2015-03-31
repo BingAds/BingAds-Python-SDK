@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.bulk.exceptions &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '9.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for bingads.bulk.exceptions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">SdkException</span>
+
+
+<div class="viewcode-block" id="BulkException"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.BulkException">[docs]</a><span class="k">class</span> <span class="nc">BulkException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span> <span class="o">=</span> <span class="n">errors</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="BulkException.errors"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.BulkException.errors">[docs]</a>    <span class="k">def</span> <span class="nf">errors</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The list of operation errors returned by the bulk service.</span>
+
+<span class="sd">        :rtype: list[OperationError]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errors</span>
+
+</div></div>
+<div class="viewcode-block" id="EntityReadException"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.EntityReadException">[docs]</a><span class="k">class</span> <span class="nc">EntityReadException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">row_values</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">inner_exception</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EntityReadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_row_values</span> <span class="o">=</span> <span class="n">row_values</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_exception</span> <span class="o">=</span> <span class="n">inner_exception</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EntityReadException.row_values"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.EntityReadException.row_values">[docs]</a>    <span class="k">def</span> <span class="nf">row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_row_values</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EntityReadException.inner_exception"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.EntityReadException.inner_exception">[docs]</a>    <span class="k">def</span> <span class="nf">inner_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_exception</span>
+
+</div></div>
+<div class="viewcode-block" id="EntityWriteException"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.EntityWriteException">[docs]</a><span class="k">class</span> <span class="nc">EntityWriteException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">inner_exception</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">EntityWriteException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_exception</span> <span class="o">=</span> <span class="n">inner_exception</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="EntityWriteException.inner_exception"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.EntityWriteException.inner_exception">[docs]</a>    <span class="k">def</span> <span class="nf">inner_exception</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_exception</span>
+
+</div></div>
+<div class="viewcode-block" id="OperationError"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.OperationError">[docs]</a><span class="k">class</span> <span class="nc">OperationError</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Defines an error object that contains the details that explain why the service operation failed. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">code</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">details</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">error_code</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">message</span><span class="o">=</span><span class="bp">None</span><span class="p">,):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code</span> <span class="o">=</span> <span class="n">code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="n">details</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_code</span> <span class="o">=</span> <span class="n">error_code</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A numeric error code that identifies the error</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_code</span>
+
+    <span class="nd">@code.setter</span>
+<div class="viewcode-block" id="OperationError.code"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.OperationError.code">[docs]</a>    <span class="k">def</span> <span class="nf">code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_code</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A message that provides additional details about the error. This string can be empty.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_details</span>
+
+    <span class="nd">@details.setter</span>
+<div class="viewcode-block" id="OperationError.details"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.OperationError.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_details</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A symbolic string constant that identifies the error. For example, UserIsNotAuthorized.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_code</span>
+
+    <span class="nd">@error_code.setter</span>
+<div class="viewcode-block" id="OperationError.error_code"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.OperationError.error_code">[docs]</a>    <span class="k">def</span> <span class="nf">error_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error_code</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A message that describes the error.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+
+    <span class="nd">@message.setter</span>
+<div class="viewcode-block" id="OperationError.message"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.exceptions.OperationError.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_message</span> <span class="o">=</span> <span class="n">value</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

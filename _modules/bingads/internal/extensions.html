@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.internal.extensions &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '9.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../index.html" />
+    <link rel="up" title="Module code" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for bingads.internal.extensions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">PY2</span>
+
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span>
+
+
+<span class="n">DELETE_VALUE</span> <span class="o">=</span> <span class="s">&quot;delete_value&quot;</span>
+<span class="n">_BULK_DATETIME_FORMAT</span> <span class="o">=</span> <span class="s">&#39;%m/</span><span class="si">%d</span><span class="s">/%Y %H:%M:%S&#39;</span>
+<span class="n">_BULK_DATETIME_FORMAT_2</span> <span class="o">=</span> <span class="s">&#39;%m/</span><span class="si">%d</span><span class="s">/%Y %H:%M:%S.</span><span class="si">%f</span><span class="s">&#39;</span>
+<span class="n">_BULK_DATE_FORMAT</span> <span class="o">=</span> <span class="s">&quot;%m/</span><span class="si">%d</span><span class="s">/%Y&quot;</span>
+
+
+<div class="viewcode-block" id="bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">value</span>
+    <span class="k">if</span> <span class="n">PY2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="bulk_upper_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_upper_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_upper_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+</div>
+<div class="viewcode-block" id="bulk_date_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_date_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_date_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="s">&#39;{0!s}/{1!s}/{2!s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="bulk_datetime_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_datetime_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_datetime_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">_BULK_DATETIME_FORMAT</span><span class="p">)</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_is_daily_budget</span><span class="p">(</span><span class="n">budget_type</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">budget_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;DailyBudgetAccelerated&#39;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> \
+            <span class="ow">or</span> <span class="n">budget_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;DailyBudgetStandard&#39;</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+
+<div class="viewcode-block" id="csv_to_budget"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_budget">[docs]</a><span class="k">def</span> <span class="nf">csv_to_budget</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="p">):</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">budget_type</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">budget_row_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">budget_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">budget_row_value</span><span class="p">)</span> <span class="k">if</span> <span class="n">budget_row_value</span> <span class="k">else</span> <span class="bp">None</span>
+
+    <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="n">budget_type</span>
+    <span class="k">if</span> <span class="n">_is_daily_budget</span><span class="p">(</span><span class="n">budget_type</span><span class="p">):</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span> <span class="o">=</span> <span class="n">budget_value</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">MonthlyBudget</span> <span class="o">=</span> <span class="n">budget_value</span>
+
+</div>
+<div class="viewcode-block" id="budget_to_csv"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.budget_to_csv">[docs]</a><span class="k">def</span> <span class="nf">budget_to_csv</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+    <span class="n">budget_type</span> <span class="o">=</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="n">_is_daily_budget</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">budget_type</span><span class="p">)):</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">MonthlyBudget</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="bulk_optional_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_optional_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_optional_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">return</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="csv_to_status"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_status">[docs]</a><span class="k">def</span> <span class="nf">csv_to_status</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s">&#39;Expired&#39;</span><span class="p">:</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="s">&#39;Deleted&#39;</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">_is_expired</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+
+</div>
+<div class="viewcode-block" id="bulk_device_preference_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_device_preference_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_device_preference_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;All&quot;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">30001</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&quot;Mobile&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Unknown device preference&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_datetime"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_datetime">[docs]</a><span class="k">def</span> <span class="nf">parse_datetime</span><span class="p">(</span><span class="n">dt_str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convert the datetime str to datetime object.</span>
+
+<span class="sd">    :param dt_str: The string representing a datetime object.</span>
+<span class="sd">    :type dt_str: str</span>
+<span class="sd">    :return: The datetime object parsed from the string.</span>
+<span class="sd">    :rtype: datetime | None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">dt_str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dt_str</span><span class="p">,</span> <span class="n">_BULK_DATETIME_FORMAT</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">dt_str</span><span class="p">,</span> <span class="n">_BULK_DATETIME_FORMAT_2</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_date"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_date">[docs]</a><span class="k">def</span> <span class="nf">parse_date</span><span class="p">(</span><span class="n">d_str</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">d_str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">parsed_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">d_str</span><span class="p">,</span> <span class="n">_BULK_DATE_FORMAT</span><span class="p">)</span>
+    <span class="n">bing_ads_date</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Day</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">day</span>
+    <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Month</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">month</span>
+    <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Year</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">year</span>
+
+    <span class="k">return</span> <span class="n">bing_ads_date</span>
+
+</div>
+<div class="viewcode-block" id="parse_device_preference"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_device_preference">[docs]</a><span class="k">def</span> <span class="nf">parse_device_preference</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;all&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;mobile&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">30001</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Unknown device preference&quot;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="ad_rotation_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.ad_rotation_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">ad_rotation_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">Type</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Type</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_ad_rotation"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_ad_rotation">[docs]</a><span class="k">def</span> <span class="nf">parse_ad_rotation</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">ad_rotation</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdRotation&#39;</span><span class="p">)</span>
+    <span class="n">ad_rotation</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">DELETE_VALUE</span> <span class="k">else</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="n">ad_rotation</span>
+
+</div>
+<div class="viewcode-block" id="parse_ad_group_bid"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_ad_group_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_ad_group_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
+    <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bid</span>
+
+</div>
+<div class="viewcode-block" id="ad_group_bid_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.ad_group_bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">ad_group_bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="keyword_bid_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.keyword_bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">keyword_bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_keyword_bid"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_keyword_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_keyword_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bid</span>
+
+</div>
+<div class="viewcode-block" id="minute_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.minute_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">minute_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Zero&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;0&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Fifteen&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;15&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Thirty&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;30&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;FortyFive&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;45&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown minute&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_minute"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_minute">[docs]</a><span class="k">def</span> <span class="nf">parse_minute</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">minute_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">minute_number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;Zero&#39;</span>
+    <span class="k">elif</span> <span class="n">minute_number</span> <span class="o">==</span> <span class="mi">15</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;Fifteen&#39;</span>
+    <span class="k">elif</span> <span class="n">minute_number</span> <span class="o">==</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;Thirty&#39;</span>
+    <span class="k">elif</span> <span class="n">minute_number</span> <span class="o">==</span> <span class="mi">45</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;FortyFive&#39;</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown minute&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="parse_location_target_type"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_location_target_type">[docs]</a><span class="k">def</span> <span class="nf">parse_location_target_type</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Metro Area&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;MetroArea&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Postal Code&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;PostalCode&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="location_target_type_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.location_target_type_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">location_target_type_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;MetroArea&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;Metro Area&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;PostalCode&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;Postal Code&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

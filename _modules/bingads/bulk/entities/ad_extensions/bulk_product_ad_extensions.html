@@ -1,0 +1,554 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '9.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_ComplexBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.entities.multi_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_MultiRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span>
+
+<span class="kn">from</span> <span class="nn">..common</span> <span class="kn">import</span> <span class="n">_ProductConditionHelper</span>
+
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionIdentifier</span>
+
+
+<span class="k">class</span> <span class="nc">_BulkProductAdExtensionIdentifier</span><span class="p">(</span><span class="n">_BulkAdExtensionIdentifier</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">version</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="n">ad_extension_id</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name.setter</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">account_id</span> \
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_extension_id</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">read_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">write_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_create_entity_with_this_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BulkProductAdExtension</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BulkProductConditionCollection"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection">[docs]</a><span class="k">class</span> <span class="nc">BulkProductConditionCollection</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents the product condition collection for a product ad extension.</span>
+
+<span class="sd">    Each product condition collection can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`product_condition_collection` property that can be read and written</span>
+<span class="sd">    as fields of the Product Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Product Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511516.</span>
+
+<span class="sd">    The Product Ad Extension record includes the distinct properties of the :class:`.BulkProductConditionCollection` class, combined with</span>
+<span class="sd">    the common properties of the :class:`.BulkProductAdExtension` class, for example :attr:`account_id` and :class:`.ProductAdExtension`.</span>
+
+<span class="sd">    One :class:`.BulkProductAdExtension` has one or more :class:`.BulkProductConditionCollection`. Each :class:`.BulkProductConditionCollection` instance</span>
+<span class="sd">    corresponds to one Product Ad Extension record in the bulk file. If you upload a :class:`.BulkProductAdExtension`,</span>
+<span class="sd">    then you are effectively replacing any existing site links for the product ad extension.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">version</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">store_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">product_condition_collection</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkProductConditionCollection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="n">ad_extension_id</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collection</span> <span class="o">=</span> <span class="n">product_condition_collection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store_id</span> <span class="o">=</span> <span class="n">store_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store_name</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the ad extension.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@name.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.name"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.name">[docs]</a>    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">store_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The product ad extension&#39;s store identifier.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store_id</span>
+
+    <span class="nd">@store_id.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.store_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.store_id">[docs]</a>    <span class="k">def</span> <span class="nf">store_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store_id</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product_condition_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The collection of product conditions for a product ad extension.</span>
+
+<span class="sd">        see ProductConditionCollection in https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-productconditioncollection.aspx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collection</span>
+
+    <span class="nd">@product_condition_collection.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.product_condition_collection"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.product_condition_collection">[docs]</a>    <span class="k">def</span> <span class="nf">product_condition_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collection</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The identifier of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_extension_id</span>
+
+    <span class="nd">@ad_extension_id.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.ad_extension_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.ad_extension_id">[docs]</a>    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_ad_extension_id</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The ad extension&#39;s parent account identifier.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">account_id</span>
+
+    <span class="nd">@account_id.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.account_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.account_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The status of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Status&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
+
+    <span class="nd">@status.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.status"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The version of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Version&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">version</span>
+
+    <span class="nd">@version.setter</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.version"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="BulkProductConditionCollection.store_name"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.store_name">[docs]</a>    <span class="k">def</span> <span class="nf">store_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The product ad extension&#39;s store name.</span>
+
+<span class="sd">        Corresponds to the &#39;Store Name&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store_name</span>
+</div>
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_ComplexBulkMapping</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">entity</span><span class="p">,</span> <span class="n">row_values</span><span class="p">:</span> <span class="n">_ProductConditionHelper</span><span class="o">.</span><span class="n">add_row_values_from_conditions</span><span class="p">(</span>
+                <span class="n">entity</span><span class="o">.</span><span class="n">product_condition_collection</span><span class="o">.</span><span class="n">Conditions</span><span class="o">.</span><span class="n">ProductCondition</span><span class="p">,</span>
+                <span class="n">row_values</span>
+            <span class="p">),</span>
+            <span class="k">lambda</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">entity</span><span class="p">:</span> <span class="n">_ProductConditionHelper</span><span class="o">.</span><span class="n">add_conditions_from_row_values</span><span class="p">(</span>
+                <span class="n">row_values</span><span class="p">,</span>
+                <span class="n">entity</span><span class="o">.</span><span class="n">product_condition_collection</span><span class="o">.</span><span class="n">Conditions</span><span class="o">.</span><span class="n">ProductCondition</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BingMerchantCenterId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">store_id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;store_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BingMerchantCenterName</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">store_name</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_store_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkProductConditionCollection.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collection</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ProductConditionCollection&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkProductConditionCollection</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkProductConditionCollection.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collection</span><span class="p">,</span> <span class="s">&#39;product_condition_collection&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collection</span><span class="o">.</span><span class="n">Conditions</span><span class="p">,</span>
+            <span class="s">&#39;product_condition_collection.Conditions&#39;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkProductConditionCollection</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkProductConditionCollection.can_enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.can_enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</div>
+<div class="viewcode-block" id="BulkProductConditionCollection.enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BulkProductAdExtension</span><span class="p">(</span><span class="n">product_collection</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkProductConditionCollection.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductConditionCollection.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkProductConditionCollection</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkProductAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkProductAdExtension</span><span class="p">(</span><span class="n">_MultiRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a product ad extension.</span>
+
+<span class="sd">    This class exposes the :attr:`product_ad_extension` property that can be read and written</span>
+<span class="sd">    as fields of the Product Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Product Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511516.</span>
+
+<span class="sd">    The Product Ad Extension record includes the distinct properties of the :class:`.BulkProductConditionCollection` class, combined with</span>
+<span class="sd">    the common properties of the :class:`.BulkProductAdExtension` class, for example :attr:`account_id` and :class:`.ProductAdExtension`.</span>
+
+<span class="sd">    One :class:`.BulkProductAdExtension` has one or more :class:`.BulkProductConditionCollection`. Each :class:`.BulkProductConditionCollection` instance</span>
+<span class="sd">    corresponds to one Product Ad Extension record in the bulk file. If you upload a :class:`.BulkProductAdExtension`,</span>
+<span class="sd">    then you are effectively replacing any existing product conditions for the product ad extension.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">product_ad_extension</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">product_collection</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">identifier</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkProductAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span> <span class="o">=</span> <span class="n">product_ad_extension</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collections</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span> <span class="o">=</span> <span class="n">product_collection</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Conflicting arguments of product_collection and identifier provided.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span><span class="p">,</span> <span class="n">BulkProductConditionCollection</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&#39;Product collection object provided is not of type: {0}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">BulkProductConditionCollection</span><span class="o">.</span><span class="n">__name__</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span><span class="o">.</span><span class="n">_identifier</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">,</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&#39;Product ad extension identifier object provided is not of type: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">_BulkProductAdExtensionIdentifier</span><span class="o">.</span><span class="n">__name__</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">is_delete_row</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ProductAdExtension&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;ProductAdExtension&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">Id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_extension_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">Version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">version</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">account_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">account_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add_product_collection</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_product_collection</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The ad extension&#39;s parent account identifier.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :type: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span>
+
+    <span class="nd">@account_id.setter</span>
+<div class="viewcode-block" id="BulkProductAdExtension.account_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.account_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">product_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The product ad extension.</span>
+
+<span class="sd">        see ProductAdExtension from: https://msdn.microsoft.com/en-us/library/jj721706(v=msads.90).aspx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span>
+
+    <span class="nd">@product_ad_extension.setter</span>
+<div class="viewcode-block" id="BulkProductAdExtension.product_ad_extension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.product_ad_extension">[docs]</a>    <span class="k">def</span> <span class="nf">product_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="BulkProductAdExtension.product_condition_collections"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.product_condition_collections">[docs]</a>    <span class="k">def</span> <span class="nf">product_condition_collections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The list of :class:`BulkProductConditionCollection` are represented by multiple Product Ad Extension records in the file.</span>
+
+<span class="sd">        :rtype: list[BulkProductConditionCollection]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collections</span>
+</div>
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="BulkProductAdExtension.child_entities"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.child_entities">[docs]</a>    <span class="k">def</span> <span class="nf">child_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_product_condition_collections</span>
+</div>
+    <span class="k">def</span> <span class="nf">_add_product_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">product_collection</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param product_collection:</span>
+<span class="sd">        :type product_collection: BulkProductConditionCollection</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product_collection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">StoreId</span> <span class="o">=</span> <span class="n">product_collection</span><span class="o">.</span><span class="n">store_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">StoreName</span> <span class="o">=</span> <span class="n">product_collection</span><span class="o">.</span><span class="n">store_name</span>
+
+<div class="viewcode-block" id="BulkProductAdExtension.write_to_stream"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="p">,</span> <span class="s">&#39;product_ad_extension&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_product_ad_extension</span><span class="o">.</span><span class="n">ProductSelection</span><span class="p">,</span>
+            <span class="s">&#39;product_ad_extension.ProductSelection&#39;</span>
+        <span class="p">)</span>
+        <span class="n">delete_all_row</span> <span class="o">=</span> <span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Version</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="s">&#39;Deleted&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">row_writer</span><span class="o">.</span><span class="n">write_object_row</span><span class="p">(</span><span class="n">delete_all_row</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">bulk_product_collection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_raw_to_bulk_product_condition_collections</span><span class="p">():</span>
+            <span class="n">bulk_product_collection</span><span class="o">.</span><span class="n">write_to_stream</span><span class="p">(</span><span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkProductAdExtension.read_related_data_from_stream"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.read_related_data_from_stream">[docs]</a>    <span class="k">def</span> <span class="nf">read_related_data_from_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">while</span> <span class="n">has_more_rows</span><span class="p">:</span>
+            <span class="n">product_collection_success</span><span class="p">,</span> <span class="n">product_collection</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span>
+                <span class="n">BulkProductConditionCollection</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">product_collection_success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">product_collection</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">identifier_success</span><span class="p">,</span> <span class="n">identifier</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span>
+                    <span class="n">_BulkProductAdExtensionIdentifier</span><span class="p">,</span>
+                    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">identifier_success</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">identifier</span><span class="o">.</span><span class="n">is_delete_row</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">ProductSelection</span><span class="o">.</span><span class="n">ProductConditionCollection</span> <span class="o">=</span> \
+            <span class="p">[</span><span class="n">pc</span><span class="o">.</span><span class="n">product_condition_collection</span> <span class="k">for</span> <span class="n">pc</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="s">&#39;Active&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">StoreId</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">store_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">StoreName</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_condition_collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">store_name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="s">&#39;Deleted&#39;</span>
+</div>
+    <span class="k">def</span> <span class="nf">_convert_raw_to_bulk_product_condition_collections</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">product_collection</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">ProductSelection</span><span class="o">.</span><span class="n">ProductConditionCollection</span><span class="p">:</span>
+            <span class="n">collection</span> <span class="o">=</span> <span class="n">BulkProductConditionCollection</span><span class="p">(</span>
+                <span class="n">account_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Version</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+                <span class="n">store_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">product_ad_extension</span><span class="o">.</span><span class="n">StoreId</span><span class="p">,</span>
+                <span class="n">product_condition_collection</span><span class="o">=</span><span class="n">product_collection</span>
+            <span class="p">)</span>
+            <span class="k">yield</span> <span class="n">collection</span>
+
+    <span class="nd">@property</span>
+<div class="viewcode-block" id="BulkProductAdExtension.all_children_are_present"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkProductAdExtension.all_children_are_present">[docs]</a>    <span class="k">def</span> <span class="nf">all_children_are_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkCampaignProductAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions.BulkCampaignProductAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignProductAdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a campaign level product ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Campaign Product Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Product Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511535.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

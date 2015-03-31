@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '9.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="n">bulk_optional_str</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span>
+
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionBase</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionAssociation</span>
+
+
+<span class="n">_LocationAdExtension</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;LocationAdExtension&#39;</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="BulkLocationAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkLocationAdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an location ad extension.</span>
+
+<span class="sd">    This class exposes the :attr:`location_ad_extension` property that can be read and written</span>
+<span class="sd">    as fields of the Location Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Location Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511515.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ad_extension</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ad_extension</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">,</span> <span class="n">_LocationAdExtension</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;The type of ad_extension is: {0}, should be: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">),</span>
+                <span class="s">&#39;LocationAdExtension&#39;</span>
+            <span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkLocationAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension</span><span class="o">=</span><span class="n">ad_extension</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">location_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The location ad extension.</span>
+
+<span class="sd">        see Location Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511515.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span>
+
+    <span class="nd">@location_ad_extension.setter</span>
+<div class="viewcode-block" id="BulkLocationAdExtension.location_ad_extension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.location_ad_extension">[docs]</a>    <span class="k">def</span> <span class="nf">location_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
+</div>
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BusinessName</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">CompanyName</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="p">,</span> <span class="s">&#39;CompanyName&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">PhoneNumber</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">PhoneNumber</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="p">,</span> <span class="s">&#39;PhoneNumber&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">GeoCodeStatus</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoCodeStatus</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="p">,</span> <span class="s">&#39;GeoCodeStatus&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">IconMediaId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">IconMediaId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="p">,</span> <span class="s">&#39;IconMediaId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AddressLine1</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">StreetAddress</span>
+            <span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;StreetAddress&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AddressLine2</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">StreetAddress2</span><span class="p">)</span>
+            <span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;StreetAddress2&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">City</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">CityName</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;CityName&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ProvinceName</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ProvinceName</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;ProvinceName&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">StateOrProvince</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">ProvinceCode</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;ProvinceCode&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">PostalCode</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">PostalCode</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;PostalCode&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CountryCode</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_address_part</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">CountryCode</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_address_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;CountryCode&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Latitude</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_geo_point_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span>
+                    <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">LatitudeInMicroDegrees</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000000.0</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">LatitudeInMicroDegrees</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_geo_point_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">latitude</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;LatitudeInMicroDegrees&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">latitude</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">))),</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Longitude</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">get_geo_point_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span>
+                    <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">LongitudeInMicroDegrees</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1000000.0</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">LongitudeInMicroDegrees</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">set_geo_point_part</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">longitude</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;LongitudeInMicroDegrees&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">longitude</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000000</span><span class="p">))),</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BulkLocationAdExtension.get_address_part"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.get_address_part">[docs]</a>    <span class="k">def</span> <span class="nf">get_address_part</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="p">,</span> <span class="n">get_func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">get_func</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Address</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BulkLocationAdExtension.set_address_part"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.set_address_part">[docs]</a>    <span class="k">def</span> <span class="nf">set_address_part</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="p">,</span> <span class="n">set_func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Address</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Address</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Address&#39;</span><span class="p">)</span>
+        <span class="n">set_func</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Address</span><span class="p">)</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BulkLocationAdExtension.get_geo_point_part"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.get_geo_point_part">[docs]</a>    <span class="k">def</span> <span class="nf">get_geo_point_part</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="p">,</span> <span class="n">get_func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">get_func</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="BulkLocationAdExtension.set_geo_point_part"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.set_geo_point_part">[docs]</a>    <span class="k">def</span> <span class="nf">set_geo_point_part</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="p">,</span> <span class="n">set_func</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;GeoPoint&#39;</span><span class="p">)</span>
+        <span class="n">set_func</span><span class="p">(</span><span class="n">bulk_ad_extension</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkLocationAdExtension.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;LocationAdExtension&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;LocationAdExtension&#39;</span>
+        <span class="k">if</span> <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Latitude</span><span class="p">]</span> <span class="ow">or</span> <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Longitude</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="o">.</span><span class="n">GeoPoint</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;GeoPoint&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkLocationAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkLocationAdExtension.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkLocationAdExtension.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">location_ad_extension</span><span class="p">,</span> <span class="s">&#39;location_ad_extension&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkLocationAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkCampaignLocationAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkCampaignLocationAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignLocationAdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an campaign level location ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Campaign Location Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Location Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511534.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+          <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

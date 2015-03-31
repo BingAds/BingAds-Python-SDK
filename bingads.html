@@ -1,0 +1,882 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads package &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '9.3.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="index.html" />
+    <link rel="next" title="bingads.bulk package" href="bingads.bulk.html" />
+    <link rel="prev" title="Bing Ads Python SDK" href="readme.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.bulk.html" title="bingads.bulk package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="readme.html" title="Bing Ads Python SDK"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bingads-package">
+<h1>bingads package<a class="headerlink" href="#bingads-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bingads.bulk.html">bingads.bulk package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bingads.bulk.entities.html">bingads.bulk.entities package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html">bingads.bulk.entities.ad_extensions package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#submodules">Submodules</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_product_ad_extensions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.common">bingads.bulk.entities.ad_extensions.common module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="bingads.bulk.entities.targets.html">bingads.bulk.entities.targets package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.targets.html#submodules">Submodules</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.targets.html#module-bingads.bulk.entities.targets.bulk_targets">bingads.bulk.entities.targets.bulk_targets module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.targets.html#module-bingads.bulk.entities.targets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bid_suggestion_data">bingads.bulk.entities.bid_suggestion_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_account">bingads.bulk.entities.bulk_account module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_ad_group">bingads.bulk.entities.bulk_ad_group module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_ad_group_product_target">bingads.bulk.entities.bulk_ad_group_product_target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_ads">bingads.bulk.entities.bulk_ads module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_campaign">bingads.bulk.entities.bulk_campaign module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_entity">bingads.bulk.entities.bulk_entity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_error">bingads.bulk.entities.bulk_error module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_keyword">bingads.bulk.entities.bulk_keyword module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_negative_keywords">bingads.bulk.entities.bulk_negative_keywords module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.bulk_negative_sites">bingads.bulk.entities.bulk_negative_sites module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.common">bingads.bulk.entities.common module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities.unknown_bulk_entity">bingads.bulk.entities.unknown_bulk_entity module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#module-bingads.bulk.entities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.bulk_operation">bingads.bulk.bulk_operation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.bulk_operation_progress_info">bingads.bulk.bulk_operation_progress_info module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.bulk_operation_status">bingads.bulk.bulk_operation_status module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.bulk_service_manager">bingads.bulk.bulk_service_manager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.download_parameters">bingads.bulk.download_parameters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.enums">bingads.bulk.enums module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.exceptions">bingads.bulk.exceptions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.file_reader">bingads.bulk.file_reader module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.file_writer">bingads.bulk.file_writer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk.upload_parameters">bingads.bulk.upload_parameters module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.bulk.html#module-bingads.bulk">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bingads.internal.html">bingads.internal package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bingads.internal.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bingads.internal.bulk.html">bingads.internal.bulk package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="bingads.internal.bulk.entities.html">bingads.internal.bulk.entities package</a><ul>
+<li class="toctree-l6"><a class="reference internal" href="bingads.internal.bulk.entities.html#submodules">Submodules</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.internal.bulk.entities.html#module-bingads.internal.bulk.entities.bulk_entity_identifier">bingads.internal.bulk.entities.bulk_entity_identifier module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.internal.bulk.entities.html#module-bingads.internal.bulk.entities.multi_record_bulk_entity">bingads.internal.bulk.entities.multi_record_bulk_entity module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.internal.bulk.entities.html#module-bingads.internal.bulk.entities.single_record_bulk_entity">bingads.internal.bulk.entities.single_record_bulk_entity module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.internal.bulk.entities.html#module-bingads.internal.bulk.entities">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.bulk_object">bingads.internal.bulk.bulk_object module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.bulk_object_factory">bingads.internal.bulk.bulk_object_factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.csv_headers">bingads.internal.bulk.csv_headers module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.csv_reader">bingads.internal.bulk.csv_reader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.csv_writer">bingads.internal.bulk.csv_writer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.entity_info">bingads.internal.bulk.entity_info module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.format_version">bingads.internal.bulk.format_version module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.mappings">bingads.internal.bulk.mappings module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.object_reader">bingads.internal.bulk.object_reader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.object_writer">bingads.internal.bulk.object_writer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.row_values">bingads.internal.bulk.row_values module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.stream_reader">bingads.internal.bulk.stream_reader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk.string_table">bingads.internal.bulk.string_table module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.internal.bulk.html#module-bingads.internal.bulk">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.internal.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.internal.html#module-bingads.internal.error_messages">bingads.internal.error_messages module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.internal.html#module-bingads.internal.extensions">bingads.internal.extensions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.internal.html#module-bingads.internal">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.authorization">
+<span id="bingads-authorization-module"></span><h2>bingads.authorization module<a class="headerlink" href="#module-bingads.authorization" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.authorization.Authentication">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">Authentication</tt><a class="reference internal" href="_modules/bingads/authorization.html#Authentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.Authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>The base class for all authentication classes.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="#bingads.service_client.ServiceClient" title="bingads.service_client.ServiceClient"><tt class="xref py py-class docutils literal"><span class="pre">ServiceClient</span></tt></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_service_manager.BulkServiceManager" title="bingads.bulk.bulk_service_manager.BulkServiceManager"><tt class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.AuthorizationData" title="bingads.authorization.AuthorizationData"><tt class="xref py py-class docutils literal"><span class="pre">AuthorizationData</span></tt></a></li>
+</ul>
+<dl class="method">
+<dt id="bingads.authorization.Authentication.enrich_headers">
+<tt class="descname">enrich_headers</tt><big>(</big><em>headers</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#Authentication.enrich_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.Authentication.enrich_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the required header elements for the corresponding Bing Ads service or bulk file upload operation.</p>
+<p>The header elements that the method sets will differ depending on the type of authentication.
+For example if you use one of the OAuth classes, the AuthenticationToken header will be set by this method,
+whereas the UserName and Password headers will remain empty.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>headers</strong> (<em>dict</em>) &#8211; Bing Ads service or bulk file upload operation headers.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.AuthorizationData">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">AuthorizationData</tt><big>(</big><em>account_id=None</em>, <em>customer_id=None</em>, <em>developer_token=None</em>, <em>authentication=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Represents a user who intends to access the corresponding customer and account.</p>
+<p>An instance of this class is required to authenticate with Bing Ads if you are using either
+<a class="reference internal" href="#bingads.service_client.ServiceClient" title="bingads.service_client.ServiceClient"><tt class="xref py py-class docutils literal"><span class="pre">ServiceClient</span></tt></a> or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_service_manager.BulkServiceManager" title="bingads.bulk.bulk_service_manager.BulkServiceManager"><tt class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></tt></a>.</p>
+<dl class="attribute">
+<dt id="bingads.authorization.AuthorizationData.account_id">
+<tt class="descname">account_id</tt><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData.account_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData.account_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identifier of the account that owns the entities in the request.</p>
+<p>Used as the CustomerAccountId header and the AccountId body elements in calls to the Bing Ads web services.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.AuthorizationData.authentication">
+<tt class="descname">authentication</tt><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData.authentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData.authentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object representing the authentication method that should be used in calls to the Bing Ads web services.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="bingads.authorization.OAuthDesktopMobileImplicitGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileImplicitGrant</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.PasswordAuthentication" title="bingads.authorization.PasswordAuthentication"><tt class="xref py py-class docutils literal"><span class="pre">PasswordAuthentication</span></tt></a></li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Authentication</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.AuthorizationData.customer_id">
+<tt class="descname">customer_id</tt><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData.customer_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData.customer_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identifier of the customer that owns the account.</p>
+<p>Used as the CustomerId header element in calls to the Bing Ads web services.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.AuthorizationData.developer_token">
+<tt class="descname">developer_token</tt><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData.developer_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData.developer_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Bing Ads developer access token.</p>
+<p>Used as the DeveloperToken header element in calls to the Bing Ads web services.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthAuthorization">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthAuthorization</tt><big>(</big><em>client_id</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.Authentication" title="bingads.authorization.Authentication"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.Authentication</span></tt></a></p>
+<p>The abstract base class for all OAuth authentication classes.</p>
+<p>You can use this class to dynamically instantiate a derived OAuth authentication class at run time.
+This class cannot be instantiated, and instead you should use either <a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a>,
+<a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="bingads.authorization.OAuthDesktopMobileImplicitGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileImplicitGrant</span></tt></a>, <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a>, which extend this class.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="bingads.authorization.OAuthDesktopMobileImplicitGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileImplicitGrant</span></tt></a></li>
+<li><a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthAuthorization.client_id">
+<tt class="descname">client_id</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization.client_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.client_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The client identifier corresponding to your registered application.</p>
+<p>For more information about using a client identifier for authentication, see the
+Client Password Authentication section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthAuthorization.enrich_headers">
+<tt class="descname">enrich_headers</tt><big>(</big><em>headers</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization.enrich_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.enrich_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the AuthenticationToken headers elements for Bing Ads service or bulk file upload operation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthAuthorization.get_authorization_endpoint">
+<tt class="descname">get_authorization_endpoint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization.get_authorization_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.get_authorization_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Microsoft Account authorization endpoint.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthAuthorization.oauth_tokens">
+<tt class="descname">oauth_tokens</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization.oauth_tokens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.oauth_tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains information about OAuth access tokens received from the Microsoft Account authorization service.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OAuthTokens</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthAuthorization.redirection_uri">
+<tt class="descname">redirection_uri</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization.redirection_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.redirection_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI to which the user of the app will be redirected after receiving user consent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthDesktopMobileAuthCodeGrant">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthDesktopMobileAuthCodeGrant</tt><big>(</big><em>client_id</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></tt></a></p>
+<p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop or mobile application.</p>
+<p>You can use an instance of this class as the AuthorizationData.Authentication property
+of an <a class="reference internal" href="#bingads.authorization.AuthorizationData" title="bingads.authorization.AuthorizationData"><tt class="xref py py-class docutils literal"><span class="pre">AuthorizationData</span></tt></a> object to authenticate with Bing Ads services.
+In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
+<p>This class implements the authorization code grant flow for Managing User Authentication with OAuth
+documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthDesktopMobileImplicitGrant</tt><big>(</big><em>client_id</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></tt></a></p>
+<p>Represents an OAuth authorization object implementing the implicit grant flow for use in a desktop or mobile application.</p>
+<p>You can use an instance of this class as the AuthorizationData.Authentication property
+of an <a class="reference internal" href="#bingads.authorization.AuthorizationData" title="bingads.authorization.AuthorizationData"><tt class="xref py py-class docutils literal"><span class="pre">AuthorizationData</span></tt></a> object to authenticate with Bing Ads services.
+In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
+<p>This class implements the implicit grant flow for Managing User Authentication with OAuth
+documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511608">http://go.microsoft.com/fwlink/?LinkID=511608</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
+<dl class="method">
+<dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri">
+<tt class="descname">extract_access_token_from_uri</tt><big>(</big><em>redirection_uri</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts the access token from the specified redirect URI.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>redirection_uri</strong> (<em>str</em>) &#8211; The redirect URI that contains an access token.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The <a class="reference internal" href="#bingads.authorization.OAuthTokens" title="bingads.authorization.OAuthTokens"><tt class="xref py py-class docutils literal"><span class="pre">OAuthTokens</span></tt></a> object which contains both the access_token and access_token_expires_in_seconds properties.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OAuthTokens</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant.get_authorization_endpoint">
+<tt class="descname">get_authorization_endpoint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant.get_authorization_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant.get_authorization_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Microsoft Account authorization endpoint.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant.redirection_uri">
+<tt class="descname">redirection_uri</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant.redirection_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant.redirection_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthTokens">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthTokens</tt><big>(</big><em>access_token=None</em>, <em>access_token_expires_in_seconds=None</em>, <em>refresh_token=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthTokens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthTokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Contains information about OAuth access tokens received from the Microsoft Account authorization service.</p>
+<p>You can get OAuthTokens using the RequestAccessAndRefreshTokens method of RequestAccessAndRefreshTokens method of
+either the <a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a> or <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a> classes.</p>
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthTokens.access_token">
+<tt class="descname">access_token</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthTokens.access_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthTokens.access_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAuth access token that will be used for authorization in the Bing Ads services.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthTokens.access_token_expires_in_seconds">
+<tt class="descname">access_token_expires_in_seconds</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthTokens.access_token_expires_in_seconds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthTokens.access_token_expires_in_seconds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expiration time for the corresponding access token in seconds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthTokens.refresh_token">
+<tt class="descname">refresh_token</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthTokens.refresh_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthTokens.refresh_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>OAuth refresh token that can be user to refresh an access token.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthWebAuthCodeGrant">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthWebAuthCodeGrant</tt><big>(</big><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWebAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></tt></a></p>
+<p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.</p>
+<p>You can use an instance of this class as the AuthorizationData.Authentication property
+of an <a class="reference internal" href="#bingads.authorization.AuthorizationData" title="bingads.authorization.AuthorizationData"><tt class="xref py py-class docutils literal"><span class="pre">AuthorizationData</span></tt></a> object to authenticate with Bing Ads services.
+In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
+<p>This class implements the authorization code grant flow for Managing User Authentication with OAuth
+documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthWithAuthorizationCode</tt><big>(</big><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></tt></a></p>
+<p>Represents a proxy to the Microsoft account authorization service.</p>
+<p>Implement an extension of this class in compliance with the authorization code grant flow for Managing User Authentication with OAuth
+documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.client_secret">
+<tt class="descname">client_secret</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.client_secret"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.client_secret" title="Permalink to this definition">¶</a></dt>
+<dd><p>The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.get_authorization_endpoint">
+<tt class="descname">get_authorization_endpoint</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.get_authorization_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.get_authorization_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The Microsoft Account authorization endpoint.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.redirection_uri">
+<tt class="descname">redirection_uri</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.redirection_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.redirection_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>The URI to which your client browser will be redirected after receiving user consent.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_refresh_token">
+<tt class="descname">request_oauth_tokens_by_refresh_token</tt><big>(</big><em>refresh_token</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.request_oauth_tokens_by_refresh_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_refresh_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</p>
+<p>Using the specified refresh token.
+For more information, see the Refreshing an Access Token section in the OAuth 2.0 spec
+at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>refresh_token</strong> (<em>str</em>) &#8211; The refresh token used to request new access and refresh tokens.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">OAuth tokens</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OAuthTokens</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri">
+<tt class="descname">request_oauth_tokens_by_response_uri</tt><big>(</big><em>response_uri</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</p>
+<p>Using the specified authorization response redirection uri.
+For more information, see the Authorization Response section in the OAuth 2.0 spec
+at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>response_uri</strong> (<em>str</em>) &#8211; The response redirection uri.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">OAuth tokens</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OAuthTokens</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthWithAuthorizationCode.token_refreshed_callback">
+<tt class="descname">token_refreshed_callback</tt><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode.token_refreshed_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.token_refreshed_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>The callback function registered, will be invoked after oauth tokens has been refreshed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">OAuthTokens-&gt;None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.authorization.PasswordAuthentication">
+<em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">PasswordAuthentication</tt><big>(</big><em>user_name</em>, <em>password</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#PasswordAuthentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.PasswordAuthentication" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.authorization.Authentication" title="bingads.authorization.Authentication"><tt class="xref py py-class docutils literal"><span class="pre">bingads.authorization.Authentication</span></tt></a></p>
+<p>Represents a legacy Bing Ads authentication method using user name and password.</p>
+<p>You can use an instance of this class as the authentication property of a <a class="reference internal" href="#bingads.authorization.AuthorizationData" title="bingads.authorization.AuthorizationData"><tt class="xref py py-class docutils literal"><span class="pre">AuthorizationData</span></tt></a> object to authenticate with Bing Ads services.
+Existing users with legacy Bing Ads credentials may continue to specify the UserName and Password header elements.
+In future versions of the API, Bing Ads will transition exclusively to Microsoft Account authentication.
+New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must use OAuth.
+For example instead of using this <a class="reference internal" href="#bingads.authorization.PasswordAuthentication" title="bingads.authorization.PasswordAuthentication"><tt class="xref py py-class docutils literal"><span class="pre">PasswordAuthentication</span></tt></a> class, you would authenticate with an instance of either
+<a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a>, <a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="bingads.authorization.OAuthDesktopMobileImplicitGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileImplicitGrant</span></tt></a>, or <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a>.</p>
+<dl class="method">
+<dt id="bingads.authorization.PasswordAuthentication.enrich_headers">
+<tt class="descname">enrich_headers</tt><big>(</big><em>headers</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#PasswordAuthentication.enrich_headers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.PasswordAuthentication.enrich_headers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the user name and password as headers elements for Bing Ads service or bulk file upload operation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.PasswordAuthentication.password">
+<tt class="descname">password</tt><a class="reference internal" href="_modules/bingads/authorization.html#PasswordAuthentication.password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.PasswordAuthentication.password" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Bing Ads user&#8217;s sign-in password.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.authorization.PasswordAuthentication.user_name">
+<tt class="descname">user_name</tt><a class="reference internal" href="_modules/bingads/authorization.html#PasswordAuthentication.user_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.PasswordAuthentication.user_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Bing Ads user&#8217;s sign-in user name. You may not set this element to a Microsoft account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.exceptions">
+<span id="bingads-exceptions-module"></span><h2>bingads.exceptions module<a class="headerlink" href="#module-bingads.exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="bingads.exceptions.OAuthTokenRequestException">
+<em class="property">exception </em><tt class="descclassname">bingads.exceptions.</tt><tt class="descname">OAuthTokenRequestException</tt><big>(</big><em>error_code</em>, <em>description</em><big>)</big><a class="reference internal" href="_modules/bingads/exceptions.html#OAuthTokenRequestException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.OAuthTokenRequestException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bingads.exceptions.SdkException" title="bingads.exceptions.SdkException"><tt class="xref py py-class docutils literal"><span class="pre">bingads.exceptions.SdkException</span></tt></a></p>
+<p>This exception is thrown if an error was returned from the Microsoft Account authorization server.</p>
+<dl class="attribute">
+<dt id="bingads.exceptions.OAuthTokenRequestException.error_code">
+<tt class="descname">error_code</tt><a class="reference internal" href="_modules/bingads/exceptions.html#OAuthTokenRequestException.error_code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.OAuthTokenRequestException.error_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>The error code of the OAuth error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.exceptions.OAuthTokenRequestException.error_description">
+<tt class="descname">error_description</tt><a class="reference internal" href="_modules/bingads/exceptions.html#OAuthTokenRequestException.error_description"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.OAuthTokenRequestException.error_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>The description of the OAuth error.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="bingads.exceptions.SdkException">
+<em class="property">exception </em><tt class="descclassname">bingads.exceptions.</tt><tt class="descname">SdkException</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="_modules/bingads/exceptions.html#SdkException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.SdkException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
+<p>Base Exception for exceptions in SDK.</p>
+<dl class="attribute">
+<dt id="bingads.exceptions.SdkException.message">
+<tt class="descname">message</tt><a class="reference internal" href="_modules/bingads/exceptions.html#SdkException.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.SdkException.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Detailed exception message.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.manifest">
+<span id="bingads-manifest-module"></span><h2>bingads.manifest module<a class="headerlink" href="#module-bingads.manifest" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.service_client">
+<span id="bingads-service-client-module"></span><h2>bingads.service_client module<a class="headerlink" href="#module-bingads.service_client" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.service_client.ServiceClient">
+<em class="property">class </em><tt class="descclassname">bingads.service_client.</tt><tt class="descname">ServiceClient</tt><big>(</big><em>service</em>, <em>authorization_data=None</em>, <em>environment='production'</em><big>)</big><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>Provides an interface for calling the methods of the specified Bing Ads service.</p>
+<dl class="attribute">
+<dt id="bingads.service_client.ServiceClient.authorization_data">
+<tt class="descname">authorization_data</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.authorization_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.authorization_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents a user who intends to access the corresponding customer and account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">AuthorizationData</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.service_client.ServiceClient.factory">
+<tt class="descname">factory</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>The internal suds soap client factory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Factory</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.service_client.ServiceClient.refresh_oauth_tokens_automatically">
+<tt class="descname">refresh_oauth_tokens_automatically</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.refresh_oauth_tokens_automatically"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.refresh_oauth_tokens_automatically" title="Permalink to this definition">¶</a></dt>
+<dd><p>A value indicating whether OAuth access and refresh tokens should be refreshed automatically upon access token expiration.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.service_client.ServiceClient.service_url">
+<tt class="descname">service_url</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.service_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.service_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>The wsdl url of service based on the specific service and environment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.service_client.ServiceClient.set_options">
+<tt class="descname">set_options</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.set_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.set_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set suds options, these options will be passed to suds.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; suds options.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.service_client.ServiceClient.soap_client">
+<tt class="descname">soap_client</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.soap_client"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.soap_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>The internal suds soap client.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Client</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.service_info">
+<span id="bingads-service-info-module"></span><h2>bingads.service_info module<a class="headerlink" href="#module-bingads.service_info" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bingads package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bingads.authorization">bingads.authorization module</a></li>
+<li><a class="reference internal" href="#module-bingads.exceptions">bingads.exceptions module</a></li>
+<li><a class="reference internal" href="#module-bingads.manifest">bingads.manifest module</a></li>
+<li><a class="reference internal" href="#module-bingads.service_client">bingads.service_client module</a></li>
+<li><a class="reference internal" href="#module-bingads.service_info">bingads.service_info module</a></li>
+<li><a class="reference internal" href="#module-bingads">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="readme.html"
+                        title="previous chapter">Bing Ads Python SDK</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bingads.bulk.html"
+                        title="next chapter">bingads.bulk package</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/bingads.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.bulk.html" title="bingads.bulk package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="readme.html" title="Bing Ads Python SDK"
+             >previous</a> |</li>
+        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
