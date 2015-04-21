@@ -622,9 +622,6 @@ class _BulkNegativeSiteIdentifier(_BulkEntityIdentifier):
         )
     ]
 
-    def __eq__(self, other):
-        return type(self) == type(other) and self._entity_id == other._entity_id
-
     @property
     def is_delete_row(self):
         return self._status == 'Deleted'
@@ -642,6 +639,22 @@ class _BulkCampaignNegativeSitesIdentifier(_BulkNegativeSiteIdentifier):
             status,
             campaign_id,
             campaign_name,
+        )
+
+    def __eq__(self, other):
+        is_name_not_empty = (
+            self.campaign_name is not None and
+            len(self.campaign_name) > 0
+        )
+        return (
+            type(self) == type(other) and
+            (
+                self.campaign_id == other.campaign_id or
+                (
+                    is_name_not_empty and
+                    self.campaign_name == other.campaign_name
+                )
+            )
         )
 
     @property
@@ -680,6 +693,25 @@ class _BulkAdGroupNegativeSitesIdentifier(_BulkNegativeSiteIdentifier):
             ad_group_name,
         )
         self._campaign_name = campaign_name
+
+    def __eq__(self, other):
+        is_name_not_empty = (
+            self.campaign_name is not None and
+            len(self.campaign_name) > 0 and
+            self.ad_group_name is not None and
+            len(self.ad_group_name) > 0
+        )
+        return (
+            type(self) == type(other) and
+            (
+                self.ad_group_id == other.ad_group_id or
+                (
+                    is_name_not_empty and
+                    self.campaign_name == other.campaign_name and
+                    self.ad_group_name == other.ad_group_name
+                )
+            )
+        )
 
     @property
     def ad_group_id(self):

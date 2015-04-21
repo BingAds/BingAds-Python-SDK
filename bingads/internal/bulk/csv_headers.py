@@ -145,6 +145,10 @@ class _CsvHeaders:
         _StringTable.LandingPageRelevance,
         _StringTable.LandingPageUserExperience,
 
+        _StringTable.AppPlatform,
+        _StringTable.AppStoreId,
+        _StringTable.IsTrackingEnabled,
+
         _StringTable.Error,
         _StringTable.ErrorNumber,
     ]

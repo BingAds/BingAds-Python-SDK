@@ -22,12 +22,6 @@ class _BulkTargetIdentifier(_BulkEntityIdentifier):
         self._entity_name = entity_name
         self._parent_entity_name = parent_entity_name
 
-    def __eq__(self, other):
-        return type(self) == type(other) \
-            and self.entity_id == other.entity_id \
-            and self.entity_name == other.entity_name \
-            and self.parent_entity_name == other.parent_entity_name
-
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Status,
@@ -121,6 +115,22 @@ class _BulkCampaignTargetIdentifier(_BulkTargetIdentifier):
     def _create_entity_with_this_identifier(self):
         return BulkCampaignTarget(identifier=self)
 
+    def __eq__(self, other):
+        is_name_not_empty = (
+            self.campaign_name is not None and
+            len(self.campaign_name) > 0
+        )
+        return (
+            type(self) == type(other) and
+            (
+                self.campaign_id == other.campaign_id or
+                (
+                    is_name_not_empty and
+                    self.campaign_name == other.campaign_name
+                )
+            )
+        )
+
     @property
     def campaign_id(self):
         return self._entity_id
@@ -148,7 +158,23 @@ class _BulkAdGroupTargetIdentifier(_BulkTargetIdentifier):
     ]
 
     def __eq__(self, other):
-        return super(_BulkAdGroupTargetIdentifier, self).__eq__(other) and self.campaign_name == other.campaign_name
+        is_name_not_empty = (
+            self.campaign_name is not None and
+            len(self.campaign_name) > 0 and
+            self.ad_group_name is not None and
+            len(self.ad_group_name) > 0
+        )
+        return (
+            type(self) == type(other) and
+            (
+                self.ad_group_id == other.ad_group_id or
+                (
+                    is_name_not_empty and
+                    self.campaign_name == other.campaign_name and
+                    self.ad_group_name == other.ad_group_name
+                )
+            )
+        )
 
     def write_to_row_values(self, row_values, exclude_readonly_data):
         super(_BulkAdGroupTargetIdentifier, self).write_to_row_values(row_values, exclude_readonly_data)
@@ -195,6 +221,7 @@ class _BulkTargetBid(_SingleRecordBulkEntity):
 
     For example :class:`.BulkAdGroupDayTimeTargetBid`.
     """
+
     def __init__(self,
                  status=None,
                  target_id=None,
@@ -989,6 +1016,7 @@ class BulkAdGroupTarget(_BulkTarget):
     * :class:`.BulkFileReader`
     * :class:`.BulkFileWriter`
     """
+
     def __init__(self,
                  target=None,
                  status=None,
@@ -1074,6 +1102,7 @@ class BulkCampaignTarget(_BulkTarget):
     * :class:`.BulkFileReader`
     * :class:`.BulkFileWriter`
     """
+
     def __init__(self,
                  target=None,
                  status=None,
@@ -2777,11 +2806,11 @@ class _BulkLocationTargetWithStringLocation(_BulkTargetWithLocation):
     def _validate_bids(self):
         if self.location_target is not None:
             if not (
-                any(self.city_target.Bids.CityTargetBid) or
-                any(self.metro_area_target.Bids.MetroAreaTargetBid) or
-                any(self.state_target.Bids.StateTargetBid) or
-                any(self.country_target.Bids.CountryTargetBid) or
-                any(self.postal_code_target.Bids.PostalCodeTargetBid)
+                                any(self.city_target.Bids.CityTargetBid) or
+                                any(self.metro_area_target.Bids.MetroAreaTargetBid) or
+                            any(self.state_target.Bids.StateTargetBid) or
+                        any(self.country_target.Bids.CountryTargetBid) or
+                    any(self.postal_code_target.Bids.PostalCodeTargetBid)
             ):
                 raise ValueError('Sub target bid in Location Target cannot all be empty')
 
@@ -3188,6 +3217,7 @@ class BulkCampaignNegativeLocationTargetBid(_BulkNegativeLocationTargetBid, _Bul
     * :class:`.BulkFileReader`
     * :class:`.BulkFileWriter`
     """
+
     def __init__(self,
                  location=None,
                  location_type=None,

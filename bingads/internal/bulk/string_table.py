@@ -152,6 +152,14 @@ class _StringTable:
     BingMerchantCenterId = "Store Id"
     BingMerchantCenterName = "Store Name"
 
+    # App Ad Extension
+    AppAdExtension = "App Ad Extension"
+    AppPlatform = "App Platform"
+    AppStoreId = "App Id"
+    CampaignAppAdExtension = "Campaign App Ad Extension"
+    AdGroupAppAdExtension = "Ad Group App Ad Extension"
+    IsTrackingEnabled = "Tracking Enabled"
+
     # Misc Stuff
     EntityActiveStatus = "Active"
     EntityDeletedStatus = "Deleted"
