@@ -27,9 +27,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AdExtensions.py" />
+    <Compile Include="BulkAdExtensions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ConsoleGettingStarted.py" />
     <Compile Include="CreateKeywordsAds.py" />
-    <Compile Include="CreateKeywordsAdsBulk.py" />
+    <Compile Include="BulkCreateKeywordsAds.py" />
     <Compile Include="EstimatedBid.py" />
     <Compile Include="GeographicalLocations.py" />
     <Compile Include="ManageClient.py" />
@@ -37,8 +40,9 @@
     <Compile Include="OptimizeBudget.py" />
     <Compile Include="ReportRequests.py" />
     <Compile Include="SearchUserAccounts.py" />
+    <Compile Include="ShoppingCampaigns.py" />
     <Compile Include="Targets.py" />
-    <Compile Include="TargetsBulk.py" />
+    <Compile Include="BulkTargets.py" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

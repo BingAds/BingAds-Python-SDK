@@ -64,7 +64,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -146,8 +146,8 @@ def search_accounts_by_user_id(user_id):
     }
         
     return customer_service.SearchAccounts(
-        PageInfo = paging,
-        Predicates = predicates
+        PageInfo=paging,
+        Predicates=predicates
     )
 
 def output_status_message(message):
@@ -257,7 +257,17 @@ def output_ad_extensions(ad_extensions, ad_extension_editorial_reason_collection
             output_status_message("Ad extension ID: {0}".format(extension.Id))
             output_status_message("Ad extension Type: {0}".format(extension.Type))
 
-            if extension.Type == 'CallAdExtension':
+            if extension.Type == 'AppAdExtension':
+                output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
+                output_status_message("AppStoreId: {0}".format(extension.AppStoreId))
+                output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
+                output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
+                output_status_message("DisplayText: {0}".format(extension.DisplayText))
+                output_status_message("Id: {0}".format(extension.Id))
+                output_status_message("Status: {0}".format(extension.Status))
+                output_status_message("Version: {0}".format(extension.Version))
+                output_status_message("\n")
+            elif extension.Type == 'CallAdExtension':
                 output_status_message("Phone number: {0}".format(extension.PhoneNumber))
                 output_status_message("Country: {0}".format(extension.CountryCode))
                 output_status_message("Is only clickable item: {0}".format(extension.IsCallOnly))
@@ -354,6 +364,14 @@ if __name__ == '__main__':
         # Specify the extensions.
 
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
+        
+        app_ad_extension=campaign_service.factory.create('AppAdExtension')
+        app_ad_extension.AppPlatform='Windows'
+        app_ad_extension.AppStoreId='AppStoreIdGoesHere'
+        app_ad_extension.DisplayText='Contoso'
+        app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
+        app_ad_extension.Status=None
+        ad_extensions.AdExtension.append(app_ad_extension)
 
         call_ad_extension=campaign_service.factory.create('CallAdExtension')
         call_ad_extension.CountryCode="US"
@@ -380,13 +398,19 @@ if __name__ == '__main__':
         location_ad_extension.Address=address
         ad_extensions.AdExtension.append(location_ad_extension)
         
-        sitelinks_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
-        sitelinks_ad_extension.Status=None
-        sitelink=campaign_service.factory.create('SiteLink')
-        sitelink.DestinationUrl="Contoso.com/WomenShoeSale"
-        sitelink.DisplayText="Women's Shoe Sale"
-        sitelinks_ad_extension.SiteLinks.SiteLink.append(sitelink)
-        ad_extensions.AdExtension.append(sitelinks_ad_extension)
+        site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
+        site_links=campaign_service.factory.create('ArrayOfSiteLink')
+        site_link_0=campaign_service.factory.create('SiteLink')
+        site_link_0.DestinationUrl = "Contoso.com"
+        site_link_0.DisplayText = "Women's Shoe Sale 1"
+        site_links.SiteLink.append(site_link_0)
+        site_link_1=campaign_service.factory.create('SiteLink')
+        site_link_1.DestinationUrl = "Contoso.com/WomenShoeSale/2"
+        site_link_1.DisplayText = "Women's Shoe Sale 2"
+        site_links.SiteLink.append(site_link_1)
+        site_links_ad_extension.SiteLinks=site_links
+        site_links_ad_extension.Status=None
+        ad_extensions.AdExtension.append(site_links_ad_extension)
         
         # Add all extensions to the account's ad extension library
         ad_extension_identities=campaign_service.AddAdExtensions(
@@ -430,7 +454,7 @@ if __name__ == '__main__':
             AssociationType='Campaign'
         )
 
-        ad_extensions_type_filter='CallAdExtension LocationAdExtension SiteLinksAdExtension'
+        ad_extensions_type_filter='AppAdExtension CallAdExtension LocationAdExtension SiteLinksAdExtension'
 
         # Get the specified ad extensions from the account?s ad extension library.
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
