@@ -3,7 +3,8 @@ from bingads.internal.bulk.string_table import _StringTable
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 
 from .common import _BulkAdExtensionBase
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkAdGroupAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
 from bingads.internal.extensions import *
 
 
@@ -90,7 +91,7 @@ class BulkAppAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkAppAdExtension._MAPPINGS)
 
 
-class BulkCampaignAppAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignAppAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents an campaign level app ad extension.
 
     This class exposes properties that can be read and written
@@ -109,7 +110,7 @@ class BulkCampaignAppAdExtension(_BulkAdExtensionAssociation):
     pass
 
 
-class BulkAdGroupAppAdExtension(_BulkAdExtensionAssociation):
+class BulkAdGroupAppAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level App ad extension.
 
     This class exposes properties that can be read and written

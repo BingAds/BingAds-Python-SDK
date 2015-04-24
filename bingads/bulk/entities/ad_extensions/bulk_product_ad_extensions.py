@@ -7,7 +7,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 from ..common import _ProductConditionHelper
 
 from .common import *
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
 from .common import _BulkAdExtensionIdentifier
 
 
@@ -443,7 +443,7 @@ class BulkProductAdExtension(_MultiRecordBulkEntity):
         return self._has_delete_all_row
 
 
-class BulkCampaignProductAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignProductAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents a campaign level product ad extension.
 
     This class exposes properties that can be read and written

@@ -7,7 +7,8 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 
 from .common import *
 from .common import _BulkAdExtensionIdentifier
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkAdGroupAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
 
 
 class _SiteLinkAdExtensionIdentifier(_BulkAdExtensionIdentifier):
@@ -32,7 +33,7 @@ class _SiteLinkAdExtensionIdentifier(_BulkAdExtensionIdentifier):
         return BulkSiteLinkAdExtension(identifier=self)
 
 
-class BulkAdGroupSiteLinkAdExtension(_BulkAdExtensionAssociation):
+class BulkAdGroupSiteLinkAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level sitelink ad extension.
 
     This class exposes properties that can be read and written
@@ -50,7 +51,7 @@ class BulkAdGroupSiteLinkAdExtension(_BulkAdExtensionAssociation):
     pass
 
 
-class BulkCampaignSiteLinkAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignSiteLinkAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents an campaign level sitelink ad extension.
 
     This class exposes properties that can be read and written

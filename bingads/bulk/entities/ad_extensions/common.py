@@ -181,6 +181,99 @@ class _BulkAdExtensionAssociation(_SingleRecordBulkEntity):
         super(_BulkAdExtensionAssociation, self).read_additional_data(stream_reader)
 
 
+class _BulkCampaignAdExtensionAssociation(_BulkAdExtensionAssociation):
+    """ This abstract class provides properties that are shared by all bulk campaign ad extension association classes. """
+
+    def __init__(self,
+                 ad_extension_id_to_entity_id_association=None,
+                 status=None,
+                 editorial_status=None):
+        super(_BulkCampaignAdExtensionAssociation, self).__init__(
+            ad_extension_id_to_entity_id_association,
+            status,
+            editorial_status,
+        )
+        self._campaign_name = None
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Campaign,
+            field_to_csv=lambda c: c.campaign_name,
+            csv_to_field=lambda c, v: setattr(c, '_campaign_name', v)
+        )
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        super(_BulkCampaignAdExtensionAssociation, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, _BulkCampaignAdExtensionAssociation._MAPPINGS)
+
+    @property
+    def campaign_name(self):
+        """ The name of the campaign containing the ad group that the ad extension is associated.
+
+        Corresponds to the 'Campaign' field in the bulk file.
+
+        :rtype: str
+        """
+
+        return self._campaign_name
+
+
+class _BulkAdGroupAdExtensionAssociation(_BulkAdExtensionAssociation):
+    """ This abstract class provides properties that are shared by all bulk ad group ad extension association classes. """
+
+    def __init__(self,
+                 ad_extension_id_to_entity_id_association=None,
+                 status=None,
+                 editorial_status=None):
+        super(_BulkAdGroupAdExtensionAssociation, self).__init__(
+            ad_extension_id_to_entity_id_association,
+            status,
+            editorial_status,
+        )
+        self._ad_group_name = None
+        self._campaign_name = None
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.AdGroup,
+            field_to_csv=lambda c: c.ad_group_name,
+            csv_to_field=lambda c, v: setattr(c, '_ad_group_name', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Campaign,
+            field_to_csv=lambda c: c.campaign_name,
+            csv_to_field=lambda c, v: setattr(c, '_campaign_name', v)
+        )
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        super(_BulkAdGroupAdExtensionAssociation, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, _BulkAdGroupAdExtensionAssociation._MAPPINGS)
+
+    @property
+    def ad_group_name(self):
+        """ The name of the ad group that the ad extension is associated.
+
+        Corresponds to the 'AdGroup' field in the bulk file.
+
+        :rtype str
+        """
+
+        return self._ad_group_name
+
+    @property
+    def campaign_name(self):
+        """ The name of the campaign containing the ad group that the ad extension is associated.
+
+        Corresponds to the 'Campaign' field in the bulk file.
+
+        :rtype: str
+        """
+
+        return self._campaign_name
+
+
 class _BulkAdExtensionIdentifier(_BulkEntityIdentifier):
     def __init__(self,
                  account_id=None,

@@ -5,7 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 
 from .common import *
 from .common import _BulkAdExtensionBase
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
 
 
 _LocationAdExtension = type(_CAMPAIGN_OBJECT_FACTORY.create('LocationAdExtension'))
@@ -210,7 +210,7 @@ class BulkLocationAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkLocationAdExtension._MAPPINGS)
 
 
-class BulkCampaignLocationAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignLocationAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents an campaign level location ad extension.
 
     This class exposes properties that can be read and written

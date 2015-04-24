@@ -5,7 +5,8 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 
 from .common import *
 from .common import _BulkAdExtensionBase
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAdGroupAdExtensionAssociation
 
 
 _ImageAdExtension = type(_CAMPAIGN_OBJECT_FACTORY.create('ImageAdExtension'))
@@ -81,7 +82,7 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkImageAdExtension._MAPPINGS)
 
 
-class BulkCampaignImageAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignImageAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents an campaign level image ad extension.
 
     This class exposes properties that can be read and written
@@ -100,7 +101,7 @@ class BulkCampaignImageAdExtension(_BulkAdExtensionAssociation):
     pass
 
 
-class BulkAdGroupImageAdExtension(_BulkAdExtensionAssociation):
+class BulkAdGroupImageAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level image ad extension.
 
     This class exposes properties that can be read and written

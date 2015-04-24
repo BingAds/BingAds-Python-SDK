@@ -4,7 +4,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
 
 from .common import *
 from .common import _BulkAdExtensionBase
-from .common import _BulkAdExtensionAssociation
+from .common import _BulkCampaignAdExtensionAssociation
 
 _CallAdExtension = type(_CAMPAIGN_OBJECT_FACTORY.create('CallAdExtension'))
 
@@ -94,7 +94,7 @@ class BulkCallAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkCallAdExtension._MAPPINGS)
 
 
-class BulkCampaignCallAdExtension(_BulkAdExtensionAssociation):
+class BulkCampaignCallAdExtension(_BulkCampaignAdExtensionAssociation):
     """ Represents a campaign level call ad extension.
 
     This class exposes properties that can be read and written
