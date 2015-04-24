@@ -4,6 +4,14 @@ bingads.bulk.entities.ad_extensions package
 Submodules
 ----------
 
+bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions module
+-----------------------------------------------------------------
+
+.. automodule:: bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions module
 ------------------------------------------------------------------
 

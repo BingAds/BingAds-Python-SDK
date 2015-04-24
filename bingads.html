@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads package &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    <title>bingads package &mdash; Bing Ads SDK 9.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '9.3.1',
+        VERSION:     '9.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="index.html" />
     <link rel="next" title="bingads.bulk package" href="bingads.bulk.html" />
     <link rel="prev" title="Bing Ads Python SDK" href="readme.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -64,6 +64,7 @@
 <li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html">bingads.bulk.entities.ad_extensions package</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#submodules">Submodules</a></li>
+<li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions module</a></li>
@@ -164,7 +165,7 @@
 <dl class="class">
 <dt id="bingads.authorization.Authentication">
 <em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">Authentication</tt><a class="reference internal" href="_modules/bingads/authorization.html#Authentication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.Authentication" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>The base class for all authentication classes.</p>
 <p><em>See also:</em></p>
 <ul class="simple">
@@ -196,8 +197,7 @@ whereas the UserName and Password headers will remain empty.</p>
 <dl class="class">
 <dt id="bingads.authorization.AuthorizationData">
 <em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">AuthorizationData</tt><big>(</big><em>account_id=None</em>, <em>customer_id=None</em>, <em>developer_token=None</em>, <em>authentication=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#AuthorizationData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.AuthorizationData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Represents a user who intends to access the corresponding customer and account.</p>
+<dd><p>Represents a user who intends to access the corresponding customer and account.</p>
 <p>An instance of this class is required to authenticate with Bing Ads if you are using either
 <a class="reference internal" href="#bingads.service_client.ServiceClient" title="bingads.service_client.ServiceClient"><tt class="xref py py-class docutils literal"><span class="pre">ServiceClient</span></tt></a> or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_service_manager.BulkServiceManager" title="bingads.bulk.bulk_service_manager.BulkServiceManager"><tt class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></tt></a>.</p>
 <dl class="attribute">
@@ -420,8 +420,7 @@ For more information about registering a Bing Ads application, see <a class="ref
 <dl class="class">
 <dt id="bingads.authorization.OAuthTokens">
 <em class="property">class </em><tt class="descclassname">bingads.authorization.</tt><tt class="descname">OAuthTokens</tt><big>(</big><em>access_token=None</em>, <em>access_token_expires_in_seconds=None</em>, <em>refresh_token=None</em><big>)</big><a class="reference internal" href="_modules/bingads/authorization.html#OAuthTokens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthTokens" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Contains information about OAuth access tokens received from the Microsoft Account authorization service.</p>
+<dd><p>Contains information about OAuth access tokens received from the Microsoft Account authorization service.</p>
 <p>You can get OAuthTokens using the RequestAccessAndRefreshTokens method of RequestAccessAndRefreshTokens method of
 either the <a class="reference internal" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="bingads.authorization.OAuthDesktopMobileAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthDesktopMobileAuthCodeGrant</span></tt></a> or <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="bingads.authorization.OAuthWebAuthCodeGrant"><tt class="xref py py-class docutils literal"><span class="pre">OAuthWebAuthCodeGrant</span></tt></a> classes.</p>
 <dl class="attribute">
@@ -681,7 +680,7 @@ For example instead of using this <a class="reference internal" href="#bingads.a
 <dl class="exception">
 <dt id="bingads.exceptions.SdkException">
 <em class="property">exception </em><tt class="descclassname">bingads.exceptions.</tt><tt class="descname">SdkException</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="_modules/bingads/exceptions.html#SdkException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.exceptions.SdkException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
 <p>Base Exception for exceptions in SDK.</p>
 <dl class="attribute">
 <dt id="bingads.exceptions.SdkException.message">
@@ -708,8 +707,7 @@ For example instead of using this <a class="reference internal" href="#bingads.a
 <dl class="class">
 <dt id="bingads.service_client.ServiceClient">
 <em class="property">class </em><tt class="descclassname">bingads.service_client.</tt><tt class="descname">ServiceClient</tt><big>(</big><em>service</em>, <em>authorization_data=None</em>, <em>environment='production'</em><big>)</big><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Provides an interface for calling the methods of the specified Bing Ads service.</p>
+<dd><p>Provides an interface for calling the methods of the specified Bing Ads service.</p>
 <dl class="attribute">
 <dt id="bingads.service_client.ServiceClient.authorization_data">
 <tt class="descname">authorization_data</tt><a class="reference internal" href="_modules/bingads/service_client.html#ServiceClient.authorization_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.service_client.ServiceClient.authorization_data" title="Permalink to this definition">¶</a></dt>
@@ -871,7 +869,7 @@ For example instead of using this <a class="reference internal" href="#bingads.a
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              >previous</a> |</li>
-        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

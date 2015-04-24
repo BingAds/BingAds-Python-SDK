@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.bulk_negative_sites &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    <title>bingads.bulk.entities.bulk_negative_sites &mdash; Bing Ads SDK 9.3.2 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '9.3.1',
+        VERSION:     '9.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -671,9 +671,6 @@
         <span class="p">)</span>
     <span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">_entity_id</span>
-
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_delete_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="s">&#39;Deleted&#39;</span>
@@ -691,6 +688,22 @@
             <span class="n">status</span><span class="p">,</span>
             <span class="n">campaign_id</span><span class="p">,</span>
             <span class="n">campaign_name</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">campaign_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_id</span> <span class="ow">or</span>
+                <span class="p">(</span>
+                    <span class="n">is_name_not_empty</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_name</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
     <span class="nd">@property</span>
@@ -729,6 +742,25 @@
             <span class="n">ad_group_name</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="ow">or</span>
+                <span class="p">(</span>
+                    <span class="n">is_name_not_empty</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_group_name</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -809,7 +841,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

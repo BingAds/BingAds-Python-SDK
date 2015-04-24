@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.targets.bulk_targets &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    <title>bingads.bulk.entities.targets.bulk_targets &mdash; Bing Ads SDK 9.3.2 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '9.3.1',
+        VERSION:     '9.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../../index.html" />
     <link rel="up" title="Module code" href="../../../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -70,12 +70,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">=</span> <span class="n">entity_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">entity_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent_entity_name</span> <span class="o">=</span> <span class="n">parent_entity_name</span>
-
-    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> \
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">entity_id</span> \
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">entity_name</span> \
-            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent_entity_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">parent_entity_name</span>
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -170,6 +164,22 @@
     <span class="k">def</span> <span class="nf">_create_entity_with_this_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkCampaignTarget</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">campaign_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_id</span> <span class="ow">or</span>
+                <span class="p">(</span>
+                    <span class="n">is_name_not_empty</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_name</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span>
@@ -197,7 +207,23 @@
     <span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">_BulkAdGroupTargetIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__eq__</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_name</span>
+        <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="ow">or</span>
+                <span class="p">(</span>
+                    <span class="n">is_name_not_empty</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">and</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_group_name</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">write_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">_BulkAdGroupTargetIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
@@ -244,6 +270,7 @@
 
 <span class="sd">    For example :class:`.BulkAdGroupDayTimeTargetBid`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">target_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -1038,6 +1065,7 @@
 <span class="sd">    * :class:`.BulkFileReader`</span>
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -1123,6 +1151,7 @@
 <span class="sd">    * :class:`.BulkFileReader`</span>
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">target</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -2826,11 +2855,11 @@
     <span class="k">def</span> <span class="nf">_validate_bids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">location_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
-                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">city_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">CityTargetBid</span><span class="p">)</span> <span class="ow">or</span>
-                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metro_area_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">MetroAreaTargetBid</span><span class="p">)</span> <span class="ow">or</span>
-                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">StateTargetBid</span><span class="p">)</span> <span class="ow">or</span>
-                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">country_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">CountryTargetBid</span><span class="p">)</span> <span class="ow">or</span>
-                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postal_code_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">PostalCodeTargetBid</span><span class="p">)</span>
+                                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">city_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">CityTargetBid</span><span class="p">)</span> <span class="ow">or</span>
+                                <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">metro_area_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">MetroAreaTargetBid</span><span class="p">)</span> <span class="ow">or</span>
+                            <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">StateTargetBid</span><span class="p">)</span> <span class="ow">or</span>
+                        <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">country_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">CountryTargetBid</span><span class="p">)</span> <span class="ow">or</span>
+                    <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">postal_code_target</span><span class="o">.</span><span class="n">Bids</span><span class="o">.</span><span class="n">PostalCodeTargetBid</span><span class="p">)</span>
             <span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Sub target bid in Location Target cannot all be empty&#39;</span><span class="p">)</span>
 
@@ -3237,6 +3266,7 @@
 <span class="sd">    * :class:`.BulkFileReader`</span>
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">location</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">location_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -3491,7 +3521,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    <title>bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions &mdash; Bing Ads SDK 9.3.2 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '9.3.1',
+        VERSION:     '9.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="../../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../../index.html" />
     <link rel="up" title="Module code" href="../../../../index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -54,7 +54,7 @@
 
 <span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionBase</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
 
 
 <span class="n">_LocationAdExtension</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;LocationAdExtension&#39;</span><span class="p">))</span>
@@ -259,7 +259,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkLocationAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
 
 </div></div>
-<div class="viewcode-block" id="BulkCampaignLocationAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkCampaignLocationAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignLocationAdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionAssociation</span><span class="p">):</span>
+<div class="viewcode-block" id="BulkCampaignLocationAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions.BulkCampaignLocationAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignLocationAdExtension</span><span class="p">(</span><span class="n">_BulkCampaignAdExtensionAssociation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an campaign level location ad extension.</span>
 
 <span class="sd">    This class exposes properties that can be read and written</span>
@@ -309,7 +309,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

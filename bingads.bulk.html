@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk package &mdash; Bing Ads SDK 9.3.1 documentation</title>
+    <title>bingads.bulk package &mdash; Bing Ads SDK 9.3.2 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '9.3.1',
+        VERSION:     '9.3.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.1 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="index.html" />
     <link rel="up" title="bingads package" href="bingads.html" />
     <link rel="next" title="bingads.bulk.entities package" href="bingads.bulk.entities.html" />
     <link rel="prev" title="bingads package" href="bingads.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="bingads.html" accesskey="U">bingads package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -64,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bingads.bulk.entities.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html">bingads.bulk.entities.ad_extensions package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_app_ad_extensions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_call_ad_extensions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_image_ad_extensions module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bingads.bulk.entities.ad_extensions.html#module-bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions">bingads.bulk.entities.ad_extensions.bulk_location_ad_extensions module</a></li>
@@ -156,7 +157,7 @@ use an instance of <a class="reference internal" href="#bingads.bulk.bulk_operat
 <dl class="class">
 <dt id="bingads.bulk.bulk_operation.BulkOperation">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.bulk_operation.</tt><tt class="descname">BulkOperation</tt><big>(</big><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/bulk_operation.html#BulkOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.bulk_operation.BulkOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>The base class that can be derived to represent a bulk operation requested by a user.</p>
 <p>You can use either the <a class="reference internal" href="#bingads.bulk.bulk_operation.BulkDownloadOperation" title="bingads.bulk.bulk_operation.BulkDownloadOperation"><tt class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></tt></a> or <a class="reference internal" href="#bingads.bulk.bulk_operation.BulkUploadOperation" title="bingads.bulk.bulk_operation.BulkUploadOperation"><tt class="xref py py-class docutils literal"><span class="pre">BulkUploadOperation</span></tt></a>
 derived class to poll for the operation status, and then download the results file when available.</p>
@@ -321,7 +322,7 @@ use an instance of <a class="reference internal" href="#bingads.bulk.bulk_operat
 <dl class="class">
 <dt id="bingads.bulk.bulk_operation_progress_info.BulkOperationProgressInfo">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.bulk_operation_progress_info.</tt><tt class="descname">BulkOperationProgressInfo</tt><big>(</big><em>percent_complete=0</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/bulk_operation_progress_info.html#BulkOperationProgressInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.bulk_operation_progress_info.BulkOperationProgressInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Contains percent complete progress information for the bulk operation.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.bulk_operation_progress_info.BulkOperationProgressInfo.percent_complete">
@@ -345,7 +346,7 @@ use an instance of <a class="reference internal" href="#bingads.bulk.bulk_operat
 <dl class="class">
 <dt id="bingads.bulk.bulk_operation_status.BulkOperationStatus">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.bulk_operation_status.</tt><tt class="descname">BulkOperationStatus</tt><big>(</big><em>status=None</em>, <em>percent_complete=None</em>, <em>result_file_url=None</em>, <em>errors=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/bulk_operation_status.html#BulkOperationStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.bulk_operation_status.BulkOperationStatus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Contains tracking details about the results and status of the corresponding <a class="reference internal" href="#bingads.bulk.bulk_operation.BulkDownloadOperation" title="bingads.bulk.bulk_operation.BulkDownloadOperation"><tt class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></tt></a> or <a class="reference internal" href="#bingads.bulk.bulk_operation.BulkUploadOperation" title="bingads.bulk.bulk_operation.BulkUploadOperation"><tt class="xref py py-class docutils literal"><span class="pre">BulkUploadOperation</span></tt></a>.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.bulk_operation_status.BulkOperationStatus.errors">
@@ -411,8 +412,7 @@ use an instance of <a class="reference internal" href="#bingads.bulk.bulk_operat
 <dl class="class">
 <dt id="bingads.bulk.bulk_service_manager.BulkServiceManager">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.bulk_service_manager.</tt><tt class="descname">BulkServiceManager</tt><big>(</big><em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>working_directory=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/bulk_service_manager.html#BulkServiceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.bulk_service_manager.BulkServiceManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Provides high level methods for uploading and downloading entities using the Bulk API functionality.</p>
+<dd><p>Provides high level methods for uploading and downloading entities using the Bulk API functionality.</p>
 <p>Also provides methods for submitting upload or download operations.</p>
 <p><em>Example:</em></p>
 <p><a class="reference internal" href="#bingads.bulk.bulk_service_manager.BulkServiceManager.download_file" title="bingads.bulk.bulk_service_manager.BulkServiceManager.download_file"><tt class="xref py py-func docutils literal"><span class="pre">download_file()</span></tt></a> will submit the download request to the bulk service,
@@ -603,8 +603,7 @@ or <a class="reference internal" href="#bingads.bulk.bulk_operation.BulkDownload
 <dl class="class">
 <dt id="bingads.bulk.download_parameters.DownloadParameters">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.download_parameters.</tt><tt class="descname">DownloadParameters</tt><big>(</big><em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>data_scope=None</em>, <em>entities=None</em>, <em>file_type=None</em>, <em>campaign_ids=None</em>, <em>last_sync_time_in_utc=None</em>, <em>location_target_version=None</em>, <em>performance_stats_date_range=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/download_parameters.html#DownloadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.download_parameters.DownloadParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Describes the related parameters when downloading file from server.</p>
+<dd><p>Describes the related parameters when downloading file from server.</p>
 <p>such as the type of entities and data scope that you want to download.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.download_parameters.DownloadParameters.campaign_ids">
@@ -780,7 +779,7 @@ the operation performs a full download.</p>
 <dl class="class">
 <dt id="bingads.bulk.download_parameters.SubmitDownloadParameters">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.download_parameters.</tt><tt class="descname">SubmitDownloadParameters</tt><big>(</big><em>data_scope=None</em>, <em>entities=None</em>, <em>file_type=None</em>, <em>campaign_ids=None</em>, <em>last_sync_time_in_utc=None</em>, <em>location_target_version=None</em>, <em>performance_stats_date_range=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/download_parameters.html#SubmitDownloadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.download_parameters.SubmitDownloadParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Describes the service request parameters such as the type of entities and data scope that you want to download.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.download_parameters.SubmitDownloadParameters.campaign_ids">
@@ -995,8 +994,7 @@ the operation performs a full download.</p>
 <dl class="class">
 <dt id="bingads.bulk.exceptions.OperationError">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.exceptions.</tt><tt class="descname">OperationError</tt><big>(</big><em>code=None</em>, <em>details=None</em>, <em>error_code=None</em>, <em>message=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/exceptions.html#OperationError"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.exceptions.OperationError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Defines an error object that contains the details that explain why the service operation failed.</p>
+<dd><p>Defines an error object that contains the details that explain why the service operation failed.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.exceptions.OperationError.code">
 <tt class="descname">code</tt><a class="reference internal" href="_modules/bingads/bulk/exceptions.html#OperationError.code"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.exceptions.OperationError.code" title="Permalink to this definition">¶</a></dt>
@@ -1061,8 +1059,7 @@ the operation performs a full download.</p>
 <dl class="class">
 <dt id="bingads.bulk.file_reader.BulkFileReader">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.file_reader.</tt><tt class="descname">BulkFileReader</tt><big>(</big><em>file_path</em>, <em>file_format=&lt;DownloadFileType.csv: 2&gt;</em>, <em>result_file_type=&lt;ResultFileType.full_download: 1&gt;</em>, <em>encoding=None</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/file_reader.html#BulkFileReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.file_reader.BulkFileReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Provides a method to read bulk entities from a bulk file and make them accessible as an enumerable list.</p>
+<dd><p>Provides a method to read bulk entities from a bulk file and make them accessible as an enumerable list.</p>
 <p>For more information about the Bulk File Schema, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511639">http://go.microsoft.com/fwlink/?LinkID=511639</a>.</p>
 <dl class="method">
 <dt id="bingads.bulk.file_reader.BulkFileReader.close">
@@ -1170,8 +1167,7 @@ the operation performs a full download.</p>
 <dl class="class">
 <dt id="bingads.bulk.file_writer.BulkFileWriter">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.file_writer.</tt><tt class="descname">BulkFileWriter</tt><big>(</big><em>file_path</em>, <em>file_format=&lt;DownloadFileType.csv: 2&gt;</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/file_writer.html#BulkFileWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.file_writer.BulkFileWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Provides methods to write bulk entities to a file.</p>
+<dd><p>Provides methods to write bulk entities to a file.</p>
 <p>For more information about the Bulk File Schema, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511639">http://go.microsoft.com/fwlink/?LinkID=511639</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -1250,7 +1246,7 @@ should be excluded when writing to file</li>
 <dl class="class">
 <dt id="bingads.bulk.upload_parameters.EntityUploadParameters">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.upload_parameters.</tt><tt class="descname">EntityUploadParameters</tt><big>(</big><em>entities</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>response_mode='ErrorsAndResults'</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/upload_parameters.html#EntityUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.upload_parameters.EntityUploadParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Describes the available parameters when submitting entities for upload, such as the entities that you want to upload.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.upload_parameters.EntityUploadParameters.decompress_result_file">
@@ -1333,8 +1329,7 @@ should be excluded when writing to file</li>
 <dl class="class">
 <dt id="bingads.bulk.upload_parameters.FileUploadParameters">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.upload_parameters.</tt><tt class="descname">FileUploadParameters</tt><big>(</big><em>upload_file_path</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/upload_parameters.html#FileUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.upload_parameters.FileUploadParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>Describes the available parameters when submitting a file for upload, such as the path of the upload result file.</p>
+<dd><p>Describes the available parameters when submitting a file for upload, such as the path of the upload result file.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.upload_parameters.FileUploadParameters.compress_upload_file">
 <tt class="descname">compress_upload_file</tt><a class="reference internal" href="_modules/bingads/bulk/upload_parameters.html#FileUploadParameters.compress_upload_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.upload_parameters.FileUploadParameters.compress_upload_file" title="Permalink to this definition">¶</a></dt>
@@ -1430,7 +1425,7 @@ should be excluded when writing to file</li>
 <dl class="class">
 <dt id="bingads.bulk.upload_parameters.SubmitUploadParameters">
 <em class="property">class </em><tt class="descclassname">bingads.bulk.upload_parameters.</tt><tt class="descname">SubmitUploadParameters</tt><big>(</big><em>upload_file_path</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em><big>)</big><a class="reference internal" href="_modules/bingads/bulk/upload_parameters.html#SubmitUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.bulk.upload_parameters.SubmitUploadParameters" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
 <p>Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file.</p>
 <dl class="attribute">
 <dt id="bingads.bulk.upload_parameters.SubmitUploadParameters.compress_upload_file">
@@ -1552,7 +1547,7 @@ should be excluded when writing to file</li>
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              >previous</a> |</li>
-        <li><a href="index.html">Bing Ads SDK 9.3.1 documentation</a> &raquo;</li>
+        <li><a href="index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
           <li><a href="bingads.html" >bingads package</a> &raquo;</li> 
       </ul>
     </div>
