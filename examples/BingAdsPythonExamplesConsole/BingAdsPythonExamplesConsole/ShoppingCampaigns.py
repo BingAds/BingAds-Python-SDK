@@ -683,7 +683,7 @@ if __name__ == '__main__':
         ad_group.Name="Product Categories"
         ad_group.AdDistribution='Search'
         ad_group.BiddingModel='Keyword'
-        ad_group.PricingModel='Cpm'
+        ad_group.PricingModel='Cpc'
         ad_group.Network=None
         ad_group.Status='Paused'
         end_date=campaign_service.factory.create('Date')
