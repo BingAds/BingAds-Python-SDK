@@ -11,6 +11,7 @@ import six
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
+import sys
 import webbrowser
 from time import gmtime, strftime
 

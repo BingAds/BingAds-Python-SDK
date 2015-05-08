@@ -1,5 +1,6 @@
 from bingads import *
 
+import sys
 import webbrowser
 from time import gmtime, strftime
 
@@ -70,7 +71,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -78,6 +79,7 @@ def authenticate_with_oauth():
     if refresh_token is not None:
         authentication.request_oauth_tokens_by_refresh_token(refresh_token)
     else:
+        webbrowser.open(authentication.get_authorization_endpoint(), new=1)
         # For Python 3.x use 'input' instead of 'raw_input'
         if(sys.version_info.major >= 3):
             response_uri=input(

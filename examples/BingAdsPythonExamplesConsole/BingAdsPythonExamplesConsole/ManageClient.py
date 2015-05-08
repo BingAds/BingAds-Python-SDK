@@ -1,5 +1,6 @@
 from bingads import *
 
+import sys
 import webbrowser
 from time import gmtime, strftime
 import datetime

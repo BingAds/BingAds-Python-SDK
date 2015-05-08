@@ -1,6 +1,7 @@
 from bingads import *
 
-import time
+import sys
+import webbrowser
 from time import gmtime, strftime
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
