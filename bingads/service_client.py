@@ -8,7 +8,7 @@ from .manifest import USER_AGENT
 class ServiceClient:
     """ Provides an interface for calling the methods of the specified Bing Ads service."""
 
-    def __init__(self, service, authorization_data=None, environment='production'):
+    def __init__(self, service, authorization_data=None, environment='production', **suds_options):
         """ Initializes a new instance of this class.
 
         :param service: The service name.
@@ -17,6 +17,7 @@ class ServiceClient:
         :type authorization_data: AuthorizationData or None
         :param environment: (optional) The environment name, can only be 'production' or 'sandbox', the default is 'production'
         :type environment: str
+        :param suds_options: suds options
         """
 
         self._input_service = service
@@ -28,7 +29,7 @@ class ServiceClient:
         self._service = ServiceClient._format_service(service)
         self._environment = ServiceClient._format_environment(environment)
 
-        self._soap_client = Client(self.service_url)
+        self._soap_client = Client(self.service_url, **suds_options)
 
     def __getattr__(self, name):
         # Set authorization data and options before every service call.
