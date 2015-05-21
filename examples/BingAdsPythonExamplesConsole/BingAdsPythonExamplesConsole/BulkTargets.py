@@ -6,11 +6,10 @@ import webbrowser
 from time import gmtime, strftime
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
-'''
-import logging
-logging.basicConfig(level=logging.INFO)
-logging.getLogger('suds.client').setLevel(logging.DEBUG)
-'''
+
+#import logging
+#logging.basicConfig(level=logging.INFO)
+#logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \

@@ -6,9 +6,9 @@ from time import gmtime, strftime
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logging.getLogger('suds.client').setLevel(logging.DEBUG)
+#import logging
+#logging.basicConfig(level=logging.INFO)
+#logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 
 if __name__ == '__main__':
@@ -611,12 +611,12 @@ if __name__ == '__main__':
 
         #region ManageCampaign
 
-        '''
-        Add a new Bing Shopping campaign that will be associated with a ProductScope criterion.
-         - Set the CampaignType element of the Campaign to Shopping.
-         - Create a ShoppingSetting instance and set its Priority (0, 1, or 2), SalesCountryCode, and StoreId elements. 
-           Add this shopping setting to the Settings list of the Campaign.
-        '''
+        
+        #Add a new Bing Shopping campaign that will be associated with a ProductScope criterion.
+        # - Set the CampaignType element of the Campaign to Shopping.
+        # - Create a ShoppingSetting instance and set its Priority (0, 1, or 2), SalesCountryCode, and StoreId elements. 
+        #   Add this shopping setting to the Settings list of the Campaign.
+        
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=campaign_service.factory.create('Campaign')
         settings=campaign_service.factory.create('ArrayOfSetting')
@@ -643,13 +643,11 @@ if __name__ == '__main__':
 
         output_campaign_ids(campaign_ids)
 
-        '''
-        Optionally, you can create a ProductScope criterion that will be associated with your Bing Shopping campaign. 
-        Use the product scope criterion to include a subset of your product catalog, for example a specific brand, 
-        category, or product type. A campaign can only be associated with one ProductScope, which contains a list 
-        of up to 7 ProductCondition. You'll also be able to specify more specific product conditions for each ad group.
-        '''
-
+        #Optionally, you can create a ProductScope criterion that will be associated with your Bing Shopping campaign. 
+        #Use the product scope criterion to include a subset of your product catalog, for example a specific brand, 
+        #category, or product type. A campaign can only be associated with one ProductScope, which contains a list 
+        #of up to 7 ProductCondition. You'll also be able to specify more specific product conditions for each ad group.
+        
         campaign_criterions=campaign_service.factory.create('ArrayOfCampaignCriterion')
         campaign_criterion=campaign_service.factory.create('CampaignCriterion')
         product_scope=campaign_service.factory.create('ProductScope')
@@ -761,15 +759,13 @@ if __name__ == '__main__':
         
         #region InitializeTree
 
-        '''
-        Now we will overwrite any existing tree root, and build a product partition group tree structure in multiple steps. 
-        You could build the entire tree in a single call since there are less than 5,000 nodes; however, 
-        we will build it in steps to demonstrate how to use the results from ApplyProductPartitionActions to update the tree. 
+        #Now we will overwrite any existing tree root, and build a product partition group tree structure in multiple steps. 
+        #You could build the entire tree in a single call since there are less than 5,000 nodes; however, 
+        #we will build it in steps to demonstrate how to use the results from ApplyProductPartitionActions to update the tree. 
         
-        For a list of validation rules, see the Bing Shopping Campaigns technical guide:
-        https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-bing-shopping-campaigns.aspx
-        '''
-
+        #For a list of validation rules, see the Bing Shopping Campaigns technical guide:
+        #https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-bing-shopping-campaigns.aspx
+        
         helper=PartitionActionHelper(ad_group_ids[0])
 
         #Check whether a root node exists already.
@@ -792,12 +788,11 @@ if __name__ == '__main__':
             root_condition
         )
 
-        '''
-        The direct children of any node must have the same Operand. 
-        For this example we will use CategoryL1 nodes as children of the root. 
-        For a list of valid CategoryL1 through CategoryL5 values, see the Bing Category Taxonomy:
-        http://advertise.bingads.microsoft.com/en-us/WWDocs/user/search/en-us/Bing_Category_Taxonomy.txt
-        '''
+        #The direct children of any node must have the same Operand. 
+        #For this example we will use CategoryL1 nodes as children of the root. 
+        #For a list of valid CategoryL1 through CategoryL5 values, see the Bing Category Taxonomy:
+        #http://advertise.bingads.microsoft.com/en-us/WWDocs/user/search/en-us/Bing_Category_Taxonomy.txt
+        
         animals_condition=campaign_service.factory.create('ProductCondition')
         animals_condition.Operand='CategoryL1'
         animals_condition.Attribute='Animals & Pet Supplies'
@@ -806,11 +801,10 @@ if __name__ == '__main__':
             animals_condition
         )
 
-        '''
-        If you use a CategoryL2 node, it must be a descendant (child or later) of a CategoryL1 node. 
-        In other words you cannot have a CategoryL2 node as parent of a CategoryL1 node. 
-        For this example we will a CategoryL2 node as child of the CategoryL1 Animals & Pet Supplies node. 
-        '''
+        #If you use a CategoryL2 node, it must be a descendant (child or later) of a CategoryL1 node. 
+        #In other words you cannot have a CategoryL2 node as parent of a CategoryL1 node. 
+        #For this example we will a CategoryL2 node as child of the CategoryL1 Animals & Pet Supplies node. 
+        
         pet_supplies_condition=campaign_service.factory.create('ProductCondition')
         pet_supplies_condition.Operand='CategoryL2'
         pet_supplies_condition.Attribute='Pet Supplies'
@@ -829,10 +823,9 @@ if __name__ == '__main__':
             False
         )
 
-        '''
-        If you won't bid on Brand B, set the helper method's bidAmount to '0' and isNegative to True. 
-        The helper method will create a NegativeAdGroupCriterion and apply the condition.
-        '''
+        #If you won't bid on Brand B, set the helper method's bidAmount to '0' and isNegative to True. 
+        #The helper method will create a NegativeAdGroupCriterion and apply the condition.
+        
         brand_b_condition=campaign_service.factory.create('ProductCondition')
         brand_b_condition.Operand='Brand'
         brand_b_condition.Attribute='Brand B'
@@ -897,29 +890,28 @@ if __name__ == '__main__':
             CriterionTypeFilter='ProductPartition'
         )
 
-        '''
-            The product partition group tree now has 9 nodes. 
+        
+        #The product partition group tree now has 9 nodes. 
                  
-            All other (Root Node)
-            |
-            +-- Animals & Pet Supplies (CategoryL1)
-            |    |
-            |    +-- Pet Supplies (CategoryL2)
-            |    |    |
-            |    |    +-- Brand A
-            |    |    |    
-            |    |    +-- Brand B
-            |    |    |    
-            |    |    +-- All other (Brand)
-            |    |         
-            |    +-- All other (CategoryL2)
-            |        
-            +-- Electronics (CategoryL1)
-            |   
-            +-- All other (CategoryL1)
+        #All other (Root Node)
+        #|
+        #+-- Animals & Pet Supplies (CategoryL1)
+        #|    |
+        #|    +-- Pet Supplies (CategoryL2)
+        #|    |    |
+        #|    |    +-- Brand A
+        #|    |    |    
+        #|    |    +-- Brand B
+        #|    |    |    
+        #|    |    +-- All other (Brand)
+        #|    |         
+        #|    +-- All other (CategoryL2)
+        #|        
+        #+-- Electronics (CategoryL1)
+        #|   
+        #+-- All other (CategoryL1)
 
-        '''
-
+        
         output_status_message("The product partition group tree now has 9 nodes: \n")
         output_product_partitions(ad_group_criterions)
 
@@ -927,27 +919,25 @@ if __name__ == '__main__':
 
         #region UpdateTree
 
-        '''
-            Let's replace the Electronics (CategoryL1) node created above with an Electronics (CategoryL1) node that 
-            has children i.e. Brand C (Brand), Brand D (Brand), and All other (Brand) as follows: 
+        
+        #Let's replace the Electronics (CategoryL1) node created above with an Electronics (CategoryL1) node that 
+        #has children i.e. Brand C (Brand), Brand D (Brand), and All other (Brand) as follows: 
                  
-            Electronics (CategoryL1)
-            |
-            +-- Brand C (Brand)
-            |
-            +-- Brand D (Brand)
-            |
-            +-- All other (Brand)
+        #Electronics (CategoryL1)
+        #|
+        #+-- Brand C (Brand)
+        #|
+        #+-- Brand D (Brand)
+        #|
+        #+-- All other (Brand)
            
-        '''
-
+        
         helper=PartitionActionHelper(ad_group_ids[0])
 
-        '''
-        To replace a node we must know its Id and its ParentCriterionId. In this case the parent of the node 
-        we are replacing is All other (Root Node), and was created at Index 1 of the previous ApplyProductPartitionActions call. 
-        The node that we are replacing is Electronics (CategoryL1), and was created at Index 8. 
-        '''
+        #To replace a node we must know its Id and its ParentCriterionId. In this case the parent of the node 
+        #we are replacing is All other (Root Node), and was created at Index 1 of the previous ApplyProductPartitionActions call. 
+        #The node that we are replacing is Electronics (CategoryL1), and was created at Index 8. 
+        
         root_id=apply_product_partition_actions_response.AdGroupCriterionIds['long'][1]
         electronics.Id=apply_product_partition_actions_response.AdGroupCriterionIds['long'][8]
         helper.delete_partition(electronics)
@@ -1006,35 +996,34 @@ if __name__ == '__main__':
             CriterionTypeFilter='ProductPartition'
         )
 
-        '''
-            The product partition group tree now has 12 nodes, including the children of Electronics (CategoryL1):
+        
+        #The product partition group tree now has 12 nodes, including the children of Electronics (CategoryL1):
                  
-            All other (Root Node)
-            |
-            +-- Animals & Pet Supplies (CategoryL1)
-            |    |
-            |    +-- Pet Supplies (CategoryL2)
-            |    |    |
-            |    |    +-- Brand A
-            |    |    |    
-            |    |    +-- Brand B
-            |    |    |    
-            |    |    +-- All other (Brand)
-            |    |         
-            |    +-- All other (CategoryL2)
-            |        
-            +-- Electronics (CategoryL1)
-            |    |
-            |    +-- Brand C (Brand)
-            |    |
-            |    +-- Brand D (Brand)
-            |    |
-            |    +-- All other (Brand)
-            |   
-            +-- All other (CategoryL1)
+        #All other (Root Node)
+        #|
+        #+-- Animals & Pet Supplies (CategoryL1)
+        #|    |
+        #|    +-- Pet Supplies (CategoryL2)
+        #|    |    |
+        #|    |    +-- Brand A
+        #|    |    |    
+        #|    |    +-- Brand B
+        #|    |    |    
+        #|    |    +-- All other (Brand)
+        #|    |         
+        #|    +-- All other (CategoryL2)
+        #|        
+        #+-- Electronics (CategoryL1)
+        #|    |
+        #|    +-- Brand C (Brand)
+        #|    |
+        #|    +-- Brand D (Brand)
+        #|    |
+        #|    +-- All other (Brand)
+        #|   
+        #+-- All other (CategoryL1)
                  
-        '''
-
+        
         output_status_message(
             "The product partition group tree now has 12 nodes, including the children of Electronics (CategoryL1): \n"
         )
@@ -1046,16 +1035,14 @@ if __name__ == '__main__':
 
         #region ManageAds
 
-        '''
-        Create a product ad. You must add at least one ProductAd to the corresponding ad group. 
-        A ProductAd is not used directly for delivered ad copy. Instead, the delivery engine generates 
-        product ads from the product details that it finds in your Bing Merchant Center store's product catalog. 
-        The primary purpose of the ProductAd object is to provide promotional text that the delivery engine 
-        adds to the product ads that it generates. For example, if the promotional text is set to 
-        ?Free shipping on $99 purchases?, the delivery engine will set the product ad?s description to 
-        ?Free shipping on $99 purchases.?
-        '''
-
+        #Create a product ad. You must add at least one ProductAd to the corresponding ad group. 
+        #A ProductAd is not used directly for delivered ad copy. Instead, the delivery engine generates 
+        #product ads from the product details that it finds in your Bing Merchant Center store's product catalog. 
+        #The primary purpose of the ProductAd object is to provide promotional text that the delivery engine 
+        #adds to the product ads that it generates. For example, if the promotional text is set to 
+        #'Free shipping on $99 purchases', the delivery engine will set the product ad's description to 
+        #'Free shipping on $99 purchases.'
+        
         ads=campaign_service.factory.create('ArrayOfAd')
         product_ad=campaign_service.factory.create('ProductAd')
         product_ad.PromotionalText='Free shipping on $99 purchases.'
@@ -1081,12 +1068,10 @@ if __name__ == '__main__':
 
         #region CleanUp
 
-        ''''
-        Delete the campaign, ad group, criterion, and ad that were previously added. 
-        You should remove this region if you want to view the added entities in the 
-        Bing Ads web application or another tool.
-        '''
-
+        #Delete the campaign, ad group, criterion, and ad that were previously added. 
+        #You should remove this region if you want to view the added entities in the 
+        #Bing Ads web application or another tool.
+        
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
             CampaignIds={
