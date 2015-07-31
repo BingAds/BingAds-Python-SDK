@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '9.3.2'
+VERSION = '9.3.3'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -12,11 +12,11 @@ with open('HISTORY.rst', 'r') as f:
 
 requirements = [
     'suds-jurko==0.6.0',
-    'future==0.14.3',
-    'six==1.8.0',
-    'requests==2.4.3',
-    'enum34==1.0.4',
-    'chardet==2.3.0',
+    'future',
+    'six',
+    'requests',
+    'enum34',
+    'chardet',
 ]
 
 setup(

@@ -1,6 +1,7 @@
 from .csv_headers import _CsvHeaders
 from .mappings import _SimpleBulkMapping
 from bingads.bulk import EntityReadException
+import six
 
 
 class _RowValues:
@@ -25,7 +26,7 @@ class _RowValues:
         return len(self.mappings)
 
     def __str__(self):
-        return '{' + ', '.join(['{0}:{1}'.format(k, self.columns[v]) for (k, v) in self.mappings.items()]) + '}'
+        return u'{' + u', '.join([u'{0}:{1}'.format(k, self.columns[v]) for (k, v) in self.mappings.items()]) + u'}'
 
     def convert_to_entity(self, entity, bulk_mappings):
         for mapping in bulk_mappings:
@@ -46,7 +47,10 @@ class _RowValues:
         else:
             message = "Couldn't parse {0} entity: {1}".format(entity_type, str(ex))
         message += " See ColumnValues for detailed row information and InnerException for error details."
-        message += ' row values: {0}'.format(self)
+        if six.PY2:
+            message = message.decode('ascii')
+        message += u' row values: {0}'.format(self)
+
         return EntityReadException(message=message, row_values=str(self), inner_exception=ex)
 
     def try_get_value(self, header):

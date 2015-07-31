@@ -151,6 +151,12 @@ class _CsvHeaders:
 
         _StringTable.Error,
         _StringTable.ErrorNumber,
+
+        # Bing Shopping Campaigns
+        _StringTable.IsExcluded,
+        _StringTable.ParentAdGroupCriterionId,
+        _StringTable.CampaignType,
+        _StringTable.CampaignPriority,
     ]
 
     @staticmethod

@@ -201,3 +201,9 @@ class _StringTable:
     StateSubType = "State"
     CitySubType = "City"
     PostalCodeSubType = "Postal Code"
+
+    # Bing Shopping Campaigns
+    IsExcluded = "Is Excluded"
+    ParentAdGroupCriterionId = "Parent Criterion Id"
+    CampaignType = "Campaign Type"
+    CampaignPriority = "Priority"

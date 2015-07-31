@@ -1,14 +1,17 @@
-from suds.client import Client, Factory, WebFault  # noqa
+from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT
 from .manifest import USER_AGENT
+from getpass import getuser
+from tempfile import gettempdir
+from os import path
 
 
 class ServiceClient:
     """ Provides an interface for calling the methods of the specified Bing Ads service."""
 
-    def __init__(self, service, authorization_data=None, environment='production'):
+    def __init__(self, service, authorization_data=None, environment='production', **suds_options):
         """ Initializes a new instance of this class.
 
         :param service: The service name.
@@ -17,21 +20,28 @@ class ServiceClient:
         :type authorization_data: AuthorizationData or None
         :param environment: (optional) The environment name, can only be 'production' or 'sandbox', the default is 'production'
         :type environment: str
+        :param suds_options: The suds options need to pass to suds client
         """
 
         self._input_service = service
         self._input_environment = environment
         self._authorization_data = authorization_data
         self._refresh_oauth_tokens_automatically = True
-        self._options = {}
+
+        # TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.
+        if 'cache' not in suds_options:
+            location = path.join(gettempdir(), 'suds', getuser())
+            suds_options['cache'] = ObjectCache(location, days=1)
+        self._options = suds_options
 
         self._service = ServiceClient._format_service(service)
         self._environment = ServiceClient._format_environment(environment)
 
-        self._soap_client = Client(self.service_url)
+        self._soap_client = Client(self.service_url, **suds_options)
 
     def __getattr__(self, name):
         # Set authorization data and options before every service call.
+
         self.set_options(**self._options)
         return _ServiceCall(self, name)
 

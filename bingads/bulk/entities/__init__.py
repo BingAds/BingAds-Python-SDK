@@ -9,6 +9,8 @@ from .bulk_campaign import *
 from .bulk_ad_group import *
 from .bulk_ad_group_product_target import *
 from .bulk_keyword import *
+from .bulk_campaign_product_scope import *
+from .bulk_ad_group_product_partition import *
 
 from .ad_extensions import *
 from .bulk_ads import *

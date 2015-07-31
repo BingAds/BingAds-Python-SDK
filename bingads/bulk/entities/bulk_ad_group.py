@@ -187,6 +187,15 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: c.ad_group.Language,
             csv_to_field=lambda c, v: setattr(c.ad_group, 'Language', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidAdjustment,
+            field_to_csv=lambda c: bulk_str(c.ad_group.NativeBidAdjustment),
+            csv_to_field=lambda c, v: setattr(
+                c.ad_group,
+                'NativeBidAdjustment',
+                int(v) if v else None
+            )
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

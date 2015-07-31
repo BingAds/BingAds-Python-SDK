@@ -41,7 +41,10 @@ class _SingleFieldBulkMapping(with_metaclass(ABCMeta, _BulkMapping)):
         row_values[self.parse_header(entity)] = self.field_to_csv(entity)
 
     def convert_to_entity(self, row_values, entity):
-        self.csv_to_field(entity, row_values[self.parse_header(entity)])
+        # Bulk file can have fewer column than SDK knows, so to have the ability to read old file, if cannot find column
+        # just return None for that column, if it is mandatory, then will throw exception later, if not, then pass.
+
+        self.csv_to_field(entity, row_values.try_get_value(self.parse_header(entity))[1])
 
     @abstractmethod
     def parse_header(self, entity):

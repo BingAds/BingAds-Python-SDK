@@ -5,6 +5,8 @@ from bingads.internal.bulk.entities.single_record_bulk_entity import _SingleReco
 from bingads.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.internal.extensions import bulk_str, csv_to_budget, budget_to_csv
 
+_ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY.create('ShoppingSetting'))
+
 
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
@@ -76,7 +78,101 @@ class BulkCampaign(_SingleRecordBulkEntity):
 
         return self._performance_data
 
+    def _get_shopping_setting(self):
+        if not self.campaign.Settings.Setting:
+            return None
+        shopping_settings = [setting for setting in self.campaign.Settings.Setting if
+                             isinstance(setting, _ShoppingSetting)]
+        if len(shopping_settings) != 1:
+            raise ValueError('Can only have 1 ShoppingSetting in Campaign Settings.')
+        return shopping_settings[0]
+
+    @staticmethod
+    def _write_campaign_type(c):
+        if not c.campaign.CampaignType:
+            return None
+        if len(c.campaign.CampaignType) != 1:
+            raise ValueError("Only 1 CampaignType can be set in Campaign")
+        return c.campaign.CampaignType[0]
+
+    @staticmethod
+    def _read_campaign_type(c, v):
+        if not v:
+            return []
+        campaign_type = v
+        c.campaign.CampaignType = [campaign_type]
+        if campaign_type.lower() == 'shopping':
+            c.campaign.Settings = _CAMPAIGN_OBJECT_FACTORY.create('ArrayOfSetting')
+            shopping_setting = _CAMPAIGN_OBJECT_FACTORY.create('ShoppingSetting')
+            shopping_setting.Type = 'ShoppingSetting'
+            c.campaign.Settings.Setting = [shopping_setting]
+
+    @staticmethod
+    def _write_store_id(c):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            return bulk_str(shopping_setting.StoreId)
+
+    @staticmethod
+    def _read_store_id(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            shopping_setting.StoreId = int(v) if v else None
+
+    @staticmethod
+    def _write_priority(c):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            return bulk_str(shopping_setting.Priority)
+
+    @staticmethod
+    def _read_priority(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            shopping_setting.Priority = int(v) if v else None
+
+    @staticmethod
+    def _write_sales_country_code(c):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            return shopping_setting.SalesCountryCode
+
+    @staticmethod
+    def _read_sales_country_code(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            shopping_setting.SalesCountryCode = v
+
     _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.CampaignType,
+            field_to_csv=lambda c: BulkCampaign._write_campaign_type(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_campaign_type(c, v)
+        ),
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c.campaign.Status),
@@ -119,7 +215,31 @@ class BulkCampaign(_SingleRecordBulkEntity):
                 v if v else None
             )
         ),
-        _ComplexBulkMapping(budget_to_csv, csv_to_budget)
+        _ComplexBulkMapping(budget_to_csv, csv_to_budget),
+        _SimpleBulkMapping(
+            header=_StringTable.BidAdjustment,
+            field_to_csv=lambda c: bulk_str(c.campaign.NativeBidAdjustment),
+            csv_to_field=lambda c, v: setattr(
+                c.campaign,
+                'NativeBidAdjustment',
+                int(v) if v else None
+            )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BingMerchantCenterId,
+            field_to_csv=lambda c: BulkCampaign._write_store_id(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_store_id(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CampaignPriority,
+            field_to_csv=lambda c: BulkCampaign._write_priority(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_priority(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CountryCode,
+            field_to_csv=lambda c: BulkCampaign._write_sales_country_code(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_sales_country_code(c, v)
+        )
     ]
 
     def read_additional_data(self, stream_reader):

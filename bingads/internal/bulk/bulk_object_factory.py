@@ -136,6 +136,8 @@ class _BulkObjectFactory():
             _StringTable.Target,
             lambda: _BulkCampaignTargetIdentifier(target_bid_type=BulkCampaignRadiusTargetBid)
         ),
+        'Campaign Product Scope': _EntityInfo(lambda : BulkCampaignProductScope()),
+        'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition())
     }
 
     ADDITIONAL_OBJECT_MAP = {
