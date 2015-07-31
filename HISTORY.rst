@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+9.3.3 (2015-07-31)
+++++++++++++++++++
+
+* Add Bing Shopping Campaign Support
+* Add Native Ads Support
+
+
 9.3.2 (2015-04-24)
 ++++++++++++++++++
 
