@@ -30,6 +30,7 @@
     <Compile Include="BulkAdExtensions.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BulkShoppingCampaigns.py" />
     <Compile Include="ConsoleGettingStarted.py" />
     <Compile Include="CreateKeywordsAds.py" />
     <Compile Include="BulkCreateKeywordsAds.py" />
