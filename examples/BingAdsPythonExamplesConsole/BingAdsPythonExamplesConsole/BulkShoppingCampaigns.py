@@ -767,6 +767,12 @@ class ProductPartitionHelper:
         self._reference_id=self._reference_id
         self._reference_id-=1
 
+        # Bids for subdivisions are ignored by Bing Ads.
+        # As a workaround to a known Python SDK bug, you can set a FixedBid for the subdivision.
+        # The bug is tentatively scheduled to be fixed in early September 2015.
+        fixed_bid=campaign_service.factory.create('FixedBid')
+        biddable_ad_group_criterion.CriterionBid=fixed_bid
+
         partition_action=BulkAdGroupProductPartition()
         partition_action.client_id=client_id
         partition_action.ad_group_criterion=biddable_ad_group_criterion
