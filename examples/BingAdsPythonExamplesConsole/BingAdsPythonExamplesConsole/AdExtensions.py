@@ -348,12 +348,6 @@ if __name__ == '__main__':
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.DaylightSaving='true' # Accepts 'true', 'false', True, or False
         campaign.Status='Paused'
-        campaign.ForwardCompatibilityMap={
-            'KeyValuePairOfstringstring': { 
-                'key': 'KeywordVariantMatchEnabled', 
-                'value': 'false'  # Accepts 'true' or 'false'
-            }
-        }
         campaigns.Campaign.append(campaign)
 
         campaign_ids=campaign_service.AddCampaigns(
