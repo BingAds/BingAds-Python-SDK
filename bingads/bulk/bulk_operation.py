@@ -17,15 +17,15 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
 
-class Ssl3HttpAdapter(HTTPAdapter):
-    """" Transport adapter" that allows us to use SSLv3. """
+class Ssl23HttpAdapter(HTTPAdapter):
+    """" Transport adapter" that allows us to use SSLv3 and TLS protocols """
 
     def init_poolmanager(self, connections, maxsize, block=False):
         self.poolmanager = PoolManager(
             num_pools=connections,
             maxsize=maxsize,
             block=block,
-            ssl_version=ssl.PROTOCOL_SSLv3,
+            ssl_version=ssl.PROTOCOL_SSLv23,
         )
 
 
@@ -91,7 +91,7 @@ class BulkOperation(object):
             'User-Agent': USER_AGENT,
         }
         s = requests.Session()
-        s.mount('https://', Ssl3HttpAdapter())
+        s.mount('https://', Ssl23HttpAdapter())
         r = s.get(url, headers=headers, stream=True, verify=True)
         r.raise_for_status()
         try:

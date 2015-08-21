@@ -11,7 +11,7 @@ Bing Ads Python SDK
 
 The Bing Ads Python Software Development Kit (SDK) Version 9.3 enhances the experience of developing Bing Ads applications
 with the Python programming language.
-The SDK uses the `suds-jurko`_ library as a proxy for all Bing Ads API web services and abstracts the low level details of authentication with OAuth.
+The SDK includes proxy classes for all Bing Ads API web services and abstracts the low level details of authentication with OAuth.
 You can also read and write bulk files with the SDK BulkFileReader and BulkFileWriter,
 and use the high level BulkServiceManager interface to abstract and execute operations in the low level Bulk API.
 For more information, see `Bing Ads Python SDK`_ on MSDN.

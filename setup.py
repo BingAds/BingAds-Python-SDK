@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '9.3.3'
+VERSION = '9.3.4'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -43,7 +43,7 @@ setup(
     zip_safe=False,
     keywords='bingads',
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',

@@ -277,7 +277,7 @@ class BulkServiceManager:
 
                 filename = '{0}{1}'.format(uuid.uuid1(), ext)
                 s = requests.Session()
-                s.mount('https://', Ssl3HttpAdapter())
+                s.mount('https://', Ssl23HttpAdapter())
                 r = s.post(url, files={'file': (filename, f)}, verify=True, headers=headers)
                 r.raise_for_status()
         except Exception as ex:

@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+9.3.4 (2015-08-20)
+++++++++++++++++++
+
+* Replace SSLv3 with SSLv23 for TLS support
+
+
 9.3.3 (2015-07-31)
 ++++++++++++++++++
 
@@ -15,7 +21,6 @@ Release History
 
 * Add App AdExtension support.
 * Bug Fixes.
-
 
 9.3.1 (2015-03-31)
 ++++++++++++++++++
