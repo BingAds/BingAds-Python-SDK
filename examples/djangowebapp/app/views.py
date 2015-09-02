@@ -196,7 +196,7 @@ def authorize_bing_ads_user(request, authentication, authentication_type, enviro
     # If the current HTTP request is a callback from the Microsoft Account authorization server,
     # use the current request url containing authorization code to request new access and refresh tokens
     elif (authentication_type == 'OAuthWebAuthCodeGrant' and request.GET.get('code') != None):
-        authentication.request_oauth_tokens_by_redirection_uri(response_uri = request.get_full_path()) 
+        authentication.request_oauth_tokens_by_response_uri(response_uri = request.get_full_path()) 
         bingadsuser.refresh_token = authentication.oauth_tokens.refresh_token
 
     # If there is no refresh token saved and no callback from the authorization server, 
