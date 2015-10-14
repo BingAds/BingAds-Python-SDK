@@ -75,7 +75,9 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
 
     @classmethod
     def _write_bid(cls, entity):
-        if isinstance(entity.ad_group_criterion, _BiddableAdGroupCriterion):
+        criterion = entity.ad_group_criterion
+        if isinstance(criterion, _BiddableAdGroupCriterion) and \
+                criterion.CriterionBid is not None and hasattr(criterion.CriterionBid, 'Bid'):
             return ad_group_bid_bulk_str(entity.ad_group_criterion.CriterionBid.Bid)
         else:
             return None
@@ -100,6 +102,39 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
             entity.ad_group_criterion.DestinationUrl = row_value
         else:
             pass
+
+    @classmethod
+    def _get_partition_type(cls, entity):
+        if entity.ad_group_criterion.Criterion is not None and \
+                hasattr(entity.ad_group_criterion.Criterion, 'PartitionType'):
+            return entity.ad_group_criterion.Criterion.PartitionType
+        return None
+
+    @classmethod
+    def _get_parent_criterion_id(cls, entity):
+        if entity.ad_group_criterion.Criterion is not None and \
+                hasattr(entity.ad_group_criterion.Criterion, 'ParentCriterionId'):
+            return bulk_str(entity.ad_group_criterion.Criterion.ParentCriterionId)
+        return None
+
+    @classmethod
+    def _get_condition_operand(cls, entity):
+        if entity.ad_group_criterion.Criterion is not None and \
+                hasattr(entity.ad_group_criterion.Criterion, 'Condition') and \
+                entity.ad_group_criterion.Criterion.Condition is not None and \
+                hasattr(entity.ad_group_criterion.Criterion.Condition, 'Operand'):
+            return entity.ad_group_criterion.Criterion.Condition.Operand
+        return None
+
+    @classmethod
+    def _get_condition_attribute(cls, entity):
+        if entity.ad_group_criterion.Criterion is not None and \
+                hasattr(entity.ad_group_criterion.Criterion, 'Condition') and \
+                entity.ad_group_criterion.Criterion.Condition is not None and \
+                hasattr(entity.ad_group_criterion.Criterion.Condition, 'Attribute'):
+            return entity.ad_group_criterion.Criterion.Condition.Attribute
+        return None
+
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -134,23 +169,23 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             _StringTable.SubType,
-            field_to_csv=lambda c: c.ad_group_criterion.Criterion.PartitionType,
+            field_to_csv=lambda c: BulkAdGroupProductPartition._get_partition_type(c),
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion.Criterion, 'PartitionType', v)
         ),
         _SimpleBulkMapping(
             _StringTable.ParentAdGroupCriterionId,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Criterion.ParentCriterionId),
+            field_to_csv=lambda c: BulkAdGroupProductPartition._get_parent_criterion_id(c),
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion.Criterion, 'ParentCriterionId',
                                               int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.ProductCondition1,
-            field_to_csv=lambda c: c.ad_group_criterion.Criterion.Condition.Operand,
+            field_to_csv=lambda c: BulkAdGroupProductPartition._get_condition_operand(c),
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion.Criterion.Condition, 'Operand', v)
         ),
         _SimpleBulkMapping(
             _StringTable.ProductValue1,
-            field_to_csv=lambda c: c.ad_group_criterion.Criterion.Condition.Attribute,
+             field_to_csv=lambda c: BulkAdGroupProductPartition._get_condition_attribute(c),
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion.Criterion.Condition, 'Attribute', v)
         ),
         _SimpleBulkMapping(

@@ -1,7 +1,7 @@
 from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .authorization import *
-from .service_info import SERVICE_INFO_DICT
+from .service_info import SERVICE_INFO_DICT, SERVICE_INFO_DICT_V10
 from .manifest import USER_AGENT
 from getpass import getuser
 from tempfile import gettempdir
@@ -11,7 +11,7 @@ from os import path
 class ServiceClient:
     """ Provides an interface for calling the methods of the specified Bing Ads service."""
 
-    def __init__(self, service, authorization_data=None, environment='production', **suds_options):
+    def __init__(self, service, authorization_data=None, environment='production', version='v9', **suds_options):
         """ Initializes a new instance of this class.
 
         :param service: The service name.
@@ -20,6 +20,7 @@ class ServiceClient:
         :type authorization_data: AuthorizationData or None
         :param environment: (optional) The environment name, can only be 'production' or 'sandbox', the default is 'production'
         :type environment: str
+        :param version: to specify the service version, only support v9 and v10, valid input is: 9, 10, 'v9', 'v10'
         :param suds_options: The suds options need to pass to suds client
         """
 
@@ -27,6 +28,7 @@ class ServiceClient:
         self._input_environment = environment
         self._authorization_data = authorization_data
         self._refresh_oauth_tokens_automatically = True
+        self._version = ServiceClient._format_version(version)
 
         # TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.
         if 'cache' not in suds_options:
@@ -91,10 +93,12 @@ class ServiceClient:
         """
 
         key = (self._service, self._environment)
-        if key not in SERVICE_INFO_DICT:
+        service_info_dict = ServiceClient._get_service_info_dict(self._version)
+        if key not in service_info_dict:
             raise ValueError(str.format('cannot find the service: [{0}] under environment: [{1}]',
                                         self._input_service, self._input_environment))
-        return SERVICE_INFO_DICT[(self._service, self._environment)].url
+        return service_info_dict[(self._service, self._environment)].url
+
 
     @property
     def refresh_oauth_tokens_automatically(self):
@@ -174,6 +178,38 @@ class ServiceClient:
         if service.endswith('service'):
             service = service.replace('service', '')  # remove postfix "service" if any
         return service
+
+    @staticmethod
+    def _format_version(version):
+        """
+        format the version to a int value.
+        :param version:
+        :return: int version
+        """
+        if version == 'v9' or version == 9:
+            version = 9
+        elif version == 'v10' or version == 10:
+            version = 10
+        else:
+            raise ValueError(str.format('version error: [{0}] is not supported.', version))
+        return version
+
+
+    @staticmethod
+    def _get_service_info_dict(version):
+        """
+        Get the service information dict by version
+        :param version:
+        :return: the service info dict
+        """
+        if version == 9:
+            return SERVICE_INFO_DICT
+        elif version == 10:
+            return SERVICE_INFO_DICT_V10
+        else:
+            # Should not run to here, set default to v10
+            return SERVICE_INFO_DICT_V10
+
 
     @staticmethod
     def _format_environment(environment):
@@ -257,6 +293,7 @@ import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
 
+# for v9
 _CAMPAIGN_MANAGEMENT_SERVICE = Client(
     'file:///' + pkg_resources.resource_filename('bingads', 'proxies/campaign_management_service.xml')
 )
@@ -265,6 +302,16 @@ _CAMPAIGN_OBJECT_FACTORY = _CAMPAIGN_MANAGEMENT_SERVICE.factory
 # TODO Better to push suds-jurko accept this caching
 _CAMPAIGN_OBJECT_FACTORY.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY.create_without_cache = _CAMPAIGN_OBJECT_FACTORY.create
+
+
+
+_CAMPAIGN_MANAGEMENT_SERVICE_V10 = Client(
+    'file:///' + pkg_resources.resource_filename('bingads', 'v10/proxies/campaign_management_service.xml')
+)
+_CAMPAIGN_OBJECT_FACTORY_V10 = _CAMPAIGN_MANAGEMENT_SERVICE_V10.factory
+# TODO Better to push suds-jurko accept this caching
+_CAMPAIGN_OBJECT_FACTORY_V10.object_cache = {}
+_CAMPAIGN_OBJECT_FACTORY_V10.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V10.create
 
 
 def _suds_objects_deepcopy(origin):
@@ -297,3 +344,4 @@ def _create_with_cache(self, name):
     return copied_obj
 
 _CAMPAIGN_OBJECT_FACTORY.create = types.MethodType(_create_with_cache, _CAMPAIGN_OBJECT_FACTORY)
+_CAMPAIGN_OBJECT_FACTORY_V10.create = types.MethodType(_create_with_cache, _CAMPAIGN_OBJECT_FACTORY_V10)

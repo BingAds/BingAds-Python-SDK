@@ -2,14 +2,18 @@ from datetime import datetime
 
 from bingads.internal.bulk.string_table import _StringTable
 from six import PY2
-
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY
+import re
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY, _CAMPAIGN_OBJECT_FACTORY_V10
 
 
 DELETE_VALUE = "delete_value"
 _BULK_DATETIME_FORMAT = '%m/%d/%Y %H:%M:%S'
 _BULK_DATETIME_FORMAT_2 = '%m/%d/%Y %H:%M:%S.%f'
 _BULK_DATE_FORMAT = "%m/%d/%Y"
+
+url_splitter = ";\\s*(?=https?://)"
+custom_param_splitter = "(?<!\\\\);\\s*"
+custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
 
 
 def bulk_str(value):
@@ -88,7 +92,7 @@ def bulk_optional_str(value):
 
 def csv_to_status(c, v):
     if v == 'Expired':
-        c.ad_group.Status = 'Deleted'
+        c.ad_group.Status = 'Expired'
         c._is_expired = True
     else:
         c.ad_group.Status = v if v else None
@@ -144,6 +148,103 @@ def parse_device_preference(value):
         return 30001
     else:
         raise ValueError("Unknown device preference")
+
+def field_to_csv_MediaIds(entity):
+    """
+    MediaIds field to csv content
+    :param entity: entity which has MediaIds attribute
+    :return:
+    """
+    # media_ids? "ns4:ArrayOflong"
+    media_ids = entity.ImageMediaIds
+    if media_ids is None or len(media_ids) == 0:
+        return None
+    return ';'.join(str(media_id) for media_id in media_ids)
+
+
+def csv_to_field_MediaIds(entity, value):
+    """
+    MediaIds csv to entity
+    :param entity:
+    :return:
+    """
+    # media_ids? "ns4:ArrayOflong"
+    entity.ImageMediaIds = [None if i == 'None' else int(i) for i in value.split(';')]
+
+
+# None and empty string will set to empty string
+def escape_parameter_text(s):
+    return '' if not s else s.replace('\\', '\\\\').replace(';', '\\;')
+
+
+def unescape_parameter_text(s):
+    return '' if not s else s.replace('\\\\', '\\').replace('\\;', ';')
+
+
+def field_to_csv_UrlCustomParameters(entity):
+    """
+    transfer the CustomParameters of a entity to csv content (string)
+    :param entity: the entity which contains UrlCustomparameters attribute
+    :return: csv string content
+    """
+    if entity is None or entity.UrlCustomParameters is None:
+        return None
+    if entity.UrlCustomParameters.Parameters is None or entity.UrlCustomParameters.Parameters.CustomParameter is None:
+        return DELETE_VALUE
+    # The default case when entity created
+    if len(entity.UrlCustomParameters.Parameters.CustomParameter) == 0:
+        return None
+    params = []
+    for parameter in entity.UrlCustomParameters.Parameters.CustomParameter:
+        params.append('{{_{0}}}={1}'.format(parameter.Key, escape_parameter_text(parameter.Value)))
+    return '; '.join(params)
+
+
+def csv_to_field_UrlCustomParameters(entity, value):
+    if value is None or value.strip() == '':
+        return
+    splitter = re.compile(custom_param_splitter)
+    pattern = re.compile(custom_param_pattern)
+    #params = _CAMPAIGN_OBJECT_FACTORY_V10.create("ns0:ArrayOfCustomParameter")
+    params = []
+    param_strs = splitter.split(value)
+    for param_str in param_strs:
+        match = pattern.match(param_str)
+        if match:
+            custom_parameter = _CAMPAIGN_OBJECT_FACTORY_V10.create("ns0:CustomParameter")
+            custom_parameter.Key = match.group(1)
+            custom_parameter.Value = unescape_parameter_text(match.group(2))
+            params.append(custom_parameter)
+    if len(params) > 0:
+        entity.UrlCustomParameters.Parameters.CustomParameter = params
+
+
+def csv_to_field_Urls(entity, value):
+    """
+    set FinalUrls / FinalMobileUrls string field
+    :param entity: FinalUrls / FinalMobileUrls
+    :param value: the content in csv
+    :return:set field values
+    """
+    if value is None or value == '':
+        return
+    splitter = re.compile(url_splitter)
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_Urls(entity):
+    """
+    parse entity to csv content
+    :param entity: FinalUrls / FinalMobileUrls
+    :return: csv content
+    """
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE
+    if len(entity.string) == 0:
+        return None
+    return '; '.join(entity.string)
 
 
 def ad_rotation_bulk_str(value):

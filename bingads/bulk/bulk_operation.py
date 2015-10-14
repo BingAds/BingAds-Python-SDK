@@ -5,6 +5,7 @@ import requests
 import zipfile
 import os
 import six
+import sys
 
 from .bulk_operation_status import *
 from .bulk_operation_progress_info import *
@@ -17,15 +18,17 @@ from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
 
-class Ssl23HttpAdapter(HTTPAdapter):
-    """" Transport adapter" that allows us to use SSLv3 and TLS protocols """
+class TlsHttpAdapter(HTTPAdapter):
+    """" Transport adapter that chooses the TLS protocols based on python versions. """
 
     def init_poolmanager(self, connections, maxsize, block=False):
+        ssl_version = ssl.PROTOCOL_TLSv1 if sys.version_info < (2, 7, 9) or sys.version_info[0:2] == (3, 3) \
+                                         else ssl.PROTOCOL_SSLv23
         self.poolmanager = PoolManager(
             num_pools=connections,
             maxsize=maxsize,
             block=block,
-            ssl_version=ssl.PROTOCOL_SSLv23,
+            ssl_version=ssl_version
         )
 
 
@@ -39,7 +42,7 @@ class BulkOperation(object):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production', ):
         self._request_id = request_id
         self._service_client = ServiceClient('BulkService', authorization_data, environment)
@@ -91,7 +94,7 @@ class BulkOperation(object):
             'User-Agent': USER_AGENT,
         }
         s = requests.Session()
-        s.mount('https://', Ssl23HttpAdapter())
+        s.mount('https://', TlsHttpAdapter())
         r = s.get(url, headers=headers, stream=True, verify=True)
         r.raise_for_status()
         try:
@@ -175,7 +178,7 @@ class BulkDownloadOperation(BulkOperation):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production', ):
         super(BulkDownloadOperation, self).__init__(
             request_id=request_id,
@@ -256,7 +259,7 @@ class BulkUploadOperation(BulkOperation):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production', ):
         super(BulkUploadOperation, self).__init__(
             request_id=request_id,

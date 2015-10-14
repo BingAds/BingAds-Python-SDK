@@ -24,15 +24,17 @@ class AuthorizationData:
         """ Initialize an instance of this class.
 
         :param account_id: The identifier of the account that owns the entities in the request.
-                            Used as the CustomerAccountId header and the AccountId body elements in calls to the Bing Ads web services.
+                            Used as the CustomerAccountId header and the AccountId body elements
+                            in calls to the Bing Ads web services.
         :type account_id: int
         :param customer_id: The identifier of the customer that owns the account.
                             Used as the CustomerId header element in calls to the Bing Ads web services.
         :type customer_id: int
         :param developer_token: The Bing Ads developer access token.
-                                Used as the DeveloperToken header element in calls to the Bing Ads web services.
+                            Used as the DeveloperToken header element in calls to the Bing Ads web services.
         :type developer_token: str
-        :param authentication: An object representing the authentication method that should be used in calls to the Bing Ads web services.
+        :param authentication: An object representing the authentication method that should be used in calls
+                            to the Bing Ads web services.
         :type authentication: Authentication
         """
 
@@ -135,12 +137,15 @@ class Authentication(object):
 class PasswordAuthentication(Authentication):
     """ Represents a legacy Bing Ads authentication method using user name and password.
 
-    You can use an instance of this class as the authentication property of a :class:`.AuthorizationData` object to authenticate with Bing Ads services.
+    You can use an instance of this class as the authentication property of a :class:`.AuthorizationData` object to
+    authenticate with Bing Ads services.
     Existing users with legacy Bing Ads credentials may continue to specify the UserName and Password header elements.
     In future versions of the API, Bing Ads will transition exclusively to Microsoft Account authentication.
-    New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must use OAuth.
-    For example instead of using this :class:`.PasswordAuthentication` class, you would authenticate with an instance of either
-    :class:`.OAuthDesktopMobileAuthCodeGrant`, :class:`.OAuthDesktopMobileImplicitGrant`, or :class:`.OAuthWebAuthCodeGrant`.
+    New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must
+    use OAuth.
+    For example instead of using this :class:`.PasswordAuthentication` class, you would authenticate with an instance
+    of either :class:`.OAuthDesktopMobileAuthCodeGrant`, :class:`.OAuthDesktopMobileImplicitGrant`,
+    or :class:`.OAuthWebAuthCodeGrant`.
     """
 
     def __init__(self, user_name, password):
@@ -192,7 +197,7 @@ class OAuthTokens:
 
         :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.
         :type access_token: (optional) str or None
-        :param access_token_expires_in_seconds: (optional) Expiration time for the corresponding access token in seconds.
+        :param access_token_expires_in_seconds: (optional) The access token expiration time in seconds.
         :type access_token_expires_in_seconds: int or None
         :param refresh_token: (optional) OAuth refresh token that can be user to refresh an access token.
         :type refresh_token: str or None
@@ -261,7 +266,8 @@ class OAuthAuthorization(Authentication):
         """ The client identifier corresponding to your registered application.
 
         For more information about using a client identifier for authentication, see the
-        Client Password Authentication section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1
+        Client Password Authentication section of the OAuth 2.0 spec at
+        http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1
 
         :rtype: str
         """
@@ -306,9 +312,10 @@ class OAuthAuthorization(Authentication):
 class OAuthWithAuthorizationCode(OAuthAuthorization):
     """ Represents a proxy to the Microsoft account authorization service.
 
-    Implement an extension of this class in compliance with the authorization code grant flow for Managing User Authentication with OAuth
-    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
+    Implement an extension of this class in compliance with the authorization code grant flow for Managing User
+    Authentication with OAuth documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0
+    flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at
+    http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
@@ -317,7 +324,8 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param client_secret: The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.
+        :param client_secret: The client secret corresponding to your registered application, or null if your app is a
+        desktop or mobile app.
         :type client_secret: str or None
         :param redirection_uri: The URI to which the user of the app will be redirected after receiving user consent.
         :type redirection_uri: str
@@ -442,7 +450,8 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
 
 
 class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
-    """ Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop or mobile application.
+    """ Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop
+    or mobile application.
 
     You can use an instance of this class as the AuthorizationData.Authentication property
     of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.

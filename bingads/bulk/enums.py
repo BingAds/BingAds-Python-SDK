@@ -5,10 +5,10 @@ class DownloadFileType(Enum):
     """ Defines the file formats for a download request. """
 
     tsv = 1
-    """ The file format is comma separated values (CSV). """
+    """ The file format is tab separated values (TSV). """
 
     csv = 2
-    """ The file format is tab separated values (TSV). """
+    """ The file format is comma separated values (CSV). """
 
 
 class ResultFileType(Enum):

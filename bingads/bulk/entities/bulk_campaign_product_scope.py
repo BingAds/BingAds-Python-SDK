@@ -32,6 +32,14 @@ class BulkCampaignProductScope(_SingleRecordBulkEntity):
         self._status = status
         self._campaign_criterion = campaign_criterion
 
+    @classmethod
+    def _add_product_condition_to_row_values(cls, entity, value):
+        criterion = entity.campaign_criterion.Criterion
+        if criterion is not None and hasattr(criterion, 'Conditions') and criterion.Conditions is not None and \
+                hasattr(criterion.Conditions, 'ProductCondition'):
+            return _ProductConditionHelper.add_row_values_from_conditions(criterion.Conditions.ProductCondition, value)
+        return None
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Status,
@@ -54,10 +62,7 @@ class BulkCampaignProductScope(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'campaign_name', v)
         ),
         _ComplexBulkMapping(
-            entity_to_csv=lambda c, v: _ProductConditionHelper.add_row_values_from_conditions(
-                c.campaign_criterion.Criterion.Conditions.ProductCondition,
-                v
-            ),
+            entity_to_csv=lambda c, v: BulkCampaignProductScope._add_product_condition_to_row_values(c, v),
             csv_to_entity=lambda v, c: _ProductConditionHelper.add_conditions_from_row_values(
                 v,
                 c.campaign_criterion.Criterion.Conditions.ProductCondition
