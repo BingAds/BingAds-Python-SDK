@@ -9,12 +9,9 @@ Bing Ads Python SDK
         :target: https://pypi.python.org/pypi/bingads
 
 
-The Bing Ads Python Software Development Kit (SDK) Version 10.4 enhances the experience of developing Bing Ads applications
-with the Python programming language.
-The SDK includes proxy classes for all Bing Ads API web services and abstracts the low level details of authentication with OAuth.
-You can also read and write bulk files with the SDK BulkFileReader and BulkFileWriter,
-and use the high level BulkServiceManager interface to abstract and execute operations in the low level Bulk API.
-For more information, see `Bing Ads Python SDK`_ on MSDN.
+You can develop Bing Ads applications with any programming language that supports web services. The Bing Ads Python Software Development Kit (SDK) Version 10.4 enhances the experience of developing Bing Ads applications
+with the Python programming language. The SDK includes a proxy to all Bing Ads API web services and abstracts low level details of authentication with OAuth. You can use the high level BulkServiceManager and ReportingServiceManager interfaces to abstract and execute operations in the low level Bulk and Reporting services. For example instead of calling SubmitGenerateReport and PollGenerateReport to download a report, you download a report using one method with the ReportingServiceManager class.
+For more information, see `Bing Ads Client Libraries`_ on MSDN.
 
 Getting Started
 ---------------
@@ -33,7 +30,7 @@ External Dependencies
     - `six`_
     - `enum34`_
 
-.. _Bing Ads Python SDK: https://msdn.microsoft.com/en-US/library/bing-ads-python-sdk.aspx
+.. _Bing Ads Python SDK: https://msdn.microsoft.com/en-US/library/bing-ads-client-libraries.aspx
 .. _examples: https://github.com/bing-ads-sdk/BingAds-Python-SDK/tree/master/examples
 .. _Getting Started Using Python with Bing Ads Services: https://msdn.microsoft.com/en-US/library/bing-ads-overview-getting-started-python-with-web-services.aspx
 
