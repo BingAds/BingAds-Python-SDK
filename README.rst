@@ -30,7 +30,7 @@ External Dependencies
     - `six`_
     - `enum34`_
 
-.. _Bing Ads Python SDK: https://msdn.microsoft.com/en-US/library/bing-ads-client-libraries.aspx
+.. _Bing Ads Client Libraries: https://msdn.microsoft.com/en-US/library/bing-ads-client-libraries.aspx
 .. _examples: https://github.com/bing-ads-sdk/BingAds-Python-SDK/tree/master/examples
 .. _Getting Started Using Python with Bing Ads Services: https://msdn.microsoft.com/en-US/library/bing-ads-overview-getting-started-python-with-web-services.aspx
 
