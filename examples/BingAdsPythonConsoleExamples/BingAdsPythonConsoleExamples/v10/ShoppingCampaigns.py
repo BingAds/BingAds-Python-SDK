@@ -1,8 +1,11 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -30,18 +33,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
-    )
-
-    reporting_service=ServiceClient(
-        'ReportingService', 
-        authorization_data=authorization_data, 
-        environment=ENVIRONMENT,
+        version=9,
     )
         
 
@@ -255,21 +254,15 @@ def output_webfault_errors(ex):
         raise Exception('Unknown WebFault')
 
 def output_campaign_ids(campaign_ids):
-    if not hasattr(campaign_ids, 'long'):
-        return None
-    for id in campaign_ids:
+    for id in campaign_ids['long']:
         output_status_message("Campaign successfully added and assigned CampaignId {0}\n".format(id))
 
 def output_ad_group_ids(ad_group_ids):
-    if not hasattr(ad_group_ids, 'long'):
-        return None
-    for id in ad_group_ids:
+    for id in ad_group_ids['long']:
         output_status_message("AdGroup successfully added and assigned AdGroupId {0}\n".format(id))
 
 def output_ad_results(ads, ad_ids, ad_errors):
-    if not hasattr(ad_ids, 'long'):
-        return None
-
+    
     # Since len(ads['Ad']) and len(ad_errors['long']) usually differ, we will need to adjust the ad_errors index 
     # as successful indices are counted. 
     success_count=0 
@@ -287,7 +280,8 @@ def output_ad_results(ads, ad_ids, ad_errors):
         else:
             attribute_value="Invalid Ad Type for Shopping Campaigns"
         
-        if ad_errors \
+        if ad_errors is not None \
+            and ad_errors['BatchError'] is not None \
             and ad_index < len(ad_errors['BatchError']) + success_count \
             and ad_index == ad_errors['BatchError'][error_index].Index:
             # One ad may have multiple errors, for example editorial errors in multiple publisher countries
@@ -315,7 +309,7 @@ def output_product_partitions(ad_group_criterions):
     """
     Outputs the list of AdGroupCriterion, formatted as a tree. 
     Each AdGroupCriterion must be either a BiddableAdGroupCriterion or NegativeAdGroupCriterion. 
-    To ensure the complete tree is represented, you should first call GetAdGroupCriterionsByAdGroupId 
+    To ensure the complete tree is represented, you should first call GetAdGroupCriterionsByIds 
     where CriterionTypeFilter is ProductPartition, and pass the returned list of AdGroupCriterion to this method. 
 
     :param ad_group_criterions: The list of ad group criterions to output formatted as a tree.
@@ -386,7 +380,7 @@ def output_product_partition_tree(node, child_branches, tree_level):
             )
            
 
-    null_attribute="(All other)" if node.Criterion.ParentCriterionId != None else "(Tree Root)"
+    null_attribute="(All other)" if node.Criterion.ParentCriterionId is not None else "(Tree Root)"
     output_status_message("{0}Attribute: {1}".format(
         pad,
         null_attribute if node.Criterion.Condition.Attribute is None else node.Criterion.Condition.Attribute)
@@ -468,7 +462,7 @@ class PartitionActionHelper:
         biddable_ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
         product_partition=campaign_service.factory.create('ProductPartition')
         # If the root node is a unit, it would not have a parent
-        product_partition.ParentCriterionId=parent.Id if parent != None else None
+        product_partition.ParentCriterionId=parent.Id if parent is not None else None
         product_partition.Condition=condition
         product_partition.PartitionType='Subdivision'
         biddable_ad_group_criterion.Criterion=product_partition
@@ -524,7 +518,7 @@ class PartitionActionHelper:
 
         product_partition=campaign_service.factory.create('ProductPartition')
         # If the root node is a unit, it would not have a parent
-        product_partition.ParentCriterionId=parent.Id if parent != None else None
+        product_partition.ParentCriterionId=parent.Id if parent is not None else None
         product_partition.Condition=condition
         product_partition.PartitionType='Unit'
         ad_group_criterion.Criterion=product_partition=product_partition
@@ -586,11 +580,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -608,15 +602,13 @@ if __name__ == '__main__':
             output_status_message(
                 "You do not have any BMC stores registered for CustomerId {0}.\n".format(authorization_data.customer_id)
             )
+            sys.exit(0)
 
-        #region ManageCampaign
-
-        
         #Add a new Bing Shopping campaign that will be associated with a ProductScope criterion.
         # - Set the CampaignType element of the Campaign to Shopping.
         # - Create a ShoppingSetting instance and set its Priority (0, 1, or 2), SalesCountryCode, and StoreId elements. 
         #   Add this shopping setting to the Settings list of the Campaign.
-        
+
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=campaign_service.factory.create('Campaign')
         settings=campaign_service.factory.create('ArrayOfSetting')
@@ -626,7 +618,7 @@ if __name__ == '__main__':
         setting.StoreId=stores[0].Id
         settings.Setting.append(setting)
         campaign.Settings=settings
-        campaign.CampaignType='Shopping'
+        campaign.CampaignType=['Shopping']
         campaign.Name='Bing Shopping Campaign ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description='Bing Shopping Campaign Example.'
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
@@ -636,18 +628,22 @@ if __name__ == '__main__':
         campaign.Status='Paused'
         campaigns.Campaign.append(campaign)
 
-        campaign_ids=campaign_service.AddCampaigns(
+        add_campaigns_response=campaign_service.AddCampaigns(
             AccountId=authorization_data.account_id,
             Campaigns=campaigns
-        )['long']
-
+        )
+        campaign_ids={
+            'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
+        }
+        
         output_campaign_ids(campaign_ids)
 
+        
         #Optionally, you can create a ProductScope criterion that will be associated with your Bing Shopping campaign. 
         #Use the product scope criterion to include a subset of your product catalog, for example a specific brand, 
         #category, or product type. A campaign can only be associated with one ProductScope, which contains a list 
         #of up to 7 ProductCondition. You'll also be able to specify more specific product conditions for each ad group.
-        
+
         campaign_criterions=campaign_service.factory.create('ArrayOfCampaignCriterion')
         campaign_criterion=campaign_service.factory.create('CampaignCriterion')
         product_scope=campaign_service.factory.create('ProductScope')
@@ -661,7 +657,7 @@ if __name__ == '__main__':
         condition_custom_label_0.Attribute='MerchantDefinedCustomLabel'
         conditions.ProductCondition.append(condition_custom_label_0)
         product_scope.Conditions=conditions
-        campaign_criterion.CampaignId=campaign_ids[0],
+        campaign_criterion.CampaignId=campaign_ids['long'][0]
         campaign_criterion.BidAdjustment=None # Reserved for future use
         campaign_criterion.Criterion=product_scope
         campaign_criterions.CampaignCriterion.append(campaign_criterion)
@@ -670,17 +666,13 @@ if __name__ == '__main__':
             CampaignCriterions=campaign_criterions,
             CriterionType='ProductScope'
         )
-
-        #endregion ManageCampaign
-
-        #region ManageAdGroup
-
+        
         # Specify one or more ad groups.
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
         ad_group=campaign_service.factory.create('AdGroup')
         ad_group.Name="Product Categories"
-        ad_group.AdDistribution='Search'
+        ad_group.AdDistribution=['Search']
         ad_group.BiddingModel='Keyword'
         ad_group.PricingModel='Cpc'
         ad_group.Network=None
@@ -693,15 +685,19 @@ if __name__ == '__main__':
         ad_group.Language='English'
         ad_groups.AdGroup.append(ad_group)
 
-        ad_group_ids=campaign_service.AddAdGroups(
-            CampaignId=campaign_ids[0],
+        add_ad_groups_response=campaign_service.AddAdGroups(
+            CampaignId=campaign_ids['long'][0],
             AdGroups=ad_groups
-        )['long']
+        )
+        ad_group_ids={
+            'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
+        }
+
         output_ad_group_ids(ad_group_ids)
 
-        #region BidAllProducts
+        # Bid on all products
 
-        helper=PartitionActionHelper(ad_group_ids[0])
+        helper=PartitionActionHelper(ad_group_ids['long'][0])
         
         root_condition=campaign_service.factory.create('ProductCondition')
         root_condition.Operand='All'
@@ -719,10 +715,11 @@ if __name__ == '__main__':
             CriterionActions=helper.partition_actions
         )
 
-        ad_group_criterions=campaign_service.GetAdGroupCriterionsByAdGroupId(
+        ad_group_criterions=campaign_service.GetAdGroupCriterionsByIds(
             AccountId=authorization_data.account_id,
-            AdGroupId=ad_group_ids[0],
-            CriterionTypeFilter='ProductPartition'
+            AdGroupId=ad_group_ids['long'][0],
+            AdGroupCriterionIds=None,
+            CriterionType='ProductPartition'
         )
 
         output_status_message("The ad group's product partition only has a tree root node: \n")
@@ -738,7 +735,7 @@ if __name__ == '__main__':
         updated_root.Id=apply_product_partition_actions_response.AdGroupCriterionIds['long'][0]
         updated_root.CriterionBid=fixed_bid
                 
-        helper=PartitionActionHelper(ad_group_ids[0])
+        helper=PartitionActionHelper(ad_group_ids['long'][0])
         helper.update_partition(updated_root)
 
         output_status_message("Updating the bid for the tree root node . . . \n")
@@ -746,19 +743,17 @@ if __name__ == '__main__':
             CriterionActions=helper.partition_actions
         )
 
-        ad_group_criterions=campaign_service.GetAdGroupCriterionsByAdGroupId(
+        ad_group_criterions=campaign_service.GetAdGroupCriterionsByIds(
             AccountId=authorization_data.account_id,
-            AdGroupId=ad_group_ids[0],
-            CriterionTypeFilter='ProductPartition'
+            AdGroupId=ad_group_ids['long'][0],
+            AdGroupCriterionIds=None,
+            CriterionType='ProductPartition'
         )
 
         output_status_message("Updated the bid for the tree root node: \n")
         output_product_partitions(ad_group_criterions)
 
-        #endregion BidAllProducts
         
-        #region InitializeTree
-
         #Now we will overwrite any existing tree root, and build a product partition group tree structure in multiple steps. 
         #You could build the entire tree in a single call since there are less than 5,000 nodes; however, 
         #we will build it in steps to demonstrate how to use the results from ApplyProductPartitionActions to update the tree. 
@@ -766,14 +761,16 @@ if __name__ == '__main__':
         #For a list of validation rules, see the Bing Shopping Campaigns technical guide:
         #https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-bing-shopping-campaigns.aspx
         
-        helper=PartitionActionHelper(ad_group_ids[0])
+
+        helper=PartitionActionHelper(ad_group_ids['long'][0])
 
         #Check whether a root node exists already.
 
-        ad_group_criterions=campaign_service.GetAdGroupCriterionsByAdGroupId(
+        ad_group_criterions=campaign_service.GetAdGroupCriterionsByIds(
             AccountId=authorization_data.account_id,
-            AdGroupId=ad_group_ids[0],
-            CriterionTypeFilter='ProductPartition'
+            AdGroupId=ad_group_ids['long'][0],
+            AdGroupCriterionIds=None,
+            CriterionType='ProductPartition'
         )
 
         existing_root=get_root_node(ad_group_criterions)
@@ -788,6 +785,7 @@ if __name__ == '__main__':
             root_condition
         )
 
+        
         #The direct children of any node must have the same Operand. 
         #For this example we will use CategoryL1 nodes as children of the root. 
         #For a list of valid CategoryL1 through CategoryL5 values, see the Bing Category Taxonomy:
@@ -801,6 +799,7 @@ if __name__ == '__main__':
             animals_condition
         )
 
+        
         #If you use a CategoryL2 node, it must be a descendant (child or later) of a CategoryL1 node. 
         #In other words you cannot have a CategoryL2 node as parent of a CategoryL1 node. 
         #For this example we will a CategoryL2 node as child of the CategoryL1 Animals & Pet Supplies node. 
@@ -823,6 +822,7 @@ if __name__ == '__main__':
             False
         )
 
+        
         #If you won't bid on Brand B, set the helper method's bidAmount to '0' and isNegative to True. 
         #The helper method will create a NegativeAdGroupCriterion and apply the condition.
         
@@ -881,13 +881,14 @@ if __name__ == '__main__':
             CriterionActions=helper.partition_actions
         )
 
-        # To retrieve product partitions after they have been applied, call GetAdGroupCriterionsByAdGroupId. 
+        # To retrieve product partitions after they have been applied, call GetAdGroupCriterionsByIds. 
         # The product partition with ParentCriterionId set to null is the root node.
 
-        ad_group_criterions=campaign_service.GetAdGroupCriterionsByAdGroupId(
+        ad_group_criterions=campaign_service.GetAdGroupCriterionsByIds(
             AccountId=authorization_data.account_id,
-            AdGroupId=ad_group_ids[0],
-            CriterionTypeFilter='ProductPartition'
+            AdGroupId=ad_group_ids['long'][0],
+            AdGroupCriterionIds=None,
+            CriterionType='ProductPartition'
         )
 
         
@@ -911,14 +912,9 @@ if __name__ == '__main__':
         #|   
         #+-- All other (CategoryL1)
 
-        
         output_status_message("The product partition group tree now has 9 nodes: \n")
         output_product_partitions(ad_group_criterions)
-
-        #endregion InitializeTree
-
-        #region UpdateTree
-
+        
         
         #Let's replace the Electronics (CategoryL1) node created above with an Electronics (CategoryL1) node that 
         #has children i.e. Brand C (Brand), Brand D (Brand), and All other (Brand) as follows: 
@@ -930,10 +926,10 @@ if __name__ == '__main__':
         #+-- Brand D (Brand)
         #|
         #+-- All other (Brand)
-           
-        
-        helper=PartitionActionHelper(ad_group_ids[0])
 
+        helper=PartitionActionHelper(ad_group_ids['long'][0])
+
+        
         #To replace a node we must know its Id and its ParentCriterionId. In this case the parent of the node 
         #we are replacing is All other (Root Node), and was created at Index 1 of the previous ApplyProductPartitionActions call. 
         #The node that we are replacing is Electronics (CategoryL1), and was created at Index 8. 
@@ -990,10 +986,11 @@ if __name__ == '__main__':
             CriterionActions=helper.partition_actions
         )
                 
-        ad_group_criterions=campaign_service.GetAdGroupCriterionsByAdGroupId(
+        ad_group_criterions=campaign_service.GetAdGroupCriterionsByIds(
             AccountId=authorization_data.account_id,
-            AdGroupId=ad_group_ids[0],
-            CriterionTypeFilter='ProductPartition'
+            AdGroupId=ad_group_ids['long'][0],
+            AdGroupCriterionIds=None,
+            CriterionType='ProductPartition'
         )
 
         
@@ -1021,20 +1018,14 @@ if __name__ == '__main__':
         #|    |
         #|    +-- All other (Brand)
         #|   
-        #+-- All other (CategoryL1)
-                 
-        
+        #+-- All other (CategoryL1)        
+
         output_status_message(
             "The product partition group tree now has 12 nodes, including the children of Electronics (CategoryL1): \n"
         )
         output_product_partitions(ad_group_criterions)
 
-        #endregion UpdateTree
-
-        #endregion ManageAdGroup
-
-        #region ManageAds
-
+        
         #Create a product ad. You must add at least one ProductAd to the corresponding ad group. 
         #A ProductAd is not used directly for delivered ad copy. Instead, the delivery engine generates 
         #product ads from the product details that it finds in your Bing Merchant Center store's product catalog. 
@@ -1052,7 +1043,7 @@ if __name__ == '__main__':
         ads.Ad.append(product_ad)
 
         add_ads_response=campaign_service.AddAds(
-            AdGroupId=ad_group_ids[0],
+            AdGroupId=ad_group_ids['long'][0],
             Ads=ads
         )
         ad_ids={
@@ -1064,25 +1055,17 @@ if __name__ == '__main__':
 
         output_ad_results(ads, ad_ids, ad_errors)
 
-        #endregion ManageAds
-
-        #region CleanUp
-
         #Delete the campaign, ad group, criterion, and ad that were previously added. 
         #You should remove this region if you want to view the added entities in the 
         #Bing Ads web application or another tool.
-        
+
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
-            CampaignIds={
-                    'long': campaign_ids
-                }
+            CampaignIds=campaign_ids
         )
 
-        for campaign_id in campaign_ids:
+        for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
-
-        #endregion CleanUp
 
         output_status_message("Program execution completed")
 

@@ -1,14 +1,18 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
 #import logging
 #logging.basicConfig(level=logging.INFO)
 #logging.getLogger('suds.client').setLevel(logging.DEBUG)
+
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -29,12 +33,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -64,7 +70,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -247,21 +253,14 @@ def output_webfault_errors(ex):
         raise Exception('Unknown WebFault')
 
 def output_campaign_ids(campaign_ids):
-    if not hasattr(campaign_ids, 'long'):
-        return None
-    for id in campaign_ids:
+    for id in campaign_ids['long']:
         output_status_message("Campaign successfully added and assigned CampaignId {0}\n".format(id))
 
 def output_ad_group_ids(ad_group_ids):
-    if not hasattr(ad_group_ids, 'long'):
-        return None
-    for id in ad_group_ids:
+    for id in ad_group_ids['long']:
         output_status_message("AdGroup successfully added and assigned AdGroupId {0}\n".format(id))
 
 def output_ad_results(ads, ad_ids, ad_errors):
-    if not hasattr(ad_ids, 'long'):
-        return None
-
     # Since len(ads['Ad']) and len(ad_errors['long']) usually differ, we will need to adjust the ad_errors index 
     # as successful indices are counted. 
     success_count=0 
@@ -283,7 +282,8 @@ def output_ad_results(ads, ad_ids, ad_errors):
         else:
             attribute_value="Unknown Ad Type"
         
-        if ad_errors \
+        if ad_errors is not None \
+            and ad_errors['BatchError'] is not None \
             and ad_index < len(ad_errors['BatchError']) + success_count \
             and ad_index == ad_errors['BatchError'][error_index].Index:
             # One ad may have multiple errors, for example editorial errors in multiple publisher countries
@@ -308,9 +308,6 @@ def output_ad_results(ads, ad_ids, ad_errors):
         output_status_message('')
 
 def output_keyword_results(keywords, keyword_ids, keyword_errors):
-    if not hasattr(keyword_ids, 'long'):
-        return None
-
     # Since len(keywords['Keyword']) and len(keyword_errors['long']) differ, we will need to adjust the keyword_errors index 
     # as successful indices are counted. 
     success_count=0 
@@ -357,7 +354,7 @@ if __name__ == '__main__':
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
         authenticate_with_oauth()
-
+        
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
         #authenticate_with_username()
@@ -373,8 +370,8 @@ if __name__ == '__main__':
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=campaign_service.factory.create('Campaign')
-        campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        campaign.Description='Winter clothing line.'
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
         campaign.MonthlyBudget=1000
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
@@ -384,7 +381,7 @@ if __name__ == '__main__':
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
         ad_group=campaign_service.factory.create('AdGroup')
-        ad_group.Name="Women's Heated Ski Glove Sale"
+        ad_group.Name="Women's Red Shoes"
         ad_group.AdDistribution='Search'
         ad_group.BiddingModel='Keyword'
         ad_group.PricingModel='Cpc'
@@ -393,34 +390,86 @@ if __name__ == '__main__':
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        end_date.Year=2015
+        end_date.Year=2016
         ad_group.EndDate=end_date
-        exact_match_bid=campaign_service.factory.create('Bid')
-        exact_match_bid.Amount=0.09
-        ad_group.ExactMatchBid=exact_match_bid
-        phrase_match_bid=campaign_service.factory.create('Bid')
-        phrase_match_bid.Amount=0.07
-        ad_group.PhraseMatchBid=phrase_match_bid
+        search_bid=campaign_service.factory.create('Bid')
+        search_bid.Amount=0.09
+        ad_group.SearchBid=search_bid
         ad_group.Language='English'
+
+        #You could use a tracking template which would override the campaign level
+        #tracking template. Tracking templates defined for lower level entities 
+        #override those set for higher level entities.
+        #In this example we are using the campaign level tracking template.
+        ad_group.TrackingUrlTemplate=None
+
         ad_groups.AdGroup.append(ad_group)
 
-        # In this example only the second ad should succeed. The Title of the first ad is empty and not valid,
-        # and the third ad is a duplicate of the second ad. 
+        # In this example only the first 3 ads should succeed. 
+        # The Title of the fourth ad is empty and not valid,
+        # and the fifth ad is a duplicate of the second ad.
         
         ads=campaign_service.factory.create('ArrayOfAd')
         
-        for index in range(3):
+        for index in range(5):
             text_ad=campaign_service.factory.create('TextAd')
-            text_ad.DestinationUrl='http://www.alpineskihouse.com/winterglovesale'
-            text_ad.DisplayUrl='AlipineSkiHouse.com'
-            text_ad.Text='Huge Savings on heated gloves.'
-            text_ad.Title='Winter Glove Sale'
+            text_ad.Title='Red Shoe Sale'
+            text_ad.Text='Huge Savings on red shoes.'
+            text_ad.DisplayUrl='Contoso.com'
             text_ad.Type='Text'
             text_ad.Status=None
             text_ad.EditorialStatus=None
+
+            # Destination URLs are deprecated and will be sunset in March 2016. 
+            # If you are currently using the Destination URL, you must upgrade to Final URLs. 
+            # Here is an example of a DestinationUrl you might have used previously. 
+            # text_ad.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+
+            # To migrate from DestinationUrl to FinalUrls for existing ads, you can set DestinationUrl
+            # to an empty string when updating the ad. If you are removing DestinationUrl,
+            # then FinalUrls is required.
+            # text_ad.DestinationUrl=""
+            
+            # With FinalUrls you can separate the tracking template, custom parameters, and 
+            # landing page URLs.
+            final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+            final_urls.string.append('http://www.contoso.com/womenshoesale')
+            text_ad.FinalUrls=final_urls
+
+            # Final Mobile URLs can also be used if you want to direct the user to a different page 
+            # for mobile devices.
+            final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+            final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
+            text_ad.FinalMobileUrls=final_mobile_urls
+
+            # You could use a tracking template which would override the campaign level
+            # tracking template. Tracking templates defined for lower level entities 
+            # override those set for higher level entities.
+            # In this example we are using the campaign level tracking template.
+            text_ad.TrackingUrlTemplate=None,
+
+            # Set custom parameters that are specific to this ad, 
+            # and can be used by the ad, ad group, campaign, or account level tracking template. 
+            # In this example we are using the campaign level tracking template.
+            url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
+            parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+            custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
+            custom_parameter1.Key='promoCode'
+            custom_parameter1.Value='PROMO' + str(index)
+            parameters.CustomParameter.append(custom_parameter1)
+            custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
+            custom_parameter2.Key='season'
+            custom_parameter2.Value='summer'
+            parameters.CustomParameter.append(custom_parameter2)
+            url_custom_parameters.Parameters=parameters
+            text_ad.UrlCustomParameters=url_custom_parameters
             ads.Ad.append(text_ad)
         
-        ads.Ad[0].Title=''
+        ads.Ad[0].Title="Women's Shoe Sale"
+        ads.Ad[1].Title="Women's Super Shoe Sale"
+        ads.Ad[2].Title="Women's Red Shoe Sale"
+        ads.Ad[3].Title=''
+        ads.Ad[4].Title="Women's Super Shoe Sale"
 
         # In this example only the second keyword should succeed. The Text of the first keyword exceeds the limit,
         # and the third keyword is a duplicate of the second keyword.  
@@ -432,69 +481,136 @@ if __name__ == '__main__':
             keyword.Bid.Amount=0.47
             keyword.Param2='10% Off'
             keyword.MatchType='Broad'
-            keyword.Text='Brand-A Gloves'
+            keyword.Text='Brand-A Shoes'
             keyword.Status=None
             keyword.EditorialStatus=None
             keywords.Keyword.append(keyword)
         
         keywords.Keyword[0].Text=(
-            "Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves "
-		    "Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves "
-		    "Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves"
+            "Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes "
+		    "Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes "
+		    "Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes"
         )
 
         # Add the campaign, ad group, keywords, and ads
 
-        campaign_ids=campaign_service.AddCampaigns(
+        add_campaigns_response=campaign_service.AddCampaigns(
             AccountId=authorization_data.account_id,
             Campaigns=campaigns
-        )['long']
-
+        )
+        campaign_ids={
+            'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
+        }
+        
         output_campaign_ids(campaign_ids)
 
-        ad_group_ids=campaign_service.AddAdGroups(
-            CampaignId=campaign_ids[0],
+        add_ad_groups_response=campaign_service.AddAdGroups(
+            CampaignId=campaign_ids['long'][0],
             AdGroups=ad_groups
-        )['long']
+        )
+        ad_group_ids={
+            'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
+        }
+
         output_ad_group_ids(ad_group_ids)
 
         add_ads_response=campaign_service.AddAds(
-            AdGroupId=ad_group_ids[0],
+            AdGroupId=ad_group_ids['long'][0],
             Ads=ads
         )
         ad_ids={
-                'long': add_ads_response.AdIds['long'] if add_ads_response.AdIds['long'] else None
-            }
+            'long': add_ads_response.AdIds['long'] if add_ads_response.AdIds['long'] else None
+        }
         ad_errors={
-                'BatchError': add_ads_response.PartialErrors['BatchError'] if add_ads_response.PartialErrors else None
-            }    
+            'BatchError': add_ads_response.PartialErrors['BatchError'] if add_ads_response.PartialErrors else None
+        }    
 
         output_ad_results(ads, ad_ids, ad_errors)
 
         add_keywords_response=campaign_service.AddKeywords(
-            AdGroupId=ad_group_ids[0],
+            AdGroupId=ad_group_ids['long'][0],
             Keywords=keywords
         )
         keyword_ids={
-                'long': add_keywords_response.KeywordIds['long'] if add_keywords_response.KeywordIds else None
-            }
+            'long': add_keywords_response.KeywordIds['long'] if add_keywords_response.KeywordIds else None
+        }
         keyword_errors={
-                'BatchError': add_keywords_response.PartialErrors['BatchError'] if add_keywords_response.PartialErrors else None
-            } 
+            'BatchError': add_keywords_response.PartialErrors['BatchError'] if add_keywords_response.PartialErrors else None
+        } 
     
         output_keyword_results(keywords, keyword_ids, keyword_errors)
+        
+        update_ads=campaign_service.factory.create('ArrayOfAd')
+
+        # Set the  element to null or empty to retain any 
+        # existing custom parameters.
+        text_ad_0=campaign_service.factory.create('TextAd')
+        text_ad_0.Id=ad_ids['long'][0]
+        text_ad_0.Text='Huge Savings on All Red Shoes.'
+        text_ad_0.UrlCustomParameters=None
+        text_ad_0.Type='Text'
+        text_ad_0.Status=None
+        text_ad_0.EditorialStatus=None
+        update_ads.Ad.append(text_ad_0)
+
+        # To remove all custom parameters, set the Parameters element of the 
+        # CustomParameters object to null or empty.
+        text_ad_1=campaign_service.factory.create('TextAd')
+        text_ad_1.Id=ad_ids['long'][1]
+        text_ad_1.Text='Huge Savings on All Red Shoes.'
+        url_custom_parameters_1=campaign_service.factory.create('ns0:CustomParameters')
+        parameters_1=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+        custom_parameter_1=campaign_service.factory.create('ns0:CustomParameter')
+        # Set the CustomParameter to None or leave unspecified to have the same effect
+        #custom_parameter_1=None
+        parameters_1.CustomParameter.append(custom_parameter_1)
+        url_custom_parameters_1.Parameters=parameters_1
+        text_ad_1.UrlCustomParameters=url_custom_parameters_1
+        text_ad_1.Type='Text'
+        text_ad_1.Status=None
+        text_ad_1.EditorialStatus=None
+        update_ads.Ad.append(text_ad_1)
+
+        # To remove a subset of custom parameters, specify the custom parameters that 
+        # you want to keep in the Parameters element of the CustomParameters object.
+        text_ad_2=campaign_service.factory.create('TextAd')
+        text_ad_2.Id=ad_ids['long'][2]
+        text_ad_2.Text='Huge Savings on All Red Shoes.'
+        url_custom_parameters_2=campaign_service.factory.create('ns0:CustomParameters')
+        parameters_2=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+        custom_parameter_2=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter_2.Key='promoCode'
+        custom_parameter_2.Value='updatedpromo'
+        parameters_2.CustomParameter.append(custom_parameter_2)
+        url_custom_parameters_2.Parameters=parameters_2
+        text_ad_2.UrlCustomParameters=url_custom_parameters_2
+        text_ad_2.Type='Text'
+        text_ad_2.Status=None
+        text_ad_2.EditorialStatus=None
+        update_ads.Ad.append(text_ad_2)
+
+        # As an exercise you can step through using the debugger and view the results.
+
+        campaign_service.GetAdsByAdGroupId(
+            AdGroupId=ad_group_ids['long'][0]
+        )
+        campaign_service.UpdateAds(
+            AdGroupId=ad_group_ids['long'][0],
+            Ads=update_ads
+        )
+        campaign_service.GetAdsByAdGroupId(
+            AdGroupId=ad_group_ids['long'][0]
+        )
 
         # Delete the campaign, ad group, keyword, and ad that were previously added. 
         # You should remove this line if you want to view the added entities in the 
         # Bing Ads web application or another tool.
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
-            CampaignIds={
-                    'long': campaign_ids
-                }
+            CampaignIds=campaign_ids
         )
 
-        for campaign_id in campaign_ids:
+        for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
 
         output_status_message("Program execution completed")

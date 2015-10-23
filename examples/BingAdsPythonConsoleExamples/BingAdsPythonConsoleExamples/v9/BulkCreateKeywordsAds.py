@@ -4,6 +4,7 @@ from bingads.bulk import *
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -55,12 +56,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -90,7 +93,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -178,7 +181,8 @@ def search_accounts_by_user_id(user_id):
 
 def print_percent_complete(progress):
     output_status_message("Percent Complete: {0}\n".format(progress.percent_complete))
-    
+
+
 def get_sample_bulk_campaign():
     bulk_campaign=BulkCampaign()
     '''
@@ -194,8 +198,8 @@ def get_sample_bulk_campaign():
 	will be used when adding new ad groups to this new campaign, or when associating ad extensions with the campaign. 
 	'''
     campaign.Id=CAMPAIGN_ID_KEY
-    campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-    campaign.Description='Winter clothing line.'
+    campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+    campaign.Description="Summer shoes line."
     campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
     campaign.MonthlyBudget=1000
     campaign.TimeZone='PacificTimeUSCanadaTijuana'
@@ -209,7 +213,7 @@ def get_sample_bulk_ad_group():
     bulk_ad_group.campaign_id=CAMPAIGN_ID_KEY
     ad_group=campaign_service.factory.create('AdGroup')
     ad_group.Id=AD_GROUP_ID_KEY
-    ad_group.Name="Women's Heated Ski Glove Sale"
+    ad_group.Name="Women's Red Shoes"
     ad_group.AdDistribution='Search'
     ad_group.BiddingModel='Keyword'
     ad_group.PricingModel='Cpc'
@@ -239,10 +243,10 @@ def get_sample_bulk_text_ads():
         bulk_text_ad=BulkTextAd()
         bulk_text_ad.ad_group_id=AD_GROUP_ID_KEY
         text_ad=campaign_service.factory.create('TextAd')
-        text_ad.DestinationUrl='http://www.alpineskihouse.com/winterglovesale'
-        text_ad.DisplayUrl='AlipineSkiHouse.com'
-        text_ad.Text='Huge Savings on heated gloves.'
-        text_ad.Title='Winter Glove Sale'
+        text_ad.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+        text_ad.DisplayUrl='Contoso.com'
+        text_ad.Text='Huge Savings on red shoes.'
+        text_ad.Title='Red Shoe Sale'
         text_ad.Type='Text'
         text_ad.Status=None
         text_ad.EditorialStatus=None
@@ -266,14 +270,14 @@ def get_sample_bulk_keywords():
         keyword.Bid.Amount=0.47
         keyword.Param2='10% Off'
         keyword.MatchType='Broad'
-        keyword.Text='Brand-A Gloves'
+        keyword.Text='Brand-A Shoes'
         bulk_keyword.keyword=keyword
         bulk_keywords.append(bulk_keyword)
 
     bulk_keywords[0].keyword.Text=(
-        "Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves "
-		"Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves "
-		"Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves Brand-A Gloves"
+        "Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes "
+		"Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes "
+		"Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes Brand-A Shoes"
     )
 
     return bulk_keywords
@@ -281,16 +285,73 @@ def get_sample_bulk_keywords():
 def output_status_message(message):
     print(message)
 
+def output_bulk_performance_data(performance_data):
+    if performance_data is not None:
+        output_status_message("AverageCostPerClick: {0}".format(performance_data.average_cost_per_click))
+        output_status_message("AverageCostPerThousandImpressions: {0}".format(performance_data.average_cost_per_thousand_impressions))
+        output_status_message("AveragePosition: {0}".format(performance_data.average_position))
+        output_status_message("Clicks: {0}".format(performance_data.clicks))
+        output_status_message("ClickThroughRate: {0}".format(performance_data.click_through_rate))
+        output_status_message("Conversions: {0}".format(performance_data.conversions))
+        output_status_message("CostPerConversion: {0}".format(performance_data.cost_per_conversion))
+        output_status_message("Impressions: {0}".format(performance_data.impressions))
+        output_status_message("Spend: {0}".format(performance_data.spend))
+
+def output_bulk_quality_score_data(quality_score_data):
+    if quality_score_data is not None:
+        output_status_message("KeywordRelevance: {0}".format(quality_score_data.keyword_relevance))
+        output_status_message("LandingPageRelevance: {0}".format(quality_score_data.landing_page_relevance))
+        output_status_message("LandingPageUserExperience: {0}".format(quality_score_data._landing_page_user_experience))
+        output_status_message("QualityScore: {0}".format(quality_score_data.quality_score))
+
 def output_bulk_campaigns(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaign: \n")
-        output_status_message("Campaign Name: {0}".format(entity.campaign.Name))
-        output_status_message("Campaign Id: {0}".format(entity.campaign.Id))
+        output_status_message("AccountId: {0}".format(entity.account_id))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        output_bulk_performance_data(entity.performance_data)
+        output_bulk_quality_score_data(entity.quality_score_data)
+
+        # Output the Campaign Management Campaign Object
+        output_campaign(entity.campaign)
 
         if entity.has_errors:
             output_bulk_errors(entity.errors)
 
         output_status_message('')
+
+def output_campaign(campaign):
+    if campaign is not None:
+        output_status_message("BudgetType: {0}".format(campaign.BudgetType))
+        if campaign.CampaignType is not None:
+            for campaign_type in campaign.CampaignType:
+                output_status_message("CampaignType: {0}".format(campaign_type))
+        else:
+            output_status_message("CampaignType: None")
+        output_status_message("DailyBudget: {0}".format(campaign.DailyBudget))
+        output_status_message("Description: {0}".format(campaign.Description))
+        output_status_message("ForwardCompatibilityMap: ")
+        if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
+            for pair in campaign.ForwardCompatibilityMap:
+                output_status_message("Key: {0}".format(pair.Key))
+                output_status_message("Value: {0}".format(pair.Value))
+        output_status_message("Id: {0}".format(campaign.Id))
+        output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
+        output_status_message("Name: {0}".format(campaign.Name))
+        output_status_message("NativeBidAdjustment: {0}".format(campaign.NativeBidAdjustment))
+        output_status_message("Settings: ")
+        for setting in campaign.Settings.Setting:
+            if setting.Type == 'ShoppingSetting':
+                output_status_message("\tShoppingSetting: ")
+                output_status_message("\t\tPriority: {0}".format(setting.Priority))
+                output_status_message("\t\tSalesCountryCode: {0}".format(setting.SalesCountryCode))
+                output_status_message("\t\tStoreId: {0}".format(setting.StoreId))
+        output_status_message("Status: {0}".format(campaign.Status))
+        output_status_message("TimeZone: {0}".format(campaign.TimeZone))
 
 def output_bulk_ad_groups(bulk_entities):
     for entity in bulk_entities:
@@ -448,9 +509,10 @@ if __name__ == '__main__':
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
+        user_id=None
         user=customer_service.GetUser(None).User
         accounts=search_accounts_by_user_id(user.Id)
-
+        
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId

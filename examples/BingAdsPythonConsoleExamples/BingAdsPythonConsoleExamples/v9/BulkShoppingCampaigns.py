@@ -4,6 +4,7 @@ from bingads.bulk import *
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -56,12 +57,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -521,7 +524,7 @@ def output_ad_group_criterion_with_product_partition(ad_group_criterion):
 
 def output_fixed_bid(fixed_bid):
     if fixed_bid is not None and fixed_bid.Bid is not None:
-        output_status_message("Attribute: {0}".format(fixed_bid.Bid.Amount))
+        output_status_message("Bid.Amount: {0}".format(fixed_bid.Bid.Amount))
 
 def output_product_partition(product_partition):
     if product_partition is not None:
@@ -770,8 +773,8 @@ class ProductPartitionHelper:
         # Bids for subdivisions are ignored by Bing Ads.
         # As a workaround to a known Python SDK bug, you can set a FixedBid for the subdivision.
         # The bug is tentatively scheduled to be fixed in early September 2015.
-        fixed_bid=campaign_service.factory.create('FixedBid')
-        biddable_ad_group_criterion.CriterionBid=fixed_bid
+        #fixed_bid=campaign_service.factory.create('FixedBid')
+        #biddable_ad_group_criterion.CriterionBid=fixed_bid
 
         partition_action=BulkAdGroupProductPartition()
         partition_action.client_id=client_id
@@ -903,7 +906,7 @@ if __name__ == '__main__':
             output_status_message(
                 "You do not have any BMC stores registered for CustomerId {0}.\n".format(authorization_data.customer_id)
             )
-            sys.exit()
+            sys.exit(0)
 
         # Add a new Bing Shopping campaign that will be associated with a ProductScope criterion.
         #  - Set the CampaignType element of the Campaign to Shopping.
@@ -1094,6 +1097,7 @@ if __name__ == '__main__':
 
         existing_root=get_node_by_client_id(apply_bulk_product_partition_actions_results, "root")
         if existing_root is not None:
+            existing_root.client_id="deletedroot"
             helper.delete_partition(existing_root)
 
         root_condition=campaign_service.factory.create('ProductCondition')
@@ -1205,7 +1209,7 @@ if __name__ == '__main__':
         )
 
         output_status_message("Applying product partitions to the ad group . . . \n")
-        #apply_bulk_product_partition_actions_results=[]
+
         apply_bulk_product_partition_actions_results=apply_bulk_product_partition_actions(helper.partition_actions)
 
         product_partitions=get_bulk_ad_group_product_partition_tree(ad_group_id)

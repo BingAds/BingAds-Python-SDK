@@ -3,6 +3,7 @@ from bingads import *
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -25,10 +26,18 @@ if __name__ == '__main__':
         authentication=None,
     )
 
+    ad_intelligence_service=ServiceClient(
+        service='AdIntelligenceService', 
+        authorization_data=authorization_data, 
+        environment=ENVIRONMENT,
+        version=9,
+    )
+
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -58,7 +67,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -88,11 +97,10 @@ def get_refresh_token():
     ''' 
     Returns a refresh token if stored locally.
     '''
-    #return None # To switch users for testing.
     file=None
     try:
-        file = open("refresh.txt")
-        line = file.readline()
+        file=open("refresh.txt")
+        line=file.readline()
         file.close()
         return line if line else None
     except IOError:
@@ -120,12 +128,12 @@ def search_accounts_by_user_id(user_id):
     '''
     global customer_service
    
-    paging = {
+    paging={
         'Index': 0,
         'Size': 10
     }
 
-    predicates = {
+    predicates={
         'Predicate': [
             {
                 'Field': 'UserId',
@@ -135,7 +143,7 @@ def search_accounts_by_user_id(user_id):
         ]
     }
 
-    search_accounts_request = {
+    search_accounts_request={
         'PageInfo': paging,
         'Predicates': predicates
     }
@@ -162,7 +170,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'ApiFault') \
         and hasattr(ex.fault.detail.ApiFault, 'OperationErrors') \
         and hasattr(ex.fault.detail.ApiFault.OperationErrors, 'OperationError'):
-        api_errors = ex.fault.detail.ApiFault.OperationErrors.OperationError
+        api_errors=ex.fault.detail.ApiFault.OperationErrors.OperationError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -172,7 +180,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'AdApiFaultDetail') \
         and hasattr(ex.fault.detail.AdApiFaultDetail, 'Errors') \
         and hasattr(ex.fault.detail.AdApiFaultDetail.Errors, 'AdApiError'):
-        api_errors = ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
+        api_errors=ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -182,7 +190,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'ApiFaultDetail') \
         and hasattr(ex.fault.detail.ApiFaultDetail, 'BatchErrors') \
         and hasattr(ex.fault.detail.ApiFaultDetail.BatchErrors, 'BatchError'):
-        api_errors = ex.fault.detail.ApiFaultDetail.BatchErrors.BatchError
+        api_errors=ex.fault.detail.ApiFaultDetail.BatchErrors.BatchError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -192,7 +200,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'ApiFaultDetail') \
         and hasattr(ex.fault.detail.ApiFaultDetail, 'OperationErrors') \
         and hasattr(ex.fault.detail.ApiFaultDetail.OperationErrors, 'OperationError'):
-        api_errors = ex.fault.detail.ApiFaultDetail.OperationErrors.OperationError
+        api_errors=ex.fault.detail.ApiFaultDetail.OperationErrors.OperationError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -202,7 +210,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'BatchErrors') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail.BatchErrors, 'BatchError'):
-        api_errors = ex.fault.detail.EditorialApiFaultDetail.BatchErrors.BatchError
+        api_errors=ex.fault.detail.EditorialApiFaultDetail.BatchErrors.BatchError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -212,7 +220,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'EditorialErrors') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail.EditorialErrors, 'EditorialError'):
-        api_errors = ex.fault.detail.EditorialApiFaultDetail.EditorialErrors.EditorialError
+        api_errors=ex.fault.detail.EditorialApiFaultDetail.EditorialErrors.EditorialError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -222,7 +230,7 @@ def output_webfault_errors(ex):
         and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'OperationErrors') \
         and hasattr(ex.fault.detail.EditorialApiFaultDetail.OperationErrors, 'OperationError'):
-        api_errors = ex.fault.detail.EditorialApiFaultDetail.OperationErrors.OperationError
+        api_errors=ex.fault.detail.EditorialApiFaultDetail.OperationErrors.OperationError
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_bing_ads_webfault_error(api_error)
@@ -232,7 +240,7 @@ def output_webfault_errors(ex):
     # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v9:Entities.
     elif hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
-        api_errors = ex.fault.detail.ExceptionDetail
+        api_errors=ex.fault.detail.ExceptionDetail
         if type(api_errors) == list:
             for api_error in api_errors:
                 output_status_message(api_error.Message)
@@ -240,33 +248,6 @@ def output_webfault_errors(ex):
             output_status_message(api_errors.Message)
     else:
         raise Exception('Unknown WebFault')
-
-def output_user(user):
-    output_status_message("User Id {0}".format(user.Id))
-    output_status_message("UserName {0}".format(user.UserName))
-    output_status_message("First Name {0}".format(user.Name.FirstName))
-    output_status_message("Last Name {0}\n".format(user.Name.LastName))
-
-def output_user_roles(roles):
-    for role in roles:
-        if role == 16:
-            output_status_message("16 - The user has the Advertiser Campaign Manager role.")
-        elif role == 33:
-            output_status_message("33 - The user has the Aggregator role.")
-        elif role == 41:
-            output_status_message("41 - The user has the Super Admin role.")
-        elif role == 100:
-            output_status_message("100 - The user has the Viewer role.")
-        else:
-            output_status_message("{0} - The user has a deprecated user role.".format(role))
-    output_status_message('')
-
-def output_accounts(accounts):
-    if not hasattr(accounts, 'Account'):
-        return None
-    for account in accounts['Account']:
-        output_status_message("AccountId {0}".format(account.Id))
-        output_status_message("CustomerId {0}\n".format(account.ParentCustomerId))
 
 # Main execution
 if __name__ == '__main__':
@@ -283,19 +264,117 @@ if __name__ == '__main__':
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
-        get_user_response=customer_service.GetUser(None)
-        user = get_user_response.User
-        roles = get_user_response.Roles['int']
-        accounts = search_accounts_by_user_id(user.Id)
+        user=customer_service.GetUser(None).User
+        accounts=search_accounts_by_user_id(user.Id)
 
-        output_status_message("Current authenticated Bing Ads user: \n")
-        output_user(user)
-        output_status_message("Has the following role(s): \n")
-        output_user_roles(roles)
-        output_status_message("Has access to the following accounts: \n")
-        output_accounts(accounts)
+        # For this example we'll use the first account.
+        authorization_data.account_id=accounts['Account'][0].Id
+        authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+
+        # Set the Currency, Keywords, Language, PublisherCountries, and TargetPositionForAds
+        # for the estimated bid by keywords request. 
+
+        currency='USDollar'
+        language='English'
+        publisher_countries={'string': ['US']}
+        match_types={'MatchType': [
+            'Broad',
+            'Exact',
+            'Phrase',
+        ]}
+        target_position_for_ads='SideBar'
+
+        keyword_and_match_types=ad_intelligence_service.factory.create('ns0:ArrayOfKeywordAndMatchType')
+        keyword_and_match_type_1=ad_intelligence_service.factory.create('ns0:KeywordAndMatchType')
+        keyword_and_match_type_1.KeywordText='flower'
+        keyword_and_match_type_1.MatchTypes=match_types
+        #keyword_and_match_types.KeywordAndMatchType.append(keyword_and_match_type_1)
+        keyword_and_match_type_2=ad_intelligence_service.factory.create('ns0:KeywordAndMatchType')
+        keyword_and_match_type_2.KeywordText='delivery'
+        keyword_and_match_type_2.MatchTypes=match_types
+        #keyword_and_match_types.KeywordAndMatchType.append(keyword_and_match_type_2)
+
+        keyword_and_match_types={'KeywordAndMatchType': [keyword_and_match_type_1, keyword_and_match_type_2]}
+
+        keyword_estimated_bids=ad_intelligence_service.GetEstimatedBidByKeywords(
+            Currency=currency,
+            GetBidsAtLevel=0,  # Set GetBidsAtLevel to 0 to get a list of KeywordEstimatedBid.
+            Keywords=keyword_and_match_types,
+            Language=language,
+            PublisherCountries=publisher_countries,
+            TargetPositionForAds=target_position_for_ads,
+        ).KeywordEstimatedBids
+
+        ad_group_estimated_bid=ad_intelligence_service.GetEstimatedBidByKeywords(
+            Currency=currency,
+            GetBidsAtLevel=2,  # Set GetBidsAtLevel to 2 to get one ad_group_estimated_bid.
+            Keywords=keyword_and_match_types,
+            Language=language,
+            PublisherCountries=publisher_countries,
+            TargetPositionForAds=target_position_for_ads
+        ).AdGroupEstimatedBid
+
+        # Print the KeywordEstimatedBids
+
+        if keyword_estimated_bids is not None:
+            output_status_message('KeywordEstimatedBids')
+            for bid in keyword_estimated_bids['KeywordEstimatedBid']:
+                if bid is None:
+                    output_status_message('The keyword is not valid.')
+                else:
+                    output_status_message(bid.Keyword)
+                    if len(bid.EstimatedBids) == 0:
+                        output_status_message("  There is no bid information available for the keyword.\n")
+                    else:
+                        for estimated_bid_and_traffic in bid.EstimatedBids['EstimatedBidAndTraffic']:
+                            output_status_message("  " + estimated_bid_and_traffic.MatchType);
+                            output_status_message("    Estimated Minimum Bid: {0}".format(estimated_bid_and_traffic.EstimatedMinBid))
+                            output_status_message("    Average CPC: {0}".format(estimated_bid_and_traffic.AverageCPC))
+                            output_status_message(
+                                "    Estimated clicks per week: {0} to {1}".format(
+                                    estimated_bid_and_traffic.MinClicksPerWeek, 
+                                    estimated_bid_and_traffic.MaxClicksPerWeek
+                                )
+                            )
+                            output_status_message(
+                                "    Estimated impressions per week: {0} to {1}".format(
+                                    estimated_bid_and_traffic.MinImpressionsPerWeek,
+                                    estimated_bid_and_traffic.MaxImpressionsPerWeek
+                                )
+                            )
+                            output_status_message(
+                                "    Estimated cost per week: {0} to {1}".format(
+                                    estimated_bid_and_traffic.MinTotalCostPerWeek, 
+                                    estimated_bid_and_traffic.MaxTotalCostPerWeek
+                                )
+                            )
+
+        output_status_message('AdGroupEstimatedBid')
+
+        output_status_message("  Average CPC: {0}".format(ad_group_estimated_bid.AverageCPC))
+        output_status_message("  CTR: {0}".format(ad_group_estimated_bid.CTR))
+        output_status_message("  Estimated Ad Group Bid: {0}".format(ad_group_estimated_bid.EstimatedAdGroupBid))
+        output_status_message(
+            "  Estimated clicks per week: {0} to {1}".format(
+                ad_group_estimated_bid.MinClicksPerWeek, 
+                ad_group_estimated_bid.MaxClicksPerWeek
+            )
+        )
+        output_status_message(
+            "  Estimated impressions per week: {0} to {1}".format(
+                ad_group_estimated_bid.MinImpressionsPerWeek,
+                ad_group_estimated_bid.MaxImpressionsPerWeek
+            )
+        )
+        output_status_message(
+            "  Estimated cost per week: {0} to {1}".format(
+                ad_group_estimated_bid.MinTotalCostPerWeek, 
+                ad_group_estimated_bid.MaxTotalCostPerWeek
+            )
+        )
 
         output_status_message("Program execution completed")
+
     except WebFault as ex:
         output_webfault_errors(ex)
     except Exception as ex:

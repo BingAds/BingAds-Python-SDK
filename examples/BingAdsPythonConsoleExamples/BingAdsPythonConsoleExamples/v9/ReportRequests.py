@@ -1,25 +1,18 @@
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
 from bingads import *
-
-import time
-import contextlib
-import ssl
-import requests
-import zipfile
-import os
-import six
-
-from requests.adapters import HTTPAdapter
-from requests.packages.urllib3.poolmanager import PoolManager
+from bingads.reporting import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 
 if __name__ == '__main__':
@@ -28,9 +21,17 @@ if __name__ == '__main__':
 
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
-    CLIENT_ID='YourClientIdGoesHere'
+    CLIENT_ID='YourClientIdGoesHere'   
 
+
+    # The directory for the report file.
     FILE_DIRECTORY='c:/reports/'
+
+    # The name of the report file.
+    RESULT_FILE_NAME='result.csv'
+
+    # The report file extension type.
+    REPORT_FILE_FORMAT = 'Csv'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -43,25 +44,27 @@ if __name__ == '__main__':
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
+
+    
+
+    reporting_service_manager=ReportingServiceManager(
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=1000, 
+        environment=ENVIRONMENT,
+    )
+
+    # In addition to ReportingServiceManager, you will need a reporting ServiceClient 
+    # to build the ReportRequest.
 
     reporting_service=ServiceClient(
         'ReportingService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
     
-class Ssl3HttpAdapter(HTTPAdapter):
-    """" Transport adapter" that allows us to use SSLv3. """
-
-    def init_poolmanager(self, connections, maxsize, block=False):
-        self.poolmanager=PoolManager(
-            num_pools=connections,
-            maxsize=maxsize,
-            block=block,
-            ssl_version=ssl.PROTOCOL_SSLv3,
-        )
-
 def authenticate_with_username():
     ''' 
     Sets the authentication property of the global AuthorizationData instance with PasswordAuthentication.
@@ -89,7 +92,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -271,81 +274,13 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def download_result_file(url, result_file_directory, result_file_name, decompress, overwrite):
-    """ Download file with specified URL and download parameters.
-
-    :param result_file_directory: The download result local directory name.
-    :type result_file_directory: str
-    :param result_file_name: The download result local file name.
-    :type result_file_name: str
-    :param decompress: Determines whether to decompress the ZIP file.
-                        If set to true, the file will be decompressed after download.
-                        The default value is false, in which case the downloaded file is not decompressed.
-    :type decompress: bool
-    :param overwrite: Indicates whether the result file should overwrite the existing file if any.
-    :type overwrite: bool
-    :return: The download file path.
-    :rtype: str
-    """
-
-    if result_file_directory is None:
-        raise ValueError('result_file_directory cannot be None.')
-
-    if result_file_name is None:
-        result_file_name="default_file_name"
-
-    if decompress:
-        name, ext=os.path.splitext(result_file_name)
-        if ext == '.zip':
-            raise ValueError("Result file can't be decompressed into a file with extension 'zip'."
-                                " Please change the extension of the result_file_name or pass decompress=false")
-        zip_file_path=os.path.join(result_file_directory, name + '.zip')
-        result_file_path=os.path.join(result_file_directory, result_file_name)
-    else:
-        result_file_path=os.path.join(result_file_directory, result_file_name)
-        zip_file_path=result_file_path
-
-    if os.path.exists(result_file_path) and overwrite is False:
-        if six.PY3:
-            raise FileExistsError('Result file: {0} exists'.format(result_file_path))
-        else:
-            raise OSError('Result file: {0} exists'.format(result_file_path))
-    
-    pool_manager=PoolManager(
-        ssl_version=ssl.PROTOCOL_SSLv3,
-    )
-    http_adapter=HTTPAdapter()
-    http_adapter.poolmanager=pool_manager
-    
-    s=requests.Session()
-    s.mount('https://', http_adapter)
-    r=s.get(url, stream=True, verify=True)
-    r.raise_for_status()
-    try:
-        with open(zip_file_path, 'wb') as f:
-            for chunk in r.iter_content(chunk_size=4096):
-                if chunk:
-                    f.write(chunk)
-                    f.flush()
-        if decompress:
-            with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
-                first=compressed.namelist()[0]
-                with open(result_file_path, 'wb') as f:
-                    f.write(compressed.read(first))
-    except Exception as ex:
-        raise ex
-    finally:
-        if decompress and os.path.exists(zip_file_path):
-            os.remove(zip_file_path)
-    return result_file_path
-
 def get_budget_report_request():
     '''
     Build a budget summary report request, including Format, ReportName,
     Time, and Columns.
     '''
     report_request=reporting_service.factory.create('BudgetSummaryReportRequest')
-    report_request.Format='Csv'
+    report_request.Format=REPORT_FILE_FORMAT
     report_request.ReportName='My Budget Summary Report'
     report_request.ReturnOnlyCompleteData=False
     report_request.Language='English'
@@ -357,19 +292,19 @@ def get_budget_report_request():
 
     report_time=reporting_service.factory.create('ReportTime')
     # You may either use a custom date range or predefined time.
-    '''
-    custom_date_range_start=reporting_service.factory.create('Date')
-    custom_date_range_start.Day=1
-    custom_date_range_start.Month=1
-    custom_date_range_start.Year=2015
-    report_time.CustomDateRangeStart=custom_date_range_start
-    custom_date_range_end=reporting_service.factory.create('Date')
-    custom_date_range_end.Day=28
-    custom_date_range_end.Month=2
-    custom_date_range_end.Year=2015
-    report_time.CustomDateRangeEnd=custom_date_range_end
-    report_time.PredefinedTime=None
-    '''
+    
+    #custom_date_range_start=reporting_service.factory.create('Date')
+    #custom_date_range_start.Day=1
+    #custom_date_range_start.Month=1
+    #custom_date_range_start.Year=2015
+    #report_time.CustomDateRangeStart=custom_date_range_start
+    #custom_date_range_end=reporting_service.factory.create('Date')
+    #custom_date_range_end.Day=28
+    #custom_date_range_end.Month=2
+    #custom_date_range_end.Year=2017
+    #report_time.CustomDateRangeEnd=custom_date_range_end
+    #report_time.PredefinedTime=None
+    
     report_time.PredefinedTime='Yesterday'
     report_request.Time=report_time
 
@@ -394,7 +329,7 @@ def get_keyword_report_request():
     Scope, Time, Filter, and Columns.
     '''
     report_request=reporting_service.factory.create('KeywordPerformanceReportRequest')
-    report_request.Format='Csv'
+    report_request.Format=REPORT_FILE_FORMAT
     report_request.ReportName='My Keyword Performance Report'
     report_request.ReturnOnlyCompleteData=False
     report_request.Aggregation='Daily'
@@ -408,19 +343,19 @@ def get_keyword_report_request():
 
     report_time=reporting_service.factory.create('ReportTime')
     # You may either use a custom date range or predefined time.
-    '''
-    custom_date_range_start=reporting_service.factory.create('Date')
-    custom_date_range_start.Day=1
-    custom_date_range_start.Month=1
-    custom_date_range_start.Year=2015
-    report_time.CustomDateRangeStart=custom_date_range_start
-    custom_date_range_end=reporting_service.factory.create('Date')
-    custom_date_range_end.Day=28
-    custom_date_range_end.Month=2
-    custom_date_range_end.Year=2015
-    report_time.CustomDateRangeEnd=custom_date_range_end
-    report_time.PredefinedTime=None
-    '''
+    
+    #custom_date_range_start=reporting_service.factory.create('Date')
+    #custom_date_range_start.Day=1
+    #custom_date_range_start.Month=1
+    #custom_date_range_start.Year=2015
+    #report_time.CustomDateRangeStart=custom_date_range_start
+    #custom_date_range_end=reporting_service.factory.create('Date')
+    #custom_date_range_end.Day=28
+    #custom_date_range_end.Month=2
+    #custom_date_range_end.Year=2017
+    #report_time.CustomDateRangeEnd=custom_date_range_end
+    #report_time.PredefinedTime=None
+    
     report_time.PredefinedTime='Yesterday'
     report_request.Time=report_time
 
@@ -467,6 +402,68 @@ def get_keyword_report_request():
 
     return report_request
 
+def background_completion(reporting_download_parameters):
+    '''
+    You can submit a download or upload request and the ReportingServiceManager will automatically 
+    return results. The ReportingServiceManager abstracts the details of checking for result file 
+    completion, and you don't have to write any code for results polling.
+    '''
+    global reporting_service_manager
+    result_file_path = reporting_service_manager.download_file(reporting_download_parameters)
+    output_status_message("Download result file: {0}\n".format(result_file_path))
+
+def submit_and_download(report_request):
+    '''
+    Submit the download request and then use the ReportingDownloadOperation result to 
+    track status yourself using ReportingDownloadOperation.get_status().
+    '''
+    global reporting_service_manager
+    reporting_operation = reporting_service_manager.submit_download(report_request)
+
+    for i in range(10):
+        time.sleep(reporting_service_manager.poll_interval_in_milliseconds / 1000.0)
+
+        download_status = reporting_operation.get_status()
+        
+        if download_status.status == 'Completed':
+            break
+    
+    result_file_path = reporting_operation.download_result_file(
+        result_file_directory = FILE_DIRECTORY, 
+        result_file_name = RESULT_FILE_NAME, 
+        decompress = True, 
+        overwrite = True
+    )
+    
+    output_status_message("Download result file: {0}\n".format(result_file_path))
+
+def download_results(request_id, authorization_data):
+    '''
+    If for any reason you have to resume from a previous application state, 
+    you can use an existing download request identifier and use it 
+    to download the result file. Use ReportingDownloadOperation.track() to indicate that the application 
+    should wait to ensure that the download status is completed.
+    '''
+    reporting_download_operation = ReportingDownloadOperation(
+        request_id = request_id, 
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=1000, 
+        environment=ENVIRONMENT,
+    )
+
+    # Use track() to indicate that the application should wait to ensure that 
+    # the download status is completed.
+    reporting_operation_status = reporting_download_operation.track()
+    
+    result_file_path = reporting_download_operation.download_result_file(
+        result_file_directory = FILE_DIRECTORY, 
+        result_file_name = RESULT_FILE_NAME, 
+        decompress = True, 
+        overwrite = True) # Set this value true if you want to overwrite the same file.
+
+    output_status_message("Download result file: {0}".format(result_file_path))
+    output_status_message("Status: {0}".format(reporting_operation_status.status))
+
 # Main execution
 if __name__ == '__main__':
 
@@ -489,54 +486,48 @@ if __name__ == '__main__':
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
         
-        # Choose a helper method to build the report request, including Format, ReportName, Aggregation,
-        # Scope, Time, Filter, and Columns.
+        # You can submit one of the example reports, or build your own.
 
-        #report_request=get_budget_report_request()
         report_request=get_keyword_report_request()
+        #report_request=get_budget_report_request()
         
-        # SubmitGenerateReport returns the report identifier. The identifier is used to check report generation status
-        # before downloading the report. 
-
-        report_request_id=reporting_service.SubmitGenerateReport(
-            ReportRequest=report_request,
+        reporting_download_parameters = ReportingDownloadParameters(
+            report_request=report_request,
+            result_file_directory = FILE_DIRECTORY, 
+            result_file_name = RESULT_FILE_NAME, 
+            overwrite_result_file = True, # Set this value true if you want to overwrite the same file.
         )
-        result_file_name="{0}.csv".format(report_request_id)
-        report_request_status=None
 
-        # This example polls every 5 seconds up to 2 minutes.
-        # In production you may poll the status every 1 to 2 minutes for up to one hour.
-        # If the call succeeds, stop polling. If the call or 
-        # download fails, the call throws a fault.
+        #Option A - Background Completion with ReportingServiceManager
+        #You can submit a download or upload request and the ReportingServiceManager will automatically 
+        #return results. The ReportingServiceManager abstracts the details of checking for result file 
+        #completion, and you don't have to write any code for results polling.
 
-        for _ in range(24):
-            time.sleep(5)
-            report_request_status=reporting_service.PollGenerateReport(
-                ReportRequestId=report_request_id
-            )
-            if report_request_status.Status == 'Success':
-                output_status_message("Downloading from {0}.".format(report_request_status.ReportDownloadUrl))
-                download_result_file(
-                    url=report_request_status.ReportDownloadUrl,
-                    result_file_directory=FILE_DIRECTORY,
-                    result_file_name=result_file_name,
-                    decompress=True,
-                    overwrite=True,
-                )
-                output_status_message("The report was written to {0}{1}.".format(FILE_DIRECTORY, result_file_name))
-                break
-            elif report_request_status.Status == 'Error':
-                output_status_message(
-                    "The request failed. Try requesting the report. \n" \
-                    "later.\nIf the request continues to fail, contact support."
-                )
-                break
-        if report_request_status is not None:
-            if report_request_status.Status != 'Success' and report_request_status.Status != 'Error':
-                output_status_message(
-                    "The request is taking longer than expected. \n" \
-                    "Save the report ID ({0}) and try again later.".format(report_request_id)
-                )
+        output_status_message("Awaiting Background Completion . . .");
+        background_completion(reporting_download_parameters)
+
+        #Option B - Submit and Download with ReportingServiceManager
+        #Submit the download request and then use the ReportingDownloadOperation result to 
+        #track status yourself using ReportingServiceManager.get_status().
+
+        output_status_message("Awaiting Submit and Download . . .");
+        submit_and_download(report_request)
+
+        #Option C - Download Results with ReportingServiceManager
+        #If for any reason you have to resume from a previous application state, 
+        #you can use an existing download request identifier and use it 
+        #to download the result file. Use track() to indicate that the application 
+        #should wait to ensure that the download status is completed.
+
+        #For example you might have previously retrieved a request ID using submit_download.
+        reporting_operation=reporting_service_manager.submit_download(report_request);
+        request_id=reporting_operation.request_id;
+
+        #Given the request ID above, you can resume the workflow and download the report.
+        #The report request identifier is valid for two days. 
+        #If you do not download the report within two days, you must request the report again.
+        output_status_message("Awaiting Download Results . . .");
+        download_results(request_id, authorization_data)
 
         output_status_message("Program execution completed")
 

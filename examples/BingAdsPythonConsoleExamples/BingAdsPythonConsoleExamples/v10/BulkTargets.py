@@ -1,15 +1,18 @@
-from bingads import *
-from bingads.bulk import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
+from bingads.v10.bulk import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
 #import logging
 #logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+#logging.getLogger('suds.client').setLevel(logging.DEBUG)ng.getLogger('suds.client').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -23,8 +26,9 @@ if __name__ == '__main__':
     CAMPAIGN_ID_KEY=-123
 
     FILE_DIRECTORY='c:/bulk/'
-    RESULT_FILE_NAME='download.csv'
+    RESULT_FILE_NAME='result.csv'
     UPLOAD_FILE_NAME='upload.csv'
+    FILE_TYPE = DownloadFileType.csv
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -55,12 +59,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -90,7 +96,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -179,143 +185,63 @@ def search_accounts_by_user_id(user_id):
 def print_percent_complete(progress):
     output_status_message("Percent Complete: {0}\n".format(progress.percent_complete))
 
-    
-def get_sample_bulk_campaign():
-    bulk_campaign=BulkCampaign()
-    '''
-    The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
-    is not used or stored by the server; it is simply copied from the uploaded record to the corresponding result record. 
-	Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
-	'''
-    bulk_campaign.client_id='YourClientIdGoesHere'
-    campaign=campaign_service.factory.create('Campaign')
-    '''
-    When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
-    and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
-	will be used when adding new ad groups to this new campaign, or when associating ad extensions with the campaign. 
-	'''
-    campaign.Id=CAMPAIGN_ID_KEY
-    campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-    campaign.Description='Winter clothing line.'
-    campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-    campaign.MonthlyBudget=1000
-    campaign.TimeZone='PacificTimeUSCanadaTijuana'
-    campaign.Status='Paused'
-    bulk_campaign.campaign=campaign
-
-    return bulk_campaign
-
-def get_sample_bulk_campaign_day_time_target():
-    bulk_campaign_day_time_target=BulkCampaignDayTimeTarget()
-    bulk_campaign_day_time_target.campaign_id=CAMPAIGN_ID_KEY
-    bulk_campaign_day_time_target.target_id=TARGET_ID_KEY
-    day_time_target=campaign_service.factory.create('DayTimeTarget')
-    
-    day_time_target_bid_0=campaign_service.factory.create('DayTimeTargetBid')
-    day_time_target_bid_0.BidAdjustment=10
-    day_time_target_bid_0.Day='Friday'
-    day_time_target_bid_0.FromHour=11
-    day_time_target_bid_0.FromMinute='Zero'
-    day_time_target_bid_0.ToHour=13
-    day_time_target_bid_0.ToMinute='Fifteen'
-
-    day_time_target_bid_1=campaign_service.factory.create('DayTimeTargetBid')
-    day_time_target_bid_1.BidAdjustment=20
-    day_time_target_bid_1.Day='Saturday'
-    day_time_target_bid_1.FromHour=11
-    day_time_target_bid_1.FromMinute='Zero'
-    day_time_target_bid_1.ToHour=13
-    day_time_target_bid_1.ToMinute='Fifteen'
-
-    day_time_target.Bids.DayTimeTargetBid.append(day_time_target_bid_0)
-    day_time_target.Bids.DayTimeTargetBid.append(day_time_target_bid_1)
-
-    bulk_campaign_day_time_target.day_time_target=day_time_target
-
-    return bulk_campaign_day_time_target
-
-def get_sample_bulk_campaign_location_target():
-    bulk_campaign_location_target=BulkCampaignLocationTarget()
-    bulk_campaign_location_target.campaign_id=CAMPAIGN_ID_KEY
-    bulk_campaign_location_target.target_id=TARGET_ID_KEY
-
-    city_target=campaign_service.factory.create('CityTarget')
-    city_target_bid=campaign_service.factory.create('CityTargetBid')
-    city_target_bid.BidAdjustment=10
-    city_target_bid.City="Toronto, Toronto ON CA"
-    city_target_bid.IsExcluded=False
-    city_target.Bids.CityTargetBid.append(city_target_bid)
-    
-    country_target=campaign_service.factory.create('CountryTarget')
-    country_target_bid=campaign_service.factory.create('CountryTargetBid')
-    country_target_bid.BidAdjustment=15
-    country_target_bid.CountryAndRegion="CA"
-    country_target_bid.IsExcluded=False
-    country_target.Bids.CountryTargetBid.append(country_target_bid)
-    
-    metro_area_target=campaign_service.factory.create('MetroAreaTarget')
-    metro_area_target_bid=campaign_service.factory.create('MetroAreaTargetBid')
-    metro_area_target_bid.BidAdjustment=15
-    metro_area_target_bid.MetroArea="Seattle-Tacoma, WA, WA US"
-    metro_area_target_bid.IsExcluded=False
-    metro_area_target.Bids.MetroAreaTargetBid.append(metro_area_target_bid)
-
-    postal_code_target=campaign_service.factory.create('PostalCodeTarget')
-    postal_code_target_bid=campaign_service.factory.create('PostalCodeTargetBid')
-    postal_code_target_bid.BidAdjustment=15
-    postal_code_target_bid.PostalCode="98052, WA US"
-    postal_code_target_bid.IsExcluded=False
-    postal_code_target.Bids.PostalCodeTargetBid.append(postal_code_target_bid)
-
-    state_target=campaign_service.factory.create('StateTarget')
-    state_target_bid=campaign_service.factory.create('StateTargetBid')
-    state_target_bid.BidAdjustment=15
-    state_target_bid.State="US-WA"
-    state_target_bid.IsExcluded=False
-    state_target.Bids.StateTargetBid.append(state_target_bid)
-
-    location_target2=campaign_service.factory.create('LocationTarget2')
-    location_target2.IntentOption='PeopleIn'
-    location_target2.CityTarget=city_target
-    location_target2.CountryTarget=country_target
-    location_target2.MetroAreaTarget=metro_area_target
-    location_target2.PostalCodeTarget=postal_code_target
-    location_target2.StateTarget=state_target
-    bulk_campaign_location_target.location_target=location_target2
-    
-    return bulk_campaign_location_target
-
-def get_sample_bulk_campaign_radius_target():
-    bulk_campaign_radius_target=BulkCampaignRadiusTarget()
-    bulk_campaign_radius_target.campaign_id=CAMPAIGN_ID_KEY
-    bulk_campaign_radius_target.target_id=TARGET_ID_KEY
-    bulk_campaign_radius_target.intent_option='PeopleInOrSearchingForOrViewingPages'
-    BulkAdGroupAgeTarget()
-    radius_target2=campaign_service.factory.create('RadiusTarget2')
-    radius_target_bid2=campaign_service.factory.create('RadiusTargetBid2')
-    radius_target_bid2.BidAdjustment=10
-    radius_target_bid2.LatitudeDegrees=47.755367
-    radius_target_bid2.LongitudeDegrees=-122.091827
-    radius_target_bid2.Radius=11
-    radius_target_bid2.RadiusUnit='Kilometers'
-    radius_target2.Bids.RadiusTargetBid2.append(radius_target_bid2)
-    bulk_campaign_radius_target.radius_target=radius_target2
-    
-    return bulk_campaign_radius_target
-
 def output_status_message(message):
     print(message)
 
 def output_bulk_campaigns(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaign: \n")
-        output_status_message("Campaign Name: {0}".format(entity.campaign.Name))
-        output_status_message("Campaign Id: {0}".format(entity.campaign.Id))
+        output_status_message("AccountId: {0}".format(entity.account_id))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        output_bulk_performance_data(entity.performance_data)
+        output_bulk_quality_score_data(entity.quality_score_data)
+
+        # Output the Campaign Management Campaign Object
+        output_campaign(entity.campaign)
 
         if entity.has_errors:
             output_bulk_errors(entity.errors)
 
         output_status_message('')
+
+def output_campaign(campaign):
+    if campaign is not None:
+        output_status_message("BudgetType: {0}".format(campaign.BudgetType))
+        if campaign.CampaignType is not None:
+            for campaign_type in campaign.CampaignType:
+                output_status_message("CampaignType: {0}".format(campaign_type))
+        else:
+            output_status_message("CampaignType: None")
+        output_status_message("DailyBudget: {0}".format(campaign.DailyBudget))
+        output_status_message("Description: {0}".format(campaign.Description))
+        output_status_message("ForwardCompatibilityMap: ")
+        if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
+            for pair in campaign.ForwardCompatibilityMap:
+                output_status_message("Key: {0}".format(pair.Key))
+                output_status_message("Value: {0}".format(pair.Value))
+        output_status_message("Id: {0}".format(campaign.Id))
+        output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
+        output_status_message("Name: {0}".format(campaign.Name))
+        output_status_message("NativeBidAdjustment: {0}".format(campaign.NativeBidAdjustment))
+        output_status_message("Settings: ")
+        for setting in campaign.Settings.Setting:
+            if setting.Type == 'ShoppingSetting':
+                output_status_message("\tShoppingSetting: ")
+                output_status_message("\t\tPriority: {0}".format(setting.Priority))
+                output_status_message("\t\tSalesCountryCode: {0}".format(setting.SalesCountryCode))
+                output_status_message("\t\tStoreId: {0}".format(setting.StoreId))
+        output_status_message("Status: {0}".format(campaign.Status))
+        output_status_message("TimeZone: {0}".format(campaign.TimeZone))
+        output_status_message("TrackingUrlTemplate: {0}".format(campaign.TrackingUrlTemplate))
+        output_status_message("UrlCustomParameters: ")
+        if campaign.UrlCustomParameters is not None and campaign.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in campaign.UrlCustomParameters.Parameters['CustomParameter']:
+                output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
 def output_bulk_campaign_day_time_targets(bulk_entities):
     for entity in bulk_entities:
@@ -340,6 +266,25 @@ def output_bulk_campaign_day_time_targets(bulk_entities):
             output_bulk_campaign_day_time_target_bids(entity.bids)
 
         output_status_message('')
+
+def output_bulk_performance_data(performance_data):
+    if performance_data is not None:
+        output_status_message("AverageCostPerClick: {0}".format(performance_data.average_cost_per_click))
+        output_status_message("AverageCostPerThousandImpressions: {0}".format(performance_data.average_cost_per_thousand_impressions))
+        output_status_message("AveragePosition: {0}".format(performance_data.average_position))
+        output_status_message("Clicks: {0}".format(performance_data.clicks))
+        output_status_message("ClickThroughRate: {0}".format(performance_data.click_through_rate))
+        output_status_message("Conversions: {0}".format(performance_data.conversions))
+        output_status_message("CostPerConversion: {0}".format(performance_data.cost_per_conversion))
+        output_status_message("Impressions: {0}".format(performance_data.impressions))
+        output_status_message("Spend: {0}".format(performance_data.spend))
+
+def output_bulk_quality_score_data(quality_score_data):
+    if quality_score_data is not None:
+        output_status_message("KeywordRelevance: {0}".format(quality_score_data.keyword_relevance))
+        output_status_message("LandingPageRelevance: {0}".format(quality_score_data.landing_page_relevance))
+        output_status_message("LandingPageUserExperience: {0}".format(quality_score_data._landing_page_user_experience))
+        output_status_message("QualityScore: {0}".format(quality_score_data.quality_score))
 
 def output_bulk_campaign_day_time_target_bids(bulk_entities):
     for entity in bulk_entities:
@@ -437,8 +382,8 @@ def output_bulk_campaign_radius_targets(bulk_entities):
             output_status_message("Target Id: {0}".format(entity.target_id))
             output_status_message("Intent Option: {0}\n".format(entity.intent_option))
 
-            for bid in entity.radius_target.Bids['RadiusTargetBid2']:
-                output_status_message("Campaign Management RadiusTargetBid2 Object: ")
+            for bid in entity.radius_target.Bids['RadiusTargetBid']:
+                output_status_message("Campaign Management RadiusTargetBid Object: ")
                 output_status_message("BidAdjustment: {0}".format(bid.BidAdjustment))
                 output_status_message("LatitudeDegrees: {0}".format(bid.LatitudeDegrees))
                 output_status_message("LongitudeDegrees: {0}".format(bid.LongitudeDegrees))
@@ -574,6 +519,29 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def upload_entities(entities):
+    # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
+    # without writing to file. This example writes to file as an exercise so that you can view the structure 
+    # of the bulk records being uploaded as needed. 
+    writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
+    for entity in entities:
+        writer.write_entity(entity)
+    writer.close()
+
+    file_upload_parameters=FileUploadParameters(
+        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
+        result_file_directory=FILE_DIRECTORY,
+        result_file_name=RESULT_FILE_NAME,
+        overwrite_result_file=True,
+        response_mode='ErrorsAndResults'
+    )
+
+    bulk_file_path=bulk_service.upload_file(file_upload_parameters, progress=print_percent_complete)
+
+    with BulkFileReader(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_TYPE) as reader:
+            for entity in reader:
+                yield entity
+
 # Main execution
 if __name__ == '__main__':
 
@@ -601,44 +569,131 @@ if __name__ == '__main__':
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
 
-        bulk_campaign=get_sample_bulk_campaign()
-        bulk_campaign_day_time_target=get_sample_bulk_campaign_day_time_target()
-        bulk_campaign_location_target=get_sample_bulk_campaign_location_target()
-        bulk_campaign_radius_target=get_sample_bulk_campaign_radius_target()
+        bulk_campaign=BulkCampaign()
+        
+        # The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
+        # is not used or stored by the server; it is simply copied from the uploaded record to the corresponding result record. 
+        # Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
+        
+        bulk_campaign.client_id='YourClientIdGoesHere'
+        campaign=campaign_service.factory.create('Campaign')
+        
+        # When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
+        # and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
+        # will be used when adding new ad groups to this new campaign, or when associating ad extensions with the campaign. 
 
+        campaign.Id=CAMPAIGN_ID_KEY
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
+        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
+        campaign.MonthlyBudget=1000
+        campaign.TimeZone='PacificTimeUSCanadaTijuana'
+        campaign.Status='Paused'
+
+        # DaylightSaving is not supported in the Bulk file schema. Whether or not you specify it in a BulkCampaign,
+        # the value is not written to the Bulk file, and by default DaylightSaving is set to true.
+        campaign.DaylightSaving='True'
+
+        bulk_campaign.campaign=campaign
+
+        bulk_campaign_day_time_target=BulkCampaignDayTimeTarget()
+        bulk_campaign_day_time_target.campaign_id=CAMPAIGN_ID_KEY
+        bulk_campaign_day_time_target.target_id=TARGET_ID_KEY
+        day_time_target=campaign_service.factory.create('DayTimeTarget')
+        day_time_target_bid_0=campaign_service.factory.create('DayTimeTargetBid')
+        day_time_target_bid_0.BidAdjustment=10
+        day_time_target_bid_0.Day='Friday'
+        day_time_target_bid_0.FromHour=11
+        day_time_target_bid_0.FromMinute='Zero'
+        day_time_target_bid_0.ToHour=13
+        day_time_target_bid_0.ToMinute='Fifteen'
+        day_time_target_bid_1=campaign_service.factory.create('DayTimeTargetBid')
+        day_time_target_bid_1.BidAdjustment=20
+        day_time_target_bid_1.Day='Saturday'
+        day_time_target_bid_1.FromHour=11
+        day_time_target_bid_1.FromMinute='Zero'
+        day_time_target_bid_1.ToHour=13
+        day_time_target_bid_1.ToMinute='Fifteen'
+        day_time_target.Bids.DayTimeTargetBid.append(day_time_target_bid_0)
+        day_time_target.Bids.DayTimeTargetBid.append(day_time_target_bid_1)
+        bulk_campaign_day_time_target.day_time_target=day_time_target
+
+        bulk_campaign_location_target=BulkCampaignLocationTarget()
+        bulk_campaign_location_target.campaign_id=CAMPAIGN_ID_KEY
+        bulk_campaign_location_target.target_id=TARGET_ID_KEY
+        city_target=campaign_service.factory.create('CityTarget')
+        city_target_bid=campaign_service.factory.create('CityTargetBid')
+        city_target_bid.BidAdjustment=10
+        city_target_bid.City="Toronto, Toronto ON CA"
+        city_target_bid.IsExcluded=False
+        city_target.Bids.CityTargetBid.append(city_target_bid)
+        country_target=campaign_service.factory.create('CountryTarget')
+        country_target_bid=campaign_service.factory.create('CountryTargetBid')
+        country_target_bid.BidAdjustment=15
+        country_target_bid.CountryAndRegion="CA"
+        country_target_bid.IsExcluded=False
+        country_target.Bids.CountryTargetBid.append(country_target_bid)
+        metro_area_target=campaign_service.factory.create('MetroAreaTarget')
+        metro_area_target_bid=campaign_service.factory.create('MetroAreaTargetBid')
+        metro_area_target_bid.BidAdjustment=15
+        metro_area_target_bid.MetroArea="Seattle-Tacoma, WA, WA US"
+        metro_area_target_bid.IsExcluded=False
+        metro_area_target.Bids.MetroAreaTargetBid.append(metro_area_target_bid)
+        postal_code_target=campaign_service.factory.create('PostalCodeTarget')
+        postal_code_target_bid=campaign_service.factory.create('PostalCodeTargetBid')
+        postal_code_target_bid.BidAdjustment=15
+        postal_code_target_bid.PostalCode="98052, WA US"
+        postal_code_target_bid.IsExcluded=False
+        postal_code_target.Bids.PostalCodeTargetBid.append(postal_code_target_bid)
+        state_target=campaign_service.factory.create('StateTarget')
+        state_target_bid=campaign_service.factory.create('StateTargetBid')
+        state_target_bid.BidAdjustment=15
+        state_target_bid.State="US-WA"
+        state_target_bid.IsExcluded=False
+        state_target.Bids.StateTargetBid.append(state_target_bid)
+        location_target=campaign_service.factory.create('LocationTarget')
+        location_target.IntentOption='PeopleIn'
+        location_target.CityTarget=city_target
+        location_target.CountryTarget=country_target
+        location_target.MetroAreaTarget=metro_area_target
+        location_target.PostalCodeTarget=postal_code_target
+        location_target.StateTarget=state_target
+        bulk_campaign_location_target.location_target=location_target
+    
+        bulk_campaign_radius_target=BulkCampaignRadiusTarget()
+        bulk_campaign_radius_target.campaign_id=CAMPAIGN_ID_KEY
+        bulk_campaign_radius_target.target_id=TARGET_ID_KEY
+        bulk_campaign_radius_target.intent_option='PeopleInOrSearchingForOrViewingPages'
+        radius_target=campaign_service.factory.create('RadiusTarget')
+        radius_target_bid=campaign_service.factory.create('RadiusTargetBid')
+        radius_target_bid.BidAdjustment=10
+        radius_target_bid.LatitudeDegrees=47.755367
+        radius_target_bid.LongitudeDegrees=-122.091827
+        radius_target_bid.Radius=11
+        radius_target_bid.RadiusUnit='Kilometers'
+        radius_target.Bids.RadiusTargetBid.append(radius_target_bid)
+        bulk_campaign_radius_target.radius_target=radius_target
+    
         output_bulk_campaign_day_time_targets([bulk_campaign_day_time_target])
         output_bulk_campaign_location_targets([bulk_campaign_location_target])
         output_bulk_campaign_radius_targets([bulk_campaign_radius_target])
         
-        # Write the entities created above, to temporary memory. 
-        # Dependent entities such as BulkCampaignLocationTarget must be written after any dependencies,   
-        # for example the BulkCampaign. 
+        # Upload the entities created above.
 
-        upload_entities=[]
-        upload_entities.append(bulk_campaign)
-        upload_entities.append(bulk_campaign_day_time_target)
-        upload_entities.append(bulk_campaign_location_target)
-        upload_entities.append(bulk_campaign_radius_target)
+        entities=[]
+        entities.append(bulk_campaign)
+        entities.append(bulk_campaign_day_time_target)
+        entities.append(bulk_campaign_location_target)
+        entities.append(bulk_campaign_radius_target)
         
-        entity_upload_parameters=EntityUploadParameters(
-            result_file_directory=FILE_DIRECTORY,
-            result_file_name=RESULT_FILE_NAME,
-            entities=upload_entities,
-            overwrite_result_file=True,
-            response_mode='ErrorsAndResults'
-        )
+        output_status_message("\nAdding campaign with associated targets . . .")
+        bulk_entities=upload_entities(entities)
 
-        # upload_entities will upload the entities you prepared and will download the results file 
-        # Alternative is to write to file and then upload the file. Use upload_file for large uploads.
-
-        output_status_message("Starting upload_entities . . .")
-
-        bulk_entities=bulk_service.upload_entities(entity_upload_parameters, progress=print_percent_complete)
-
-        output_status_message("Printing the results of upload_entities . . .")
+        campaign_results=[]
 
         for entity in bulk_entities:
             if isinstance(entity, BulkCampaign):
+                campaign_results.append(entity)
                 output_bulk_campaigns([entity])
             if isinstance(entity, BulkCampaignDayTimeTarget):
                 output_bulk_campaign_day_time_targets([entity])
@@ -647,6 +702,33 @@ if __name__ == '__main__':
             if isinstance(entity, BulkCampaignRadiusTarget):
                 output_bulk_campaign_radius_targets([entity])
             
+        # Delete the campaign and target associations that were previously added. 
+        # Note that the targets are not deleted. Deleting targets is not supported using the
+        # Bulk service. To delete targets you can use the DeleteTargetsFromLibrary operation
+        # via the Campaign Management service.
+        # You should remove this region if you want to view the added entities in the 
+        # Bing Ads web application or another tool.
+                
+        entities=[]
+        
+        bulk_campaign = BulkCampaign()
+        campaign=campaign_service.factory.create('Campaign')
+        campaign.Id=campaign_results.pop(0).campaign.Id
+        campaign.Status='Deleted'
+        bulk_campaign.campaign=campaign
+        bulk_campaign.account_id=authorization_data.account_id
+
+        entities.append(bulk_campaign)
+
+        bulk_entities=upload_entities(entities)
+
+        campaign_results=[]
+
+        for entity in bulk_entities:
+            if isinstance(entity, BulkCampaign):
+                campaign_results.append(entity)
+                output_bulk_campaigns([entity])
+
         output_status_message("Program execution completed")
 
     except WebFault as ex:

@@ -3,19 +3,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>9ebf4dba-3c83-4633-9494-8ca6edcf81b4</ProjectGuid>
+    <ProjectGuid>8c0b9e76-2267-4699-857d-42f5b7055310</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>ConsoleGettingStarted.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>BingAdsPythonExamplesConsole</Name>
-    <RootNamespace>BingAdsPythonExamplesConsole</RootNamespace>
-    <InterpreterId>
-    </InterpreterId>
-    <InterpreterVersion>
-    </InterpreterVersion>
+    <Name>BingAdsPythonConsoleExamples</Name>
+    <RootNamespace>BingAdsPythonConsoleExamples</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,30 +22,42 @@
     <DebugSymbols>true</DebugSymbols>
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="AdExtensions.py" />
-    <Compile Include="BulkAdExtensions.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BulkShoppingCampaigns.py" />
-    <Compile Include="ConsoleGettingStarted.py" />
-    <Compile Include="CreateKeywordsAds.py" />
-    <Compile Include="BulkCreateKeywordsAds.py" />
-    <Compile Include="EstimatedBid.py" />
-    <Compile Include="GeographicalLocations.py" />
-    <Compile Include="ManageClient.py" />
-    <Compile Include="NegativeKeywords.py" />
-    <Compile Include="OptimizeBudget.py" />
-    <Compile Include="ReportRequests.py" />
-    <Compile Include="SearchUserAccounts.py" />
-    <Compile Include="ShoppingCampaigns.py" />
-    <Compile Include="Targets.py" />
-    <Compile Include="BulkTargets.py" />
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="v10\" />
+    <Folder Include="v9\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GeographicalLocations.py" />
+    <Compile Include="v10\AdExtensions.py" />
+    <Compile Include="v10\BudgetOpportunities.py" />
+    <Compile Include="v10\BulkAdExtensions.py" />
+    <Compile Include="v10\BulkKeywordsAds.py" />
+    <Compile Include="v10\BulkShoppingCampaigns.py" />
+    <Compile Include="v10\BulkTargets.py" />
+    <Compile Include="v10\ConsoleGettingStarted.py" />
+    <Compile Include="v10\KeywordsAds.py" />
+    <Compile Include="v10\NegativeKeywords.py" />
+    <Compile Include="v10\ShoppingCampaigns.py" />
+    <Compile Include="v10\Targets.py" />
+    <Compile Include="v9\AdExtensions.py" />
+    <Compile Include="v9\BulkAdExtensions.py" />
+    <Compile Include="v9\BulkCreateKeywordsAds.py" />
+    <Compile Include="v9\BulkShoppingCampaigns.py" />
+    <Compile Include="v9\BulkTargets.py" />
+    <Compile Include="v9\EstimatedBid.py" />
+    <Compile Include="v9\KeywordsAds.py" />
+    <Compile Include="v9\ManageClient.py" />
+    <Compile Include="v9\NegativeKeywords.py" />
+    <Compile Include="v9\OptimizeBudget.py" />
+    <Compile Include="v9\ReportRequests.py" />
+    <Compile Include="v9\SearchUserAccounts.py" />
+    <Compile Include="v9\ShoppingCampaigns.py" />
+    <Compile Include="v9\Targets.py" />
+  </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

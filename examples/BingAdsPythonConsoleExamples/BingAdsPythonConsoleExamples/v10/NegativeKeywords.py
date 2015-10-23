@@ -1,8 +1,11 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -16,7 +19,7 @@ if __name__ == '__main__':
 
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
-    CLIENT_ID='YourClientIdGoesHere''
+    CLIENT_ID='YourClientIdGoesHere'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -29,12 +32,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -64,7 +69,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -247,15 +252,13 @@ def output_webfault_errors(ex):
         raise Exception('Unknown WebFault')
 
 def output_campaign_ids(campaign_ids):
-    if not hasattr(campaign_ids, 'long'):
-        return None
-    for id in campaign_ids:
+    for id in campaign_ids['long']:
         output_status_message("Campaign successfully added and assigned CampaignId {0}\n".format(id))
 
 def output_negative_keyword_ids(id_collections):
     if not hasattr(id_collections, 'IdCollection'):
         return None
-    for index in range(0, len(id_collections['IdCollection'])-1):
+    for index in range(0, len(id_collections['IdCollection'])):
         output_status_message("NegativeKeyword Ids at entity index {0}:\n".format(index))
         for id in id_collections['IdCollection'][index].Ids['long']:
             output_status_message("\tId: {0}\n".format(id))
@@ -402,8 +405,8 @@ if __name__ == '__main__':
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=campaign_service.factory.create('Campaign')
-        campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        campaign.Description='Winter clothing line.'
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
         campaign.MonthlyBudget=1000
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
@@ -411,10 +414,13 @@ if __name__ == '__main__':
         campaign.Status='Paused'
         campaigns.Campaign.append(campaign)
 
-        campaign_ids=campaign_service.AddCampaigns(
+        add_campaigns_response=campaign_service.AddCampaigns(
             AccountId=authorization_data.account_id,
             Campaigns=campaigns
-        )['long']
+        )
+        campaign_ids={
+            'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
+        }
         
         output_campaign_ids(campaign_ids)
 
@@ -424,7 +430,7 @@ if __name__ == '__main__':
 
         entity_negative_keywords=campaign_service.factory.create('ArrayOfEntityNegativeKeyword')
         entity_negative_keyword=campaign_service.factory.create('EntityNegativeKeyword')
-        entity_negative_keyword.EntityId=campaign_ids[0]
+        entity_negative_keyword.EntityId=campaign_ids['long'][0]
         entity_negative_keyword.EntityType="Campaign"
         negative_keywords=campaign_service.factory.create('ArrayOfNegativeKeyword')
         negative_keyword=campaign_service.factory.create('NegativeKeyword')
@@ -449,7 +455,7 @@ if __name__ == '__main__':
             output_nested_partial_errors(add_negative_keywords_to_entities_response.NestedPartialErrors)
         
         get_negative_keywords_by_entity_ids_response=campaign_service.GetNegativeKeywordsByEntityIds(
-            EntityIds={'long': campaign_ids}, 
+            EntityIds=campaign_ids, 
             EntityType="Campaign", 
             ParentEntityId=authorization_data.account_id
         )
@@ -495,7 +501,7 @@ if __name__ == '__main__':
         # NegativeKeywordList inherits from SharedList which inherits from SharedEntity.
 
         negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
-        negative_keyword_list.Name="My Negative Keyword List" + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        negative_keyword_list.Name="My Negative Keyword List " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         negative_keyword_list.Type="NegativeKeywordList"
         
         negative_keywords=campaign_service.factory.create('ArrayOfSharedListItem')
@@ -634,7 +640,7 @@ if __name__ == '__main__':
 
         shared_entity_associations=campaign_service.factory.create('ArrayOfSharedEntityAssociation')
         shared_entity_association=campaign_service.factory.create('SharedEntityAssociation')
-        shared_entity_association.EntityId=campaign_ids[0]
+        shared_entity_association.EntityId=campaign_ids['long'][0]
         shared_entity_association.EntityType="Campaign"
         shared_entity_association.SharedEntityId=shared_entity_id
         shared_entity_association.SharedEntityType="NegativeKeywordList" 
@@ -643,14 +649,14 @@ if __name__ == '__main__':
         partial_errors=campaign_service.SetSharedEntityAssociations(Associations=shared_entity_associations)
         if partial_errors is None:
             output_status_message(
-                "Associated CampaignId {0} with Negative Keyword List Id {1}.\n".format(campaign_ids[0], shared_entity_id)
+                "Associated CampaignId {0} with Negative Keyword List Id {1}.\n".format(campaign_ids['long'][0], shared_entity_id)
             )
         else:
             output_partial_errors(partial_errors)
 
         # Get and print the associations either by Campaign or NegativeKeywordList identifier.
         get_shared_entity_associations_by_entity_ids_response=campaign_service.GetSharedEntityAssociationsByEntityIds(
-            EntityIds={'long': campaign_ids}, 
+            EntityIds=campaign_ids, 
             EntityType="Campaign", 
             SharedEntityType="NegativeKeywordList"
         )
@@ -678,12 +684,10 @@ if __name__ == '__main__':
 
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
-            CampaignIds={
-                    'long': campaign_ids
-                }
+            CampaignIds=campaign_ids
         )
 
-        for campaign_id in campaign_ids:
+        for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
 
         # DeleteCampaigns does not delete the negative keyword list from the account's library. 

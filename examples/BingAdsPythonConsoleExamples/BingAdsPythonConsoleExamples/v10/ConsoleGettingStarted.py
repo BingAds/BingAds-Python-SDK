@@ -1,8 +1,11 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10.bulk import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -25,16 +28,39 @@ if __name__ == '__main__':
         authentication=None,
     )
 
+    FILE_DIRECTORY='c:/bulk/'
+    RESULT_FILE_NAME='download.csv'
+
+    # Take advantage of the BulkServiceManager class to efficiently manage ads and keywords for all campaigns in an account. 
+    # The client library provides classes to accelerate productivity for downloading and uploading entities. 
+    # For example the upload_entities method of the BulkServiceManager class submits your upload request to the bulk service, 
+    # polls the service until the upload completed, downloads the result file to a temporary directory, and exposes BulkEntity-derived objects  
+    # that contain close representations of the corresponding Campaign Management data objects and value sets.
+
+    # Poll for downloads at reasonable intervals. You know your data better than anyone. 
+    # If you download an account that is well less than one million keywords, consider polling 
+    # at 15 to 20 second intervals. If the account contains about one million keywords, consider polling 
+    # at one minute intervals after waiting five minutes. For accounts with about four million keywords, 
+    # consider polling at one minute intervals after waiting 10 minutes. 
+
+    bulk_service=BulkServiceManager(
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=5000, 
+        environment=ENVIRONMENT,
+    )
+
     campaign_service=ServiceClient(
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -146,8 +172,8 @@ def search_accounts_by_user_id(user_id):
     }
         
     return customer_service.SearchAccounts(
-        PageInfo=paging,
-        Predicates=predicates
+        PageInfo = paging,
+        Predicates = predicates
     )
 
 def output_status_message(message):
@@ -246,74 +272,28 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def output_ad_extensions(ad_extensions, ad_extension_editorial_reason_collection):
-    if not hasattr(ad_extensions, 'AdExtension'):
-        return None
-    index=0
-    for extension in ad_extensions['AdExtension']:
-        if extension is None or extension.Id is None:
-            output_status_message('Extension is empty or invalid.')
-        else:
-            output_status_message("Ad extension ID: {0}".format(extension.Id))
-            output_status_message("Ad extension Type: {0}".format(extension.Type))
+def output_bulk_campaigns(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkCampaign: \n")
+        output_status_message("Campaign Name: {0}".format(entity.campaign.Name))
+        output_status_message("Campaign Id: {0}".format(entity.campaign.Id))
 
-            if extension.Type == 'AppAdExtension':
-                output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
-                output_status_message("AppStoreId: {0}".format(extension.AppStoreId))
-                output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
-                output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
-                output_status_message("DisplayText: {0}".format(extension.DisplayText))
-                output_status_message("Id: {0}".format(extension.Id))
-                output_status_message("Status: {0}".format(extension.Status))
-                output_status_message("Version: {0}".format(extension.Version))
-                output_status_message("\n")
-            elif extension.Type == 'CallAdExtension':
-                output_status_message("Phone number: {0}".format(extension.PhoneNumber))
-                output_status_message("Country: {0}".format(extension.CountryCode))
-                output_status_message("Is only clickable item: {0}".format(extension.IsCallOnly))
-                output_status_message("\n")
-            elif extension.Type == 'LocationAdExtension':
-                output_status_message("Company name: {0}".format(extension.CompanyName))
-                output_status_message("Phone number: {0}".format(extension.PhoneNumber))
-                output_status_message("Street: {0}".format(extension.Address.StreetAddress))
-                output_status_message("City: {0}".format(extension.Address.CityName))
-                output_status_message("State: {0}".format(extension.Address.ProvinceName))
-                output_status_message("Country: {0}".format(extension.Address.CountryCode))
-                output_status_message("Zip code: {0}".format(extension.Address.PostalCode))
-                output_status_message("Business coordinates determined?: {0}".format(extension.GeoCodeStatus))
-                output_status_message("Map icon ID: {0}".format(extension.IconMediaId))
-                output_status_message("Business image ID: {0}".format(extension.ImageMediaId))
-                output_status_message("\n")
-            elif extension.Type == 'SiteLinksAdExtension':
-                for sitelink in extension.SiteLinks['SiteLink']:
-                    output_status_message("Display URL: {0}".format(sitelink.DisplayText))
-                    output_status_message("Destination URL: {0}".format(sitelink.DestinationUrl))
-                    output_status_message("\n")
-            else:
-                output_status_message("Unknown extension type")
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
 
-        if hasattr(ad_extension_editorial_reason_collection, 'Reasons'):
+        output_status_message('')
 
-            # Print any editorial rejection reasons for the corresponding extension. This example 
-            # assumes the same list index for adExtensions and adExtensionEditorialReasonCollection
-            # as defined above.
-
-            for ad_extension_editorial_reason \
-            in ad_extension_editorial_reason_collection.Reasons['AdExtensionEditorialReason']:
-            
-                if ad_extension_editorial_reason is not None \
-                and ad_extension_editorial_reason.PublisherCountries is not None:
-
-                    output_status_message("Editorial Rejection Location: {0}".format(ad_extension_editorial_reason.Location))
-                    output_status_message("Editorial Rejection PublisherCountries: ")
-                    for publisher_country in ad_extension_editorial_reason.PublisherCountries['string']:
-                        output_status_message("  " + publisher_country)
-                    
-                    output_status_message("Editorial Rejection ReasonCode: {0}".format(ad_extension_editorial_reason.ReasonCode))
-                    output_status_message("Editorial Rejection Term: {0}".format(ad_extension_editorial_reason.Term))
-                    output_status_message("\n")
-                              
-        index=index+1
+def output_bulk_errors(errors):
+    for error in errors:
+        if error.error is not None:
+            output_status_message("Number: {0}".format(error.error))
+        output_status_message("Error: {0}".format(error.number))
+        if error.editorial_reason_code is not None:
+            output_status_message("EditorialTerm: {0}".format(error.editorial_term))
+            output_status_message("EditorialReasonCode: {0}".format(error.editorial_reason_code))
+            output_status_message("EditorialLocation: {0}".format(error.editorial_location))
+            output_status_message("PublisherCountries: {0}".format(error.publisher_countries))
+        output_status_message('')
 
 # Main execution
 if __name__ == '__main__':
@@ -336,148 +316,63 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+    
+        
+        #To discover all SOAP elements accessible for each service, you can print the soap client.
+        #For example, print(campaign_service.soap_client) will return Campaign, AdGroup, TextAd, Keyword, etc. 
 
-        # Add a campaign that will later be associated with ad extensions. 
+        #You could use the Campaign Management ServiceClient to add a Campaign as follows:
+        #add_campaigns_response=campaign_service.AddCampaigns(
+        #    AccountId=authorization_data.account_id,
+        #    Campaigns=campaigns
+        #)
 
-        campaigns=campaign_service.factory.create('ArrayOfCampaign')
+        #BulkEntity-derived classes can also contain the SOAP objects, for example BulkCampaign can contain a Campaign.
+        #As shown below, you can use the BulkServiceManager to upload a BulkCampaign. 
+        #You should take advantage of the Bulk service to efficiently manage ads and keywords for all campaigns in an account.
+        
+        CAMPAIGN_ID_KEY=-123
+
+        bulk_campaign=BulkCampaign()
+        
+        #The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
+        #is not used or stored by the server; it is simply copied from the uploaded record to the corresponding result record. 
+        #Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
+
+        bulk_campaign.client_id='YourClientIdGoesHere'
         campaign=campaign_service.factory.create('Campaign')
-        campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        campaign.Description='Winter clothing line.'
+        
+        #When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
+        #and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
+        #will be used when adding new ad groups to this new campaign, or when associating ad extensions with the campaign. 
+
+        campaign.Id=CAMPAIGN_ID_KEY
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
         campaign.MonthlyBudget=1000
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
-        campaign.DaylightSaving='true' # Accepts 'true', 'false', True, or False
         campaign.Status='Paused'
-        campaigns.Campaign.append(campaign)
+        bulk_campaign.campaign=campaign
 
-        campaign_ids=campaign_service.AddCampaigns(
-            AccountId=authorization_data.account_id,
-            Campaigns=campaigns
-        )['long']
-        
-        # Specify the extensions.
-
-        ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
-        
-        app_ad_extension=campaign_service.factory.create('AppAdExtension')
-        app_ad_extension.AppPlatform='Windows'
-        app_ad_extension.AppStoreId='AppStoreIdGoesHere'
-        app_ad_extension.DisplayText='Contoso'
-        app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
-        app_ad_extension.Status=None
-        ad_extensions.AdExtension.append(app_ad_extension)
-
-        call_ad_extension=campaign_service.factory.create('CallAdExtension')
-        call_ad_extension.CountryCode="US"
-        call_ad_extension.PhoneNumber="2065550100"
-        call_ad_extension.IsCallOnly=False
-        call_ad_extension.Status=None
-        ad_extensions.AdExtension.append(call_ad_extension)
-
-        location_ad_extension=campaign_service.factory.create('LocationAdExtension')
-        location_ad_extension.PhoneNumber="206-555-0100"
-        location_ad_extension.CompanyName="Contoso Shoes"
-        location_ad_extension.IconMediaId=None
-        location_ad_extension.ImageMediaId=None
-        location_ad_extension.Status=None
-        location_ad_extension.GeoCodeStatus=None
-        location_ad_extension.GeoPoint=None
-        address=campaign_service.factory.create('Address')
-        address.StreetAddress="1234 Washington Place"
-        address.StreetAddress2="Suite 1210"
-        address.CityName="Woodinville"
-        address.ProvinceName="WA"
-        address.CountryCode="US"
-        address.PostalCode="98608"
-        location_ad_extension.Address=address
-        ad_extensions.AdExtension.append(location_ad_extension)
-        
-        site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
-        site_links=campaign_service.factory.create('ArrayOfSiteLink')
-        site_link_0=campaign_service.factory.create('SiteLink')
-        site_link_0.DestinationUrl = "Contoso.com"
-        site_link_0.DisplayText = "Women's Shoe Sale 1"
-        site_links.SiteLink.append(site_link_0)
-        site_link_1=campaign_service.factory.create('SiteLink')
-        site_link_1.DestinationUrl = "Contoso.com/WomenShoeSale/2"
-        site_link_1.DisplayText = "Women's Shoe Sale 2"
-        site_links.SiteLink.append(site_link_1)
-        site_links_ad_extension.SiteLinks=site_links
-        site_links_ad_extension.Status=None
-        ad_extensions.AdExtension.append(site_links_ad_extension)
-        
-        # Add all extensions to the account's ad extension library
-        ad_extension_identities=campaign_service.AddAdExtensions(
-            AccountId=authorization_data.account_id,
-            AdExtensions=ad_extensions
+        bulk_campaigns=[ bulk_campaign ]
+    
+        entity_upload_parameters=EntityUploadParameters(
+            result_file_directory=FILE_DIRECTORY,
+            result_file_name=RESULT_FILE_NAME,
+            entities=bulk_campaigns,
+            overwrite_result_file=True,
+            response_mode='ErrorsAndResults'
         )
-
-        output_status_message("Added ad extensions.\n")
-
-        # DeleteAdExtensionsAssociations, SetAdExtensionsAssociations, and GetAdExtensionsEditorialReasons 
-        # operations each require a list of type AdExtensionIdToEntityIdAssociation.
-        ad_extension_id_to_entity_id_associations=campaign_service.factory.create('ArrayOfAdExtensionIdToEntityIdAssociation')
-
-        # GetAdExtensionsByIds requires a list of type long.
-        ad_extension_ids=[]
-
-        # Loop through the list of extension IDs and build any required data structures
-        # for subsequent operations. 
-
-        for ad_extension_identity in ad_extension_identities['AdExtensionIdentity']:
-            ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-            ad_extension_id_to_entity_id_association.AdExtensionId=ad_extension_identity.Id
-            ad_extension_id_to_entity_id_association.EntityId=campaign_ids[0]
-            ad_extension_id_to_entity_id_associations.AdExtensionIdToEntityIdAssociation.append(ad_extension_id_to_entity_id_association)
-
-            ad_extension_ids.append(ad_extension_identity.Id)
-
-        # Associate the specified ad extensions with the respective campaigns or ad groups. 
-        campaign_service.SetAdExtensionsAssociations(
-            AccountId=authorization_data.account_id,
-            AdExtensionIdToEntityIdAssociations=ad_extension_id_to_entity_id_associations,
-            AssociationType='Campaign'
-        )
-
-        output_status_message("Set ad extension associations.\n")
-
-        # Get editorial rejection reasons for the respective ad extension and entity associations.
-        ad_extension_editorial_reason_collection=campaign_service.GetAdExtensionsEditorialReasons(
-            AccountId=authorization_data.account_id,
-            AdExtensionIdToEntityIdAssociations=ad_extension_id_to_entity_id_associations,
-            AssociationType='Campaign'
-        )
-
-        ad_extensions_type_filter='AppAdExtension CallAdExtension LocationAdExtension SiteLinksAdExtension'
-
-        # Get the specified ad extensions from the account?s ad extension library.
-        ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
-        ad_extensions=campaign_service.GetAdExtensionsByIds(
-            AccountId=authorization_data.account_id,
-            AdExtensionIds={'long': ad_extension_ids},
-            AdExtensionType=ad_extensions_type_filter,
-        )
-
-        output_ad_extensions(ad_extensions, ad_extension_editorial_reason_collection)
-
-        # Remove the specified associations from the respective campaigns or ad groups. 
-        # The extesions are still available in the account's extensions library. 
-        campaign_service.DeleteAdExtensionsAssociations(
-            AccountId=authorization_data.account_id,
-            AdExtensionIdToEntityIdAssociations=ad_extension_id_to_entity_id_associations,
-            AssociationType='Campaign'
-        )
-
-        output_status_message("Deleted ad extension associations.\n")
-
-        # Deletes the ad extensions from the account?s ad extension library.
-        campaign_service.DeleteAdExtensions(
-            AccountId=authorization_data.account_id,
-            AdExtensionIds={'long': ad_extension_ids},
-        )
-
-        output_status_message("Deleted ad extensions.\n")
-
+    
+        output_status_message("Adding a BulkCampaign...\n")
+        bulk_entities=list(bulk_service.upload_entities(entity_upload_parameters))
+    
+        # Output the upload result entities
+        for entity in bulk_entities:
+            if isinstance(entity, BulkCampaign):
+                output_bulk_campaigns([entity])
+    
         output_status_message("Program execution completed")
 
     except WebFault as ex:

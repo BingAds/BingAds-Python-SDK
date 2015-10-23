@@ -1,8 +1,11 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -25,17 +28,27 @@ if __name__ == '__main__':
         authentication=None,
     )
 
-    ad_intelligence_service=ServiceClient(
-        service='AdIntelligenceService', 
+    adinsight_service=ServiceClient(
+        service='AdInsightService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10
+    )
+
+    campaign_service=ServiceClient(
+        service='CampaignManagementService', 
+        authorization_data=authorization_data, 
+        environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
+
 
 def authenticate_with_username():
     ''' 
@@ -64,7 +77,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
@@ -246,6 +259,33 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def output_budget_opportunities(budget_opportunities, campaign_id):
+    if budget_opportunities is not None and len(budget_opportunities) > 0:
+        for budget_opportunity in budget_opportunities['BudgetOpportunity']:
+            output_status_message("BudgetPoints: ")
+            for budget_point in budget_opportunity.BudgetPoints['BudgetPoint']:
+                output_budget_point(budget_point)
+            output_status_message("BudgetType: {0}".format(budget_opportunity.BudgetType))
+            output_status_message("CampaignId: {0}".format(budget_opportunity.CampaignId))
+            output_status_message("CurrentBudget: {0}".format(budget_opportunity.CurrentBudget))
+            output_status_message("IncreaseInClicks: {0}".format(budget_opportunity.IncreaseInClicks))
+            output_status_message("IncreaseInImpressions: {0}".format(budget_opportunity.IncreaseInImpressions))
+            output_status_message("OpportunityKey: {0}".format(budget_opportunity.OpportunityKey))
+            output_status_message("PercentageIncreaseInClicks: {0}".format(budget_opportunity.PercentageIncreaseInClicks))
+            output_status_message("PercentageIncreaseInImpressions: {0}".format(budget_opportunity.PercentageIncreaseInImpressions))
+            output_status_message("RecommendedBudget: {0}".format(budget_opportunity.RecommendedBudget))
+    else:
+        output_status_message("There are no budget opportunities for CampaignId: {0}".format(campaign_id))
+
+def output_budget_point(budget_point):
+    if budget_point is not None:
+        output_status_message("BudgetAmount: {0}".format(budget_point.BudgetAmount))
+        output_status_message("BudgetPointType: {0}".format(budget_point.BudgetPointType))
+        output_status_message("EstimatedWeeklyClicks: {0}".format(budget_point.EstimatedWeeklyClicks))
+        output_status_message("EstimatedWeeklyCost: {0}".format(budget_point.EstimatedWeeklyCost))
+        output_status_message("EstimatedWeeklyImpressions: {0}".format(budget_point.EstimatedWeeklyImpressions))
+
+
 # Main execution
 if __name__ == '__main__':
 
@@ -267,108 +307,16 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+        
+        # Get the budget opportunities for each campaign in the current authenticated account.
 
-        # Set the Currency, Keywords, Language, PublisherCountries, and TargetPositionForAds
-        # for the estimated bid by keywords request. 
+        campaign_types=['SearchAndContent', 'Shopping']
+        campaigns=campaign_service.GetCampaignsByAccountId(authorization_data.account_id, campaign_types)
 
-        currency='USDollar'
-        language='English'
-        publisher_countries={'string': ['US']}
-        match_types={'MatchType': [
-            'Broad',
-            'Exact',
-            'Phrase',
-        ]}
-        target_position_for_ads='SideBar'
-
-        keyword_and_match_types=ad_intelligence_service.factory.create('ns0:ArrayOfKeywordAndMatchType')
-        keyword_and_match_type_1=ad_intelligence_service.factory.create('ns0:KeywordAndMatchType')
-        keyword_and_match_type_1.KeywordText='flower'
-        keyword_and_match_type_1.MatchTypes=match_types
-        #keyword_and_match_types.KeywordAndMatchType.append(keyword_and_match_type_1)
-        keyword_and_match_type_2=ad_intelligence_service.factory.create('ns0:KeywordAndMatchType')
-        keyword_and_match_type_2.KeywordText='delivery'
-        keyword_and_match_type_2.MatchTypes=match_types
-        #keyword_and_match_types.KeywordAndMatchType.append(keyword_and_match_type_2)
-
-        keyword_and_match_types={'KeywordAndMatchType': [keyword_and_match_type_1, keyword_and_match_type_2]}
-
-        keyword_estimated_bids=ad_intelligence_service.GetEstimatedBidByKeywords(
-            Currency=currency,
-            GetBidsAtLevel=0,  # Set GetBidsAtLevel to 0 to get a list of KeywordEstimatedBid.
-            Keywords=keyword_and_match_types,
-            Language=language,
-            PublisherCountries=publisher_countries,
-            TargetPositionForAds=target_position_for_ads,
-        ).KeywordEstimatedBids
-
-        ad_group_estimated_bid=ad_intelligence_service.GetEstimatedBidByKeywords(
-            Currency=currency,
-            GetBidsAtLevel=2,  # Set GetBidsAtLevel to 2 to get one ad_group_estimated_bid.
-            Keywords=keyword_and_match_types,
-            Language=language,
-            PublisherCountries=publisher_countries,
-            TargetPositionForAds=target_position_for_ads
-        ).AdGroupEstimatedBid
-
-        # Print the KeywordEstimatedBids
-
-        if keyword_estimated_bids is not None:
-            output_status_message('KeywordEstimatedBids')
-            for bid in keyword_estimated_bids['KeywordEstimatedBid']:
-                if bid is None:
-                    output_status_message('The keyword is not valid.')
-                else:
-                    output_status_message(bid.Keyword)
-                    if len(bid.EstimatedBids) == 0:
-                        output_status_message("  There is no bid information available for the keyword.\n")
-                    else:
-                        for estimated_bid_and_traffic in bid.EstimatedBids['EstimatedBidAndTraffic']:
-                            output_status_message("  " + estimated_bid_and_traffic.MatchType);
-                            output_status_message("    Estimated Minimum Bid: {0}".format(estimated_bid_and_traffic.EstimatedMinBid))
-                            output_status_message("    Average CPC: {0}".format(estimated_bid_and_traffic.AverageCPC))
-                            output_status_message(
-                                "    Estimated clicks per week: {0} to {1}".format(
-                                    estimated_bid_and_traffic.MinClicksPerWeek, 
-                                    estimated_bid_and_traffic.MaxClicksPerWeek
-                                )
-                            )
-                            output_status_message(
-                                "    Estimated impressions per week: {0} to {1}".format(
-                                    estimated_bid_and_traffic.MinImpressionsPerWeek,
-                                    estimated_bid_and_traffic.MaxImpressionsPerWeek
-                                )
-                            )
-                            output_status_message(
-                                "    Estimated cost per week: {0} to {1}".format(
-                                    estimated_bid_and_traffic.MinTotalCostPerWeek, 
-                                    estimated_bid_and_traffic.MaxTotalCostPerWeek
-                                )
-                            )
-
-        output_status_message('AdGroupEstimatedBid')
-
-        output_status_message("  Average CPC: {0}".format(ad_group_estimated_bid.AverageCPC))
-        output_status_message("  CTR: {0}".format(ad_group_estimated_bid.CTR))
-        output_status_message("  Estimated Ad Group Bid: {0}".format(ad_group_estimated_bid.EstimatedAdGroupBid))
-        output_status_message(
-            "  Estimated clicks per week: {0} to {1}".format(
-                ad_group_estimated_bid.MinClicksPerWeek, 
-                ad_group_estimated_bid.MaxClicksPerWeek
-            )
-        )
-        output_status_message(
-            "  Estimated impressions per week: {0} to {1}".format(
-                ad_group_estimated_bid.MinImpressionsPerWeek,
-                ad_group_estimated_bid.MaxImpressionsPerWeek
-            )
-        )
-        output_status_message(
-            "  Estimated cost per week: {0} to {1}".format(
-                ad_group_estimated_bid.MinTotalCostPerWeek, 
-                ad_group_estimated_bid.MaxTotalCostPerWeek
-            )
-        )
+        for campaign in campaigns['Campaign']:
+            if campaign.Id is not None:
+                opportunities=adinsight_service.GetBudgetOpportunities(campaign.Id)
+                output_budget_opportunities(opportunities, campaign.Id)
 
         output_status_message("Program execution completed")
 

@@ -1,9 +1,12 @@
-from bingads import *
-from bingads.bulk import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
+from bingads.v10.bulk import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -26,8 +29,9 @@ if __name__ == '__main__':
     CAMPAIGN_ID_KEY=-123
 
     FILE_DIRECTORY='c:/bulk/'
-    RESULT_FILE_NAME='download.csv'
+    RESULT_FILE_NAME='result.csv'
     UPLOAD_FILE_NAME='upload.csv'
+    FILE_TYPE = DownloadFileType.csv
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -58,12 +62,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -182,32 +188,6 @@ def search_accounts_by_user_id(user_id):
 def print_percent_complete(progress):
     output_status_message("Percent Complete: {0}\n".format(progress.percent_complete))
 
-    
-def get_example_bulk_campaign():
-    bulk_campaign=BulkCampaign()
-    
-#   The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
-#   is not used or stored by the server; it is simply copied from the uploaded record to the corresponding result record. 
-#	 Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
-
-    bulk_campaign.client_id='YourClientIdGoesHere'
-    campaign=campaign_service.factory.create('Campaign')
-    
-#   When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
-#   and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
-#   will be used when adding new ad groups to this new campaign, or when associating ad extensions with the campaign. 
-
-    campaign.Id=CAMPAIGN_ID_KEY
-    campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-    campaign.Description='Winter clothing line.'
-    campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-    campaign.MonthlyBudget=1000
-    campaign.TimeZone='PacificTimeUSCanadaTijuana'
-    campaign.Status='Paused'
-    bulk_campaign.campaign=campaign
-
-    return bulk_campaign
-
 def output_bulk_campaigns(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaign: \n")
@@ -218,15 +198,6 @@ def output_bulk_campaigns(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_bulk_app_ad_extension():
-    bulk_app_ad_extension=BulkAppAdExtension()
-    bulk_app_ad_extension.account_id=authorization_data.account_id
-    app_ad_extension=get_example_app_ad_extension()
-    app_ad_extension.Id=APP_AD_EXTENSION_ID_KEY
-    bulk_app_ad_extension.app_ad_extension=app_ad_extension
-
-    return bulk_app_ad_extension
 
 def output_bulk_app_ad_extensions(bulk_entities):
     for entity in bulk_entities:
@@ -242,16 +213,7 @@ def output_bulk_app_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_bulk_campaign_app_ad_extension():
-    bulk_campaign_app_ad_extension=BulkCampaignAppAdExtension()
-    ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-    ad_extension_id_to_entity_id_association.AdExtensionId=APP_AD_EXTENSION_ID_KEY
-    ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-    bulk_campaign_app_ad_extension.ad_extension_id_to_entity_id_association=ad_extension_id_to_entity_id_association
-
-    return bulk_campaign_app_ad_extension
-
+        
 def output_bulk_campaign_app_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaignAppAdExtension: \n")
@@ -268,17 +230,7 @@ def output_bulk_campaign_app_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_app_ad_extension():
-    app_ad_extension=campaign_service.factory.create('AppAdExtension')
-    app_ad_extension.AppPlatform='Windows'
-    app_ad_extension.AppStoreId='AppStoreIdGoesHere'
-    app_ad_extension.DisplayText='Contoso'
-    app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
-    app_ad_extension.Status=None
-
-    return app_ad_extension
-
+        
 def output_app_ad_extension(extension):
     if extension is not None:
         output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
@@ -289,16 +241,7 @@ def output_app_ad_extension(extension):
         output_status_message("Id: {0}".format(extension.Id))
         output_status_message("Status: {0}".format(extension.Status))
         output_status_message("Version: {0}".format(extension.Version))
-
-def get_example_bulk_call_ad_extension():
-    bulk_call_ad_extension=BulkCallAdExtension()
-    bulk_call_ad_extension.account_id=authorization_data.account_id
-    call_ad_extension=get_example_call_ad_extension()
-    call_ad_extension.Id=CALL_AD_EXTENSION_ID_KEY
-    bulk_call_ad_extension.call_ad_extension=call_ad_extension
-
-    return bulk_call_ad_extension
-
+        
 def output_bulk_call_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCallAdExtension: \n")
@@ -313,16 +256,7 @@ def output_bulk_call_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_bulk_campaign_call_ad_extension():
-    bulk_campaign_call_ad_extension=BulkCampaignCallAdExtension()
-    ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-    ad_extension_id_to_entity_id_association.AdExtensionId=CALL_AD_EXTENSION_ID_KEY
-    ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-    bulk_campaign_call_ad_extension.ad_extension_id_to_entity_id_association=ad_extension_id_to_entity_id_association
-
-    return bulk_campaign_call_ad_extension
-
+        
 def output_bulk_campaign_call_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaignCallAdExtension: \n")
@@ -339,16 +273,7 @@ def output_bulk_campaign_call_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_call_ad_extension():
-    call_ad_extension=campaign_service.factory.create('CallAdExtension')
-    call_ad_extension.CountryCode="US"
-    call_ad_extension.PhoneNumber="2065550100"
-    call_ad_extension.IsCallOnly=False
-    call_ad_extension.Status=None
-
-    return call_ad_extension
-
+        
 def output_call_ad_extension(extension):
     if extension is not None:
         output_status_message("CountryCode: {0}".format(extension.CountryCode))
@@ -360,16 +285,7 @@ def output_call_ad_extension(extension):
         output_status_message("RequireTollFreeTrackingNumber: {0}".format(extension.RequireTollFreeTrackingNumber))
         output_status_message("Status: {0}".format(extension.Status))
         output_status_message("Version: {0}".format(extension.Version))
-
-def get_example_bulk_location_ad_extension():
-    bulk_location_ad_extension=BulkLocationAdExtension()
-    bulk_location_ad_extension.account_id=authorization_data.account_id
-    location_ad_extension=get_example_location_ad_extension()
-    location_ad_extension.Id=LOCATION_AD_EXTENSION_ID_KEY
-    bulk_location_ad_extension.location_ad_extension=location_ad_extension
-
-    return bulk_location_ad_extension
-
+        
 def output_bulk_location_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkLocationAdExtension: \n")
@@ -384,16 +300,7 @@ def output_bulk_location_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_bulk_campaign_location_ad_extension():
-    bulk_campaign_location_ad_extension=BulkCampaignLocationAdExtension()
-    ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-    ad_extension_id_to_entity_id_association.AdExtensionId=LOCATION_AD_EXTENSION_ID_KEY
-    ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-    bulk_campaign_location_ad_extension.ad_extension_id_to_entity_id_association=ad_extension_id_to_entity_id_association
-
-    return bulk_campaign_location_ad_extension
-
+        
 def output_bulk_campaign_location_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaignLocationAdExtension: \n")
@@ -410,27 +317,7 @@ def output_bulk_campaign_location_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_location_ad_extension():
-    location_ad_extension=campaign_service.factory.create('LocationAdExtension')
-    location_ad_extension.PhoneNumber="206-555-0100"
-    location_ad_extension.CompanyName="Contoso Shoes"
-    location_ad_extension.IconMediaId=None
-    location_ad_extension.ImageMediaId=None
-    location_ad_extension.Status=None
-    location_ad_extension.GeoCodeStatus=None
-    location_ad_extension.GeoPoint=None
-    address=campaign_service.factory.create('Address')
-    address.StreetAddress="1234 Washington Place"
-    address.StreetAddress2="Suite 1210"
-    address.CityName="Woodinville"
-    address.ProvinceName="WA"
-    address.CountryCode="US"
-    address.PostalCode="98608"
-    location_ad_extension.Address=address
-
-    return location_ad_extension
-
+        
 def output_location_ad_extension(extension):
     if extension is not None:
         if extension.Address is not None:
@@ -453,16 +340,7 @@ def output_location_ad_extension(extension):
         output_status_message("PhoneNumber: {0}".format(extension.PhoneNumber))
         output_status_message("Status: {0}".format(extension.Status))
         output_status_message("Version: {0}".format(extension.Version))
-
-def get_example_bulk_site_link_ad_extension():
-    bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
-    bulk_site_link_ad_extension.account_id=authorization_data.account_id
-    site_links_ad_extension=get_example_site_links_ad_extension()
-    site_links_ad_extension.Id=SITE_LINK_AD_EXTENSION_ID_KEY
-    bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
-
-    return bulk_site_link_ad_extension
-
+        
 def output_bulk_site_link_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkSiteLinkAdExtension: \n")
@@ -495,16 +373,7 @@ def output_bulk_site_links(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_bulk_campaign_site_link_ad_extension():
-    bulk_campaign_site_link_ad_extension=BulkCampaignSiteLinkAdExtension()
-    ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-    ad_extension_id_to_entity_id_association.AdExtensionId=SITE_LINK_AD_EXTENSION_ID_KEY
-    ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-    bulk_campaign_site_link_ad_extension.ad_extension_id_to_entity_id_association=ad_extension_id_to_entity_id_association
-
-    return bulk_campaign_site_link_ad_extension
-
+        
 def output_bulk_campaign_site_link_ad_extensions(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaignSiteLinkAdExtension: \n")
@@ -521,23 +390,7 @@ def output_bulk_campaign_site_link_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
-def get_example_site_links_ad_extension():
-    site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
-    site_links=campaign_service.factory.create('ArrayOfSiteLink')
-    site_link_0=campaign_service.factory.create('SiteLink')
-    site_link_0.DestinationUrl = "Contoso.com"
-    site_link_0.DisplayText = "Women's Shoe Sale 1"
-    site_links.SiteLink.append(site_link_0)
-    site_link_1=campaign_service.factory.create('SiteLink')
-    site_link_1.DestinationUrl = "Contoso.com/WomenShoeSale/2"
-    site_link_1.DisplayText = "Women's Shoe Sale 2"
-    site_links.SiteLink.append(site_link_1)
-    site_links_ad_extension.SiteLinks=site_links
-    site_links_ad_extension.Status=None
-
-    return site_links_ad_extension
-
+        
 def output_site_links_ad_extension(extension):
     if extension is not None:
         output_status_message("Id: {0}".format(extension.Id))
@@ -549,9 +402,23 @@ def output_site_links(site_links):
         for site_link in site_links:
             output_status_message("Description1: {0}".format(site_link.Description1))
             output_status_message("Description2: {0}".format(site_link.Description2))
-            output_status_message("DestinationUrl: {0}".format(site_link.DestinationUrl))
             output_status_message("DevicePreference: {0}".format(site_link.DevicePreference))
             output_status_message("DisplayText: {0}".format(site_link.DisplayText))
+            output_status_message("DestinationUrl: {0}".format(site_link.DestinationUrl))
+            output_status_message("FinalMobileUrls: ")
+            if site_link.FinalMobileUrls is not None:
+                for final_mobile_url in site_link.FinalMobileUrls['string']:
+                    output_status_message("\t{0}".format(final_mobile_url))
+            output_status_message("FinalUrls: ")
+            if site_link.FinalUrls is not None:
+                for final_url in site_link.FinalUrls['string']:
+                    output_status_message("\t{0}".format(final_url))
+            output_status_message("TrackingUrlTemplate: {0}".format(site_link.TrackingUrlTemplate))
+            output_status_message("UrlCustomParameters: ")
+            if site_link.UrlCustomParameters is not None and site_link.UrlCustomParameters.Parameters is not None:
+                for custom_parameter in site_link.UrlCustomParameters.Parameters['CustomParameter']:
+                    output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                    output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
 def output_status_message(message):
     print(message)
@@ -661,6 +528,30 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def upload_entities(entities):
+    # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
+    # without writing to file. This example writes to file as an exercise so that you can view the structure 
+    # of the bulk records being uploaded as needed. 
+    writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
+    for entity in entities:
+        writer.write_entity(entity)
+    writer.close()
+
+    file_upload_parameters=FileUploadParameters(
+        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
+        result_file_directory=FILE_DIRECTORY,
+        result_file_name=RESULT_FILE_NAME,
+        overwrite_result_file=True,
+        response_mode='ErrorsAndResults'
+    )
+
+    bulk_file_path=bulk_service.upload_file(file_upload_parameters, progress=print_percent_complete)
+
+    with BulkFileReader(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_TYPE) as reader:
+            for entity in reader:
+                yield entity
+
+
 # Main execution
 if __name__ == '__main__':
 
@@ -688,45 +579,178 @@ if __name__ == '__main__':
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
 
-        bulk_campaign=get_example_bulk_campaign()
-        bulk_app_ad_extension=get_example_bulk_app_ad_extension()
-        bulk_campaign_app_ad_extension=get_example_bulk_campaign_app_ad_extension()
-        bulk_call_ad_extension=get_example_bulk_call_ad_extension()
-        bulk_campaign_call_ad_extension=get_example_bulk_campaign_call_ad_extension()
-        bulk_location_ad_extension=get_example_bulk_location_ad_extension()
-        bulk_campaign_location_ad_extension=get_example_bulk_campaign_location_ad_extension()
-        bulk_site_link_ad_extension=get_example_bulk_site_link_ad_extension()
-        bulk_campaign_site_link_ad_extension=get_example_bulk_campaign_site_link_ad_extension()
+        bulk_campaign=BulkCampaign()
+    
+        # The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
+        # is not used or stored by the server; it is simply copied from the uploaded record to the corresponding result record. 
+        # Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
+
+        bulk_campaign.client_id='YourClientIdGoesHere'
+        campaign=campaign_service.factory.create('Campaign')
+    
+        # When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
+        # and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
+        # will be used when associating ad extensions with the campaign. 
+
+        campaign.Id=CAMPAIGN_ID_KEY
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
+        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
+        campaign.MonthlyBudget=1000
+        campaign.TimeZone='PacificTimeUSCanadaTijuana'
+        campaign.Status='Paused'
+
+        # DaylightSaving is not supported in the Bulk file schema. Whether or not you specify it in a BulkCampaign,
+        # the value is not written to the Bulk file, and by default DaylightSaving is set to true.
+        campaign.DaylightSaving='True'
+
+        # Used with FinalUrls shown in the sitelinks that we will add below.
+        campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
+
+        bulk_campaign.campaign=campaign
+
+        bulk_app_ad_extension=BulkAppAdExtension()
+        bulk_app_ad_extension.account_id=authorization_data.account_id
+        app_ad_extension=campaign_service.factory.create('AppAdExtension')
+        app_ad_extension.Id=APP_AD_EXTENSION_ID_KEY
+        app_ad_extension.AppPlatform='Windows'
+        app_ad_extension.AppStoreId='AppStoreIdGoesHere'
+        app_ad_extension.DisplayText='Contoso'
+        app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
+        app_ad_extension.Status=None
+        bulk_app_ad_extension.app_ad_extension=app_ad_extension
+
+        bulk_campaign_app_ad_extension=BulkCampaignAppAdExtension()
+        app_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+        app_ad_extension_id_to_entity_id_association.AdExtensionId=APP_AD_EXTENSION_ID_KEY
+        app_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+        bulk_campaign_app_ad_extension.ad_extension_id_to_entity_id_association=app_ad_extension_id_to_entity_id_association
+
+        bulk_call_ad_extension=BulkCallAdExtension()
+        bulk_call_ad_extension.account_id=authorization_data.account_id
+        call_ad_extension=campaign_service.factory.create('CallAdExtension')
+        call_ad_extension.CountryCode="US"
+        call_ad_extension.PhoneNumber="2065550100"
+        call_ad_extension.IsCallOnly=False
+        call_ad_extension.Status=None
+        call_ad_extension.Id=CALL_AD_EXTENSION_ID_KEY
+        bulk_call_ad_extension.call_ad_extension=call_ad_extension
+
+        bulk_campaign_call_ad_extension=BulkCampaignCallAdExtension()
+        call_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+        call_ad_extension_id_to_entity_id_association.AdExtensionId=CALL_AD_EXTENSION_ID_KEY
+        call_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+        bulk_campaign_call_ad_extension.ad_extension_id_to_entity_id_association=call_ad_extension_id_to_entity_id_association
+
+        bulk_location_ad_extension=BulkLocationAdExtension()
+        bulk_location_ad_extension.account_id=authorization_data.account_id
+        location_ad_extension=campaign_service.factory.create('LocationAdExtension')
+        location_ad_extension.PhoneNumber="206-555-0100"
+        location_ad_extension.CompanyName="Contoso Shoes"
+        location_ad_extension.IconMediaId=None
+        location_ad_extension.ImageMediaId=None
+        location_ad_extension.Status=None
+        location_ad_extension.GeoCodeStatus=None
+        location_ad_extension.GeoPoint=None
+        address=campaign_service.factory.create('Address')
+        address.StreetAddress="1234 Washington Place"
+        address.StreetAddress2="Suite 1210"
+        address.CityName="Woodinville"
+        address.ProvinceName="WA"
+        address.CountryCode="US"
+        address.PostalCode="98608"
+        location_ad_extension.Address=address
+        location_ad_extension.Id=LOCATION_AD_EXTENSION_ID_KEY
+        bulk_location_ad_extension.location_ad_extension=location_ad_extension
+
+        bulk_campaign_location_ad_extension=BulkCampaignLocationAdExtension()
+        location_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+        location_ad_extension_id_to_entity_id_association.AdExtensionId=LOCATION_AD_EXTENSION_ID_KEY
+        location_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+        bulk_campaign_location_ad_extension.ad_extension_id_to_entity_id_association=location_ad_extension_id_to_entity_id_association
+
+        bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
+        bulk_site_link_ad_extension.account_id=authorization_data.account_id
+        site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
+        site_links=campaign_service.factory.create('ArrayOfSiteLink')
+
+        for index in range(2):
+            site_link=campaign_service.factory.create('SiteLink')
+            site_link.DisplayText = "Women's Shoe Sale " + str(index)
+
+            # Destination URLs are deprecated and will be sunset in March 2016. 
+            # If you are currently using the Destination URL, you must upgrade to Final URLs. 
+            # Here is an example of a DestinationUrl you might have used previously. 
+            # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+
+            # To migrate from DestinationUrl to FinalUrls for existing sitelinks, you can set DestinationUrl
+            # to an empty string when updating the sitelink. If you are removing DestinationUrl,
+            # then FinalUrls is required.
+            # site_link.DestinationUrl=""
+            
+            # With FinalUrls you can separate the tracking template, custom parameters, and 
+            # landing page URLs.
+            final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+            final_urls.string.append('http://www.contoso.com/womenshoesale')
+            site_link.FinalUrls=final_urls
+
+            # Final Mobile URLs can also be used if you want to direct the user to a different page 
+            # for mobile devices.
+            final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+            final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
+            site_link.FinalMobileUrls=final_mobile_urls
+
+            # You could use a tracking template which would override the campaign level
+            # tracking template. Tracking templates defined for lower level entities 
+            # override those set for higher level entities.
+            # In this example we are using the campaign level tracking template.
+            site_link.TrackingUrlTemplate=None
+
+            # Set custom parameters that are specific to this sitelink, 
+            # and can be used by the sitelink, ad group, campaign, or account level tracking template. 
+            # In this example we are using the campaign level tracking template.
+            url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
+            parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+            custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
+            custom_parameter1.Key='promoCode'
+            custom_parameter1.Value='PROMO' + str(index)
+            parameters.CustomParameter.append(custom_parameter1)
+            custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
+            custom_parameter2.Key='season'
+            custom_parameter2.Value='summer'
+            parameters.CustomParameter.append(custom_parameter2)
+            url_custom_parameters.Parameters=parameters
+            site_link.UrlCustomParameters=url_custom_parameters
+            site_links.SiteLink.append(site_link)
+
+        site_links_ad_extension.SiteLinks=site_links
+        site_links_ad_extension.Status=None
+        site_links_ad_extension.Id=SITE_LINK_AD_EXTENSION_ID_KEY
+        bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
+
+        bulk_campaign_site_link_ad_extension=BulkCampaignSiteLinkAdExtension()
+        site_link_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+        site_link_ad_extension_id_to_entity_id_association.AdExtensionId=SITE_LINK_AD_EXTENSION_ID_KEY
+        site_link_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+        bulk_campaign_site_link_ad_extension.ad_extension_id_to_entity_id_association=site_link_ad_extension_id_to_entity_id_association
         
         # Write the entities created above, to temporary memory. 
         # Dependent entities such as BulkCampaignLocationTarget must be written after any dependencies,   
         # for example the BulkCampaign. 
 
-        upload_entities=[]
-        upload_entities.append(bulk_campaign)
-        upload_entities.append(bulk_app_ad_extension)
-        upload_entities.append(bulk_campaign_app_ad_extension)
-        upload_entities.append(bulk_call_ad_extension)
-        upload_entities.append(bulk_campaign_call_ad_extension)
-        upload_entities.append(bulk_location_ad_extension)
-        upload_entities.append(bulk_campaign_location_ad_extension)
-        upload_entities.append(bulk_site_link_ad_extension)
-        upload_entities.append(bulk_campaign_site_link_ad_extension)
+        entities=[]
+        entities.append(bulk_campaign)
+        entities.append(bulk_app_ad_extension)
+        entities.append(bulk_campaign_app_ad_extension)
+        entities.append(bulk_call_ad_extension)
+        entities.append(bulk_campaign_call_ad_extension)
+        entities.append(bulk_location_ad_extension)
+        entities.append(bulk_campaign_location_ad_extension)
+        entities.append(bulk_site_link_ad_extension)
+        entities.append(bulk_campaign_site_link_ad_extension)
         
-        entity_upload_parameters=EntityUploadParameters(
-            result_file_directory=FILE_DIRECTORY,
-            result_file_name=RESULT_FILE_NAME,
-            entities=upload_entities,
-            overwrite_result_file=True,
-            response_mode='ErrorsAndResults'
-        )
-
-        # upload_entities will upload the entities you prepared and will download the results file 
-        # Alternative is to write to file and then upload the file. Use upload_file for large uploads.
-
         output_status_message("\nAdding campaign and ad extensions . . .")
-        bulk_entities=bulk_service.upload_entities(entity_upload_parameters, progress=print_percent_complete)
-        output_status_message("Upload Results Bulk File Path: {0}\n".format(FILE_DIRECTORY + RESULT_FILE_NAME))
+        bulk_entities=upload_entities(entities)
 
         campaign_results=[]
         app_ad_extension_results=[]
@@ -765,12 +789,51 @@ if __name__ == '__main__':
         #with the specified SiteLinks for the specified ad extension. 
         #Instead you should upload one or more site links as a list of BulkSiteLink.
 
-        upload_entities=[]
+        entities=[]
         
         bulk_site_link=BulkSiteLink()
         site_link=campaign_service.factory.create('SiteLink')
         site_link.DestinationUrl = "Contoso.com"
         site_link.DisplayText = "Red Shoe Sale"
+
+        # Destination URLs are deprecated and will be sunset in March 2016. 
+        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
+        # Here is an example of a DestinationUrl you might have used previously. 
+        # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+            
+        # With FinalUrls you can separate the tracking template, custom parameters, and 
+        # landing page URLs.
+        final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        site_link.FinalUrls=final_urls
+
+        # Final Mobile URLs can also be used if you want to direct the user to a different page 
+        # for mobile devices.
+        final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
+        site_link.FinalMobileUrls=final_mobile_urls
+
+        # You could use a tracking template which would override the campaign level
+        # tracking template. Tracking templates defined for lower level entities 
+        # override those set for higher level entities.
+        # In this example we are using the campaign level tracking template.
+        site_link.TrackingUrlTemplate=None,
+
+        # Set custom parameters that are specific to this ad, 
+        # and can be used by the ad, ad group, campaign, or account level tracking template. 
+        # In this example we are using the campaign level tracking template.
+        url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
+        parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+        custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter1.Key='promoCode'
+        custom_parameter1.Value='PROMO2'
+        parameters.CustomParameter.append(custom_parameter1)
+        custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter2.Key='season'
+        custom_parameter2.Value='summer'
+        parameters.CustomParameter.append(custom_parameter2)
+        url_custom_parameters.Parameters=parameters
+        site_link.UrlCustomParameters=url_custom_parameters
         bulk_site_link.site_link=site_link
         
         # Add an additional site link, and update an existing site link
@@ -778,36 +841,27 @@ if __name__ == '__main__':
         if site_link_ad_extension_results.count > 0:
             existing_site_link = site_link_ad_extension_results[0].site_links[0]
             existing_site_link.site_link.display_text="Red Shoes Super Sale"
-            upload_entities.append(existing_site_link)
+            entities.append(existing_site_link)
 
             # Associate the new site link with the identifier of the existing site links ad extension
             bulk_site_link.ad_extension_id=existing_site_link.ad_extension_id
 
-        upload_entities.append(bulk_site_link)
-
-        entity_upload_parameters=EntityUploadParameters(
-            result_file_directory=FILE_DIRECTORY,
-            result_file_name=RESULT_FILE_NAME,
-            entities=upload_entities,
-            overwrite_result_file=True,
-            response_mode='ErrorsAndResults'
-        )
+        entities.append(bulk_site_link)
 
         # upload_entities will upload the entities you prepared and will download the results file 
         # Alternative is to write to file and then upload the file. Use upload_file for large uploads.
 
         output_status_message("\nUpdating sitelinks . . .")
-        bulk_entities=bulk_service.upload_entities(entity_upload_parameters, progress=print_percent_complete)
-        output_status_message("Upload Results Bulk File Path: {0}\n".format(FILE_DIRECTORY + RESULT_FILE_NAME))
+        bulk_entities=upload_entities(entities)
 
         for entity in bulk_entities:
             if isinstance(entity, BulkSiteLink):
                 output_bulk_site_links([entity])
 
-        #Prepare the bulk entities that you want to delete. You must set the Id field to the corresponding 
-        #entity identifier, and the Status field to Deleted. 
+        # Prepare the bulk entities that you want to delete. You must set the Id field to the corresponding 
+        # entity identifier, and the Status field to Deleted. 
 
-        upload_entities=[]
+        entities=[]
 
         bulk_campaign = BulkCampaign()
         campaign=campaign_service.factory.create('Campaign')
@@ -815,7 +869,7 @@ if __name__ == '__main__':
         campaign.Status='Deleted'
         bulk_campaign.campaign=campaign
         bulk_campaign.account_id=authorization_data.account_id
-        upload_entities.append(bulk_campaign)
+        entities.append(bulk_campaign)
 
         bulk_app_ad_extension=BulkAppAdExtension()
         app_ad_extension=campaign_service.factory.create('AppAdExtension')
@@ -823,7 +877,7 @@ if __name__ == '__main__':
         app_ad_extension.Status='Deleted'
         bulk_app_ad_extension.app_ad_extension=app_ad_extension
         bulk_app_ad_extension.account_id=authorization_data.account_id
-        upload_entities.append(bulk_app_ad_extension)
+        entities.append(bulk_app_ad_extension)
 
         bulk_call_ad_extension=BulkCallAdExtension()
         call_ad_extension=campaign_service.factory.create('CallAdExtension')
@@ -831,7 +885,7 @@ if __name__ == '__main__':
         call_ad_extension.Status='Deleted'
         bulk_call_ad_extension.call_ad_extension=call_ad_extension
         bulk_call_ad_extension.account_id=authorization_data.account_id
-        upload_entities.append(bulk_call_ad_extension)
+        entities.append(bulk_call_ad_extension)
 
         bulk_location_ad_extension=BulkLocationAdExtension()
         location_ad_extension=campaign_service.factory.create('LocationAdExtension')
@@ -839,7 +893,7 @@ if __name__ == '__main__':
         location_ad_extension.Status='Deleted'
         bulk_location_ad_extension.location_ad_extension=location_ad_extension
         bulk_location_ad_extension.account_id=authorization_data.account_id
-        upload_entities.append(bulk_location_ad_extension)
+        entities.append(bulk_location_ad_extension)
 
         bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
         site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
@@ -847,19 +901,10 @@ if __name__ == '__main__':
         site_links_ad_extension.Status='Deleted'
         bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
         bulk_site_link_ad_extension.account_id=authorization_data.account_id
-        upload_entities.append(bulk_site_link_ad_extension)
-
-        entity_upload_parameters=EntityUploadParameters(
-            result_file_directory=FILE_DIRECTORY,
-            result_file_name=RESULT_FILE_NAME,
-            entities=upload_entities,
-            overwrite_result_file=True,
-            response_mode='ErrorsAndResults'
-        )
+        entities.append(bulk_site_link_ad_extension)
 
         output_status_message("\nDeleting campaign and ad extensions . . .")
-        bulk_entities=bulk_service.upload_entities(entity_upload_parameters, progress=print_percent_complete)
-        output_status_message("Upload Results Bulk File Path: {0}\n".format(FILE_DIRECTORY + RESULT_FILE_NAME))
+        bulk_entities=upload_entities(entities)
 
         for entity in bulk_entities:
             if isinstance(entity, BulkCampaign):

@@ -4,6 +4,7 @@ import sys
 import webbrowser
 from time import gmtime, strftime
 import datetime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -19,7 +20,7 @@ if __name__ == '__main__':
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
     CLIENT_ID='YourClientIdGoesHere'
 
-    CLIENT_ACCOUNT_ID=YourClientAccountIdGoesHere
+    CLIENT_ACCOUNT_ID='YourClienAccountIdGoesHere'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -32,6 +33,7 @@ if __name__ == '__main__':
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -61,7 +63,7 @@ def authenticate_with_oauth():
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     

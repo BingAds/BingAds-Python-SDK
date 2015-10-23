@@ -1,14 +1,18 @@
-from bingads import *
+from bingads.service_client import ServiceClient
+from bingads.authorization import *
+from bingads.v10 import *
 
 import sys
 import webbrowser
 from time import gmtime, strftime
+from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
 #import logging
 #logging.basicConfig(level=logging.INFO)
 #logging.getLogger('suds.client').setLevel(logging.DEBUG)
+
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -29,18 +33,14 @@ if __name__ == '__main__':
         service='CampaignManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
+        version=10,
     )
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
-    )
-
-    reporting_service=ServiceClient(
-        'ReportingService', 
-        authorization_data=authorization_data, 
-        environment=ENVIRONMENT,
+        version=9,
     )
 
 def authenticate_with_username():
@@ -263,88 +263,11 @@ def output_ad_group_ids(ad_group_ids):
         return None
     for id in ad_group_ids:
         output_status_message("AdGroup successfully added and assigned AdGroupId {0}\n".format(id))
-
+        
 def output_targets(targets):
     if not hasattr(targets, 'Target'):
         return None
     for target in targets['Target']:
-        output_status_message("Target Id: {0}".format(target.Id))
-        output_status_message("Target Name: {0}\n".format(target.Name))
-
-        if hasattr(target.Age, 'Bids'):
-            output_status_message("AgeTarget:")
-            for bid in target.Age.Bids['AgeTargetBid']:
-                output_status_message("\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                output_status_message("\tAge: {0}\n".format(bid.Age))
-            
-        if hasattr(target.Day, 'Bids'):
-            output_status_message("DayTarget:")
-            for bid in target.Day.Bids['DayTargetBid']:
-                output_status_message("\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                output_status_message("\tDay: {0}\n".format(bid.Day))
-            
-        if hasattr(target.DeviceOS, 'Bids'):
-            output_status_message("DeviceOSTarget:")
-            for bid in target.DeviceOS.Bids['DeviceOSTargetBid']:
-                output_status_message("\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                output_status_message("\tDeviceName: {0}".format(bid.DeviceName))
-                   
-        if hasattr(target.Gender, 'Bids'):
-            output_status_message("GenderTarget:")
-            for bid in target.Gender.Bids['GenderTargetBid']:
-                output_status_message("\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                output_status_message("\tGender: {0}\n".format(bid.Gender))
-
-        if hasattr(target.Hour, 'Bids'):
-            output_status_message("HourTarget:")
-            for bid in target.Hour.Bids['HourTargetBid']:
-                output_status_message("\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                output_status_message("\tHour: {0}\n".format(bid.Hour))
-
-        if target.Location is not None:
-            output_status_message("LocationTarget:")
-            output_status_message("\tHasPhysicalIntent: {0}\n".format(target.Location.HasPhysicalIntent))
-   
-            if hasattr(target.Location.CityTarget, 'Bids'):
-                output_status_message("\tCityTarget:")
-                for bid in target.Location.CityTarget.Bids['CityTargetBid']:
-                    output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                    output_status_message("\t\tCity: {0}\n".format(bid.City))
-                    output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
-
-            if hasattr(target.Location.CountryTarget, 'Bids'):
-                output_status_message("\tCountryTarget:")
-                for bid in target.Location.CountryTarget.Bids['CountryTargetBid']:
-                    output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                    output_status_message("\t\tCountryAndRegion: {0}".format(bid.CountryAndRegion))
-                    output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
-        
-            if hasattr(target.Location.MetroAreaTarget, 'Bids'):
-                output_status_message("\tMetroAreaTarget:")
-                for bid in target.Location.MetroAreaTarget.Bids['MetroAreaTargetBid']:
-                    output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                    output_status_message("\t\tMetroArea: {0}".format(bid.MetroArea))
-                    output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
-            
-            if hasattr(target.Location.RadiusTarget, 'Bids'):
-                output_status_message("\tRadiusTarget:")
-                for bid in target.Location.RadiusTarget.Bids['RadiusTargetBid']:
-                    output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                    output_status_message("\t\tLatitudeDegrees: {0}".format(bid.LatitudeDegrees))
-                    output_status_message("\t\tLongitudeDegrees: {0}".format(bid.LongitudeDegrees))
-                    output_status_message("\t\tRadius: {0} Miles\n".format(bid.Radius))
-          
-            if hasattr(target.Location.StateTarget, 'Bids'):
-                output_status_message("\tStateTarget:")
-                for bid in target.Location.StateTarget.Bids['StateTargetBid']:
-                    output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
-                    output_status_message("\t\tState: {0}".format(bid.State))
-                    output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
-
-def output_target2s(target2s):
-    if not hasattr(target2s, 'Target2'):
-        return None
-    for target in target2s['Target2']:
         output_status_message("Target Id: {0}".format(target.Id))
         output_status_message("Target Name: {0}\n".format(target.Name))
 
@@ -409,8 +332,8 @@ def output_target2s(target2s):
                     output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
             
             if hasattr(target.Location.RadiusTarget, 'Bids'):
-                output_status_message("\tRadiusTarget2:")
-                for bid in target.Location.RadiusTarget.Bids['RadiusTargetBid2']:
+                output_status_message("\tRadiusTarget:")
+                for bid in target.Location.RadiusTarget.Bids['RadiusTargetBid']:
                     output_status_message("\t\tBidAdjustment: {0}".format(bid.BidAdjustment))
                     output_status_message("\t\tLatitudeDegrees: {0}".format(bid.LatitudeDegrees))
                     output_status_message("\t\tLongitudeDegrees: {0}".format(bid.LongitudeDegrees))
@@ -423,7 +346,7 @@ def output_target2s(target2s):
                     output_status_message("\t\tState: {0}".format(bid.State))
                     output_status_message("\t\tIsExcluded: {0}\n".format(bid.IsExcluded))
 
-def output_targetss_info(targets_info):
+def output_targets_info(targets_info):
     if not hasattr(targets_info, 'TargetInfo'):
         return None
     for info in targets_info['TargetInfo']:
@@ -456,8 +379,8 @@ if __name__ == '__main__':
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=campaign_service.factory.create('Campaign')
-        campaign.Name='Winter Clothing ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        campaign.Description='Winter clothing line.'
+        campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
         campaign.MonthlyBudget=1000
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
@@ -465,18 +388,21 @@ if __name__ == '__main__':
         campaign.Status='Paused'
         campaigns.Campaign.append(campaign)
 
-        campaign_ids=campaign_service.AddCampaigns(
+        add_campaigns_response=campaign_service.AddCampaigns(
             AccountId=authorization_data.account_id,
             Campaigns=campaigns
-        )['long']
-
+        )
+        campaign_ids={
+            'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
+        }
+        
         output_campaign_ids(campaign_ids)
 
-        # Add an ad group that will later be associated with ad extensions. 
+        # Add an ad group that will later be associated with a target. 
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
         ad_group=campaign_service.factory.create('AdGroup')
-        ad_group.Name="Women's Heated Ski Glove Sale"
+        ad_group.Name="Women's Red Shoes"
         ad_group.AdDistribution='Search'
         ad_group.BiddingModel='Keyword'
         ad_group.PricingModel='Cpc'
@@ -487,52 +413,51 @@ if __name__ == '__main__':
         end_date.Month=12
         end_date.Year=2015
         ad_group.EndDate=end_date
-        exact_match_bid=campaign_service.factory.create('Bid')
-        exact_match_bid.Amount=0.09
-        ad_group.ExactMatchBid=exact_match_bid
-        phrase_match_bid=campaign_service.factory.create('Bid')
-        phrase_match_bid.Amount=0.07
-        ad_group.PhraseMatchBid=phrase_match_bid
+        search_bid=campaign_service.factory.create('Bid')
+        search_bid.Amount=0.09
+        ad_group.SearchBid=search_bid
         ad_group.Language='English'
         ad_groups.AdGroup.append(ad_group)
 
-        ad_group_ids=campaign_service.AddAdGroups(
-            CampaignId=campaign_ids[0],
+        add_ad_groups_response=campaign_service.AddAdGroups(
+            CampaignId=campaign_ids['long'][0],
             AdGroups=ad_groups
-        )['long']
+        )
+        ad_group_ids={
+            'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
+        }
 
         output_ad_group_ids(ad_group_ids)
 
 
-        # Bing Ads API Version 9 supports both Target and Target2 objects. You should use Target2. 
-        # This example compares Target and Target2, and demonstrates the impact of updating the 
-        # DayTimeTarget, IntentOption, and RadiusTarget2 nested in a Target2 object. 
+        # Create targets to associate with the campaign and ad group. 
 
         campaign_targets=campaign_service.factory.create('ArrayOfTarget')
         campaign_target=campaign_service.factory.create('Target')
-        campaign_targets.Target.append(campaign_target)
         campaign_target.Name = "My Campaign Target"
         
-        campaign_day_target=campaign_service.factory.create('DayTarget')
-        campaign_day_target_bids=campaign_service.factory.create('ArrayOfDayTargetBid')
-        campaign_day_target_bid=campaign_service.factory.create('DayTargetBid')
-        campaign_day_target_bid.BidAdjustment = 10
-        campaign_day_target_bid.Day='Friday'
-        campaign_day_target_bids.DayTargetBid.append(campaign_day_target_bid)
-        campaign_day_target.Bids=campaign_day_target_bids
-        campaign_target.Day=campaign_day_target
+        campaign_day_time_target=campaign_service.factory.create('DayTimeTarget')
+        campaign_day_time_target_bids=campaign_service.factory.create('ArrayOfDayTimeTargetBid')
+        campaign_day_time_target_bid=campaign_service.factory.create('DayTimeTargetBid')
+        campaign_day_time_target_bid.BidAdjustment=10
+        campaign_day_time_target_bid.Day='Monday'
+        campaign_day_time_target_bid.FromHour=1
+        campaign_day_time_target_bid.FromMinute='Zero'
+        campaign_day_time_target_bid.ToHour=12
+        campaign_day_time_target_bid.ToMinute='FortyFive'
+        campaign_day_time_target_bids.DayTimeTargetBid.append(campaign_day_time_target_bid)
+        campaign_day_time_target.Bids=campaign_day_time_target_bids
 
-        campaign_hour_target=campaign_service.factory.create('HourTarget')
-        campaign_hour_target_bids=campaign_service.factory.create('ArrayOfHourTargetBid')
-        campaign_hour_target_bid=campaign_service.factory.create('HourTargetBid')
-        campaign_hour_target_bid.BidAdjustment = 10
-        campaign_hour_target_bid.Hour='ElevenAMToTwoPM'
-        campaign_hour_target_bids.HourTargetBid.append(campaign_hour_target_bid)
-        campaign_hour_target.Bids=campaign_hour_target_bids
-        campaign_target.Hour=campaign_hour_target
+        campaign_device_os_target=campaign_service.factory.create('DeviceOSTarget')
+        campaign_device_os_target_bids=campaign_service.factory.create('ArrayOfDeviceOSTargetBid')
+        campaign_device_os_target_bid=campaign_service.factory.create('DeviceOSTargetBid')
+        campaign_device_os_target_bid.BidAdjustment = 10
+        campaign_device_os_target_bid.DeviceName='Tablets'
+        campaign_device_os_target_bids.DeviceOSTargetBid.append(campaign_device_os_target_bid)
+        campaign_device_os_target.Bids=campaign_device_os_target_bids
 
         campaign_location_target=campaign_service.factory.create('LocationTarget')
-        campaign_location_target.HasPhysicalIntent=True
+        campaign_location_target.IntentOption='PeopleIn'
 
         campaign_metro_area_target=campaign_service.factory.create('MetroAreaTarget')
         campaign_metro_area_target_bids=campaign_service.factory.create('ArrayOfMetroAreaTargetBid')
@@ -551,26 +476,35 @@ if __name__ == '__main__':
         campaign_radius_target_bid.LatitudeDegrees = 47.755367
         campaign_radius_target_bid.LongitudeDegrees = -122.091827
         campaign_radius_target_bid.Radius = 5
+        campaign_radius_target_bid.RadiusUnit='Kilometers'
         campaign_radius_target_bid.IsExcluded=False
         campaign_radius_target_bids.RadiusTargetBid.append(campaign_radius_target_bid)
         campaign_radius_target.Bids=campaign_radius_target_bids
         campaign_location_target.RadiusTarget=campaign_radius_target
 
+        campaign_target.DayTime=campaign_day_time_target
+        campaign_target.DeviceOS=campaign_device_os_target
         campaign_target.Location=campaign_location_target
+        campaign_targets.Target.append(campaign_target)
         
         ad_group_targets=campaign_service.factory.create('ArrayOfTarget')
         ad_group_target=campaign_service.factory.create('Target')
-        ad_group_targets.Target.append(ad_group_target)
         ad_group_target.Name = "My Ad Group Target"
 
-        ad_group_hour_target=campaign_service.factory.create('HourTarget')
-        ad_group_hour_target_bids=campaign_service.factory.create('ArrayOfHourTargetBid')
-        ad_group_hour_target_bid=campaign_service.factory.create('HourTargetBid')
-        ad_group_hour_target_bid.BidAdjustment = 10
-        ad_group_hour_target_bid.Hour='SixPMToElevenPM'
-        ad_group_hour_target_bids.HourTargetBid.append(ad_group_hour_target_bid)
-        ad_group_hour_target.Bids=ad_group_hour_target_bids
-        ad_group_target.Hour=ad_group_hour_target
+        ad_group_day_time_target=campaign_service.factory.create('DayTimeTarget')
+        ad_group_day_time_target_bids=campaign_service.factory.create('ArrayOfDayTimeTargetBid')
+        ad_group_day_time_target_bid=campaign_service.factory.create('DayTimeTargetBid')
+        ad_group_day_time_target_bid.BidAdjustment=10
+        ad_group_day_time_target_bid.Day='Friday'
+        ad_group_day_time_target_bid.FromHour=1
+        ad_group_day_time_target_bid.FromMinute='Zero'
+        ad_group_day_time_target_bid.ToHour=12
+        ad_group_day_time_target_bid.ToMinute='FortyFive'
+        ad_group_day_time_target_bids.DayTimeTargetBid.append(ad_group_day_time_target_bid)
+        ad_group_day_time_target.Bids=ad_group_day_time_target_bids
+
+        ad_group_target.DayTime=ad_group_day_time_target
+        ad_group_targets.Target.append(ad_group_target)
 
         # Each customer has a target library that can be used to set up targeting for any campaign
         # or ad group within the specified customer. 
@@ -579,55 +513,30 @@ if __name__ == '__main__':
         campaign_target_id=campaign_service.AddTargetsToLibrary(Targets=campaign_targets)['long'][0]
         output_status_message("Added Target Id: {0}\n".format(campaign_target_id))
         campaign_service.SetTargetToCampaign(
-            CampaignId=campaign_ids[0], 
+            CampaignId=campaign_ids['long'][0], 
             TargetId=campaign_target_id
         )
-        output_status_message("Associated CampaignId {0} with TargetId {1}.\n".format(campaign_ids[0], campaign_target_id))
-
-        # Get and print the Target with the legacy GetTargetsByIds operation
-        output_status_message("Get Campaign Target: \n")
-        targets=campaign_service.GetTargetsByIds(
-            TargetIds={'long': [campaign_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_targets(targets)
-
-        # Get and print the Target2 with the new GetTargetsByIds2 operation
-        output_status_message("Get Campaign Target2: \n")
-        targets2=campaign_service.GetTargetsByIds2(
-            TargetIds={'long': [campaign_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_target2s(targets2)
+        output_status_message("Associated CampaignId {0} with TargetId {1}.\n".format(campaign_ids['long'][0], campaign_target_id))
 
         # Add a target to the library and associate it with the ad group.
         ad_group_target_id=campaign_service.AddTargetsToLibrary(Targets=ad_group_targets)['long'][0]
         output_status_message("Added Target Id: {0}\n".format(ad_group_target_id))
-        campaign_service.SetTargetToAdGroup(ad_group_ids[0], ad_group_target_id)
-        output_status_message("Associated AdGroupId {0} with TargetId {1}.\n".format(ad_group_ids[0], ad_group_target_id))
+        campaign_service.SetTargetToAdGroup(ad_group_ids['long'][0], ad_group_target_id)
+        output_status_message("Associated AdGroupId {0} with TargetId {1}.\n".format(ad_group_ids['long'][0], ad_group_target_id))
 
-        # Get and print the Target with the legacy GetTargetsByIds operation
-        output_status_message("Get AdGroup Target: \n")
+        # Get and print the targets with the GetTargetsByIds operation
+        output_status_message("Get Campaign and AdGroup targets: \n")
         targets=campaign_service.GetTargetsByIds(
-            TargetIds={'long': [ad_group_target_id] },
-            LocationTargetVersion = "Latest"
+            TargetIds={'long': [campaign_target_id, ad_group_target_id] }
         )
         output_targets(targets)
 
-        # Get and print the Target2 with the new GetTargetsByIds2 operation
-        output_status_message("Get AdGroup Target2: \n")
-        targets2=campaign_service.GetTargetsByIds2(
-            TargetIds={'long': [ad_group_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_target2s(targets2)
-
-        # Update the ad group's target as a Target2 object with additional target types.
-        # Existing target types such as DayTime, Location, and Radius must be specified 
+        # Update the ad group's target as a Target object with additional target types.
+        # Existing target types such as DayTime must be specified 
         # or they will not be included in the updated target.
 
-        target2s=campaign_service.factory.create('ArrayOfTarget2')
-        target2=campaign_service.factory.create('Target2')
+        targets=campaign_service.factory.create('ArrayOfTarget')
+        target=campaign_service.factory.create('Target')
         
         age_target=campaign_service.factory.create('AgeTarget')
         age_target_bids=campaign_service.factory.create('ArrayOfAgeTargetBid')
@@ -694,95 +603,66 @@ if __name__ == '__main__':
         postal_code_target_bids.PostalCodeTargetBid.append(postal_code_target_bid)
         postal_code_target.Bids=postal_code_target_bids
 
-        radius_target2=campaign_service.factory.create('RadiusTarget2')
-        radius_target_bid2s=campaign_service.factory.create('ArrayOfRadiusTargetBid2')
-        radius_target_bid2=campaign_service.factory.create('RadiusTargetBid2')
-        radius_target_bid2.BidAdjustment=10
-        radius_target_bid2.LatitudeDegrees=47.755367
-        radius_target_bid2.LongitudeDegrees=-122.091827
-        radius_target_bid2.Radius=11
-        radius_target_bid2.RadiusUnit='Kilometers'
-        radius_target_bid2.IsExcluded=False
-        radius_target_bid2s.RadiusTargetBid2.append(radius_target_bid2)
-        radius_target2.Bids=radius_target_bid2s
+        radius_target=campaign_service.factory.create('RadiusTarget')
+        radius_target_bids=campaign_service.factory.create('ArrayOfRadiusTargetBid')
+        radius_target_bid=campaign_service.factory.create('RadiusTargetBid')
+        radius_target_bid.BidAdjustment=10
+        radius_target_bid.LatitudeDegrees=47.755367
+        radius_target_bid.LongitudeDegrees=-122.091827
+        radius_target_bid.Radius=11
+        radius_target_bid.RadiusUnit='Miles'
+        radius_target_bid.IsExcluded=False
+        radius_target_bids.RadiusTargetBid.append(radius_target_bid)
+        radius_target.Bids=radius_target_bids
 
-        location_target2=campaign_service.factory.create('LocationTarget2')
-        location_target2.IntentOption='PeopleSearchingForOrViewingPages'
-        location_target2.CountryTarget=country_target
-        location_target2.MetroAreaTarget=metro_area_target
-        location_target2.PostalCodeTarget=postal_code_target
-        location_target2.RadiusTarget=radius_target2
+        location_target=campaign_service.factory.create('LocationTarget')
+        location_target.IntentOption='PeopleSearchingForOrViewingPages'
+        location_target.CountryTarget=country_target
+        location_target.MetroAreaTarget=metro_area_target
+        location_target.PostalCodeTarget=postal_code_target
+        location_target.RadiusTarget=radius_target
+        
+        target.Age=age_target
+        target.DayTime=day_time_target
+        target.DeviceOS=device_os_target
+        target.Gender=gender_target
+        target.Id = ad_group_target_id
+        target.Location=location_target
+        target.Name = "My Target"
+        targets.Target.append(target)
 
-        target2.Age=age_target
-        target2.DayTime=day_time_target
-        target2.DeviceOS=device_os_target
-        target2.Gender=gender_target
-        target2.Id = ad_group_target_id
-        target2.Location=location_target2
-        target2.Name = "My Target2"
-        target2s.Target2.append(target2)
+        # Update the Target object associated with the ad group. 
+        campaign_service.UpdateTargetsInLibrary(Targets=targets)
+        output_status_message("Updated the ad group level target as a Target object.\n")
 
-        # Update the same identified target as a Target2 object. 
-        # Going forward when getting the specified target Id, the Day and Hour elements of the legacy
-        # Target object will be nil, since the target is being updated with a DayTime target. 
-        campaign_service.UpdateTargetsInLibrary2(Targets=target2s)
-        output_status_message("Updated the ad group level target as a Target2 object.\n")
-
-        # Get and print the Target with the legacy GetTargetsByIds operation
-        output_status_message("Get Campaign Target: \n")
+        # Get and print the targets with the GetTargetsByIds operation
+        output_status_message("Get Campaign and AdGroup targets: \n")
         targets=campaign_service.GetTargetsByIds(
-            TargetIds={'long': [campaign_target_id] },
-            LocationTargetVersion = "Latest"
+            TargetIds={'long': [campaign_target_id, ad_group_target_id] }
         )
         output_targets(targets)
-
-        # Get and print the Target2 with the new GetTargetsByIds2 operation
-        output_status_message("Get Campaign Target2: \n")
-        targets2=campaign_service.GetTargetsByIds2(
-            TargetIds={'long': [campaign_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_target2s(targets2)
-
-        # Get and print the Target with the legacy GetTargetsByIds operation
-        output_status_message("Get AdGroup Target: \n")
-        targets=campaign_service.GetTargetsByIds(
-            TargetIds={'long': [ad_group_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_targets(targets)
-
-        # Get and print the Target2 with the new GetTargetsByIds2 operation
-        output_status_message("Get AdGroup Target2: \n")
-        targets2=campaign_service.GetTargetsByIds2(
-            TargetIds={'long': [ad_group_target_id] },
-            LocationTargetVersion = "Latest"
-        )
-        output_target2s(targets2)
 
         # Get all new and existing targets in the customer library, whether or not they are
         # associated with campaigns or ad groups.
 
         all_targets_info=campaign_service.GetTargetsInfoFromLibrary()
         output_status_message("All target identifiers and names from the customer library: \n")
-        output_targetss_info(all_targets_info)
+        output_targets_info(all_targets_info)
 
         # Delete the campaign, ad group, and targets that were previously added. 
         # DeleteCampaigns would remove the campaign and ad group, as well as the association
         # between ad groups and campaigns. To explicitly delete the association between an entity 
         # and the target, use DeleteTargetFromCampaign and DeleteTargetFromAdGroup respectively.
 
-        campaign_service.DeleteTargetFromCampaign(CampaignId=campaign_ids[0])
-        campaign_service.DeleteTargetFromAdGroup(AdGroupId=ad_group_ids[0])
+        campaign_service.DeleteTargetFromCampaign(CampaignId=campaign_ids['long'][0])
+        campaign_service.DeleteTargetFromAdGroup(AdGroupId=ad_group_ids['long'][0])
 
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
-            CampaignIds={
-                    'long': campaign_ids
-                }
+            CampaignIds=campaign_ids
         )
 
-        for campaign_id in campaign_ids:
+        for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
 
         # DeleteCampaigns deletes the association between the campaign and target, but does not 
