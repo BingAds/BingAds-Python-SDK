@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.authorization &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.authorization &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.authorization</h1><div class="highlight"><pre>
 <span class="k">try</span><span class="p">:</span>
@@ -73,15 +73,17 @@
         <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
 
 <span class="sd">        :param account_id: The identifier of the account that owns the entities in the request.</span>
-<span class="sd">                            Used as the CustomerAccountId header and the AccountId body elements in calls to the Bing Ads web services.</span>
+<span class="sd">                            Used as the CustomerAccountId header and the AccountId body elements</span>
+<span class="sd">                            in calls to the Bing Ads web services.</span>
 <span class="sd">        :type account_id: int</span>
 <span class="sd">        :param customer_id: The identifier of the customer that owns the account.</span>
 <span class="sd">                            Used as the CustomerId header element in calls to the Bing Ads web services.</span>
 <span class="sd">        :type customer_id: int</span>
 <span class="sd">        :param developer_token: The Bing Ads developer access token.</span>
-<span class="sd">                                Used as the DeveloperToken header element in calls to the Bing Ads web services.</span>
+<span class="sd">                            Used as the DeveloperToken header element in calls to the Bing Ads web services.</span>
 <span class="sd">        :type developer_token: str</span>
-<span class="sd">        :param authentication: An object representing the authentication method that should be used in calls to the Bing Ads web services.</span>
+<span class="sd">        :param authentication: An object representing the authentication method that should be used in calls</span>
+<span class="sd">                            to the Bing Ads web services.</span>
 <span class="sd">        :type authentication: Authentication</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -140,22 +142,22 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authentication</span>
 
     <span class="nd">@account_id.setter</span>
-<div class="viewcode-block" id="AuthorizationData.account_id"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData.account_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
-</div>
+
     <span class="nd">@customer_id.setter</span>
-<div class="viewcode-block" id="AuthorizationData.customer_id"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData.customer_id">[docs]</a>    <span class="k">def</span> <span class="nf">customer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">customer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_customer_id</span> <span class="o">=</span> <span class="n">customer_id</span>
-</div>
+
     <span class="nd">@developer_token.setter</span>
-<div class="viewcode-block" id="AuthorizationData.developer_token"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData.developer_token">[docs]</a>    <span class="k">def</span> <span class="nf">developer_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">developer_token</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">developer_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">developer_token</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_developer_token</span> <span class="o">=</span> <span class="n">developer_token</span>
-</div>
+
     <span class="nd">@authentication.setter</span>
-<div class="viewcode-block" id="AuthorizationData.authentication"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData.authentication">[docs]</a>    <span class="k">def</span> <span class="nf">authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authentication</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authentication</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_authentication</span> <span class="o">=</span> <span class="n">authentication</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="Authentication"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.Authentication">[docs]</a><span class="k">class</span> <span class="nc">Authentication</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The base class for all authentication classes.</span>
 
@@ -184,12 +186,15 @@
 <div class="viewcode-block" id="PasswordAuthentication"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication">[docs]</a><span class="k">class</span> <span class="nc">PasswordAuthentication</span><span class="p">(</span><span class="n">Authentication</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a legacy Bing Ads authentication method using user name and password.</span>
 
-<span class="sd">    You can use an instance of this class as the authentication property of a :class:`.AuthorizationData` object to authenticate with Bing Ads services.</span>
+<span class="sd">    You can use an instance of this class as the authentication property of a :class:`.AuthorizationData` object to</span>
+<span class="sd">    authenticate with Bing Ads services.</span>
 <span class="sd">    Existing users with legacy Bing Ads credentials may continue to specify the UserName and Password header elements.</span>
 <span class="sd">    In future versions of the API, Bing Ads will transition exclusively to Microsoft Account authentication.</span>
-<span class="sd">    New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must use OAuth.</span>
-<span class="sd">    For example instead of using this :class:`.PasswordAuthentication` class, you would authenticate with an instance of either</span>
-<span class="sd">    :class:`.OAuthDesktopMobileAuthCodeGrant`, :class:`.OAuthDesktopMobileImplicitGrant`, or :class:`.OAuthWebAuthCodeGrant`.</span>
+<span class="sd">    New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must</span>
+<span class="sd">    use OAuth.</span>
+<span class="sd">    For example instead of using this :class:`.PasswordAuthentication` class, you would authenticate with an instance</span>
+<span class="sd">    of either :class:`.OAuthDesktopMobileAuthCodeGrant`, :class:`.OAuthDesktopMobileImplicitGrant`,</span>
+<span class="sd">    or :class:`.OAuthWebAuthCodeGrant`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_name</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
@@ -205,23 +210,23 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_password</span> <span class="o">=</span> <span class="n">password</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PasswordAuthentication.user_name"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication.user_name">[docs]</a>    <span class="k">def</span> <span class="nf">user_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">user_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The Bing Ads user&#39;s sign-in user name. You may not set this element to a Microsoft account.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_name</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PasswordAuthentication.password"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication.password">[docs]</a>    <span class="k">def</span> <span class="nf">password</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">password</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The Bing Ads user&#39;s sign-in password.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_password</span>
-</div>
+
 <div class="viewcode-block" id="PasswordAuthentication.enrich_headers"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication.enrich_headers">[docs]</a>    <span class="k">def</span> <span class="nf">enrich_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Sets the user name and password as headers elements for Bing Ads service or bulk file upload operation. &quot;&quot;&quot;</span>
 
@@ -241,7 +246,7 @@
 
 <span class="sd">        :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.</span>
 <span class="sd">        :type access_token: (optional) str or None</span>
-<span class="sd">        :param access_token_expires_in_seconds: (optional) Expiration time for the corresponding access token in seconds.</span>
+<span class="sd">        :param access_token_expires_in_seconds: (optional) The access token expiration time in seconds.</span>
 <span class="sd">        :type access_token_expires_in_seconds: int or None</span>
 <span class="sd">        :param refresh_token: (optional) OAuth refresh token that can be user to refresh an access token.</span>
 <span class="sd">        :type refresh_token: str or None</span>
@@ -252,25 +257,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span> <span class="o">=</span> <span class="n">refresh_token</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthTokens.access_token"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthTokens.access_token">[docs]</a>    <span class="k">def</span> <span class="nf">access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; OAuth access token that will be used for authorization in the Bing Ads services.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthTokens.access_token_expires_in_seconds"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthTokens.access_token_expires_in_seconds">[docs]</a>    <span class="k">def</span> <span class="nf">access_token_expires_in_seconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">access_token_expires_in_seconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Expiration time for the corresponding access token in seconds.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token_expires_in_seconds</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthTokens.refresh_token"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthTokens.refresh_token">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">refresh_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; OAuth refresh token that can be user to refresh an access token.</span>
 
 <span class="sd">        :rtype: str</span>
@@ -278,7 +283,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="OAuthAuthorization"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization">[docs]</a><span class="k">class</span> <span class="nc">OAuthAuthorization</span><span class="p">(</span><span class="n">Authentication</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The abstract base class for all OAuth authentication classes.</span>
 
@@ -306,35 +311,36 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthAuthorization.client_id"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization.client_id">[docs]</a>    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The client identifier corresponding to your registered application.</span>
 
 <span class="sd">        For more information about using a client identifier for authentication, see the</span>
-<span class="sd">        Client Password Authentication section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1</span>
+<span class="sd">        Client Password Authentication section of the OAuth 2.0 spec at</span>
+<span class="sd">        http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthAuthorization.oauth_tokens"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization.oauth_tokens">[docs]</a>    <span class="k">def</span> <span class="nf">oauth_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">oauth_tokens</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Contains information about OAuth access tokens received from the Microsoft Account authorization service.</span>
 
 <span class="sd">        :rtype: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthAuthorization.redirection_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization.redirection_uri">[docs]</a>    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The URI to which the user of the app will be redirected after receiving user consent.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
-</div>
+
 <div class="viewcode-block" id="OAuthAuthorization.get_authorization_endpoint"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization.get_authorization_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_authorization_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</span>
 
@@ -355,9 +361,10 @@
 <div class="viewcode-block" id="OAuthWithAuthorizationCode"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode">[docs]</a><span class="k">class</span> <span class="nc">OAuthWithAuthorizationCode</span><span class="p">(</span><span class="n">OAuthAuthorization</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a proxy to the Microsoft account authorization service.</span>
 
-<span class="sd">    Implement an extension of this class in compliance with the authorization code grant flow for Managing User Authentication with OAuth</span>
-<span class="sd">    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the</span>
-<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
+<span class="sd">    Implement an extension of this class in compliance with the authorization code grant flow for Managing User</span>
+<span class="sd">    Authentication with OAuth documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0</span>
+<span class="sd">    flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at</span>
+<span class="sd">    http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -366,7 +373,8 @@
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
 <span class="sd">        :type client_id: str</span>
-<span class="sd">        :param client_secret: The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.</span>
+<span class="sd">        :param client_secret: The client secret corresponding to your registered application, or null if your app is a</span>
+<span class="sd">        desktop or mobile app.</span>
 <span class="sd">        :type client_secret: str or None</span>
 <span class="sd">        :param redirection_uri: The URI to which the user of the app will be redirected after receiving user consent.</span>
 <span class="sd">        :type redirection_uri: str</span>
@@ -478,20 +486,21 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span>
 
     <span class="nd">@client_secret.setter</span>
-<div class="viewcode-block" id="OAuthWithAuthorizationCode.client_secret"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.client_secret">[docs]</a>    <span class="k">def</span> <span class="nf">client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
-</div>
+
     <span class="nd">@redirection_uri.setter</span>
-<div class="viewcode-block" id="OAuthWithAuthorizationCode.redirection_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.redirection_uri">[docs]</a>    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
-</div>
+
     <span class="nd">@token_refreshed_callback.setter</span>
-<div class="viewcode-block" id="OAuthWithAuthorizationCode.token_refreshed_callback"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.token_refreshed_callback">[docs]</a>    <span class="k">def</span> <span class="nf">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="OAuthDesktopMobileAuthCodeGrant"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileAuthCodeGrant">[docs]</a><span class="k">class</span> <span class="nc">OAuthDesktopMobileAuthCodeGrant</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop or mobile application.</span>
+    <span class="sd">&quot;&quot;&quot; Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop</span>
+<span class="sd">    or mobile application.</span>
 
 <span class="sd">    You can use an instance of this class as the AuthorizationData.Authentication property</span>
 <span class="sd">    of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.</span>
@@ -593,10 +602,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.redirection_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.redirection_uri">[docs]</a>    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span>
 
-</div></div>
+</div>
 <span class="k">class</span> <span class="nc">_LiveComOAuthService</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Provides method for getting OAuth tokens from the live.com authorization server.&quot;&quot;&quot;</span>
 
@@ -631,9 +640,9 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -650,7 +659,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -659,13 +668,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

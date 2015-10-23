@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.download_parameters &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.download_parameters &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.download_parameters</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">os</span>
@@ -150,19 +150,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
 
     <span class="nd">@result_file_directory.setter</span>
-<div class="viewcode-block" id="DownloadParameters.result_file_directory"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.result_file_directory">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
-</div>
+
     <span class="nd">@result_file_name.setter</span>
-<div class="viewcode-block" id="DownloadParameters.result_file_name"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.result_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
-</div>
+
     <span class="nd">@overwrite_result_file.setter</span>
-<div class="viewcode-block" id="DownloadParameters.overwrite_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.overwrite_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="DownloadParameters.decompress_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.decompress_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; If need to decompress the result file after download.</span>
 
 <span class="sd">        This property is determined by the result_file_name, by default will do decompression.</span>
@@ -172,7 +172,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The scope or types of data to download.</span>
@@ -185,9 +185,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">data_scope</span>
 
     <span class="nd">@data_scope.setter</span>
-<div class="viewcode-block" id="DownloadParameters.data_scope"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.data_scope">[docs]</a>    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">data_scope</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The type of entities to download.</span>
@@ -200,9 +200,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">entities</span>
 
     <span class="nd">@entities.setter</span>
-<div class="viewcode-block" id="DownloadParameters.entities"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.entities">[docs]</a>    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">entities</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The extension type of the downloaded file.</span>
@@ -215,9 +215,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">file_type</span>
 
     <span class="nd">@file_type.setter</span>
-<div class="viewcode-block" id="DownloadParameters.file_type"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.file_type">[docs]</a>    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">file_type</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The campaigns to download.</span>
@@ -230,9 +230,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">campaign_ids</span>
 
     <span class="nd">@campaign_ids.setter</span>
-<div class="viewcode-block" id="DownloadParameters.campaign_ids"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.campaign_ids">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">campaign_ids</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The last time that you requested a download.</span>
@@ -252,9 +252,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">last_sync_time_in_utc</span>
 
     <span class="nd">@last_sync_time_in_utc.setter</span>
-<div class="viewcode-block" id="DownloadParameters.last_sync_time_in_utc"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.last_sync_time_in_utc">[docs]</a>    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">last_sync_time_in_utc</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The date range values for the requested performance data in a bulk download.</span>
@@ -267,9 +267,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">performance_stats_date_range</span>
 
     <span class="nd">@performance_stats_date_range.setter</span>
-<div class="viewcode-block" id="DownloadParameters.performance_stats_date_range"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.performance_stats_date_range">[docs]</a>    <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">performance_stats_date_range</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Location target version.</span>
@@ -280,10 +280,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">location_target_version</span>
 
     <span class="nd">@location_target_version.setter</span>
-<div class="viewcode-block" id="DownloadParameters.location_target_version"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters.location_target_version">[docs]</a>    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">performance_stats_date_range</span><span class="o">.</span><span class="n">location_target_version</span> <span class="o">=</span> <span class="n">value</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="SubmitDownloadParameters"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitDownloadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the service request parameters such as the type of entities and data scope that you want to download. &quot;&quot;&quot;</span>
 
@@ -346,9 +346,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_scope</span>
 
     <span class="nd">@data_scope.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.data_scope"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.data_scope">[docs]</a>    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data_scope</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The type of entities to download.</span>
@@ -361,9 +361,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span>
 
     <span class="nd">@entities.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.entities"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.entities">[docs]</a>    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The extension type of the downloaded file.</span>
@@ -376,9 +376,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span>
 
     <span class="nd">@file_type.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.file_type"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.file_type">[docs]</a>    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The campaigns to download.</span>
@@ -391,9 +391,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_ids</span>
 
     <span class="nd">@campaign_ids.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.campaign_ids"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.campaign_ids">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_ids</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The last time that you requested a download.</span>
@@ -413,9 +413,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_sync_time_in_utc</span>
 
     <span class="nd">@last_sync_time_in_utc.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.last_sync_time_in_utc"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.last_sync_time_in_utc">[docs]</a>    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_sync_time_in_utc</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The date range values for the requested performance data in a bulk download.</span>
@@ -428,9 +428,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_performance_stats_data_range</span>
 
     <span class="nd">@performance_stats_date_range.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.performance_stats_date_range"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.performance_stats_date_range">[docs]</a>    <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_performance_stats_data_range</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Location target version.</span>
@@ -440,16 +440,16 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_location_target_version</span>
 
     <span class="nd">@location_target_version.setter</span>
-<div class="viewcode-block" id="SubmitDownloadParameters.location_target_version"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.download_parameters.SubmitDownloadParameters.location_target_version">[docs]</a>    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_location_target_version</span> <span class="o">=</span> <span class="n">value</span></div></div>
+    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_location_target_version</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" />
@@ -466,7 +466,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -475,13 +475,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -8,6 +8,8 @@ Subpackages
 
     bingads.bulk
     bingads.internal
+    bingads.reporting
+    bingads.v10
 
 Submodules
 ----------

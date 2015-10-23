@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.upload_parameters &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.upload_parameters &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.upload_parameters</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
@@ -92,9 +92,9 @@
         <span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="FileUploadParameters.decompress_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.decompress_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The fully qualified local path of the upload file.</span>
@@ -105,9 +105,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span>
 
     <span class="nd">@upload_file_path.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.upload_file_path"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.upload_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span> <span class="o">=</span> <span class="n">upload_file_path</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Determines whether the upload file should be compressed before uploading. The default value is True.</span>
@@ -118,9 +118,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">compress_upload_file</span>
 
     <span class="nd">@compress_upload_file.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.compress_upload_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.compress_upload_file">[docs]</a>    <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">compress_upload_file</span> <span class="o">=</span> <span class="n">compress</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
@@ -133,9 +133,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">response_mode</span>
 
     <span class="nd">@response_mode.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.response_mode"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.response_mode">[docs]</a>    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">response_mode</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The directory where the file will be downloaded.</span>
@@ -146,9 +146,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
 
     <span class="nd">@result_file_directory.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.result_file_directory"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.result_file_directory">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the download result file.</span>
@@ -159,9 +159,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
 
     <span class="nd">@result_file_name.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.result_file_name"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.result_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Whether the local result file should be overwritten if it already exists.</span>
@@ -172,10 +172,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
 
     <span class="nd">@overwrite_result_file.setter</span>
-<div class="viewcode-block" id="FileUploadParameters.overwrite_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.FileUploadParameters.overwrite_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="SubmitUploadParameters"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file. &quot;&quot;&quot;</span>
 
@@ -217,13 +217,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span>
 
     <span class="nd">@upload_file_path.setter</span>
-<div class="viewcode-block" id="SubmitUploadParameters.upload_file_path"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters.upload_file_path">[docs]</a>    <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_upload_file_path</span> <span class="o">=</span> <span class="n">upload_file_path</span>
-</div>
+
     <span class="nd">@compress_upload_file.setter</span>
-<div class="viewcode-block" id="SubmitUploadParameters.compress_upload_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters.compress_upload_file">[docs]</a>    <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span> <span class="o">=</span> <span class="n">compress</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
@@ -236,10 +236,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span>
 
     <span class="nd">@response_mode.setter</span>
-<div class="viewcode-block" id="SubmitUploadParameters.response_mode"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters.response_mode">[docs]</a>    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">value</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="EntityUploadParameters"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">EntityUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the available parameters when submitting entities for upload, such as the entities that you want to upload. &quot;&quot;&quot;</span>
 
@@ -276,9 +276,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">response_mode</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="EntityUploadParameters.decompress_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.decompress_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The list of bulk entities that you want to upload.</span>
@@ -289,9 +289,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span>
 
     <span class="nd">@entities.setter</span>
-<div class="viewcode-block" id="EntityUploadParameters.entities"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.entities">[docs]</a>    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
@@ -304,9 +304,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span>
 
     <span class="nd">@response_mode.setter</span>
-<div class="viewcode-block" id="EntityUploadParameters.response_mode"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.response_mode">[docs]</a>    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The directory where the file will be downloaded.</span>
@@ -317,9 +317,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
 
     <span class="nd">@result_file_directory.setter</span>
-<div class="viewcode-block" id="EntityUploadParameters.result_file_directory"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.result_file_directory">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the download result file.</span>
@@ -330,9 +330,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
 
     <span class="nd">@result_file_name.setter</span>
-<div class="viewcode-block" id="EntityUploadParameters.result_file_name"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.result_file_name">[docs]</a>    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Whether the local result file should be overwritten if it already exists.</span>
@@ -343,16 +343,16 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
 
     <span class="nd">@overwrite_result_file.setter</span>
-<div class="viewcode-block" id="EntityUploadParameters.overwrite_result_file"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters.overwrite_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span></div></div>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" />
@@ -369,7 +369,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -378,13 +378,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.v10.bulk.entities.bulk_negative_keywords &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '10.4.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v10.bulk.entities.bulk_negative_keywords</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_DynamicColumnNameMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="n">bulk_str</span>
+
+
+<span class="k">class</span> <span class="nc">_BulkNegativeKeyword</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; The base class for all bulk negative keywords.</span>
+
+<span class="sd">    Either assigned individually to a campaign or ad group entity, or shared in a negative keyword list.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkAdGroupNegativeKeyword`</span>
+<span class="sd">    * :class:`.BulkCampaignNegativeKeyword`</span>
+<span class="sd">    * :class:`.BulkSharedNegativeKeyword`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">parent_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span> <span class="o">=</span> <span class="n">negative_keyword</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">parent_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The status of the negative keyword association.</span>
+
+<span class="sd">        The value is &#39;Active&#39; if the negative keyword is assigned to the parent entity.</span>
+<span class="sd">        The value is &#39;Deleted&#39; if the negative keyword is removed from the parent entity,</span>
+<span class="sd">                                    or should be removed in a subsequent upload operation.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status.setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">negative_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Defines a negative keyword with match type. &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span>
+
+    <span class="nd">@negative_keyword.setter</span>
+    <span class="k">def</span> <span class="nf">negative_keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span> <span class="o">=</span> <span class="n">negative_keyword</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="p">,</span> <span class="s">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">_parent_id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_parent_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Keyword</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="p">,</span> <span class="s">&#39;Text&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">MatchType</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="o">.</span><span class="n">MatchType</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword</span><span class="p">,</span> <span class="s">&#39;MatchType&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span><span class="p">,</span> <span class="s">&#39;negative_keyword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">_BulkNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;NegativeKeyword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;NegativeKeyword&#39;</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_BulkNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_BulkEntityNegativeKeyword</span><span class="p">(</span><span class="n">_BulkNegativeKeyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This base class for all bulk negative keywords that are assigned individually to a campaign or ad group entity.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkAdGroupNegativeKeyword`</span>
+<span class="sd">    * :class:`.BulkCampaignNegativeKeyword`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">negative_keyword</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">parent_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">entity_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">status</span><span class="p">,</span>
+            <span class="n">negative_keyword</span><span class="p">,</span>
+            <span class="n">parent_id</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">entity_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_entity_column_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_DynamicColumnNameMapping</span><span class="p">(</span>
+            <span class="n">header_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">_entity_column_name</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">_entity_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_entity_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">_BulkEntityNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_BulkEntityNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BulkAdGroupNegativeKeyword"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkAdGroupNegativeKeyword">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupNegativeKeyword</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a negative keyword that is assigned to a ad group. Each negative keyword can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`.BulkNegativeKeyword.negative_keyword` property that can be read and written as</span>
+<span class="sd">    fields of the Ad Group Negative Keyword record in a bulk file.</span>
+
+<span class="sd">    For more information, see Ad Group Negative Keyword at http://go.microsoft.com/fwlink/?LinkID=620253.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">negative_keyword</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">status</span><span class="p">,</span>
+            <span class="n">negative_keyword</span><span class="p">,</span>
+            <span class="n">ad_group_id</span><span class="p">,</span>
+            <span class="n">ad_group_name</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the campaign that the negative keyword is assigned.</span>
+
+<span class="sd">        Corresponds to the &#39;Campaign&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
+
+    <span class="nd">@campaign_name.setter</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :return: The identifier of the ad group that the negative keyword is assigned.</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span>
+
+    <span class="nd">@ad_group_id.setter</span>
+    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Ad Group&#39; field in the bulk file.</span>
+
+<span class="sd">        :return: The name of the ad group that the negative keyword is assigned.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span>
+
+    <span class="nd">@ad_group_name.setter</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_entity_column_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">AdGroup</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkAdGroupNegativeKeyword.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkAdGroupNegativeKeyword.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAdGroupNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkAdGroupNegativeKeyword.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkAdGroupNegativeKeyword.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAdGroupNegativeKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkAdGroupNegativeKeyword.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkAdGroupNegativeKeyword.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkCampaignNegativeKeyword"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeyword">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeKeyword</span><span class="p">(</span><span class="n">_BulkEntityNegativeKeyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a negative keyword that is assigned to a campaign. Each negative keyword can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`BulkNegativeKeyword.negative_keyword` property that can be read and written as</span>
+<span class="sd">    fields of the Campaign Negative Keyword record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Negative Keyword at http://go.microsoft.com/fwlink/?LinkID=620240.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">negative_keyword</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">campaign_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">status</span><span class="p">,</span>
+            <span class="n">negative_keyword</span><span class="p">,</span>
+            <span class="n">campaign_id</span><span class="p">,</span>
+            <span class="n">campaign_name</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The identifier of the campaign that the negative keyword is assigned.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span>
+
+    <span class="nd">@campaign_id.setter</span>
+    <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the campaign that the negative keyword is assigned.</span>
+
+<span class="sd">        Corresponds to the &#39;Campaign&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span>
+
+    <span class="nd">@campaign_name.setter</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_entity_column_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span>
+
+</div>
+<div class="viewcode-block" id="BulkCampaignNegativeKeywordList"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeywordList">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeKeywordList</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a negative keyword list that is assigned to a campaign. Each negative keyword list can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`BulkCampaignNegativeKeywordList.SharedEntityAssociation` property that can be read</span>
+<span class="sd">    and written as fields of the Campaign Negative Keyword List Association record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Negative Keyword List Association at http://go.microsoft.com/fwlink/?LinkID=620241.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">shared_entity_association</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeKeywordList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span> <span class="o">=</span> <span class="n">shared_entity_association</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The status of the negative keyword list association.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status.setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shared_entity_association</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The campaign and negative keyword list identifiers.</span>
+
+<span class="sd">        see Campaign Negative Keyword List Association at http://go.microsoft.com/fwlink/?LinkID=620241.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span>
+
+    <span class="nd">@shared_entity_association.setter</span>
+    <span class="k">def</span> <span class="nf">shared_entity_association</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shared_entity_association</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span> <span class="o">=</span> <span class="n">shared_entity_association</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shared_entity_association</span><span class="o">.</span><span class="n">SharedEntityId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shared_entity_association</span><span class="p">,</span> <span class="s">&#39;SharedEntityId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shared_entity_association</span><span class="o">.</span><span class="n">EntityId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shared_entity_association</span><span class="p">,</span> <span class="s">&#39;EntityId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkCampaignNegativeKeywordList.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeywordList.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span><span class="p">,</span> <span class="s">&#39;shared_entity_association&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkCampaignNegativeKeywordList</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkCampaignNegativeKeywordList.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeywordList.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;SharedEntityAssociation&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span><span class="o">.</span><span class="n">EntityType</span> <span class="o">=</span> <span class="s">&#39;Campaign&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shared_entity_association</span><span class="o">.</span><span class="n">SharedEntityType</span> <span class="o">=</span> <span class="s">&#39;NegativeKeywordList&#39;</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkCampaignNegativeKeywordList</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkCampaignNegativeKeywordList.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeywordList.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeKeywordList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkNegativeKeywordList"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkNegativeKeywordList">[docs]</a><span class="k">class</span> <span class="nc">BulkNegativeKeywordList</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a negative keyword list that can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`.BulkNegativeKeywordList.negative_keyword_list` property that can be read and</span>
+<span class="sd">    written as fields of the Negative Keyword List record in a bulk file.</span>
+
+<span class="sd">    For more information, see Negative Keyword List at http://go.microsoft.com/fwlink/?LinkID=620237.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">negative_keyword_list</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkNegativeKeywordList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span> <span class="o">=</span> <span class="n">negative_keyword_list</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The negative keyword list.</span>
+
+<span class="sd">        see Negative Keyword List at http://go.microsoft.com/fwlink/?LinkID=620237.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span>
+
+    <span class="nd">@negative_keyword_list.setter</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">negative_keyword_list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span> <span class="o">=</span> <span class="n">negative_keyword_list</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The status of the negative keyword list.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status.setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword_list</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword_list</span><span class="p">,</span> <span class="s">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">negative_keyword_list</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_keyword_list</span><span class="p">,</span> <span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkNegativeKeywordList.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkNegativeKeywordList.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span><span class="p">,</span> <span class="s">&#39;negative_keyword_list&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkNegativeKeywordList</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkNegativeKeywordList.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkNegativeKeywordList.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;NegativeKeywordList&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_keyword_list</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;NegativeKeywordList&#39;</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkNegativeKeywordList</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkNegativeKeywordList.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkNegativeKeywordList.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkNegativeKeywordList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkSharedNegativeKeyword"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_keywords.BulkSharedNegativeKeyword">[docs]</a><span class="k">class</span> <span class="nc">BulkSharedNegativeKeyword</span><span class="p">(</span><span class="n">_BulkNegativeKeyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a negative keyword that is shared in a negative keyword list.</span>
+
+<span class="sd">    Each shared negative keyword can be read or written in a bulk file.</span>
+<span class="sd">    This class exposes the :attr:`.BulkNegativeKeyword.NegativeKeyword` property that</span>
+<span class="sd">    can be read and written as fields of the Shared Negative Keyword record in a bulk file.</span>
+
+<span class="sd">    For more information, see Shared Negative Keyword at http://go.microsoft.com/fwlink/?LinkID=620238.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">negative_keyword_list_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSharedNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="p">,</span> <span class="n">negative_keyword_list_id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span>
+
+    <span class="nd">@negative_keyword_list_id.setter</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

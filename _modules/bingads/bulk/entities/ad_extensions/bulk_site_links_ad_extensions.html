@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../../../index.html" />
     <link rel="up" title="Module code" href="../../../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">bingads.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
@@ -170,9 +170,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span>
 
     <span class="nd">@order.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.order"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.order">[docs]</a>    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">site_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The sitelink.</span>
@@ -183,9 +183,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span>
 
     <span class="nd">@site_link.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.site_link"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.site_link">[docs]</a>    <span class="k">def</span> <span class="nf">site_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">site_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The identifier of the ad extension.</span>
@@ -198,9 +198,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_extension_id</span>
 
     <span class="nd">@ad_extension_id.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.ad_extension_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.ad_extension_id">[docs]</a>    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_ad_extension_id</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The ad extension&#39;s parent account identifier.</span>
@@ -213,9 +213,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">account_id</span>
 
     <span class="nd">@account_id.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.account_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.account_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The status of the ad extension.</span>
@@ -228,9 +228,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
 
     <span class="nd">@status.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.status"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The version of the ad extension.</span>
@@ -243,9 +243,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">version</span>
 
     <span class="nd">@version.setter</span>
-<div class="viewcode-block" id="BulkSiteLink.version"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkExtensionOrder</span><span class="p">,</span>
@@ -294,9 +294,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkSiteLink</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkSiteLink.can_enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.can_enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">True</span>
-</div>
+
 <div class="viewcode-block" id="BulkSiteLink.enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkSiteLinkAdExtension</span><span class="p">(</span><span class="n">bulk_site_link</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 </div>
@@ -378,9 +378,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span>
 
     <span class="nd">@account_id.setter</span>
-<div class="viewcode-block" id="BulkSiteLinkAdExtension.account_id"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.account_id">[docs]</a>    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">site_links_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Defines an ad extension that specifies one or more sitelinks to add to a text add.</span>
@@ -391,21 +391,21 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span>
 
     <span class="nd">@site_links_ad_extension.setter</span>
-<div class="viewcode-block" id="BulkSiteLinkAdExtension.site_links_ad_extension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.site_links_ad_extension">[docs]</a>    <span class="k">def</span> <span class="nf">site_links_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">site_links_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkSiteLinkAdExtension.site_links"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.site_links">[docs]</a>    <span class="k">def</span> <span class="nf">site_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">site_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The list of :class:`BulkSiteLink` are represented by multiple Sitelink Ad Extension records in the file.</span>
 
 <span class="sd">        :rtype: list[BulkSiteLink]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkSiteLinkAdExtension.child_entities"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.child_entities">[docs]</a>    <span class="k">def</span> <span class="nf">child_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">child_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_links</span>
-</div>
+
 <div class="viewcode-block" id="BulkSiteLinkAdExtension.write_to_stream"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="p">,</span> <span class="s">&#39;site_links_ad_extension&#39;</span><span class="p">)</span>
 
@@ -474,16 +474,16 @@
             <span class="k">yield</span> <span class="n">bulk_site_link</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkSiteLinkAdExtension.all_children_are_present"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.all_children_are_present">[docs]</a>    <span class="k">def</span> <span class="nf">all_children_are_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span></div></div>
+    <span class="k">def</span> <span class="nf">all_children_are_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../search.html" method="get">
       <input type="text" name="q" />
@@ -500,7 +500,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -509,13 +509,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.common &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.entities.common &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.entities.common</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
@@ -123,86 +123,86 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_cost_per_conversion</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.spend"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.spend">[docs]</a>    <span class="k">def</span> <span class="nf">spend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">spend</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Spend&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spend</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.impressions"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.impressions">[docs]</a>    <span class="k">def</span> <span class="nf">impressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">impressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Impressions&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_impressions</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.clicks"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.clicks">[docs]</a>    <span class="k">def</span> <span class="nf">clicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">clicks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Clicks&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_clicks</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.click_through_rate"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.click_through_rate">[docs]</a>    <span class="k">def</span> <span class="nf">click_through_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">click_through_rate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;CTR&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_click_through_rate</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.average_cost_per_click"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.average_cost_per_click">[docs]</a>    <span class="k">def</span> <span class="nf">average_cost_per_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">average_cost_per_click</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Avg CPC&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_average_cost_per_click</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.average_cost_per_thousand_impressions"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.average_cost_per_thousand_impressions">[docs]</a>    <span class="k">def</span> <span class="nf">average_cost_per_thousand_impressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">average_cost_per_thousand_impressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Avg CPM&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_average_cost_per_thousand_impressions</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.average_position"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.average_position">[docs]</a>    <span class="k">def</span> <span class="nf">average_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">average_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Avg position&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_average_position</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.conversions"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.conversions">[docs]</a>    <span class="k">def</span> <span class="nf">conversions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">conversions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Conversions&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_conversions</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.cost_per_conversion"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.cost_per_conversion">[docs]</a>    <span class="k">def</span> <span class="nf">cost_per_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">cost_per_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;CPA&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: float</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cost_per_conversion</span>
-</div>
+
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Spend</span><span class="p">,</span>
@@ -273,7 +273,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.has_any_values"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.has_any_values">[docs]</a>    <span class="k">def</span> <span class="nf">has_any_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">has_any_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> \
             <span class="bp">self</span><span class="o">.</span><span class="n">average_cost_per_click</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">average_cost_per_thousand_impressions</span> \
@@ -284,7 +284,7 @@
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">cost_per_conversion</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">impressions</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">spend</span>
-</div>
+
 <div class="viewcode-block" id="PerformanceData.write_to_stream"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="k">pass</span>
 </div>
@@ -295,10 +295,10 @@
         <span class="k">pass</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="PerformanceData.can_enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.PerformanceData.can_enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">PerformanceData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">can_enclose_in_multiline_entity</span><span class="p">()</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="QualityScoreData"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData">[docs]</a><span class="k">class</span> <span class="nc">QualityScoreData</span><span class="p">(</span><span class="n">_BulkObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a subset of the fields available in bulk records that support quality score data.</span>
 
@@ -312,41 +312,41 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_user_experience</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.quality_score"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.quality_score">[docs]</a>    <span class="k">def</span> <span class="nf">quality_score</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">quality_score</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Quality Score&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.keyword_relevance"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.keyword_relevance">[docs]</a>    <span class="k">def</span> <span class="nf">keyword_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">keyword_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Keyword Relevance&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_relevance</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.landing_page_relevance"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.landing_page_relevance">[docs]</a>    <span class="k">def</span> <span class="nf">landing_page_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">landing_page_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Landing Page Relevance&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_relevance</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.landing_page_user_experience"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.landing_page_user_experience">[docs]</a>    <span class="k">def</span> <span class="nf">landing_page_user_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">landing_page_user_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Landing Page User Experience&#39; field in the bulk file.</span>
 
 <span class="sd">        :rtype: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_user_experience</span>
-</div>
+
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">QualityScore</span><span class="p">,</span>
@@ -388,13 +388,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.has_any_values"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.has_any_values">[docs]</a>    <span class="k">def</span> <span class="nf">has_any_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">has_any_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> \
             <span class="bp">self</span><span class="o">.</span><span class="n">quality_score</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyword_relevance</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">landing_page_relevance</span> \
             <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">landing_page_user_experience</span>
-</div>
+
 <div class="viewcode-block" id="QualityScoreData.write_to_stream"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="k">pass</span>
 </div>
@@ -405,16 +405,16 @@
         <span class="k">pass</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="QualityScoreData.can_enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.common.QualityScoreData.can_enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QualityScoreData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">can_enclose_in_multiline_entity</span><span class="p">()</span></div></div>
+    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QualityScoreData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">can_enclose_in_multiline_entity</span><span class="p">()</span></div>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../search.html" method="get">
       <input type="text" name="q" />
@@ -431,7 +431,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -440,13 +440,13 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

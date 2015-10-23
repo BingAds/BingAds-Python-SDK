@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.entities.bulk_negative_sites &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.entities.bulk_negative_sites &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.entities.bulk_negative_sites</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span>
@@ -178,9 +178,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_id</span>
 
     <span class="nd">@ad_group_id.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSite.ad_group_id"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSite.ad_group_id">[docs]</a>    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the ad group that the negative site is assigned.</span>
@@ -193,9 +193,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_name</span>
 
     <span class="nd">@ad_group_name.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSite.ad_group_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSite.ad_group_name">[docs]</a>    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the ad group that the negative site is assigned.</span>
@@ -208,9 +208,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span>
 
     <span class="nd">@campaign_name.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSite.campaign_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSite.campaign_name">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
 <div class="viewcode-block" id="BulkAdGroupNegativeSite.create_negative_sites_with_this_negative_site"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSite.create_negative_sites_with_this_negative_site">[docs]</a>    <span class="k">def</span> <span class="nf">create_negative_sites_with_this_negative_site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkAdGroupNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
@@ -261,9 +261,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_id</span>
 
     <span class="nd">@campaign_id.setter</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSite.campaign_id"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSite.campaign_id">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_id</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the campaign that the negative site is assigned.</span>
@@ -275,9 +275,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span>
 
     <span class="nd">@campaign_name.setter</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSite.campaign_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSite.campaign_name">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSite.create_negative_sites_with_this_negative_site"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSite.create_negative_sites_with_this_negative_site">[docs]</a>    <span class="k">def</span> <span class="nf">create_negative_sites_with_this_negative_site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkCampaignNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
 
@@ -445,9 +445,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span>
 
     <span class="nd">@ad_group_negative_sites.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSites.ad_group_negative_sites"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.ad_group_negative_sites">[docs]</a>    <span class="k">def</span> <span class="nf">ad_group_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_negative_sites</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ad_group_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_negative_sites</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span> <span class="o">=</span> <span class="n">ad_group_negative_sites</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the ad group that the negative site is assigned.</span>
@@ -460,9 +460,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span>
 
     <span class="nd">@ad_group_name.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSites.ad_group_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.ad_group_name">[docs]</a>    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the campaign that the negative site is assigned.</span>
@@ -475,9 +475,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
     <span class="nd">@campaign_name.setter</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSites.campaign_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.campaign_name">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
-</div>
+
 <div class="viewcode-block" id="BulkAdGroupNegativeSites.set_data_from_identifier"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.set_data_from_identifier">[docs]</a>    <span class="k">def</span> <span class="nf">set_data_from_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdGroupNegativeSites&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">AdGroupId</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">ad_group_id</span>
@@ -515,14 +515,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="p">,</span> <span class="s">&#39;ad_group_negative_sites&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSites.identifier_class"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.identifier_class">[docs]</a>    <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_BulkAdGroupNegativeSitesIdentifier</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkAdGroupNegativeSites.site_class"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.site_class">[docs]</a>    <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkAdGroupNegativeSite</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="BulkCampaignNegativeSites"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeSites</span><span class="p">(</span><span class="n">_BulkNegativeSites</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents one or more negative sites that are assigned to an campaign. Each negative site can be read or written in a bulk file.</span>
 
@@ -572,9 +572,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span>
 
     <span class="nd">@campaign_negative_sites.setter</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSites.campaign_negative_sites"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.campaign_negative_sites">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_negative_sites</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_negative_sites</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span> <span class="o">=</span> <span class="n">campaign_negative_sites</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The name of the campaign that the negative site is assigned.</span>
@@ -586,9 +586,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
     <span class="nd">@campaign_name.setter</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSites.campaign_name"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.campaign_name">[docs]</a>    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
-</div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSites.set_data_from_identifier"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.set_data_from_identifier">[docs]</a>    <span class="k">def</span> <span class="nf">set_data_from_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;CampaignNegativeSites&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">campaign_negative_sites</span><span class="o">.</span><span class="n">CampaignId</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_id</span>
@@ -623,14 +623,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="p">,</span> <span class="s">&#39;campaign_negative_sites&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSites.identifier_class"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.identifier_class">[docs]</a>    <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_BulkCampaignNegativeSitesIdentifier</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkCampaignNegativeSites.site_class"><a class="viewcode-back" href="../../../../bingads.bulk.entities.html#bingads.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.site_class">[docs]</a>    <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BulkCampaignNegativeSite</span>
 
-</div></div>
+</div>
 <span class="k">class</span> <span class="nc">_BulkNegativeSiteIdentifier</span><span class="p">(</span><span class="n">_BulkEntityIdentifier</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">entity_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">entity_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
@@ -813,9 +813,9 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../search.html" method="get">
       <input type="text" name="q" />
@@ -832,7 +832,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -841,13 +841,13 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

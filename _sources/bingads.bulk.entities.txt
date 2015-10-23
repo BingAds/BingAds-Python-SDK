@@ -36,6 +36,14 @@ bingads.bulk.entities.bulk_ad_group module
     :undoc-members:
     :show-inheritance:
 
+bingads.bulk.entities.bulk_ad_group_product_partition module
+------------------------------------------------------------
+
+.. automodule:: bingads.bulk.entities.bulk_ad_group_product_partition
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.bulk.entities.bulk_ad_group_product_target module
 ---------------------------------------------------------
 
@@ -56,6 +64,14 @@ bingads.bulk.entities.bulk_campaign module
 ------------------------------------------
 
 .. automodule:: bingads.bulk.entities.bulk_campaign
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.bulk.entities.bulk_campaign_product_scope module
+--------------------------------------------------------
+
+.. automodule:: bingads.bulk.entities.bulk_campaign_product_scope
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.service_client &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.service_client &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,28 +36,31 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.service_client</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">suds.client</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">Factory</span><span class="p">,</span> <span class="n">WebFault</span>  <span class="c"># noqa</span>
+<span class="kn">from</span> <span class="nn">suds.client</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">Factory</span><span class="p">,</span> <span class="n">WebFault</span><span class="p">,</span> <span class="n">ObjectCache</span>  <span class="c"># noqa</span>
 
 <span class="kn">from</span> <span class="nn">.authorization</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.service_info</span> <span class="kn">import</span> <span class="n">SERVICE_INFO_DICT</span>
+<span class="kn">from</span> <span class="nn">.service_info</span> <span class="kn">import</span> <span class="n">SERVICE_INFO_DICT</span><span class="p">,</span> <span class="n">SERVICE_INFO_DICT_V10</span>
 <span class="kn">from</span> <span class="nn">.manifest</span> <span class="kn">import</span> <span class="n">USER_AGENT</span>
+<span class="kn">from</span> <span class="nn">getpass</span> <span class="kn">import</span> <span class="n">getuser</span>
+<span class="kn">from</span> <span class="nn">tempfile</span> <span class="kn">import</span> <span class="n">gettempdir</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 
 
 <div class="viewcode-block" id="ServiceClient"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient">[docs]</a><span class="k">class</span> <span class="nc">ServiceClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Provides an interface for calling the methods of the specified Bing Ads service.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">authorization_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s">&#39;production&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">authorization_data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s">&#39;production&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s">&#39;v9&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class.</span>
 
 <span class="sd">        :param service: The service name.</span>
@@ -66,21 +69,30 @@
 <span class="sd">        :type authorization_data: AuthorizationData or None</span>
 <span class="sd">        :param environment: (optional) The environment name, can only be &#39;production&#39; or &#39;sandbox&#39;, the default is &#39;production&#39;</span>
 <span class="sd">        :type environment: str</span>
+<span class="sd">        :param version: to specify the service version, only support v9 and v10, valid input is: 9, 10, &#39;v9&#39;, &#39;v10&#39;</span>
+<span class="sd">        :param suds_options: The suds options need to pass to suds client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_input_service</span> <span class="o">=</span> <span class="n">service</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_input_environment</span> <span class="o">=</span> <span class="n">environment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span> <span class="o">=</span> <span class="n">authorization_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_oauth_tokens_automatically</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_format_version</span><span class="p">(</span><span class="n">version</span><span class="p">)</span>
+
+        <span class="c"># TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.</span>
+        <span class="k">if</span> <span class="s">&#39;cache&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">suds_options</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s">&#39;suds&#39;</span><span class="p">,</span> <span class="n">getuser</span><span class="p">())</span>
+            <span class="n">suds_options</span><span class="p">[</span><span class="s">&#39;cache&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ObjectCache</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_options</span> <span class="o">=</span> <span class="n">suds_options</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_service</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_format_service</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_format_environment</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_soap_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service_url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_soap_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service_url</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="c"># Set authorization data and options before every service call.</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_options</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_ServiceCall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
@@ -96,45 +108,47 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_soap_client</span><span class="o">.</span><span class="n">set_options</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServiceClient.authorization_data"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient.authorization_data">[docs]</a>    <span class="k">def</span> <span class="nf">authorization_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">authorization_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Represents a user who intends to access the corresponding customer and account.</span>
 
 <span class="sd">        :rtype: AuthorizationData</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServiceClient.soap_client"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient.soap_client">[docs]</a>    <span class="k">def</span> <span class="nf">soap_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">soap_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The internal suds soap client.</span>
 
 <span class="sd">        :rtype: Client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_soap_client</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServiceClient.factory"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient.factory">[docs]</a>    <span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The internal suds soap client factory.</span>
 
 <span class="sd">        :rtype: Factory</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">soap_client</span><span class="o">.</span><span class="n">factory</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="ServiceClient.service_url"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient.service_url">[docs]</a>    <span class="k">def</span> <span class="nf">service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">service_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The wsdl url of service based on the specific service and environment.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">SERVICE_INFO_DICT</span><span class="p">:</span>
+        <span class="n">service_info_dict</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_get_service_info_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">service_info_dict</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;cannot find the service: [{0}] under environment: [{1}]&#39;</span><span class="p">,</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">_input_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_environment</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">SERVICE_INFO_DICT</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">)]</span><span class="o">.</span><span class="n">url</span>
-</div>
+        <span class="k">return</span> <span class="n">service_info_dict</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">)]</span><span class="o">.</span><span class="n">url</span>
+
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">refresh_oauth_tokens_automatically</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; A value indicating whether OAuth access and refresh tokens should be refreshed automatically upon access token expiration.</span>
@@ -144,9 +158,9 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_oauth_tokens_automatically</span>
 
     <span class="nd">@refresh_oauth_tokens_automatically.setter</span>
-<div class="viewcode-block" id="ServiceClient.refresh_oauth_tokens_automatically"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient.refresh_oauth_tokens_automatically">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_oauth_tokens_automatically</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">refresh_oauth_tokens_automatically</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_oauth_tokens_automatically</span> <span class="o">=</span> <span class="n">value</span>
-</div>
+
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_ensemble_header</span><span class="p">(</span><span class="n">authorization_data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Ensemble the request header send to API services.</span>
@@ -213,6 +227,38 @@
         <span class="k">if</span> <span class="n">service</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;service&#39;</span><span class="p">):</span>
             <span class="n">service</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;service&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>  <span class="c"># remove postfix &quot;service&quot; if any</span>
         <span class="k">return</span> <span class="n">service</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_format_version</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        format the version to a int value.</span>
+<span class="sd">        :param version:</span>
+<span class="sd">        :return: int version</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s">&#39;v9&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="mi">9</span>
+        <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="s">&#39;v10&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;version error: [{0}] is not supported.&#39;</span><span class="p">,</span> <span class="n">version</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">version</span>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_get_service_info_dict</span><span class="p">(</span><span class="n">version</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the service information dict by version</span>
+<span class="sd">        :param version:</span>
+<span class="sd">        :return: the service info dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SERVICE_INFO_DICT</span>
+        <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">SERVICE_INFO_DICT_V10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c"># Should not run to here, set default to v10</span>
+            <span class="k">return</span> <span class="n">SERVICE_INFO_DICT_V10</span>
+
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_format_environment</span><span class="p">(</span><span class="n">environment</span><span class="p">):</span>
@@ -296,6 +342,7 @@
 <span class="kn">from</span> <span class="nn">suds.sudsobject</span> <span class="kn">import</span> <span class="n">Property</span>
 <span class="kn">from</span> <span class="nn">suds.sax.text</span> <span class="kn">import</span> <span class="n">Text</span>
 
+<span class="c"># for v9</span>
 <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span>
     <span class="s">&#39;file:///&#39;</span> <span class="o">+</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s">&#39;bingads&#39;</span><span class="p">,</span> <span class="s">&#39;proxies/campaign_management_service.xml&#39;</span><span class="p">)</span>
 <span class="p">)</span>
@@ -304,6 +351,16 @@
 <span class="c"># TODO Better to push suds-jurko accept this caching</span>
 <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">object_cache</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create_without_cache</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span>
+
+
+
+<span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V10</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span>
+    <span class="s">&#39;file:///&#39;</span> <span class="o">+</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s">&#39;bingads&#39;</span><span class="p">,</span> <span class="s">&#39;v10/proxies/campaign_management_service.xml&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span> <span class="o">=</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V10</span><span class="o">.</span><span class="n">factory</span>
+<span class="c"># TODO Better to push suds-jurko accept this caching</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">object_cache</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create_without_cache</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span>
 
 
 <span class="k">def</span> <span class="nf">_suds_objects_deepcopy</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
@@ -336,14 +393,15 @@
     <span class="k">return</span> <span class="n">copied_obj</span>
 
 <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">(</span><span class="n">_create_with_cache</span><span class="p">,</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="p">)</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span> <span class="o">=</span> <span class="n">types</span><span class="o">.</span><span class="n">MethodType</span><span class="p">(</span><span class="n">_create_with_cache</span><span class="p">,</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="p">)</span>
 </pre></div>
 
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
@@ -360,7 +418,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -369,13 +427,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>

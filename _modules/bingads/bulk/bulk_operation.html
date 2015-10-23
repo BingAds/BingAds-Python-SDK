@@ -6,15 +6,15 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.bulk_operation &mdash; Bing Ads SDK 9.3.2 documentation</title>
+    <title>bingads.bulk.bulk_operation &mdash; Bing Ads SDK 10.4.1 documentation</title>
     
-    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '9.3.2',
+        VERSION:     '10.4.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,11 +23,11 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 9.3.2 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -36,15 +36,15 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <h1>Source code for bingads.bulk.bulk_operation</h1><div class="highlight"><pre>
 <span class="kn">import</span> <span class="nn">time</span>
@@ -54,6 +54,7 @@
 <span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">six</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="kn">from</span> <span class="nn">.bulk_operation_status</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.bulk_operation_progress_info</span> <span class="kn">import</span> <span class="o">*</span>
@@ -66,15 +67,17 @@
 <span class="kn">from</span> <span class="nn">requests.packages.urllib3.poolmanager</span> <span class="kn">import</span> <span class="n">PoolManager</span>
 
 
-<div class="viewcode-block" id="Ssl3HttpAdapter"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.Ssl3HttpAdapter">[docs]</a><span class="k">class</span> <span class="nc">Ssl3HttpAdapter</span><span class="p">(</span><span class="n">HTTPAdapter</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;&quot; Transport adapter&quot; that allows us to use SSLv3. &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="TlsHttpAdapter"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.TlsHttpAdapter">[docs]</a><span class="k">class</span> <span class="nc">TlsHttpAdapter</span><span class="p">(</span><span class="n">HTTPAdapter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;&quot; Transport adapter that chooses the TLS protocols based on python versions. &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Ssl3HttpAdapter.init_poolmanager"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.Ssl3HttpAdapter.init_poolmanager">[docs]</a>    <span class="k">def</span> <span class="nf">init_poolmanager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="TlsHttpAdapter.init_poolmanager"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.TlsHttpAdapter.init_poolmanager">[docs]</a>    <span class="k">def</span> <span class="nf">init_poolmanager</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connections</span><span class="p">,</span> <span class="n">maxsize</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="n">ssl_version</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_TLSv1</span> <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="ow">or</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> \
+                                         <span class="k">else</span> <span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_SSLv23</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">poolmanager</span> <span class="o">=</span> <span class="n">PoolManager</span><span class="p">(</span>
             <span class="n">num_pools</span><span class="o">=</span><span class="n">connections</span><span class="p">,</span>
             <span class="n">maxsize</span><span class="o">=</span><span class="n">maxsize</span><span class="p">,</span>
             <span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">,</span>
-            <span class="n">ssl_version</span><span class="o">=</span><span class="n">ssl</span><span class="o">.</span><span class="n">PROTOCOL_SSLv3</span><span class="p">,</span>
+            <span class="n">ssl_version</span><span class="o">=</span><span class="n">ssl_version</span>
         <span class="p">)</span>
 
 </div></div>
@@ -88,7 +91,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">request_id</span><span class="p">,</span>
                  <span class="n">authorization_data</span><span class="p">,</span>
-                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">15000</span><span class="p">,</span>
+                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
                  <span class="n">environment</span><span class="o">=</span><span class="s">&#39;production&#39;</span><span class="p">,</span> <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_id</span> <span class="o">=</span> <span class="n">request_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_service_client</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="p">(</span><span class="s">&#39;BulkService&#39;</span><span class="p">,</span> <span class="n">authorization_data</span><span class="p">,</span> <span class="n">environment</span><span class="p">)</span>
@@ -140,7 +143,7 @@
             <span class="s">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s">&#39;https://&#39;</span><span class="p">,</span> <span class="n">Ssl3HttpAdapter</span><span class="p">())</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s">&#39;https://&#39;</span><span class="p">,</span> <span class="n">TlsHttpAdapter</span><span class="p">())</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
         <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">try</span><span class="p">:</span>
@@ -168,32 +171,32 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkOperation.request_id"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation.request_id">[docs]</a>    <span class="k">def</span> <span class="nf">request_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">request_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The request identifier corresponding to the bulk upload or download, depending on the derived type.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_id</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkOperation.final_status"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation.final_status">[docs]</a>    <span class="k">def</span> <span class="nf">final_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">final_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets the final status of the bulk operation or null if the operation is still running.</span>
 
 <span class="sd">        :rtype: BulkOperationStatus</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_status</span>
-</div>
+
     <span class="nd">@property</span>
-<div class="viewcode-block" id="BulkOperation.service_client"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation.service_client">[docs]</a>    <span class="k">def</span> <span class="nf">service_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">service_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The internal bulk service client.</span>
 
 <span class="sd">        :rtype: ServiceClient</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_service_client</span>
-</div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">poll_interval_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The time interval in milliseconds between two status polling attempts.</span>
@@ -204,10 +207,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span>
 
     <span class="nd">@poll_interval_in_milliseconds.setter</span>
-<div class="viewcode-block" id="BulkOperation.poll_interval_in_milliseconds"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation.poll_interval_in_milliseconds">[docs]</a>    <span class="k">def</span> <span class="nf">poll_interval_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_interval</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">poll_interval_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_interval</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span> <span class="o">=</span> <span class="n">poll_interval</span>
 
-</div></div>
+</div>
 <div class="viewcode-block" id="BulkDownloadOperation"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.bulk_operation.BulkDownloadOperation">[docs]</a><span class="k">class</span> <span class="nc">BulkDownloadOperation</span><span class="p">(</span><span class="n">BulkOperation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a bulk download operation requested by a user.</span>
 
@@ -224,7 +227,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">request_id</span><span class="p">,</span>
                  <span class="n">authorization_data</span><span class="p">,</span>
-                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">15000</span><span class="p">,</span>
+                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
                  <span class="n">environment</span><span class="o">=</span><span class="s">&#39;production&#39;</span><span class="p">,</span> <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkDownloadOperation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">request_id</span><span class="o">=</span><span class="n">request_id</span><span class="p">,</span>
@@ -305,7 +308,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">request_id</span><span class="p">,</span>
                  <span class="n">authorization_data</span><span class="p">,</span>
-                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">15000</span><span class="p">,</span>
+                 <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
                  <span class="n">environment</span><span class="o">=</span><span class="s">&#39;production&#39;</span><span class="p">,</span> <span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkUploadOperation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">request_id</span><span class="o">=</span><span class="n">request_id</span><span class="p">,</span>
@@ -393,9 +396,9 @@
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
       <input type="text" name="q" />
@@ -412,7 +415,7 @@
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -421,13 +424,13 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../../index.html">Bing Ads SDK 9.3.2 documentation</a> &raquo;</li>
-          <li><a href="../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer">
+    <div class="footer" role="contentinfo">
         &copy; Copyright 2015, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
 </html>
