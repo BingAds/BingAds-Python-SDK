@@ -431,7 +431,6 @@ if __name__ == '__main__':
             site_link=campaign_service.factory.create('SiteLink')
             site_link.DisplayText = "Women's Shoe Sale " + str(index)
 
-            # Destination URLs are deprecated and will be sunset in March 2016. 
             # If you are currently using the Destination URL, you must upgrade to Final URLs. 
             # Here is an example of a DestinationUrl you might have used previously. 
             # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'

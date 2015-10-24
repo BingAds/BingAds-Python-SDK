@@ -420,7 +420,6 @@ if __name__ == '__main__':
             text_ad.Status=None
             text_ad.EditorialStatus=None
 
-            # Destination URLs are deprecated and will be sunset in March 2016. 
             # If you are currently using the Destination URL, you must upgrade to Final URLs. 
             # Here is an example of a DestinationUrl you might have used previously. 
             # text_ad.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
