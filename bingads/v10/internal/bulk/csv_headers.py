@@ -161,11 +161,19 @@ class _CsvHeaders:
         # V10 added
         _StringTable.FieldPath,
 
-        #Upgrade Url
+        # Upgrade Url
         _StringTable.FinalUrl,
         _StringTable.FinalMobileUrl,
         _StringTable.TrackingTemplate,
         _StringTable.CustomParameter,
+
+        # Review Ad Extension
+        _StringTable.IsExact,
+        _StringTable.Source,
+        _StringTable.Url,
+
+        # Callout Ad Extension
+        _StringTable.CalloutText
     ]
 
     @staticmethod

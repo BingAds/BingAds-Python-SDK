@@ -56,3 +56,39 @@ class OAuthTokenRequestException(SdkException):
         """
 
         return self._error_description
+
+
+class FileUploadException(SdkException):
+    """ This exception is thrown if timeout occurs """
+
+    def __init__(self, description):
+        """ Initializes a new instance of this class with the specified error messages.
+
+        :param description: The description of the file upload error.
+        :type description: str
+        """
+        super(FileUploadException, self).__init__(str(description))
+
+
+class FileDownloadException(SdkException):
+    """ This exception is thrown if timeout occurs """
+
+    def __init__(self, description):
+        """ Initializes a new instance of this class with the specified error messages.
+
+        :param description: The description of the file download error.
+        :type description: str
+        """
+        super(FileDownloadException, self).__init__(str(description))
+
+
+class TimeoutException(SdkException):
+    """ This exception is thrown if timeout occurs """
+
+    def __init__(self, description):
+        """ Initializes a new instance of this class with the specified error messages.
+
+        :param description: The description of the file download error.
+        :type description: str
+        """
+        super(TimeoutException, self).__init__(str(description))

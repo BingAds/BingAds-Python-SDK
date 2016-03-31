@@ -15,6 +15,16 @@ class BulkException(SdkException):
         return self._errors
 
 
+class BulkUploadException(SdkException):
+    def __init__(self, message):
+        super(BulkUploadException, self).__init__(message)
+
+
+class BulkDownloadException(SdkException):
+    def __init__(self, message):
+        super(BulkDownloadException, self).__init__(message)
+
+
 class EntityReadException(SdkException):
     def __init__(self, message, row_values=None, inner_exception=None):
         super(EntityReadException, self).__init__(message)

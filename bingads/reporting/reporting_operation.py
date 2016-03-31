@@ -9,6 +9,8 @@ import sys
 
 from .reporting_operation_status import *
 from .exceptions import *
+from bingads.util import _PollingBlocker
+from bingads.exceptions import *
 
 from ..service_client import ServiceClient
 from ..manifest import *
@@ -48,14 +50,15 @@ class ReportingDownloadOperation(object):
                  request_id,
                  authorization_data,
                  poll_interval_in_milliseconds=5000,
-                 environment='production', ):
+                 environment='production',
+                 **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('ReportingService', authorization_data, environment)
+        self._service_client = ServiceClient('ReportingService', authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
 
-    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite):
+    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite, timeout_in_milliseconds=None):
         """ Download file with specified URL and download parameters.
 
         :param result_file_directory: The download result local directory name.
@@ -70,6 +73,8 @@ class ReportingDownloadOperation(object):
         :type overwrite: bool
         :return: The download file path.
         :rtype: str
+        :param timeout_in_milliseconds: (optional) timeout for download result file in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         if result_file_directory is None:
@@ -100,7 +105,11 @@ class ReportingDownloadOperation(object):
         }
         s = requests.Session()
         s.mount('https://', TlsHttpAdapter())
-        r = s.get(url, headers=headers, stream=True, verify=True)
+        timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
+        try:
+            r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
+        except requests.Timeout as ex:
+            raise FileDownloadException(ex)
         r.raise_for_status()
         try:
             with open(zip_file_path, 'wb') as f:
@@ -120,16 +129,18 @@ class ReportingDownloadOperation(object):
                 os.remove(zip_file_path)
         return result_file_path
 
-    def track(self):
+    def track(self, timeout_in_milliseconds=None):
         """ Runs until the reporting service has finished processing the download or upload request.
 
+        :param timeout_in_milliseconds: (optional) timeout for tracking reporting download operation
+        :type timeout_in_milliseconds: int
         :return: The final ReportingOperationStatus.
         :rtype: ReportingOperationStatus
         """
 
         if self.final_status is not None:
             return self.final_status
-        blocker = _PollingBlocker(self.poll_interval_in_milliseconds)
+        blocker = _PollingBlocker(self.poll_interval_in_milliseconds, timeout_in_milliseconds)
         blocker.wait()
         while True:
             status = self.get_status()
@@ -147,10 +158,9 @@ class ReportingDownloadOperation(object):
         :return: The status of reporting download operation.
         :rtype: ReportingOperationStatus
         """
-
         if self.final_status is not None:
             return self.final_status
-        response = self.service_client.PollGenerateReport(self.request_id)
+        response = self._get_status_with_retry(3)
         status = ReportingOperationStatus(
             status=response.Status,
             report_download_url=response.ReportDownloadUrl
@@ -159,6 +169,16 @@ class ReportingDownloadOperation(object):
                 status.status == 'Error':
             self._final_status = status
         return status
+
+    def _get_status_with_retry(self, retry_times):
+        while retry_times > 1:
+            try:
+                return self.service_client.PollGenerateReport(self.request_id)
+            except Exception:
+                retry_times -= 1
+                time.sleep(1000)
+        return self.service_client.PollGenerateReport(self.request_id)
+
     @property
     def request_id(self):
         """ The request identifier corresponding to the reporting download, depending on the derived type.
@@ -198,21 +218,3 @@ class ReportingDownloadOperation(object):
     @poll_interval_in_milliseconds.setter
     def poll_interval_in_milliseconds(self, poll_interval):
         self._poll_interval_in_milliseconds = poll_interval
-
-
-class _PollingBlocker(object):
-
-    INITIAL_STATUS_CHECK_INTERVAL_IN_MS = 1000
-
-    NUMBER_OF_INITIAL_STATUS_CHECKS = 5
-
-    def __init__(self, poll_interval_in_milliseconds):
-        self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
-        self._status_update_count = 0
-
-    def wait(self):
-        self._status_update_count += 1
-        if self._status_update_count >= _PollingBlocker.NUMBER_OF_INITIAL_STATUS_CHECKS:
-            time.sleep(self._poll_interval_in_milliseconds / 1000.0)
-        else:
-            time.sleep(_PollingBlocker.INITIAL_STATUS_CHECK_INTERVAL_IN_MS / 1000.0)

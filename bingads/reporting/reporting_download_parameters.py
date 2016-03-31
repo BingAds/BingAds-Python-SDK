@@ -11,7 +11,8 @@ class ReportingDownloadParameters:
                  report_request=None,
                  result_file_directory=None,
                  result_file_name=None,
-                 overwrite_result_file=False):
+                 overwrite_result_file=False,
+                 timeout_in_milliseconds=None):
         """
         :param report_request: the report request object, which derives from the base request report class
         :type report_request: ReportRequest
@@ -20,7 +21,9 @@ class ReportingDownloadParameters:
         :param result_file_name: (optional) The name of the download result file.
         :type result_file_name: str
         :param overwrite_result_file:
-        :param overwrite_result_file: bool
+        :type overwrite_result_file: bool
+        :param timeout_in_milliseconds: (optional) timeout for reporting download operations in milliseconds
+        :type timeout_in_milliseconds: int
         :return:
         """
 
@@ -33,6 +36,7 @@ class ReportingDownloadParameters:
             if ext == '.zip':
                 self._decompress_result_file = False
         self._overwrite_result_file = overwrite_result_file
+        self._timeout_in_milliseconds=timeout_in_milliseconds
 
     @property
     def result_file_directory(self):
@@ -89,6 +93,15 @@ class ReportingDownloadParameters:
 
         return self._report_request
 
+
     @report_request.setter
     def report_request(self, value):
         self._report_request = value
+
+    @property
+    def timeout_in_milliseconds(self):
+        return self._timeout_in_milliseconds
+
+    @timeout_in_milliseconds.setter
+    def timeout_in_milliseconds(self, value):
+        self._timeout_in_milliseconds = value

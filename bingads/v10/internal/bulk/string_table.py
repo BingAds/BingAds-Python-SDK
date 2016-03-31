@@ -212,4 +212,18 @@ class _StringTable:
     TrackingTemplate = "Tracking Template"
     CustomParameter = "Custom Parameter"
 
+    # Review Ad Extension
+    ReviewAdExtension = "Review Ad Extension"
+    CampaignReviewAdExtension = "Campaign Review Ad Extension"
+    AdGroupReviewAdExtension = "Ad Group Review Ad Extension"
+    IsExact = "Is Exact"
+    Source = "Source"
+    Url = "Url"
+
+    # Callout Ad Extension
+    CalloutAdExtension = "Callout Ad Extension"
+    CampaignCalloutAdExtension = "Campaign Callout Ad Extension"
+    AdGroupCalloutAdExtension = "Ad Group Callout Ad Extension"
+    CalloutText = "Callout Text"
+
 

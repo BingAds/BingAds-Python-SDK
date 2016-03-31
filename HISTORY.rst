@@ -3,6 +3,16 @@
 Release History
 ---------------
 
+10.4.2(2016-03-30)
+++++++++++++++++++
+
+* Add suds option parameter to support timeout and location settings in soap service
+* Add timeout logic for bulk upload, bulk download and report download methods
+* Add retry logic for upload and download status tracking
+* New exception types to handle bulk and reporting errors
+* Remove location_target_version parameter from DownloadParameters and SubmitDownloadParameters
+* Updated wsdl proxy file to latest version
+
 10.4.1(2015-10-23)
 ++++++++++++++++++
 
@@ -20,8 +30,8 @@ Release History
 9.3.3 (2015-07-31)
 ++++++++++++++++++
 
-* Add Bing Shopping Campaign support
-* Add Native Ads support
+* Add Bing Shopping Campaign Support
+* Add Native Ads Support
 
 
 9.3.2 (2015-04-24)

@@ -8,6 +8,8 @@ from .file_writer import *
 from ..manifest import *
 from ..service_client import ServiceClient
 from ..authorization import *
+from bingads.util import _TimeHelper
+from bingads.exceptions import TimeoutException
 
 
 class BulkServiceManager:
@@ -25,7 +27,7 @@ class BulkServiceManager:
     :meth:`.BulkOperation.download_result_file` method.
     """
 
-    def __init__(self, authorization_data, poll_interval_in_milliseconds=5000, environment='production', working_directory=None):
+    def __init__(self, authorization_data, poll_interval_in_milliseconds=5000, environment='production', working_directory=None, **suds_options):
         """ Initialize a new instance of this class.
 
         :param authorization_data: Represents a user who intends to access the corresponding customer and account.
@@ -37,10 +39,11 @@ class BulkServiceManager:
         :type poll_interval_in_milliseconds: int
         :param working_directory: (optional)  Directory for storing temporary files needed for some operations
                                     (for example :func:`upload_entities` creates a temporary upload file).
+        :param suds_options: The suds options need to pass to suds client
         """
 
         self._environment = environment
-        self._service_client = ServiceClient('BulkService', authorization_data, environment)
+        self._service_client = ServiceClient('BulkService', authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._working_directory = os.path.join(tempfile.gettempdir(), WORKING_NAME)
@@ -61,16 +64,22 @@ class BulkServiceManager:
         :rtype: str
         """
 
+        start_timestamp = _TimeHelper.get_current_time_milliseconds()
         operation = self.submit_download(download_parameters._submit_download_parameter)
-        operation.track(progress)
+        try:
+            operation.track(progress, download_parameters.timeout_in_milliseconds)
+        except TimeoutException:
+            raise BulkDownloadException("Bulk file download tracking status timeout.")
         result_file_directory = self.working_directory
         if download_parameters.result_file_directory is not None:
             result_file_directory = download_parameters.result_file_directory
+        download_result_file_timeout = _TimeHelper.get_remaining_time_milliseconds_with_min_value(start_timestamp, download_parameters.timeout_in_milliseconds)
         result_file_path = operation.download_result_file(
             result_file_directory=result_file_directory,
             result_file_name=download_parameters.result_file_name,
             decompress=download_parameters.decompress_result_file,
             overwrite=download_parameters.overwrite_result_file,
+            timeout_in_milliseconds=download_result_file_timeout,
         )
         return result_file_path
 
@@ -112,16 +121,24 @@ class BulkServiceManager:
         :rtype: str
         """
 
+        start_timestamp = _TimeHelper.get_current_time_milliseconds()
+        file_upload_parameters._submit_upload_parameters.timeout_in_milliseconds = file_upload_parameters.timeout_in_milliseconds
         operation = self.submit_upload(file_upload_parameters._submit_upload_parameters)
-        operation.track(progress)
+        upload_operation_timeout = _TimeHelper.get_remaining_time_milliseconds_with_min_value(start_timestamp, file_upload_parameters.timeout_in_milliseconds)
+        try:
+            operation.track(progress, upload_operation_timeout)
+        except TimeoutException:
+            raise BulkUploadException("Bulk file upload tracking status timeout.")
         result_file_directory = self.working_directory
         if file_upload_parameters.result_file_directory is not None:
             result_file_directory = file_upload_parameters.result_file_directory
+        download_result_file_timeout = _TimeHelper.get_remaining_time_milliseconds_with_min_value(start_timestamp, file_upload_parameters.timeout_in_milliseconds)
         result_file_path = operation.download_result_file(
             result_file_directory=result_file_directory,
             result_file_name=file_upload_parameters.result_file_name,
             decompress=file_upload_parameters.decompress_result_file,
             overwrite=file_upload_parameters.overwrite_result_file,
+            timeout_in_milliseconds=download_result_file_timeout,
         )
         return result_file_path
 
@@ -147,6 +164,7 @@ class BulkServiceManager:
             overwrite_result_file=entity_upload_parameters.overwrite_result_file,
             response_mode=entity_upload_parameters.response_mode,
             compress_upload_file=True,
+            timeout_in_milliseconds=entity_upload_parameters.timeout_in_milliseconds,
         )
         result_file_path = self.upload_file(
             file_upload_parameters=file_upload_parameters,
@@ -207,6 +225,7 @@ class BulkServiceManager:
             authorization_data=self._authorization_data,
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
+            location=self.service_client.service_url,
         )
         return operation
 
@@ -230,16 +249,18 @@ class BulkServiceManager:
             url=upload_url,
             upload_file_path=submit_upload_parameters.upload_file_path,
             compress_upload_file=submit_upload_parameters.compress_upload_file,
+            timeout_in_milliseconds=submit_upload_parameters.timeout_in_milliseconds,
         )
         operation = BulkUploadOperation(
             request_id=request_id,
             authorization_data=self._authorization_data,
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
+            location=self.service_client.service_url,
         )
         return operation
 
-    def _upload_file_by_url(self, url, upload_file_path, compress_upload_file):
+    def _upload_file_by_url(self, url, upload_file_path, compress_upload_file, timeout_in_milliseconds=None):
         """ Upload bulk file specified in upload parameters to specified URL
 
         :param url: The upload target URL.
@@ -248,6 +269,8 @@ class BulkServiceManager:
         :type upload_file_path: str
         :param compress_upload_file: whether the upload file should be compressed before uploading.
         :type compress_upload_file: bool
+        :param timeout_in_milliseconds: (optional) timeout for uploading file
+        :type timeout_in_milliseconds: int
         """
 
         _, ext = path.splitext(upload_file_path)
@@ -278,7 +301,11 @@ class BulkServiceManager:
                 filename = '{0}{1}'.format(uuid.uuid1(), ext)
                 s = requests.Session()
                 s.mount('https://', TlsHttpAdapter())
-                r = s.post(url, files={'file': (filename, f)}, verify=True, headers=headers)
+                timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
+                try:
+                    r = s.post(url, files={'file': (filename, f)}, verify=True, headers=headers, timeout=timeout_seconds)
+                except requests.Timeout as ex:
+                    raise FileUploadException(ex)
                 r.raise_for_status()
         except Exception as ex:
             raise ex
@@ -323,3 +350,4 @@ class BulkServiceManager:
     @working_directory.setter
     def working_directory(self, value):
         self._working_directory = value
+

@@ -1,5 +1,5 @@
-#from ..exceptions import SdkException
 from bingads.exceptions import SdkException
+
 
 class BulkException(SdkException):
     def __init__(self, message, errors):
@@ -13,6 +13,16 @@ class BulkException(SdkException):
         :rtype: list[OperationError]
         """
         return self._errors
+
+
+class BulkUploadException(SdkException):
+    def __init__(self, message):
+        super(BulkUploadException, self).__init__(message)
+
+
+class BulkDownloadException(SdkException):
+    def __init__(self, message):
+        super(BulkDownloadException, self).__init__(message)
 
 
 class EntityReadException(SdkException):

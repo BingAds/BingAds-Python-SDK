@@ -13,6 +13,8 @@ from .exceptions import *
 
 from ..service_client import ServiceClient
 from ..manifest import *
+from ..util import _PollingBlocker
+from ..exceptions import *
 
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
@@ -43,14 +45,15 @@ class BulkOperation(object):
                  request_id,
                  authorization_data,
                  poll_interval_in_milliseconds=5000,
-                 environment='production', ):
+                 environment='production',
+                 **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('BulkService', authorization_data, environment)
+        self._service_client = ServiceClient('BulkService', authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
 
-    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite):
+    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite, timeout_in_milliseconds=None):
         """ Download file with specified URL and download parameters.
 
         :param result_file_directory: The download result local directory name.
@@ -65,6 +68,8 @@ class BulkOperation(object):
         :type overwrite: bool
         :return: The download file path.
         :rtype: str
+        :param timeout_in_milliseconds: (optional) timeout for download result file in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         if result_file_directory is None:
@@ -95,7 +100,11 @@ class BulkOperation(object):
         }
         s = requests.Session()
         s.mount('https://', TlsHttpAdapter())
-        r = s.get(url, headers=headers, stream=True, verify=True)
+        timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
+        try:
+            r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
+        except requests.Timeout as ex:
+            raise FileDownloadException(ex)
         r.raise_for_status()
         try:
             with open(zip_file_path, 'wb') as f:
@@ -179,26 +188,30 @@ class BulkDownloadOperation(BulkOperation):
                  request_id,
                  authorization_data,
                  poll_interval_in_milliseconds=5000,
-                 environment='production', ):
+                 environment='production',
+                 **suds_options):
         super(BulkDownloadOperation, self).__init__(
             request_id=request_id,
             authorization_data=authorization_data,
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
+            **suds_options
         )
 
-    def track(self, progress=None):
+    def track(self, progress=None, timeout_in_milliseconds=None):
         """ Runs until the bulk service has finished processing the download or upload request.
 
         :param progress: (optional) Tracking the percent complete progress information for the bulk operation.
         :type progress: BulkOperationProgressInfo -> None
+        :param timeout_in_milliseconds: (optional) timeout for tracking the bulk operation
+        :type timeout_in_milliseconds: int
         :return: The final BulkOperationStatus.
         :rtype: BulkOperationStatus
         """
 
         if self.final_status is not None:
             return self.final_status
-        blocker = _PollingBlocker(self.poll_interval_in_milliseconds)
+        blocker = _PollingBlocker(self.poll_interval_in_milliseconds, timeout_in_milliseconds)
         blocker.wait()
         while True:
             status = self.get_status()
@@ -222,7 +235,7 @@ class BulkDownloadOperation(BulkOperation):
 
         if self.final_status is not None:
             return self.final_status
-        response = self.service_client.GetDetailedBulkDownloadStatus(RequestId=self.request_id)
+        response = self._get_status_with_retry(3)
         status = BulkOperationStatus(
             status=response.RequestStatus,
             percent_complete=int(response.PercentComplete),
@@ -242,6 +255,15 @@ class BulkDownloadOperation(BulkOperation):
             self._final_status = status
         return status
 
+    def _get_status_with_retry(self, retry_times):
+        while retry_times > 1:
+            try:
+                return self.service_client.GetDetailedBulkDownloadStatus(RequestId=self.request_id)
+            except Exception:
+                retry_times -= 1
+                time.sleep(1000)
+        return self.service_client.GetDetailedBulkDownloadStatus(RequestId=self.request_id)
+
 
 class BulkUploadOperation(BulkOperation):
     """ Represents a bulk upload operation requested by a user.
@@ -260,26 +282,30 @@ class BulkUploadOperation(BulkOperation):
                  request_id,
                  authorization_data,
                  poll_interval_in_milliseconds=5000,
-                 environment='production', ):
+                 environment='production',
+                 **suds_options):
         super(BulkUploadOperation, self).__init__(
             request_id=request_id,
             authorization_data=authorization_data,
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
+            **suds_options
         )
 
-    def track(self, progress=None):
+    def track(self, progress=None, timeout_in_milliseconds=None):
         """ Runs until the bulk service has finished processing the download or upload request.
 
         :param progress: (optional) Tracking the percent complete progress information for the bulk operation.
         :type progress: BulkOperationProgressInfo -> None
+        :param timeout_in_milliseconds: (optional) timeout for tracking the bulk operation
+        :type timeout_in_milliseconds: int
         :return: The final BulkOperationStatus.
         :rtype: BulkOperationStatus
         """
 
         if self.final_status is not None:
             return self.final_status
-        blocker = _PollingBlocker(self.poll_interval_in_milliseconds)
+        blocker = _PollingBlocker(self.poll_interval_in_milliseconds, timeout_in_milliseconds)
         blocker.wait()
         while True:
             status = self.get_status()
@@ -303,7 +329,7 @@ class BulkUploadOperation(BulkOperation):
 
         if self.final_status is not None:
             return self.final_status
-        response = self.service_client.GetDetailedBulkUploadStatus(RequestId=self.request_id)
+        response = self._get_status_with_retry(3)
         status = BulkOperationStatus(
             status=response.RequestStatus,
             percent_complete=int(response.PercentComplete),
@@ -325,20 +351,12 @@ class BulkUploadOperation(BulkOperation):
             self._final_status = status
         return status
 
+    def _get_status_with_retry(self, retry_times):
+        while retry_times > 1:
+            try:
+                return self.service_client.GetDetailedBulkUploadStatus(RequestId=self.request_id)
+            except Exception:
+                retry_times -= 1
+                time.sleep(1000)
+        return self.service_client.GetDetailedBulkUploadStatus(RequestId=self.request_id)
 
-class _PollingBlocker(object):
-
-    INITIAL_STATUS_CHECK_INTERVAL_IN_MS = 1000
-
-    NUMBER_OF_INITIAL_STATUS_CHECKS = 5
-
-    def __init__(self, poll_interval_in_milliseconds):
-        self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
-        self._status_update_count = 0
-
-    def wait(self):
-        self._status_update_count += 1
-        if self._status_update_count >= _PollingBlocker.NUMBER_OF_INITIAL_STATUS_CHECKS:
-            time.sleep(self._poll_interval_in_milliseconds / 1000.0)
-        else:
-            time.sleep(_PollingBlocker.INITIAL_STATUS_CHECK_INTERVAL_IN_MS / 1000.0)

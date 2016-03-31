@@ -16,8 +16,8 @@ class DownloadParameters:
                  file_type=None,
                  campaign_ids=None,
                  last_sync_time_in_utc=None,
-                 location_target_version=None,
-                 performance_stats_date_range=None, ):
+                 performance_stats_date_range=None,
+                 timeout_in_milliseconds=None):
         """ Initialize an instance of this class.
 
         :param result_file_directory: (optional) The directory where the file will be downloaded.
@@ -48,11 +48,11 @@ class DownloadParameters:
                             since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,
                             the operation performs a full download.
         :type last_sync_time_in_utc: datetime
-        :param location_target_version: (optional) Location target version.
-        :type location_target_version: str
         :param performance_stats_date_range: (optional) The date range values for the requested performance data in a bulk download.
                             For possible values, see PerformanceStatsDateRange Data Object at http://go.microsoft.com/fwlink/?LinkId=620274.
         :type performance_stats_date_range: PerformanceStatsDateRange
+        :param timeout_in_milliseconds: (optional) timeout for bulk download operations in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         self._result_file_directory = result_file_directory
@@ -71,6 +71,8 @@ class DownloadParameters:
             last_sync_time_in_utc=last_sync_time_in_utc,
             performance_stats_date_range=performance_stats_date_range,
         )
+        self._timeout_in_milliseconds = timeout_in_milliseconds
+
 
     @property
     def result_file_directory(self):
@@ -221,17 +223,12 @@ class DownloadParameters:
         self._submit_download_parameter.performance_stats_date_range = value
 
     @property
-    def location_target_version(self):
-        """ Location target version.
+    def timeout_in_milliseconds(self):
+        return self._timeout_in_milliseconds
 
-        :rtype: str
-        """
-
-        return self._submit_download_parameter.location_target_version
-
-    @location_target_version.setter
-    def location_target_version(self, value):
-        self.performance_stats_date_range.location_target_version = value
+    @timeout_in_milliseconds.setter
+    def timeout_in_milliseconds(self, value):
+        self._timeout_in_milliseconds = value
 
 
 class SubmitDownloadParameters(object):
@@ -243,8 +240,7 @@ class SubmitDownloadParameters(object):
                  file_type=None,
                  campaign_ids=None,
                  last_sync_time_in_utc=None,
-                 location_target_version=None,
-                 performance_stats_date_range=None,):
+                 performance_stats_date_range=None):
         """ Initialize an object of this class.
 
         :param data_scope: (optional) The scope or types of data to download.
@@ -269,8 +265,6 @@ class SubmitDownloadParameters(object):
                             since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,
                             the operation performs a full download.
         :type last_sync_time_in_utc: datetime
-        :param location_target_version: (optional) Location target version.
-        :type location_target_version: str
         :param performance_stats_date_range: (optional) The date range values for the requested performance data in a bulk download.
                             For possible values, see PerformanceStatsDateRange Data Object at http://go.microsoft.com/fwlink/?LinkId=620274.
         :type performance_stats_date_range: (optional) PerformanceStatsDateRange
@@ -379,15 +373,3 @@ class SubmitDownloadParameters(object):
     @performance_stats_date_range.setter
     def performance_stats_date_range(self, value):
         self._performance_stats_data_range = value
-
-    @property
-    def location_target_version(self):
-        """ Location target version.
-
-        :rtype: str
-        """
-        return self._location_target_version
-
-    @location_target_version.setter
-    def location_target_version(self, value):
-        self._location_target_version = value

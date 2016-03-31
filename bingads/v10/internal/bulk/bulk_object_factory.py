@@ -1,4 +1,8 @@
 from bingads.v10.bulk.entities import *
+from bingads.v10.bulk.entities.ad_extensions.bulk_callout_ad_extensions import BulkCalloutAdExtension, \
+    BulkCampaignCalloutAdExtension, BulkAdGroupCalloutAdExtension
+from bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions import BulkReviewAdExtension, \
+    BulkCampaignReviewAdExtension, BulkAdGroupReviewAdExtension
 from bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions import _SiteLinkAdExtensionIdentifier
 from bingads.v10.bulk.entities.targets.bulk_targets import _BulkCampaignTargetIdentifier, \
     _BulkAdGroupTargetIdentifier, _BulkTargetIdentifier
@@ -32,6 +36,12 @@ class _BulkObjectFactory():
         _StringTable.ImageAdExtension: _EntityInfo(lambda: BulkImageAdExtension()),
         _StringTable.CampaignImageAdExtension: _EntityInfo(lambda: BulkCampaignImageAdExtension()),
         _StringTable.AdGroupImageAdExtension: _EntityInfo(lambda: BulkAdGroupImageAdExtension()),
+        _StringTable.CalloutAdExtension: _EntityInfo(lambda: BulkCalloutAdExtension()),
+        _StringTable.CampaignCalloutAdExtension: _EntityInfo(lambda: BulkCampaignCalloutAdExtension()),
+        _StringTable.AdGroupCalloutAdExtension: _EntityInfo(lambda: BulkAdGroupCalloutAdExtension()),
+        _StringTable.ReviewAdExtension: _EntityInfo(lambda: BulkReviewAdExtension()),
+        _StringTable.CampaignReviewAdExtension: _EntityInfo(lambda: BulkCampaignReviewAdExtension()),
+        _StringTable.AdGroupReviewAdExtension: _EntityInfo(lambda: BulkAdGroupReviewAdExtension()),
         _StringTable.LocationAdExtension: _EntityInfo(lambda: BulkLocationAdExtension()),
         _StringTable.CampaignLocationAdExtension: _EntityInfo(lambda: BulkCampaignLocationAdExtension()),
         _StringTable.AppAdExtension: _EntityInfo(lambda: BulkAppAdExtension()),

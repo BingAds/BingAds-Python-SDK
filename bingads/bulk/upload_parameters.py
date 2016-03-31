@@ -10,7 +10,8 @@ class FileUploadParameters:
                  result_file_name=None,
                  overwrite_result_file=False,
                  compress_upload_file=True,
-                 response_mode='ErrorsAndResults'):
+                 response_mode='ErrorsAndResults',
+                 timeout_in_milliseconds=None):
         """ Initialize a new instance of this class.
 
         :param result_file_directory: The directory where the file will be downloaded.
@@ -26,6 +27,8 @@ class FileUploadParameters:
         :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.
                                 If not specified, this property is set by default to ErrorsAndResults.
         :type response_mode: str
+        :param timeout_in_milliseconds: (optional) timeout for bulk upload operations in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         self._result_file_directory = result_file_directory
@@ -40,7 +43,9 @@ class FileUploadParameters:
             upload_file_path=upload_file_path,
             compress_upload_file=compress_upload_file,
             response_mode=response_mode,
+            timeout_in_milliseconds=timeout_in_milliseconds,
         )
+        self._timeout_in_milliseconds = timeout_in_milliseconds
 
     @property
     def decompress_result_file(self):
@@ -126,6 +131,14 @@ class FileUploadParameters:
     def overwrite_result_file(self, overwrite):
         self._overwrite_result_file = overwrite
 
+    @property
+    def timeout_in_milliseconds(self):
+        return self._timeout_in_milliseconds
+
+    @timeout_in_milliseconds.setter
+    def timeout_in_milliseconds(self, value):
+        self._timeout_in_milliseconds = value
+
 
 class SubmitUploadParameters(object):
     """ Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file. """
@@ -133,7 +146,8 @@ class SubmitUploadParameters(object):
     def __init__(self,
                  upload_file_path,
                  compress_upload_file=True,
-                 response_mode='ErrorsAndResults'):
+                 response_mode='ErrorsAndResults',
+                 timeout_in_milliseconds=None):
         """ Initialize a new instance of this class.
 
         :param upload_file_path: The fully qualified local path of the upload file.
@@ -143,11 +157,14 @@ class SubmitUploadParameters(object):
         :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.
                                 If not specified, this property is set by default to ErrorsAndResults.
         :type response_mode: str
+        :param timeout_in_milliseconds: (optional) timeout for submit upload operations in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         self._upload_file_path = upload_file_path
         self._compress_upload_file = compress_upload_file
         self._response_mode = response_mode
+        self._timeout_in_milliseconds = timeout_in_milliseconds
 
     @property
     def upload_file_path(self):
@@ -190,6 +207,14 @@ class SubmitUploadParameters(object):
     def response_mode(self, value):
         self._response_mode = value
 
+    @property
+    def timeout_in_milliseconds(self):
+        return self._timeout_in_milliseconds
+
+    @timeout_in_milliseconds.setter
+    def timeout_in_milliseconds(self, value):
+        self._timeout_in_milliseconds = value
+
 
 class EntityUploadParameters(object):
     """ Describes the available parameters when submitting entities for upload, such as the entities that you want to upload. """
@@ -199,7 +224,8 @@ class EntityUploadParameters(object):
                  result_file_directory=None,
                  result_file_name=None,
                  overwrite_result_file=False,
-                 response_mode='ErrorsAndResults'):
+                 response_mode='ErrorsAndResults',
+                 timeout_in_milliseconds=None):
         """ Initializes a new instance of this class.
 
         :param entities: The list of bulk entities that you want to upload.
@@ -213,6 +239,8 @@ class EntityUploadParameters(object):
         :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.
                               If not specified, this property is set by default to ErrorsAndResults.
         :type response_mode: str
+        :param timeout_in_milliseconds: (optional) timeout for upload entities operations in milliseconds
+        :type timeout_in_milliseconds: int
         """
 
         self._result_file_directory = result_file_directory
@@ -225,6 +253,7 @@ class EntityUploadParameters(object):
         self._entities = entities
         self._overwrite_result_file = overwrite_result_file
         self._response_mode = response_mode
+        self._timeout_in_milliseconds = timeout_in_milliseconds
 
     @property
     def decompress_result_file(self):
@@ -296,3 +325,11 @@ class EntityUploadParameters(object):
     @overwrite_result_file.setter
     def overwrite_result_file(self, overwrite):
         self._overwrite_result_file = overwrite
+
+    @property
+    def timeout_in_milliseconds(self):
+        return self._timeout_in_milliseconds
+
+    @timeout_in_milliseconds.setter
+    def timeout_in_milliseconds(self, value):
+        self._timeout_in_milliseconds = value

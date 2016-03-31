@@ -15,6 +15,11 @@ class ReportingException(SdkException):
         return self._errors
 
 
+class ReportingDownloadException(SdkException):
+    def __init__(self, message):
+        super(ReportingDownloadException, self).__init__(message)
+
+
 class OperationError:
     """ Defines an error object that contains the details that explain why the service operation failed. """
 
