@@ -57,7 +57,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Bing Ads SDK'
-copyright = u'2015, Bing Ads SDK Team'
+copyright = u'2016, Bing Ads SDK Team'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
