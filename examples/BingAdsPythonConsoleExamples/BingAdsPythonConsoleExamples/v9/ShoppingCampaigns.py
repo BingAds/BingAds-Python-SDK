@@ -7,9 +7,9 @@ from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 
 if __name__ == '__main__':
@@ -578,11 +578,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -676,7 +676,7 @@ if __name__ == '__main__':
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        end_date.Year=2015
+        end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         ad_group.Language='English'
         ad_groups.AdGroup.append(ad_group)

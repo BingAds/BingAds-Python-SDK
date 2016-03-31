@@ -1,6 +1,7 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
+from bingads.v10.bulk import *
 
 import sys
 import webbrowser
@@ -20,6 +21,24 @@ if __name__ == '__main__':
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
     CLIENT_ID='YourClientIdGoesHere'
+        
+    # The directory for the bulk files.
+    FILE_DIRECTORY='c:/bulk/'
+
+    # The name of the bulk download file.
+    DOWNLOAD_FILE_NAME='download.csv'
+
+    #The name of the bulk upload file.
+    UPLOAD_FILE_NAME='upload.csv'
+
+    # The name of the bulk upload result file.
+    RESULT_FILE_NAME='result.csv'
+
+    # The bulk file extension type.
+    FILE_FORMAT = DownloadFileType.csv
+
+    # The bulk file extension type as a string.
+    FILE_TYPE = 'Csv'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -28,11 +47,22 @@ if __name__ == '__main__':
         authentication=None,
     )
 
-    adinsight_service=ServiceClient(
-        service='AdInsightService', 
+    # Take advantage of the BulkServiceManager class to efficiently manage ads and keywords for all campaigns in an account. 
+    # The client library provides classes to accelerate productivity for downloading and uploading entities. 
+    # For example the upload_entities method of the BulkServiceManager class submits your upload request to the bulk service, 
+    # polls the service until the upload completed, downloads the result file to a temporary directory, and exposes BulkEntity-derived objects  
+    # that contain close representations of the corresponding Campaign Management data objects and value sets.
+
+    # Poll for downloads at reasonable intervals. You know your data better than anyone. 
+    # If you download an account that is well less than one million keywords, consider polling 
+    # at 15 to 20 second intervals. If the account contains about one million keywords, consider polling 
+    # at one minute intervals after waiting five minutes. For accounts with about four million keywords, 
+    # consider polling at one minute intervals after waiting 10 minutes. 
+      
+    bulk_service=BulkServiceManager(
         authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=5000, 
         environment=ENVIRONMENT,
-        version=10
     )
 
     campaign_service=ServiceClient(
@@ -48,7 +78,6 @@ if __name__ == '__main__':
         environment=ENVIRONMENT,
         version=9,
     )
-
 
 def authenticate_with_username():
     ''' 
@@ -163,8 +192,23 @@ def search_accounts_by_user_id(user_id):
         Predicates = predicates
     )
 
+def print_percent_complete(progress):
+    output_status_message("Percent Complete: {0}\n".format(progress.percent_complete))
+
 def output_status_message(message):
     print(message)
+
+def output_bulk_errors(errors):
+    for error in errors:
+        if error.error is not None:
+            output_status_message("Number: {0}".format(error.error))
+        output_status_message("Error: {0}".format(error.number))
+        if error.editorial_reason_code is not None:
+            output_status_message("EditorialTerm: {0}".format(error.editorial_term))
+            output_status_message("EditorialReasonCode: {0}".format(error.editorial_reason_code))
+            output_status_message("EditorialLocation: {0}".format(error.editorial_location))
+            output_status_message("PublisherCountries: {0}".format(error.publisher_countries))
+        output_status_message('')
 
 def output_bing_ads_webfault_error(error):
     if hasattr(error, 'ErrorCode'):
@@ -259,45 +303,107 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def output_budget_opportunities(budget_opportunities, campaign_id):
-    if budget_opportunities is not None and len(budget_opportunities) > 0:
-        for budget_opportunity in budget_opportunities['BudgetOpportunity']:
-            output_status_message("BudgetPoints: ")
-            for budget_point in budget_opportunity.BudgetPoints['BudgetPoint']:
-                output_budget_point(budget_point)
-            output_status_message("BudgetType: {0}".format(budget_opportunity.BudgetType))
-            output_status_message("CampaignId: {0}".format(budget_opportunity.CampaignId))
-            output_status_message("CurrentBudget: {0}".format(budget_opportunity.CurrentBudget))
-            output_status_message("IncreaseInClicks: {0}".format(budget_opportunity.IncreaseInClicks))
-            output_status_message("IncreaseInImpressions: {0}".format(budget_opportunity.IncreaseInImpressions))
-            output_status_message("OpportunityKey: {0}".format(budget_opportunity.OpportunityKey))
-            output_status_message("PercentageIncreaseInClicks: {0}".format(budget_opportunity.PercentageIncreaseInClicks))
-            output_status_message("PercentageIncreaseInImpressions: {0}".format(budget_opportunity.PercentageIncreaseInImpressions))
-            output_status_message("RecommendedBudget: {0}".format(budget_opportunity.RecommendedBudget))
-    else:
-        output_status_message("There are no budget opportunities for CampaignId: {0}".format(campaign_id))
+def output_bulk_ad_group_product_partitions(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkAdGroupProductPartition: \n")
+        output_status_message("CampaignName: {0}".format(entity.campaign_name))
+        output_status_message("AdGroupName: {0}".format(entity.ad_group_name))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
 
-def output_budget_point(budget_point):
-    if budget_point is not None:
-        output_status_message("BudgetAmount: {0}".format(budget_point.BudgetAmount))
-        output_status_message("BudgetPointType: {0}".format(budget_point.BudgetPointType))
-        output_status_message("EstimatedWeeklyClicks: {0}".format(budget_point.EstimatedWeeklyClicks))
-        output_status_message("EstimatedWeeklyCost: {0}".format(budget_point.EstimatedWeeklyCost))
-        output_status_message("EstimatedWeeklyImpressions: {0}".format(budget_point.EstimatedWeeklyImpressions))
+        # Output the Campaign Management AdGroupCriterion and ProductPartition Objects
+        output_ad_group_criterion_with_product_partition(entity.ad_group_criterion)
 
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_ad_group_criterion_with_product_partition(ad_group_criterion):
+    if ad_group_criterion is not None:
+        output_status_message("AdGroupId: {0}".format(ad_group_criterion.AdGroupId))
+        output_status_message("AdGroupCriterion Id: {0}".format(ad_group_criterion.Id))
+        output_status_message("AdGroupCriterion Type: {0}".format(ad_group_criterion.Type))
+
+        if ad_group_criterion.Type == 'BiddableAdGroupCriterion':
+            output_status_message("DestinationUrl: {0}".format(ad_group_criterion.DestinationUrl))
+
+            # Output the Campaign Management FixedBid Object
+            output_fixed_bid(ad_group_criterion.CriterionBid)
+        
+        # Output the Campaign Management ProductPartition Object
+        output_product_partition(ad_group_criterion.Criterion)
+
+def output_fixed_bid(fixed_bid):
+    if fixed_bid is not None and fixed_bid.Bid is not None:
+        output_status_message("Bid.Amount: {0}".format(fixed_bid.Bid.Amount))
+
+def output_product_partition(product_partition):
+    if product_partition is not None:
+        output_status_message("ParentCriterionId: {0}".format(product_partition.ParentCriterionId))
+        output_status_message("PartitionType: {0}".format(product_partition.PartitionType))
+        if product_partition.Condition is not None:
+            output_status_message("Condition: ")
+            output_status_message("Operand: {0}".format(product_partition.Condition.Operand))
+            output_status_message("Attribute: {0}".format(product_partition.Condition.Attribute))
+            
+def write_entities_and_upload_file(upload_entities):
+    # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
+    # without writing to file. This example writes to file as an exercise so that you can view the structure 
+    # of the bulk records being uploaded as needed. 
+    writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
+    for entity in upload_entities:
+        writer.write_entity(entity)
+    writer.close()
+
+    file_upload_parameters=FileUploadParameters(
+        result_file_directory=FILE_DIRECTORY,
+        compress_upload_file=True,
+        result_file_name=RESULT_FILE_NAME,
+        overwrite_result_file=True,
+        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
+        response_mode='ErrorsAndResults'
+    )
+
+    bulk_file_path=bulk_service.upload_file(file_upload_parameters, progress=print_percent_complete)
+
+    download_entities=[]
+    entities_generator=read_entities_from_bulk_file(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_FORMAT)
+    for entity in entities_generator:
+        download_entities.append(entity)
+
+    return download_entities
+
+def download_file(download_parameters):
+    bulk_file_path=bulk_service.download_file(download_parameters, progress=print_percent_complete)
+
+    download_entities=[]
+    entities_generator=read_entities_from_bulk_file(file_path=bulk_file_path, result_file_type=ResultFileType.full_download, file_format=FILE_FORMAT)
+    for entity in entities_generator:
+        download_entities.append(entity)
+
+    return download_entities
+
+def read_entities_from_bulk_file(file_path, result_file_type, file_format):
+    with BulkFileReader(file_path=file_path, result_file_type=result_file_type, file_format=file_format) as reader:
+        for entity in reader:
+            yield entity
 
 # Main execution
 if __name__ == '__main__':
+
+    errors=[]
 
     try:
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -307,16 +413,44 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+
+        download_parameters=DownloadParameters(
+            entities=['AdGroupProductPartitions'],
+            result_file_directory=FILE_DIRECTORY,
+            result_file_name=DOWNLOAD_FILE_NAME,
+            overwrite_result_file=True,
+            last_sync_time_in_utc=None
+        )
+
+        # Download all product partitions across all ad groups in the account.
+        download_entities=download_file(download_parameters)
+        output_status_message("Downloaded all product partitions across all ad groups in the account.\n");
+        for entity in download_entities:
+            if isinstance(entity, BulkAdGroupProductPartition):
+                output_bulk_ad_group_product_partitions([entity])
         
-        # Get the budget opportunities for each campaign in the current authenticated account.
 
-        campaign_types=['SearchAndContent', 'Shopping']
-        campaigns=campaign_service.GetCampaignsByAccountId(authorization_data.account_id, campaign_types)
+        upload_entities=[]
 
-        for campaign in campaigns['Campaign']:
-            if campaign.Id is not None:
-                opportunities=adinsight_service.GetBudgetOpportunities(campaign.Id)
-                output_budget_opportunities(opportunities, campaign.Id)
+        # Within the downloaded records, find all product partition leaf nodes that have bids.
+        for entity in download_entities:
+            if isinstance(entity, BulkAdGroupProductPartition)  \
+            and entity.ad_group_criterion.Type == 'BiddableAdGroupCriterion' \
+            and entity.ad_group_criterion.Criterion.PartitionType == 'Unit':
+                # Increase all bids by some predetermined amount or percentage. 
+                # Implement your own logic to update bids by varying amounts.
+                entity.ad_group_criterion.CriterionBid.Bid.Amount += 0.01
+                upload_entities.append(entity)
+        
+        if upload_entities.count > 0:
+            output_status_message("Changed local bid of all product partitions. Starting upload.\n")
+
+            download_entities=write_entities_and_upload_file(upload_entities)       
+            for entity in download_entities:
+                if isinstance(entity, BulkAdGroupProductPartition):
+                    output_bulk_ad_group_product_partitions([entity])
+        else:
+            output_status_message("No product partitions in account.\n")
 
         output_status_message("Program execution completed")
 

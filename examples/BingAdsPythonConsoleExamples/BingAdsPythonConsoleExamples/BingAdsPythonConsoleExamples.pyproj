@@ -36,6 +36,8 @@
     <Compile Include="v10\BudgetOpportunities.py" />
     <Compile Include="v10\BulkAdExtensions.py" />
     <Compile Include="v10\BulkKeywordsAds.py" />
+    <Compile Include="v10\BulkProductPartitionBidUpdate.py" />
+    <Compile Include="v10\BulkServiceManagerDemo.py" />
     <Compile Include="v10\BulkShoppingCampaigns.py" />
     <Compile Include="v10\BulkTargets.py" />
     <Compile Include="v10\ConsoleGettingStarted.py" />

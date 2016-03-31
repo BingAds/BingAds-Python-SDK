@@ -1,4 +1,4 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads import *
 from bingads.reporting import *
@@ -10,9 +10,9 @@ from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-import logging
-logging.basicConfig(level=logging.INFO)
-logging.getLogger('suds.client').setLevel(logging.DEBUG)
+#import logging
+#logging.basicConfig(level=logging.INFO)
+#logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 
 if __name__ == '__main__':
@@ -21,17 +21,19 @@ if __name__ == '__main__':
 
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
-    CLIENT_ID='YourClientIdGoesHere'   
+    CLIENT_ID='YourClientIdGoesHere'
 
-
-    # The directory for the report file.
+    # The directory for the report files.
     FILE_DIRECTORY='c:/reports/'
 
-    # The name of the report file.
-    RESULT_FILE_NAME='result.csv'
+    # The name of the report download file.
+    DOWNLOAD_FILE_NAME='download.csv'
 
     # The report file extension type.
-    REPORT_FILE_FORMAT = 'Csv'
+    REPORT_FILE_FORMAT='Csv'
+
+    # The maximum amount of time (in milliseconds) that you want to wait for the report download.
+    TIMEOUT_IN_MILLISECONDS=3600000
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -47,11 +49,9 @@ if __name__ == '__main__':
         version=9,
     )
 
-    
-
     reporting_service_manager=ReportingServiceManager(
         authorization_data=authorization_data, 
-        poll_interval_in_milliseconds=1000, 
+        poll_interval_in_milliseconds=5000, 
         environment=ENVIRONMENT,
     )
 
@@ -274,7 +274,7 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def get_budget_report_request():
+def get_budget_summary_report_request():
     '''
     Build a budget summary report request, including Format, ReportName,
     Time, and Columns.
@@ -296,12 +296,12 @@ def get_budget_report_request():
     #custom_date_range_start=reporting_service.factory.create('Date')
     #custom_date_range_start.Day=1
     #custom_date_range_start.Month=1
-    #custom_date_range_start.Year=2015
+    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
     #report_time.CustomDateRangeStart=custom_date_range_start
     #custom_date_range_end=reporting_service.factory.create('Date')
-    #custom_date_range_end.Day=28
-    #custom_date_range_end.Month=2
-    #custom_date_range_end.Year=2017
+    #custom_date_range_end.Day=31
+    #custom_date_range_end.Month=12
+    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
     #report_time.CustomDateRangeEnd=custom_date_range_end
     #report_time.PredefinedTime=None
     
@@ -323,7 +323,7 @@ def get_budget_report_request():
 
     return report_request
 
-def get_keyword_report_request():
+def get_keyword_performance_report_request():
     '''
     Build a keyword performance report request, including Format, ReportName, Aggregation,
     Scope, Time, Filter, and Columns.
@@ -347,12 +347,12 @@ def get_keyword_report_request():
     #custom_date_range_start=reporting_service.factory.create('Date')
     #custom_date_range_start.Day=1
     #custom_date_range_start.Month=1
-    #custom_date_range_start.Year=2015
+    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
     #report_time.CustomDateRangeStart=custom_date_range_start
     #custom_date_range_end=reporting_service.factory.create('Date')
-    #custom_date_range_end.Day=28
-    #custom_date_range_end.Month=2
-    #custom_date_range_end.Year=2017
+    #custom_date_range_end.Day=31
+    #custom_date_range_end.Month=12
+    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
     #report_time.CustomDateRangeEnd=custom_date_range_end
     #report_time.PredefinedTime=None
     
@@ -361,12 +361,12 @@ def get_keyword_report_request():
 
     # If you specify a filter, results may differ from data you see in the Bing Ads web application
 
-    report_filter=reporting_service.factory.create('KeywordPerformanceReportFilter')
-    report_filter.DeviceType=[
-        'Computer',
-        'SmartPhone'
-    ]
-    report_request.Filter=report_filter
+    #report_filter=reporting_service.factory.create('KeywordPerformanceReportFilter')
+    #report_filter.DeviceType=[
+    #    'Computer',
+    #    'SmartPhone'
+    #]
+    #report_request.Filter=report_filter
 
     # Specify the attribute and data report columns.
 
@@ -404,7 +404,7 @@ def get_keyword_report_request():
 
 def background_completion(reporting_download_parameters):
     '''
-    You can submit a download or upload request and the ReportingServiceManager will automatically 
+    You can submit a download request and the ReportingServiceManager will automatically 
     return results. The ReportingServiceManager abstracts the details of checking for result file 
     completion, and you don't have to write any code for results polling.
     '''
@@ -415,24 +415,31 @@ def background_completion(reporting_download_parameters):
 def submit_and_download(report_request):
     '''
     Submit the download request and then use the ReportingDownloadOperation result to 
-    track status yourself using ReportingDownloadOperation.get_status().
+    track status until the report is complete e.g. either using
+    ReportingDownloadOperation.track() or ReportingDownloadOperation.get_status().
     '''
     global reporting_service_manager
-    reporting_operation = reporting_service_manager.submit_download(report_request)
+    reporting_download_operation = reporting_service_manager.submit_download(report_request)
 
-    for i in range(10):
-        time.sleep(reporting_service_manager.poll_interval_in_milliseconds / 1000.0)
+    # You may optionally cancel the track() operation after a specified time interval.
+    reporting_operation_status = reporting_download_operation.track(timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS)
 
-        download_status = reporting_operation.get_status()
+    # You can use ReportingDownloadOperation.track() to poll until complete as shown above, 
+    # or use custom polling logic with get_status() as shown below.
+    #for i in range(10):
+    #    time.sleep(reporting_service_manager.poll_interval_in_milliseconds / 1000.0)
+
+    #    download_status = reporting_download_operation.get_status()
         
-        if download_status.status == 'Completed':
-            break
+    #    if download_status.status == 'Completed':
+    #        break
     
-    result_file_path = reporting_operation.download_result_file(
+    result_file_path = reporting_download_operation.download_result_file(
         result_file_directory = FILE_DIRECTORY, 
-        result_file_name = RESULT_FILE_NAME, 
+        result_file_name = DOWNLOAD_FILE_NAME, 
         decompress = True, 
-        overwrite = True
+        overwrite = True,  # Set this value true if you want to overwrite the same file.
+        timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
     )
     
     output_status_message("Download result file: {0}\n".format(result_file_path))
@@ -453,16 +460,19 @@ def download_results(request_id, authorization_data):
 
     # Use track() to indicate that the application should wait to ensure that 
     # the download status is completed.
-    reporting_operation_status = reporting_download_operation.track()
+    # You may optionally cancel the track() operation after a specified time interval.
+    reporting_operation_status = reporting_download_operation.track(timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS)
     
     result_file_path = reporting_download_operation.download_result_file(
         result_file_directory = FILE_DIRECTORY, 
-        result_file_name = RESULT_FILE_NAME, 
+        result_file_name = DOWNLOAD_FILE_NAME, 
         decompress = True, 
-        overwrite = True) # Set this value true if you want to overwrite the same file.
+        overwrite = True,  # Set this value true if you want to overwrite the same file.
+        timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
+    ) 
 
     output_status_message("Download result file: {0}".format(result_file_path))
-    output_status_message("Status: {0}".format(reporting_operation_status.status))
+    output_status_message("Status: {0}\n".format(reporting_operation_status.status))
 
 # Main execution
 if __name__ == '__main__':
@@ -488,18 +498,19 @@ if __name__ == '__main__':
         
         # You can submit one of the example reports, or build your own.
 
-        report_request=get_keyword_report_request()
-        #report_request=get_budget_report_request()
+        report_request=get_keyword_performance_report_request()
+        #report_request=get_budget_summary_report_request()
         
         reporting_download_parameters = ReportingDownloadParameters(
             report_request=report_request,
             result_file_directory = FILE_DIRECTORY, 
-            result_file_name = RESULT_FILE_NAME, 
+            result_file_name = DOWNLOAD_FILE_NAME, 
             overwrite_result_file = True, # Set this value true if you want to overwrite the same file.
+            timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
         )
 
         #Option A - Background Completion with ReportingServiceManager
-        #You can submit a download or upload request and the ReportingServiceManager will automatically 
+        #You can submit a download request and the ReportingServiceManager will automatically 
         #return results. The ReportingServiceManager abstracts the details of checking for result file 
         #completion, and you don't have to write any code for results polling.
 
@@ -516,8 +527,7 @@ if __name__ == '__main__':
         #Option C - Download Results with ReportingServiceManager
         #If for any reason you have to resume from a previous application state, 
         #you can use an existing download request identifier and use it 
-        #to download the result file. Use track() to indicate that the application 
-        #should wait to ensure that the download status is completed.
+        #to download the result file. 
 
         #For example you might have previously retrieved a request ID using submit_download.
         reporting_operation=reporting_service_manager.submit_download(report_request);

@@ -1,6 +1,7 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
+from bingads.v10.bulk import *
 
 import sys
 import webbrowser
@@ -21,6 +22,27 @@ if __name__ == '__main__':
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
     CLIENT_ID='YourClientIdGoesHere'
 
+    # The directory for the bulk files.
+    FILE_DIRECTORY='c:/bulk/'
+
+    # The name of the bulk download file.
+    DOWNLOAD_FILE_NAME='download.csv'
+
+    #The name of the bulk upload file.
+    UPLOAD_FILE_NAME='upload.csv'
+
+    # The name of the bulk upload result file.
+    RESULT_FILE_NAME='result.csv'
+
+    # The bulk file extension type.
+    FILE_FORMAT = DownloadFileType.csv
+
+    # The bulk file extension type as a string.
+    FILE_TYPE = 'Csv'
+
+    # The maximum amount of time (in milliseconds) that you want to wait for the bulk download or upload.
+    TIMEOUT_IN_MILLISECONDS=3600000
+
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -28,11 +50,32 @@ if __name__ == '__main__':
         authentication=None,
     )
 
-    adinsight_service=ServiceClient(
-        service='AdInsightService', 
+    # Take advantage of the BulkServiceManager class to efficiently manage ads and keywords for all campaigns in an account. 
+    # The client library provides classes to accelerate productivity for downloading and uploading entities. 
+    # For example the upload_entities method of the BulkServiceManager class submits your upload request to the bulk service, 
+    # polls the service until the upload completed, downloads the result file to a temporary directory, and exposes BulkEntity-derived objects  
+    # that contain close representations of the corresponding Campaign Management data objects and value sets.
+
+    # Poll for downloads at reasonable intervals. You know your data better than anyone. 
+    # If you download an account that is well less than one million keywords, consider polling 
+    # at 15 to 20 second intervals. If the account contains about one million keywords, consider polling 
+    # at one minute intervals after waiting five minutes. For accounts with about four million keywords, 
+    # consider polling at one minute intervals after waiting 10 minutes. 
+      
+    bulk_service_manager=BulkServiceManager(
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=5000, 
+        environment=ENVIRONMENT,
+    )
+
+    # In addition to BulkServiceManager, if you want to get performance data in the bulk download, 
+    # then you need a Bulk ServiceClient to build the PerformanceStatsDateRange object.
+
+    bulk_service=ServiceClient(
+        service='BulkService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
-        version=10
+        version=10,
     )
 
     campaign_service=ServiceClient(
@@ -48,7 +91,6 @@ if __name__ == '__main__':
         environment=ENVIRONMENT,
         version=9,
     )
-
 
 def authenticate_with_username():
     ''' 
@@ -163,6 +205,9 @@ def search_accounts_by_user_id(user_id):
         Predicates = predicates
     )
 
+def print_percent_complete(progress):
+    output_status_message("Percent Complete: {0}\n".format(progress.percent_complete))
+
 def output_status_message(message):
     print(message)
 
@@ -259,64 +304,164 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def output_budget_opportunities(budget_opportunities, campaign_id):
-    if budget_opportunities is not None and len(budget_opportunities) > 0:
-        for budget_opportunity in budget_opportunities['BudgetOpportunity']:
-            output_status_message("BudgetPoints: ")
-            for budget_point in budget_opportunity.BudgetPoints['BudgetPoint']:
-                output_budget_point(budget_point)
-            output_status_message("BudgetType: {0}".format(budget_opportunity.BudgetType))
-            output_status_message("CampaignId: {0}".format(budget_opportunity.CampaignId))
-            output_status_message("CurrentBudget: {0}".format(budget_opportunity.CurrentBudget))
-            output_status_message("IncreaseInClicks: {0}".format(budget_opportunity.IncreaseInClicks))
-            output_status_message("IncreaseInImpressions: {0}".format(budget_opportunity.IncreaseInImpressions))
-            output_status_message("OpportunityKey: {0}".format(budget_opportunity.OpportunityKey))
-            output_status_message("PercentageIncreaseInClicks: {0}".format(budget_opportunity.PercentageIncreaseInClicks))
-            output_status_message("PercentageIncreaseInImpressions: {0}".format(budget_opportunity.PercentageIncreaseInImpressions))
-            output_status_message("RecommendedBudget: {0}".format(budget_opportunity.RecommendedBudget))
-    else:
-        output_status_message("There are no budget opportunities for CampaignId: {0}".format(campaign_id))
+def background_completion(download_parameters):
+    '''
+    You can submit a download or upload request and the BulkServiceManager will automatically 
+    return results. The BulkServiceManager abstracts the details of checking for result file 
+    completion, and you don't have to write any code for results polling.
+    '''
+    global bulk_service_manager
+    result_file_path = bulk_service_manager.download_file(download_parameters)
+    output_status_message("Download result file: {0}\n".format(result_file_path))
 
-def output_budget_point(budget_point):
-    if budget_point is not None:
-        output_status_message("BudgetAmount: {0}".format(budget_point.BudgetAmount))
-        output_status_message("BudgetPointType: {0}".format(budget_point.BudgetPointType))
-        output_status_message("EstimatedWeeklyClicks: {0}".format(budget_point.EstimatedWeeklyClicks))
-        output_status_message("EstimatedWeeklyCost: {0}".format(budget_point.EstimatedWeeklyCost))
-        output_status_message("EstimatedWeeklyImpressions: {0}".format(budget_point.EstimatedWeeklyImpressions))
+def submit_and_download(submit_download_parameters):
+    '''
+    Submit the download request and then use the BulkDownloadOperation result to 
+    track status until the download is complete e.g. either using
+    BulkDownloadOperation.track() or BulkDownloadOperation.get_status().
+    '''
+    global bulk_service_manager
+    bulk_download_operation = bulk_service_manager.submit_download(submit_download_parameters)
 
+    # You may optionally cancel the track() operation after a specified time interval.
+    download_status = bulk_download_operation.track(timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS)
+
+    # You can use BulkDownloadOperation.track() to poll until complete as shown above, 
+    # or use custom polling logic with getStatus() as shown below.
+    #for i in range(10):
+    #    time.sleep(bulk_service_manager.poll_interval_in_milliseconds / 1000.0)
+
+    #    download_status = bulk_download_operation.get_status()
+        
+    #    if download_status.status == 'Completed':
+    #        break
+    
+    result_file_path = bulk_download_operation.download_result_file(
+        result_file_directory = FILE_DIRECTORY, 
+        result_file_name = DOWNLOAD_FILE_NAME, 
+        decompress = True, 
+        overwrite = True, # Set this value true if you want to overwrite the same file.
+        timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
+    )
+    
+    output_status_message("Download result file: {0}\n".format(result_file_path))
+
+def download_results(request_id, authorization_data):
+    '''
+    If for any reason you have to resume from a previous application state, 
+    you can use an existing download request identifier and use it 
+    to download the result file. Use BulkDownloadOperation.track() to indicate that the application 
+    should wait to ensure that the download status is completed.
+    '''
+    bulk_download_operation = BulkDownloadOperation(
+        request_id = request_id, 
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=1000, 
+        environment=ENVIRONMENT,
+    )
+
+    # Use track() to indicate that the application should wait to ensure that 
+    # the download status is completed.
+    # You may optionally cancel the track() operation after a specified time interval.
+    bulk_operation_status = bulk_download_operation.track(timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS)
+    
+    result_file_path = bulk_download_operation.download_result_file(
+        result_file_directory = FILE_DIRECTORY, 
+        result_file_name = DOWNLOAD_FILE_NAME, 
+        decompress = True, 
+        overwrite = True, # Set this value true if you want to overwrite the same file.
+        timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
+    ) 
+
+    output_status_message("Download result file: {0}".format(result_file_path))
+    output_status_message("Status: {0}\n".format(bulk_operation_status.status))
 
 # Main execution
 if __name__ == '__main__':
+
+    errors=[]
 
     try:
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
+        user_id=None
         user=customer_service.GetUser(None).User
         accounts=search_accounts_by_user_id(user.Id)
-
+        
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+
+        # In this example we will download all ads and keywords in the account.
+        entities=['Ads','Keywords']
+
+        # Optionally you can request performance data for the downloaded entities.
+        performance_stats_date_range=bulk_service.factory.create('PerformanceStatsDateRange')
+        performance_stats_date_range.PredefinedTime='LastFourWeeks'
+
+        # DownloadParameters is used for Option A below.
+        download_parameters = DownloadParameters(
+            campaign_ids=None,
+            data_scope=['EntityPerformanceData'],
+            performance_stats_date_range=performance_stats_date_range,
+            entities=entities,
+            file_type=FILE_TYPE,
+            last_sync_time_in_utc=None,
+            result_file_directory = FILE_DIRECTORY, 
+            result_file_name = DOWNLOAD_FILE_NAME, 
+            overwrite_result_file = True, # Set this value true if you want to overwrite the same file.
+            timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
+        )
         
-        # Get the budget opportunities for each campaign in the current authenticated account.
+        # SubmitDownloadParameters is used for Option B and Option C below.
+        submit_download_parameters = SubmitDownloadParameters(
+            campaign_ids=None,
+            data_scope=['EntityPerformanceData'],
+            performance_stats_date_range=performance_stats_date_range,
+            entities=entities,
+            file_type=FILE_TYPE,
+            last_sync_time_in_utc=None
+        )
 
-        campaign_types=['SearchAndContent', 'Shopping']
-        campaigns=campaign_service.GetCampaignsByAccountId(authorization_data.account_id, campaign_types)
+        #Option A - Background Completion with BulkServiceManager
+        #You can submit a download request and the BulkServiceManager will automatically 
+        #return results. The BulkServiceManager abstracts the details of checking for result file 
+        #completion, and you don't have to write any code for results polling.
 
-        for campaign in campaigns['Campaign']:
-            if campaign.Id is not None:
-                opportunities=adinsight_service.GetBudgetOpportunities(campaign.Id)
-                output_budget_opportunities(opportunities, campaign.Id)
+        output_status_message("Awaiting Background Completion . . .");
+        background_completion(download_parameters)
+
+        #Option B - Submit and Download with BulkServiceManager
+        #Submit the download request and then use the BulkDownloadOperation result to 
+        #track status yourself using BulkServiceManager.get_status().
+
+        output_status_message("Awaiting Submit and Download . . .");
+        submit_and_download(submit_download_parameters)
+
+        #Option C - Download Results with BulkServiceManager
+        #If for any reason you have to resume from a previous application state, 
+        #you can use an existing download request identifier and use it 
+        #to download the result file. Use track() to indicate that the application 
+        #should wait to ensure that the download status is completed.
+
+        #For example you might have previously retrieved a request ID using submit_download.
+        bulk_download_operation=bulk_service_manager.submit_download(submit_download_parameters);
+        request_id=bulk_download_operation.request_id;
+
+        #Given the request ID above, you can resume the workflow and download the bulk file.
+        #The download request identifier is valid for two days. 
+        #If you do not download the bulk file within two days, you must request it again.
+        output_status_message("Awaiting Download Results . . .");
+        download_results(request_id, authorization_data)
 
         output_status_message("Program execution completed")
 

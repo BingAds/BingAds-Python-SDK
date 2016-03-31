@@ -1,4 +1,4 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
 from bingads.v10.bulk import *
@@ -25,10 +25,23 @@ if __name__ == '__main__':
     TARGET_ID_KEY=-1
     CAMPAIGN_ID_KEY=-123
 
+    # The directory for the bulk files.
     FILE_DIRECTORY='c:/bulk/'
-    RESULT_FILE_NAME='result.csv'
+
+    # The name of the bulk download file.
+    DOWNLOAD_FILE_NAME='download.csv'
+
+    #The name of the bulk upload file.
     UPLOAD_FILE_NAME='upload.csv'
-    FILE_TYPE = DownloadFileType.csv
+
+    # The name of the bulk upload result file.
+    RESULT_FILE_NAME='result.csv'
+
+    # The bulk file extension type.
+    FILE_FORMAT = DownloadFileType.csv
+
+    # The bulk file extension type as a string.
+    FILE_TYPE = 'Csv'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -507,7 +520,7 @@ def output_webfault_errors(ex):
         else:
             output_bing_ads_webfault_error(api_errors)
     # Handle serialization errors e.g. The formatter threw an exception while trying to deserialize the message: 
-    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v9:Entities.
+    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v10:Entities.
     elif hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
@@ -519,28 +532,37 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def upload_entities(entities):
+def write_entities_and_upload_file(upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
     # of the bulk records being uploaded as needed. 
     writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
-    for entity in entities:
+    for entity in upload_entities:
         writer.write_entity(entity)
     writer.close()
 
     file_upload_parameters=FileUploadParameters(
-        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
         result_file_directory=FILE_DIRECTORY,
+        compress_upload_file=True,
         result_file_name=RESULT_FILE_NAME,
         overwrite_result_file=True,
+        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
         response_mode='ErrorsAndResults'
     )
 
     bulk_file_path=bulk_service.upload_file(file_upload_parameters, progress=print_percent_complete)
 
-    with BulkFileReader(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_TYPE) as reader:
-            for entity in reader:
-                yield entity
+    download_entities=[]
+    entities_generator=read_entities_from_bulk_file(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_FORMAT)
+    for entity in entities_generator:
+        download_entities.append(entity)
+
+    return download_entities
+
+def read_entities_from_bulk_file(file_path, result_file_type, file_format):
+    with BulkFileReader(file_path=file_path, result_file_type=result_file_type, file_format=file_format) as reader:
+        for entity in reader:
+            yield entity
 
 # Main execution
 if __name__ == '__main__':
@@ -551,11 +573,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -680,18 +702,18 @@ if __name__ == '__main__':
         
         # Upload the entities created above.
 
-        entities=[]
-        entities.append(bulk_campaign)
-        entities.append(bulk_campaign_day_time_target)
-        entities.append(bulk_campaign_location_target)
-        entities.append(bulk_campaign_radius_target)
+        upload_entities=[]
+        upload_entities.append(bulk_campaign)
+        upload_entities.append(bulk_campaign_day_time_target)
+        upload_entities.append(bulk_campaign_location_target)
+        upload_entities.append(bulk_campaign_radius_target)
         
         output_status_message("\nAdding campaign with associated targets . . .")
-        bulk_entities=upload_entities(entities)
+        download_entities=write_entities_and_upload_file(upload_entities)
 
         campaign_results=[]
 
-        for entity in bulk_entities:
+        for entity in download_entities:
             if isinstance(entity, BulkCampaign):
                 campaign_results.append(entity)
                 output_bulk_campaigns([entity])
@@ -709,24 +731,17 @@ if __name__ == '__main__':
         # You should remove this region if you want to view the added entities in the 
         # Bing Ads web application or another tool.
                 
-        entities=[]
-        
-        bulk_campaign = BulkCampaign()
-        campaign=campaign_service.factory.create('Campaign')
-        campaign.Id=campaign_results.pop(0).campaign.Id
-        campaign.Status='Deleted'
-        bulk_campaign.campaign=campaign
-        bulk_campaign.account_id=authorization_data.account_id
+        upload_entities=[]
 
-        entities.append(bulk_campaign)
+        for campaign_result in campaign_results:
+            campaign_result.campaign.Status='Deleted'
+            upload_entities.append(campaign_result)
+            
+        output_status_message("\nDeleting campaign and target associations . . .")
+        download_entities=write_entities_and_upload_file(upload_entities)
 
-        bulk_entities=upload_entities(entities)
-
-        campaign_results=[]
-
-        for entity in bulk_entities:
+        for entity in download_entities:
             if isinstance(entity, BulkCampaign):
-                campaign_results.append(entity)
                 output_bulk_campaigns([entity])
 
         output_status_message("Program execution completed")

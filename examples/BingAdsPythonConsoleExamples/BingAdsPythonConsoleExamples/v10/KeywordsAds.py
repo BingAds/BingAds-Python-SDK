@@ -1,4 +1,4 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
 
@@ -240,7 +240,7 @@ def output_webfault_errors(ex):
         else:
             output_bing_ads_webfault_error(api_errors)
     # Handle serialization errors e.g. The formatter threw an exception while trying to deserialize the message: 
-    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v9:Entities.
+    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v10:Entities.
     elif hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
@@ -265,7 +265,7 @@ def output_ad_results(ads, ad_ids, ad_errors):
     # as successful indices are counted. 
     success_count=0 
 
-    # There is an issue in the SUDS library, where if Index 0 of ArrayOfNullableOflong is empty it is not returned. 
+    # There is an issue in the SUDS 0.6 library, where if Index 0 of ArrayOfNullableOflong is empty it is not returned. 
     # In this case we will need to adjust the index used to access ad_ids.
     suds_index_0_gap=len(ads['Ad']) - len(ad_ids['long'])
 
@@ -274,8 +274,6 @@ def output_ad_results(ads, ad_ids, ad_errors):
     for ad_index in range(len(ads['Ad'])):
         attribute_value=None
         if ads['Ad'][ad_index].Type == 'Text':
-            attribute_value="Title: {0}".format(ads['Ad'][ad_index].Title)
-        elif ads['Ad'][ad_index].Type == 'Mobile':
             attribute_value="Title: {0}".format(ads['Ad'][ad_index].Title)
         elif ads['Ad'][ad_index].Type == 'Product':
             attribute_value="PromotionalText: {0}".format(ads['Ad'][ad_index].PromotionalText)
@@ -312,12 +310,12 @@ def output_keyword_results(keywords, keyword_ids, keyword_errors):
     # as successful indices are counted. 
     success_count=0 
 
-    # There is an issue in the SUDS library, where if Index 0 of ArrayOfNullableOflong is empty it is not returned. 
+    # There is an issue in the SUDS 0.6 library, where if Index 0 of ArrayOfNullableOflong is empty it is not returned. 
     # In this case we will need to adjust the index used to access keyword_ids.
     suds_index_0_gap=len(keywords['Keyword']) - len(keyword_ids['long'])
 
     error_index=0
-
+    
     for keyword_index in range(len(keywords['Keyword'])):
         attribute_value=keywords['Keyword'][keyword_index].Text
         
@@ -353,11 +351,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
         
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -390,7 +388,7 @@ if __name__ == '__main__':
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        end_date.Year=2016
+        end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         search_bid=campaign_service.factory.create('Bid')
         search_bid.Amount=0.09
@@ -538,7 +536,35 @@ if __name__ == '__main__':
         } 
     
         output_keyword_results(keywords, keyword_ids, keyword_errors)
-        
+
+
+        # Here is a simple example that updates the campaign budget.
+        update_campaigns=campaign_service.factory.create('ArrayOfCampaign')
+        update_campaign=campaign_service.factory.create('Campaign')
+        update_campaign.BudgetType=None
+        update_campaign.Id=campaign_ids['long'][0]
+        update_campaign.MonthlyBudget=500
+        update_campaign.Status=None
+        update_campaigns.Campaign.append(update_campaign)
+
+        # As an exercise you can step through using the debugger and view the results.
+        campaign_service.GetCampaignsByIds(
+            AccountId=authorization_data.account_id,
+            CampaignIds=campaign_ids,
+            CampaignType=['SearchAndContent Shopping']
+        )
+        campaign_service.UpdateCampaigns(
+            AccountId=authorization_data.account_id,
+            Campaigns=update_campaigns
+        )
+        campaign_service.GetCampaignsByIds(
+            AccountId=authorization_data.account_id,
+            CampaignIds=campaign_ids,
+            CampaignType=['SearchAndContent Shopping']
+        )
+
+
+        # Update the Text for the 3 successfully created ads, and update some UrlCustomParameters.
         update_ads=campaign_service.factory.create('ArrayOfAd')
 
         # Set the  element to null or empty to retain any 
@@ -591,14 +617,16 @@ if __name__ == '__main__':
         # As an exercise you can step through using the debugger and view the results.
 
         campaign_service.GetAdsByAdGroupId(
-            AdGroupId=ad_group_ids['long'][0]
+            AdGroupId=ad_group_ids['long'][0],
+            AdType=None
         )
         campaign_service.UpdateAds(
             AdGroupId=ad_group_ids['long'][0],
             Ads=update_ads
         )
         campaign_service.GetAdsByAdGroupId(
-            AdGroupId=ad_group_ids['long'][0]
+            AdGroupId=ad_group_ids['long'][0],
+            AdType=['AppInstall']
         )
 
         # Delete the campaign, ad group, keyword, and ad that were previously added. 

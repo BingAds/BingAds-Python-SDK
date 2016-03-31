@@ -387,7 +387,7 @@ if __name__ == '__main__':
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        end_date.Year=2015
+        end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         exact_match_bid=campaign_service.factory.create('Bid')
         exact_match_bid.Amount=0.09

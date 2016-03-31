@@ -1,4 +1,4 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
 
@@ -239,7 +239,7 @@ def output_webfault_errors(ex):
         else:
             output_bing_ads_webfault_error(api_errors)
     # Handle serialization errors e.g. The formatter threw an exception while trying to deserialize the message: 
-    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v9:Entities.
+    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v10:Entities.
     elif hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
@@ -267,51 +267,17 @@ def output_ad_extensions(ad_extensions, ad_extension_editorial_reason_collection
             output_status_message("Ad extension Type: {0}".format(extension.Type))
 
             if extension.Type == 'AppAdExtension':
-                output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
-                output_status_message("AppStoreId: {0}".format(extension.AppStoreId))
-                output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
-                output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
-                output_status_message("DisplayText: {0}".format(extension.DisplayText))
-                output_status_message("Id: {0}".format(extension.Id))
-                output_status_message("Status: {0}".format(extension.Status))
-                output_status_message("Version: {0}".format(extension.Version))
-                output_status_message("\n")
+                output_app_ad_extension(extension)
             elif extension.Type == 'CallAdExtension':
-                output_status_message("Phone number: {0}".format(extension.PhoneNumber))
-                output_status_message("Country: {0}".format(extension.CountryCode))
-                output_status_message("Is only clickable item: {0}".format(extension.IsCallOnly))
-                output_status_message("\n")
+                output_call_ad_extension(extension)
+            elif extension.Type == 'CalloutAdExtension':
+                output_callout_ad_extension(extension)
             elif extension.Type == 'LocationAdExtension':
-                output_status_message("Company name: {0}".format(extension.CompanyName))
-                output_status_message("Phone number: {0}".format(extension.PhoneNumber))
-                output_status_message("Street: {0}".format(extension.Address.StreetAddress))
-                output_status_message("City: {0}".format(extension.Address.CityName))
-                output_status_message("State: {0}".format(extension.Address.ProvinceName))
-                output_status_message("Country: {0}".format(extension.Address.CountryCode))
-                output_status_message("Zip code: {0}".format(extension.Address.PostalCode))
-                output_status_message("Business coordinates determined?: {0}".format(extension.GeoCodeStatus))
-                output_status_message("Map icon ID: {0}".format(extension.IconMediaId))
-                output_status_message("Business image ID: {0}".format(extension.ImageMediaId))
-                output_status_message("\n")
+                output_location_ad_extension(extension)
+            elif extension.Type == 'ReviewAdExtension':
+                output_review_ad_extension(extension)
             elif extension.Type == 'SiteLinksAdExtension':
-                for sitelink in extension.SiteLinks['SiteLink']:
-                    output_status_message("Display URL: {0}".format(sitelink.DisplayText))
-                    output_status_message("Destination URL: {0}".format(sitelink.DestinationUrl))
-                    output_status_message("FinalMobileUrls: ")
-                    if sitelink.FinalMobileUrls is not None:
-                        for final_mobile_url in sitelink.FinalMobileUrls['string']:
-                            output_status_message("\t{0}".format(final_mobile_url))
-                    output_status_message("FinalUrls: ")
-                    if sitelink.FinalUrls is not None:
-                        for final_url in sitelink.FinalUrls['string']:
-                            output_status_message("\t{0}".format(final_url))
-                    output_status_message("TrackingUrlTemplate: {0}".format(sitelink.TrackingUrlTemplate))
-                    output_status_message("UrlCustomParameters: ")
-                    if sitelink.UrlCustomParameters is not None and sitelink.UrlCustomParameters.Parameters is not None:
-                        for custom_parameter in sitelink.UrlCustomParameters.Parameters['CustomParameter']:
-                            output_status_message("\tKey: {0}".format(custom_parameter.Key))
-                            output_status_message("\tValue: {0}".format(custom_parameter.Value))
-                    output_status_message("\n")
+                output_site_links_ad_extension(extension)
             else:
                 output_status_message("Unknown extension type")
 
@@ -338,6 +304,112 @@ def output_ad_extensions(ad_extensions, ad_extension_editorial_reason_collection
                               
         index=index+1
 
+def output_app_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
+        output_status_message("AppStoreId: {0}".format(extension.AppStoreId))
+        output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
+        output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
+        output_status_message("DisplayText: {0}".format(extension.DisplayText))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_status_message('')
+
+def output_call_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("CountryCode: {0}".format(extension.CountryCode))
+        output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
+        output_status_message("IsCallOnly: {0}".format(extension.IsCallOnly))
+        output_status_message("IsCallTrackingEnabled: {0}".format(extension.IsCallTrackingEnabled))
+        output_status_message("PhoneNumber: {0}".format(extension.PhoneNumber))
+        output_status_message("RequireTollFreeTrackingNumber: {0}".format(extension.RequireTollFreeTrackingNumber))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_status_message('')
+
+def output_callout_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("Callout Text: {0}".format(extension.Text))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_status_message('')
+
+def output_location_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        if extension.Address is not None:
+            output_status_message("CityName: {0}".format(extension.Address.CityName))
+            output_status_message("CountryCode: {0}".format(extension.Address.CountryCode))
+            output_status_message("PostalCode: {0}".format(extension.Address.PostalCode))
+            output_status_message("ProvinceCode: {0}".format(extension.Address.ProvinceCode))
+            output_status_message("ProvinceName: {0}".format(extension.Address.ProvinceName))
+            output_status_message("StreetAddress: {0}".format(extension.Address.StreetAddress))
+            output_status_message("StreetAddress2: {0}".format(extension.Address.StreetAddress2))
+        output_status_message("CompanyName: {0}".format(extension.CompanyName))
+        output_status_message("GeoCodeStatus: {0}".format(extension.GeoCodeStatus))
+        if extension.GeoPoint is not None:
+            output_status_message("GeoPoint: ")
+            output_status_message("LatitudeInMicroDegrees: {0}".format(extension.GeoPoint.LatitudeInMicroDegrees))
+            output_status_message("LongitudeInMicroDegrees: {0}".format(extension.GeoPoint.LongitudeInMicroDegrees))
+        output_status_message("IconMediaId: {0}".format(extension.IconMediaId))
+        output_status_message("ImageMediaId: {0}".format(extension.ImageMediaId))
+        output_status_message("PhoneNumber: {0}".format(extension.PhoneNumber))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_status_message('')
+
+def output_review_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("IsExact: {0}".format(extension.IsExact))
+        output_status_message("Source: {0}".format(extension.Source))
+        output_status_message("Text: {0}".format(extension.Text))
+        output_status_message("Url: {0}".format(extension.Url))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_status_message('')
+
+def output_site_links_ad_extension(extension):
+    if extension is not None:
+        output_status_message("Id: {0}".format(extension.Id))
+        output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+        output_site_links(extension.SiteLinks)
+        output_status_message('')
+
+def output_site_links(site_links):
+    if site_links is not None:
+        for site_link in site_links['SiteLink']:
+            output_status_message("Description1: {0}".format(site_link.Description1))
+            output_status_message("Description2: {0}".format(site_link.Description2))
+            output_status_message("DevicePreference: {0}".format(site_link.DevicePreference))
+            output_status_message("DisplayText: {0}".format(site_link.DisplayText))
+            output_status_message("DestinationUrl: {0}".format(site_link.DestinationUrl))
+            output_status_message("FinalMobileUrls: ")
+            if site_link.FinalMobileUrls is not None:
+                for final_mobile_url in site_link.FinalMobileUrls['string']:
+                    output_status_message("\t{0}".format(final_mobile_url))
+            output_status_message("FinalUrls: ")
+            if site_link.FinalUrls is not None:
+                for final_url in site_link.FinalUrls['string']:
+                    output_status_message("\t{0}".format(final_url))
+            output_status_message("TrackingUrlTemplate: {0}".format(site_link.TrackingUrlTemplate))
+            output_status_message("UrlCustomParameters: ")
+            if site_link.UrlCustomParameters is not None and site_link.UrlCustomParameters.Parameters is not None:
+                for custom_parameter in site_link.UrlCustomParameters.Parameters['CustomParameter']:
+                    output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                    output_status_message("\tValue: {0}".format(custom_parameter.Value))
+            output_status_message('')
+
 # Main execution
 if __name__ == '__main__':
 
@@ -345,11 +417,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -397,7 +469,8 @@ if __name__ == '__main__':
         app_ad_extension.DisplayText='Contoso'
         app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
         app_ad_extension.Status=None
-        ad_extensions.AdExtension.append(app_ad_extension)
+        # If you supply the AppAdExtension properties above, then you can add this line.
+        #ad_extensions.AdExtension.append(app_ad_extension)
 
         call_ad_extension=campaign_service.factory.create('CallAdExtension')
         call_ad_extension.CountryCode="US"
@@ -405,6 +478,11 @@ if __name__ == '__main__':
         call_ad_extension.IsCallOnly=False
         call_ad_extension.Status=None
         ad_extensions.AdExtension.append(call_ad_extension)
+
+        callout_ad_extension=campaign_service.factory.create('CalloutAdExtension')
+        callout_ad_extension.Text="Callout Text"
+        callout_ad_extension.Status=None
+        ad_extensions.AdExtension.append(callout_ad_extension)
 
         location_ad_extension=campaign_service.factory.create('LocationAdExtension')
         location_ad_extension.PhoneNumber="206-555-0100"
@@ -423,6 +501,14 @@ if __name__ == '__main__':
         address.PostalCode="98608"
         location_ad_extension.Address=address
         ad_extensions.AdExtension.append(location_ad_extension)
+
+        review_ad_extension=campaign_service.factory.create('ReviewAdExtension')
+        review_ad_extension.IsExact=True
+        review_ad_extension.Source="Review Source Name"
+        review_ad_extension.Text="Review Text"
+        review_ad_extension.Url="http://review.contoso.com" # The Url of the third-party review. This is not your business Url.
+        review_ad_extension.Status=None
+        ad_extensions.AdExtension.append(review_ad_extension)
         
         site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
         site_links=campaign_service.factory.create('ArrayOfSiteLink')
@@ -521,8 +607,8 @@ if __name__ == '__main__':
             AssociationType='Campaign'
         )
 
-        ad_extensions_type_filter='AppAdExtension CallAdExtension LocationAdExtension SiteLinksAdExtension'
-
+        ad_extensions_type_filter='AppAdExtension CallAdExtension CalloutAdExtension LocationAdExtension ReviewAdExtension SiteLinksAdExtension'
+        
         # Get the specified ad extensions from the account?s ad extension library.
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
         ad_extensions=campaign_service.GetAdExtensionsByIds(

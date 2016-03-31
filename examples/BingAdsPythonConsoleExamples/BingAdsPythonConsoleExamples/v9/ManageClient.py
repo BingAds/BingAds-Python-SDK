@@ -20,7 +20,7 @@ if __name__ == '__main__':
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
     CLIENT_ID='YourClientIdGoesHere'
 
-    CLIENT_ACCOUNT_ID='YourClienAccountIdGoesHere'
+    CLIENT_ACCOUNT_ID='YourClientAccountIdGoesHere'
 
     authorization_data=AuthorizationData(
         account_id=None,

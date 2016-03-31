@@ -7,9 +7,9 @@ from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -18,7 +18,7 @@ if __name__ == '__main__':
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
     CLIENT_ID='YourClientIdGoesHere'
-
+    
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -285,7 +285,7 @@ if __name__ == '__main__':
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
-        get_user_response=customer_service.GetUser(None)
+        get_user_response=customer_service.GetUser(UserId=None)
         user = get_user_response.User
         roles = get_user_response.Roles['int']
         accounts = search_accounts_by_user_id(user.Id)

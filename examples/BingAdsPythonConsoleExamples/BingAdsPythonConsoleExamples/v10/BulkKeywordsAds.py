@@ -1,4 +1,4 @@
-from bingads.service_client import ServiceClient
+﻿from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v10 import *
 from bingads.v10.bulk import *
@@ -25,10 +25,23 @@ if __name__ == '__main__':
     CAMPAIGN_ID_KEY=-123
     AD_GROUP_ID_KEY=-1234
 
+    # The directory for the bulk files.
     FILE_DIRECTORY='c:/bulk/'
-    RESULT_FILE_NAME='result.csv'
+
+    # The name of the bulk download file.
+    DOWNLOAD_FILE_NAME='download.csv'
+
+    #The name of the bulk upload file.
     UPLOAD_FILE_NAME='upload.csv'
-    FILE_TYPE = DownloadFileType.csv
+
+    # The name of the bulk upload result file.
+    RESULT_FILE_NAME='result.csv'
+
+    # The bulk file extension type.
+    FILE_FORMAT = DownloadFileType.csv
+
+    # The bulk file extension type as a string.
+    FILE_TYPE = 'Csv'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -520,7 +533,7 @@ def output_webfault_errors(ex):
         else:
             output_bing_ads_webfault_error(api_errors)
     # Handle serialization errors e.g. The formatter threw an exception while trying to deserialize the message: 
-    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v9:Entities.
+    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v10:Entities.
     elif hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
@@ -532,28 +545,37 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def upload_entities(entities):
+def write_entities_and_upload_file(upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
     # of the bulk records being uploaded as needed. 
     writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
-    for entity in entities:
+    for entity in upload_entities:
         writer.write_entity(entity)
     writer.close()
 
     file_upload_parameters=FileUploadParameters(
-        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
         result_file_directory=FILE_DIRECTORY,
+        compress_upload_file=True,
         result_file_name=RESULT_FILE_NAME,
         overwrite_result_file=True,
+        upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
         response_mode='ErrorsAndResults'
     )
 
     bulk_file_path=bulk_service.upload_file(file_upload_parameters, progress=print_percent_complete)
 
-    with BulkFileReader(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_TYPE) as reader:
-            for entity in reader:
-                yield entity
+    download_entities=[]
+    entities_generator=read_entities_from_bulk_file(file_path=bulk_file_path, result_file_type=ResultFileType.upload, file_format=FILE_FORMAT)
+    for entity in entities_generator:
+        download_entities.append(entity)
+
+    return download_entities
+
+def read_entities_from_bulk_file(file_path, result_file_type, file_format):
+    with BulkFileReader(file_path=file_path, result_file_type=result_file_type, file_format=file_format) as reader:
+        for entity in reader:
+            yield entity
 
 # Main execution
 if __name__ == '__main__':
@@ -564,11 +586,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -624,7 +646,7 @@ if __name__ == '__main__':
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        end_date.Year=2015
+        end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         search_bid=campaign_service.factory.create('Bid')
         search_bid.Amount=0.09
@@ -733,27 +755,71 @@ if __name__ == '__main__':
         # Dependent entities such as BulkKeyword must be written after any dependencies,   
         # for example the BulkCampaign and BulkAdGroup. 
 
-        entities=[]
-        entities.append(bulk_campaign)
-        entities.append(bulk_ad_group)
+        upload_entities=[]
+        upload_entities.append(bulk_campaign)
+        upload_entities.append(bulk_ad_group)
         for bulk_text_ad in bulk_text_ads:
-            entities.append(bulk_text_ad)
+            upload_entities.append(bulk_text_ad)
         for bulk_keyword in bulk_keywords:
-            entities.append(bulk_keyword)      
+            upload_entities.append(bulk_keyword)      
         
         output_status_message("\nAdding campaign, ad group, keywords, and ads . . .")
-        bulk_entities=upload_entities(entities)
+        download_entities=write_entities_and_upload_file(upload_entities)
 
         campaign_results=[]
+        adgroup_results=[]
+        keyword_results=[]
 
-        for entity in bulk_entities:
+        for entity in download_entities:
             if isinstance(entity, BulkCampaign):
                 campaign_results.append(entity)
                 output_bulk_campaigns([entity])
             if isinstance(entity, BulkAdGroup):
+                adgroup_results.append(entity)
                 output_bulk_ad_groups([entity])
             if isinstance(entity, BulkTextAd):
                 output_bulk_text_ads([entity])
+            if isinstance(entity, BulkKeyword):
+                keyword_results.append(entity)
+                output_bulk_keywords([entity])
+
+
+        # Here is a simple example that updates the keyword bid to use the ad group bid.
+
+        # There is one known issue with the Python SDK that we plan to fix in April. 
+        # If you do not specify elements that have nested properties, then the values can be  
+        # overwritten when using the BulkFileWriter and BulkServiceManager for upload. 
+        # In example A below, the keyword bid will be deleted. You might do this on purpose for example 
+        # if you want to use the ad group level bid, instead of keeping a separate keyword level bid. 
+        # In example B below, the keyword bid will not be updated. If you do not specify anything for 
+        # the bid i.e. neither example A or example B, then the default behavior is that ‘delete_value’ 
+        # is written to the bulk file, and your keyword bid is deleted. 
+        # In other words, the default behavior is currently equivalent to example A, and 
+        # in April we will update the Python SDK so that the default behavior is equivalent to example B.
+
+        update_bulk_keyword=BulkKeyword()
+        update_bulk_keyword.ad_group_id=adgroup_results[0].ad_group.Id
+        update_keyword=campaign_service.factory.create('Keyword')
+
+        update_keyword.Id=next((keyword_result.keyword.Id for keyword_result in keyword_results if 
+                                keyword_result.keyword.Id is not None and keyword_result.ad_group_id==update_bulk_keyword.ad_group_id), "None")
+
+        # Example A: Set Bid.Amount null (new empty Bid) to use the ad group bid.
+        update_keyword.Bid=campaign_service.factory.create('Bid')
+        
+        # Example B: If the Bid property is null, your keyword bid will not be updated.
+        #update_keyword.Bid=None
+        
+        update_bulk_keyword.keyword=update_keyword
+
+        upload_entities=[]
+
+        upload_entities.append(update_bulk_keyword)
+                   
+        output_status_message("\nUpdating the keyword bid to use the ad group bid . . .")
+        download_entities=write_entities_and_upload_file(upload_entities)
+
+        for entity in download_entities:
             if isinstance(entity, BulkKeyword):
                 output_bulk_keywords([entity])
 
@@ -761,24 +827,17 @@ if __name__ == '__main__':
         # You should remove this region if you want to view the added entities in the 
         # Bing Ads web application or another tool.
                 
-        entities=[]
-        
-        bulk_campaign = BulkCampaign()
-        campaign=campaign_service.factory.create('Campaign')
-        campaign.Id=campaign_results.pop(0).campaign.Id
-        campaign.Status='Deleted'
-        bulk_campaign.campaign=campaign
-        bulk_campaign.account_id=authorization_data.account_id
+        upload_entities=[]
 
-        entities.append(bulk_campaign)
+        for campaign_result in campaign_results:
+            campaign_result.campaign.Status='Deleted'
+            upload_entities.append(campaign_result)
+            
+        output_status_message("\nDeleting campaign, ad group, ads, and keywords . . .")
+        download_entities=write_entities_and_upload_file(upload_entities)
 
-        bulk_entities=upload_entities(entities)
-
-        campaign_results=[]
-
-        for entity in bulk_entities:
+        for entity in download_entities:
             if isinstance(entity, BulkCampaign):
-                campaign_results.append(entity)
                 output_bulk_campaigns([entity])
             
         output_status_message("Program execution completed")
