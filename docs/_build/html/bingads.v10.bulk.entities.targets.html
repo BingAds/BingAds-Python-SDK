@@ -1,0 +1,799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.v10.bulk.entities.targets package &mdash; Bing Ads SDK 10.4.2 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '10.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 10.4.2 documentation" href="index.html" />
+    <link rel="up" title="bingads.v10.bulk.entities package" href="bingads.v10.bulk.entities.html" />
+    <link rel="next" title="bingads.v10.internal package" href="bingads.v10.internal.html" />
+    <link rel="prev" title="bingads.v10.bulk.entities.ad_extensions package" href="bingads.v10.bulk.entities.ad_extensions.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v10.internal.html" title="bingads.v10.internal package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v10.bulk.entities.ad_extensions.html" title="bingads.v10.bulk.entities.ad_extensions package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" >bingads.v10.bulk package</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v10.bulk.entities.html" accesskey="U">bingads.v10.bulk.entities package</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bingads-v10-bulk-entities-targets-package">
+<h1>bingads.v10.bulk.entities.targets package<a class="headerlink" href="#bingads-v10-bulk-entities-targets-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.v10.bulk.entities.targets.bulk_targets">
+<span id="bingads-v10-bulk-entities-targets-bulk-targets-module"></span><h2>bingads.v10.bulk.entities.targets.bulk_targets module<a class="headerlink" href="#module-bingads.v10.bulk.entities.targets.bulk_targets" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupAgeTarget</code><span class="sig-paren">(</span><em>age_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupAgeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkAgeTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents an age target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">AgeTarget</span></code> property that can be read and written as fields of the Ad Group Age Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTargetBid</span></code></a> instance corresponds to one Ad Group Age Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding age target.</p>
+<p>For more information, see Ad Group Age Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620260">http://go.microsoft.com/fwlink/?LinkID=620260</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupAgeTargetBid</code><span class="sig-paren">(</span><em>age_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupAgeTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkAgeTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one age target bid within an age target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">age_target_bid</span></code> property that can be read and written as fields of the Ad Group Age Target record in a bulk file.</p>
+<p>For more information, see Ad Group Age Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620260">http://go.microsoft.com/fwlink/?LinkID=620260</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTargetBid</span></code></a> instance corresponds to one Ad Group Age Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupAgeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding age target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupDayTimeTarget</code><span class="sig-paren">(</span><em>day_time_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupDayTimeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDayTimeTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a day and time target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">day_time_target</span></code> property that can be read and written as fields of the Ad Group DayTime Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTargetBid</span></code></a> instance corresponds to one Ad Group DayTime Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding day and time target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupDayTimeTargetBid</code><span class="sig-paren">(</span><em>day_time_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupDayTimeTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDayTimeTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one day and time target bid within a day and time target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">day_time_target_bid</span></code> property that can be read and written as fields of the Ad Group DayTime Target record in a bulk file.</p>
+<p>For more information, see Ad Group DayTime Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620278">http://go.microsoft.com/fwlink/?LinkID=620278</a>.</p>
+<p><em>Remarks</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTargetBid</span></code></a> instance corresponds to one Ad Group DayTime Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDayTimeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding day and time target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupDeviceOsTarget</code><span class="sig-paren">(</span><em>device_os_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupDeviceOsTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDeviceOsTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a device OS target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">device_os_target</span></code> property that can be read and written as fields of the Ad Group DeviceOS Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTarget</span></code></a> exposes a read only list of :class`.BulkAdGroupDeviceOsTargetBid`.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTargetBid</span></code></a> instance corresponds to one Ad Group DeviceOS Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding device OS target.</p>
+<p>For more information, see Ad Group DeviceOS Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620247">http://go.microsoft.com/fwlink/?LinkID=620247</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupDeviceOsTargetBid</code><span class="sig-paren">(</span><em>device_os_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupDeviceOsTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDeviceOsTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one device OS target bid within a device OS target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">device_os_target_bid</span></code> property that can be read and written as fields of the Ad Group DeviceOS Target record in a bulk file.</p>
+<p>For more information, see Ad Group DeviceOS Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620247">http://go.microsoft.com/fwlink/?LinkID=620247</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTargetBid</span></code></a> instance corresponds to one Ad Group DeviceOS Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupDeviceOsTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding device OS target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupGenderTarget</code><span class="sig-paren">(</span><em>gender_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupGenderTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkGenderTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a gender target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">gender_target</span></code> property that can be read and written as fields of the Ad Group Gender Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTargetBid</span></code></a> instance corresponds to one Ad Group Gender Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding gender target.</p>
+<p>For more information, see Ad Group Gender Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620258">http://go.microsoft.com/fwlink/?LinkID=620258</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupGenderTargetBid</code><span class="sig-paren">(</span><em>gender_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupGenderTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkGenderTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one gender target bid within a gender target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">gender_target_bid</span></code> property that can be read and written as fields of the Ad Group Gender Target record in a bulk file.</p>
+<p>For more information, see Ad Group Gender Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620258">http://go.microsoft.com/fwlink/?LinkID=620258</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTargetBid</span></code></a>.
+Each :class`.BulkAdGroupGenderTargetBid` instance corresponds to one Ad Group Gender Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupGenderTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding gender target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupLocationTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupLocationTarget</code><span class="sig-paren">(</span><em>city_target=None</em>, <em>metro_area_target=None</em>, <em>state_target=None</em>, <em>country_target=None</em>, <em>postal_code_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupLocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupLocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkLocationTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a geographical location target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">city_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">metro_area_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">state_target</span></code>,
+<code class="xref py py-attr docutils literal"><span class="pre">country_target</span></code>, and <code class="xref py py-attr docutils literal"><span class="pre">postal_code_target</span></code>.
+Each sub type can be read and written as fields of the Ad Group Location Target record in a bulk file.</p>
+<p>For more information, see Ad Group Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620255">http://go.microsoft.com/fwlink/?LinkID=620255</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupLocationTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupLocationTargetBid</code><span class="sig-paren">(</span><em>location=None</em>, <em>location_type=None</em>, <em>bid_adjustment=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupLocationTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupLocationTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkLocationTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one sub location target bid within a location target that is associated with an ad group.</p>
+<p>This class exposes properties that can be read and written as fields of the Ad Group Location Target record in a bulk file.</p>
+<p>For more information, see Ad Group Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620255">http://go.microsoft.com/fwlink/?LinkID=620255</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupNegativeLocationTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupNegativeLocationTarget</code><span class="sig-paren">(</span><em>city_target=None</em>, <em>metro_area_target=None</em>, <em>state_target=None</em>, <em>country_target=None</em>, <em>postal_code_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupNegativeLocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupNegativeLocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkNegativeLocationTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a negative geographical location target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">city_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">metro_area_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">state_target</span></code>,
+<code class="xref py py-attr docutils literal"><span class="pre">country_target</span></code>, and <code class="xref py py-attr docutils literal"><span class="pre">postal_code_target</span></code>.
+Each sub type can be read and written as fields of the Ad Group Location Target record in a bulk file.</p>
+<p>For more information, see Ad Group Negative Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620256">http://go.microsoft.com/fwlink/?LinkID=620256</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupNegativeLocationTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupNegativeLocationTargetBid</code><span class="sig-paren">(</span><em>location=None</em>, <em>location_type=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupNegativeLocationTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupNegativeLocationTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkNegativeLocationTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one sub location negative target bid within a negative location target that is associated with an ad group.</p>
+<p>This class exposes properties that can be read and written as fields of the Ad Group Negative Location Target record in a bulk file.</p>
+<p>For more information, see Ad Group Negative Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620256">http://go.microsoft.com/fwlink/?LinkID=620256</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupRadiusTarget</code><span class="sig-paren">(</span><em>radius_target=None</em>, <em>intent_option=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupRadiusTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkRadiusTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetAdGroupMixin</span></code></p>
+<p>Represents a radius target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">radius_target</span></code> property that can be read and written as fields of the Ad Group Radius Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTargetBid</span></code></a> instance corresponds to one Ad Group Radius Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding radius target.</p>
+<p>For more information, see Ad Group Radius Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620257">http://go.microsoft.com/fwlink/?LinkID=620257</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupRadiusTargetBid</code><span class="sig-paren">(</span><em>radius_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupRadiusTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkRadiusTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidAdGroupMixin</span></code></p>
+<p>Represents one radius target bid within a radius target that is associated with an ad group.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">radius_target_bid</span></code> property that can be read and written as fields of the Ad Group Radius Target record in a bulk file.</p>
+<p>For more information, see Ad Group Radius Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620257">http://go.microsoft.com/fwlink/?LinkID=620257</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTargetBid</span></code></a> instance corresponds to one Ad Group Radius Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkAdGroupRadiusTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding radius target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkAdGroupTarget</code><span class="sig-paren">(</span><em>target=None</em>, <em>status=None</em>, <em>ad_group_id=None</em>, <em>ad_group_name=None</em>, <em>campaign_name=None</em>, <em>bulk_target_bid=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkAdGroupTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTarget</span></code></p>
+<p>Represents a target that is associated with an ad group.</p>
+<p>The target contains one or more sub targets,
+including age, gender, day and time, device OS, and location. Each target can be read or written in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>When requesting downloaded entities of type <em>BulkAdGroupTarget</em>, the results will include
+Ad Group Age Target, Ad Group DayTime Target, Ad Group DeviceOS Target, Ad Group Gender Target, Ad Group Location Target,
+Ad Group Negative Location Target, and Ad Group Radius Target records.
+For more information, see Bulk File Schema at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620269">http://go.microsoft.com/fwlink/?LinkID=620269</a>.</p>
+<p>For upload you must set the <em>Target</em> property, which will effectively replace any existing bids for the corresponding target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.ad_group_id">
+<code class="descname">ad_group_id</code><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.ad_group_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identifier of the ad group that the target is associated.</p>
+<p>Corresponds to the &#8216;Parent Id&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the ad group that the target is associated.</p>
+<p>Corresponds to the &#8216;Ad Group&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkAdGroupTarget.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the ad group that target is associated.</p>
+<p>Corresponds to the &#8216;Campaign&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignAgeTarget</code><span class="sig-paren">(</span><em>age_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignAgeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkAgeTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents an age target that is associated with a campaign.</p>
+<p>The age target contains one or more age target bids.
+This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">AgeTarget</span></code> property that can be read and written as fields of the Campaign Age Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTargetBid</span></code></a> instance corresponds to one Campaign Age Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding age target.</p>
+<p>For more information, see Campaign Age Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620248">http://go.microsoft.com/fwlink/?LinkID=620248</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignAgeTargetBid</code><span class="sig-paren">(</span><em>age_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignAgeTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkAgeTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one age target bid within an age target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">age_target_bid</span></code> property that can be read and written as fields of the Campaign Age Target record in a bulk file.
+For more information, see Campaign Age Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620248">http://go.microsoft.com/fwlink/?LinkID=620248</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTargetBid</span></code></a> instance corresponds to one Campaign Age Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignAgeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignAgeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding age target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignDayTimeTarget</code><span class="sig-paren">(</span><em>day_time_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignDayTimeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDayTimeTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a day and time target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">day_time_target</span></code> property that can be read and written as fields of the Campaign DayTime Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTargetBid</span></code></a> instance corresponds to one Campaign DayTime Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding day and time target.</p>
+<p>For more information, see Campaign DayTime Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620279">http://go.microsoft.com/fwlink/?LinkID=620279</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignDayTimeTargetBid</code><span class="sig-paren">(</span><em>day_time_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignDayTimeTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDayTimeTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one day and time target bid within a day and time target that is associated with an campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">day_time_target_bid</span></code> property that can be read and written as fields of the Campaign DayTime Target record in a bulk file.</p>
+<p>For more information, see Campaign DayTime Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620279">http://go.microsoft.com/fwlink/?LinkID=620279</a>.</p>
+<p><em>Remarks</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTargetBid</span></code></a> instance corresponds to one Campaign DayTime Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDayTimeTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDayTimeTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding day and time target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignDeviceOsTarget</code><span class="sig-paren">(</span><em>device_os_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignDeviceOsTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDeviceOsTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a device OS target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">device_os_target</span></code> property that can be read and written as fields of the Campaign DeviceOS Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTargetBid</span></code></a>.
+Each <code class="xref py py-class docutils literal"><span class="pre">`BulkCampaignDeviceOsTargetBid</span></code> instance corresponds to one Campaign DeviceOS Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding device OS target</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a>.</li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignDeviceOsTargetBid</code><span class="sig-paren">(</span><em>device_os_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignDeviceOsTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkDeviceOsTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one device OS target bid within a device OS target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">device_os_target_bid</span></code> property that can be read and written as fields of the Campaign DeviceOS Target record in a bulk file.</p>
+<p>For more information, see Campaign DeviceOS Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620247">http://go.microsoft.com/fwlink/?LinkID=620247</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTargetBid</span></code></a> instance corresponds to one Campaign DeviceOS Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignDeviceOsTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignDeviceOsTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding device OS target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignGenderTarget</code><span class="sig-paren">(</span><em>gender_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignGenderTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkGenderTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a gender target that is associated with an campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">gender_target</span></code> property that can be read and written as fields of the Campaign Gender Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTargetBid</span></code></a> instance corresponds to one Campaign Gender Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding gender target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignGenderTargetBid</code><span class="sig-paren">(</span><em>gender_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignGenderTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkGenderTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one gender target bid within a gender target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">gender_target_bid</span></code> property that can be read and written as fields of the Campaign Gender Target record in a bulk file.</p>
+<p>For more information, see Campaign Gender Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620246">http://go.microsoft.com/fwlink/?LinkID=620246</a>.</p>
+<p><em>Remarks:</em>
+One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTargetBid</span></code></a> instance corresponds to one Campaign Gender Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignGenderTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignGenderTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding gender target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignLocationTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignLocationTarget</code><span class="sig-paren">(</span><em>city_target=None</em>, <em>metro_area_target=None</em>, <em>state_target=None</em>, <em>country_target=None</em>, <em>postal_code_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignLocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignLocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkLocationTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a geographical location target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">city_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">metro_area_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">state_target</span></code>,
+<code class="xref py py-attr docutils literal"><span class="pre">country_target</span></code>, and <code class="xref py py-attr docutils literal"><span class="pre">postal_code_target</span></code>.
+Each sub type can be read and written as fields of the Campaign Location Target record in a bulk file.</p>
+<p>For more information, see Campaign Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620243">http://go.microsoft.com/fwlink/?LinkID=620243</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignLocationTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignLocationTargetBid</code><span class="sig-paren">(</span><em>location=None</em>, <em>location_type=None</em>, <em>bid_adjustment=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignLocationTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignLocationTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkLocationTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one sub location target bid within a location target that is associated with a campaign.</p>
+<p>This class exposes properties that can be read and written as fields of the Campaign Location Target record in a bulk file.</p>
+<p>For more information, see Campaign Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620243">http://go.microsoft.com/fwlink/?LinkID=620243</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignNegativeLocationTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignNegativeLocationTarget</code><span class="sig-paren">(</span><em>city_target=None</em>, <em>metro_area_target=None</em>, <em>state_target=None</em>, <em>country_target=None</em>, <em>postal_code_target=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignNegativeLocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignNegativeLocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkNegativeLocationTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a negative geographical location target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">city_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">metro_area_target</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">state_target</span></code>,
+<code class="xref py py-attr docutils literal"><span class="pre">country_target</span></code>, and <code class="xref py py-attr docutils literal"><span class="pre">postal_code_target</span></code>.
+Each sub type can be read and written as fields of the Campaign Location Target record in a bulk file.</p>
+<p>For more information, see Campaign Negative Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620244">http://go.microsoft.com/fwlink/?LinkID=620244</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignNegativeLocationTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignNegativeLocationTargetBid</code><span class="sig-paren">(</span><em>location=None</em>, <em>location_type=None</em>, <em>bid_adjustment=None</em>, <em>intent_option=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignNegativeLocationTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignNegativeLocationTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkNegativeLocationTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one sub location negative target bid within a negative location target that is associated with a campaign.</p>
+<p>This class exposes properties that can be read and written as fields of the Campaign Negative Location Target record in a bulk file.</p>
+<p>For more information, see Campaign Negative Location Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620244">http://go.microsoft.com/fwlink/?LinkID=620244</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignRadiusTarget</code><span class="sig-paren">(</span><em>radius_target=None</em>, <em>intent_option=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignRadiusTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkRadiusTarget</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkSubTargetCampaignMixin</span></code></p>
+<p>Represents a radius target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">radius_target</span></code> property that can be read and written as fields of the Campaign Radius Target record in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTargetBid</span></code></a> instance corresponds to one Campaign Radius Target record in the bulk file.
+If you upload a :class`.BulkCampaignRadiusTarget`, then you are effectively replacing any existing bids for the corresponding radius target.</p>
+<p>For more information, see Campaign Radius Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620245">http://go.microsoft.com/fwlink/?LinkID=620245</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignRadiusTargetBid</code><span class="sig-paren">(</span><em>radius_target_bid=None</em>, <em>status=None</em>, <em>target_id=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignRadiusTargetBid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkRadiusTargetBid</span></code>, <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTargetBidCampaignMixin</span></code></p>
+<p>Represents one radius target bid within a radius target that is associated with a campaign.</p>
+<p>This class exposes the <code class="xref py py-attr docutils literal"><span class="pre">radius_target_bid</span></code> property that can be read and written as fields of the Campaign Radius Target record in a bulk file.</p>
+<p>For more information, see Campaign Radius Target at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620245">http://go.microsoft.com/fwlink/?LinkID=620245</a>.</p>
+<p><em>Remarks:</em></p>
+<p>One <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTarget</span></code></a> exposes a read only list of <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTargetBid</span></code></a>.
+Each <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTargetBid"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTargetBid</span></code></a> instance corresponds to one Campaign Radius Target record in the bulk file.
+If you upload a <a class="reference internal" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget" title="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignRadiusTarget"><code class="xref py py-class docutils literal"><span class="pre">BulkCampaignRadiusTarget</span></code></a>, then you are effectively replacing any existing bids for the corresponding radius target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.targets.bulk_targets.</code><code class="descname">BulkCampaignTarget</code><span class="sig-paren">(</span><em>target=None</em>, <em>status=None</em>, <em>campaign_id=None</em>, <em>campaign_name=None</em>, <em>bulk_target_bid=None</em>, <em>identifier=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/targets/bulk_targets.html#BulkCampaignTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.targets.bulk_targets._BulkTarget</span></code></p>
+<p>Represents a target that is associated with a campaign.</p>
+<p>The target contains one or more sub targets,
+including age, gender, day and time, device OS, and location. Each target can be read or written in a bulk file.</p>
+<p><em>Remarks:</em></p>
+<p>When requesting downloaded entities of type <em>BulkCampaignTarget</em>, the results will include
+Ad Group Age Target, Ad Group DayTime Target, Ad Group DeviceOS Target, Ad Group Gender Target, Ad Group Location Target,
+Ad Group Negative Location Target, and Ad Group Radius Target records.
+For more information, see Bulk File Schema at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=620269">http://go.microsoft.com/fwlink/?LinkID=620269</a>.</p>
+<p>For upload you must set the <em>Target</em> property, which will effectively replace any existing bids for the corresponding target.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget.campaign_id">
+<code class="descname">campaign_id</code><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget.campaign_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>The identifier of the campaign that the target is associated.</p>
+<p>Corresponds to the &#8216;Parent Id&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v10.bulk.entities.targets.bulk_targets.BulkCampaignTarget.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name of the campaign that the target is associated.</p>
+<p>Corresponds to the &#8216;Campaign&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v10.bulk.entities.targets">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads.v10.bulk.entities.targets" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bingads.v10.bulk.entities.targets package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bingads.v10.bulk.entities.targets.bulk_targets">bingads.v10.bulk.entities.targets.bulk_targets module</a></li>
+<li><a class="reference internal" href="#module-bingads.v10.bulk.entities.targets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bingads.v10.bulk.entities.ad_extensions.html"
+                        title="previous chapter">bingads.v10.bulk.entities.ad_extensions package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bingads.v10.internal.html"
+                        title="next chapter">bingads.v10.internal package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bingads.v10.bulk.entities.targets.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v10.internal.html" title="bingads.v10.internal package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v10.bulk.entities.ad_extensions.html" title="bingads.v10.bulk.entities.ad_extensions package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" >bingads.v10.bulk package</a> &raquo;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v10.bulk.entities.html" >bingads.v10.bulk.entities package</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

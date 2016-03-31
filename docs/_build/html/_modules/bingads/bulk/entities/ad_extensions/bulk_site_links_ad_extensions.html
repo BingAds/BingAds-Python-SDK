@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions &mdash; Bing Ads SDK 10.4.2 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '10.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="top" title="Bing Ads SDK 10.4.2 documentation" href="../../../../../index.html" />
+    <link rel="up" title="Module code" href="../../../../index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="n">bulk_device_preference_str</span><span class="p">,</span> <span class="n">parse_device_preference</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.bulk.entities.multi_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_MultiRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span>
+
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionIdentifier</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdGroupAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
+
+
+<span class="k">class</span> <span class="nc">_SiteLinkAdExtensionIdentifier</span><span class="p">(</span><span class="n">_BulkAdExtensionIdentifier</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">version</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="n">ad_extension_id</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">)</span> \
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">account_id</span> \
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension_id</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">ad_extension_id</span>
+
+    <span class="k">def</span> <span class="nf">_create_entity_with_this_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BulkSiteLinkAdExtension</span><span class="p">(</span><span class="n">identifier</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BulkAdGroupSiteLinkAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkAdGroupSiteLinkAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupSiteLinkAdExtension</span><span class="p">(</span><span class="n">_BulkAdGroupAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an ad group level sitelink ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Ad Group Sitelink Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Ad Group Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511552.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="BulkCampaignSiteLinkAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkCampaignSiteLinkAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignSiteLinkAdExtension</span><span class="p">(</span><span class="n">_BulkCampaignAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an campaign level sitelink ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Campaign Sitelink Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511536.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+
+</div>
+<div class="viewcode-block" id="BulkSiteLink"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink">[docs]</a><span class="k">class</span> <span class="nc">BulkSiteLink</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a sitelink.</span>
+
+<span class="sd">    This class exposes the &lt;see cref=&quot;BulkSiteLink.SiteLink&quot;/&gt; property that can be read and written</span>
+<span class="sd">    as fields of the Sitelink Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511517.</span>
+
+<span class="sd">    The Sitelink Ad Extension record includes the distinct properties of the :class:`.BulkSiteLink` class, combined with</span>
+<span class="sd">    the common properties of the :class:`.BulkSiteLinkAdExtension` class.</span>
+
+<span class="sd">    One :class:`BulkSiteLinkAdExtension` has one or more :class:`BulkSiteLink`. :class:`.BulkSiteLink` instance</span>
+<span class="sd">    corresponds to one Sitelink Ad Extension record in the bulk file. If you upload a :class:`.BulkSiteLinkAdExtension`,</span>
+<span class="sd">    then you are effectively replacing any existing site links for the sitelink ad extension.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">version</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">site_link</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSiteLink</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">(</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="n">ad_extension_id</span><span class="p">,</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">=</span> <span class="n">order</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span> <span class="o">=</span> <span class="n">site_link</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The order of the sitelink displayed to a search user in the ad.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span>
+
+    <span class="nd">@order.setter</span>
+    <span class="k">def</span> <span class="nf">order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">site_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The sitelink.</span>
+
+<span class="sd">        See SiteLink at: https://msdn.microsoft.com/en-US/library/jj134381.aspx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span>
+
+    <span class="nd">@site_link.setter</span>
+    <span class="k">def</span> <span class="nf">site_link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The identifier of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_extension_id</span>
+
+    <span class="nd">@ad_extension_id.setter</span>
+    <span class="k">def</span> <span class="nf">ad_extension_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_ad_extension_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The ad extension&#39;s parent account identifier.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">account_id</span>
+
+    <span class="nd">@account_id.setter</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The status of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Status&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
+
+    <span class="nd">@status.setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The version of the ad extension.</span>
+
+<span class="sd">        Corresponds to the &#39;Version&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">version</span>
+
+    <span class="nd">@version.setter</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">_version</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkExtensionOrder</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">order</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;order&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDisplayText</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="o">.</span><span class="n">DisplayText</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="p">,</span> <span class="s">&#39;DisplayText&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDestinationUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="p">,</span> <span class="s">&#39;DestinationUrl&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDescription1</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="o">.</span><span class="n">Description1</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="p">,</span> <span class="s">&#39;Description1&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDescription2</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="o">.</span><span class="n">Description2</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="p">,</span> <span class="s">&#39;Description2&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_device_preference_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">site_link</span><span class="p">,</span>
+                <span class="s">&#39;DevicePreference&#39;</span><span class="p">,</span>
+                <span class="n">parse_device_preference</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkSiteLink.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;SiteLink&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkSiteLink</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkSiteLink.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_link</span><span class="p">,</span> <span class="s">&#39;site_link&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkSiteLink</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">True</span>
+
+<div class="viewcode-block" id="BulkSiteLink.enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BulkSiteLinkAdExtension</span><span class="p">(</span><span class="n">bulk_site_link</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkSiteLink.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLink.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSiteLink</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkSiteLinkAdExtension"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkSiteLinkAdExtension</span><span class="p">(</span><span class="n">_MultiRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a sitelink ad extension.</span>
+
+<span class="sd">    This class exposes the :attr:`BulkSiteLinkAdExtension.SiteLinksAdExtension` property that can be read and written</span>
+<span class="sd">    as fields of the Sitelink Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511517.</span>
+
+<span class="sd">    The Sitelink Ad Extension record includes the distinct properties of the :class:`.BulkSiteLink` class, combined with</span>
+<span class="sd">    the common properties of the :class:`.BulkSiteLinkAdExtension` class,</span>
+
+<span class="sd">    One :class:`.BulkSiteLinkAdExtension` has one or more :class:`.BulkSiteLink`. Each :class:`.BulkSiteLink` instance</span>
+<span class="sd">    corresponds to one Sitelink Ad Extension record in the bulk file. If you upload a :class:`.BulkSiteLinkAdExtension`,</span>
+<span class="sd">    then you are effectively replacing any existing site links for the sitelink ad extension.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">site_links_ad_extension</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">bulk_site_link</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">identifier</span><span class="o">=</span><span class="bp">None</span><span class="p">,):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSiteLinkAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span> <span class="o">=</span> <span class="n">site_links_ad_extension</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span> <span class="o">=</span> <span class="n">bulk_site_link</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">identifier</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Conflicting arguments of bulk site link and site link identifier provided.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span><span class="p">,</span> <span class="n">BulkSiteLink</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Site link object provided is not of type: {0}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BulkSiteLink</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span><span class="o">.</span><span class="n">_identifier</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">,</span> <span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&#39;Site link identifier object provided is not of type: {0}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_SiteLinkAdExtensionIdentifier</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">is_delete_row</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;SiteLinksAdExtension&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;SiteLinksAdExtension&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">Id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_extension_id</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">Version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">version</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">account_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">account_id</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_link</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The ad extension&#39;s parent account identifier.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span>
+
+    <span class="nd">@account_id.setter</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">site_links_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Defines an ad extension that specifies one or more sitelinks to add to a text add.</span>
+
+<span class="sd">        :rtype: SiteLinksAdExtension</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span>
+
+    <span class="nd">@site_links_ad_extension.setter</span>
+    <span class="k">def</span> <span class="nf">site_links_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">site_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The list of :class:`BulkSiteLink` are represented by multiple Sitelink Ad Extension records in the file.</span>
+
+<span class="sd">        :rtype: list[BulkSiteLink]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">child_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_links</span>
+
+<div class="viewcode-block" id="BulkSiteLinkAdExtension.write_to_stream"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="p">,</span> <span class="s">&#39;site_links_ad_extension&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">!=</span> <span class="s">&#39;Deleted&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validate_list_not_null_or_empty</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">SiteLinks</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_site_links_ad_extension</span><span class="o">.</span><span class="n">SiteLinks</span><span class="o">.</span><span class="n">SiteLink</span><span class="p">,</span>
+                <span class="s">&#39;site_links_ad_extension.SiteLinks&#39;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;SiteLinkAdExtension.Id must not be null. Please set it to a positive or negative Id.&#39;</span><span class="p">)</span>
+
+        <span class="n">delete_row</span> <span class="o">=</span> <span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">(</span>
+            <span class="n">status</span><span class="o">=</span><span class="s">&#39;Deleted&#39;</span><span class="p">,</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Id</span>
+        <span class="p">)</span>
+        <span class="n">row_writer</span><span class="o">.</span><span class="n">write_object_row</span><span class="p">(</span><span class="n">delete_row</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">==</span> <span class="s">&#39;Deleted&#39;</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">bulk_site_link</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_raw_to_bulk_site_links</span><span class="p">():</span>
+            <span class="n">bulk_site_link</span><span class="o">.</span><span class="n">write_to_stream</span><span class="p">(</span><span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkSiteLinkAdExtension.read_related_data_from_stream"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.read_related_data_from_stream">[docs]</a>    <span class="k">def</span> <span class="nf">read_related_data_from_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">while</span> <span class="n">has_more_rows</span><span class="p">:</span>
+            <span class="n">site_link_success</span><span class="p">,</span> <span class="n">site_link</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span>
+                <span class="n">BulkSiteLink</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">site_link_success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">site_link</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">identifier_success</span><span class="p">,</span> <span class="n">identifier</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span>
+                    <span class="n">_SiteLinkAdExtensionIdentifier</span><span class="p">,</span>
+                    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">identifier_success</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">identifier</span><span class="o">.</span><span class="n">is_delete_row</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">SiteLinks</span><span class="o">.</span><span class="n">SiteLink</span> <span class="o">=</span> \
+                <span class="p">[</span><span class="n">bulk_site_link</span><span class="o">.</span><span class="n">site_link</span> <span class="k">for</span> <span class="n">bulk_site_link</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">link</span><span class="p">:</span> <span class="n">link</span><span class="o">.</span><span class="n">order</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="s">&#39;Active&#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_site_links</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">version</span>  <span class="c"># consider if need to check the versions.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Status</span> <span class="o">=</span> <span class="s">&#39;Deleted&#39;</span>
+</div>
+<div class="viewcode-block" id="BulkSiteLinkAdExtension.convert_raw_to_bulk_site_links"><a class="viewcode-back" href="../../../../../bingads.bulk.entities.ad_extensions.html#bingads.bulk.entities.ad_extensions.bulk_site_links_ad_extensions.BulkSiteLinkAdExtension.convert_raw_to_bulk_site_links">[docs]</a>    <span class="k">def</span> <span class="nf">convert_raw_to_bulk_site_links</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">site_link</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">SiteLinks</span><span class="o">.</span><span class="n">SiteLink</span><span class="p">):</span>
+            <span class="n">bulk_site_link</span> <span class="o">=</span> <span class="n">BulkSiteLink</span><span class="p">(</span>
+                <span class="n">account_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                <span class="n">ad_extension_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+                <span class="n">order</span><span class="o">=</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">site_links_ad_extension</span><span class="o">.</span><span class="n">Version</span><span class="p">,</span>
+                <span class="n">site_link</span><span class="o">=</span><span class="n">site_link</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">yield</span> <span class="n">bulk_site_link</span>
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">all_children_are_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.2 documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
