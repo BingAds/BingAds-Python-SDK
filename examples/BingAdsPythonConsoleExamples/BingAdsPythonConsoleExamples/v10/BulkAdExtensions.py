@@ -2,8 +2,6 @@
 from bingads.authorization import *
 from bingads.v10 import *
 from bingads.v10.bulk import *
-from bingads.v10.bulk.entities.ad_extensions.bulk_callout_ad_extensions import *
-from bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extension import *
 
 import sys
 import webbrowser
