@@ -411,7 +411,7 @@ if __name__ == '__main__':
         # DownloadParameters is used for Option A below.
         download_parameters = DownloadParameters(
             campaign_ids=None,
-            data_scope=['EntityPerformanceData'],
+            data_scope=['EntityData', 'EntityPerformanceData'],
             performance_stats_date_range=performance_stats_date_range,
             entities=entities,
             file_type=FILE_TYPE,
@@ -425,7 +425,7 @@ if __name__ == '__main__':
         # SubmitDownloadParameters is used for Option B and Option C below.
         submit_download_parameters = SubmitDownloadParameters(
             campaign_ids=None,
-            data_scope=['EntityPerformanceData'],
+            data_scope=['EntityData', 'EntityPerformanceData'],
             performance_stats_date_range=performance_stats_date_range,
             entities=entities,
             file_type=FILE_TYPE,
