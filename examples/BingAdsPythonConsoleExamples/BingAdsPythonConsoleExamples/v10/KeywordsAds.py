@@ -626,7 +626,7 @@ if __name__ == '__main__':
         )
         campaign_service.GetAdsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
-            AdType=['AppInstall']
+            AdType=None
         )
 
         # Delete the campaign, ad group, keyword, and ad that were previously added. 
