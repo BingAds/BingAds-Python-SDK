@@ -786,17 +786,6 @@ if __name__ == '__main__':
 
         # Here is a simple example that updates the keyword bid to use the ad group bid.
 
-        # There is one known issue with the Python SDK that we plan to fix in April. 
-        # If you do not specify elements that have nested properties, then the values can be  
-        # overwritten when using the BulkFileWriter and BulkServiceManager for upload. 
-        # In example A below, the keyword bid will be deleted. You might do this on purpose for example 
-        # if you want to use the ad group level bid, instead of keeping a separate keyword level bid. 
-        # In example B below, the keyword bid will not be updated. If you do not specify anything for 
-        # the bid i.e. neither example A or example B, then the default behavior is that ‘delete_value’ 
-        # is written to the bulk file, and your keyword bid is deleted. 
-        # In other words, the default behavior is currently equivalent to example A, and 
-        # in April we will update the Python SDK so that the default behavior is equivalent to example B.
-
         update_bulk_keyword=BulkKeyword()
         update_bulk_keyword.ad_group_id=adgroup_results[0].ad_group.Id
         update_keyword=campaign_service.factory.create('Keyword')
@@ -804,12 +793,24 @@ if __name__ == '__main__':
         update_keyword.Id=next((keyword_result.keyword.Id for keyword_result in keyword_results if 
                                 keyword_result.keyword.Id is not None and keyword_result.ad_group_id==update_bulk_keyword.ad_group_id), "None")
 
-        # Example A: Set Bid.Amount null (new empty Bid) to use the ad group bid.
+        # You can set the Bid.Amount property to change the keyword level bid.
         update_keyword.Bid=campaign_service.factory.create('Bid')
+        update_keyword.Bid.Amount=0.46
+
+        # The keyword bid will not be updated if the Bid property is not specified or if you create
+        # an empty Bid.
+        #update_keyword.Bid=campaign_service.factory.create('Bid')
         
-        # Example B: If the Bid property is null, your keyword bid will not be updated.
+        # The keyword level bid will be deleted ("delete_value" will be written in the bulk upload file), and
+        # the keyword will effectively inherit the ad group level bid if you explicitly set the Bid property to None. 
         #update_keyword.Bid=None
-        
+
+        # It is important to note that the above behavior differs from the Bid settings that
+        # are used to update keywords with the Campaign Management servivce.
+        # When using the Campaign Management service with the Bing Ads Python SDK, if the 
+        # Bid property is not specified or is set explicitly to None, your keyword bid will not be updated.
+        # For examples of how to use the Campaign Management service for keyword updates, please see KeywordsAds.py.
+                
         update_bulk_keyword.keyword=update_keyword
 
         upload_entities=[]

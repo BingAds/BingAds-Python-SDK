@@ -3,6 +3,7 @@
 import sys
 import webbrowser
 from time import gmtime, strftime
+from datetime import datetime, timedelta
 from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
@@ -14,6 +15,11 @@ from suds import WebFault
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
           "a performance delay between program launch and main execution...\n")
+
+    # Specify the email address where the invitation should be sent. 
+    # It is important to note that the recipient can accept the invitation 
+    # and sign into Bing Ads with a Microsoft account different than the invitation email address.
+    user_invite_recipient_email = "<UserInviteRecipientEmailGoesHere>"
 
     ENVIRONMENT='production'
     DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
@@ -136,11 +142,6 @@ def search_accounts_by_user_id(user_id):
             },
         ]
     }
-
-    search_accounts_request = {
-        'PageInfo': paging,
-        'Predicates': predicates
-    }
         
     return customer_service.SearchAccounts(
         PageInfo = paging,
@@ -243,38 +244,31 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def output_user_invitations(user_invitations):
+    if user_invitations is None:
+        return
+
+    for user_invitation in user_invitations:
+        output_status_message("FirstName: {0}".format(user_invitation.FirstName))
+        output_status_message("LastName: {0}".format(user_invitation.LastName))
+        output_status_message("Email: {0}".format(user_invitation.Email))
+        output_status_message("Role: {0}".format(user_invitation.Role))
+        output_status_message("Invitation Id: {0}\n".format(user_invitation.Id))
+
 def output_user(user):
-    output_status_message("User Id {0}".format(user.Id))
-    output_status_message("UserName {0}".format(user.UserName))
-    output_status_message("First Name {0}".format(user.Name.FirstName))
-    output_status_message("Last Name {0}\n".format(user.Name.LastName))
+    if user is None:
+        return
 
-def output_user_roles(roles):
-    for role in roles:
-        if role == 16:
-            output_status_message("16 - The user has the Advertiser Campaign Manager role.")
-        elif role == 33:
-            output_status_message("33 - The user has the Aggregator role.")
-        elif role == 41:
-            output_status_message("41 - The user has the Super Admin role.")
-        elif role == 100:
-            output_status_message("100 - The user has the Viewer role.")
-        else:
-            output_status_message("{0} - The user has a deprecated, internal, or unknown user role.".format(role))
-    output_status_message('')
-
-def output_account(account):
-    if account is None:
-        return None
-    
-    output_status_message("Account Id {0}".format(account.Id))
-    output_status_message("Account Number {0}".format(account.Number))
-    output_status_message("Account Name {0}".format(account.Name))
-    output_status_message("Account Parent Customer Id: {0}\n".format(account.ParentCustomerId))
+    for user_invitation in user_invitations:
+        output_status_message("Id: {0}".format(user.Id))
+        output_status_message("UserName: {0}".format(user.UserName))
+        output_status_message("Contact Email: {0}".format(user.ContactInfo.Email))
+        output_status_message("First Name: {0}".format(user.Name.FirstName))
+        output_status_message("Last Name: {0}\n".format(user.Name.LastName))
 
 # Main execution
 if __name__ == '__main__':
-
+    
     try:
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
@@ -287,35 +281,133 @@ if __name__ == '__main__':
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
-        get_user_response=customer_service.GetUser(UserId=None)
-        user = get_user_response.User
-        accounts = search_accounts_by_user_id(user.Id)
+        user=customer_service.GetUser(None).User
+        accounts=search_accounts_by_user_id(user.Id)
 
-        # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
-        account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
-        tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
-        tracking_url_template.key="TrackingUrlTemplate"
-        tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
-        account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
+        # For this example we'll use the first account.
+        authorization_data.account_id=accounts['Account'][0].Id
+        authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
 
-        output_status_message("The user can access the following Bing Ads accounts: \n")
-        for account in accounts['Account']:
-            customer_service.GetAccount(AccountId=account.Id)
-            output_account(account)
+        output_status_message("You must edit this example to provide the email address (user_invite_recipient_email) for " \
+                              "the user invitation.")
+        output_status_message("Login as a Super Admin user to send a user invitation.\n")
 
-            # Optionally you can find out which pilot features the customer is able to use. 
-            # Each account could belong to a different customer, so use the customer ID in each account.
-            feature_pilot_flags = customer_service.GetCustomerPilotFeatures(CustomerId = account.ParentCustomerId)
-            output_status_message("Customer Pilot flags:")
-            output_status_message("; ".join(str(flag) for flag in feature_pilot_flags['int']) + "\n")
+        # Prepare to invite a new user
+        user_invitation = customer_service.factory.create('ns5:UserInvitation')
+
+        # The identifier of the customer this user is invited to manage. 
+        # The AccountIds element determines which customer accounts the user can manage.
+        user_invitation.CustomerId = authorization_data.customer_id
+
+        # Users with account level roles such as Advertiser Campaign Manager can be restricted to specific accounts. 
+        # Users with customer level roles such as Super Admin can access all accounts within the user’s customer, 
+        # and their access cannot be restricted to specific accounts.
+        user_invitation.AccountIds=None
+
+         #The user role, which determines the level of access that the user has to the accounts specified in the AccountIds element.
+        user_invitation.Role = 'AdvertiserCampaignManager'
+
+        # The email address where the invitation should be sent. This element can contain a maximum of 100 characters.
+        user_invitation.Email = user_invite_recipient_email
+
+        # The first name of the user. This element can contain a maximum of 40 characters.
+        user_invitation.FirstName = "FirstNameGoesHere"
+
+        # The last name of the user. This element can contain a maximum of 40 characters.
+        user_invitation.LastName = "LastNameGoesHere"
+
+        # The locale to use when sending correspondence to the user by email or postal mail. The default is EnglishUS.
+        user_invitation.Lcid = 'EnglishUS'
+
+       
+        # Once you send a user invitation, there is no option to rescind the invitation using the API.
+        # You can delete a pending invitation in the Accounts & Billing -> Users tab of the Bing Ads web application. 
+        user_invitation_id=customer_service.SendUserInvitation(user_invitation)
+        output_status_message("Sent new user invitation to {0}.\n".format(user_invite_recipient_email))
+
+        # It is possible to have multiple pending invitations sent to the same email address, 
+        # which have not yet expired. It is also possible for those invitations to have specified 
+        # different user roles, for example if you sent an invitation with an incorrect user role 
+        # and then sent a second invitation with the correct user role. The recipient can accept 
+        # any of the invitations. The Bing Ads API does not support any operations to delete 
+        # pending user invitations. After you invite a user, the only way to cancel the invitation 
+        # is through the Bing Ads web application. You can find both pending and accepted invitations 
+        # in the Users section of Accounts & Billing.
+
+        # Since a recipient can accept the invitation and sign into Bing Ads with a Microsoft account different 
+        # than the invitation email address, you cannot determine with certainty the mapping from UserInvitation 
+        # to accepted User. You can search by the invitation ID (returned by SendUserInvitations), 
+        # only to the extent of finding out whether or not the invitation has been accepted or has expired. 
+        # The SearchUserInvitations operation returns all pending invitations, whether or not they have expired. 
+        # Accepted invitations are not included in the SearchUserInvitations response.  
+
+        # This example searches for all user invitations of the customer that you manage,
+        # and then filters the search results to find the invitation sent above.
+        # Note: In this example the invitation (sent above) should be active and not expired. You can set a breakpoint 
+        # and then either accept or delete the invitation in the Bing Ads web application to change the invitation status.
+
+        predicates = {
+            'Predicate': [
+                {
+                    'Field': 'CustomerId',
+                    'Operator': 'In',
+                    'Value': authorization_data.customer_id,
+                },
+            ]
+        }
+
+        user_invitations = customer_service.SearchUserInvitations(
+            Predicates = predicates
+        )['UserInvitation']
+        output_status_message("Existing UserInvitation(s):\n")
+        output_user_invitations(user_invitations)
+
+        # Determine whether the invitation has been accepted or has expired.
+        # If you specified a valid InvitationId, and if the invitation is not found, 
+        # then the recipient has accepted the invitation. 
+        # If the invitation is found, and if the expiration date is later than the current date and time,
+        # then the invitation is still pending and has not yet expired. 
+        pending_invitation=next((invitation for invitation in user_invitations if 
+                                 (invitation.Id == user_invitation_id and invitation.ExpirationDate - datetime.utcnow() > timedelta(seconds=0))
+                                 ), "None")
+
+        # You can send a new invitation if the invitation was either not found, has expired, 
+        # or the user has accepted the invitation. This example does not send a new invitation if the 
+        # invitationId was found and has not yet expired, i.e. the invitation is pending.
+        if pending_invitation is None or pending_invitation == 'None':
+            # Once you send a user invitation, there is no option to rescind the invitation using the API.
+            # You can delete a pending invitation in the Accounts & Billing -> Users tab of the Bing Ads web application. 
+            user_invitation_id=customer_service.SendUserInvitation(user_invitation)
+            output_status_message("Sent new user invitation to {0}.\n".format(user_invite_recipient_email))
+        
+        else:
+            output_status_message("UserInvitationId {0} is pending.\n".format(user_invitation_id))
+
+        # After the invitation has been accepted, you can call GetUsersInfo and GetUser to access the Bing Ads user details. 
+        # Once again though, since a recipient can accept the invitation and sign into Bing Ads with a Microsoft account 
+        # different than the invitation email address, you cannot determine with certainty the mapping from UserInvitation 
+        # to accepted User. With the user ID returned by GetUsersInfo or GetUser, you can call DeleteUser to remove the user.
+
+        users_info = customer_service.GetUsersInfo(CustomerId=authorization_data.customer_id)['UserInfo']
+        confirmed_user_info=next((info for info in users_info if info.UserName == user_invite_recipient_email), "None")
+        
+        # If the user already accepted, you can call GetUser to view all user details.
+        if confirmed_user_info is not None and confirmed_user_info != 'None':
+            get_user_response=customer_service.GetUser(confirmed_user_info.Id)
+            output_status_message("Found Requested User Details (Not necessarily related to above Invitation ID(s):")
+            output_user(get_user_response.User)
+            output_status_message("Role Ids:")
+            output_status_message("; ".join(str(role) for role in get_user_response.Roles['int']) + "\n")
             
-            # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
-            # The pilot flag value for Final Urls is 194.
-            if(194 in feature_pilot_flags['int']):
-                account.ForwardCompatibilityMap = account_FCM
-                customer_service.UpdateAccount(account)
-                output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
-
+            # You have the option of calling DeleteUser to revoke their access to your customer accounts.
+            # Note: Only a super admin or aggregator user can delete users.
+            #time_stamp = customer_service.GetUser(confirmed_user_info.Id)['User'].TimeStamp
+            #customer_service.DeleteUser(
+            #    UserId=confirmed_user_info.Id,
+            #    TimeStamp=time_stamp
+            #)
+            #output_status_message("Deleted UserName {0}.\n".format(user_invite_recipient_email))
+        
         output_status_message("Program execution completed")
     except WebFault as ex:
         output_webfault_errors(ex)

@@ -1,4 +1,4 @@
-﻿from bingads import *
+from bingads import *
 
 import sys
 import webbrowser
@@ -7,9 +7,9 @@ from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -243,35 +243,6 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
-def output_user(user):
-    output_status_message("User Id {0}".format(user.Id))
-    output_status_message("UserName {0}".format(user.UserName))
-    output_status_message("First Name {0}".format(user.Name.FirstName))
-    output_status_message("Last Name {0}\n".format(user.Name.LastName))
-
-def output_user_roles(roles):
-    for role in roles:
-        if role == 16:
-            output_status_message("16 - The user has the Advertiser Campaign Manager role.")
-        elif role == 33:
-            output_status_message("33 - The user has the Aggregator role.")
-        elif role == 41:
-            output_status_message("41 - The user has the Super Admin role.")
-        elif role == 100:
-            output_status_message("100 - The user has the Viewer role.")
-        else:
-            output_status_message("{0} - The user has a deprecated, internal, or unknown user role.".format(role))
-    output_status_message('')
-
-def output_account(account):
-    if account is None:
-        return None
-    
-    output_status_message("Account Id {0}".format(account.Id))
-    output_status_message("Account Number {0}".format(account.Number))
-    output_status_message("Account Name {0}".format(account.Name))
-    output_status_message("Account Parent Customer Id: {0}\n".format(account.ParentCustomerId))
-
 # Main execution
 if __name__ == '__main__':
 
@@ -289,32 +260,125 @@ if __name__ == '__main__':
         # and then search for all accounts the user may access.
         get_user_response=customer_service.GetUser(UserId=None)
         user = get_user_response.User
-        accounts = search_accounts_by_user_id(user.Id)
+               
+        # Only a user with the aggregator role (33) can sign up new customers. 
+        # If the user does not have the aggregator role, then do not continue.
+        if(not 33 in get_user_response.Roles['int']):
+            output_status_message("Only a user with the aggregator role (33) can sign up new customers.");
+            exit(0)
 
-        # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
+        # For Customer.CustomerAddress and Account.BusinessAddress, you can use the same address 
+        # as your aggregator user, although you must set Id and TimeStamp to null.
+        user_address = user.ContactInfo.Address
+        user_address.Id = None
+        user_address.TimeStamp = None
+        
+        customer = customer_service.factory.create('ns5:Customer')
+
+        # The customer's business address.
+        customer.CustomerAddress = user_address
+
+        # The list of key and value strings for forward compatibility. This element can be used
+        # to avoid otherwise breaking changes when new elements are added in future releases.
+        # There are currently no forward compatibility changes for the Customer object.
+        customer.ForwardCompatibilityMap = None
+
+        # The primary business segment of the customer, for example, automotive, food, or entertainment.
+        customer.Industry = 'Other'
+
+        # The primary country where the customer operates. This country will be the 
+        # default country for ad groups in the customer�s campaigns.
+        customer.MarketCountry = 'US'
+
+        # The primary language that the customer uses. This language will be the 
+        # default language for ad groups in the customer�s campaigns.
+        customer.MarketLanguage = 'English'
+
+        # The name of the customer. This element can contain a maximum of 100 characters.
+        customer.Name = "Child Customer " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+
+        # SUDS requires that you set unused value sets to None
+        customer.CustomerFinancialStatus=None
+        customer.ServiceLevel=None
+        customer.CustomerLifeCycleStatus=None
+        
+        account=customer_service.factory.create('ns5:AdvertiserAccount')
+                
+        # The type of account. Bing Ads API only supports the Advertiser account.
+        account.AccountType = 'Advertiser'
+
+        # The location where your business is legally registered. 
+        # The business address is used to determine your tax requirements.
+        # BusinessAddress will be required in a future version of the Bing Ads API.
+        # Please start using it.
+        account.BusinessAddress = user_address
+
+        # The type of currency that is used to settle the account. The service uses the currency information for billing purposes.
+        account.CurrencyType = 'USDollar'
+
+        # Optionally you can set up each account with auto tagging.
+        # The AutoTag key and value pair is an account level setting that determines whether to append or replace 
+        # the supported UTM tracking codes within the final URL of ads delivered. The default value is '0', and
+        # Bing Ads will not append any UTM tracking codes to your ad or keyword final URL.
         account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
-        tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
-        tracking_url_template.key="TrackingUrlTemplate"
-        tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
-        account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
+        auto_tag=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
+        auto_tag.key="AutoTag"
+        auto_tag.value="0"
+        account_FCM.KeyValuePairOfstringstring.append(auto_tag)
+        
+        # The list of key and value strings for forward compatibility. This element can be used
+        # to avoid otherwise breaking changes when new elements are added in future releases.
+        account.ForwardCompatibilityMap = account_FCM
 
-        output_status_message("The user can access the following Bing Ads accounts: \n")
-        for account in accounts['Account']:
-            customer_service.GetAccount(AccountId=account.Id)
-            output_account(account)
+        # The name of the account. The name can contain a maximum of 100 characters and must be unique within the customer.
+        account.Name = "Child Account " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
 
-            # Optionally you can find out which pilot features the customer is able to use. 
-            # Each account could belong to a different customer, so use the customer ID in each account.
-            feature_pilot_flags = customer_service.GetCustomerPilotFeatures(CustomerId = account.ParentCustomerId)
-            output_status_message("Customer Pilot flags:")
-            output_status_message("; ".join(str(flag) for flag in feature_pilot_flags['int']) + "\n")
-            
-            # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
-            # The pilot flag value for Final Urls is 194.
-            if(194 in feature_pilot_flags['int']):
-                account.ForwardCompatibilityMap = account_FCM
-                customer_service.UpdateAccount(account)
-                output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
+        # The identifier of the customer that owns the account. In the Bing Ads API operations 
+        # that require a customer identifier, this is the identifier that you set the CustomerId SOAP header to.
+        account.ParentCustomerId = user.CustomerId
+
+        # The TaxId (VAT identifier) is optional. If specified, The VAT identifier must be valid 
+        #in the country that you specified in the BusinessAddress element. Without a VAT registration 
+        # number or exemption certificate, taxes might apply based on your business location.
+        account.TaxId = None
+
+        # The default time-zone value to use for campaigns in this account.
+        # If not specified, the time zone will be set to PacificTimeUSCanadaTijuana by default.
+        # TimeZone will be required in a future version of the Bing Ads API.
+        # Please start using it. 
+        account.TimeZone = 'PacificTimeUSCanadaTijuana'
+
+        # SUDS requires that you set unused value sets to None
+        account.AccountFinancialStatus=None
+        account.Language=None
+        account.PaymentMethodType=None
+        account.AccountLifeCycleStatus=None
+        account.TaxType=None
+        account.TaxIdStatus=None
+    
+        # Signup a new customer and account for the reseller. 
+        signup_customer_response =  customer_service.SignupCustomer(
+            customer,
+            account,
+            user.CustomerId);
+
+        output_status_message("New Customer and Account:\n")
+
+        # This is the identifier that you will use to set the CustomerId 
+        # element in most of the Bing Ads API service operations.
+        output_status_message("\tCustomerId: {0}".format(signup_customer_response.CustomerId))
+
+        # The read-only system-generated customer number that is used in the Bing Ads web application. 
+        # The customer number is of the form, Cnnnnnnn, where nnnnnnn is a series of digits.
+        output_status_message("\tCustomerNumber: {0}".format(signup_customer_response.CustomerNumber))
+
+        # This is the identifier that you will use to set the AccountId and CustomerAccountId 
+        # elements in most of the Bing Ads API service operations.
+        output_status_message("\tAccountId: {0}".format(signup_customer_response.AccountId))
+
+        # The read-only system generated account number that is used to identify the account in the Bing Ads web application. 
+        # The account number has the form xxxxxxxx, where xxxxxxxx is a series of any eight alphanumeric characters.
+        output_status_message("\tAccountNumber: {0}\n".format(signup_customer_response.AccountNumber))
 
         output_status_message("Program execution completed")
     except WebFault as ex:

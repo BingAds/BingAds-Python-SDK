@@ -628,6 +628,46 @@ if __name__ == '__main__':
             AdGroupId=ad_group_ids['long'][0],
             AdType=None
         )
+        
+        update_keywords=campaign_service.factory.create('ArrayOfKeyword')
+        update_keyword=campaign_service.factory.create('Keyword')
+        update_keyword.Id=keyword_ids['long'][0]
+        update_keyword.MatchType=None
+        update_keyword.Status=None
+        update_keyword.EditorialStatus=None
+
+        # You can set the Bid.Amount property to change the keyword level bid.
+        update_keyword.Bid=campaign_service.factory.create('Bid')
+        update_keyword.Bid.Amount=0.46
+        
+        # When using the Campaign Management service with the Bing Ads Python SDK,
+        # if you want to inherit the ad group level bid, instead of using the keyword level bid,
+        # the service expects that you would have set the Bid.Amount null (new empty Bid). However, 
+        # it is important to note that SUDS (used by the Bing Ads Python SDK) does not allow the 
+        # Bid.Amount property to be null, so you will need to delete the keyword and then add a new 
+        # keyword without the Bid set, or with Bid set to None. 
+
+        # We recommend that you use the BulkServiceManager for keyword updates, i.e. upload BulkKeyword entities.
+        # With the BulkKeyword upload, you won't have to delete and add keywords to inherit from the ad group level bid,
+        # and you also have the flexibility of updating millions of keywords across all campaigns in your account.
+        # For examples of how to use the Bulk service for keyword updates, please see BulkKeywordsAds.py.
+        
+        # When using the Campaign Management service with the Bing Ads Python SDK,
+        # if the Bid property is not specified or is null, your keyword bid will not be updated.
+        #update_keyword.Bid=None
+        
+        update_keywords.Keyword.append(update_keyword)
+
+        campaign_service.GetKeywordsByAdGroupId(
+            AdGroupId=ad_group_ids['long'][0],
+        )
+        campaign_service.UpdateKeywords(
+            AdGroupId=ad_group_ids['long'][0],
+            Keywords=update_keywords
+        )
+        campaign_service.GetKeywordsByAdGroupId(
+            AdGroupId=ad_group_ids['long'][0],
+        )
 
         # Delete the campaign, ad group, keyword, and ad that were previously added. 
         # You should remove this line if you want to view the added entities in the 
