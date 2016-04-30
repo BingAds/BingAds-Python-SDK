@@ -54,6 +54,14 @@ bingads.service_info module
     :undoc-members:
     :show-inheritance:
 
+bingads.util module
+-------------------
+
+.. automodule:: bingads.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Release History &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    <title>Release History &mdash; Bing Ads SDK 10.4.3 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.1',
+        VERSION:     '10.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="index.html" />
     <link rel="prev" title="bingads.v10.internal.bulk.entities package" href="bingads.v10.internal.bulk.entities.html" /> 
   </head>
   <body role="document">
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="bingads.v10.internal.bulk.entities.html" title="bingads.v10.internal.bulk.entities package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,7 +51,27 @@
   <div class="section" id="release-history">
 <h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>10.4.1(2015-10-23)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>10.4.3(2016-04-30)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Changed condition to write delete value for Keyword Bid in bulk</li>
+<li>Support suds option in BulkServiceManager and ReportingServiceManager</li>
+<li>Updated wsdl proxy to latest version</li>
+<li>Bug fixes</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>10.4.2(2016-03-30)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Add suds option parameter to support timeout and location settings in soap service</li>
+<li>Add timeout logic for bulk upload, bulk download and report download methods</li>
+<li>Add retry logic for upload and download status tracking</li>
+<li>New exception types to handle bulk and reporting errors</li>
+<li>Remove location_target_version parameter from DownloadParameters and SubmitDownloadParameters</li>
+<li>Updated wsdl proxy file to latest version</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>10.4.1(2015-10-23)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Support Bing Ads API V10 and upgrade bulk format version to 4.0</li>
 <li>Compatible with Bing Ads API V9</li>
@@ -59,28 +79,28 @@
 <li>Bug Fixes</li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>9.3.4 (2015-08-20)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>9.3.4 (2015-08-20)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Replace SSLv3 with SSLv23 for TLS support</li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>9.3.3 (2015-07-31)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>9.3.3 (2015-07-31)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Add Bing Shopping Campaign support</li>
-<li>Add Native Ads support</li>
+<li>Add Bing Shopping Campaign Support</li>
+<li>Add Native Ads Support</li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>9.3.2 (2015-04-24)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>9.3.2 (2015-04-24)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add App AdExtension support.</li>
 <li>Bug Fixes.</li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>9.3.1 (2015-03-31)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>9.3.1 (2015-03-31)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -96,11 +116,13 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Release History</a><ul>
-<li><a class="reference internal" href="#id1">10.4.1(2015-10-23)</a></li>
-<li><a class="reference internal" href="#id2">9.3.4 (2015-08-20)</a></li>
-<li><a class="reference internal" href="#id3">9.3.3 (2015-07-31)</a></li>
-<li><a class="reference internal" href="#id4">9.3.2 (2015-04-24)</a></li>
-<li><a class="reference internal" href="#id5">9.3.1 (2015-03-31)</a></li>
+<li><a class="reference internal" href="#id1">10.4.3(2016-04-30)</a></li>
+<li><a class="reference internal" href="#id2">10.4.2(2016-03-30)</a></li>
+<li><a class="reference internal" href="#id3">10.4.1(2015-10-23)</a></li>
+<li><a class="reference internal" href="#id4">9.3.4 (2015-08-20)</a></li>
+<li><a class="reference internal" href="#id5">9.3.3 (2015-07-31)</a></li>
+<li><a class="reference internal" href="#id6">9.3.2 (2015-04-24)</a></li>
+<li><a class="reference internal" href="#id7">9.3.1 (2015-03-31)</a></li>
 </ul>
 </li>
 </ul>
@@ -144,11 +166,11 @@
         <li class="right" >
           <a href="bingads.v10.internal.bulk.entities.html" title="bingads.v10.internal.bulk.entities package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Bing Ads SDK Team.
+        &copy; Copyright 2016, Bing Ads SDK Team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.download_parameters &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    <title>bingads.v10.bulk.download_parameters &mdash; Bing Ads SDK 10.4.3 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '10.4.1',
+        VERSION:     '10.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -65,8 +65,8 @@
                  <span class="n">file_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">campaign_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">location_target_version</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">performance_stats_date_range</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="p">):</span>
+                 <span class="n">performance_stats_date_range</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
 
 <span class="sd">        :param result_file_directory: (optional) The directory where the file will be downloaded.</span>
@@ -97,11 +97,11 @@
 <span class="sd">                            since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
 <span class="sd">                            the operation performs a full download.</span>
 <span class="sd">        :type last_sync_time_in_utc: datetime</span>
-<span class="sd">        :param location_target_version: (optional) Location target version.</span>
-<span class="sd">        :type location_target_version: str</span>
 <span class="sd">        :param performance_stats_date_range: (optional) The date range values for the requested performance data in a bulk download.</span>
 <span class="sd">                            For possible values, see PerformanceStatsDateRange Data Object at http://go.microsoft.com/fwlink/?LinkId=620274.</span>
 <span class="sd">        :type performance_stats_date_range: PerformanceStatsDateRange</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for bulk download operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
@@ -120,6 +120,8 @@
             <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="n">last_sync_time_in_utc</span><span class="p">,</span>
             <span class="n">performance_stats_date_range</span><span class="o">=</span><span class="n">performance_stats_date_range</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -270,17 +272,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">performance_stats_date_range</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Location target version.</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
 
-<span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">location_target_version</span>
-
-    <span class="nd">@location_target_version.setter</span>
-    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">performance_stats_date_range</span><span class="o">.</span><span class="n">location_target_version</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span>
 
 </div>
 <div class="viewcode-block" id="SubmitDownloadParameters"><a class="viewcode-back" href="../../../../bingads.v10.bulk.html#bingads.v10.bulk.download_parameters.SubmitDownloadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitDownloadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -292,8 +289,7 @@
                  <span class="n">file_type</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">campaign_ids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">location_target_version</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">performance_stats_date_range</span><span class="o">=</span><span class="bp">None</span><span class="p">,):</span>
+                 <span class="n">performance_stats_date_range</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize an object of this class.</span>
 
 <span class="sd">        :param data_scope: (optional) The scope or types of data to download.</span>
@@ -318,8 +314,6 @@
 <span class="sd">                            since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
 <span class="sd">                            the operation performs a full download.</span>
 <span class="sd">        :type last_sync_time_in_utc: datetime</span>
-<span class="sd">        :param location_target_version: (optional) Location target version.</span>
-<span class="sd">        :type location_target_version: str</span>
 <span class="sd">        :param performance_stats_date_range: (optional) The date range values for the requested performance data in a bulk download.</span>
 <span class="sd">                            For possible values, see PerformanceStatsDateRange Data Object at http://go.microsoft.com/fwlink/?LinkId=620274.</span>
 <span class="sd">        :type performance_stats_date_range: (optional) PerformanceStatsDateRange</span>
@@ -427,19 +421,7 @@
 
     <span class="nd">@performance_stats_date_range.setter</span>
     <span class="k">def</span> <span class="nf">performance_stats_date_range</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_stats_data_range</span> <span class="o">=</span> <span class="n">value</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Location target version.</span>
-
-<span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_location_target_version</span>
-
-    <span class="nd">@location_target_version.setter</span>
-    <span class="k">def</span> <span class="nf">location_target_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_location_target_version</span> <span class="o">=</span> <span class="n">value</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_stats_data_range</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
 
           </div>
@@ -473,12 +455,12 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Bing Ads SDK Team.
+        &copy; Copyright 2016, Bing Ads SDK Team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>

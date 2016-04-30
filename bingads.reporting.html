@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.reporting package &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    <title>bingads.reporting package &mdash; Bing Ads SDK 10.4.3 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.1',
+        VERSION:     '10.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="index.html" />
     <link rel="up" title="bingads package" href="bingads.html" />
     <link rel="next" title="bingads.v10 package" href="bingads.v10.html" />
     <link rel="prev" title="bingads.internal.bulk.entities package" href="bingads.internal.bulk.entities.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.internal.bulk.entities.html" title="bingads.internal.bulk.entities package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" accesskey="U">bingads package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -124,6 +124,12 @@
 </dd></dl>
 
 <dl class="exception">
+<dt id="bingads.reporting.exceptions.ReportingDownloadException">
+<em class="property">exception </em><code class="descclassname">bingads.reporting.exceptions.</code><code class="descname">ReportingDownloadException</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/exceptions.html#ReportingDownloadException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.exceptions.ReportingDownloadException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="bingads.html#bingads.exceptions.SdkException" title="bingads.exceptions.SdkException"><code class="xref py py-class docutils literal"><span class="pre">bingads.exceptions.SdkException</span></code></a></p>
+</dd></dl>
+
+<dl class="exception">
 <dt id="bingads.reporting.exceptions.ReportingException">
 <em class="property">exception </em><code class="descclassname">bingads.reporting.exceptions.</code><code class="descname">ReportingException</code><span class="sig-paren">(</span><em>message</em>, <em>errors</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/exceptions.html#ReportingException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.exceptions.ReportingException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bingads.html#bingads.exceptions.SdkException" title="bingads.exceptions.SdkException"><code class="xref py py-class docutils literal"><span class="pre">bingads.exceptions.SdkException</span></code></a></p>
@@ -148,7 +154,7 @@
 <span id="bingads-reporting-reporting-download-parameters-module"></span><h2>bingads.reporting.reporting_download_parameters module<a class="headerlink" href="#module-bingads.reporting.reporting_download_parameters" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.reporting.reporting_download_parameters.ReportingDownloadParameters">
-<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_download_parameters.</code><code class="descname">ReportingDownloadParameters</code><span class="sig-paren">(</span><em>report_request=None</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_download_parameters.html#ReportingDownloadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_download_parameters.ReportingDownloadParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_download_parameters.</code><code class="descname">ReportingDownloadParameters</code><span class="sig-paren">(</span><em>report_request=None</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_download_parameters.html#ReportingDownloadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_download_parameters.ReportingDownloadParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Describes the related parameters when downloading file from server.</p>
 <p>such as the file name and directory that you want to specify.</p>
 <dl class="attribute">
@@ -188,6 +194,11 @@ if the result_file_name has the extension of &#8216;.zip&#8217; then do not do d
 :rtype: str</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="bingads.reporting.reporting_download_parameters.ReportingDownloadParameters.timeout_in_milliseconds">
+<code class="descname">timeout_in_milliseconds</code><a class="headerlink" href="#bingads.reporting.reporting_download_parameters.ReportingDownloadParameters.timeout_in_milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -195,7 +206,7 @@ if the result_file_name has the extension of &#8216;.zip&#8217; then do not do d
 <span id="bingads-reporting-reporting-operation-module"></span><h2>bingads.reporting.reporting_operation module<a class="headerlink" href="#module-bingads.reporting.reporting_operation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.reporting.reporting_operation.ReportingDownloadOperation">
-<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_operation.</code><code class="descname">ReportingDownloadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_operation.</code><code class="descname">ReportingDownloadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>Represents a reporting download operation requested by a user.</p>
 <p>You can use this class to poll for the download status, and then download the file when available.</p>
@@ -206,7 +217,7 @@ for example if your application quits unexpectedly or you have other tasks to pr
 use an instance of <a class="reference internal" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.reporting.reporting_operation.ReportingDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">ReportingDownloadOperation</span></code></a> to download the file when it is available.</p>
 <dl class="method">
 <dt id="bingads.reporting.reporting_operation.ReportingDownloadOperation.download_result_file">
-<code class="descname">download_result_file</code><span class="sig-paren">(</span><em>result_file_directory</em>, <em>result_file_name</em>, <em>decompress</em>, <em>overwrite</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation.download_result_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation.download_result_file" title="Permalink to this definition">¶</a></dt>
+<code class="descname">download_result_file</code><span class="sig-paren">(</span><em>result_file_directory</em>, <em>result_file_name</em>, <em>decompress</em>, <em>overwrite</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation.download_result_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation.download_result_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Download file with specified URL and download parameters.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -219,6 +230,7 @@ use an instance of <a class="reference internal" href="#bingads.reporting.report
 If set to true, the file will be decompressed after download.
 The default value is false, in which case the downloaded file is not decompressed.</li>
 <li><strong>overwrite</strong> (<em>bool</em>) &#8211; Indicates whether the result file should overwrite the existing file if any.</li>
+<li><strong>timeout_in_milliseconds</strong> (<em>int</em>) &#8211; (optional) timeout for download result file in milliseconds</li>
 </ul>
 </td>
 </tr>
@@ -306,15 +318,17 @@ The default value is false, in which case the downloaded file is not decompresse
 
 <dl class="method">
 <dt id="bingads.reporting.reporting_operation.ReportingDownloadOperation.track">
-<code class="descname">track</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation.track" title="Permalink to this definition">¶</a></dt>
+<code class="descname">track</code><span class="sig-paren">(</span><em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_operation.html#ReportingDownloadOperation.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation.track" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs until the reporting service has finished processing the download or upload request.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The final ReportingOperationStatus.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout_in_milliseconds</strong> (<em>int</em>) &#8211; (optional) timeout for tracking reporting download operation</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The final ReportingOperationStatus.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
 </tr>
 </tbody>
 </table>
@@ -363,7 +377,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <span id="bingads-reporting-reporting-service-manager-module"></span><h2>bingads.reporting.reporting_service_manager module<a class="headerlink" href="#module-bingads.reporting.reporting_service_manager" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.reporting.reporting_service_manager.ReportingServiceManager">
-<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_service_manager.</code><code class="descname">ReportingServiceManager</code><span class="sig-paren">(</span><em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>working_directory=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_service_manager.html#ReportingServiceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_service_manager.ReportingServiceManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.reporting.reporting_service_manager.</code><code class="descname">ReportingServiceManager</code><span class="sig-paren">(</span><em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>working_directory=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/reporting/reporting_service_manager.html#ReportingServiceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.reporting.reporting_service_manager.ReportingServiceManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides high level methods for downloading reporting files using the Reporting API functionality.</p>
 <p>Also provides methods for submitting download operations.</p>
 <p><em>Example:</em></p>
@@ -432,6 +446,20 @@ or <a class="reference internal" href="#bingads.reporting.reporting_operation.Re
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted download operation</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.reporting.reporting_operation.ReportingDownloadOperation">ReportingDownloadOperation</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.reporting.reporting_service_manager.ReportingServiceManager.suds_options">
+<code class="descname">suds_options</code><a class="headerlink" href="#bingads.reporting.reporting_service_manager.ReportingServiceManager.suds_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>suds option parameters</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
 </tr>
 </tbody>
 </table>
@@ -524,12 +552,12 @@ or <a class="reference internal" href="#bingads.reporting.reporting_operation.Re
         <li class="right" >
           <a href="bingads.internal.bulk.entities.html" title="bingads.internal.bulk.entities package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Bing Ads SDK Team.
+        &copy; Copyright 2016, Bing Ads SDK Team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>

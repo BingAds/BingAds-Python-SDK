@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.exceptions &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    <title>bingads.exceptions &mdash; Bing Ads SDK 10.4.3 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '10.4.1',
+        VERSION:     '10.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -104,7 +104,43 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_description</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_description</span>
+
+</div>
+<div class="viewcode-block" id="FileUploadException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.FileUploadException">[docs]</a><span class="k">class</span> <span class="nc">FileUploadException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class with the specified error messages.</span>
+
+<span class="sd">        :param description: The description of the file upload error.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FileUploadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="FileDownloadException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.FileDownloadException">[docs]</a><span class="k">class</span> <span class="nc">FileDownloadException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class with the specified error messages.</span>
+
+<span class="sd">        :param description: The description of the file download error.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FileDownloadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="TimeoutException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.TimeoutException">[docs]</a><span class="k">class</span> <span class="nc">TimeoutException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class with the specified error messages.</span>
+
+<span class="sd">        :param description: The description of the file download error.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TimeoutException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
 </pre></div>
 
           </div>
@@ -138,12 +174,12 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Bing Ads SDK Team.
+        &copy; Copyright 2016, Bing Ads SDK Team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>

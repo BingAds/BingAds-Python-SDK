@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.bulk.upload_parameters &mdash; Bing Ads SDK 10.4.1 documentation</title>
+    <title>bingads.bulk.upload_parameters &mdash; Bing Ads SDK 10.4.3 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '10.4.1',
+        VERSION:     '10.4.3',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.1 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -59,7 +59,8 @@
                  <span class="n">result_file_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">overwrite_result_file</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                  <span class="n">compress_upload_file</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">):</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param result_file_directory: The directory where the file will be downloaded.</span>
@@ -75,6 +76,8 @@
 <span class="sd">        :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
 <span class="sd">                                If not specified, this property is set by default to ErrorsAndResults.</span>
 <span class="sd">        :type response_mode: str</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for bulk upload operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
@@ -89,7 +92,9 @@
             <span class="n">upload_file_path</span><span class="o">=</span><span class="n">upload_file_path</span><span class="p">,</span>
             <span class="n">compress_upload_file</span><span class="o">=</span><span class="n">compress_upload_file</span><span class="p">,</span>
             <span class="n">response_mode</span><span class="o">=</span><span class="n">response_mode</span><span class="p">,</span>
+            <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="n">timeout_in_milliseconds</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -175,6 +180,14 @@
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+
+    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span>
+
 </div>
 <div class="viewcode-block" id="SubmitUploadParameters"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file. &quot;&quot;&quot;</span>
@@ -182,7 +195,8 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">upload_file_path</span><span class="p">,</span>
                  <span class="n">compress_upload_file</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">):</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param upload_file_path: The fully qualified local path of the upload file.</span>
@@ -192,11 +206,14 @@
 <span class="sd">        :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
 <span class="sd">                                If not specified, this property is set by default to ErrorsAndResults.</span>
 <span class="sd">        :type response_mode: str</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for submit upload operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_upload_file_path</span> <span class="o">=</span> <span class="n">upload_file_path</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span> <span class="o">=</span> <span class="n">compress_upload_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">response_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -239,6 +256,14 @@
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">value</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+
+    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span>
+
 </div>
 <div class="viewcode-block" id="EntityUploadParameters"><a class="viewcode-back" href="../../../bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">EntityUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the available parameters when submitting entities for upload, such as the entities that you want to upload. &quot;&quot;&quot;</span>
@@ -248,7 +273,8 @@
                  <span class="n">result_file_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">result_file_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">overwrite_result_file</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">):</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class.</span>
 
 <span class="sd">        :param entities: The list of bulk entities that you want to upload.</span>
@@ -262,6 +288,8 @@
 <span class="sd">        :param response_mode: (optional) Determines whether the bulk service should return upload errors with the corresponding entity data.</span>
 <span class="sd">                              If not specified, this property is set by default to ErrorsAndResults.</span>
 <span class="sd">        :type response_mode: str</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for upload entities operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
@@ -274,6 +302,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="n">entities</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite_result_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">response_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -344,7 +373,15 @@
 
     <span class="nd">@overwrite_result_file.setter</span>
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+
+    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
 
           </div>
@@ -378,12 +415,12 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.1 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Bing Ads SDK Team.
+        &copy; Copyright 2016, Bing Ads SDK Team.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
     </div>
   </body>
