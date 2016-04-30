@@ -82,13 +82,13 @@ class _StringTable:
     SocialNetworkAdExtension = "Social Network Ad Extension"
     Version = "Version"
 
-    # Image AdExtension
+    # Image Ad Extension
     AltText = "Alternative Text"
     MediaIds = "Media Ids"
     CampaignImageAdExtension = "Campaign Image Ad Extension"
     AdGroupImageAdExtension = "Ad Group Image Ad Extension"
 
-    # SiteLink AdExtensions
+    # SiteLink Ad Extensions
     SiteLinkExtensionOrder = "Sitelink Extension Order"
     SiteLinkDisplayText = "Sitelink Extension Link Text"
     SiteLinkDestinationUrl = "Sitelink Extension Destination Url"
@@ -97,7 +97,7 @@ class _StringTable:
     CampaignSiteLinksAdExtension = "Campaign Sitelink Ad Extension"
     AdGroupSiteLinksAdExtension = "AdGroup Sitelink Ad Extension"
 
-    # Location AdExtensions
+    # Location Ad Extensions
     AddressLine1 = "Address Line 1"
     AddressLine2 = "Address Line 2"
     PostalCode = "Postal Code"
@@ -109,7 +109,7 @@ class _StringTable:
     ImageMediaId = "Business Icon"
     CampaignLocationAdExtension = "Campaign Location Ad Extension"
 
-    # Call AdExtensions
+    # Call Ad Extensions
     CountryCode = "Country Code"
     IsCallOnly = "Call Only"
     CampaignCallAdExtension = "Campaign Call Ad Extension"
@@ -119,31 +119,28 @@ class _StringTable:
     # Editorial Rejection Reasons
     PublisherCountries = "Publisher Countries"
 
-    # Product Target
-    ProductTargetType = "Ad Group Product Target"
-    ProductCondition1 = "Product Condition 1"
-    ProductCondition2 = "Product Condition 2"
-    ProductCondition3 = "Product Condition 3"
-    ProductValue1 = "Product Value 1"
-    ProductValue2 = "Product Value 2"
-    ProductValue3 = "Product Value 3"
-
     # BTE Types
     KeywordFirstPageBidType = "Keyword First Page Bid"
     KeywordMainLineBidType = "Keyword Main Line Bid"
     KeywordBestPositionBidType = "Keyword Best Position Bid"
 
-    # Product AdExtension
+    ProductCondition1 = "Product Condition 1"
+    ProductCondition2 = "Product Condition 2"
+    ProductCondition3 = "Product Condition 3"
     ProductCondition4 = "Product Condition 4"
     ProductCondition5 = "Product Condition 5"
     ProductCondition6 = "Product Condition 6"
     ProductCondition7 = "Product Condition 7"
     ProductCondition8 = "Product Condition 8"
+    ProductValue1 = "Product Value 1"
+    ProductValue2 = "Product Value 2"
+    ProductValue3 = "Product Value 3"
     ProductValue4 = "Product Value 4"
     ProductValue5 = "Product Value 5"
     ProductValue6 = "Product Value 6"
     ProductValue7 = "Product Value 7"
     ProductValue8 = "Product Value 8"
+
     BingMerchantCenterId = "Store Id"
     BingMerchantCenterName = "Store Name"
 

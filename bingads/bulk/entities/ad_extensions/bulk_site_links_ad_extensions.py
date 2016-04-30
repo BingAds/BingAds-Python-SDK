@@ -37,9 +37,9 @@ class BulkAdGroupSiteLinkAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level sitelink ad extension.
 
     This class exposes properties that can be read and written
-    as fields of the Ad Group Sitelink Ad Extension record in a bulk file.
+    as fields of the AdGroup Sitelink Ad Extension record in a bulk file.
 
-    For more information, see Ad Group Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511552.
+    For more information, see AdGroup Sitelink Ad Extension at http://go.microsoft.com/fwlink/?LinkID=511552.
 
     *See also:*
 
@@ -201,7 +201,7 @@ class BulkSiteLink(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.SiteLinkExtensionOrder,
             field_to_csv=lambda c: bulk_str(c.order),
-            csv_to_field=lambda c, v: setattr(c, 'order', int(v))
+            csv_to_field=lambda c, v: setattr(c, 'order', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.SiteLinkDisplayText,

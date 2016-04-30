@@ -3,6 +3,14 @@
 Release History
 ---------------
 
+10.4.3(2016-04-30)
+++++++++++++++++++
+
+* Changed condition to write delete value for Keyword Bid in bulk
+* Support suds option in BulkServiceManager and ReportingServiceManager
+* Updated wsdl proxy to latest version
+* Bug fixes
+
 10.4.2(2016-03-30)
 ++++++++++++++++++
 

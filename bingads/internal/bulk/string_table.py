@@ -86,7 +86,7 @@ class _StringTable:
     SocialNetworkAdExtension = "Social Network Ad Extension"
     Version = "Version"
 
-    # Image AdExtension
+    # Image Ad Extension
     AltText = "Alternative Text"
     MediaId = "Media Id"
     CampaignImageAdExtension = "Campaign Image Ad Extension"
@@ -137,7 +137,7 @@ class _StringTable:
     KeywordMainLineBidType = "Keyword Main Line Bid"
     KeywordBestPositionBidType = "Keyword Best Position Bid"
 
-    # Product AdExtension
+    # Product Ad Extension
     CampaignProductAdExtension = "Campaign Product Ad Extension"
     ProductCondition4 = "Product Condition 4"
     ProductCondition5 = "Product Condition 5"

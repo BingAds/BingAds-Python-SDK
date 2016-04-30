@@ -234,7 +234,7 @@ class BulkProductAd(_BulkAd):
 
 
 class BulkTextAd(_BulkAd):
-    """ Represents a product ad.
+    """ Represents a Text Ad.
 
     This class exposes the :attr:`text_ad` property that can be read and written as fields of the Text Ad record in a bulk file.
 

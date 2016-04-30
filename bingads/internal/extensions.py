@@ -280,9 +280,9 @@ def ad_group_bid_bulk_str(value):
 
 def keyword_bid_bulk_str(value):
     if value is None:
-        return None
-    if value.Amount is None:
         return DELETE_VALUE
+    if value.Amount is None:
+        return None
     return bulk_str(value.Amount)
 
 

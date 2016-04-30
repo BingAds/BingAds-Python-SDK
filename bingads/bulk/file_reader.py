@@ -88,7 +88,7 @@ class BulkFileReader:
         Batch means a set of related entities.
         It can be one :class:`._SingleRecordBulkEntity`, one :class:`._MultiRecordBulkEntity` containing its child
         entities or a set of related child entities (for example several :class:`.BulkSiteLink`s logically belonging
-        to the same SiteLink AdExtension.
+        to the same SiteLink Ad Extension.
 
         :return: Next batch of entities
         :rtype: _SingleRecordBulkEntity or _MultiRecordBulkEntity

@@ -52,6 +52,7 @@ class BulkServiceManager:
         # make sure the working directory exists or create it.
         if not os.path.exists(self._working_directory):
             os.makedirs(self._working_directory)
+        self._suds_options = suds_options
 
     def download_file(self, download_parameters, progress=None):
         """ Downloads the specified Bulk entities to a local file.
@@ -221,7 +222,7 @@ class BulkServiceManager:
             authorization_data=self._authorization_data,
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
-            location=self.service_client.service_url,
+            **self.suds_options
         )
         return operation
 
@@ -251,7 +252,7 @@ class BulkServiceManager:
             authorization_data=self._authorization_data,
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
-            location=self.service_client.service_url,
+            **self.suds_options
         )
         return operation
 
@@ -343,3 +344,15 @@ class BulkServiceManager:
     @working_directory.setter
     def working_directory(self, value):
         self._working_directory = value
+
+    @property
+    def suds_options(self):
+        """ suds option parameters
+
+        :return: dict
+        """
+        return self._suds_options
+
+    @suds_options.setter
+    def suds_options(self, value):
+        self._suds_options = value
