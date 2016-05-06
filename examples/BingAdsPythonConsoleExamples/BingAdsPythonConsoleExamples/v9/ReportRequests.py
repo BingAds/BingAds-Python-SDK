@@ -431,7 +431,7 @@ def submit_and_download(report_request):
 
     #    download_status = reporting_download_operation.get_status()
         
-    #    if download_status.status == 'Completed':
+    #    if download_status.status == 'Success':
     #        break
     
     result_file_path = reporting_download_operation.download_result_file(
