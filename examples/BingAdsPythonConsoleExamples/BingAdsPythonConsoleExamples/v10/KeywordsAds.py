@@ -618,7 +618,7 @@ if __name__ == '__main__':
 
         campaign_service.GetAdsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
-            AdType=None
+            AdTypes=None
         )
         campaign_service.UpdateAds(
             AdGroupId=ad_group_ids['long'][0],
@@ -626,7 +626,7 @@ if __name__ == '__main__':
         )
         campaign_service.GetAdsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
-            AdType=None
+            AdTypes=None
         )
         
         update_keywords=campaign_service.factory.create('ArrayOfKeyword')
