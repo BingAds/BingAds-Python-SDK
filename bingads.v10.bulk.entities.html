@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities package &mdash; Bing Ads SDK 10.4.3 documentation</title>
+    <title>bingads.v10.bulk.entities package &mdash; Bing Ads SDK 10.4.4 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.3',
+        VERSION:     '10.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="index.html" />
     <link rel="up" title="bingads.v10.bulk package" href="bingads.v10.bulk.html" />
     <link rel="next" title="bingads.v10.bulk.entities.ad_extensions package" href="bingads.v10.bulk.entities.ad_extensions.html" />
     <link rel="prev" title="bingads.v10.bulk package" href="bingads.v10.bulk.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.v10.bulk.html" title="bingads.v10.bulk package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
           <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" accesskey="U">bingads.v10.bulk package</a> &raquo;</li> 
@@ -521,6 +521,39 @@ Ad Group Product Partition record in a bulk file.</p>
 </div>
 <div class="section" id="module-bingads.v10.bulk.entities.bulk_ads">
 <span id="bingads-v10-bulk-entities-bulk-ads-module"></span><h2>bingads.v10.bulk.entities.bulk_ads module<a class="headerlink" href="#module-bingads.v10.bulk.entities.bulk_ads" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.bulk_ads.</code><code class="descname">BulkAppInstallAd</code><span class="sig-paren">(</span><em>ad_group_id=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>ad=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_ads.html#BulkAppInstallAd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.bulk.entities.bulk_ads._BulkAd</span></code></p>
+<p>Represents an App Install Ad.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.app_install_ad" title="bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.app_install_ad"><code class="xref py py-attr docutils literal"><span class="pre">app_install_ad</span></code></a> property that can be read and written as fields of the App Install Ad record in a bulk file.</p>
+<p>For more information, see App Install Ad at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=730549">http://go.microsoft.com/fwlink/?LinkID=730549</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation" title="bingads.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.app_install_ad">
+<code class="descname">app_install_ad</code><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.app_install_ad" title="Permalink to this definition">¶</a></dt>
+<dd><p>The App Install Ad.</p>
+<p>see App Install Ad at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=730549">http://go.microsoft.com/fwlink/?LinkID=730549</a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_ads.html#BulkAppInstallAd.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_ads.html#BulkAppInstallAd.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="class">
 <dt id="bingads.v10.bulk.entities.bulk_ads.BulkProductAd">
 <em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.bulk_ads.</code><code class="descname">BulkProductAd</code><span class="sig-paren">(</span><em>ad_group_id=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>ad=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_ads.html#BulkProductAd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_ads.BulkProductAd" title="Permalink to this definition">¶</a></dt>
@@ -2022,7 +2055,7 @@ For more information, see Bulk File Schema at <a class="reference external" href
         <li class="right" >
           <a href="bingads.v10.bulk.html" title="bingads.v10.bulk package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
           <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" >bingads.v10.bulk package</a> &raquo;</li> 

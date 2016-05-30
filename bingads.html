@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads package &mdash; Bing Ads SDK 10.4.3 documentation</title>
+    <title>bingads package &mdash; Bing Ads SDK 10.4.4 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.3',
+        VERSION:     '10.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="index.html" />
     <link rel="next" title="bingads.bulk package" href="bingads.bulk.html" />
     <link rel="prev" title="Bing Ads Python SDK" href="readme.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -384,7 +384,7 @@ whereas the UserName and Password headers will remain empty.</p>
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthAuthorization">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthAuthorization</code><span class="sig-paren">(</span><em>client_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthAuthorization</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.Authentication" title="bingads.authorization.Authentication"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.Authentication</span></code></a></p>
 <p>The abstract base class for all OAuth authentication classes.</p>
 <p>You can use this class to dynamically instantiate a derived OAuth authentication class at run time.
@@ -463,11 +463,18 @@ Client Password Authentication section of the OAuth 2.0 spec at
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="bingads.authorization.OAuthAuthorization.state">
+<code class="descname">state</code><a class="headerlink" href="#bingads.authorization.OAuthAuthorization.state" title="Permalink to this definition">¶</a></dt>
+<dd><p>An opaque value used by the client to maintain state between the request and callback
+:rtype: str</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthDesktopMobileAuthCodeGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop
 or mobile application.</p>
@@ -482,7 +489,7 @@ For more information about registering a Bing Ads application, see <a class="ref
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileImplicitGrant</code><span class="sig-paren">(</span><em>client_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileImplicitGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the implicit grant flow for use in a desktop or mobile application.</p>
 <p>You can use an instance of this class as the AuthorizationData.Authentication property
@@ -585,7 +592,7 @@ either the <a class="reference internal" href="#bingads.authorization.OAuthDeskt
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthWebAuthCodeGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWebAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWebAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWebAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWebAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.</p>
 <p>You can use an instance of this class as the AuthorizationData.Authentication property
@@ -599,7 +606,7 @@ For more information about registering a Bing Ads application, see <a class="ref
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthWithAuthorizationCode">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWithAuthorizationCode</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWithAuthorizationCode</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></code></a></p>
 <p>Represents a proxy to the Microsoft account authorization service.</p>
 <p>Implement an extension of this class in compliance with the authorization code grant flow for Managing User
@@ -610,7 +617,7 @@ For more information about registering a Bing Ads application, see <a class="ref
 <dl class="attribute">
 <dt id="bingads.authorization.OAuthWithAuthorizationCode.client_secret">
 <code class="descname">client_secret</code><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode.client_secret" title="Permalink to this definition">¶</a></dt>
-<dd><p>The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.</p>
+<dd><p>The client secret corresponding to your registered application, or None if your app is a desktop or mobile app.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1016,7 +1023,7 @@ or <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGr
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

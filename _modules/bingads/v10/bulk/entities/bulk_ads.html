@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bulk_ads &mdash; Bing Ads SDK 10.4.3 documentation</title>
+    <title>bingads.v10.bulk.entities.bulk_ads &mdash; Bing Ads SDK 10.4.4 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.3',
+        VERSION:     '10.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="../../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="../../../../../index.html" />
     <link rel="up" title="Module code" href="../../../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -57,6 +57,7 @@
 <span class="c"># Define type used</span>
 <span class="n">ProductAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ProductAd&#39;</span><span class="p">))</span>
 <span class="n">TextAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;TextAd&#39;</span><span class="p">))</span>
+<span class="n">AppInstallAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AppInstallAd&#39;</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">_BulkAd</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
@@ -66,6 +67,7 @@
 
 <span class="sd">    * :class:`.BulkProductAd`</span>
 <span class="sd">    * :class:`.BulkTextAd`</span>
+<span class="sd">    * :class:`.BulkAppInstallAd`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -357,7 +359,85 @@
 <div class="viewcode-block" id="BulkTextAd.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ads.BulkTextAd.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_ad</span><span class="p">,</span> <span class="s">&#39;text_ad&#39;</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkTextAd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkTextAd</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkTextAd</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+</div></div>
+<div class="viewcode-block" id="BulkAppInstallAd"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd">[docs]</a><span class="k">class</span> <span class="nc">BulkAppInstallAd</span><span class="p">(</span><span class="n">_BulkAd</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an App Install Ad.</span>
+
+<span class="sd">    This class exposes the :attr:`app_install_ad` property that can be read and written as fields of the App Install Ad record in a bulk file.</span>
+
+<span class="sd">    For more information, see App Install Ad at http://go.microsoft.com/fwlink/?LinkID=730549.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">ad_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">ad</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAppInstallAd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">ad_group_id</span><span class="p">,</span>
+            <span class="n">campaign_name</span><span class="p">,</span>
+            <span class="n">ad_group_name</span><span class="p">,</span>
+            <span class="n">ad</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_install_ad</span> <span class="o">=</span> <span class="n">ad</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">app_install_ad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The App Install Ad.</span>
+
+<span class="sd">        see App Install Ad at http://go.microsoft.com/fwlink/?LinkID=730549.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span>
+
+    <span class="nd">@app_install_ad.setter</span>
+    <span class="k">def</span> <span class="nf">app_install_ad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_install_ad</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">app_install_ad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="n">AppInstallAd</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Not an instance of AppInstallAd&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span> <span class="o">=</span> <span class="n">app_install_ad</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AppPlatform</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="o">.</span><span class="n">AppPlatform</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="s">&#39;AppPlatform&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AppStoreId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="o">.</span><span class="n">AppStoreId</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="s">&#39;AppStoreId&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Title</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="o">.</span><span class="n">Title</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="s">&#39;Title&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="s">&#39;Text&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkAppInstallAd.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_install_ad</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AppInstallAd&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_install_ad</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;AppInstall&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAppInstallAd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAppInstallAd</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="BulkAppInstallAd.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ads.BulkAppInstallAd.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">app_install_ad</span><span class="p">,</span> <span class="s">&#39;app_install_ad&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAppInstallAd</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAppInstallAd</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
@@ -391,7 +471,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.authorization &mdash; Bing Ads SDK 10.4.3 documentation</title>
+    <title>bingads.authorization &mdash; Bing Ads SDK 10.4.4 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '10.4.3',
+        VERSION:     '10.4.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.3 documentation" href="../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -298,17 +298,21 @@
 <span class="sd">    * :class:`.OAuthWebAuthCodeGrant`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the OAuthAuthorization class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
 <span class="sd">        :type client_id: str</span>
+<span class="sd">        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service</span>
+<span class="sd">        :type oauth_tokens: OAuthTokens</span>
+<span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="n">client_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Client id cannot be None.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="n">client_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">oauth_tokens</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -331,6 +335,21 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; An opaque value used by the client to maintain state between the request and callback</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span>
+
+    <span class="nd">@state.setter</span>
+    <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; An opaque value used by the client to maintain state between the request and callback</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -368,22 +387,24 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
 <span class="sd">        :type client_id: str</span>
-<span class="sd">        :param client_secret: The client secret corresponding to your registered application, or null if your app is a</span>
+<span class="sd">        :param client_secret: The client secret corresponding to your registered application, or None if your app is a</span>
 <span class="sd">        desktop or mobile app.</span>
 <span class="sd">        :type client_secret: str or None</span>
 <span class="sd">        :param redirection_uri: The URI to which the user of the app will be redirected after receiving user consent.</span>
 <span class="sd">        :type redirection_uri: str</span>
 <span class="sd">        :param token_refreshed_callback: (optional) Call back function when oauth_tokens be refreshed.</span>
 <span class="sd">        :type token_refreshed_callback: (OAuthTokens)-&gt;None or None</span>
+<span class="sd">        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service</span>
+<span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
@@ -394,13 +415,13 @@
 <span class="sd">        :return: The Microsoft Account authorization endpoint.</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="s">&#39;https://login.live.com/oauth20_authorize.srf?client_id={0}&amp;scope=bingads.manage&amp;response_type={1}&amp;redirect_uri={2}&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span>
             <span class="s">&#39;code&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span>
         <span class="p">)</span>
+        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
 </div>
 <div class="viewcode-block" id="OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri">[docs]</a>    <span class="k">def</span> <span class="nf">request_oauth_tokens_by_response_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</span>
@@ -422,6 +443,7 @@
                 <span class="s">&quot;Please make sure the uri has a code in it, for example http://myurl.com?code=123&quot;</span>
             <span class="p">)</span>
         <span class="n">code</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">&#39;code&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
@@ -460,7 +482,7 @@
 </div>
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.</span>
+        <span class="sd">&quot;&quot;&quot; The client secret corresponding to your registered application, or None if your app is a desktop or mobile app.</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -512,17 +534,20 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
 <span class="sd">        :type client_id: str</span>
+<span class="sd">        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service</span>
+<span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileAuthCodeGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
             <span class="n">client_id</span><span class="p">,</span>
             <span class="bp">None</span><span class="p">,</span>
             <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
+            <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span>
         <span class="p">)</span>
 
 </div>
@@ -555,14 +580,16 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
 <span class="sd">        :type client_id: str</span>
+<span class="sd">        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service</span>
+<span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.get_authorization_endpoint"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.get_authorization_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_authorization_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</span>
@@ -571,12 +598,13 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
             <span class="s">&#39;https://login.live.com/oauth20_authorize.srf?client_id={0}&amp;scope=bingads.manage&amp;response_type={1}&amp;redirect_uri={2}&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="s">&#39;token&#39;</span><span class="p">,</span>
             <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
 </div>
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri">[docs]</a>    <span class="k">def</span> <span class="nf">extract_access_token_from_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Extracts the access token from the specified redirect URI.</span>
@@ -668,7 +696,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.3 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
