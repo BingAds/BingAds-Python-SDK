@@ -249,17 +249,21 @@ class OAuthAuthorization(Authentication):
     * :class:`.OAuthWebAuthCodeGrant`
     """
 
-    def __init__(self, client_id):
+    def __init__(self, client_id, oauth_tokens=None):
         """ Initializes a new instance of the OAuthAuthorization class.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
+        :rtype: str
         """
 
         if client_id is None:
             raise ValueError('Client id cannot be None.')
         self._client_id = client_id
-        self._oauth_tokens = None
+        self._oauth_tokens = oauth_tokens
+        self._state = None
 
     @property
     def client_id(self):
@@ -282,6 +286,21 @@ class OAuthAuthorization(Authentication):
         """
 
         return self._oauth_tokens
+
+    @property
+    def state(self):
+        """ An opaque value used by the client to maintain state between the request and callback
+        :rtype: str
+        """
+
+        return self._state
+
+    @state.setter
+    def state(self, value):
+        """ An opaque value used by the client to maintain state between the request and callback
+        :rtype: str
+        """
+        self._state = value
 
     @property
     def redirection_uri(self):
@@ -319,22 +338,24 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None):
+    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None):
         """ Initialize a new instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param client_secret: The client secret corresponding to your registered application, or null if your app is a
+        :param client_secret: The client secret corresponding to your registered application, or None if your app is a
         desktop or mobile app.
         :type client_secret: str or None
         :param redirection_uri: The URI to which the user of the app will be redirected after receiving user consent.
         :type redirection_uri: str
         :param token_refreshed_callback: (optional) Call back function when oauth_tokens be refreshed.
         :type token_refreshed_callback: (OAuthTokens)->None or None
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
         :return:
         """
 
-        super(OAuthWithAuthorizationCode, self).__init__(client_id)
+        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens)
         self._client_secret = client_secret
         self._redirection_uri = redirection_uri
         self._token_refreshed_callback = token_refreshed_callback
@@ -345,13 +366,13 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :return: The Microsoft Account authorization endpoint.
         :rtype: str
         """
-
-        return str.format(
+        endpoint = str.format(
             'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
             self._client_id,
             'code',
             self._redirection_uri
         )
+        return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def request_oauth_tokens_by_response_uri(self, response_uri):
         """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.
@@ -373,6 +394,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
                 "Please make sure the uri has a code in it, for example http://myurl.com?code=123"
             )
         code = parameters['code'][0]
+
         self._oauth_tokens = _LiveComOAuthService.get_access_token(
             client_id=self.client_id,
             client_secret=self.client_secret,
@@ -411,7 +433,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
 
     @property
     def client_secret(self):
-        """ The client secret corresponding to your registered application, or null if your app is a desktop or mobile app.
+        """ The client secret corresponding to your registered application, or None if your app is a desktop or mobile app.
 
         :rtype: str
         """
@@ -463,17 +485,20 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id):
+    def __init__(self, client_id, oauth_tokens=None):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
         """
 
         super(OAuthDesktopMobileAuthCodeGrant, self).__init__(
             client_id,
             None,
             _LiveComOAuthService.DESKTOP_REDIRECTION_URI,
+            oauth_tokens=oauth_tokens,
         )
 
 
@@ -506,14 +531,16 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id):
+    def __init__(self, client_id, oauth_tokens=None):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
         """
 
-        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id)
+        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens)
 
     def get_authorization_endpoint(self):
         """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.
@@ -522,12 +549,13 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         :rtype: str
         """
 
-        return str.format(
+        endpoint = str.format(
             'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
             self.client_id,
             'token',
             _LiveComOAuthService.DESKTOP_REDIRECTION_URI,
         )
+        return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def extract_access_token_from_uri(self, redirection_uri):
         """ Extracts the access token from the specified redirect URI.

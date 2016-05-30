@@ -3,6 +3,14 @@
 Release History
 ---------------
 
+10.4.4(2016-05-30)
+++++++++++++++++++
+
+* Add App Install Ad support
+* Add state property in OAuthAuthorization classes
+* Support oauth_tokens initialization in Authentication classes
+* Updated wsdl proxy to latest version
+
 10.4.3(2016-04-30)
 ++++++++++++++++++
 

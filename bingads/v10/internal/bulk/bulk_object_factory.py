@@ -50,6 +50,7 @@ class _BulkObjectFactory():
         #_StringTable.MobileAd: _EntityInfo(lambda: BulkMobileAd()),
         _StringTable.ProductAd: _EntityInfo(lambda: BulkProductAd()),
         _StringTable.TextAd: _EntityInfo(lambda: BulkTextAd()),
+        _StringTable.AppInstallAd: _EntityInfo(lambda: BulkAppInstallAd()),
         "Campaign Negative Site": _EntityInfo(
             lambda: BulkCampaignNegativeSite(),
             _StringTable.Website,

@@ -15,6 +15,7 @@ class _StringTable:
     Keyword = "Keyword"
     TextAd = "Text Ad"
     ProductAd = "Product Ad"
+    AppInstallAd = "App Install Ad"
     Title = "Title"
     EditorialStatus = "Editorial Status"
     EditorialAppealStatus = "Editorial Appeal Status"

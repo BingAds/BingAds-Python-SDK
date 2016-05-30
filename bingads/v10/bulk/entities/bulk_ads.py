@@ -8,6 +8,7 @@ from bingads.internal.extensions import *
 # Define type used
 ProductAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ProductAd'))
 TextAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('TextAd'))
+AppInstallAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('AppInstallAd'))
 
 
 class _BulkAd(_SingleRecordBulkEntity):
@@ -17,6 +18,7 @@ class _BulkAd(_SingleRecordBulkEntity):
 
     * :class:`.BulkProductAd`
     * :class:`.BulkTextAd`
+    * :class:`.BulkAppInstallAd`
     """
 
     def __init__(self,
@@ -309,3 +311,81 @@ class BulkTextAd(_BulkAd):
         self._validate_property_not_null(self.text_ad, 'text_ad')
         super(BulkTextAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkTextAd._MAPPINGS)
+
+
+class BulkAppInstallAd(_BulkAd):
+    """ Represents an App Install Ad.
+
+    This class exposes the :attr:`app_install_ad` property that can be read and written as fields of the App Install Ad record in a bulk file.
+
+    For more information, see App Install Ad at http://go.microsoft.com/fwlink/?LinkID=730549.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self,
+                 ad_group_id=None,
+                 campaign_name=None,
+                 ad_group_name=None,
+                 ad=None):
+        super(BulkAppInstallAd, self).__init__(
+            ad_group_id,
+            campaign_name,
+            ad_group_name,
+            ad,
+        )
+        self.app_install_ad = ad
+
+    @property
+    def app_install_ad(self):
+        """ The App Install Ad.
+
+        see App Install Ad at http://go.microsoft.com/fwlink/?LinkID=730549.
+        """
+
+        return self._ad
+
+    @app_install_ad.setter
+    def app_install_ad(self, app_install_ad):
+        if app_install_ad is not None and not isinstance(app_install_ad, AppInstallAd):
+            raise ValueError('Not an instance of AppInstallAd')
+        self._ad = app_install_ad
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.AppPlatform,
+            field_to_csv=lambda c: c.app_install_ad.AppPlatform,
+            csv_to_field=lambda c, v: setattr(c.app_install_ad, 'AppPlatform', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AppStoreId,
+            field_to_csv=lambda c: c.app_install_ad.AppStoreId,
+            csv_to_field=lambda c, v: setattr(c.app_install_ad, 'AppStoreId', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Title,
+            field_to_csv=lambda c: c.app_install_ad.Title,
+            csv_to_field=lambda c, v: setattr(c.app_install_ad, 'Title', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Text,
+            field_to_csv=lambda c: c.app_install_ad.Text,
+            csv_to_field=lambda c, v: setattr(c.app_install_ad, 'Text', v)
+        ),
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        self.app_install_ad = _CAMPAIGN_OBJECT_FACTORY_V10.create('AppInstallAd')
+        self.app_install_ad.Type = 'AppInstall'
+        super(BulkAppInstallAd, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, BulkAppInstallAd._MAPPINGS)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.app_install_ad, 'app_install_ad')
+        super(BulkAppInstallAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkAppInstallAd._MAPPINGS)
