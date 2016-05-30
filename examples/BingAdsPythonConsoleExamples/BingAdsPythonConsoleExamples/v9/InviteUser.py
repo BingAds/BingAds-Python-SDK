@@ -21,9 +21,12 @@ if __name__ == '__main__':
     # and sign into Bing Ads with a Microsoft account different than the invitation email address.
     user_invite_recipient_email = "<UserInviteRecipientEmailGoesHere>"
 
+    DEVELOPER_TOKEN='DeveloperTokenGoesHere'
     ENVIRONMENT='production'
-    DEVELOPER_TOKEN='YourDeveloperTokenGoesHere'
-    CLIENT_ID='YourClientIdGoesHere'
+    
+    # If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
+    CLIENT_ID='ClientIdGoesHere'
+    CLIENT_STATE='ClientStateGoesHere'
 
     authorization_data=AuthorizationData(
         account_id=None,
@@ -51,46 +54,64 @@ def authenticate_with_username():
 
     # Assign this authentication instance to the global authorization_data. 
     authorization_data.authentication=authentication
-
+ 
 def authenticate_with_oauth():
     ''' 
     Sets the authentication property of the global AuthorizationData instance with OAuthDesktopMobileAuthCodeGrant.
     '''
     global authorization_data
+
     authentication=OAuthDesktopMobileAuthCodeGrant(
         client_id=CLIENT_ID
     )
+
+    # It is recommended that you specify a non guessable 'state' request parameter to help prevent
+    # cross site request forgery (CSRF). 
+    authentication.state=CLIENT_STATE
 
     # Assign this authentication instance to the global authorization_data. 
     authorization_data.authentication=authentication   
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
-    #authorization_data.authentication.token_refreshed_callback=save_refresh_token
+    authorization_data.authentication.token_refreshed_callback=save_refresh_token
     
     refresh_token=get_refresh_token()
     
-    # If we have a refresh token let's refresh it
-    if refresh_token is not None:
-        authentication.request_oauth_tokens_by_refresh_token(refresh_token)
-    else:
-        webbrowser.open(authentication.get_authorization_endpoint(), new=1)
-        # For Python 3.x use 'input' instead of 'raw_input'
-        if(sys.version_info.major >= 3):
-            response_uri=input(
-                "You need to provide consent for the application to access your Bing Ads accounts. " \
-                "After you have granted consent in the web browser for the application to access your Bing Ads accounts, " \
-                "please enter the response URI that includes the authorization 'code' parameter: \n"
-            )
+    try:
+        # If we have a refresh token let's refresh it
+        if refresh_token is not None:
+            authorization_data.authentication.request_oauth_tokens_by_refresh_token(refresh_token)
         else:
-            response_uri=raw_input(
-                "You need to provide consent for the application to access your Bing Ads accounts. " \
-                "After you have granted consent in the web browser for the application to access your Bing Ads accounts, " \
-                "please enter the response URI that includes the authorization 'code' parameter: \n"
-            )
+            request_user_consent()
+    except OAuthTokenRequestException:
+        # The user could not be authenticated or the grant is expired. 
+        # The user must first sign in and if needed grant the client application access to the requested scope.
+        request_user_consent()
+    
+def request_user_consent():
+    global authorization_data
 
-        # Request access and refresh tokens using the URI that you provided manually during program execution.
-        authentication.request_oauth_tokens_by_response_uri(response_uri=response_uri) 
+    webbrowser.open(authorization_data.authentication.get_authorization_endpoint(), new=1)
+    # For Python 3.x use 'input' instead of 'raw_input'
+    if(sys.version_info.major >= 3):
+        response_uri=input(
+            "You need to provide consent for the application to access your Bing Ads accounts. " \
+            "After you have granted consent in the web browser for the application to access your Bing Ads accounts, " \
+            "please enter the response URI that includes the authorization 'code' parameter: \n"
+        )
+    else:
+        response_uri=raw_input(
+            "You need to provide consent for the application to access your Bing Ads accounts. " \
+            "After you have granted consent in the web browser for the application to access your Bing Ads accounts, " \
+            "please enter the response URI that includes the authorization 'code' parameter: \n"
+        )
+
+    if authorization_data.authentication.state != CLIENT_STATE:
+       raise Exception("The OAuth response state does not match the client request state.")
+
+    # Request access and refresh tokens using the URI that you provided manually during program execution.
+    authorization_data.authentication.request_oauth_tokens_by_response_uri(response_uri=response_uri) 
 
 def get_refresh_token():
     ''' 
