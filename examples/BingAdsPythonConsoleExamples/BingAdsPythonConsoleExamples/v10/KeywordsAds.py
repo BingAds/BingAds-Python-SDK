@@ -394,7 +394,7 @@ if __name__ == '__main__':
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
         campaign.MonthlyBudget=1000
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
-        campaign.DaylightSaving='True' # Accepts 'true', 'false', True, or False
+        campaign.DaylightSaving='true' # Accepts 'true', 'false', True, or False
         campaign.Status='Paused'
         campaigns.Campaign.append(campaign)
 
