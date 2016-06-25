@@ -45,20 +45,11 @@
     <Compile Include="v10\NegativeKeywords.py" />
     <Compile Include="v10\ShoppingCampaigns.py" />
     <Compile Include="v10\Targets.py" />
-    <Compile Include="v9\AdExtensions.py" />
-    <Compile Include="v9\BulkAdExtensions.py" />
-    <Compile Include="v9\BulkCreateKeywordsAds.py" />
-    <Compile Include="v9\BulkShoppingCampaigns.py" />
-    <Compile Include="v9\BulkTargets.py" />
-    <Compile Include="v9\EstimatedBid.py" />
-    <Compile Include="v9\KeywordsAds.py" />
+    <Compile Include="v9\CustomerSignup.py" />
+    <Compile Include="v9\InviteUser.py" />
     <Compile Include="v9\ManageClient.py" />
-    <Compile Include="v9\NegativeKeywords.py" />
-    <Compile Include="v9\OptimizeBudget.py" />
     <Compile Include="v9\ReportRequests.py" />
     <Compile Include="v9\SearchUserAccounts.py" />
-    <Compile Include="v9\ShoppingCampaigns.py" />
-    <Compile Include="v9\Targets.py" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
