@@ -173,7 +173,13 @@ class _CsvHeaders:
         _StringTable.Url,
 
         # Callout Ad Extension
-        _StringTable.CalloutText
+        _StringTable.CalloutText,
+
+        # Bid Strategy
+        _StringTable.BidStrategyType,
+
+        # Ad Format Preference
+        _StringTable.AdFormatPreference
     ]
 
     @staticmethod

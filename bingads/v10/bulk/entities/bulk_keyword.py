@@ -224,13 +224,11 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            #field_to_csv=lambda c: bulk_str(';'.join(c.keyword.FinalUrls.string)),
             field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalUrls),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.keyword.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            #field_to_csv=lambda c: bulk_str(';'.join(c.keyword.FinalMobileUrls.string)),
             field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalMobileUrls),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.keyword.FinalMobileUrls, v)
         ),
@@ -243,6 +241,11 @@ class BulkKeyword(_SingleRecordBulkEntity):
             header=_StringTable.CustomParameter,
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.keyword),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.keyword, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyType,
+            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.keyword),
+            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.keyword, v)
         ),
     ]
 

@@ -224,4 +224,8 @@ class _StringTable:
     AdGroupCalloutAdExtension = "Ad Group Callout Ad Extension"
     CalloutText = "Callout Text"
 
+    BidStrategyType = "Bid Strategy Type"
+    AdFormatPreference = "Ad Format Preference"
+
+
 

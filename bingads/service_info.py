@@ -19,30 +19,6 @@ class _ServiceInfo:
 
 
 _SERVICE_INFO_LIST = [
-    # bulk service
-    _ServiceInfo(
-        "bulk",
-        "production",
-        "https://api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v9/BulkService.svc?singleWsdl"
-    ),
-    _ServiceInfo(
-        "bulk",
-        "sandbox",
-        "https://api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v9/BulkService.svc?singleWsdl"
-    ),
-
-    # campaign management
-    _ServiceInfo(
-        "campaignmanagement",
-        "production",
-        "https://api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v9/CampaignManagementService.svc?singleWsdl"
-    ),
-    _ServiceInfo(
-        "campaignmanagement",
-        "sandbox",
-        "https://api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v9/CampaignManagementService.svc?singleWsdl"
-    ),
-
     # customer billing
     _ServiceInfo(
         "customerbilling",
@@ -72,30 +48,6 @@ _SERVICE_INFO_LIST = [
         "reporting",
         "sandbox",
         "https://api.sandbox.bingads.microsoft.com/Api/Advertiser/Reporting/v9/ReportingService.svc?singleWsdl"
-    ),
-
-    # ad intelligence
-    _ServiceInfo(
-        "adintelligence",
-        "production",
-        "https://api.bingads.microsoft.com/Api/Advertiser/AdIntelligence/v9/AdIntelligenceService.svc?singleWsdl"
-    ),
-    _ServiceInfo(
-        "adintelligence",
-        "sandbox",
-        "https://api.sandbox.bingads.microsoft.com/Api/Advertiser/AdIntelligence/v9/AdIntelligenceService.svc?singleWsdl"
-    ),
-
-    # optimizer
-    _ServiceInfo(
-        "optimizer",
-        "production",
-        "https://api.bingads.microsoft.com/Api/Advertiser/Optimizer/v9/OptimizerService.svc?singleWsdl"
-    ),
-    _ServiceInfo(
-        "optimizer",
-        "sandbox",
-        "https://api.sandbox.bingads.microsoft.com/Api/Advertiser/Optimizer/v9/OptimizerService.svc?singleWsdl"
     ),
 ]
 

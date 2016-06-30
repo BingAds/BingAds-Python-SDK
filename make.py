@@ -163,11 +163,6 @@ def v10_ft():
     run_cmd('py.test v10tests/ -k "functional" -v --strict')
 
 
-@task('run all v9 functional tests under current interpreter.')
-def v9_ft():
-    run_cmd('py.test tests/ -k "functional" -v --strict')
-
-
 @task('run tests on all supported interpreters (check tox.ini)')
 @dependent_on(clean)
 def test_all():

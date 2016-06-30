@@ -299,6 +299,11 @@ class BulkTextAd(_BulkAd):
             field_to_csv=lambda c: bulk_optional_str(c.text_ad.DestinationUrl),
             csv_to_field=lambda c, v: setattr(c.text_ad, 'DestinationUrl', v if v else '')
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdFormatPreference,
+            field_to_csv=lambda c: field_to_csv_AdFormatPreference(c.text_ad),
+            csv_to_field=lambda c, v: csv_to_field_AdFormatPreference(c.text_ad, v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

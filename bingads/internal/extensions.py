@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from bingads.internal.bulk.string_table import _StringTable
+from bingads.v10.internal.bulk.string_table import _StringTable
 from six import PY2
 import re
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY, _CAMPAIGN_OBJECT_FACTORY_V10
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10
 
 
 DELETE_VALUE = "delete_value"
@@ -130,7 +130,7 @@ def parse_date(d_str):
     if not d_str:
         return None
     parsed_date = datetime.strptime(d_str, _BULK_DATE_FORMAT)
-    bing_ads_date = _CAMPAIGN_OBJECT_FACTORY.create('Date')
+    bing_ads_date = _CAMPAIGN_OBJECT_FACTORY_V10.create('Date')
     bing_ads_date.Day = parsed_date.day
     bing_ads_date.Month = parsed_date.month
     bing_ads_date.Year = parsed_date.year
@@ -247,6 +247,95 @@ def field_to_csv_Urls(entity):
     return '; '.join(entity.string)
 
 
+def field_to_csv_BidStrategyType(entity):
+    """
+    parse entity to csv content
+    :param entity: entity which has BiddingScheme attribute
+    :return: csv content
+    """
+    if entity.BiddingScheme is None or type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:BiddingScheme')):
+        return None
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:EnhancedCpcBiddingScheme')):
+        return 'EnhancedCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:InheritFromParentBiddingScheme')):
+        return 'InheritFromParent'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:MaxConversionsBiddingScheme')):
+        return 'MaxConversions'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:ManualCpcBiddingScheme')):
+        return 'ManualCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:TargetCpaBiddingScheme')):
+        return 'TargetCpa'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:MaxClicksBiddingScheme')):
+        return 'MaxClicks'
+    else:
+        raise TypeError('Unsupported Bid Strategy Type')
+
+
+def csv_to_field_BidStrategyType(entity, value):
+    """
+    set BiddingScheme
+    :param entity: entity which has BiddingScheme attribute
+    :param value: the content in csv
+    :return:
+    """
+    if value is None or value == '':
+        return
+    elif value == 'EnhancedCpc':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:EnhancedCpcBiddingScheme')
+    elif value == 'InheritFromParent':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:InheritFromParentBiddingScheme')
+    elif value == 'MaxConversions':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:MaxConversionsBiddingScheme')
+    elif value == 'ManualCpc':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:ManualCpcBiddingScheme')
+    elif value == 'TargetCpa':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:TargetCpaBiddingScheme')
+    elif value == 'MaxClicks':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:MaxClicksBiddingScheme')
+    else:
+        raise ValueError('Unknown Bid Strategy Type')
+    entity.BiddingScheme.Type = value
+
+
+def field_to_csv_AdFormatPreference(entity):
+    """
+    convert entity field to csv content
+    :param entity: entity which has ForwardCompatibilityMap attribute
+    :return:
+    """
+    if entity.ForwardCompatibilityMap is None or entity.ForwardCompatibilityMap.KeyValuePairOfstringstring is None \
+        or len(entity.ForwardCompatibilityMap.KeyValuePairOfstringstring) == 0:
+        return None
+    for key_value_pair in entity.ForwardCompatibilityMap.KeyValuePairOfstringstring:
+        if key_value_pair.key == 'NativePreference':
+            if key_value_pair.value.lower() == 'true':
+                return 'Native'
+            elif key_value_pair.value.lower() == 'false':
+                return 'All'
+            else:
+                raise ValueError('Unknown value for Native Preference: {0}'.format(key_value_pair.value))
+    return None
+
+
+def csv_to_field_AdFormatPreference(entity, value):
+    """
+    parse csv content and set entity attribute
+    :param entity: entity which has ForwardCompatibilityMap attribute
+    :param value: csv content value
+    :return:
+    """
+    ad_format_preference = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns2:KeyValuePairOfstringstring')
+    ad_format_preference.key = 'NativePreference'
+    if value is None or value == '' or value == 'All':
+        ad_format_preference.value = 'False'
+    elif value == 'Native':
+        ad_format_preference.value = 'True'
+    else:
+        raise ValueError('Unknown value for Native Preference: {0}'.format(value))
+    entity.ForwardCompatibilityMap = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns2:ArrayOfKeyValuePairOfstringstring')
+    entity.ForwardCompatibilityMap.KeyValuePairOfstringstring.append(ad_format_preference)
+
+
 def ad_rotation_bulk_str(value):
     if value is None:
         return None
@@ -259,7 +348,7 @@ def ad_rotation_bulk_str(value):
 def parse_ad_rotation(value):
     if not value:
         return None
-    ad_rotation = _CAMPAIGN_OBJECT_FACTORY.create('AdRotation')
+    ad_rotation = _CAMPAIGN_OBJECT_FACTORY_V10.create('AdRotation')
     ad_rotation.Type = None if value == DELETE_VALUE else value
     return ad_rotation
 
@@ -267,7 +356,7 @@ def parse_ad_rotation(value):
 def parse_ad_group_bid(value):
     if not value:
         return None
-    bid = _CAMPAIGN_OBJECT_FACTORY.create('Bid')
+    bid = _CAMPAIGN_OBJECT_FACTORY_V10.create('Bid')
     bid.Amount = float(value)
     return bid
 
@@ -287,7 +376,7 @@ def keyword_bid_bulk_str(value):
 
 
 def parse_keyword_bid(value):
-    bid = _CAMPAIGN_OBJECT_FACTORY.create('Bid')
+    bid = _CAMPAIGN_OBJECT_FACTORY_V10.create('Bid')
     if not value:
         bid.Amount = None
     else:

@@ -8,7 +8,6 @@ from bingads.internal.extensions import *
 
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ShoppingSetting'))
 
-
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
 
@@ -251,6 +250,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.CustomParameter,
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.campaign),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.campaign, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyType,
+            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.campaign),
+            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.campaign, v)
         ),
     ]
 

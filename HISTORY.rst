@@ -3,6 +3,15 @@
 Release History
 ---------------
 
+10.4.5(2016-06-30)
+++++++++++++++++++
+
+* Sunset campaign management, bulk, ad intelligence, optimizer services in v9
+* Add Ad Format Preference in Text Ad
+* Add Bid Strategy Type in Campaign, AdGroup and Keyword
+* Updated wsdl proxy to latest version
+* Bug fixes
+
 10.4.4(2016-05-30)
 ++++++++++++++++++
 

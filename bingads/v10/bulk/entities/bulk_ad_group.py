@@ -206,6 +206,11 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad_group),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad_group, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyType,
+            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.ad_group, v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

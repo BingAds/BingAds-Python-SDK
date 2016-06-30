@@ -2,7 +2,6 @@ from .bulk_object_factory import _BulkObjectFactory
 from .row_values import _RowValues
 from .csv_reader import _CsvReader
 
-
 class _BulkObjectReader():
     """ Provides a method to read one row from bulk file and return the corresponding :class:`._BulkObject` """
 
