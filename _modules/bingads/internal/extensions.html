@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.internal.extensions &mdash; Bing Ads SDK 10.4.4 documentation</title>
+    <title>bingads.internal.extensions &mdash; Bing Ads SDK 10.4.5 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '10.4.4',
+        VERSION:     '10.4.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.5 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.5 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -49,10 +49,10 @@
   <h1>Source code for bingads.internal.extensions</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="kn">from</span> <span class="nn">bingads.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">PY2</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="p">,</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
 
 
 <span class="n">DELETE_VALUE</span> <span class="o">=</span> <span class="s">&quot;delete_value&quot;</span>
@@ -179,7 +179,7 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">d_str</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">None</span>
     <span class="n">parsed_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">d_str</span><span class="p">,</span> <span class="n">_BULK_DATE_FORMAT</span><span class="p">)</span>
-    <span class="n">bing_ads_date</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="n">bing_ads_date</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Date&#39;</span><span class="p">)</span>
     <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Day</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">day</span>
     <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Month</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">month</span>
     <span class="n">bing_ads_date</span><span class="o">.</span><span class="n">Year</span> <span class="o">=</span> <span class="n">parsed_date</span><span class="o">.</span><span class="n">year</span>
@@ -296,6 +296,95 @@
     <span class="k">return</span> <span class="s">&#39;; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
 
 </div>
+<div class="viewcode-block" id="field_to_csv_BidStrategyType"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_BidStrategyType">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_BidStrategyType</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parse entity to csv content</span>
+<span class="sd">    :param entity: entity which has BiddingScheme attribute</span>
+<span class="sd">    :return: csv content</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:BiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:EnhancedCpcBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;EnhancedCpc&#39;</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:InheritFromParentBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;InheritFromParent&#39;</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:MaxConversionsBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;MaxConversions&#39;</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:ManualCpcBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;ManualCpc&#39;</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:TargetCpaBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;TargetCpa&#39;</span>
+    <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:MaxClicksBiddingScheme&#39;</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="s">&#39;MaxClicks&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;Unsupported Bid Strategy Type&#39;</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="csv_to_field_BidStrategyType"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_field_BidStrategyType">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_BidStrategyType</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    set BiddingScheme</span>
+<span class="sd">    :param entity: entity which has BiddingScheme attribute</span>
+<span class="sd">    :param value: the content in csv</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;EnhancedCpc&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:EnhancedCpcBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;InheritFromParent&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:InheritFromParentBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;MaxConversions&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:MaxConversionsBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;ManualCpc&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:ManualCpcBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;TargetCpa&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:TargetCpaBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;MaxClicks&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns0:MaxClicksBiddingScheme&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown Bid Strategy Type&#39;</span><span class="p">)</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="field_to_csv_AdFormatPreference"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert entity field to csv content</span>
+<span class="sd">    :param entity: entity which has ForwardCompatibilityMap attribute</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span> <span class="ow">is</span> <span class="bp">None</span> \
+        <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">for</span> <span class="n">key_value_pair</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="s">&#39;NativePreference&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;true&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">&#39;Native&#39;</span>
+            <span class="k">elif</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;false&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">&#39;All&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown value for Native Preference: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="bp">None</span>
+
+</div>
+<div class="viewcode-block" id="csv_to_field_AdFormatPreference"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_field_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parse csv content and set entity attribute</span>
+<span class="sd">    :param entity: entity which has ForwardCompatibilityMap attribute</span>
+<span class="sd">    :param value: csv content value</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ad_format_preference</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns2:KeyValuePairOfstringstring&#39;</span><span class="p">)</span>
+    <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s">&#39;NativePreference&#39;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;All&#39;</span><span class="p">:</span>
+        <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#39;False&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Native&#39;</span><span class="p">:</span>
+        <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s">&#39;True&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown value for Native Preference: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ns2:ArrayOfKeyValuePairOfstringstring&#39;</span><span class="p">)</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ad_format_preference</span><span class="p">)</span>
+
+</div>
 <div class="viewcode-block" id="ad_rotation_bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.ad_rotation_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">ad_rotation_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">None</span>
@@ -308,7 +397,7 @@
 <div class="viewcode-block" id="parse_ad_rotation"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_ad_rotation">[docs]</a><span class="k">def</span> <span class="nf">parse_ad_rotation</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">None</span>
-    <span class="n">ad_rotation</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdRotation&#39;</span><span class="p">)</span>
+    <span class="n">ad_rotation</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdRotation&#39;</span><span class="p">)</span>
     <span class="n">ad_rotation</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="bp">None</span> <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="n">DELETE_VALUE</span> <span class="k">else</span> <span class="n">value</span>
     <span class="k">return</span> <span class="n">ad_rotation</span>
 
@@ -316,7 +405,7 @@
 <div class="viewcode-block" id="parse_ad_group_bid"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_ad_group_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_ad_group_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">None</span>
-    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
+    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
     <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">bid</span>
 
@@ -336,7 +425,7 @@
 
 </div>
 <div class="viewcode-block" id="parse_keyword_bid"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_keyword_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_keyword_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
+    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Bid&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
         <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">else</span><span class="p">:</span>
@@ -419,7 +508,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.5 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-    bingads.bulk
     bingads.internal
     bingads.reporting
     bingads.v10

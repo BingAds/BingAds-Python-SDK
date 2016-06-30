@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk package &mdash; Bing Ads SDK 10.4.4 documentation</title>
+    <title>bingads.v10.bulk package &mdash; Bing Ads SDK 10.4.5 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.4',
+        VERSION:     '10.4.5',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.4 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.5 documentation" href="index.html" />
     <link rel="up" title="bingads.v10 package" href="bingads.v10.html" />
     <link rel="next" title="bingads.v10.bulk.entities package" href="bingads.v10.bulk.entities.html" />
     <link rel="prev" title="bingads.v10 package" href="bingads.v10.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.v10.html" title="bingads.v10 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.5 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" accesskey="U">bingads.v10 package</a> &raquo;</li> 
       </ul>
@@ -117,7 +117,7 @@
 <p>Represents a bulk download operation requested by a user.</p>
 <p>You can use this class to poll for the download status, and then download the file when available.</p>
 <p><em>Example:</em></p>
-<p>The <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="bingads.bulk.bulk_service_manager.BulkServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">BulkServiceManager.submit_download()</span></code></a> method returns an instance of this class.
+<p>The <a class="reference internal" href="#bingads.v10.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">BulkServiceManager.submit_download()</span></code></a> method returns an instance of this class.
 If for any reason you do not want to wait for the file to be prepared for download,
 for example if your application quits unexpectedly or you have other tasks to process, you can
 use an instance of <a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v10.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></code></a> to download the file when it is available.</p>
@@ -351,7 +351,7 @@ use an instance of <a class="reference internal" href="#bingads.v10.bulk.bulk_op
 <dt id="bingads.v10.bulk.bulk_operation_status.BulkOperationStatus">
 <em class="property">class </em><code class="descclassname">bingads.v10.bulk.bulk_operation_status.</code><code class="descname">BulkOperationStatus</code><span class="sig-paren">(</span><em>status=None</em>, <em>percent_complete=None</em>, <em>result_file_url=None</em>, <em>errors=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/bulk_operation_status.html#BulkOperationStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.bulk_operation_status.BulkOperationStatus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Contains tracking details about the results and status of the corresponding <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkDownloadOperation" title="bingads.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></code></a> or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkUploadOperation" title="bingads.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkUploadOperation</span></code></a>.</p>
+<p>Contains tracking details about the results and status of the corresponding <a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v10.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></code></a> or <a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkUploadOperation" title="bingads.v10.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkUploadOperation</span></code></a>.</p>
 <dl class="attribute">
 <dt id="bingads.v10.bulk.bulk_operation_status.BulkOperationStatus.errors">
 <code class="descname">errors</code><a class="headerlink" href="#bingads.v10.bulk.bulk_operation_status.BulkOperationStatus.errors" title="Permalink to this definition">¶</a></dt>
@@ -423,8 +423,8 @@ use an instance of <a class="reference internal" href="#bingads.v10.bulk.bulk_op
 poll until the status is completed (or returns an error), and downloads the file locally.
 If instead you want to manage the low level details you would first call <a class="reference internal" href="#bingads.v10.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager.submit_download"><code class="xref py py-func docutils literal"><span class="pre">submit_download()</span></code></a>,
 wait for the results file to be prepared using either <a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkDownloadOperation.get_status" title="bingads.v10.bulk.bulk_operation.BulkDownloadOperation.get_status"><code class="xref py py-meth docutils literal"><span class="pre">BulkDownloadOperation.get_status()</span></code></a>
-or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkDownloadOperation.track" title="bingads.bulk.bulk_operation.BulkDownloadOperation.track"><code class="xref py py-meth docutils literal"><span class="pre">BulkDownloadOperation.track()</span></code></a>, and then download the file with the
-<a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkOperation.download_result_file" title="bingads.bulk.bulk_operation.BulkOperation.download_result_file"><code class="xref py py-meth docutils literal"><span class="pre">BulkOperation.download_result_file()</span></code></a> method.</p>
+or <a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkDownloadOperation.track" title="bingads.v10.bulk.bulk_operation.BulkDownloadOperation.track"><code class="xref py py-meth docutils literal"><span class="pre">BulkDownloadOperation.track()</span></code></a>, and then download the file with the
+<a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkOperation.download_result_file" title="bingads.v10.bulk.bulk_operation.BulkOperation.download_result_file"><code class="xref py py-meth docutils literal"><span class="pre">BulkOperation.download_result_file()</span></code></a> method.</p>
 <dl class="method">
 <dt id="bingads.v10.bulk.bulk_service_manager.BulkServiceManager.download_entities">
 <code class="descname">download_entities</code><span class="sig-paren">(</span><em>download_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/bulk_service_manager.html#BulkServiceManager.download_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.bulk_service_manager.BulkServiceManager.download_entities" title="Permalink to this definition">¶</a></dt>
@@ -434,7 +434,7 @@ or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_opera
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>download_parameters</strong> (<a class="reference internal" href="bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters" title="bingads.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) &#8211; Determines various download parameters, for example where the file should be downloaded.</li>
+<li><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v10.bulk.download_parameters.DownloadParameters" title="bingads.v10.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) &#8211; Determines various download parameters, for example where the file should be downloaded.</li>
 <li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) &#8211; (optional) Tracking the percent complete progress information for the bulk operation.</li>
 </ul>
 </td>
@@ -458,7 +458,7 @@ or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_opera
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>download_parameters</strong> (<a class="reference internal" href="bingads.bulk.html#bingads.bulk.download_parameters.DownloadParameters" title="bingads.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) &#8211; Determines various download parameters, for example where the file should be downloaded.</li>
+<li><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v10.bulk.download_parameters.DownloadParameters" title="bingads.v10.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) &#8211; Determines various download parameters, for example where the file should be downloaded.</li>
 <li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) &#8211; (optional) Tracking the percent complete progress information for the bulk operation.</li>
 </ul>
 </td>
@@ -513,7 +513,7 @@ or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_opera
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted download operation</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkDownloadOperation" title="bingads.bulk.bulk_operation.BulkDownloadOperation">BulkDownloadOperation</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v10.bulk.bulk_operation.BulkDownloadOperation">BulkDownloadOperation</a></td>
 </tr>
 </tbody>
 </table>
@@ -527,11 +527,11 @@ or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_opera
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_upload_parameters</strong> (<a class="reference internal" href="bingads.bulk.html#bingads.bulk.upload_parameters.SubmitUploadParameters" title="bingads.bulk.upload_parameters.SubmitUploadParameters"><em>SubmitUploadParameters</em></a>) &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_upload_parameters</strong> (<a class="reference internal" href="#bingads.v10.bulk.upload_parameters.SubmitUploadParameters" title="bingads.v10.bulk.upload_parameters.SubmitUploadParameters"><em>SubmitUploadParameters</em></a>) &#8211; </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted upload operation.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_operation.BulkUploadOperation" title="bingads.bulk.bulk_operation.BulkUploadOperation">BulkUploadOperation</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v10.bulk.bulk_operation.BulkUploadOperation" title="bingads.v10.bulk.bulk_operation.BulkUploadOperation">BulkUploadOperation</a></td>
 </tr>
 </tbody>
 </table>
@@ -560,7 +560,7 @@ or <a class="reference internal" href="bingads.bulk.html#bingads.bulk.bulk_opera
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entity_upload_parameters</strong> (<a class="reference internal" href="bingads.bulk.html#bingads.bulk.upload_parameters.EntityUploadParameters" title="bingads.bulk.upload_parameters.EntityUploadParameters"><em>EntityUploadParameters</em></a>) &#8211; Determines various upload parameters, for example what entities to upload.</li>
+<li><strong>entity_upload_parameters</strong> (<a class="reference internal" href="#bingads.v10.bulk.upload_parameters.EntityUploadParameters" title="bingads.v10.bulk.upload_parameters.EntityUploadParameters"><em>EntityUploadParameters</em></a>) &#8211; Determines various upload parameters, for example what entities to upload.</li>
 <li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) &#8211; (optional) Tracking the percent complete progress information for the bulk operation.</li>
 </ul>
 </td>
@@ -1160,7 +1160,7 @@ the operation performs a full download.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.bulk.html#bingads.bulk.enums.ResultFileType" title="bingads.bulk.enums.ResultFileType">ResultFileType</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v10.bulk.enums.ResultFileType" title="bingads.v10.bulk.enums.ResultFileType">ResultFileType</a></td>
 </tr>
 </tbody>
 </table>
@@ -1571,7 +1571,7 @@ should be excluded when writing to file</li>
         <li class="right" >
           <a href="bingads.v10.html" title="bingads.v10 package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.4 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.5 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li> 
       </ul>

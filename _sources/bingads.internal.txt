@@ -1,13 +1,6 @@
 bingads.internal package
 ========================
 
-Subpackages
------------
-
-.. toctree::
-
-    bingads.internal.bulk
-
 Submodules
 ----------
 
