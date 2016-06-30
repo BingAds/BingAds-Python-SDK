@@ -337,7 +337,8 @@ if __name__ == '__main__':
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
 
-        # Get the remarketing lists from the account's remarketing list library.
+        # To discover all remarketing lists that the user can associate with ad groups in the current account (per CustomerAccountId header), 
+        # set RemarketingListIds to null when calling the GetRemarketingLists operation.
         remarketing_lists=campaign_service.GetRemarketingLists(
             RemarketingListIds = None
         ).RemarketingLists
