@@ -273,6 +273,17 @@ def output_webfault_errors(ex):
             output_status_message(api_errors.Message)
     else:
         raise Exception('Unknown WebFault')
+        
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
 
 def output_campaign_ids(campaign_ids):
     for id in campaign_ids['long']:
@@ -480,8 +491,8 @@ class PartitionActionHelper:
         :rtype: AdGroupCriterion
         """
 
-        biddable_ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
-        product_partition=campaign_service.factory.create('ProductPartition')
+        biddable_ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
+        product_partition=set_elements_to_none(campaign_service.factory.create('ProductPartition'))
         # If the root node is a unit, it would not have a parent
         product_partition.ParentCriterionId=parent.Id if parent is not None else None
         product_partition.Condition=condition
@@ -496,7 +507,7 @@ class PartitionActionHelper:
         self._reference_id=self._reference_id
         self._reference_id-=1
 
-        partition_action=campaign_service.factory.create('AdGroupCriterionAction')
+        partition_action=set_elements_to_none(campaign_service.factory.create('AdGroupCriterionAction'))
         partition_action.Action='Add'
         partition_action.AdGroupCriterion=biddable_ad_group_criterion
         self._partition_actions.AdGroupCriterionAction.append(partition_action)
@@ -523,11 +534,11 @@ class PartitionActionHelper:
 
         ad_group_criterion=None
         if is_negative:
-            ad_group_criterion=campaign_service.factory.create('NegativeAdGroupCriterion')
+            ad_group_criterion=set_elements_to_none(campaign_service.factory.create('NegativeAdGroupCriterion'))
         else:
-            ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
+            ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
             fixed_bid=campaign_service.factory.create('FixedBid')
-            bid=campaign_service.factory.create('Bid')
+            bid=set_elements_to_none(campaign_service.factory.create('Bid'))
             bid.Amount=bid_amount
             fixed_bid.Bid=bid
             ad_group_criterion.CriterionBid=fixed_bid
@@ -537,14 +548,14 @@ class PartitionActionHelper:
             ad_group_criterion.EditorialStatus=None
         ad_group_criterion.Status=None
 
-        product_partition=campaign_service.factory.create('ProductPartition')
+        product_partition=set_elements_to_none(campaign_service.factory.create('ProductPartition'))
         # If the root node is a unit, it would not have a parent
         product_partition.ParentCriterionId=parent.Id if parent is not None else None
         product_partition.Condition=condition
         product_partition.PartitionType='Unit'
         ad_group_criterion.Criterion=product_partition=product_partition
 
-        partition_action=campaign_service.factory.create('AdGroupCriterionAction')
+        partition_action=set_elements_to_none(campaign_service.factory.create('AdGroupCriterionAction'))
         partition_action.Action='Add'
         partition_action.AdGroupCriterion=ad_group_criterion
         self._partition_actions.AdGroupCriterionAction.append(partition_action)
@@ -561,11 +572,11 @@ class PartitionActionHelper:
         """
 
         ad_group_criterion.AdGroupId=self._ad_group_id
-        ad_group_criterion.Status=None
-        if hasattr(ad_group_criterion, 'EditorialStatus'):
-            ad_group_criterion.EditorialStatus=None
+        #ad_group_criterion.Status=None
+        #if hasattr(ad_group_criterion, 'EditorialStatus'):
+        #    ad_group_criterion.EditorialStatus=None
 
-        partition_action=campaign_service.factory.create('AdGroupCriterionAction')
+        partition_action=set_elements_to_none(campaign_service.factory.create('AdGroupCriterionAction'))
         partition_action.Action='Delete'
         partition_action.AdGroupCriterion=ad_group_criterion
         self._partition_actions.AdGroupCriterionAction.append(partition_action)
@@ -585,11 +596,11 @@ class PartitionActionHelper:
         """
 
         biddable_ad_group_criterion.AdGroupId=self._ad_group_id
-        biddable_ad_group_criterion.Status=None
-        if hasattr(biddable_ad_group_criterion, 'EditorialStatus'):
-            biddable_ad_group_criterion.EditorialStatus=None
+        #biddable_ad_group_criterion.Status=None
+        #if hasattr(biddable_ad_group_criterion, 'EditorialStatus'):
+        #    biddable_ad_group_criterion.EditorialStatus=None
 
-        partition_action=campaign_service.factory.create('AdGroupCriterionAction')
+        partition_action=set_elements_to_none(campaign_service.factory.create('AdGroupCriterionAction'))
         partition_action.Action='Update'
         partition_action.AdGroupCriterion=biddable_ad_group_criterion
         self._partition_actions.AdGroupCriterionAction.append(partition_action)
@@ -601,11 +612,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -631,9 +642,9 @@ if __name__ == '__main__':
         #   Add this shopping setting to the Settings list of the Campaign.
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         settings=campaign_service.factory.create('ArrayOfSetting')
-        setting=campaign_service.factory.create('ShoppingSetting')
+        setting=set_elements_to_none(campaign_service.factory.create('ShoppingSetting'))
         setting.Priority=0
         setting.SalesCountryCode ='US'
         setting.StoreId=stores[0].Id
@@ -666,8 +677,8 @@ if __name__ == '__main__':
         #of up to 7 ProductCondition. You'll also be able to specify more specific product conditions for each ad group.
 
         campaign_criterions=campaign_service.factory.create('ArrayOfCampaignCriterion')
-        campaign_criterion=campaign_service.factory.create('CampaignCriterion')
-        product_scope=campaign_service.factory.create('ProductScope')
+        campaign_criterion=set_elements_to_none(campaign_service.factory.create('CampaignCriterion'))
+        product_scope=set_elements_to_none(campaign_service.factory.create('ProductScope'))
         conditions=campaign_service.factory.create('ArrayOfProductCondition')
         condition_new=campaign_service.factory.create('ProductCondition')
         condition_new.Operand='Condition'
@@ -691,7 +702,7 @@ if __name__ == '__main__':
         # Specify one or more ad groups.
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
-        ad_group=campaign_service.factory.create('AdGroup')
+        ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
         ad_group.Name="Product Categories"
         ad_group.AdDistribution=['Search']
         ad_group.BiddingModel='Keyword'
@@ -704,6 +715,7 @@ if __name__ == '__main__':
         end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         ad_group.Language='English'
+        ad_group.RemarketingTargetingSetting=None
         ad_groups.AdGroup.append(ad_group)
 
         add_ad_groups_response=campaign_service.AddAdGroups(
@@ -748,7 +760,7 @@ if __name__ == '__main__':
 
         # Let's update the bid of the root Unit we just added.
 
-        updated_root=campaign_service.factory.create('BiddableAdGroupCriterion')
+        updated_root=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
         fixed_bid=campaign_service.factory.create('FixedBid')
         bid=campaign_service.factory.create('Bid')
         bid.Amount=0.45
@@ -959,7 +971,7 @@ if __name__ == '__main__':
         electronics.Id=apply_product_partition_actions_response.AdGroupCriterionIds['long'][8]
         helper.delete_partition(electronics)
 
-        parent=campaign_service.factory.create('BiddableAdGroupCriterion')
+        parent=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
         parent.Id=root_id
 
         electronics_subdivision_condition=campaign_service.factory.create('ProductCondition')
@@ -1056,7 +1068,7 @@ if __name__ == '__main__':
         #'Free shipping on $99 purchases.'
         
         ads=campaign_service.factory.create('ArrayOfAd')
-        product_ad=campaign_service.factory.create('ProductAd')
+        product_ad=set_elements_to_none(campaign_service.factory.create('ProductAd'))
         product_ad.PromotionalText='Free shipping on $99 purchases.'
         product_ad.Type='Product'
         product_ad.Status=None
@@ -1094,4 +1106,3 @@ if __name__ == '__main__':
         output_webfault_errors(ex)
     except Exception as ex:
         output_status_message(ex)
-

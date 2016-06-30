@@ -271,6 +271,17 @@ def output_webfault_errors(ex):
             output_status_message(api_errors.Message)
     else:
         raise Exception('Unknown WebFault')
+        
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
 
 def output_campaign_ids(campaign_ids):
     for id in campaign_ids['long']:
@@ -438,11 +449,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -456,7 +467,7 @@ if __name__ == '__main__':
         # Add a campaign that will later be associated with ad extensions. 
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
@@ -484,35 +495,28 @@ if __name__ == '__main__':
 
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
         
-        app_ad_extension=campaign_service.factory.create('AppAdExtension')
+        app_ad_extension=set_elements_to_none(campaign_service.factory.create('AppAdExtension'))
         app_ad_extension.AppPlatform='Windows'
         app_ad_extension.AppStoreId='AppStoreIdGoesHere'
         app_ad_extension.DisplayText='Contoso'
         app_ad_extension.DestinationUrl='DestinationUrlGoesHere'
-        app_ad_extension.Status=None
         # If you supply the AppAdExtension properties above, then you can add this line.
         #ad_extensions.AdExtension.append(app_ad_extension)
 
-        call_ad_extension=campaign_service.factory.create('CallAdExtension')
+        call_ad_extension=set_elements_to_none(campaign_service.factory.create('CallAdExtension'))
         call_ad_extension.CountryCode="US"
         call_ad_extension.PhoneNumber="2065550100"
         call_ad_extension.IsCallOnly=False
         call_ad_extension.Status=None
         ad_extensions.AdExtension.append(call_ad_extension)
 
-        callout_ad_extension=campaign_service.factory.create('CalloutAdExtension')
+        callout_ad_extension=set_elements_to_none(campaign_service.factory.create('CalloutAdExtension'))
         callout_ad_extension.Text="Callout Text"
-        callout_ad_extension.Status=None
         ad_extensions.AdExtension.append(callout_ad_extension)
 
-        location_ad_extension=campaign_service.factory.create('LocationAdExtension')
+        location_ad_extension=set_elements_to_none(campaign_service.factory.create('LocationAdExtension'))
         location_ad_extension.PhoneNumber="206-555-0100"
         location_ad_extension.CompanyName="Contoso Shoes"
-        location_ad_extension.IconMediaId=None
-        location_ad_extension.ImageMediaId=None
-        location_ad_extension.Status=None
-        location_ad_extension.GeoCodeStatus=None
-        location_ad_extension.GeoPoint=None
         address=campaign_service.factory.create('Address')
         address.StreetAddress="1234 Washington Place"
         address.StreetAddress2="Suite 1210"
@@ -523,19 +527,18 @@ if __name__ == '__main__':
         location_ad_extension.Address=address
         ad_extensions.AdExtension.append(location_ad_extension)
 
-        review_ad_extension=campaign_service.factory.create('ReviewAdExtension')
+        review_ad_extension=set_elements_to_none(campaign_service.factory.create('ReviewAdExtension'))
         review_ad_extension.IsExact=True
         review_ad_extension.Source="Review Source Name"
         review_ad_extension.Text="Review Text"
         review_ad_extension.Url="http://review.contoso.com" # The Url of the third-party review. This is not your business Url.
-        review_ad_extension.Status=None
         ad_extensions.AdExtension.append(review_ad_extension)
         
-        site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
+        site_links_ad_extension=set_elements_to_none(campaign_service.factory.create('SiteLinksAdExtension'))
         site_links=campaign_service.factory.create('ArrayOfSiteLink')
 
         for index in range(2):
-            site_link=campaign_service.factory.create('SiteLink')
+            site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
             site_link.DisplayText = "Women's Shoe Sale " + str(index)
 
             # If you are currently using the Destination URL, you must upgrade to Final URLs. 
@@ -583,7 +586,6 @@ if __name__ == '__main__':
             site_links.SiteLink.append(site_link)
 
         site_links_ad_extension.SiteLinks=site_links
-        site_links_ad_extension.Status=None
         ad_extensions.AdExtension.append(site_links_ad_extension)
         
         # Add all extensions to the account's ad extension library
