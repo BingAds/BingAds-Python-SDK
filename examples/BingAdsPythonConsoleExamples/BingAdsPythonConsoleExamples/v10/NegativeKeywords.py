@@ -271,6 +271,17 @@ def output_webfault_errors(ex):
             output_status_message(api_errors.Message)
     else:
         raise Exception('Unknown WebFault')
+        
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
 
 def output_campaign_ids(campaign_ids):
     for id in campaign_ids['long']:
@@ -407,11 +418,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -425,7 +436,7 @@ if __name__ == '__main__':
         # Add a campaign that will later be associated with negative keywords. 
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
@@ -450,7 +461,7 @@ if __name__ == '__main__':
         # or ad groups. This example only associates negative keywords with a campaign.
 
         entity_negative_keywords=campaign_service.factory.create('ArrayOfEntityNegativeKeyword')
-        entity_negative_keyword=campaign_service.factory.create('EntityNegativeKeyword')
+        entity_negative_keyword=set_elements_to_none(campaign_service.factory.create('EntityNegativeKeyword'))
         entity_negative_keyword.EntityId=campaign_ids['long'][0]
         entity_negative_keyword.EntityType="Campaign"
         negative_keywords=campaign_service.factory.create('ArrayOfNegativeKeyword')
@@ -521,17 +532,17 @@ if __name__ == '__main__':
         # The negative keyword list can be shared or associated with multiple campaigns.
         # NegativeKeywordList inherits from SharedList which inherits from SharedEntity.
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Name="My Negative Keyword List " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         negative_keyword_list.Type="NegativeKeywordList"
         
         negative_keywords=campaign_service.factory.create('ArrayOfSharedListItem')
-        negative_keyword_1=campaign_service.factory.create('NegativeKeyword')
+        negative_keyword_1=set_elements_to_none(campaign_service.factory.create('NegativeKeyword'))
         negative_keyword_1.Text="car"
         negative_keyword_1.Type="NegativeKeyword"
         negative_keyword_1.MatchType='Exact'
         negative_keywords.SharedListItem.append(negative_keyword_1)
-        negative_keyword_2=campaign_service.factory.create('NegativeKeyword')
+        negative_keyword_2=set_elements_to_none(campaign_service.factory.create('NegativeKeyword'))
         negative_keyword_2.Text="car"
         negative_keyword_2.Type="NegativeKeyword"
         negative_keyword_2.MatchType='Phrase'
@@ -557,7 +568,7 @@ if __name__ == '__main__':
 
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         negative_keywords=campaign_service.GetListItemsBySharedList(SharedList=negative_keyword_list)
         if negative_keywords is None or len(negative_keywords) == 0:
@@ -570,7 +581,7 @@ if __name__ == '__main__':
         # To remove the negative keywords from the list pass the negative keyword identifers
         # and negative keyword list (SharedEntity) identifer.
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         partial_errors=campaign_service.DeleteListItemsFromSharedList(
             ListItemIds=list_item_ids, 
@@ -583,7 +594,7 @@ if __name__ == '__main__':
 
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         negative_keywords=campaign_service.GetListItemsBySharedList(SharedList=negative_keyword_list)
         if negative_keywords is None or len(negative_keywords) == 0:
@@ -595,18 +606,18 @@ if __name__ == '__main__':
         # using the AddListItemsToSharedList operation.
 
         negative_keywords=campaign_service.factory.create('ArrayOfSharedListItem')
-        negative_keyword_1=campaign_service.factory.create('NegativeKeyword')
+        negative_keyword_1=set_elements_to_none(campaign_service.factory.create('NegativeKeyword'))
         negative_keyword_1.Text="auto"
         negative_keyword_1.Type="NegativeKeyword"
         negative_keyword_1.MatchType='Exact'
         negative_keywords.SharedListItem.append(negative_keyword_1)
-        negative_keyword_2=campaign_service.factory.create('NegativeKeyword')
+        negative_keyword_2=set_elements_to_none(campaign_service.factory.create('NegativeKeyword'))
         negative_keyword_2.Text="auto"
         negative_keyword_2.Type="NegativeKeyword"
         negative_keyword_2.MatchType='Phrase'
         negative_keywords.SharedListItem.append(negative_keyword_2)
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
 
         add_list_items_to_shared_list_response=campaign_service.AddListItemsToSharedList(
@@ -624,7 +635,7 @@ if __name__ == '__main__':
 
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         negative_keywords=campaign_service.GetListItemsBySharedList(SharedList=negative_keyword_list)
         if negative_keywords is None or len(negative_keywords) == 0:
@@ -634,13 +645,13 @@ if __name__ == '__main__':
 
         # You can update the name of the negative keyword list. 
 
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         negative_keyword_list.Name="My Updated Negative Keyword List"
         negative_keyword_list.Type="NegativeKeywordList"
 
         negative_keyword_lists=campaign_service.factory.create('ArrayOfSharedEntity')
-        negative_keyword_list=campaign_service.factory.create('NegativeKeywordList')
+        negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
         negative_keyword_list.Id=shared_entity_id
         negative_keyword_lists.SharedEntity.append(negative_keyword_list)
         partial_errors=campaign_service.UpdateSharedEntities(SharedEntities=negative_keyword_lists)
@@ -660,7 +671,7 @@ if __name__ == '__main__':
         # be assigned an exclusive set of negative keywords. 
 
         shared_entity_associations=campaign_service.factory.create('ArrayOfSharedEntityAssociation')
-        shared_entity_association=campaign_service.factory.create('SharedEntityAssociation')
+        shared_entity_association=set_elements_to_none(campaign_service.factory.create('SharedEntityAssociation'))
         shared_entity_association.EntityId=campaign_ids['long'][0]
         shared_entity_association.EntityType="Campaign"
         shared_entity_association.SharedEntityId=shared_entity_id
@@ -730,4 +741,5 @@ if __name__ == '__main__':
         output_webfault_errors(ex)
     except Exception as ex:
         output_status_message(ex)
+
 
