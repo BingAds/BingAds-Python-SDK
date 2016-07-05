@@ -179,7 +179,17 @@ class _CsvHeaders:
         _StringTable.BidStrategyType,
 
         # Ad Format Preference
-        _StringTable.AdFormatPreference
+        _StringTable.AdFormatPreference,
+        
+        #Remarketing
+        _StringTable.RemarketingList,
+        _StringTable.AdGroupRemarketingList,
+        _StringTable.Description,
+        _StringTable.MembershipDuration,
+        _StringTable.Scope,
+        _StringTable.TagId,
+        _StringTable.RemarketingListId,
+        _StringTable.RemarketingTargetingSetting,
     ]
 
     @staticmethod

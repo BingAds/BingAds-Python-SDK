@@ -211,6 +211,11 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_BidStrategyType(c.ad_group),
             csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.ad_group, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.RemarketingTargetingSetting,
+            field_to_csv=lambda c: bulk_str(c.ad_group.RemarketingTargetingSetting),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'RemarketingTargetingSetting', v if v else None)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

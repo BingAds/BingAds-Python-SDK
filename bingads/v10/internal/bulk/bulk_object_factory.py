@@ -6,6 +6,8 @@ from bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions import Bu
 from bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions import _SiteLinkAdExtensionIdentifier
 from bingads.v10.bulk.entities.targets.bulk_targets import _BulkCampaignTargetIdentifier, \
     _BulkAdGroupTargetIdentifier, _BulkTargetIdentifier
+from bingads.v10.bulk.entities.bulk_remarketing_list import BulkRemarketingList
+from bingads.v10.bulk.entities.bulk_ad_group_remarketing_list import BulkAdGroupRemarketingList
 
 from bingads.v10.internal.bulk.string_table import _StringTable
 from bingads.v10.internal.bulk.entity_info import _EntityInfo
@@ -138,7 +140,9 @@ class _BulkObjectFactory():
             lambda: _BulkCampaignTargetIdentifier(target_bid_type=BulkCampaignRadiusTargetBid)
         ),
         'Campaign Product Scope': _EntityInfo(lambda : BulkCampaignProductScope()),
-        'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition())
+        'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition()),
+        'Remarketing List': _EntityInfo(lambda : BulkRemarketingList()),
+        'Ad Group Remarketing List Association': _EntityInfo(lambda : BulkAdGroupRemarketingList()),
     }
 
     ADDITIONAL_OBJECT_MAP = {
