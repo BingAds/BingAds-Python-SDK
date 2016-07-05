@@ -18,11 +18,12 @@ class BulkAccount(_SingleRecordBulkEntity):
     * :class:`.BulkFileWriter`
     """
 
-    def __init__(self, account_id=None, customer_id=None, sync_time=None):
+    def __init__(self, account_id=None, customer_id=None, sync_time=None, tracking_url_template=None):
         super(BulkAccount, self).__init__()
         self._id = account_id
         self._customer_id = customer_id
         self._sync_time = sync_time
+        self._tracking_url_template = tracking_url_template
 
     @property
     def id(self):
@@ -60,6 +61,22 @@ class BulkAccount(_SingleRecordBulkEntity):
         """
 
         return self._sync_time
+    
+    @property
+    def tracking_url_template(self):
+        """ The account level tracking url template for upgraded URLs.
+
+        Corresponds to the 'Tracking Template' field in the bulk file.
+
+        :return: The account level tracking url template for upgraded URLs.
+        :rtype: string
+        """
+
+        return self._tracking_url_template
+        
+    @tracking_url_template.setter
+    def tracking_url_template(self, tracking_url_template):
+        self._tracking_url_template = tracking_url_template
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -76,6 +93,11 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.SyncTime,
             field_to_csv=lambda c: bulk_datetime_str(c.sync_time),
             csv_to_field=lambda c, v: setattr(c, '_sync_time', parse_datetime(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TrackingTemplate,
+            field_to_csv=lambda c: bulk_str(c.tracking_url_template),
+            csv_to_field=lambda c, v: setattr(c, '_tracking_url_template', v if v else None)
         ),
     ]
 

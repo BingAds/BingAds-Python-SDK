@@ -52,19 +52,7 @@ if __name__ == '__main__':
         developer_token=DEVELOPER_TOKEN,
         authentication=None,
     )
-
-    # Take advantage of the BulkServiceManager class to efficiently manage ads and keywords for all campaigns in an account. 
-    # The client library provides classes to accelerate productivity for downloading and uploading entities. 
-    # For example the upload_entities method of the BulkServiceManager class submits your upload request to the bulk service, 
-    # polls the service until the upload completed, downloads the result file to a temporary directory, and exposes BulkEntity-derived objects  
-    # that contain close representations of the corresponding Campaign Management data objects and value sets.
-
-    # Poll for downloads at reasonable intervals. You know your data better than anyone. 
-    # If you download an account that is well less than one million keywords, consider polling 
-    # at 15 to 20 second intervals. If the account contains about one million keywords, consider polling 
-    # at one minute intervals after waiting five minutes. For accounts with about four million keywords, 
-    # consider polling at one minute intervals after waiting 10 minutes. 
-      
+          
     bulk_service=BulkServiceManager(
         authorization_data=authorization_data, 
         poll_interval_in_milliseconds=5000, 
@@ -247,6 +235,22 @@ def output_bulk_bid_suggestions(bid_suggestions):
         output_status_message("MainLine: {0}".format(bid_suggestions.main_line))
         output_status_message("FirstPage: {0}".format(bid_suggestions.first_page))
 
+def output_bulk_account(bulk_account):
+    if bulk_account is not None:
+        output_status_message("BulkAccount: \n")
+        output_status_message("Account Id: {0}".format(entity.id))
+        output_status_message("Customer Id: {0}".format(entity.customer_id))
+        output_status_message("Sync Time: {0}".format(entity.sync_time))
+        output_status_message("Tracking Template: {0}".format(entity.tracking_url_template))
+
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
 def output_bulk_campaigns(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaign: \n")
@@ -269,6 +273,7 @@ def output_bulk_campaigns(bulk_entities):
 
 def output_campaign(campaign):
     if campaign is not None:
+        output_bidding_scheme(campaign.BiddingScheme)
         output_status_message("BudgetType: {0}".format(campaign.BudgetType))
         if campaign.CampaignType is not None:
             for campaign_type in campaign.CampaignType:
@@ -331,6 +336,12 @@ def output_ad_group(ad_group):
             ad_group.AdRotation.Type if ad_group.AdRotation is not None else None)
         )
         output_status_message("BiddingModel: {0}".format(ad_group.BiddingModel))
+        output_bidding_scheme(ad_group.BiddingScheme)
+        if ad_group.EndDate is not None:
+            output_status_message("EndDate: {0}/{1}/{2}".format(
+                ad_group.EndDate.Month,
+                ad_group.EndDate.Day,
+                ad_group.EndDate.Year))
         output_status_message("ForwardCompatibilityMap: ")
         if ad_group.ForwardCompatibilityMap is not None and len(ad_group.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in ad_group.ForwardCompatibilityMap:
@@ -342,9 +353,15 @@ def output_ad_group(ad_group):
         output_status_message("NativeBidAdjustment: {0}".format(ad_group.NativeBidAdjustment))
         output_status_message("Network: {0}".format(ad_group.Network))
         output_status_message("PricingModel: {0}".format(ad_group.PricingModel))
+        output_status_message("RemarketingTargetingSetting: {0}".format(ad_group.RemarketingTargetingSetting))
         output_status_message("SearchBid: {0}".format(
             ad_group.SearchBid.Amount if ad_group.SearchBid is not None else None)
         )
+        if ad_group.StartDate is not None:
+            output_status_message("StartDate: {0}/{1}/{2}".format(
+                ad_group.StartDate.Month,
+                ad_group.StartDate.Day,
+                ad_group.StartDate.Year))
         output_status_message("Status: {0}".format(ad_group.Status))
         output_status_message("TrackingUrlTemplate: {0}".format(ad_group.TrackingUrlTemplate))
         output_status_message("UrlCustomParameters: ")
@@ -353,6 +370,21 @@ def output_ad_group(ad_group):
                 output_status_message("\tKey: {0}".format(custom_parameter.Key))
                 output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
+def output_bidding_scheme(bidding_scheme):
+    if bidding_scheme is not None:
+        output_status_message("BiddingScheme (Bid Strategy Type): {0}".format(bidding_scheme.Type))
+        if bidding_scheme.Type == 'MaxClicksBiddingScheme':
+            output_status_message("\tMaxCpc: {0}".format(bidding_scheme.MaxCpc))
+        elif bidding_scheme.Type == 'MaxConversionsBiddingScheme':
+            output_status_message("\tMaxCpc: {0}".format(bidding_scheme.MaxCpc))
+            output_status_message("\tStartingBid: {0}".format(bidding_scheme.StartingBid))
+        elif bidding_scheme.Type == 'TargetCpaBiddingScheme':
+            output_status_message("\tMaxCpc: {0}".format(bidding_scheme.MaxCpc))
+            output_status_message("\tStartingBid: {0}".format(bidding_scheme.StartingBid))
+            output_status_message("\tTargetCpa: {0}".format(bidding_scheme.TargetCpa))
+        else:
+            output_status_message("Unknown bidding scheme")
+            
 def output_bulk_text_ads(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkTextAd: \n")
@@ -432,6 +464,7 @@ def output_keyword(keyword):
         output_status_message("Bid.Amount: {0}".format(
             keyword.Bid.Amount if keyword.Bid is not None else None)
         )
+        output_bidding_scheme(keyword.BiddingScheme)
         output_status_message("DestinationUrl: {0}".format(keyword.DestinationUrl))
         output_status_message("EditorialStatus: {0}".format(keyword.EditorialStatus))
         output_status_message("FinalMobileUrls: ")
@@ -607,11 +640,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -625,6 +658,12 @@ if __name__ == '__main__':
 
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
+
+        bulk_account=BulkAccount()
+
+        # We recommend at minimum adding tracking templates at the account level, 
+        # and then refining at lower levels e.g. campaign and ad group as needed.
+        bulk_account.tracking_url_template="http://tracker.example.com/?season={_season}&u={lpurl}"
 
         bulk_campaign=BulkCampaign()
         
@@ -654,6 +693,12 @@ if __name__ == '__main__':
         # Used with FinalUrls shown in the text ads that we will add below.
         campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
 
+        # You can set your campaign’s bid strategy to Enhanced CPC (EnhancedCpcBiddingScheme) and then, at any time, 
+        # set an individual ad group’s or keyword’s bid strategy to Manual CPC (ManualCpcBiddingScheme).
+        campaign_bidding_scheme=campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme')
+        campaign_bidding_scheme.Type='EnhancedCpcBiddingScheme'
+        campaign.BiddingScheme=campaign_bidding_scheme
+
         bulk_campaign.campaign=campaign
 
         bulk_ad_group=BulkAdGroup()
@@ -673,6 +718,9 @@ if __name__ == '__main__':
         search_bid.Amount=0.09
         ad_group.SearchBid=search_bid
         ad_group.Language='English'
+        ad_group_bidding_scheme=campaign_service.factory.create('ns0:InheritFromParentBiddingScheme')
+        ad_group_bidding_scheme.Type='InheritFromParentBiddingScheme'
+        ad_group.BiddingScheme=ad_group_bidding_scheme
 
         # You could use a tracking template which would override the campaign level
         # tracking template. Tracking templates defined for lower level entities 
@@ -763,6 +811,9 @@ if __name__ == '__main__':
             keyword.Param2='10% Off'
             keyword.MatchType='Broad'
             keyword.Text='Brand-A Shoes'
+            keyword_bidding_scheme=campaign_service.factory.create('ns0:InheritFromParentBiddingScheme')
+            keyword_bidding_scheme.Type='InheritFromParentBiddingScheme'
+            keyword.BiddingScheme=keyword_bidding_scheme
             bulk_keyword.keyword=keyword
             bulk_keywords.append(bulk_keyword)
 
@@ -777,6 +828,7 @@ if __name__ == '__main__':
         # for example the BulkCampaign and BulkAdGroup. 
 
         upload_entities=[]
+        upload_entities.append(bulk_account)
         upload_entities.append(bulk_campaign)
         upload_entities.append(bulk_ad_group)
         for bulk_text_ad in bulk_text_ads:
@@ -792,6 +844,8 @@ if __name__ == '__main__':
         keyword_results=[]
 
         for entity in download_entities:
+            if isinstance(entity, BulkAccount):
+                output_bulk_account(entity)
             if isinstance(entity, BulkCampaign):
                 campaign_results.append(entity)
                 output_bulk_campaigns([entity])
@@ -803,9 +857,19 @@ if __name__ == '__main__':
             if isinstance(entity, BulkKeyword):
                 keyword_results.append(entity)
                 output_bulk_keywords([entity])
-
-
+            
         # Here is a simple example that updates the keyword bid to use the ad group bid.
+
+        # There is one known issue with the Python SDK that we plan to fix in April. 
+        # If you do not specify elements that have nested properties, then the values can be  
+        # overwritten when using the BulkFileWriter and BulkServiceManager for upload. 
+        # In example A below, the keyword bid will be deleted. You might do this on purpose for example 
+        # if you want to use the ad group level bid, instead of keeping a separate keyword level bid. 
+        # In example B below, the keyword bid will not be updated. If you do not specify anything for 
+        # the bid i.e. neither example A or example B, then the default behavior is that ‘delete_value’ 
+        # is written to the bulk file, and your keyword bid is deleted. 
+        # In other words, the default behavior is currently equivalent to example A, and 
+        # in April we will update the Python SDK so that the default behavior is equivalent to example B.
 
         update_bulk_keyword=BulkKeyword()
         update_bulk_keyword.ad_group_id=adgroup_results[0].ad_group.Id
@@ -814,24 +878,10 @@ if __name__ == '__main__':
         update_keyword.Id=next((keyword_result.keyword.Id for keyword_result in keyword_results if 
                                 keyword_result.keyword.Id is not None and keyword_result.ad_group_id==update_bulk_keyword.ad_group_id), "None")
 
-        # You can set the Bid.Amount property to change the keyword level bid.
-        update_keyword.Bid=campaign_service.factory.create('Bid')
-        update_keyword.Bid.Amount=0.46
-
-        # The keyword bid will not be updated if the Bid property is not specified or if you create
-        # an empty Bid.
-        #update_keyword.Bid=campaign_service.factory.create('Bid')
+        # Set the Bid property to None to use the ad group bid. 
+        # Otherwise to continue using the existing keyword bid do not set it.
+        update_keyword.Bid=None
         
-        # The keyword level bid will be deleted ("delete_value" will be written in the bulk upload file), and
-        # the keyword will effectively inherit the ad group level bid if you explicitly set the Bid property to None. 
-        #update_keyword.Bid=None
-
-        # It is important to note that the above behavior differs from the Bid settings that
-        # are used to update keywords with the Campaign Management servivce.
-        # When using the Campaign Management service with the Bing Ads Python SDK, if the 
-        # Bid property is not specified or is set explicitly to None, your keyword bid will not be updated.
-        # For examples of how to use the Campaign Management service for keyword updates, please see KeywordsAds.py.
-                
         update_bulk_keyword.keyword=update_keyword
 
         upload_entities=[]
