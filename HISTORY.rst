@@ -3,6 +3,11 @@
 Release History
 ---------------
 
+10.4.6(2016-07-18)
+++++++++++++++++++
+
+* Fix Reporting Service default version bug
+
 10.4.5(2016-06-30)
 ++++++++++++++++++
 
