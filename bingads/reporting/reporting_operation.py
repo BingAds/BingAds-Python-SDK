@@ -53,7 +53,7 @@ class ReportingDownloadOperation(object):
                  environment='production',
                  **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('ReportingService', authorization_data, environment, **suds_options)
+        self._service_client = ServiceClient('ReportingService', authorization_data, environment, 9, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
