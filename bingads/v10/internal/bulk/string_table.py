@@ -62,7 +62,7 @@ class _StringTable:
     SyncTime = "Sync Time"
     Name = "Name"
     LastModifiedTime = "Modified Time"
-
+    
     # Entity Types
     SemanticVersion = "Format Version"
     LocationTarget = "Location Target"
@@ -223,9 +223,20 @@ class _StringTable:
     CampaignCalloutAdExtension = "Campaign Callout Ad Extension"
     AdGroupCalloutAdExtension = "Ad Group Callout Ad Extension"
     CalloutText = "Callout Text"
-
+    
+    # Bid Strategy
     BidStrategyType = "Bid Strategy Type"
+    
+    # Ad Format Preference
     AdFormatPreference = "Ad Format Preference"
-
-
+    
+    # Remarketing
+    RemarketingList = "Remarketing List"
+    AdGroupRemarketingList = "Ad Group Remarketing List Association"
+    Description = "Description"
+    MembershipDuration = "Membership Duration"
+    Scope = "Scope"
+    TagId = "UET Tag Id"
+    RemarketingListId = "Remarketing List Id"
+    RemarketingTargetingSetting = "Remarketing Targeting Setting"
 
