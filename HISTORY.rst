@@ -3,6 +3,14 @@
 Release History
 ---------------
 
+10.4.7(2016-07-28)
+++++++++++++++++++
+
+* Add Remarketing List and Ad Group Remarketing List Association
+* Add Expanded Text Ad
+* Add Structured Snippet Ad Extension
+* Update wsdl proxy to latest version
+
 10.4.6(2016-07-18)
 ++++++++++++++++++
 

@@ -16,6 +16,7 @@ class _StringTable:
     TextAd = "Text Ad"
     ProductAd = "Product Ad"
     AppInstallAd = "App Install Ad"
+    ExpandedTextAd = "Expanded Text Ad"
     Title = "Title"
     EditorialStatus = "Editorial Status"
     EditorialAppealStatus = "Editorial Appeal Status"
@@ -116,6 +117,13 @@ class _StringTable:
     CampaignCallAdExtension = "Campaign Call Ad Extension"
     IsCallTrackingEnabled = "Call Tracking Enabled"
     RequireTollFreeTrackingNumber = "Toll Free"
+
+    # Structured Snippet Ad Extension
+    StructuredSnippetAdExtension = "Structured Snippet Ad Extension"
+    CampaignStructuredSnippetAdExtension = "Campaign Structured Snippet Ad Extension"
+    AdGroupStructuredSnippetAdExtension = "Ad Group Structured Snippet Ad Extension"
+    StructuredSnippetHeader = "Structured Snippet Header"
+    StructuredSnippetValues = "Structured Snippet Values"
 
     # Editorial Rejection Reasons
     PublisherCountries = "Publisher Countries"
@@ -224,8 +232,21 @@ class _StringTable:
     AdGroupCalloutAdExtension = "Ad Group Callout Ad Extension"
     CalloutText = "Callout Text"
 
+    # Bid Strategy
     BidStrategyType = "Bid Strategy Type"
     AdFormatPreference = "Ad Format Preference"
 
+    # Remarketing
+    RemarketingList = "Remarketing List"
+    Description = "Description"
+    MembershipDuration = "Membership Duration"
+    Scope = "Scope"
+    TagId = "UET Tag Id"
+    RemarketingListId = "Remarketing List Id"
+    RemarketingTargetingSetting = "Remarketing Targeting Setting"
 
-
+    # Expanded Text Ad
+    TitlePart1 = "Title Part 1"
+    TitlePart2 = "Title Part 2"
+    Path1 = "Path 1"
+    Path2 = "Path 2"

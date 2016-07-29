@@ -336,6 +336,16 @@ def csv_to_field_AdFormatPreference(entity, value):
     entity.ForwardCompatibilityMap.KeyValuePairOfstringstring.append(ad_format_preference)
 
 
+def csv_to_field_StructuredSnippetValues(entity, value):
+    if value is not None and value != '':
+        entity.Values.string = value.split(';')
+
+def field_to_csv_StructuredSnippetValues(entity):
+    if entity.Values is not None and entity.Values.string is not None and len(entity.Values.string) > 0:
+        return ';'.join(entity.Values.string)
+    return None
+
+
 def ad_rotation_bulk_str(value):
     if value is None:
         return None

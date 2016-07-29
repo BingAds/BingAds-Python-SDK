@@ -21,7 +21,7 @@ Getting Started
 
 To get started developing Bing Ads applications with Python,
 install the SDK and either start with the `examples`_ or follow one of the application walkthroughs on MSDN.
-For more information, see `Getting Started Using Python with Bing Ads Services`_. 
+For more information, see `Getting Started Using Python with Bing Ads Services`_.
 
 External Dependencies
 ---------------------

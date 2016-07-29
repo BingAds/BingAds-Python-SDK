@@ -6,6 +6,8 @@ from bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions import Bu
 from bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions import _SiteLinkAdExtensionIdentifier
 from bingads.v10.bulk.entities.targets.bulk_targets import _BulkCampaignTargetIdentifier, \
     _BulkAdGroupTargetIdentifier, _BulkTargetIdentifier
+from bingads.v10.bulk.entities.bulk_remarketing_list import BulkRemarketingList
+from bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association import BulkAdGroupRemarketingListAssociation
 
 from bingads.v10.internal.bulk.string_table import _StringTable
 from bingads.v10.internal.bulk.entity_info import _EntityInfo
@@ -47,10 +49,13 @@ class _BulkObjectFactory():
         _StringTable.AppAdExtension: _EntityInfo(lambda: BulkAppAdExtension()),
         _StringTable.CampaignAppAdExtension: _EntityInfo(lambda: BulkCampaignAppAdExtension()),
         _StringTable.AdGroupAppAdExtension: _EntityInfo(lambda: BulkAdGroupAppAdExtension()),
-        #_StringTable.MobileAd: _EntityInfo(lambda: BulkMobileAd()),
+        _StringTable.StructuredSnippetAdExtension: _EntityInfo(lambda: BulkStructuredSnippetAdExtension()),
+        _StringTable.CampaignStructuredSnippetAdExtension: _EntityInfo(lambda: BulkCampaignStructuredSnippetAdExtension()),
+        _StringTable.AdGroupStructuredSnippetAdExtension: _EntityInfo(lambda: BulkAdGroupStructuredSnippetAdExtension()),
         _StringTable.ProductAd: _EntityInfo(lambda: BulkProductAd()),
         _StringTable.TextAd: _EntityInfo(lambda: BulkTextAd()),
         _StringTable.AppInstallAd: _EntityInfo(lambda: BulkAppInstallAd()),
+        _StringTable.ExpandedTextAd: _EntityInfo(lambda: BulkExpandedTextAd()),
         "Campaign Negative Site": _EntityInfo(
             lambda: BulkCampaignNegativeSite(),
             _StringTable.Website,
@@ -138,7 +143,9 @@ class _BulkObjectFactory():
             lambda: _BulkCampaignTargetIdentifier(target_bid_type=BulkCampaignRadiusTargetBid)
         ),
         'Campaign Product Scope': _EntityInfo(lambda : BulkCampaignProductScope()),
-        'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition())
+        'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition()),
+        'Remarketing List': _EntityInfo(lambda : BulkRemarketingList()),
+        'Ad Group Remarketing List Association': _EntityInfo(lambda : BulkAdGroupRemarketingListAssociation()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

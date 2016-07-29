@@ -9,6 +9,7 @@ from bingads.internal.extensions import *
 ProductAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ProductAd'))
 TextAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('TextAd'))
 AppInstallAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('AppInstallAd'))
+ExpandedTextAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ExpandedTextAd'))
 
 
 class _BulkAd(_SingleRecordBulkEntity):
@@ -19,6 +20,7 @@ class _BulkAd(_SingleRecordBulkEntity):
     * :class:`.BulkProductAd`
     * :class:`.BulkTextAd`
     * :class:`.BulkAppInstallAd`
+    * :class:`.BulkExpandedTextAd`
     """
 
     def __init__(self,
@@ -394,3 +396,86 @@ class BulkAppInstallAd(_BulkAd):
         self._validate_property_not_null(self.app_install_ad, 'app_install_ad')
         super(BulkAppInstallAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkAppInstallAd._MAPPINGS)
+
+
+class BulkExpandedTextAd(_BulkAd):
+    """ Represents an Expanded Text Ad.
+
+    This class exposes the :attr:`expanded_text_ad` property that can be read and written as fields of the Expanded Text Ad record in a bulk file.
+
+    For more information, see Expanded Text Ad at http://go.microsoft.com/fwlink/?LinkID=823170.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self,
+                 ad_group_id=None,
+                 campaign_name=None,
+                 ad_group_name=None,
+                 ad=None):
+        super(BulkExpandedTextAd, self).__init__(
+            ad_group_id,
+            campaign_name,
+            ad_group_name,
+            ad,
+        )
+        self.expanded_text_ad = ad
+
+    @property
+    def expanded_text_ad(self):
+        """ The Expanded Text Ad.
+
+        see Expanded Text Ad at http://go.microsoft.com/fwlink/?LinkID=823170.
+        """
+
+        return self._ad
+
+    @expanded_text_ad.setter
+    def expanded_text_ad(self, expanded_text_ad):
+        if expanded_text_ad is not None and not isinstance(expanded_text_ad, ExpandedTextAd):
+            raise ValueError('Not an instance of ExpandedTextAd')
+        self._ad = expanded_text_ad
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Text,
+            field_to_csv=lambda c: c.expanded_text_ad.Text,
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Text', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TitlePart1,
+            field_to_csv=lambda c: c.expanded_text_ad.TitlePart1,
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'TitlePart1', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TitlePart2,
+            field_to_csv=lambda c: c.expanded_text_ad.TitlePart2,
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'TitlePart2', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Path1,
+            field_to_csv=lambda c: c.expanded_text_ad.Path1,
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path1', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Path2,
+            field_to_csv=lambda c: c.expanded_text_ad.Path2,
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path2', v)
+        ),
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        self.expanded_text_ad = _CAMPAIGN_OBJECT_FACTORY_V10.create('ExpandedTextAd')
+        self.expanded_text_ad.Type = 'ExpandedText'
+        super(BulkExpandedTextAd, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, BulkExpandedTextAd._MAPPINGS)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.expanded_text_ad, 'expanded_text_ad')
+        super(BulkExpandedTextAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkExpandedTextAd._MAPPINGS)

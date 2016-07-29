@@ -104,6 +104,10 @@ class _CsvHeaders:
         _StringTable.IsCallTrackingEnabled,
         _StringTable.RequireTollFreeTrackingNumber,
 
+        # Structured Snippet AdExtensions
+        _StringTable.StructuredSnippetHeader,
+        _StringTable.StructuredSnippetValues,
+
         # Image AdExtensions
         _StringTable.AltText,
         _StringTable.MediaIds,
@@ -179,7 +183,22 @@ class _CsvHeaders:
         _StringTable.BidStrategyType,
 
         # Ad Format Preference
-        _StringTable.AdFormatPreference
+        _StringTable.AdFormatPreference,
+
+        # Remarketing
+        _StringTable.RemarketingList,
+        _StringTable.Description,
+        _StringTable.MembershipDuration,
+        _StringTable.Scope,
+        _StringTable.TagId,
+        _StringTable.RemarketingListId,
+        _StringTable.RemarketingTargetingSetting,
+
+        # Expanded Text Ad
+        _StringTable.TitlePart1,
+        _StringTable.TitlePart2,
+        _StringTable.Path1,
+        _StringTable.Path2,
     ]
 
     @staticmethod
