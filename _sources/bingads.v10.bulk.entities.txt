@@ -44,6 +44,14 @@ bingads.v10.bulk.entities.bulk_ad_group_product_partition module
     :undoc-members:
     :show-inheritance:
 
+bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association module
+---------------------------------------------------------------------------
+
+.. automodule:: bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v10.bulk.entities.bulk_ads module
 -----------------------------------------
 
@@ -104,6 +112,14 @@ bingads.v10.bulk.entities.bulk_negative_sites module
 ----------------------------------------------------
 
 .. automodule:: bingads.v10.bulk.entities.bulk_negative_sites
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v10.bulk.entities.bulk_remarketing_list module
+------------------------------------------------------
+
+.. automodule:: bingads.v10.bulk.entities.bulk_remarketing_list
     :members:
     :undoc-members:
     :show-inheritance:
