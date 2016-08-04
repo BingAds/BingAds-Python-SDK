@@ -379,8 +379,8 @@ def output_campaign(campaign):
         output_status_message("ForwardCompatibilityMap: ")
         if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in campaign.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
         output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
         output_status_message("Name: {0}".format(campaign.Name))
@@ -430,8 +430,8 @@ def output_ad_group(ad_group):
         output_status_message("ForwardCompatibilityMap: ")
         if ad_group.ForwardCompatibilityMap is not None and len(ad_group.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in campaign.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(ad_group.Id))
         output_status_message("Language: {0}".format(ad_group.Language))
         output_status_message("Name: {0}".format(ad_group.Name))
@@ -474,8 +474,8 @@ def output_product_ad(ad):
         output_status_message("ForwardCompatibilityMap: ")
         if ad.ForwardCompatibilityMap is not None and len(ad.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in campaign.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(ad.Id))
         output_status_message("PromotionalText: {0}".format(ad.PromotionalText))
         output_status_message("Status: {0}".format(ad.Status))
@@ -504,8 +504,8 @@ def output_campaign_criterion_with_product_scope(campaign_criterion):
         output_status_message("ForwardCompatibilityMap: ")
         if campaign_criterion.ForwardCompatibilityMap is not None and len(campaign_criterion.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in campaign_criterion.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("CampaignCriterion Id: {0}".format(campaign_criterion.Id))
         output_status_message("CampaignCriterion Type: {0}".format(campaign_criterion.Type))
         

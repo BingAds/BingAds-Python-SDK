@@ -298,8 +298,8 @@ def output_remarketing_list(remarketing_list):
         output_status_message("ForwardCompatibilityMap: ")
         if remarketing_list.ForwardCompatibilityMap is not None and len(remarketing_list.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in remarketing_list.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(remarketing_list.Id))
         output_status_message("MembershipDuration: {0}".format(remarketing_list.MembershipDuration))
         output_status_message("Name: {0}".format(remarketing_list.Name))
