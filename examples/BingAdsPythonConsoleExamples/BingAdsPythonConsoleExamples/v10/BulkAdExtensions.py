@@ -735,6 +735,17 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
+
 def write_entities_and_upload_file(upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
@@ -802,7 +813,7 @@ if __name__ == '__main__':
         # Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
 
         bulk_campaign.client_id='YourClientIdGoesHere'
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
     
         # When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
         # and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
@@ -827,7 +838,7 @@ if __name__ == '__main__':
 
         bulk_app_ad_extension=BulkAppAdExtension()
         bulk_app_ad_extension.account_id=authorization_data.account_id
-        app_ad_extension=campaign_service.factory.create('AppAdExtension')
+        app_ad_extension=set_elements_to_none(campaign_service.factory.create('AppAdExtension'))
         app_ad_extension.Id=APP_AD_EXTENSION_ID_KEY
         app_ad_extension.AppPlatform='Windows'
         app_ad_extension.AppStoreId='AppStoreIdGoesHere'
@@ -844,7 +855,7 @@ if __name__ == '__main__':
 
         bulk_call_ad_extension=BulkCallAdExtension()
         bulk_call_ad_extension.account_id=authorization_data.account_id
-        call_ad_extension=campaign_service.factory.create('CallAdExtension')
+        call_ad_extension=set_elements_to_none(campaign_service.factory.create('CallAdExtension'))
         call_ad_extension.CountryCode="US"
         call_ad_extension.PhoneNumber="2065550100"
         call_ad_extension.IsCallOnly=False
@@ -860,7 +871,7 @@ if __name__ == '__main__':
 
         bulk_callout_ad_extension=BulkCalloutAdExtension()
         bulk_callout_ad_extension.account_id=authorization_data.account_id
-        callout_ad_extension=campaign_service.factory.create('CalloutAdExtension')
+        callout_ad_extension=set_elements_to_none(campaign_service.factory.create('CalloutAdExtension'))
         callout_ad_extension.Text="Callout Text"
         callout_ad_extension.Status=None
         callout_ad_extension.Id=CALLOUT_AD_EXTENSION_ID_KEY
@@ -874,7 +885,7 @@ if __name__ == '__main__':
 
         bulk_location_ad_extension=BulkLocationAdExtension()
         bulk_location_ad_extension.account_id=authorization_data.account_id
-        location_ad_extension=campaign_service.factory.create('LocationAdExtension')
+        location_ad_extension=set_elements_to_none(campaign_service.factory.create('LocationAdExtension'))
         location_ad_extension.PhoneNumber="206-555-0100"
         location_ad_extension.CompanyName="Contoso Shoes"
         location_ad_extension.IconMediaId=None
@@ -901,7 +912,7 @@ if __name__ == '__main__':
 
         bulk_review_ad_extension=BulkReviewAdExtension()
         bulk_review_ad_extension.account_id=authorization_data.account_id
-        review_ad_extension=campaign_service.factory.create('ReviewAdExtension')
+        review_ad_extension=set_elements_to_none(campaign_service.factory.create('ReviewAdExtension'))
         review_ad_extension.IsExact=True
         review_ad_extension.Source="Review Source Name"
         review_ad_extension.Text="Review Text"
@@ -918,11 +929,11 @@ if __name__ == '__main__':
 
         bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
         bulk_site_link_ad_extension.account_id=authorization_data.account_id
-        site_links_ad_extension=campaign_service.factory.create('SiteLinksAdExtension')
+        site_links_ad_extension=set_elements_to_none(campaign_service.factory.create('SiteLinksAdExtension'))
         site_links=campaign_service.factory.create('ArrayOfSiteLink')
 
         for index in range(2):
-            site_link=campaign_service.factory.create('SiteLink')
+            site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
             site_link.DisplayText = "Women's Shoe Sale " + str(index+1)
 
             # If you are currently using the Destination URL, you must upgrade to Final URLs. 
@@ -1056,7 +1067,7 @@ if __name__ == '__main__':
         upload_entities=[]
         
         bulk_site_link=BulkSiteLink()
-        site_link=campaign_service.factory.create('SiteLink')
+        site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
         site_link.DisplayText = "Women's Shoe Sale 3"
         site_link.Order=3
 

@@ -553,6 +553,17 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
+
 def write_entities_and_upload_file(upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
@@ -619,7 +630,7 @@ if __name__ == '__main__':
         # Note: This bulk file Client Id is not related to an application Client Id for OAuth. 
         
         bulk_campaign.client_id='YourClientIdGoesHere'
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         
         # When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
         # and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  

@@ -327,6 +327,17 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
+
 def output_bulk_performance_data(performance_data):
     if performance_data is not None:
         output_status_message("AverageCostPerClick: {0}".format(performance_data.average_cost_per_click))
@@ -797,8 +808,8 @@ class ProductPartitionHelper:
         :rtype: BulkAdGroupProductPartition
         """
 
-        biddable_ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
-        product_partition=campaign_service.factory.create('ProductPartition')
+        biddable_ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
+        product_partition=set_elements_to_none(campaign_service.factory.create('ProductPartition'))
         # If the root node is a unit, it would not have a parent
         product_partition.ParentCriterionId=parent.ad_group_criterion.Id if parent is not None and parent.ad_group_criterion is not None else None
         product_partition.Condition=condition
@@ -842,9 +853,9 @@ class ProductPartitionHelper:
 
         ad_group_criterion=None
         if is_negative:
-            ad_group_criterion=campaign_service.factory.create('NegativeAdGroupCriterion')
+            ad_group_criterion=set_elements_to_none(campaign_service.factory.create('NegativeAdGroupCriterion'))
         else:
-            ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
+            ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
             fixed_bid=campaign_service.factory.create('FixedBid')
             bid=campaign_service.factory.create('Bid')
             bid.Amount=bid_amount
@@ -856,7 +867,7 @@ class ProductPartitionHelper:
             ad_group_criterion.EditorialStatus=None
         ad_group_criterion.Status=None
 
-        product_partition=campaign_service.factory.create('ProductPartition')
+        product_partition=set_elements_to_none(campaign_service.factory.create('ProductPartition'))
         # If the root node is a unit, it would not have a parent
         product_partition.ParentCriterionId=parent.ad_group_criterion.Id if parent is not None and parent.ad_group_criterion is not None else None
         product_partition.Condition=condition
@@ -957,7 +968,7 @@ if __name__ == '__main__':
         # Note: This bulk file Client Id is not related to an application Client Id for OAuth.
 
         bulk_campaign.client_id='YourClientIdGoesHere'
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
 
         # When using the Campaign Management service, the Id cannot be set. In the context of a BulkCampaign, the Id is optional  
         # and may be used as a negative reference key during bulk upload. For example the same negative reference key for the campaign Id  
@@ -965,7 +976,7 @@ if __name__ == '__main__':
 
         campaign.Id=CAMPAIGN_ID_KEY
         settings=campaign_service.factory.create('ArrayOfSetting')
-        setting=campaign_service.factory.create('ShoppingSetting')
+        setting=set_elements_to_none(campaign_service.factory.create('ShoppingSetting'))
         setting.Priority=0
         setting.SalesCountryCode ='US'
         setting.StoreId=stores[0].Id
@@ -988,8 +999,8 @@ if __name__ == '__main__':
 
         bulk_campaign_product_scope=BulkCampaignProductScope()
         bulk_campaign_product_scope.status='Active'
-        campaign_criterion=campaign_service.factory.create('CampaignCriterion')
-        product_scope=campaign_service.factory.create('ProductScope')
+        campaign_criterion=set_elements_to_none(campaign_service.factory.create('CampaignCriterion'))
+        product_scope=set_elements_to_none(campaign_service.factory.create('ProductScope'))
         conditions=campaign_service.factory.create('ArrayOfProductCondition')
         condition_new=campaign_service.factory.create('ProductCondition')
         condition_new.Operand='Condition'
@@ -1001,7 +1012,6 @@ if __name__ == '__main__':
         conditions.ProductCondition.append(condition_custom_label_0)
         product_scope.Conditions=conditions
         campaign_criterion.CampaignId=CAMPAIGN_ID_KEY
-        campaign_criterion.BidAdjustment=None # Reserved for future use
         campaign_criterion.Criterion=product_scope
         bulk_campaign_product_scope.campaign_criterion=campaign_criterion
 
@@ -1009,13 +1019,12 @@ if __name__ == '__main__':
 
         bulk_ad_group=BulkAdGroup()
         bulk_ad_group.campaign_id=CAMPAIGN_ID_KEY
-        ad_group=campaign_service.factory.create('AdGroup')
+        ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
         ad_group.Id=AD_GROUP_ID_KEY
         ad_group.Name="Product Categories"
         ad_group.AdDistribution=['Search']
         ad_group.BiddingModel='Keyword'
         ad_group.PricingModel='Cpc'
-        ad_group.Network=None
         ad_group.Status='Paused'
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
@@ -1041,11 +1050,9 @@ if __name__ == '__main__':
         bulk_product_ad=BulkProductAd()
         bulk_product_ad.ad_group_id=AD_GROUP_ID_KEY
         ads=campaign_service.factory.create('ArrayOfAd')
-        product_ad=campaign_service.factory.create('ProductAd')
+        product_ad=set_elements_to_none(campaign_service.factory.create('ProductAd'))
         product_ad.PromotionalText='Free shipping on $99 purchases.'
         product_ad.Type='Product'
-        product_ad.Status=None
-        product_ad.EditorialStatus=None
         bulk_product_ad.ad=product_ad
         
         upload_entities=[]
@@ -1083,7 +1090,7 @@ if __name__ == '__main__':
 
         helper=ProductPartitionHelper(ad_group_id)
         
-        root_condition=campaign_service.factory.create('ProductCondition')
+        root_condition=set_elements_to_none(campaign_service.factory.create('ProductCondition'))
         root_condition.Operand='All'
         root_condition.Attribute=None
 
@@ -1303,7 +1310,7 @@ if __name__ == '__main__':
         helper.delete_partition(electronics)
 
         parent=BulkAdGroupProductPartition()
-        parent.ad_group_criterion=campaign_service.factory.create('BiddableAdGroupCriterion')
+        parent.ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
         parent.ad_group_criterion.Id=root_id
 
         electronics_subdivision_condition=campaign_service.factory.create('ProductCondition')

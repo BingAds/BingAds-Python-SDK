@@ -263,8 +263,8 @@ def output_campaign(campaign):
         output_status_message("ForwardCompatibilityMap: ")
         if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in campaign.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
         output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
         output_status_message("Name: {0}".format(campaign.Name))
@@ -323,8 +323,8 @@ def output_ad_group(ad_group):
         output_status_message("ForwardCompatibilityMap: ")
         if ad_group.ForwardCompatibilityMap is not None and len(ad_group.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in ad_group.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(ad_group.Id))
         output_status_message("Language: {0}".format(ad_group.Language))
         output_status_message("Name: {0}".format(ad_group.Name))
@@ -386,8 +386,8 @@ def output_remarketing_list(remarketing_list):
         output_status_message("ForwardCompatibilityMap: ")
         if remarketing_list.ForwardCompatibilityMap is not None and len(remarketing_list.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
             for pair in remarketing_list.ForwardCompatibilityMap:
-                output_status_message("Key: {0}".format(pair.Key))
-                output_status_message("Value: {0}".format(pair.Value))
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(remarketing_list.Id))
         output_status_message("MembershipDuration: {0}".format(remarketing_list.MembershipDuration))
         output_status_message("Name: {0}".format(remarketing_list.Name))
@@ -526,6 +526,17 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
+
 def write_entities_and_upload_file(upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
@@ -621,7 +632,7 @@ if __name__ == '__main__':
 
         bulk_campaign=BulkCampaign()
         bulk_campaign.client_id='YourClientIdGoesHere'
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Id=CAMPAIGN_ID_KEY
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
@@ -645,7 +656,7 @@ if __name__ == '__main__':
         bulk_ad_group.client_id='YourClientIdGoesHere'
         
         bulk_ad_group.campaign_id=CAMPAIGN_ID_KEY
-        ad_group=campaign_service.factory.create('AdGroup')
+        ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
 
         # When using the Campaign Management service, the Id cannot be set. In the context of a BulkAdGroup, the Id is optional 
         # and may be used as a negative reference key during bulk upload. For example the same negative value set for the  
@@ -685,7 +696,7 @@ if __name__ == '__main__':
             if bulk_remarketing_list.remarketing_list != None and bulk_remarketing_list.remarketing_list.Id != None:
                 bulk_ad_group_remarketing_list=BulkAdGroupRemarketingListAssociation()
                 bulk_ad_group_remarketing_list.ClientId = "MyBulkAdGroupRemarketingList " + str(bulk_remarketing_list.remarketing_list.Id)
-                ad_group_remarketing_list_association=campaign_service.factory.create('AdGroupRemarketingListAssociation')
+                ad_group_remarketing_list_association=set_elements_to_none(campaign_service.factory.create('AdGroupRemarketingListAssociation'))
                 ad_group_remarketing_list_association.AdGroupId=AD_GROUP_ID_KEY
                 ad_group_remarketing_list_association.BidAdjustment=90.00
                 ad_group_remarketing_list_association.RemarketingListId=bulk_remarketing_list.remarketing_list.Id

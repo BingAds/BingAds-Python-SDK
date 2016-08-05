@@ -273,6 +273,17 @@ def output_webfault_errors(ex):
     else:
         raise Exception('Unknown WebFault')
 
+def set_elements_to_none(suds_object):
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # it must be one of the values defined by the service i.e. it cannot be a nil element. 
+    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
+    # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
+
+    for (element) in suds_object:
+        suds_object.__setitem__(element[0], None)
+    return suds_object
+
 def output_campaign_ids(campaign_ids):
     if not hasattr(campaign_ids, 'long'):
         return None
@@ -399,7 +410,7 @@ if __name__ == '__main__':
         # Add a campaign that will later be associated with targets. 
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
-        campaign=campaign_service.factory.create('Campaign')
+        campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
         campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
@@ -422,7 +433,7 @@ if __name__ == '__main__':
         # Add an ad group that will later be associated with a target. 
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
-        ad_group=campaign_service.factory.create('AdGroup')
+        ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
         ad_group.Name="Women's Red Shoes"
         ad_group.AdDistribution='Search'
         ad_group.BiddingModel='Keyword'
@@ -454,7 +465,7 @@ if __name__ == '__main__':
         # Create targets to associate with the campaign and ad group. 
 
         campaign_targets=campaign_service.factory.create('ArrayOfTarget')
-        campaign_target=campaign_service.factory.create('Target')
+        campaign_target=set_elements_to_none(campaign_service.factory.create('Target'))
         campaign_target.Name = "My Campaign Target"
         
         campaign_day_time_target=campaign_service.factory.create('DayTimeTarget')
@@ -509,7 +520,7 @@ if __name__ == '__main__':
         campaign_targets.Target.append(campaign_target)
         
         ad_group_targets=campaign_service.factory.create('ArrayOfTarget')
-        ad_group_target=campaign_service.factory.create('Target')
+        ad_group_target=set_elements_to_none(campaign_service.factory.create('Target'))
         ad_group_target.Name = "My Ad Group Target"
 
         ad_group_day_time_target=campaign_service.factory.create('DayTimeTarget')
@@ -557,7 +568,7 @@ if __name__ == '__main__':
         # or they will not be included in the updated target.
 
         targets=campaign_service.factory.create('ArrayOfTarget')
-        target=campaign_service.factory.create('Target')
+        target=set_elements_to_none(campaign_service.factory.create('Target'))
         
         age_target=campaign_service.factory.create('AgeTarget')
         age_target_bids=campaign_service.factory.create('ArrayOfAgeTargetBid')
