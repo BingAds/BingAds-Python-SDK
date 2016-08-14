@@ -406,9 +406,18 @@ if __name__ == '__main__':
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.DaylightSaving=True # Accepts 'true','false', True, or False
         campaign.Status='Paused'
-        campaign_bidding_scheme=campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme')
-        campaign_bidding_scheme.Type='EnhancedCpcBiddingScheme'
+
+        # You can set your campaign bid strategy to Enhanced CPC (EnhancedCpcBiddingScheme) 
+        # and then, at any time, set an individual ad group or keyword bid strategy to 
+        # Manual CPC (ManualCpcBiddingScheme).
+        # For campaigns you can use either of the EnhancedCpcBiddingScheme or ManualCpcBiddingScheme objects. 
+        # If you do not set this element, then ManualCpcBiddingScheme is used by default.
+        campaign_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme'))
         campaign.BiddingScheme=campaign_bidding_scheme
+
+        # Used with FinalUrls shown in the text ads that we will add below.
+        campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
+        
         campaigns.Campaign.append(campaign)
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
@@ -430,14 +439,15 @@ if __name__ == '__main__':
         ad_group.RemarketingTargetingSetting='TargetAndBid'
         ad_group.Language='English'
         
-        ad_group_bidding_scheme=campaign_service.factory.create('ns0:InheritFromParentBiddingScheme')
-        ad_group_bidding_scheme.Type='InheritFromParentBiddingScheme'
+        # For ad groups you can use either of the InheritFromParentBiddingScheme or ManualCpcBiddingScheme objects. 
+        # If you do not set this element, then InheritFromParentBiddingScheme is used by default.
+        ad_group_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:ManualCpcBiddingScheme'))
         ad_group.BiddingScheme=ad_group_bidding_scheme
         
-        #You could use a tracking template which would override the campaign level
-        #tracking template. Tracking templates defined for lower level entities 
-        #override those set for higher level entities.
-        #In this example we are using the campaign level tracking template.
+        # You could use a tracking template which would override the campaign level
+        # tracking template. Tracking templates defined for lower level entities 
+        # override those set for higher level entities.
+        # In this example we are using the campaign level tracking template.
         ad_group.TrackingUrlTemplate=None
 
         ad_groups.AdGroup.append(ad_group)
@@ -517,6 +527,12 @@ if __name__ == '__main__':
             keyword.Param2='10% Off'
             keyword.MatchType='Broad'
             keyword.Text='Brand-A Shoes'
+
+            # For keywords you can use either of the InheritFromParentBiddingScheme or ManualCpcBiddingScheme objects. 
+            # If you do not set this element, then InheritFromParentBiddingScheme is used by default.
+            keyword_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:InheritFromParentBiddingScheme'))
+            keyword.BiddingScheme=keyword_bidding_scheme
+
             keywords.Keyword.append(keyword)
         
         keywords.Keyword[0].Text=(
@@ -582,7 +598,8 @@ if __name__ == '__main__':
         campaign_service.GetCampaignsByIds(
             AccountId=authorization_data.account_id,
             CampaignIds=campaign_ids,
-            CampaignType=['SearchAndContent Shopping']
+            CampaignType=['SearchAndContent Shopping'],
+            ReturnAdditionalFields=['BiddingScheme']
         )
         campaign_service.UpdateCampaigns(
             AccountId=authorization_data.account_id,
@@ -591,7 +608,8 @@ if __name__ == '__main__':
         campaign_service.GetCampaignsByIds(
             AccountId=authorization_data.account_id,
             CampaignIds=campaign_ids,
-            CampaignType=['SearchAndContent Shopping']
+            CampaignType=['SearchAndContent Shopping'],
+            ReturnAdditionalFields=['BiddingScheme']
         )
 
 
@@ -682,6 +700,7 @@ if __name__ == '__main__':
 
         campaign_service.GetKeywordsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
+            ReturnAdditionalFields=['BiddingScheme']
         )
         campaign_service.UpdateKeywords(
             AdGroupId=ad_group_ids['long'][0],
@@ -689,6 +708,7 @@ if __name__ == '__main__':
         )
         campaign_service.GetKeywordsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
+            ReturnAdditionalFields=['BiddingScheme']
         )
         
         # Delete the campaign, ad group, keyword, and ad that were previously added. 

@@ -269,6 +269,7 @@ def output_bulk_campaigns(bulk_entities):
 
 def output_campaign(campaign):
     if campaign is not None:
+        output_bidding_scheme(campaign.BiddingScheme)
         output_status_message("BudgetType: {0}".format(campaign.BudgetType))
         if campaign.CampaignType is not None:
             for campaign_type in campaign.CampaignType:
@@ -279,7 +280,7 @@ def output_campaign(campaign):
         output_status_message("Description: {0}".format(campaign.Description))
         output_status_message("ForwardCompatibilityMap: ")
         if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in campaign.ForwardCompatibilityMap:
+            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
@@ -331,9 +332,10 @@ def output_ad_group(ad_group):
             ad_group.AdRotation.Type if ad_group.AdRotation is not None else None)
         )
         output_status_message("BiddingModel: {0}".format(ad_group.BiddingModel))
+        output_bidding_scheme(ad_group.BiddingScheme)
         output_status_message("ForwardCompatibilityMap: ")
         if ad_group.ForwardCompatibilityMap is not None and len(ad_group.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in ad_group.ForwardCompatibilityMap:
+            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(ad_group.Id))
@@ -342,6 +344,7 @@ def output_ad_group(ad_group):
         output_status_message("NativeBidAdjustment: {0}".format(ad_group.NativeBidAdjustment))
         output_status_message("Network: {0}".format(ad_group.Network))
         output_status_message("PricingModel: {0}".format(ad_group.PricingModel))
+        output_status_message("RemarketingTargetingSetting: {0}".format(ad_group.RemarketingTargetingSetting))
         output_status_message("SearchBid: {0}".format(
             ad_group.SearchBid.Amount if ad_group.SearchBid is not None else None)
         )
@@ -390,7 +393,7 @@ def output_text_ad(text_ad):
                 output_status_message("\t{0}".format(final_url))
         output_status_message("ForwardCompatibilityMap: ")
         if text_ad.ForwardCompatibilityMap is not None and len(text_ad.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in text_ad.ForwardCompatibilityMap:
+            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(text_ad.Id))
@@ -432,6 +435,7 @@ def output_keyword(keyword):
         output_status_message("Bid.Amount: {0}".format(
             keyword.Bid.Amount if keyword.Bid is not None else None)
         )
+        output_bidding_scheme(keyword.BiddingScheme)
         output_status_message("DestinationUrl: {0}".format(keyword.DestinationUrl))
         output_status_message("EditorialStatus: {0}".format(keyword.EditorialStatus))
         output_status_message("FinalMobileUrls: ")
@@ -444,7 +448,7 @@ def output_keyword(keyword):
                 output_status_message("\t{0}".format(final_url))
         output_status_message("ForwardCompatibilityMap: ")
         if keyword.ForwardCompatibilityMap is not None and len(keyword.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in keyword.ForwardCompatibilityMap:
+            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(keyword.Id))
@@ -460,6 +464,22 @@ def output_keyword(keyword):
             for custom_parameter in keyword.UrlCustomParameters.Parameters['CustomParameter']:
                 output_status_message("\tKey: {0}".format(custom_parameter.Key))
                 output_status_message("\tValue: {0}".format(custom_parameter.Value))
+
+def output_bidding_scheme(bidding_scheme):
+    if bidding_scheme is None or type(bidding_scheme) == type(campaign_service.factory.create('ns0:BiddingScheme')):
+        return
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme')):
+        output_status_message("BiddingScheme: EnhancedCpc")
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:InheritFromParentBiddingScheme')):
+        output_status_message("BiddingScheme: InheritFromParent")
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:MaxConversionsBiddingScheme')):
+        output_status_message("BiddingScheme: MaxConversions")
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:ManualCpcBiddingScheme')):
+        output_status_message("BiddingScheme: ManualCpc")
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:TargetCpaBiddingScheme')):
+        output_status_message("BiddingScheme: TargetCpa")
+    elif type(bidding_scheme) == type(campaign_service.factory.create('ns0:MaxClicksBiddingScheme')):
+        output_status_message("BiddingScheme: MaxClicks")
 
 def output_bulk_errors(errors):
     for error in errors:
@@ -618,11 +638,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -662,6 +682,14 @@ if __name__ == '__main__':
         # the value is not written to the Bulk file, and by default DaylightSaving is set to true.
         campaign.DaylightSaving='True'
 
+        # You can set your campaign bid strategy to Enhanced CPC (EnhancedCpcBiddingScheme) 
+        # and then, at any time, set an individual ad group or keyword bid strategy to 
+        # Manual CPC (ManualCpcBiddingScheme).
+        # For campaigns you can use either of the EnhancedCpcBiddingScheme or ManualCpcBiddingScheme objects. 
+        # If you do not set this element, then ManualCpcBiddingScheme is used by default.
+        campaign_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme'))
+        campaign.BiddingScheme=campaign_bidding_scheme
+        
         # Used with FinalUrls shown in the text ads that we will add below.
         campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
 
@@ -684,6 +712,11 @@ if __name__ == '__main__':
         search_bid.Amount=0.09
         ad_group.SearchBid=search_bid
         ad_group.Language='English'
+
+        # For ad groups you can use either of the InheritFromParentBiddingScheme or ManualCpcBiddingScheme objects. 
+        # If you do not set this element, then InheritFromParentBiddingScheme is used by default.
+        ad_group_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:ManualCpcBiddingScheme'))
+        ad_group.BiddingScheme=ad_group_bidding_scheme
 
         # You could use a tracking template which would override the campaign level
         # tracking template. Tracking templates defined for lower level entities 
@@ -770,10 +803,17 @@ if __name__ == '__main__':
             bulk_keyword=BulkKeyword()
             bulk_keyword.ad_group_id=AD_GROUP_ID_KEY
             keyword=set_elements_to_none(campaign_service.factory.create('Keyword'))
+            keyword.Bid=set_elements_to_none(campaign_service.factory.create('Bid'))
             keyword.Bid.Amount=0.47
             keyword.Param2='10% Off'
             keyword.MatchType='Broad'
             keyword.Text='Brand-A Shoes'
+
+            # For keywords you can use either of the InheritFromParentBiddingScheme or ManualCpcBiddingScheme objects. 
+            # If you do not set this element, then InheritFromParentBiddingScheme is used by default.
+            keyword_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:InheritFromParentBiddingScheme'))
+            keyword.BiddingScheme=keyword_bidding_scheme
+
             bulk_keyword.keyword=keyword
             bulk_keywords.append(bulk_keyword)
 
