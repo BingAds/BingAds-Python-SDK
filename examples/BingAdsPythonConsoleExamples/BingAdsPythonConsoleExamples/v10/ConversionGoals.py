@@ -9,10 +9,10 @@ from suds import WebFault
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
-#import logging
-#logging.basicConfig(level=logging.INFO)
-#logging.getLogger('suds.client').setLevel(logging.DEBUG)
-#logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
+import logging
+logging.basicConfig(level=logging.INFO)
+logging.getLogger('suds.client').setLevel(logging.DEBUG)
+logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -577,7 +577,7 @@ if __name__ == '__main__':
         update_duration_goal.MinimumDurationInSeconds = 120
         update_duration_goal.Name = "My Updated Duration Goal " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         update_duration_goal_revenue=set_elements_to_none(campaign_service.factory.create('ConversionGoalRevenue'))
-        update_duration_goal_revenue.Type='VariableValue'
+        update_duration_goal_revenue.Type='FixedValue'
         update_duration_goal_revenue.Value=10.00
         update_duration_goal_revenue.CurrencyCode=None
         update_duration_goal.Revenue = update_duration_goal_revenue
@@ -603,7 +603,7 @@ if __name__ == '__main__':
         update_event_goal.LabelOperator = 'Equals'
         update_event_goal.Name = "My Updated Event Goal " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         update_event_goal_revenue=set_elements_to_none(campaign_service.factory.create('ConversionGoalRevenue'))
-        update_event_goal_revenue.Type='FixedValue'
+        update_event_goal_revenue.Type='VariableValue'
         update_event_goal_revenue.Value=5.00
         update_event_goal_revenue.CurrencyCode=None
         update_event_goal.Revenue = update_event_goal_revenue
@@ -615,12 +615,6 @@ if __name__ == '__main__':
         update_pages_viewed_per_visit_goal=set_elements_to_none(campaign_service.factory.create('PagesViewedPerVisitGoal'))
         update_pages_viewed_per_visit_goal.Id = conversion_goal_ids[2]
         update_pages_viewed_per_visit_goal.Name = "My Updated Pages Viewed Per Visit Goal " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-        # When updating a conversion goal, if the Revenue element is nil or empty then none 
-        # of the nested properties will be updated. However, if this element is not nil or empty 
-        # then you are effectively replacing any existing revenue properties. For example to delete 
-        # any previous revenue settings, set the Revenue element to an empty ConversionGoalRevenue object.
-        update_pages_viewed_per_visit_goal_revenue=campaign_service.factory.create('ConversionGoalRevenue')
-        update_pages_viewed_per_visit_goal.Revenue = update_pages_viewed_per_visit_goal_revenue
         update_conversion_goals.ConversionGoal.append(update_pages_viewed_per_visit_goal)
             
         update_url_goal=set_elements_to_none(campaign_service.factory.create('UrlGoal'))
