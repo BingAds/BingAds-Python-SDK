@@ -332,6 +332,23 @@ def output_conversion_goal_revenue(conversion_goal_revenue):
         output_status_message("Type: {0}".format(conversion_goal_revenue.Type))
         output_status_message("Value: {0}".format(conversion_goal_revenue.Value))
 
+def output_partial_errors(partial_errors):
+    if not hasattr(partial_errors, 'BatchError'):
+        return None
+    output_status_message("BatchError (PartialErrors) item:\n")
+    for error in partial_errors['BatchError']:
+        output_status_message("\tIndex: {0}".format(error.Index))
+        output_status_message("\tCode: {0}".format(error.Code))
+        output_status_message("\tErrorCode: {0}".format(error.ErrorCode))
+        output_status_message("\tMessage: {0}\n".format(error.Message))
+
+        # In the case of an EditorialError, more details are available
+        if error.Type == "EditorialError" and error.ErrorCode == "CampaignServiceEditorialValidationError":
+            output_status_message("\tDisapprovedText: {0}".format(error.DisapprovedText))
+            output_status_message("\tLocation: {0}".format(error.Location))
+            output_status_message("\tPublisherCountry: {0}".format(error.PublisherCountry))
+            output_status_message("\tReasonCode: {0}\n".format(error.ReasonCode))
+
 # Main execution
 if __name__ == '__main__':
 
@@ -516,10 +533,11 @@ if __name__ == '__main__':
         # set scope to Customer or don't set it for the same result.
         app_install_goal.Scope = 'Customer'
         app_install_goal.Status = 'Active'
-        app_install_goal.TagId = tag_id
+        # The TagId is inherited from the ConversionGoal base class,
+        # however, App Install goals do not use a UET tag.
+        app_install_goal.TagId = None
         conversion_goals.ConversionGoal.append(app_install_goal)
 
-          
         add_conversion_goals_response=campaign_service.AddConversionGoals(ConversionGoals=conversion_goals)
         
         # Find the conversion goals that were added successfully. 
@@ -529,13 +547,8 @@ if __name__ == '__main__':
             if goal_id is not None:
                 conversion_goal_ids.append(goal_id)
 
-        # The count of ConversionGoalIds will always be equal to the count of the conversion goals in the 
-        # AddConversionGoals request message. The list of PartialErrors can be null if there were no errors.
-
-        if add_conversion_goals_response.PartialErrors is not None and \
-           len(add_conversion_goals_response.ConversionGoalIds) == len(add_conversion_goals_response.PartialErrors):
-            output_status_message("No conversion goals were successfully added.")
-            sys.exit(0)
+        output_status_message("List of errors returned from AddConversionGoals (if any):\n");
+        output_partial_errors(add_conversion_goals_response.PartialErrors);
         
         conversion_goal_types='AppInstall ' \
                               'Duration ' \
