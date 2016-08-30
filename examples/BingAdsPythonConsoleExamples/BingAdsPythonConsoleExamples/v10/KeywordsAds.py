@@ -12,7 +12,7 @@ from suds import WebFault
 #import logging
 #logging.basicConfig(level=logging.INFO)
 #logging.getLogger('suds.client').setLevel(logging.DEBUG)
-
+#logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -284,6 +284,71 @@ def set_elements_to_none(suds_object):
         suds_object.__setitem__(element[0], None)
     return suds_object
 
+def set_read_only_campaign_elements_to_none(campaign):
+    if campaign is not None:
+        campaign.CampaignType=None
+        campaign.Settings=None
+        campaign.Status=None
+
+def output_campaign(campaign):
+    if campaign is not None:
+        if hasattr(campaign, 'BiddingScheme'): 
+            output_bidding_scheme(campaign.BiddingScheme)
+        if hasattr(campaign, 'BudgetId'): 
+            output_status_message("BudgetId: {0}".format(campaign.BudgetId))
+        output_status_message("BudgetType: {0}".format(campaign.BudgetType))
+        output_status_message("CampaignType: {0}".format(campaign.CampaignType))
+        output_status_message("DailyBudget: {0}".format(campaign.DailyBudget))
+        output_status_message("Description: {0}".format(campaign.Description))
+        output_status_message("ForwardCompatibilityMap: ");
+        if campaign.ForwardCompatibilityMap is not None:
+            for pair in campaign.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
+        output_status_message("Id: {0}".format(campaign.Id))
+        output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
+        output_status_message("Name: {0}".format(campaign.Name))
+        output_status_message("Settings:");
+        if campaign.Settings is not None:
+            for setting in campaign.Settings['Setting']:
+                if setting.Type == 'ShoppingSetting':
+                    output_status_message("ShoppingSetting:");
+                    output_status_message("Priority: {0}".format(setting.Priority))
+                    output_status_message("SalesCountryCode: {0}".format(setting.SalesCountryCode))
+                    output_status_message("StoreId: {0}".format(setting.StoreId))
+        output_status_message("Status: {0}".format(campaign.Status))
+        output_status_message("TrackingUrlTemplate: {0}".format(campaign.TrackingUrlTemplate))
+        output_status_message("UrlCustomParameters: ");
+        if campaign.UrlCustomParameters is not None and campaign.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in campaign.UrlCustomParameters.Parameters['CustomParameter']:
+                output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                output_status_message("\tValue: {0}".format(custom_parameter.Value))
+        output_status_message("TimeZone: {0}\n".format(campaign.TimeZone))
+
+def output_bidding_scheme(bidding_scheme):
+    if bidding_scheme is None:
+        return
+    if bidding_scheme.Type == 'EnhancedCpc':
+        output_status_message("BiddingScheme Type: EnhancedCpc")
+    elif bidding_scheme.Type == 'InheritFromParent':
+        output_status_message("BiddingScheme Type: InheritFromParent")
+    elif bidding_scheme.Type == 'ManualCpc':
+        output_status_message("BiddingScheme Type: ManualCpc")
+    elif bidding_scheme.Type == 'MaxClicks':
+        output_status_message("BiddingScheme Type: MaxClicks")
+    elif bidding_scheme.Type == 'MaxConversions':
+        output_status_message("BiddingScheme Type: MaxConversions")
+    elif bidding_scheme.Type == 'TargetCpa':
+        output_status_message("BiddingScheme Type: TargetCpa")
+
+def output_budget(budget):
+    if budget is not None:
+        output_status_message("Amount: {0}".format(budget.Amount))
+        output_status_message("AssociationCount: {0}".format(budget.AssociationCount))
+        output_status_message("BudgetType: {0}".format(budget.BudgetType))
+        output_status_message("Id: {0}".format(budget.Id))
+        output_status_message("Name: {0}\n".format(budget.Name))
+    
 def output_campaign_ids(campaign_ids):
     for id in campaign_ids['long']:
         output_status_message("Campaign successfully added and assigned CampaignId {0}\n".format(id))
@@ -396,13 +461,49 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
+
+        # Determine whether you are able to add shared budgets by checking the pilot flags.
+
+        enabled_for_shared_budgets = False
+
+        # Optionally you can find out which pilot features the customer is able to use.
+        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
+
+        # The pilot flag value for shared budgets is 263.
+        # Pilot flags apply to all accounts within a given customer.
+        if(263 in feature_pilot_flags['int']):
+            enabled_for_shared_budgets = True
+        
+        # If the customer is enabled for shared budgets, let's create a new budget and
+        # share it with a new campaign.
+
+        budget_ids = None
+        if enabled_for_shared_budgets:
+            budgets = campaign_service.factory.create('ArrayOfBudget')
+            budget=set_elements_to_none(campaign_service.factory.create('Budget'))
+            budget.Amount = 50
+            budget.BudgetType = 'DailyBudgetStandard'
+            budget.Name = "My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+            budgets.Budget.append(budget)
+                    
+            add_budgets_response = campaign_service.AddBudgets(budgets)
+            budget_ids={
+                'long': add_budgets_response.BudgetIds['long'] if add_budgets_response.BudgetIds['long'] else None
+            }
+
+        # Specify one or more campaigns.
         
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
-        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-        campaign.MonthlyBudget=1000
+
+        # You must choose to set either the shared  budget ID or daily amount.
+        # You can set one or the other, but you may not set both.
+        campaign.BudgetId = budget_ids['long'][0] if enabled_for_shared_budgets else None
+        campaign.DailyBudget = None if enabled_for_shared_budgets else 50
+        campaign.BudgetType = 'DailyBudgetStandard'
+
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.DaylightSaving=True # Accepts 'true','false', True, or False
         campaign.Status='Paused'
@@ -588,31 +689,122 @@ if __name__ == '__main__':
 
 
         # Here is a simple example that updates the campaign budget.
-        update_campaigns=campaign_service.factory.create('ArrayOfCampaign')
-        update_campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
-        update_campaign.Id=campaign_ids['long'][0]
-        update_campaign.MonthlyBudget=500
-        update_campaigns.Campaign.append(update_campaign)
+        # If the campaign has a shared budget you cannot update the Campaign budget amount,
+        # and you must instead update the amount in the Budget object. If you try to update 
+        # the budget amount of a campaign that has a shared budget, the service will return 
+        # the CampaignServiceCannotUpdateSharedBudget error code.
 
-        # As an exercise you can step through using the debugger and view the results.
-        campaign_service.GetCampaignsByIds(
+        get_campaigns=campaign_service.GetCampaignsByAccountId(
             AccountId=authorization_data.account_id,
-            CampaignIds=campaign_ids,
             CampaignType=['SearchAndContent Shopping'],
-            ReturnAdditionalFields=['BiddingScheme']
+            ReturnAdditionalFields=['BiddingScheme BudgetId']
         )
-        campaign_service.UpdateCampaigns(
-            AccountId=authorization_data.account_id,
-            Campaigns=update_campaigns
-        )
-        campaign_service.GetCampaignsByIds(
-            AccountId=authorization_data.account_id,
-            CampaignIds=campaign_ids,
-            CampaignType=['SearchAndContent Shopping'],
-            ReturnAdditionalFields=['BiddingScheme']
-        )
+        
+        update_campaigns = campaign_service.factory.create('ArrayOfCampaign')
+        update_budgets = campaign_service.factory.create('ArrayOfBudget')
+        get_campaign_ids = []
+        get_budget_ids = []
 
+        # Increase existing budgets by 20%
+        for campaign in get_campaigns['Campaign']:
 
+            # If the campaign has a shared budget, let's add the budget ID to the list we will update later.
+            if campaign is not None and hasattr(campaign, 'BudgetId') and campaign.BudgetId > 0:
+                get_budget_ids.append(campaign.BudgetId)
+            # If the campaign has its own budget, let's add it to the list of campaigns to update later.
+            elif campaign is not None:
+                update_campaigns.Campaign.append(campaign)
+        
+        # Update shared budgets in Budget objects.
+        if get_budget_ids is not None and len(get_budget_ids) > 0:
+            distinct_budget_ids = {'long': list(set(get_budget_ids))}
+            get_budgets = campaign_service.GetBudgetsByIds(
+                BudgetIds=distinct_budget_ids
+            ).Budgets
+
+            output_status_message("List of shared budgets BEFORE update:\n")
+            for budget in get_budgets['Budget']:
+                output_status_message("Budget:")
+                output_budget(budget)
+
+            output_status_message("List of campaigns that share each budget:\n");
+            get_campaign_id_collection = campaign_service.GetCampaignIdsByBudgetIds(distinct_budget_ids).CampaignIdCollection
+
+            index=0
+
+            for index in range(len(get_campaign_id_collection['IdCollection'])):
+                output_status_message("BudgetId: {0}".format(distinct_budget_ids['long'][index]))
+                output_status_message("Campaign Ids:");
+                if get_campaign_id_collection['IdCollection'][index] is not None:
+                    for id in get_campaign_id_collection['IdCollection'][index].Ids['long']:
+                        output_status_message("\t{0}".format(id))
+                index=index+1
+
+            for budget in get_budgets['Budget']:
+                if budget is not None:
+                    # Increase budget by 20 %
+                    budget.Amount *= 1.2
+                    update_budgets.Budget.append(budget)
+            campaign_service.UpdateBudgets(Budgets=update_budgets)
+
+            get_budgets = campaign_service.GetBudgetsByIds(
+                BudgetIds=distinct_budget_ids
+            ).Budgets
+
+            output_status_message("List of shared budgets AFTER update:\n");
+            for budget in get_budgets['Budget']:
+                output_status_message("Budget:")
+                output_budget(budget)
+
+        # Update unshared budgets in Campaign objects.
+        if update_campaigns is not None:
+
+            # The UpdateCampaigns operation only accepts 100 Campaign objects per call. 
+            # To simply the example we will update the first 100.
+            update_100_campaigns = update_campaigns['Campaign'][:100]
+            update_campaigns = campaign_service.factory.create('ArrayOfCampaign')
+            for campaign in update_100_campaigns:
+                update_campaigns.Campaign.append(campaign)
+
+            output_status_message("List of campaigns with unshared budget BEFORE budget update:\n");
+            for campaign in update_campaigns['Campaign']:
+                output_status_message("Campaign:");
+                output_campaign(campaign)
+                set_read_only_campaign_elements_to_none(campaign)
+
+                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in calendar year 2017. 
+                # Shared budgets do not support the monthly budget type, so this is only applicable to unshared budgets. 
+                # During the migration all campaign level unshared budgets will be rationalized as daily. 
+                # The formula that will be used to convert monthly to daily budgets is: Monthly budget amount / 30.4.
+                # Moving campaign monthly budget to daily budget is encouraged before monthly budgets are migrated. 
+
+                if campaign.BudgetType == 'MonthlyBudgetSpendUntilDepleted':
+                    # Increase budget by 20 %
+                    campaign.BudgetType = 'DailyBudgetStandard'
+                    campaign.DailyBudget = (campaign.MonthlyBudget / 30.4) * 1.2
+                else:
+                    # Increase budget by 20 %
+                    campaign.DailyBudget *= 1.2
+
+                get_campaign_ids.append(campaign.Id)
+            
+            campaign_service.UpdateCampaigns(
+                AccountId=authorization_data.account_id,
+                Campaigns=update_campaigns
+            );
+
+            get_campaigns=campaign_service.GetCampaignsByIds(
+                AccountId=authorization_data.account_id,
+                CampaignIds={'long': get_campaign_ids},
+                CampaignType=['SearchAndContent Shopping'],
+                ReturnAdditionalFields=['BiddingScheme BudgetId']
+            ).Campaigns
+            
+            output_status_message("List of campaigns with unshared budget AFTER budget update:\n");
+            for campaign in get_campaigns['Campaign']:
+                output_status_message("Campaign:");
+                output_campaign(campaign)
+        
         # Update the Text for the 3 successfully created ads, and update some UrlCustomParameters.
         update_ads=campaign_service.factory.create('ArrayOfAd')
 
