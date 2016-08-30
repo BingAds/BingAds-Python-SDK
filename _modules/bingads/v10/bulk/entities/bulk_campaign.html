@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bulk_campaign &mdash; Bing Ads SDK 10.4.7 documentation</title>
+    <title>bingads.v10.bulk.entities.bulk_campaign &mdash; Bing Ads SDK 10.4.8 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.7',
+        VERSION:     '10.4.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.7 documentation" href="../../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../index.html" />
     <link rel="up" title="Module code" href="../../../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -80,6 +80,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">campaign</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span> <span class="o">=</span> <span class="bp">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -95,6 +96,20 @@
     <span class="nd">@account_id.setter</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">budget_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The budget name that the campaign associated, only for campaigns that use a shared budget</span>
+
+<span class="sd">        Corresponds to &#39;Budget Name&#39; field in bulk file.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span>
+
+    <span class="nd">@budget_name.setter</span>
+    <span class="k">def</span> <span class="nf">budget_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -255,15 +270,6 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">TimeZone</span><span class="p">,</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;TimeZone&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
-                <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
-                <span class="s">&#39;BudgetType&#39;</span><span class="p">,</span>
-                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
-            <span class="p">)</span>
-        <span class="p">),</span>
         <span class="n">_ComplexBulkMapping</span><span class="p">(</span><span class="n">budget_to_csv</span><span class="p">,</span> <span class="n">csv_to_budget</span><span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">,</span>
@@ -304,6 +310,21 @@
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyType</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_BidStrategyType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_BidStrategyType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;BudgetId&#39;</span><span class="p">,</span> <span class="nb">long</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_BudgetType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetName</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget_name</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;budget_name&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -355,7 +376,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

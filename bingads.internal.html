@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.internal package &mdash; Bing Ads SDK 10.4.7 documentation</title>
+    <title>bingads.internal package &mdash; Bing Ads SDK 10.4.8 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.7',
+        VERSION:     '10.4.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.7 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="index.html" />
     <link rel="up" title="bingads package" href="bingads.html" />
     <link rel="next" title="bingads.reporting package" href="bingads.reporting.html" />
     <link rel="prev" title="bingads package" href="bingads.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" accesskey="U">bingads package</a> &raquo;</li> 
       </ul>
     </div>  
@@ -124,6 +124,11 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_AdSchedule">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_AdSchedule</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_AdSchedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_AdSchedule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_BidStrategyType">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BidStrategyType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BidStrategyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BidStrategyType" title="Permalink to this definition">¶</a></dt>
 <dd><p>set BiddingScheme
@@ -131,6 +136,16 @@
 :param value: the content in csv
 :return:</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_BudgetType">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BudgetType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BudgetType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BudgetType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_Date">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_Date</code><span class="sig-paren">(</span><em>entity</em>, <em>property_name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_Date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_Date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_MediaIds">
@@ -178,6 +193,14 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_AdSchedule">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_AdSchedule</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_AdSchedule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_AdSchedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the bulk string for Scheduling DayTimeRanges
+:param entity: Scheduling entity
+:return: bulk str</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.field_to_csv_BidStrategyType">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_BidStrategyType</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_BidStrategyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_BidStrategyType" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse entity to csv content
@@ -191,6 +214,22 @@
 <dd><p>MediaIds field to csv content
 :param entity: entity which has MediaIds attribute
 :return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_SchedulingEndDate">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_SchedulingEndDate</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_SchedulingEndDate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_SchedulingEndDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>write scheduling EndDate to bulk string
+:param entity: Scheduling entity
+:return: date bulk string</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_SchedulingStartDate">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_SchedulingStartDate</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_SchedulingStartDate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_SchedulingStartDate" title="Permalink to this definition">¶</a></dt>
+<dd><p>write scheduling StartDate to bulk string
+:param entity: Scheduling entity
+:return: date bulk string</p>
 </dd></dl>
 
 <dl class="function">
@@ -215,6 +254,19 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_UseSearcherTimeZone">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_UseSearcherTimeZone</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_UseSearcherTimeZone"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_UseSearcherTimeZone" title="Permalink to this definition">¶</a></dt>
+<dd><p>get Scheduling UseSearcherTimeZone bulk str
+:param entity: Scheduling entity
+:return: bulk str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.format_Day">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">format_Day</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#format_Day"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.format_Day" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.keyword_bid_bulk_str">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">keyword_bid_bulk_str</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#keyword_bid_bulk_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.keyword_bid_bulk_str" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -237,6 +289,11 @@
 <dl class="function">
 <dt id="bingads.internal.extensions.parse_ad_rotation">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_ad_rotation</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_ad_rotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_ad_rotation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_bool">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_bool</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_bool"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_bool" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -355,7 +412,7 @@
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li> 
       </ul>
     </div>

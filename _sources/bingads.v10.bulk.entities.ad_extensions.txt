@@ -60,6 +60,14 @@ bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions module
     :undoc-members:
     :show-inheritance:
 
+bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions module
+---------------------------------------------------------------------------
+
+.. automodule:: bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v10.bulk.entities.ad_extensions.bulk_structured_snippet_ad_extensions module
 ------------------------------------------------------------------------------------
 

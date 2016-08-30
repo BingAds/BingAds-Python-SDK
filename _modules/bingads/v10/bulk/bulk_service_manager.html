@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.bulk_service_manager &mdash; Bing Ads SDK 10.4.7 documentation</title>
+    <title>bingads.v10.bulk.bulk_service_manager &mdash; Bing Ads SDK 10.4.8 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '10.4.7',
+        VERSION:     '10.4.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.7 documentation" href="../../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../index.html" />
     <link rel="up" title="Module code" href="../../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -332,8 +332,8 @@
                 <span class="n">upload_file_path</span> <span class="o">=</span> <span class="n">zip_file_path</span>
             <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s">&#39;DeveloperToken&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">developer_token</span><span class="p">,</span>
-                <span class="s">&#39;CustomerId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">customer_id</span><span class="p">,</span>
-                <span class="s">&#39;AccountId&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">account_id</span><span class="p">,</span>
+                <span class="s">&#39;CustomerId&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">customer_id</span><span class="p">),</span>
+                <span class="s">&#39;AccountId&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">account_id</span><span class="p">),</span>
                 <span class="s">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">,</span>
             <span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="o">.</span><span class="n">authentication</span><span class="o">.</span><span class="n">enrich_headers</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span>
@@ -438,7 +438,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

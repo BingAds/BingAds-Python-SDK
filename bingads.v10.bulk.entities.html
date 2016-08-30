@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities package &mdash; Bing Ads SDK 10.4.7 documentation</title>
+    <title>bingads.v10.bulk.entities package &mdash; Bing Ads SDK 10.4.8 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.7',
+        VERSION:     '10.4.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.7 documentation" href="index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="index.html" />
     <link rel="up" title="bingads.v10.bulk package" href="bingads.v10.bulk.html" />
     <link rel="next" title="bingads.v10.bulk.entities.ad_extensions package" href="bingads.v10.bulk.entities.ad_extensions.html" />
     <link rel="prev" title="bingads.v10.bulk package" href="bingads.v10.bulk.html" /> 
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="bingads.v10.bulk.html" title="bingads.v10.bulk package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
           <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" accesskey="U">bingads.v10.bulk package</a> &raquo;</li> 
@@ -71,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.bulk_location_ad_extensions">bingads.v10.bulk.entities.ad_extensions.bulk_location_ad_extensions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions">bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions">bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions">bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.bulk_structured_snippet_ad_extensions">bingads.v10.bulk.entities.ad_extensions.bulk_structured_snippet_ad_extensions module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions.common">bingads.v10.bulk.entities.ad_extensions.common module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="bingads.v10.bulk.entities.ad_extensions.html#module-bingads.v10.bulk.entities.ad_extensions">Module contents</a></li>
@@ -738,6 +739,76 @@ Ad Group Remarketing List Association record in a bulk file.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-bingads.v10.bulk.entities.bulk_budget">
+<span id="bingads-v10-bulk-entities-bulk-budget-module"></span><h2>bingads.v10.bulk.entities.bulk_budget module<a class="headerlink" href="#module-bingads.v10.bulk.entities.bulk_budget" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget">
+<em class="property">class </em><code class="descclassname">bingads.v10.bulk.entities.bulk_budget.</code><code class="descname">BulkBudget</code><span class="sig-paren">(</span><em>budget=None</em>, <em>status=None</em>, <em>account_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_budget.html#BulkBudget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v10.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents a budget that can be read or written in a bulk file.</p>
+<p>Properties of this class and of classes that it is derived from, correspond to fields of the Budget record in a bulk file.
+For more information, see Budget at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=799348">http://go.microsoft.com/fwlink/?LinkID=799348</a></p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v10.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.bulk_operation.BulkOperation" title="bingads.v10.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.account_id">
+<code class="descname">account_id</code><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.account_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the budget
+Corresponds to the &#8216;Parent Id&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.budget">
+<code class="descname">budget</code><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.budget" title="Permalink to this definition">¶</a></dt>
+<dd><p>the Budget object, see more detail at: <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=799348">http://go.microsoft.com/fwlink/?LinkID=799348</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_budget.html#BulkBudget.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_budget.html#BulkBudget.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v10/bulk/entities/bulk_budget.html#BulkBudget.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.bulk_budget.BulkBudget.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_budget.BulkBudget.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the &#8216;Status&#8217; field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-bingads.v10.bulk.entities.bulk_campaign">
 <span id="bingads-v10-bulk-entities-bulk-campaign-module"></span><h2>bingads.v10.bulk.entities.bulk_campaign module<a class="headerlink" href="#module-bingads.v10.bulk.entities.bulk_campaign" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -768,6 +839,14 @@ Campaign record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v10.bulk.entities.bulk_campaign.BulkCampaign.budget_name">
+<code class="descname">budget_name</code><a class="headerlink" href="#bingads.v10.bulk.entities.bulk_campaign.BulkCampaign.budget_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The budget name that the campaign associated, only for campaigns that use a shared budget</p>
+<p>Corresponds to &#8216;Budget Name&#8217; field in bulk file.
+:rtype: str</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -2169,6 +2248,7 @@ For more information, see Bulk File Schema at <a class="reference external" href
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_ad_group_product_partition">bingads.v10.bulk.entities.bulk_ad_group_product_partition module</a></li>
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association">bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association module</a></li>
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_ads">bingads.v10.bulk.entities.bulk_ads module</a></li>
+<li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_budget">bingads.v10.bulk.entities.bulk_budget module</a></li>
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_campaign">bingads.v10.bulk.entities.bulk_campaign module</a></li>
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_campaign_product_scope">bingads.v10.bulk.entities.bulk_campaign_product_scope module</a></li>
 <li><a class="reference internal" href="#module-bingads.v10.bulk.entities.bulk_entity">bingads.v10.bulk.entities.bulk_entity module</a></li>
@@ -2229,7 +2309,7 @@ For more information, see Bulk File Schema at <a class="reference external" href
         <li class="right" >
           <a href="bingads.v10.bulk.html" title="bingads.v10.bulk package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v10.html" >bingads.v10 package</a> &raquo;</li>
           <li class="nav-item nav-item-3"><a href="bingads.v10.bulk.html" >bingads.v10.bulk package</a> &raquo;</li> 

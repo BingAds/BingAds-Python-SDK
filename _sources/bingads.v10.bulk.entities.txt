@@ -60,6 +60,14 @@ bingads.v10.bulk.entities.bulk_ads module
     :undoc-members:
     :show-inheritance:
 
+bingads.v10.bulk.entities.bulk_budget module
+--------------------------------------------
+
+.. automodule:: bingads.v10.bulk.entities.bulk_budget
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v10.bulk.entities.bulk_campaign module
 ----------------------------------------------
 

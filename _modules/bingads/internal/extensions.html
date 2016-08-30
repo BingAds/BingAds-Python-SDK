@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.internal.extensions &mdash; Bing Ads SDK 10.4.7 documentation</title>
+    <title>bingads.internal.extensions &mdash; Bing Ads SDK 10.4.8 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     '10.4.7',
+        VERSION:     '10.4.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.7 documentation" href="../../../index.html" />
+    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../index.html" />
     <link rel="up" title="Module code" href="../../index.html" /> 
   </head>
   <body role="document">
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -64,6 +64,7 @@
 <span class="n">custom_param_splitter</span> <span class="o">=</span> <span class="s">&quot;(?&lt;!</span><span class="se">\\\\</span><span class="s">);</span><span class="se">\\</span><span class="s">s*&quot;</span>
 <span class="n">custom_param_pattern</span> <span class="o">=</span> <span class="s">&quot;^</span><span class="se">\\</span><span class="s">{_(.*?)</span><span class="se">\\</span><span class="s">}=(.*$)&quot;</span>
 
+<span class="n">BudgetLimitType</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;BudgetLimitType&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="bulk_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
@@ -84,7 +85,7 @@
 
 </div>
 <div class="viewcode-block" id="bulk_date_str"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.bulk_date_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_date_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Day</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">Month</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">value</span><span class="o">.</span><span class="n">Year</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">None</span>
     <span class="k">return</span> <span class="s">&#39;{0!s}/{1!s}/{2!s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span>
 
@@ -94,6 +95,11 @@
         <span class="k">return</span> <span class="bp">None</span>
     <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">_BULK_DATETIME_FORMAT</span><span class="p">)</span>
 
+</div>
+<div class="viewcode-block" id="csv_to_field_Date"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_field_Date">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_Date</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">property_name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">parse_date</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">date</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">property_name</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
 </div>
 <span class="k">def</span> <span class="nf">_is_daily_budget</span><span class="p">(</span><span class="n">budget_type</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">budget_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;DailyBudgetAccelerated&#39;</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> \
@@ -469,6 +475,24 @@
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unknown minute&#39;</span><span class="p">)</span>
 
 </div>
+<div class="viewcode-block" id="format_Day"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.format_Day">[docs]</a><span class="k">def</span> <span class="nf">format_Day</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">Day</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Day&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;monday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Monday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;tuesday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Tuesday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;wednesday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Wednesday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;thursday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Thursday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;friday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Friday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;saturday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Saturday</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;sunday&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Day</span><span class="o">.</span><span class="n">Sunday</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to parse day: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+</div>
 <div class="viewcode-block" id="parse_location_target_type"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_location_target_type">[docs]</a><span class="k">def</span> <span class="nf">parse_location_target_type</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;Metro Area&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s">&#39;MetroArea&#39;</span>
@@ -484,7 +508,115 @@
     <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;PostalCode&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="s">&#39;Postal Code&#39;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">value</span></div>
+        <span class="k">return</span> <span class="n">value</span>
+
+</div>
+<div class="viewcode-block" id="field_to_csv_AdSchedule"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_AdSchedule">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdSchedule</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get the bulk string for Scheduling DayTimeRanges</span>
+<span class="sd">    :param entity: Scheduling entity</span>
+<span class="sd">    :return: bulk str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">return</span> <span class="s">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;({0}[{1:02d}:{2:02d}-{3:02d}:{4:02d}])&#39;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">StartHour</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute_bulk_str</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">StartMinute</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">EndHour</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute_bulk_str</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">EndMinute</span><span class="p">)))</span>
+                    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span><span class="o">.</span><span class="n">DayTime</span>
+                    <span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="csv_to_field_AdSchedule"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_field_AdSchedule">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_AdSchedule</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">daytime_strs</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">ad_schedule_pattern</span> <span class="o">=</span> <span class="s">&#39;\((Monday|Tuesday|Wednesday|ThursDay|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)&#39;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">ad_schedule_pattern</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
+    <span class="n">daytimes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">daytime_str</span> <span class="ow">in</span> <span class="n">daytime_strs</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">daytime_str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">daytime</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;DayTime&#39;</span><span class="p">)</span>
+            <span class="n">daytime</span><span class="o">.</span><span class="n">Day</span> <span class="o">=</span> <span class="n">format_Day</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">daytime</span><span class="o">.</span><span class="n">StartHour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">daytime</span><span class="o">.</span><span class="n">StartMinute</span> <span class="o">=</span> <span class="n">parse_minute</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+            <span class="n">daytime</span><span class="o">.</span><span class="n">EndHour</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+            <span class="n">daytime</span><span class="o">.</span><span class="n">EndMinute</span> <span class="o">=</span> <span class="n">parse_minute</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+            <span class="n">daytimes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">daytime</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to parse DayTime: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">daytime_str</span><span class="p">))</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span><span class="o">.</span><span class="n">DayTime</span> <span class="o">=</span> <span class="n">daytimes</span>
+
+</div>
+<div class="viewcode-block" id="field_to_csv_SchedulingStartDate"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_SchedulingStartDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingStartDate</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    write scheduling StartDate to bulk string</span>
+<span class="sd">    :param entity: Scheduling entity</span>
+<span class="sd">    :return: date bulk string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="c"># this case is what the suds creates by default. return None instead of a delete value</span>
+    <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Day</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Month</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Year</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="s">&#39;{0!s}/{1!s}/{2!s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="field_to_csv_SchedulingEndDate"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_SchedulingEndDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingEndDate</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    write scheduling EndDate to bulk string</span>
+<span class="sd">    :param entity: Scheduling entity</span>
+<span class="sd">    :return: date bulk string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="c"># this case is what the suds creates by default. return None instead of a delete value</span>
+    <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Day</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Month</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Year</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="s">&#39;{0!s}/{1!s}/{2!s}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="field_to_csv_UseSearcherTimeZone"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.field_to_csv_UseSearcherTimeZone">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_UseSearcherTimeZone</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    get Scheduling UseSearcherTimeZone bulk str</span>
+<span class="sd">    :param entity: Scheduling entity</span>
+<span class="sd">    :return: bulk str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="c"># this case is what suds creates by default, while set it to delete value since there&#39;s no other case for delete value</span>
+    <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">UseSearcherTimeZone</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">UseSearcherTimeZone</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="csv_to_field_BudgetType"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.csv_to_field_BudgetType">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_BudgetType</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;MonthlyBudgetSpendUntilDepleted&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="n">BudgetLimitType</span><span class="o">.</span><span class="n">MonthlyBudgetSpendUntilDepleted</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;DailyBudgetAccelerated&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="n">BudgetLimitType</span><span class="o">.</span><span class="n">DailyBudgetAccelerated</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;DailyBudgetStandard&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="n">BudgetLimitType</span><span class="o">.</span><span class="n">DailyBudgetStandard</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to parse BudgetType: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="parse_bool"><a class="viewcode-back" href="../../../bingads.internal.html#bingads.internal.extensions.parse_bool">[docs]</a><span class="k">def</span> <span class="nf">parse_bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;true&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;false&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Unable to parse bool value: {0}.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
 </pre></div>
 
           </div>
@@ -518,7 +650,7 @@
         <li class="right" >
           <a href="../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.7 documentation</a> &raquo;</li>
+        <li class="nav-item nav-item-0"><a href="../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="../../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
