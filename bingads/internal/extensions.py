@@ -15,6 +15,7 @@ url_splitter = ";\\s*(?=https?://)"
 custom_param_splitter = "(?<!\\\\);\\s*"
 custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
 
+BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V10.create('BudgetLimitType')
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -35,7 +36,7 @@ def bulk_upper_str(value):
 
 
 def bulk_date_str(value):
-    if value is None:
+    if value is None or (value.Day is None and value.Month is None and value.Year is None):
         return None
     return '{0!s}/{1!s}/{2!s}'.format(value.Month, value.Day, value.Year)
 
@@ -45,6 +46,11 @@ def bulk_datetime_str(value):
         return None
     return value.strftime(_BULK_DATETIME_FORMAT)
 
+
+def csv_to_field_Date(entity, property_name, value):
+    date = parse_date(value)
+    if date is not None:
+        setattr(entity, property_name, date)
 
 def _is_daily_budget(budget_type):
     if budget_type.lower() == 'DailyBudgetAccelerated'.lower() \
@@ -420,6 +426,24 @@ def parse_minute(value):
     raise ValueError('Unknown minute')
 
 
+def format_Day(value):
+    Day = _CAMPAIGN_OBJECT_FACTORY_V10.create('Day')
+    if value.lower() == 'monday':
+        return Day.Monday
+    elif value.lower() == 'tuesday':
+        return Day.Tuesday
+    elif value.lower() == 'wednesday':
+        return Day.Wednesday
+    elif value.lower() == 'thursday':
+        return Day.Thursday
+    elif value.lower() == 'friday':
+        return Day.Friday
+    elif value.lower() == 'saturday':
+        return Day.Saturday
+    elif value.lower() == 'sunday':
+        return Day.Sunday
+    raise ValueError('Unable to parse day: {0}'.format(value))
+
 def parse_location_target_type(value):
     if value == 'Metro Area':
         return 'MetroArea'
@@ -436,3 +460,111 @@ def location_target_type_bulk_str(value):
         return 'Postal Code'
     else:
         return value
+
+
+def field_to_csv_AdSchedule(entity):
+    """
+    get the bulk string for Scheduling DayTimeRanges
+    :param entity: Scheduling entity
+    :return: bulk str
+    """
+    if entity is None:
+        return None
+    if entity.DayTimeRanges is None:
+        return DELETE_VALUE
+    return ';'.join('({0}[{1:02d}:{2:02d}-{3:02d}:{4:02d}])'
+                    .format(d.Day, d.StartHour, int(minute_bulk_str(d.StartMinute)), d.EndHour, int(minute_bulk_str(d.EndMinute)))
+                    for d in entity.DayTimeRanges.DayTime
+                    )
+
+
+def csv_to_field_AdSchedule(entity, value):
+    if value is None or value.strip() == '':
+        return
+    daytime_strs = value.split(';')
+    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|ThursDay|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
+    daytimes = []
+    for daytime_str in daytime_strs:
+        match = pattern.match(daytime_str)
+        if match:
+            daytime = _CAMPAIGN_OBJECT_FACTORY_V10.create('DayTime')
+            daytime.Day = format_Day(match.group(1))
+            daytime.StartHour = int(match.group(2))
+            daytime.StartMinute = parse_minute(match.group(3))
+            daytime.EndHour = int(match.group(4))
+            daytime.EndMinute = parse_minute(match.group(5))
+            daytimes.append(daytime)
+        else:
+            raise ValueError('Unable to parse DayTime: {0}'.format(daytime_str))
+    entity.DayTimeRanges.DayTime = daytimes
+
+
+def field_to_csv_SchedulingStartDate(entity):
+    """
+    write scheduling StartDate to bulk string
+    :param entity: Scheduling entity
+    :return: date bulk string
+    """
+    if entity is None:
+        return None
+    elif entity.StartDate is None:
+        return DELETE_VALUE
+    # this case is what the suds creates by default. return None instead of a delete value
+    elif entity.StartDate.Day is None and entity.StartDate.Month is None and entity.StartDate.Year is None:
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(entity.StartDate.Month, entity.StartDate.Day, entity.StartDate.Year)
+
+
+def field_to_csv_SchedulingEndDate(entity):
+    """
+    write scheduling EndDate to bulk string
+    :param entity: Scheduling entity
+    :return: date bulk string
+    """
+    if entity is None:
+        return None
+    elif entity.EndDate is None:
+        return DELETE_VALUE
+    # this case is what the suds creates by default. return None instead of a delete value
+    elif entity.EndDate.Day is None and entity.EndDate.Month is None and entity.EndDate.Year is None:
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(entity.EndDate.Month, entity.EndDate.Day, entity.EndDate.Year)
+
+
+def field_to_csv_UseSearcherTimeZone(entity):
+    """
+    get Scheduling UseSearcherTimeZone bulk str
+    :param entity: Scheduling entity
+    :return: bulk str
+    """
+    if entity is None:
+        return None
+    # this case is what suds creates by default, while set it to delete value since there's no other case for delete value
+    elif entity.UseSearcherTimeZone is None:
+        return DELETE_VALUE
+    else:
+        return str(entity.UseSearcherTimeZone)
+
+
+def csv_to_field_BudgetType(entity, value):
+    if value is None or value == '':
+        entity.BudgetType = None
+    elif value == 'MonthlyBudgetSpendUntilDepleted':
+        entity.BudgetType = BudgetLimitType.MonthlyBudgetSpendUntilDepleted
+    elif value == 'DailyBudgetAccelerated':
+        entity.BudgetType = BudgetLimitType.DailyBudgetAccelerated
+    elif value == 'DailyBudgetStandard':
+        entity.BudgetType = BudgetLimitType.DailyBudgetStandard
+    else:
+        raise ValueError('Unable to parse BudgetType: {0}'.format(value))
+
+def parse_bool(value):
+    if value is None or value == '':
+        return None
+    elif value.lower() == 'true':
+        return True
+    elif value.lower() == 'false':
+        return False
+    else:
+        raise ValueError('Unable to parse bool value: {0}.'.format(value))

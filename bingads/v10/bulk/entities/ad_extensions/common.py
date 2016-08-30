@@ -4,9 +4,9 @@ from bingads.v10.internal.bulk.entities.bulk_entity_identifier import _BulkEntit
 from bingads.v10.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v10.internal.bulk.string_table import _StringTable
 from bingads.v10.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
-from bingads.internal.extensions import bulk_str
+from bingads.internal.extensions import *
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10
-
+Date = _CAMPAIGN_OBJECT_FACTORY_V10.create('Date')
 
 class _BulkAdExtensionBase(_SingleRecordBulkEntity):
     """ This class provides properties that are shared by all bulk ad extension classes.
@@ -60,6 +60,26 @@ class _BulkAdExtensionBase(_SingleRecordBulkEntity):
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.account_id),
             csv_to_field=lambda c, v: setattr(c, 'account_id', int(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.StartDate,
+            field_to_csv=lambda c: field_to_csv_SchedulingStartDate(c._ad_extension.Scheduling),
+            csv_to_field=lambda c, v: csv_to_field_Date(c._ad_extension.Scheduling, 'StartDate', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.EndDate,
+            field_to_csv=lambda c: field_to_csv_SchedulingEndDate(c._ad_extension.Scheduling),
+            csv_to_field = lambda c, v: csv_to_field_Date(c._ad_extension.Scheduling, 'EndDate', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdSchedule,
+            field_to_csv=lambda c: field_to_csv_AdSchedule(c._ad_extension.Scheduling),
+            csv_to_field=lambda c, v: csv_to_field_AdSchedule(c._ad_extension.Scheduling, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.UseSearcherTimeZone,
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c._ad_extension.Scheduling),
+            csv_to_field=lambda c, v: setattr(c._ad_extension.Scheduling, 'UseSearcherTimeZone', parse_bool(v))
         ),
     ]
 

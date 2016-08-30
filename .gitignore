@@ -45,6 +45,3 @@ docs/bingads.*
 
 # idea project file
 .idea
-
-# User-specific files
-*.suo

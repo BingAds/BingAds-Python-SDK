@@ -3,6 +3,15 @@
 Release History
 ---------------
 
+10.4.8(2016-08-29)
+++++++++++++++++++
+
+* Add Sitelink2 Ad Extension
+* Add Budget
+* Add Budget Id in Campaign for Shared Budget
+* Add Scheduling in Ad Extensions
+* Update wsdl proxy to latest version
+
 10.4.7(2016-07-28)
 ++++++++++++++++++
 

@@ -10,6 +10,8 @@ class _StringTable:
     TimeZone = "Time Zone"
     Budget = "Budget"
     BudgetType = "Budget Type"
+    BudgetName = "Budget Name"
+    BudgetId = "Budget Id"
     KeywordVariantMatchEnabled = "KeywordVariantMatchEnabled"
     AdGroup = "Ad Group"
     Keyword = "Keyword"
@@ -124,6 +126,11 @@ class _StringTable:
     AdGroupStructuredSnippetAdExtension = "Ad Group Structured Snippet Ad Extension"
     StructuredSnippetHeader = "Structured Snippet Header"
     StructuredSnippetValues = "Structured Snippet Values"
+
+    # Sitelink2 Ad Extension
+    Sitelink2AdExtension = "Sitelink2 Ad Extension"
+    AdGroupSitelink2AdExtension = "Ad Group Sitelink2 Ad Extension"
+    CampaignSitelink2AdExtension = "Campaign Sitelink2 Ad Extension"
 
     # Editorial Rejection Reasons
     PublisherCountries = "Publisher Countries"
@@ -250,3 +257,7 @@ class _StringTable:
     TitlePart2 = "Title Part 2"
     Path1 = "Path 1"
     Path2 = "Path 2"
+
+    # Ad Extension Scheduling
+    AdSchedule = "Ad Schedule"
+    UseSearcherTimeZone = "Use Searcher Time Zone"

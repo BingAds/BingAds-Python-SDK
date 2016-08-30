@@ -235,13 +235,11 @@ class BulkSiteLink(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            # field_to_csv=lambda c: bulk_str(';'.join(c.site_link.FinalUrls.string)),
             field_to_csv=lambda c: field_to_csv_Urls(c.site_link.FinalUrls),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.site_link.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            #field_to_csv=lambda c: bulk_str(';'.join(c.site_link.FinalMobileUrls.string)),
             field_to_csv=lambda c: field_to_csv_Urls(c.site_link.FinalMobileUrls),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.site_link.FinalMobileUrls, v)
         ),
@@ -254,6 +252,26 @@ class BulkSiteLink(_SingleRecordBulkEntity):
             header=_StringTable.CustomParameter,
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.site_link),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.site_link, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.StartDate,
+            field_to_csv=lambda c: field_to_csv_SchedulingStartDate(c.site_link.Scheduling),
+            csv_to_field=lambda c, v: csv_to_field_Date(c.site_link.Scheduling, 'StartDate', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.EndDate,
+            field_to_csv=lambda c: field_to_csv_SchedulingEndDate(c.site_link.Scheduling),
+            csv_to_field = lambda c, v: csv_to_field_Date(c.site_link.Scheduling, 'EndDate', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdSchedule,
+            field_to_csv=lambda c: field_to_csv_AdSchedule(c.site_link.Scheduling),
+            csv_to_field=lambda c, v: csv_to_field_AdSchedule(c.site_link.Scheduling, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.UseSearcherTimeZone,
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.site_link.Scheduling),
+            csv_to_field=lambda c, v: setattr(c.site_link.Scheduling, 'UseSearcherTimeZone', parse_bool(v))
         ),
     ]
 

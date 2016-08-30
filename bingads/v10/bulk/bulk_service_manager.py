@@ -283,8 +283,8 @@ class BulkServiceManager:
                 upload_file_path = zip_file_path
             headers = {
                 'DeveloperToken': self._authorization_data.developer_token,
-                'CustomerId': self._authorization_data.customer_id,
-                'AccountId': self._authorization_data.account_id,
+                'CustomerId': str(self._authorization_data.customer_id),
+                'AccountId': str(self._authorization_data.account_id),
                 'User-Agent': USER_AGENT,
             }
             self._authorization_data.authentication.enrich_headers(headers)

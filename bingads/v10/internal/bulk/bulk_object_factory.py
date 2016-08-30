@@ -1,14 +1,7 @@
 from bingads.v10.bulk.entities import *
-from bingads.v10.bulk.entities.ad_extensions.bulk_callout_ad_extensions import BulkCalloutAdExtension, \
-    BulkCampaignCalloutAdExtension, BulkAdGroupCalloutAdExtension
-from bingads.v10.bulk.entities.ad_extensions.bulk_review_ad_extensions import BulkReviewAdExtension, \
-    BulkCampaignReviewAdExtension, BulkAdGroupReviewAdExtension
 from bingads.v10.bulk.entities.ad_extensions.bulk_site_links_ad_extensions import _SiteLinkAdExtensionIdentifier
 from bingads.v10.bulk.entities.targets.bulk_targets import _BulkCampaignTargetIdentifier, \
     _BulkAdGroupTargetIdentifier, _BulkTargetIdentifier
-from bingads.v10.bulk.entities.bulk_remarketing_list import BulkRemarketingList
-from bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association import BulkAdGroupRemarketingListAssociation
-
 from bingads.v10.internal.bulk.string_table import _StringTable
 from bingads.v10.internal.bulk.entity_info import _EntityInfo
 from bingads.v10.bulk.entities.bulk_negative_sites import _BulkAdGroupNegativeSitesIdentifier, \
@@ -19,6 +12,7 @@ from bingads.v10.internal.bulk.format_version import _FormatVersion
 class _BulkObjectFactory():
     INDIVIDUAL_ENTITY_MAP = {
         _StringTable.Account: _EntityInfo(lambda: BulkAccount()),
+        _StringTable.Budget: _EntityInfo(lambda: BulkBudget()),
         _StringTable.Campaign: _EntityInfo(lambda: BulkCampaign()),
         _StringTable.AdGroup: _EntityInfo(lambda: BulkAdGroup()),
         _StringTable.Keyword: _EntityInfo(lambda: BulkKeyword()),
@@ -52,6 +46,9 @@ class _BulkObjectFactory():
         _StringTable.StructuredSnippetAdExtension: _EntityInfo(lambda: BulkStructuredSnippetAdExtension()),
         _StringTable.CampaignStructuredSnippetAdExtension: _EntityInfo(lambda: BulkCampaignStructuredSnippetAdExtension()),
         _StringTable.AdGroupStructuredSnippetAdExtension: _EntityInfo(lambda: BulkAdGroupStructuredSnippetAdExtension()),
+        _StringTable.Sitelink2AdExtension: _EntityInfo(lambda: BulkSitelink2AdExtension()),
+        _StringTable.CampaignSitelink2AdExtension: _EntityInfo(lambda: BulkCampaignSitelink2AdExtension()),
+        _StringTable.AdGroupSitelink2AdExtension: _EntityInfo(lambda: BulkAdGroupSitelink2AdExtension()),
         _StringTable.ProductAd: _EntityInfo(lambda: BulkProductAd()),
         _StringTable.TextAd: _EntityInfo(lambda: BulkTextAd()),
         _StringTable.AppInstallAd: _EntityInfo(lambda: BulkAppInstallAd()),

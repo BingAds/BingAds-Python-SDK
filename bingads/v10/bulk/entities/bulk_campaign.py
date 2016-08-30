@@ -31,6 +31,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         self._campaign = campaign
         self._quality_score_data = None
         self._performance_data = None
+        self._budget_name = None
 
     @property
     def account_id(self):
@@ -46,6 +47,20 @@ class BulkCampaign(_SingleRecordBulkEntity):
     @account_id.setter
     def account_id(self, account_id):
         self._account_id = account_id
+
+    @property
+    def budget_name(self):
+        """
+        The budget name that the campaign associated, only for campaigns that use a shared budget
+
+        Corresponds to 'Budget Name' field in bulk file.
+        :rtype: str
+        """
+        return self._budget_name
+
+    @budget_name.setter
+    def budget_name(self, value):
+        self._budget_name = value
 
     @property
     def campaign(self):
@@ -206,15 +221,6 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: c.campaign.TimeZone,
             csv_to_field=lambda c, v: setattr(c.campaign, 'TimeZone', v)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.BudgetType,
-            field_to_csv=lambda c: bulk_str(c.campaign.BudgetType),
-            csv_to_field=lambda c, v: setattr(
-                c.campaign,
-                'BudgetType',
-                v if v else None
-            )
-        ),
         _ComplexBulkMapping(budget_to_csv, csv_to_budget),
         _SimpleBulkMapping(
             header=_StringTable.BidAdjustment,
@@ -255,6 +261,21 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.BidStrategyType,
             field_to_csv=lambda c: field_to_csv_BidStrategyType(c.campaign),
             csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.campaign, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BudgetId,
+            field_to_csv=lambda c: bulk_str(c.campaign.BudgetId),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'BudgetId', long(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BudgetType,
+            field_to_csv=lambda c: bulk_str(c.campaign.BudgetType),
+            csv_to_field=lambda c, v: csv_to_field_BudgetType(c.campaign, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BudgetName,
+            field_to_csv=lambda c: bulk_str(c.budget_name),
+            csv_to_field=lambda c, v: setattr(c, 'budget_name', v if v else None)
         ),
     ]
 

@@ -20,6 +20,8 @@ class _CsvHeaders:
         _StringTable.TimeZone,
         _StringTable.Budget,
         _StringTable.BudgetType,
+        _StringTable.BudgetName,
+        _StringTable.BudgetId,
         _StringTable.KeywordVariantMatchEnabled,
 
         # AdGroup
@@ -78,14 +80,14 @@ class _CsvHeaders:
         # AdExtensions common
         _StringTable.Version,
 
-        # SiteLink AdExtensions
+        # SiteLink Ad Extensions
         _StringTable.SiteLinkExtensionOrder,
         _StringTable.SiteLinkDisplayText,
         _StringTable.SiteLinkDestinationUrl,
         _StringTable.SiteLinkDescription1,
         _StringTable.SiteLinkDescription2,
 
-        # Location AdExtensions
+        # Location Ad Extensions
         _StringTable.GeoCodeStatus,
         _StringTable.IconMediaId,
         _StringTable.ImageMediaId,
@@ -98,20 +100,23 @@ class _CsvHeaders:
         _StringTable.Latitude,
         _StringTable.Longitude,
 
-        # Call AdExtensions
+        # Call Ad Extensions
         _StringTable.CountryCode,
         _StringTable.IsCallOnly,
         _StringTable.IsCallTrackingEnabled,
         _StringTable.RequireTollFreeTrackingNumber,
 
-        # Structured Snippet AdExtensions
+        # Structured Snippet Ad Extensions
         _StringTable.StructuredSnippetHeader,
         _StringTable.StructuredSnippetValues,
 
-        # Image AdExtensions
+        # Image Ad Extensions
         _StringTable.AltText,
         _StringTable.MediaIds,
         _StringTable.PublisherCountries,
+
+        # Callout Ad Extension
+        _StringTable.CalloutText,
 
         # Product Target
         _StringTable.BingMerchantCenterId,
@@ -176,9 +181,6 @@ class _CsvHeaders:
         _StringTable.Source,
         _StringTable.Url,
 
-        # Callout Ad Extension
-        _StringTable.CalloutText,
-
         # Bid Strategy
         _StringTable.BidStrategyType,
 
@@ -199,6 +201,10 @@ class _CsvHeaders:
         _StringTable.TitlePart2,
         _StringTable.Path1,
         _StringTable.Path2,
+
+        # Ad Scheduling
+        _StringTable.AdSchedule,
+        _StringTable.UseSearcherTimeZone,
     ]
 
     @staticmethod

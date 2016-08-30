@@ -8,6 +8,7 @@ from .bulk_entity import *
 from .bid_suggestion_data import *
 from .unknown_bulk_entity import *
 from .bulk_account import *
+from .bulk_budget import *
 from .bulk_campaign import *
 from .bulk_ad_group import *
 from .bulk_keyword import *

@@ -132,8 +132,8 @@ class ServiceClient:
             return kwargs
         headers = {
             'DeveloperToken': authorization_data.developer_token,
-            'CustomerId': authorization_data.customer_id,
-            'CustomerAccountId': authorization_data.account_id,
+            'CustomerId': str(authorization_data.customer_id),
+            'CustomerAccountId': str(authorization_data.account_id),
         }
         authorization_data.authentication.enrich_headers(headers)
 
