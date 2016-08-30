@@ -517,7 +517,7 @@ if __name__ == '__main__':
         conversion_goals.ConversionGoal.append(url_goal)
 
         app_install_goal=set_elements_to_none(campaign_service.factory.create('AppInstallGoal'))
-        # You must provide a valiid app platform and app store identifier, 
+        # You must provide a valid app platform and app store identifier, 
         # otherwise this goal will not be added successfully. 
         app_install_goal.AppPlatform = "Windows"
         app_install_goal.AppStoreId = "AppStoreIdGoesHere"
@@ -591,14 +591,23 @@ if __name__ == '__main__':
         update_conversion_goals.ConversionGoal.append(update_duration_goal)
 
         update_event_goal=set_elements_to_none(campaign_service.factory.create('EventGoal'))
-        # You can update the operator whether or not you include the expression.
-        update_event_goal.ActionExpression = "play"
-        update_event_goal.ActionOperator = 'Equals'
-        # You can update the operator whether or not you include the expression.
+        # For both add and update conversion goal operations, you must include one or more  
+        # of the following event operator pairs: 
+        # (ActionOperator and ActionExpression), (CategoryOperator and CategoryExpression), 
+        # (LabelOperator and LabelExpression), (ValueOperator and Value).
+        # Each event pair (e.g. ActionOperator and ActionExpression) is optional if you include 
+        # one or more of the other events.
+
+        # For example if you do not include ActionOperator and ActionExpression during update, 
+        # any existing ActionOperator and ActionExpression settings will be deleted.
+        update_event_goal.ActionExpression = None
+        update_event_goal.ActionOperator = None
         update_event_goal.CategoryExpression = "video"
         update_event_goal.CategoryOperator = 'Equals'
         update_event_goal.Id = conversion_goal_ids[0]
-        # You can update the operator whether or not you include the expression.
+        # You cannot update the expression unless you also include the expression.
+        # Likewise, you cannot update the operator unless you also include the expression.
+        # The following attempt to update LabelOperator will result in an error.
         update_event_goal.LabelExpression = None
         update_event_goal.LabelOperator = 'Equals'
         update_event_goal.Name = "My Updated Event Goal " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
@@ -607,7 +616,8 @@ if __name__ == '__main__':
         update_event_goal_revenue.Value=5.00
         update_event_goal_revenue.CurrencyCode=None
         update_event_goal.Revenue = update_event_goal_revenue
-        # You can update the value operator whether or not you include the value.
+        # You must specify the previous settings for Value and ValueOperator,
+        # unless you want them deleted during the update conversion goal operation.
         update_event_goal.Value = None
         update_event_goal.ValueOperator = 'GreaterThan'
         update_conversion_goals.ConversionGoal.append(update_event_goal)
@@ -620,12 +630,16 @@ if __name__ == '__main__':
         update_url_goal=set_elements_to_none(campaign_service.factory.create('UrlGoal'))
         update_url_goal.Id = conversion_goal_ids[3]
         update_url_goal.Name = "My Updated Url Goal " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        # If not specified during update, the previous Url settings are retained.
         update_url_goal.UrlExpression = None
         update_url_goal.UrlOperator = 'BeginsWith'
         update_conversion_goals.ConversionGoal.append(update_url_goal)
 
-        campaign_service.UpdateConversionGoals(update_conversion_goals)
+        update_conversion_goals_response = campaign_service.UpdateConversionGoals(update_conversion_goals)
 
+        output_status_message("List of errors returned from UpdateConversionGoals (if any):\n");
+        output_partial_errors(update_conversion_goals_response.PartialErrors);
+        
         get_conversion_goals = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
             ConversionGoalTypes=conversion_goal_types
