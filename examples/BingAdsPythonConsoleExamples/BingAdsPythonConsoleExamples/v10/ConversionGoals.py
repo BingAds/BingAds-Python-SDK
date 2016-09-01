@@ -592,21 +592,17 @@ if __name__ == '__main__':
 
         update_event_goal=set_elements_to_none(campaign_service.factory.create('EventGoal'))
         # For both add and update conversion goal operations, you must include one or more  
-        # of the following event operator pairs: 
-        # (ActionOperator and ActionExpression), (CategoryOperator and CategoryExpression), 
-        # (LabelOperator and LabelExpression), (ValueOperator and Value).
-        # Each event pair (e.g. ActionOperator and ActionExpression) is optional if you include 
-        # one or more of the other events.
-
-        # For example if you do not include ActionOperator and ActionExpression during update, 
+        # of the following events:
+        # ActionExpression, CategoryExpression, LabelExpression, or Value. 
+        
+        # For example if you do not include ActionExpression during update,
         # any existing ActionOperator and ActionExpression settings will be deleted.
         update_event_goal.ActionExpression = None
         update_event_goal.ActionOperator = None
         update_event_goal.CategoryExpression = "video"
         update_event_goal.CategoryOperator = 'Equals'
         update_event_goal.Id = conversion_goal_ids[0]
-        # You cannot update the expression unless you also include the expression.
-        # Likewise, you cannot update the operator unless you also include the expression.
+        # You cannot update the operator unless you also include the expression.
         # The following attempt to update LabelOperator will result in an error.
         update_event_goal.LabelExpression = None
         update_event_goal.LabelOperator = 'Equals'
@@ -616,8 +612,8 @@ if __name__ == '__main__':
         update_event_goal_revenue.Value=5.00
         update_event_goal_revenue.CurrencyCode=None
         update_event_goal.Revenue = update_event_goal_revenue
-        # You must specify the previous settings for Value and ValueOperator,
-        # unless you want them deleted during the update conversion goal operation.
+        # You must specify the previous settings unless you want
+        # them replaced during the update conversion goal operation.
         update_event_goal.Value = None
         update_event_goal.ValueOperator = 'GreaterThan'
         update_conversion_goals.ConversionGoal.append(update_event_goal)
