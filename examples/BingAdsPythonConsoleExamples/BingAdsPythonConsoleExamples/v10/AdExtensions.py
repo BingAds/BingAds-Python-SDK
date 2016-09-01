@@ -300,32 +300,7 @@ def set_read_only_ad_extension_elements_to_none(extension):
         # Set to None for all extension types.
         extension.Version = None
     
-        if extension.Type == 'ImageAdExtension' or extension.Type == 'Sitelink2AdExtension':
-            if extension.FinalMobileUrls is not None:
-                urls = []
-                for url in extension.FinalMobileUrls:
-                    # When retrieving ad extensions, null strings can be returned in the list.
-                    # We only want to keep non-null strings.
-                    if url is not None:
-                        urls.append(url)
-                extension.FinalMobileUrls = urls
-            if extension.FinalUrls is not None:
-                urls = []
-                for url in extension.FinalUrls:
-                    # When retrieving ad extensions, null strings can be returned in the list.
-                    # We only want to keep non-null strings.
-                    if url is not None:
-                        urls.append(url)
-                extension.FinalUrls = urls
-            if extension.UrlCustomParameters is not None and extension.UrlCustomParameters.Parameters is not None:
-                custom_parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
-                for parameter in extension.UrlCustomParameters.Parameters['CustomParameter']:
-                    # When retrieving ad extensions, null key and value pairs can be returned in the list.
-                    # We only want to keep non-null key and value pairs.
-                    if parameter is not None and parameter.Key is not None:
-                        custom_parameters.CustomParameter.append(parameter)
-                extension.UrlCustomParameters.Parameters = custom_parameters
-        elif extension.Type == 'LocationAdExtension':
+        if extension.Type == 'LocationAdExtension':
             extension.GeoCodeStatus = None
         
         return extension
