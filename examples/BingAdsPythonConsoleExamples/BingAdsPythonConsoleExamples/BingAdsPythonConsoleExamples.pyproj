@@ -34,6 +34,9 @@
     <Compile Include="v10\AdExtensions.py" />
     <Compile Include="v10\BudgetOpportunities.py" />
     <Compile Include="v10\BulkAdExtensions.py" />
+    <Compile Include="v10\BulkKeywordBidUpdate.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v10\BulkKeywordsAds.py" />
     <Compile Include="v10\BulkProductPartitionBidUpdate.py" />
     <Compile Include="v10\BulkRemarketingLists.py" />
