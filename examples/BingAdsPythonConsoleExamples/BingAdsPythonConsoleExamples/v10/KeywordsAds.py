@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
-
+    
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -686,8 +686,7 @@ if __name__ == '__main__':
         } 
     
         output_keyword_results(keywords, keyword_ids, keyword_errors)
-
-
+        
         # Here is a simple example that updates the campaign budget.
         # If the campaign has a shared budget you cannot update the Campaign budget amount,
         # and you must instead update the amount in the Budget object. If you try to update 
