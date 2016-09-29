@@ -5,6 +5,9 @@ Bing Ads Python SDK
 .. image:: https://img.shields.io/pypi/v/bingads.svg
         :target: https://pypi.python.org/pypi/bingads
 
+.. image:: https://img.shields.io/pypi/dm/bingads.svg
+        :target: https://pypi.python.org/pypi/bingads
+
 
 The Bing Ads Python Software Development Kit (SDK) Version 10.4 enhances the experience of developing Bing Ads applications
 with the Python programming language.

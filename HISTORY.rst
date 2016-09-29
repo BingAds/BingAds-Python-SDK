@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+10.4.9(2016-09-29)
+++++++++++++++++++
+
+* Update wsdl proxy for Dynamic Search Ads
+* Update wsdl proxy for Remarketing
+
 10.4.8(2016-08-29)
 ++++++++++++++++++
 
