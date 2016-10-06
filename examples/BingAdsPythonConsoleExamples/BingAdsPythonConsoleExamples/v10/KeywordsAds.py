@@ -465,8 +465,6 @@ if __name__ == '__main__':
         # Determine whether you are able to add shared budgets by checking the pilot flags.
 
         enabled_for_shared_budgets = False
-
-        # Optionally you can find out which pilot features the customer is able to use.
         feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
 
         # The pilot flag value for shared budgets is 263.
@@ -905,13 +903,22 @@ if __name__ == '__main__':
         # Delete the campaign, ad group, keyword, and ad that were previously added. 
         # You should remove this line if you want to view the added entities in the 
         # Bing Ads web application or another tool.
+
         campaign_service.DeleteCampaigns(
             AccountId=authorization_data.account_id,
             CampaignIds=campaign_ids
         )
-
         for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
+        
+        # This sample will attempt to delete the budget that was created above 
+        # if the customer is enabled for shared budgets.
+        if enabled_for_shared_budgets:
+            campaign_service.DeleteBudgets(
+                BudgetIds=budget_ids
+            )
+            for budget_id in budget_ids['long']:
+                output_status_message("Deleted BudgetId {0}\n".format(budget_id))
 
         output_status_message("Program execution completed")
 

@@ -7,6 +7,7 @@ import sys
 import webbrowser
 from time import gmtime, strftime
 from suds import WebFault
+from decimal import Decimal
 
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
@@ -25,6 +26,7 @@ if __name__ == '__main__':
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
 
+    BUDGET_ID_KEY=-20
     CAMPAIGN_ID_KEY=-123
     AD_GROUP_ID_KEY=-1234
 
@@ -247,6 +249,33 @@ def output_bulk_bid_suggestions(bid_suggestions):
         output_status_message("MainLine: {0}".format(bid_suggestions.main_line))
         output_status_message("FirstPage: {0}".format(bid_suggestions.first_page))
 
+def output_bulk_budgets(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkBudget: \n")
+        output_status_message("AccountId: {0}".format(entity.account_id))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+            
+        output_status_message("Status: {0}".format(entity.status))
+
+        # Output the Campaign Management Budget Object
+        output_budget(entity.budget)
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_budget(budget):
+    if budget is not None:
+        output_status_message("Amount: {0}".format(budget.Amount))
+        output_status_message("AssociationCount: {0}".format(budget.AssociationCount))
+        output_status_message("BudgetType: {0}".format(budget.BudgetType))
+        output_status_message("Id: {0}".format(budget.Id))
+        output_status_message("Name: {0}\n".format(budget.Name))
+
 def output_bulk_campaigns(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkCampaign: \n")
@@ -269,7 +298,10 @@ def output_bulk_campaigns(bulk_entities):
 
 def output_campaign(campaign):
     if campaign is not None:
-        output_bidding_scheme(campaign.BiddingScheme)
+        if hasattr(campaign, 'BiddingScheme'): 
+            output_bidding_scheme(campaign.BiddingScheme)
+        if hasattr(campaign, 'BudgetId'): 
+            output_status_message("BudgetId: {0}".format(campaign.BudgetId))
         output_status_message("BudgetType: {0}".format(campaign.BudgetType))
         if campaign.CampaignType is not None:
             for campaign_type in campaign.CampaignType:
@@ -624,6 +656,16 @@ def write_entities_and_upload_file(upload_entities):
 
     return download_entities
 
+def download_file(download_parameters):
+    bulk_file_path=bulk_service.download_file(download_parameters, progress=print_percent_complete)
+
+    download_entities=[]
+    entities_generator=read_entities_from_bulk_file(file_path=bulk_file_path, result_file_type=ResultFileType.full_download, file_format=FILE_FORMAT)
+    for entity in entities_generator:
+        download_entities.append(entity)
+
+    return download_entities
+
 def read_entities_from_bulk_file(file_path, result_file_type, file_format):
     with BulkFileReader(file_path=file_path, result_file_type=result_file_type, file_format=file_format) as reader:
         for entity in reader:
@@ -654,9 +696,33 @@ if __name__ == '__main__':
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
 
-        # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
-        # and additional elements needed to read from and write to a bulk file.
+        # Determine whether you are able to add shared budgets by checking the pilot flags.
 
+        enabled_for_shared_budgets = False
+        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
+
+        # The pilot flag value for shared budgets is 263.
+        # Pilot flags apply to all accounts within a given customer.
+        if(263 in feature_pilot_flags['int']):
+            enabled_for_shared_budgets = True
+        
+        # If the customer is enabled for shared budgets, let's create a new budget and
+        # share it with a new campaign.
+
+        upload_entities=[]
+        
+        if enabled_for_shared_budgets:
+            bulk_budget=BulkBudget()
+            bulk_budget.client_id='YourClientIdGoesHere'
+            budget=set_elements_to_none(campaign_service.factory.create('Budget'))
+            budget.Amount=50
+            budget.BudgetType='DailyBudgetStandard'
+            budget.Id=BUDGET_ID_KEY
+            budget.Name="My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+            bulk_budget.budget=budget
+            upload_entities.append(bulk_budget)
+
+        
         bulk_campaign=BulkCampaign()
         
         # The client_id may be used to associate records in the bulk upload file with records in the results file. The value of this field  
@@ -673,8 +739,13 @@ if __name__ == '__main__':
         campaign.Id=CAMPAIGN_ID_KEY
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
-        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-        campaign.MonthlyBudget=1000
+
+        # You must choose to set either the shared  budget ID or daily amount.
+        # You can set one or the other, but you may not set both.
+        campaign.BudgetId=BUDGET_ID_KEY if enabled_for_shared_budgets else 0
+        campaign.DailyBudget=0 if enabled_for_shared_budgets else 50
+        campaign.BudgetType='DailyBudgetStandard'
+        
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.Status='Paused'
 
@@ -689,7 +760,7 @@ if __name__ == '__main__':
         # If you do not set this element, then ManualCpcBiddingScheme is used by default.
         campaign_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme'))
         campaign.BiddingScheme=campaign_bidding_scheme
-        
+                
         # Used with FinalUrls shown in the text ads that we will add below.
         campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
 
@@ -827,7 +898,6 @@ if __name__ == '__main__':
         # Dependent entities such as BulkKeyword must be written after any dependencies,   
         # for example the BulkCampaign and BulkAdGroup. 
 
-        upload_entities=[]
         upload_entities.append(bulk_campaign)
         upload_entities.append(bulk_ad_group)
         for bulk_text_ad in bulk_text_ads:
@@ -835,14 +905,18 @@ if __name__ == '__main__':
         for bulk_keyword in bulk_keywords:
             upload_entities.append(bulk_keyword)      
         
-        output_status_message("\nAdding campaign, ad group, keywords, and ads . . .")
+        output_status_message("\nAdding campaign, budget, ad group, keywords, and ads . . .")
         download_entities=write_entities_and_upload_file(upload_entities)
 
+        budget_results=[]
         campaign_results=[]
         adgroup_results=[]
         keyword_results=[]
 
         for entity in download_entities:
+            if isinstance(entity, BulkBudget):
+                budget_results.append(entity)
+                output_bulk_budgets([entity])
             if isinstance(entity, BulkCampaign):
                 campaign_results.append(entity)
                 output_bulk_campaigns([entity])
@@ -896,20 +970,93 @@ if __name__ == '__main__':
             if isinstance(entity, BulkKeyword):
                 output_bulk_keywords([entity])
 
+        # Here is a simple example that updates the campaign budget.
+
+        download_parameters=DownloadParameters(
+            entities=['Budgets Campaigns'],
+            result_file_directory=FILE_DIRECTORY,
+            result_file_name=DOWNLOAD_FILE_NAME,
+            overwrite_result_file=True,
+            last_sync_time_in_utc=None
+        )
+
+        upload_entities=[]
+        get_budget_results=[]
+        get_campaign_results=[]
+
+        # Download all campaigns and shared budgets in the account.
+        download_entities=download_file(download_parameters)
+        output_status_message("Downloaded all campaigns and shared budgets in the account.\n");
+        for entity in download_entities:
+            if isinstance(entity, BulkBudget):
+                get_budget_results.append(entity)
+                output_bulk_budgets([entity])
+            if isinstance(entity, BulkCampaign):
+                get_campaign_results.append(entity)
+                output_bulk_campaigns([entity])
+        
+        # If the campaign has a shared budget you cannot update the Campaign budget amount,
+        # and you must instead update the amount in the Budget record. If you try to update 
+        # the budget amount of a Campaign that has a shared budget, the service will return 
+        # the CampaignServiceCannotUpdateSharedBudget error code.
+        for entity in get_budget_results:
+            if entity.budget.Id > 0:
+                # Increase budget by 20 %
+                entity.budget.Amount *= Decimal(1.2)
+                upload_entities.append(entity)
+        
+        for entity in get_campaign_results:
+            if entity.campaign.BudgetId == None or entity.campaign.BudgetId <= 0:
+                # Increase existing budgets by 20%
+                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in calendar year 2017. 
+                # Shared budgets do not support the monthly budget type, so this is only applicable to unshared budgets. 
+                # During the migration all campaign level unshared budgets will be rationalized as daily. 
+                # The formula that will be used to convert monthly to daily budgets is: Monthly budget amount / 30.4.
+                # Moving campaign monthly budget to daily budget is encouraged before monthly budgets are migrated. 
+
+                if entity.campaign.BudgetType == 'MonthlyBudgetSpendUntilDepleted':
+                    # Increase budget by 20 %
+                    entity.campaign.BudgetType = 'DailyBudgetStandard'
+                    entity.campaign.DailyBudget = entity.campaign.MonthlyBudget / 30.4 * 1.2
+                else:
+                    # Increase budget by 20 %
+                    entity.campaign.DailyBudget *= 1.2
+                upload_entities.append(entity)
+                    
+        if len(upload_entities) > 0:
+            output_status_message("Changed local campaign budget amounts. Starting upload.\n")
+
+            download_entities=write_entities_and_upload_file(upload_entities)       
+            for entity in download_entities:
+                if isinstance(entity, BulkBudget):
+                    get_budget_results.append(entity)
+                    output_bulk_budgets([entity])
+                if isinstance(entity, BulkCampaign):
+                    get_campaign_results.append(entity)
+                    output_bulk_campaigns([entity])
+        else:
+            output_status_message("No campaigns or shared budgets in account.\n")
+
         # Delete the campaign, ad group, keywords, and ads that were previously added. 
         # You should remove this region if you want to view the added entities in the 
         # Bing Ads web application or another tool.
                 
         upload_entities=[]
 
+        for budget_result in budget_results:
+            budget_result.status='Deleted'
+            upload_entities.append(budget_result)
+
         for campaign_result in campaign_results:
             campaign_result.campaign.Status='Deleted'
             upload_entities.append(campaign_result)
             
-        output_status_message("\nDeleting campaign, ad group, ads, and keywords . . .")
+        output_status_message("\nDeleting campaign, budget, ad group, ads, and keywords . . .")
         download_entities=write_entities_and_upload_file(upload_entities)
 
         for entity in download_entities:
+            if isinstance(entity, BulkBudget):
+                output_bulk_budgets([entity])
             if isinstance(entity, BulkCampaign):
                 output_bulk_campaigns([entity])
             

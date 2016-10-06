@@ -377,12 +377,13 @@ def output_ad_extension(extension):
 
 def output_schedule(schedule):
     if schedule is not None:
-        for day_time in schedule.DayTimeRanges['DayTime']:
-            output_status_message("Day: {0}".format(day_time.Day))
-            output_status_message("EndHour: {0}".format(day_time.EndHour))
-            output_status_message("EndMinute: {0}".format(day_time.EndMinute))
-            output_status_message("StartHour: {0}".format(day_time.StartHour))
-            output_status_message("StartMinute: {0}".format(day_time.StartMinute))
+        if schedule.DayTimeRanges is not None:
+            for day_time in schedule.DayTimeRanges['DayTime']:
+                output_status_message("Day: {0}".format(day_time.Day))
+                output_status_message("EndHour: {0}".format(day_time.EndHour))
+                output_status_message("EndMinute: {0}".format(day_time.EndMinute))
+                output_status_message("StartHour: {0}".format(day_time.StartHour))
+                output_status_message("StartMinute: {0}".format(day_time.StartMinute))
         if schedule.EndDate is not None:
             output_status_message(("EndDate: {0}/{1}/{2}".format( 
             schedule.EndDate.Month,
@@ -493,7 +494,7 @@ def output_review_ad_extension(extension):
         output_status_message("Text: {0}".format(extension.Text))
         output_status_message("Url: {0}".format(extension.Url))
 
-def output_structuredsnippet_ad_extension(extension):
+def output_structured_snippet_ad_extension(extension):
     if extension is not None:
         # Output inherited properties of the AdExtension base class.
         output_ad_extension(extension)

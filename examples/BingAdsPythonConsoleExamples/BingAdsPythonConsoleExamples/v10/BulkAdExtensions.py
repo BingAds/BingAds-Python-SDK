@@ -28,10 +28,15 @@ if __name__ == '__main__':
     APP_AD_EXTENSION_ID_KEY=-11
     CALL_AD_EXTENSION_ID_KEY=-12
     CALLOUT_AD_EXTENSION_ID_KEY=-13
-    LOCATION_AD_EXTENSION_ID_KEY=-14
-    REVIEW_AD_EXTENSION_ID_KEY=-15
-    SITE_LINK_AD_EXTENSION_ID_KEY=-16
+    IMAGE_AD_EXTENSION_ID_KEY=-14
+    LOCATION_AD_EXTENSION_ID_KEY=-15
+    REVIEW_AD_EXTENSION_ID_KEY=-16
+    SITE_LINK_AD_EXTENSION_ID_KEY=-17
+    SITELINK2_AD_EXTENSION_ID_KEY=-17
+    STRUCTURED_SNIPPET_AD_EXTENSION_ID_KEY=-18
     CAMPAIGN_ID_KEY=-123
+
+    SITELINK_MIGRATION = 'SiteLinkAdExtension'
 
     # The directory for the bulk files.
     FILE_DIRECTORY='c:/bulk/'
@@ -82,14 +87,14 @@ if __name__ == '__main__':
         environment=ENVIRONMENT,
         version=10,
     )
-
+    
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
         version=9,
     )
-
+    
 def authenticate_with_username():
     ''' 
     Sets the authentication property of the global AuthorizationData instance with PasswordAuthentication.
@@ -501,47 +506,179 @@ def output_bulk_campaign_site_link_ad_extensions(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
+
+def output_bulk_sitelink2_ad_extensions(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkSitelink2AdExtension: \n")
+        output_status_message("Account Id: {0}".format(entity.account_id))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        # Output the Campaign Management Sitelink2AdExtension Object
+        output_sitelink2_ad_extension(entity.sitelink2_ad_extension)
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_bulk_campaign_sitelink2_ad_extensions(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkCampaignSitelink2AdExtension: \n")
+        if entity.ad_extension_id_to_entity_id_association is not None:
+            output_status_message("AdExtensionId: {0}".format(entity.ad_extension_id_to_entity_id_association.AdExtensionId))
+            output_status_message("EntityId: {0}".format(entity.ad_extension_id_to_entity_id_association.EntityId))
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("Client Id: {0}".format(entity.client_id))
+        output_status_message("Editorial Status: {0}".format(entity.editorial_status))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+        output_status_message("Status: {0}".format(entity.status))
         
-def output_app_ad_extension(extension):
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+       
+def output_bulk_structured_snippet_ad_extensions(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkStructuredSnippetAdExtension: \n")
+        output_status_message("Account Id: {0}".format(entity.account_id))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        # Output the Campaign Management StructuredSnippetAdExtension Object
+        output_structured_snippet_ad_extension(entity.structured_snippet_ad_extension)
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_bulk_campaign_structured_snippet_ad_extensions(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkCampaignStructuredSnippetAdExtension: \n")
+        if entity.ad_extension_id_to_entity_id_association is not None:
+            output_status_message("AdExtensionId: {0}".format(entity.ad_extension_id_to_entity_id_association.AdExtensionId))
+            output_status_message("EntityId: {0}".format(entity.ad_extension_id_to_entity_id_association.EntityId))
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("Client Id: {0}".format(entity.client_id))
+        output_status_message("Editorial Status: {0}".format(entity.editorial_status))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+        output_status_message("Status: {0}".format(entity.status))
+        
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+         
+def output_ad_extension(extension):
     if extension is not None:
         output_status_message("Id: {0}".format(extension.Id))
         output_status_message("Type: {0}".format(extension.Type))
+        output_status_message("ForwardCompatibilityMap: ")
+        if extension.ForwardCompatibilityMap is not None:
+            for pair in extension.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+                output_status_message("Key: {0}".format(pair.Key))
+                output_status_message("Value: {0}".format(pair.Value))
+        output_status_message("Scheduling: ")
+        # Scheduling is not emitted by default, so we must first test whether it exists.
+        if hasattr(extension, 'Scheduling') and extension.Scheduling is not None:
+            output_schedule(extension.Scheduling)
+        output_status_message("Status: {0}".format(extension.Status))
+        output_status_message("Version: {0}".format(extension.Version))
+
+def output_schedule(schedule):
+    if schedule is not None:
+        if schedule.DayTimeRanges is not None:
+            for day_time in schedule.DayTimeRanges['DayTime']:
+                output_status_message("Day: {0}".format(day_time.Day))
+                output_status_message("EndHour: {0}".format(day_time.EndHour))
+                output_status_message("EndMinute: {0}".format(day_time.EndMinute))
+                output_status_message("StartHour: {0}".format(day_time.StartHour))
+                output_status_message("StartMinute: {0}".format(day_time.StartMinute))
+        if schedule.EndDate is not None:
+            output_status_message(("EndDate: {0}/{1}/{2}".format( 
+            schedule.EndDate.Month,
+            schedule.EndDate.Day,
+            schedule.EndDate.Year)))
+        if schedule.StartDate is not None:
+            output_status_message(("StartDate: {0}/{1}/{2}".format(
+            schedule.StartDate.Month,
+            schedule.StartDate.Day,
+            schedule.StartDate.Year)))
+        use_searcher_time_zone = \
+            True if (schedule.UseSearcherTimeZone is not None and schedule.UseSearcherTimeZone == True) else False
+        output_status_message("UseSearcherTimeZone: {0}".format(use_searcher_time_zone))
+
+def output_app_ad_extension(extension):
+    if extension is not None:
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the AppAdExtension
         output_status_message("AppPlatform: {0}".format(extension.AppPlatform))
         output_status_message("AppStoreId: {0}".format(extension.AppStoreId))
         output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
         output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
         output_status_message("DisplayText: {0}".format(extension.DisplayText))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_status_message('')
 
 def output_call_ad_extension(extension):
     if extension is not None:
-        output_status_message("Id: {0}".format(extension.Id))
-        output_status_message("Type: {0}".format(extension.Type))
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the CallAdExtension
         output_status_message("CountryCode: {0}".format(extension.CountryCode))
         output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
         output_status_message("IsCallOnly: {0}".format(extension.IsCallOnly))
         output_status_message("IsCallTrackingEnabled: {0}".format(extension.IsCallTrackingEnabled))
         output_status_message("PhoneNumber: {0}".format(extension.PhoneNumber))
         output_status_message("RequireTollFreeTrackingNumber: {0}".format(extension.RequireTollFreeTrackingNumber))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_status_message('')
 
 def output_callout_ad_extension(extension):
     if extension is not None:
-        output_status_message("Id: {0}".format(extension.Id))
-        output_status_message("Type: {0}".format(extension.Type))
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the CalloutAdExtension
         output_status_message("Callout Text: {0}".format(extension.Text))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_status_message('')
+
+def output_image_ad_extension(extension):
+    if extension is not None:
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the ImageAdExtension
+        output_status_message("AlternativeText: {0}".format(extension.AlternativeText))
+        output_status_message("Description: {0}".format(extension.Description))
+        output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
+        output_status_message("FinalMobileUrls: ")
+        if extension.FinalMobileUrls is not None:
+            for final_mobile_url in extension.FinalMobileUrls['string']:
+                output_status_message("\t{0}".format(final_mobile_url))
+        output_status_message("FinalUrls: ")
+        if extension.FinalUrls is not None:
+            for final_url in extension.FinalUrls['string']:
+                output_status_message("\t{0}".format(final_url))
+        output_status_message("ImageMediaIds: ")
+        if extension.ImageMediaIds is not None:
+            for id in extension.ImageMediaIds['string']:
+                output_status_message("\t{0}".format(id))
+        output_status_message("TrackingUrlTemplate: {0}".format(extension.TrackingUrlTemplate))
+        output_status_message("UrlCustomParameters: ")
+        if extension.UrlCustomParameters is not None and extension.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in extension.UrlCustomParameters.Parameters['CustomParameter']:
+                output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
 def output_location_ad_extension(extension):
     if extension is not None:
-        output_status_message("Id: {0}".format(extension.Id))
-        output_status_message("Type: {0}".format(extension.Type))
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the LocationAdExtension
         if extension.Address is not None:
             output_status_message("CityName: {0}".format(extension.Address.CityName))
             output_status_message("CountryCode: {0}".format(extension.Address.CountryCode))
@@ -559,34 +696,39 @@ def output_location_ad_extension(extension):
         output_status_message("IconMediaId: {0}".format(extension.IconMediaId))
         output_status_message("ImageMediaId: {0}".format(extension.ImageMediaId))
         output_status_message("PhoneNumber: {0}".format(extension.PhoneNumber))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_status_message('')
 
 def output_review_ad_extension(extension):
     if extension is not None:
-        output_status_message("Id: {0}".format(extension.Id))
-        output_status_message("Type: {0}".format(extension.Type))
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the ReviewAdExtension
         output_status_message("IsExact: {0}".format(extension.IsExact))
         output_status_message("Source: {0}".format(extension.Source))
         output_status_message("Text: {0}".format(extension.Text))
         output_status_message("Url: {0}".format(extension.Url))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_status_message('')
 
+def output_structured_snippet_ad_extension(extension):
+    if extension is not None:
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the StructuredSnippetAdExtension
+        output_status_message("Header: {0}".format(extension.Header))
+        for value in extension.Values['string']:
+            output_status_message("\t{0}".format(value))
+        
 def output_site_links_ad_extension(extension):
     if extension is not None:
-        output_status_message("Id: {0}".format(extension.Id))
-        output_status_message("Type: {0}".format(extension.Type))
-        output_status_message("Status: {0}".format(extension.Status))
-        output_status_message("Version: {0}".format(extension.Version))
-        output_site_links(extension.SiteLinks['SiteLink'])
-        output_status_message('')
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the SiteLinksAdExtension
+        output_site_links(extension.SiteLinks)
 
 def output_site_links(site_links):
     if site_links is not None:
-        for site_link in site_links:
+        for site_link in site_links['SiteLink']:
             output_status_message("Description1: {0}".format(site_link.Description1))
             output_status_message("Description2: {0}".format(site_link.Description2))
             output_status_message("DevicePreference: {0}".format(site_link.DevicePreference))
@@ -606,7 +748,189 @@ def output_site_links(site_links):
                 for custom_parameter in site_link.UrlCustomParameters.Parameters['CustomParameter']:
                     output_status_message("\tKey: {0}".format(custom_parameter.Key))
                     output_status_message("\tValue: {0}".format(custom_parameter.Value))
-            output_status_message('')
+            
+def output_sitelink2_ad_extension(extension):
+    if extension is not None:
+        # Output inherited properties of the AdExtension base class.
+        output_ad_extension(extension)
+
+        # Output properties that are specific to the Sitelink2AdExtension
+        output_status_message("Description1: {0}".format(extension.Description1))
+        output_status_message("Description2: {0}".format(extension.Description2))
+        output_status_message("DevicePreference: {0}".format(extension.DevicePreference))
+        output_status_message("DisplayText: {0}".format(extension.DisplayText))
+        output_status_message("DestinationUrl: {0}".format(extension.DestinationUrl))
+        output_status_message("FinalMobileUrls: ")
+        if extension.FinalMobileUrls is not None:
+            for final_mobile_url in extension.FinalMobileUrls['string']:
+                output_status_message("\t{0}".format(final_mobile_url))
+        output_status_message("FinalUrls: ")
+        if extension.FinalUrls is not None:
+            for final_url in extension.FinalUrls['string']:
+                output_status_message("\t{0}".format(final_url))
+        output_status_message("TrackingUrlTemplate: {0}".format(extension.TrackingUrlTemplate))
+        output_status_message("UrlCustomParameters: ")
+        if extension.UrlCustomParameters is not None and extension.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in extension.UrlCustomParameters.Parameters['CustomParameter']:
+                output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                output_status_message("\tValue: {0}".format(custom_parameter.Value))
+
+def output_account_migration_statuses_info(account_migration_statuses_info):
+    if account_migration_statuses_info is not None:
+        output_status_message("AccountId: {0}".format(account_migration_statuses_info.AccountId))
+        for migration_status_info in account_migration_statuses_info['MigrationStatusInfo']:
+            output_migration_status_info(migration_status_info)
+            
+def output_migration_status_info(migration_status_info):
+    if migration_status_info is not None and migration_status_info[1] is not None:
+        output_status_message("MigrationType: {0}".format(migration_status_info[1][0].MigrationType))
+        output_status_message("StartTimeInUtc: {0}".format(migration_status_info[1][0].StartTimeInUtc))
+        output_status_message("Status: {0}".format(migration_status_info[1][0].Status))
+
+def get_sample_bulk_sitelink2_ad_extensions(account_id):
+    entities=[]
+
+    for index in range(2):
+        bulk_sitelink2_ad_extension=BulkSitelink2AdExtension()
+        bulk_sitelink2_ad_extension.account_id=account_id
+        sitelink2_ad_extension=set_elements_to_none(campaign_service.factory.create('Sitelink2AdExtension'))
+        sitelink2_ad_extension.Description1="Simple & Transparent."
+        sitelink2_ad_extension.Description2="No Upfront Cost."
+        sitelink2_ad_extension.DisplayText = "Women's Shoe Sale " + str(index+1)
+
+        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
+        # Here is an example of a DestinationUrl you might have used previously. 
+        # sitelink2_ad_extension.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+
+        # To migrate from DestinationUrl to FinalUrls, you can set DestinationUrl
+        # to an empty string when updating the ad extension. If you are removing DestinationUrl,
+        # then FinalUrls is required.
+        # sitelink2_ad_extension.DestinationUrl=""
+            
+        # With FinalUrls you can separate the tracking template, custom parameters, and 
+        # landing page URLs.
+        final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        sitelink2_ad_extension.FinalUrls=final_urls
+
+        # Final Mobile URLs can also be used if you want to direct the user to a different page 
+        # for mobile devices.
+        final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
+        sitelink2_ad_extension.FinalMobileUrls=final_mobile_urls
+
+        # You could use a tracking template which would override the campaign level
+        # tracking template. Tracking templates defined for lower level entities 
+        # override those set for higher level entities.
+        # In this example we are using the campaign level tracking template.
+        sitelink2_ad_extension.TrackingUrlTemplate=None
+
+        # Set custom parameters that are specific to this ad extension, 
+        # and can be used by the ad extension, ad group, campaign, or account level tracking template. 
+        # In this example we are using the campaign level tracking template.
+        url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
+        parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+        custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter1.Key='promoCode'
+        custom_parameter1.Value='PROMO' + str(index+1)
+        parameters.CustomParameter.append(custom_parameter1)
+        custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter2.Key='season'
+        custom_parameter2.Value='summer'
+        parameters.CustomParameter.append(custom_parameter2)
+        url_custom_parameters.Parameters=parameters
+        sitelink2_ad_extension.UrlCustomParameters=url_custom_parameters
+
+        sitelink2_ad_extension.Status=None
+        sitelink2_ad_extension.Id=SITELINK2_AD_EXTENSION_ID_KEY
+        bulk_sitelink2_ad_extension.sitelink2_ad_extension=sitelink2_ad_extension
+
+        entities.append(bulk_sitelink2_ad_extension)
+
+    bulk_campaign_sitelink2_ad_extension=BulkCampaignSitelink2AdExtension()
+    sitelink2_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+    sitelink2_ad_extension_id_to_entity_id_association.AdExtensionId=SITELINK2_AD_EXTENSION_ID_KEY
+    sitelink2_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+    bulk_campaign_sitelink2_ad_extension.ad_extension_id_to_entity_id_association=sitelink2_ad_extension_id_to_entity_id_association
+        
+    entities.append(bulk_campaign_sitelink2_ad_extension)
+
+    return entities
+
+def get_sample_bulk_site_link_ad_extensions(account_id):
+    entities=[]
+
+    bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
+    bulk_site_link_ad_extension.account_id=account_id
+    site_links_ad_extension=set_elements_to_none(campaign_service.factory.create('SiteLinksAdExtension'))
+    site_links=campaign_service.factory.create('ArrayOfSiteLink')
+
+    for index in range(2):
+        site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
+        site_link.Description1="Simple & Transparent."
+        site_link.Description2="No Upfront Cost."
+        site_link.DisplayText = "Women's Shoe Sale " + str(index+1)
+
+        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
+        # Here is an example of a DestinationUrl you might have used previously. 
+        # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+
+        # To migrate from DestinationUrl to FinalUrls, you can set DestinationUrl
+        # to an empty string when updating the sitelink. If you are removing DestinationUrl,
+        # then FinalUrls is required.
+        # site_link.DestinationUrl=""
+            
+        # With FinalUrls you can separate the tracking template, custom parameters, and 
+        # landing page URLs.
+        final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        site_link.FinalUrls=final_urls
+
+        # Final Mobile URLs can also be used if you want to direct the user to a different page 
+        # for mobile devices.
+        final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
+        final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
+        site_link.FinalMobileUrls=final_mobile_urls
+
+        # You could use a tracking template which would override the campaign level
+        # tracking template. Tracking templates defined for lower level entities 
+        # override those set for higher level entities.
+        # In this example we are using the campaign level tracking template.
+        site_link.TrackingUrlTemplate=None
+
+        # Set custom parameters that are specific to this sitelink, 
+        # and can be used by the sitelink, ad group, campaign, or account level tracking template. 
+        # In this example we are using the campaign level tracking template.
+        url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
+        parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
+        custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter1.Key='promoCode'
+        custom_parameter1.Value='PROMO' + str(index+1)
+        parameters.CustomParameter.append(custom_parameter1)
+        custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
+        custom_parameter2.Key='season'
+        custom_parameter2.Value='summer'
+        parameters.CustomParameter.append(custom_parameter2)
+        url_custom_parameters.Parameters=parameters
+        site_link.UrlCustomParameters=url_custom_parameters
+        site_links.SiteLink.append(site_link)
+
+    site_links_ad_extension.SiteLinks=site_links
+    site_links_ad_extension.Status=None
+    site_links_ad_extension.Id=SITE_LINK_AD_EXTENSION_ID_KEY
+    bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
+
+    entities.append(bulk_site_link_ad_extension)
+
+    bulk_campaign_site_link_ad_extension=BulkCampaignSiteLinkAdExtension()
+    site_link_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+    site_link_ad_extension_id_to_entity_id_association.AdExtensionId=SITE_LINK_AD_EXTENSION_ID_KEY
+    site_link_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+    bulk_campaign_site_link_ad_extension.ad_extension_id_to_entity_id_association=site_link_ad_extension_id_to_entity_id_association
+        
+    entities.append(bulk_campaign_site_link_ad_extension)
+
+    return entities
 
 def output_status_message(message):
     print(message)
@@ -788,11 +1112,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        authenticate_with_oauth()
+        #authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        #authenticate_with_username()
+        authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -803,6 +1127,41 @@ if __name__ == '__main__':
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
 
+        # To prepare for the sitelink ad extensions migration in 2017, you will need to determine
+        # whether the account has been migrated from SiteLinksAdExtension to Sitelink2AdExtension. 
+        # All ad extension service operations available for both types of sitelinks; however you will 
+        # need to determine which type to add, update, and retrieve.
+
+        sitelink_migration_is_completed = False
+
+        # Optionally you can find out which pilot features the customer is able to use. Even if the customer 
+        # is in pilot for sitelink migrations, the accounts that it contains might not be migrated.
+        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
+
+        # The pilot flag value for Sitelink ad extension migration is 253.
+        # Pilot flags apply to all accounts within a given customer; however,
+        # each account goes through migration individually and has its own migration status.
+        if(253 in feature_pilot_flags['int']):
+            # Account migration status below will be either NotStarted, InProgress, or Completed.
+            output_status_message("Customer is in pilot for Sitelink migration.\n")
+        else:
+            # Account migration status below will be NotInPilot.
+            output_status_message("Customer is not in pilot for Sitelink migration.\n")
+        
+        # Even if you have multiple accounts per customer, each account will have its own
+        # migration status. This example checks one account using the provided AuthorizationData.
+        account_migration_statuses_infos = campaign_service.GetAccountMigrationStatuses(
+            {'long': authorization_data.account_id},
+            SITELINK_MIGRATION
+        )
+
+        for account_migration_statuses_info in account_migration_statuses_infos['AccountMigrationStatusesInfo']:
+            output_account_migration_statuses_info(account_migration_statuses_info)
+            for migration_status_info in account_migration_statuses_info['MigrationStatusInfo']:
+                if migration_status_info[1][0].Status == 'Completed' and SITELINK_MIGRATION == migration_status_info[1][0].MigrationType: 
+                    sitelink_migration_is_completed = True
+        
+        
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
 
@@ -860,6 +1219,53 @@ if __name__ == '__main__':
         call_ad_extension.PhoneNumber="2065550100"
         call_ad_extension.IsCallOnly=False
         call_ad_extension.Status=None
+        # For this example assume the call center is open Monday - Friday from 9am - 9pm
+        # in the account's time zone.
+        call_scheduling=set_elements_to_none(campaign_service.factory.create('Schedule'))
+        call_day_time_ranges=campaign_service.factory.create('ArrayOfDayTime')
+        call_monday=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        call_monday.Day='Monday'
+        call_monday.StartHour=9
+        call_monday.StartMinute='Zero'
+        call_monday.EndHour=21
+        call_monday.EndMinute='Zero'
+        call_day_time_ranges.DayTime.append(call_monday)
+        call_tuesday=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        call_tuesday.Day='Tuesday'
+        call_tuesday.StartHour=9
+        call_tuesday.StartMinute='Zero'
+        call_tuesday.EndHour=21
+        call_tuesday.EndMinute='Zero'
+        call_day_time_ranges.DayTime.append(call_tuesday)
+        call_wednesday=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        call_wednesday.Day='Wednesday'
+        call_wednesday.StartHour=9
+        call_wednesday.StartMinute='Zero'
+        call_wednesday.EndHour=21
+        call_wednesday.EndMinute='Zero'
+        call_day_time_ranges.DayTime.append(call_wednesday)
+        call_thursday=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        call_thursday.Day='Thursday'
+        call_thursday.StartHour=9
+        call_thursday.StartMinute='Zero'
+        call_thursday.EndHour=21
+        call_thursday.EndMinute='Zero'
+        call_day_time_ranges.DayTime.append(call_thursday)
+        call_friday=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        call_friday.Day='Friday'
+        call_friday.StartHour=9
+        call_friday.StartMinute='Zero'
+        call_friday.EndHour=21
+        call_friday.EndMinute='Zero'
+        call_day_time_ranges.DayTime.append(call_friday)
+        call_scheduling.DayTimeRanges=call_day_time_ranges
+        call_scheduling_end_date=campaign_service.factory.create('Date')
+        call_scheduling_end_date.Day=31
+        call_scheduling_end_date.Month=12
+        call_scheduling_end_date.Year=strftime("%Y", gmtime())
+        call_scheduling.EndDate=call_scheduling_end_date
+        call_scheduling.StartDate=None
+        call_ad_extension.Scheduling=call_scheduling
         call_ad_extension.Id=CALL_AD_EXTENSION_ID_KEY
         bulk_call_ad_extension.call_ad_extension=call_ad_extension
 
@@ -901,6 +1307,23 @@ if __name__ == '__main__':
         address.CountryCode="US"
         address.PostalCode="98608"
         location_ad_extension.Address=address
+        location_scheduling=set_elements_to_none(campaign_service.factory.create('Schedule'))
+        location_day_time_ranges=campaign_service.factory.create('ArrayOfDayTime')
+        location_day_time=set_elements_to_none(campaign_service.factory.create('DayTime'))
+        location_day_time.Day='Saturday'
+        location_day_time.StartHour=9
+        location_day_time.StartMinute='Zero'
+        location_day_time.EndHour=12
+        location_day_time.EndMinute='Zero'
+        location_day_time_ranges.DayTime.append(location_day_time)
+        location_scheduling.DayTimeRanges=location_day_time_ranges
+        location_scheduling_end_date=campaign_service.factory.create('Date')
+        location_scheduling_end_date.Day=31
+        location_scheduling_end_date.Month=12
+        location_scheduling_end_date.Year=strftime("%Y", gmtime())
+        location_scheduling.EndDate=location_scheduling_end_date
+        location_scheduling.StartDate=None
+        location_ad_extension.Scheduling=location_scheduling
         location_ad_extension.Id=LOCATION_AD_EXTENSION_ID_KEY
         bulk_location_ad_extension.location_ad_extension=location_ad_extension
 
@@ -927,69 +1350,24 @@ if __name__ == '__main__':
         review_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
         bulk_campaign_review_ad_extension.ad_extension_id_to_entity_id_association=review_ad_extension_id_to_entity_id_association
 
-        bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
-        bulk_site_link_ad_extension.account_id=authorization_data.account_id
-        site_links_ad_extension=set_elements_to_none(campaign_service.factory.create('SiteLinksAdExtension'))
-        site_links=campaign_service.factory.create('ArrayOfSiteLink')
+        bulk_structured_snippet_ad_extension=BulkStructuredSnippetAdExtension()
+        bulk_structured_snippet_ad_extension.account_id=authorization_data.account_id
+        structured_snippet_ad_extension=set_elements_to_none(campaign_service.factory.create('StructuredSnippetAdExtension'))
+        structured_snippet_ad_extension.Header = "Brands"
+        values=campaign_service.factory.create('ns4:ArrayOfstring')
+        values.string.append('Windows')
+        values.string.append('Xbox')
+        values.string.append('Skype')
+        structured_snippet_ad_extension.Values=values
+        structured_snippet_ad_extension.Id=STRUCTURED_SNIPPET_AD_EXTENSION_ID_KEY
+        bulk_structured_snippet_ad_extension.structured_snippet_ad_extension=structured_snippet_ad_extension
 
-        for index in range(2):
-            site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
-            site_link.DisplayText = "Women's Shoe Sale " + str(index+1)
+        bulk_campaign_structured_snippet_ad_extension=BulkCampaignStructuredSnippetAdExtension()
+        structured_snippet_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
+        structured_snippet_ad_extension_id_to_entity_id_association.AdExtensionId=STRUCTURED_SNIPPET_AD_EXTENSION_ID_KEY
+        structured_snippet_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
+        bulk_campaign_structured_snippet_ad_extension.ad_extension_id_to_entity_id_association=structured_snippet_ad_extension_id_to_entity_id_association
 
-            # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-            # Here is an example of a DestinationUrl you might have used previously. 
-            # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
-
-            # To migrate from DestinationUrl to FinalUrls for existing sitelinks, you can set DestinationUrl
-            # to an empty string when updating the sitelink. If you are removing DestinationUrl,
-            # then FinalUrls is required.
-            # site_link.DestinationUrl=""
-            
-            # With FinalUrls you can separate the tracking template, custom parameters, and 
-            # landing page URLs.
-            final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-            final_urls.string.append('http://www.contoso.com/womenshoesale')
-            site_link.FinalUrls=final_urls
-
-            # Final Mobile URLs can also be used if you want to direct the user to a different page 
-            # for mobile devices.
-            final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-            final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
-            site_link.FinalMobileUrls=final_mobile_urls
-
-            # You could use a tracking template which would override the campaign level
-            # tracking template. Tracking templates defined for lower level entities 
-            # override those set for higher level entities.
-            # In this example we are using the campaign level tracking template.
-            site_link.TrackingUrlTemplate=None
-
-            # Set custom parameters that are specific to this sitelink, 
-            # and can be used by the sitelink, ad group, campaign, or account level tracking template. 
-            # In this example we are using the campaign level tracking template.
-            url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
-            parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
-            custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
-            custom_parameter1.Key='promoCode'
-            custom_parameter1.Value='PROMO' + str(index+1)
-            parameters.CustomParameter.append(custom_parameter1)
-            custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
-            custom_parameter2.Key='season'
-            custom_parameter2.Value='summer'
-            parameters.CustomParameter.append(custom_parameter2)
-            url_custom_parameters.Parameters=parameters
-            site_link.UrlCustomParameters=url_custom_parameters
-            site_links.SiteLink.append(site_link)
-
-        site_links_ad_extension.SiteLinks=site_links
-        site_links_ad_extension.Status=None
-        site_links_ad_extension.Id=SITE_LINK_AD_EXTENSION_ID_KEY
-        bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
-
-        bulk_campaign_site_link_ad_extension=BulkCampaignSiteLinkAdExtension()
-        site_link_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-        site_link_ad_extension_id_to_entity_id_association.AdExtensionId=SITE_LINK_AD_EXTENSION_ID_KEY
-        site_link_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-        bulk_campaign_site_link_ad_extension.ad_extension_id_to_entity_id_association=site_link_ad_extension_id_to_entity_id_association
         
         # Upload the entities created above. 
         # Dependent entities such as BulkCampaignCallAdExtension must be written after any dependencies,  
@@ -1007,9 +1385,16 @@ if __name__ == '__main__':
         upload_entities.append(bulk_campaign_location_ad_extension)
         upload_entities.append(bulk_review_ad_extension)
         upload_entities.append(bulk_campaign_review_ad_extension)
-        upload_entities.append(bulk_site_link_ad_extension)
-        upload_entities.append(bulk_campaign_site_link_ad_extension)
-        
+        upload_entities.append(bulk_structured_snippet_ad_extension)
+        upload_entities.append(bulk_campaign_structured_snippet_ad_extension)
+
+        if sitelink_migration_is_completed:
+            for entity in get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id):
+                upload_entities.append(entity)
+        else:
+            for entity in get_sample_bulk_site_links_ad_extensions(authorization_data.account_id):
+                upload_entities.append(entity)
+
         output_status_message("\nAdding campaign, ad extensions, and associations . . .")
         download_entities=write_entities_and_upload_file(upload_entities)
 
@@ -1020,6 +1405,8 @@ if __name__ == '__main__':
         location_ad_extension_results=[]
         review_ad_extension_results=[]
         site_link_ad_extension_results=[]
+        sitelink2_ad_extension_results=[]
+        structured_snippet_ad_extension_results=[]
 
         for entity in download_entities:
             if isinstance(entity, BulkCampaign):
@@ -1055,89 +1442,39 @@ if __name__ == '__main__':
                 output_bulk_site_link_ad_extensions([entity])
             if isinstance(entity, BulkCampaignSiteLinkAdExtension):
                 output_bulk_campaign_site_link_ad_extensions([entity])
+            if isinstance(entity, BulkSitelink2AdExtension):
+                sitelink2_ad_extension_results.append(entity)
+                output_bulk_sitelink2_ad_extensions([entity])
+            if isinstance(entity, BulkCampaignSitelink2AdExtension):
+                output_bulk_campaign_sitelink2_ad_extensions([entity])
+            if isinstance(entity, BulkStructuredSnippetAdExtension):
+                structured_snippet_ad_extension_results.append(entity)
+                output_bulk_structured_snippet_ad_extensions([entity])
+            if isinstance(entity, BulkCampaignStructuredSnippetAdExtension):
+                output_bulk_campaign_structured_snippet_ad_extensions([entity])
             
               
-        #Update the site links ad extension. 
-        #Add an additional site link, and update an existing site link.
-
-        #Do not create a BulkSiteLinkAdExtension for update, unless you want to replace all existing SiteLinks
-        #with the specified SiteLinks for the specified ad extension. 
-        #Instead you should upload one or more site links as a list of BulkSiteLink.
+        # Use only the location extension results and remove scheduling.
 
         upload_entities=[]
         
-        bulk_site_link=BulkSiteLink()
-        site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
-        site_link.DisplayText = "Women's Shoe Sale 3"
-        site_link.Order=3
-
-        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-        # Here is an example of a DestinationUrl you might have used previously. 
-        #site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
+        for location_ad_extension_result in location_ad_extension_results:
+            if location_ad_extension_result.location_ad_extension.Id > 0:
+                # If you set the Scheduling element null, any existing scheduling set for the ad extension will remain unchanged. 
+                # If you set this to any non-null Schedule object, you are effectively replacing existing scheduling 
+                # for the ad extension. In this example, we will remove any existing scheduling by setting this element  
+                # to an empty Schedule object.
+                location_ad_extension_result.location_ad_extension.Scheduling=set_elements_to_none(campaign_service.factory.create('Schedule'))
+                upload_entities.append(location_ad_extension_result);
             
-        # With FinalUrls you can separate the tracking template, custom parameters, and 
-        # landing page URLs.
-        final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
-        site_link.FinalUrls=final_urls
-
-        # Final Mobile URLs can also be used if you want to direct the user to a different page 
-        # for mobile devices.
-        final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-        final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
-        site_link.FinalMobileUrls=final_mobile_urls
-
-        # You could use a tracking template which would override the campaign level
-        # tracking template. Tracking templates defined for lower level entities 
-        # override those set for higher level entities.
-        # In this example we are using the campaign level tracking template.
-        site_link.TrackingUrlTemplate=None
-
-        # Set custom parameters that are specific to this ad, 
-        # and can be used by the ad, ad group, campaign, or account level tracking template. 
-        # In this example we are using the campaign level tracking template.
-        url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
-        parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
-        custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
-        custom_parameter1.Key='promoCode'
-        custom_parameter1.Value='PROMO3'
-        parameters.CustomParameter.append(custom_parameter1)
-        custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
-        custom_parameter2.Key='season'
-        custom_parameter2.Value='summer'
-        parameters.CustomParameter.append(custom_parameter2)
-        url_custom_parameters.Parameters=parameters
-        site_link.UrlCustomParameters=url_custom_parameters
-        bulk_site_link.site_link=site_link
-        
-        if site_link_ad_extension_results.count > 0:
-            existing_site_link=site_link_ad_extension_results[0].site_links[0]
-
-            # To remove a subset of custom parameters, specify the custom parameters that 
-            # you want to keep in the Parameters element of the CustomParameters object.
-            updated_url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
-            updated_parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
-            updated_custom_parameter=campaign_service.factory.create('ns0:CustomParameter')
-            updated_custom_parameter.Key='promoCode'
-            updated_custom_parameter.Value='updatedpromo'
-            updated_parameters.CustomParameter.append(updated_custom_parameter)
-            updated_url_custom_parameters.Parameters=updated_parameters
-            existing_site_link.site_link.UrlCustomParameters=updated_url_custom_parameters
-            upload_entities.append(existing_site_link)
-
-            # Associate the new site link with the identifier of the existing site links ad extension
-            bulk_site_link.ad_extension_id=existing_site_link.ad_extension_id
-            bulk_site_link.account_id=authorization_data.account_id
-            upload_entities.append(bulk_site_link)
-
         # Upload and write the output
 
-        output_status_message("\nUpdating sitelinks . . .")
+        output_status_message("\nRemoving scheduling from location ad extensions . . .\n")
         download_entities=write_entities_and_upload_file(upload_entities)
         
         for entity in download_entities:
-            if isinstance(entity, BulkSiteLink):
-                output_bulk_site_links([entity])
+            if isinstance(entity, BulkLocationAdExtension):
+                output_bulk_location_ad_extensions([entity])
 
         # Delete the campaign and ad extensions that were previously added. 
         # You should remove this region if you want to view the added entities in the 
@@ -1181,6 +1518,14 @@ if __name__ == '__main__':
             site_link_ad_extension_result.site_links_ad_extension.Status='Deleted'
             upload_entities.append(site_link_ad_extension_result)
 
+        for sitelink2_ad_extension_result in sitelink2_ad_extension_results:
+            sitelink2_ad_extension_result.sitelink2_ad_extension.Status='Deleted'
+            upload_entities.append(sitelink2_ad_extension_result)
+
+        for structured_snippet_ad_extension_result in structured_snippet_ad_extension_results:
+            structured_snippet_ad_extension_result.structured_snippet_ad_extension.Status='Deleted'
+            upload_entities.append(structured_snippet_ad_extension_result)
+
         output_status_message("\nDeleting campaign and ad extensions . . .")
         download_entities=write_entities_and_upload_file(upload_entities)
 
@@ -1199,7 +1544,11 @@ if __name__ == '__main__':
                 output_bulk_review_ad_extensions([entity])
             if isinstance(entity, BulkSiteLinkAdExtension):
                 output_bulk_site_link_ad_extensions([entity])
-            
+            if isinstance(entity, BulkSitelink2AdExtension):
+                output_bulk_sitelink2_ad_extensions([entity])
+            if isinstance(entity, BulkStructuredSnippetAdExtension):
+                output_bulk_structured_snippet_ad_extensions([entity])
+
         output_status_message("Program execution completed")
 
     except WebFault as ex:
