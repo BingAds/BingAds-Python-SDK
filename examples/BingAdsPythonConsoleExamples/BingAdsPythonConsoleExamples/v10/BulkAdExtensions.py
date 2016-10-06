@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
-    
+
     APP_AD_EXTENSION_ID_KEY=-11
     CALL_AD_EXTENSION_ID_KEY=-12
     CALLOUT_AD_EXTENSION_ID_KEY=-13
@@ -87,14 +87,14 @@ if __name__ == '__main__':
         environment=ENVIRONMENT,
         version=10,
     )
-
+    
     customer_service=ServiceClient(
         'CustomerManagementService', 
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
         version=9,
     )
-
+    
 def authenticate_with_username():
     ''' 
     Sets the authentication property of the global AuthorizationData instance with PasswordAuthentication.
@@ -708,7 +708,7 @@ def output_review_ad_extension(extension):
         output_status_message("Text: {0}".format(extension.Text))
         output_status_message("Url: {0}".format(extension.Url))
 
-def output_structuredsnippet_ad_extension(extension):
+def output_structured_snippet_ad_extension(extension):
     if extension is not None:
         # Output inherited properties of the AdExtension base class.
         output_ad_extension(extension)
@@ -1160,8 +1160,8 @@ if __name__ == '__main__':
             for migration_status_info in account_migration_statuses_info['MigrationStatusInfo']:
                 if migration_status_info[1][0].Status == 'Completed' and SITELINK_MIGRATION == migration_status_info[1][0].MigrationType: 
                     sitelink_migration_is_completed = True
-
-         
+        
+        
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
 
@@ -1388,13 +1388,13 @@ if __name__ == '__main__':
         upload_entities.append(bulk_structured_snippet_ad_extension)
         upload_entities.append(bulk_campaign_structured_snippet_ad_extension)
 
-        slexs = get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id)
+        if sitelink_migration_is_completed:
+            for entity in get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id):
+                upload_entities.append(entity)
+        else:
+            for entity in get_sample_bulk_site_links_ad_extensions(authorization_data.account_id):
+                upload_entities.append(entity)
 
-        upload_entities.BulkEntity.append(
-            get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id) 
-            if sitelink_migration_is_completed 
-            else get_sample_bulk_site_links_ad_extensions(authorization_data.account_id))
-        
         output_status_message("\nAdding campaign, ad extensions, and associations . . .")
         download_entities=write_entities_and_upload_file(upload_entities)
 

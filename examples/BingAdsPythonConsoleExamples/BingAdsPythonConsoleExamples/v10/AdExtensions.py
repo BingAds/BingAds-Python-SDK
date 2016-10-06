@@ -494,7 +494,7 @@ def output_review_ad_extension(extension):
         output_status_message("Text: {0}".format(extension.Text))
         output_status_message("Url: {0}".format(extension.Url))
 
-def output_structuredsnippet_ad_extension(extension):
+def output_structured_snippet_ad_extension(extension):
     if extension is not None:
         # Output inherited properties of the AdExtension base class.
         output_ad_extension(extension)
