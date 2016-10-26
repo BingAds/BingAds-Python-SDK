@@ -25,7 +25,6 @@ if __name__ == '__main__':
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
 
-    TARGET_ID_KEY=-1
     CAMPAIGN_ID_KEY=-123
 
     # The directory for the bulk files.
@@ -448,6 +447,42 @@ def output_bulk_campaign_radius_target_bids(bulk_entities):
 
         output_status_message('')
 
+def output_bulk_campaign_device_os_targets(bulk_entities):
+    for entity in bulk_entities:
+        # If the BulkCampaignDeviceOsTarget object was created by the application, and not read from a bulk file, 
+        # then there will be no BulkCampaignDeviceOsTargetBid objects. For example if you want to print the 
+        # BulkCampaignDeviceOsTarget prior to upload.
+        if len(entity.bids) == 0 and entity.device_os_target is not None:
+            output_status_message("BulkCampaignDeviceOsTarget: \n")
+            output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+            output_status_message("Campaign Id: {0}".format(entity.campaign_id))
+            output_status_message("Target Id: {0}".format(entity.target_id))
+
+            for bid in entity.device_os_target.Bids['DeviceOSTargetBid']:
+                output_status_message("Campaign Management DeviceOSTargetBid Object: ")
+                output_status_message("BidAdjustment: {0}".format(bid.BidAdjustment))
+                output_status_message("DeviceName: {0}".format(bid.DeviceName))
+        else:
+            output_bulk_campaign_device_os_target_bids(entity.bids)
+
+        output_status_message('')
+
+def output_bulk_campaign_device_os_target_bids(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkCampaignDeviceOsTargetBid: \n")
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("Campaign Id: {0}".format(entity.campaign_id))
+        output_status_message("Target Id: {0}".format(entity.target_id))
+
+        output_status_message("Campaign Management DeviceOSTargetBid Object: ")
+        output_status_message("BidAdjustment: {0}".format(entity.device_os_target_bid.BidAdjustment))
+        output_status_message("DeviceName: {0}".format(entity.device_os_target_bid.DeviceName))
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
 def output_bulk_errors(errors):
     for error in errors:
         if error.error is not None:
@@ -605,11 +640,11 @@ if __name__ == '__main__':
         # You should authenticate for Bing Ads production services with a Microsoft Account, 
         # instead of providing the Bing Ads username and password set. 
         # Authentication with a Microsoft Account is currently not supported in Sandbox.
-        #authenticate_with_oauth()
+        authenticate_with_oauth()
 
         # Uncomment to run with Bing Ads legacy UserName and Password credentials.
         # For example you would use this method to authenticate in sandbox.
-        authenticate_with_username()
+        #authenticate_with_username()
         
         # Set to an empty user identifier to get the current authenticated Bing Ads user,
         # and then search for all accounts the user may access.
@@ -652,7 +687,6 @@ if __name__ == '__main__':
 
         bulk_campaign_day_time_target=BulkCampaignDayTimeTarget()
         bulk_campaign_day_time_target.campaign_id=CAMPAIGN_ID_KEY
-        bulk_campaign_day_time_target.target_id=TARGET_ID_KEY
         day_time_target=campaign_service.factory.create('DayTimeTarget')
         day_time_target_bid_0=campaign_service.factory.create('DayTimeTargetBid')
         day_time_target_bid_0.BidAdjustment=10
@@ -674,7 +708,6 @@ if __name__ == '__main__':
 
         bulk_campaign_location_target=BulkCampaignLocationTarget()
         bulk_campaign_location_target.campaign_id=CAMPAIGN_ID_KEY
-        bulk_campaign_location_target.target_id=TARGET_ID_KEY
         city_target=campaign_service.factory.create('CityTarget')
         city_target_bid=campaign_service.factory.create('CityTargetBid')
         city_target_bid.BidAdjustment=10
@@ -716,7 +749,6 @@ if __name__ == '__main__':
     
         bulk_campaign_radius_target=BulkCampaignRadiusTarget()
         bulk_campaign_radius_target.campaign_id=CAMPAIGN_ID_KEY
-        bulk_campaign_radius_target.target_id=TARGET_ID_KEY
         bulk_campaign_radius_target.intent_option='PeopleInOrSearchingForOrViewingPages'
         radius_target=campaign_service.factory.create('RadiusTarget')
         radius_target_bid=campaign_service.factory.create('RadiusTargetBid')
@@ -727,10 +759,20 @@ if __name__ == '__main__':
         radius_target_bid.RadiusUnit='Kilometers'
         radius_target.Bids.RadiusTargetBid.append(radius_target_bid)
         bulk_campaign_radius_target.radius_target=radius_target
+
+        bulk_campaign_device_os_target=BulkCampaignDeviceOsTarget()
+        bulk_campaign_device_os_target.campaign_id=CAMPAIGN_ID_KEY
+        device_os_target=campaign_service.factory.create('DeviceOSTarget')
+        device_os_target_bid=campaign_service.factory.create('DeviceOSTargetBid')
+        device_os_target_bid.BidAdjustment = 20
+        device_os_target_bid.DeviceName='Tablets'
+        device_os_target.Bids.DeviceOSTargetBid.append(device_os_target_bid)
+        bulk_campaign_device_os_target.device_os_target=device_os_target
     
         output_bulk_campaign_day_time_targets([bulk_campaign_day_time_target])
         output_bulk_campaign_location_targets([bulk_campaign_location_target])
         output_bulk_campaign_radius_targets([bulk_campaign_radius_target])
+        output_bulk_campaign_device_os_targets([bulk_campaign_device_os_target])
         
         # Upload the entities created above.
 
@@ -739,8 +781,9 @@ if __name__ == '__main__':
         upload_entities.append(bulk_campaign_day_time_target)
         upload_entities.append(bulk_campaign_location_target)
         upload_entities.append(bulk_campaign_radius_target)
+        upload_entities.append(bulk_campaign_device_os_target)
         
-        output_status_message("\nAdding campaign with associated targets . . .")
+        output_status_message("\nAdding campaign and targets . . .\n")
         download_entities=write_entities_and_upload_file(upload_entities)
 
         campaign_results=[]
@@ -755,13 +798,45 @@ if __name__ == '__main__':
                 output_bulk_campaign_location_targets([entity])
             if isinstance(entity, BulkCampaignRadiusTarget):
                 output_bulk_campaign_radius_targets([entity])
-            
+            if isinstance(entity, BulkCampaignDeviceOsTarget):
+                output_bulk_campaign_device_os_targets([entity])
+
+        # If the campaign was successfully added in the previous upload, let's append a new device bid.
+        if(len(campaign_results) > 0):
+            # In this example we want to keep the Tablets bid that was uploaded previously, so we will upload the BulkCampaignDeviceOsTargetBid.
+            # Each BulkCampaignDeviceOsTargetBid instance corresponds to one Campaign DeviceOS Target record in the bulk file. 
+            # If instead you want to replace all existing device target bids for the specified campaign, then you should upload 
+            # a BulkCampaignDeviceOsTarget. If you write a BulkCampaignDeviceOsTarget to the file (for example see the previous upload above),
+            # then an additional Campaign DeviceOS Target record is included automatically with Status set to Deleted. 
+            bulk_campaign_device_os_target_bid=BulkCampaignDeviceOsTargetBid()
+            bulk_campaign_device_os_target_bid.campaign_id=campaign_results[0].campaign.Id
+            # You can specify ClientId for BulkCampaignDeviceOsTargetBid, but not for BulkCampaignDeviceOsTarget.
+            bulk_campaign_device_os_target_bid.client_id = "My BulkCampaignDeviceOsTargetBid"
+            device_os_target_bid=campaign_service.factory.create('DeviceOSTargetBid')
+            device_os_target_bid.BidAdjustment = 20
+            device_os_target_bid.DeviceName='Smartphones'
+            bulk_campaign_device_os_target_bid.device_os_target_bid=device_os_target_bid
+
+            upload_entities=[]
+            upload_entities.append(bulk_campaign_device_os_target_bid)
+        
+            output_status_message("\nAdding Smartphones device target for campaign . . .\n")
+            download_entities=write_entities_and_upload_file(upload_entities)
+
+            campaign_results=[]
+
+            for entity in download_entities:
+                if isinstance(entity, BulkCampaignDeviceOsTargetBid):
+                    output_bulk_campaign_device_os_target_bids([entity])
+
         # Delete the campaign and target associations that were previously added. 
-        # Note that the targets are not deleted. Deleting targets is not supported using the
-        # Bulk service. To delete targets you can use the DeleteTargetsFromLibrary operation
-        # via the Campaign Management service.
         # You should remove this region if you want to view the added entities in the 
         # Bing Ads web application or another tool.
+
+        # You must set the Id field of the Campaign record that you want to delete, and the Status field to Deleted.
+        # In this example the Id is already set i.e. via the upload result captured above.
+        # When you delete a BulkCampaign, the dependent entities such as BulkCampaignDeviceOsTarget 
+        # are deleted without being specified explicitly. 
                 
         upload_entities=[]
 
@@ -769,7 +844,7 @@ if __name__ == '__main__':
             campaign_result.campaign.Status='Deleted'
             upload_entities.append(campaign_result)
             
-        output_status_message("\nDeleting campaign and target associations . . .")
+        output_status_message("\nDeleting campaign and target associations . . .\n")
         download_entities=write_entities_and_upload_file(upload_entities)
 
         for entity in download_entities:
