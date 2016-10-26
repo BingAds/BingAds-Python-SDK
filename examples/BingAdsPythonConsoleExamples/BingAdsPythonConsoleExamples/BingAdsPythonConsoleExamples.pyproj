@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8c0b9e76-2267-4699-857d-42f5b7055310</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>v10\BulkTargets.py</StartupFile>
+    <StartupFile>v10\ConsoleGettingStarted.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
