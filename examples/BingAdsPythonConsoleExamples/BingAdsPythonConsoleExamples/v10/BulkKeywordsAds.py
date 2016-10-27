@@ -704,32 +704,20 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
-
-        # Determine whether you are able to add shared budgets by checking the pilot flags.
-
-        enabled_for_shared_budgets = False
-        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
-
-        # The pilot flag value for shared budgets is 263.
-        # Pilot flags apply to all accounts within a given customer.
-        if(263 in feature_pilot_flags['int']):
-            enabled_for_shared_budgets = True
-        
-        # If the customer is enabled for shared budgets, let's create a new budget and
-        # share it with a new campaign.
+                
+        # Let's create a new budget and share it with a new campaign.
 
         upload_entities=[]
         
-        if enabled_for_shared_budgets:
-            bulk_budget=BulkBudget()
-            bulk_budget.client_id='YourClientIdGoesHere'
-            budget=set_elements_to_none(campaign_service.factory.create('Budget'))
-            budget.Amount=50
-            budget.BudgetType='DailyBudgetStandard'
-            budget.Id=BUDGET_ID_KEY
-            budget.Name="My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-            bulk_budget.budget=budget
-            upload_entities.append(bulk_budget)
+        bulk_budget=BulkBudget()
+        bulk_budget.client_id='YourClientIdGoesHere'
+        budget=set_elements_to_none(campaign_service.factory.create('Budget'))
+        budget.Amount=50
+        budget.BudgetType='DailyBudgetStandard'
+        budget.Id=BUDGET_ID_KEY
+        budget.Name="My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        bulk_budget.budget=budget
+        upload_entities.append(bulk_budget)
 
         
         bulk_campaign=BulkCampaign()
@@ -751,9 +739,9 @@ if __name__ == '__main__':
 
         # You must choose to set either the shared  budget ID or daily amount.
         # You can set one or the other, but you may not set both.
-        campaign.BudgetId=BUDGET_ID_KEY if enabled_for_shared_budgets else 0
-        campaign.DailyBudget=0 if enabled_for_shared_budgets else 50
-        campaign.BudgetType='DailyBudgetStandard'
+        campaign.BudgetId=BUDGET_ID_KEY
+        campaign.DailyBudget=None
+        campaign.BudgetType=None
         
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.Status='Paused'

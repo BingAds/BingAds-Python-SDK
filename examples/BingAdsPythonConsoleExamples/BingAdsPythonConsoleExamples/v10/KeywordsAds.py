@@ -24,7 +24,7 @@ if __name__ == '__main__':
     # If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
-    
+        
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -520,32 +520,19 @@ if __name__ == '__main__':
         # For this example we'll use the first account.
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
-
-        # Determine whether you are able to add shared budgets by checking the pilot flags.
-
-        enabled_for_shared_budgets = False
-        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
-
-        # The pilot flag value for shared budgets is 263.
-        # Pilot flags apply to all accounts within a given customer.
-        if(263 in feature_pilot_flags['int']):
-            enabled_for_shared_budgets = True
-        
-        # If the customer is enabled for shared budgets, let's create a new budget and
-        # share it with a new campaign.
-
-        budget_ids = None
-        if enabled_for_shared_budgets:
-            budgets = campaign_service.factory.create('ArrayOfBudget')
-            budget=set_elements_to_none(campaign_service.factory.create('Budget'))
-            budget.Amount = 50
-            budget.BudgetType = 'DailyBudgetStandard'
-            budget.Name = "My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
-            budgets.Budget.append(budget)
+                
+        # Let's create a new budget and share it with a new campaign.
+                
+        budgets = campaign_service.factory.create('ArrayOfBudget')
+        budget=set_elements_to_none(campaign_service.factory.create('Budget'))
+        budget.Amount = 50
+        budget.BudgetType = 'DailyBudgetStandard'
+        budget.Name = "My Shared Budget " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        budgets.Budget.append(budget)
                     
-            add_budgets_response = campaign_service.AddBudgets(budgets)
-            budget_ids={
-                'long': add_budgets_response.BudgetIds['long'] if add_budgets_response.BudgetIds['long'] else None
+        add_budgets_response = campaign_service.AddBudgets(budgets)
+        budget_ids={
+            'long': add_budgets_response.BudgetIds['long'] if add_budgets_response.BudgetIds['long'] else None
             }
 
         # Specify one or more campaigns.
@@ -557,8 +544,8 @@ if __name__ == '__main__':
 
         # You must choose to set either the shared  budget ID or daily amount.
         # You can set one or the other, but you may not set both.
-        campaign.BudgetId = budget_ids['long'][0] if enabled_for_shared_budgets else None
-        campaign.DailyBudget = None if enabled_for_shared_budgets else 50
+        campaign.BudgetId = budget_ids['long'][0] if len(budget_ids['long']) > 0 else None
+        campaign.DailyBudget = None if len(budget_ids['long']) > 0 else 50
         campaign.BudgetType = 'DailyBudgetStandard'
 
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
@@ -962,9 +949,8 @@ if __name__ == '__main__':
         for campaign_id in campaign_ids['long']:
             output_status_message("Deleted CampaignId {0}\n".format(campaign_id))
         
-        # This sample will attempt to delete the budget that was created above 
-        # if the customer is enabled for shared budgets.
-        if enabled_for_shared_budgets:
+        # This sample will attempt to delete the budget that was created above.
+        if len(budget_ids['long']) > 0:
             campaign_service.DeleteBudgets(
                 BudgetIds=budget_ids
             )

@@ -752,8 +752,8 @@ if __name__ == '__main__':
         campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
-        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-        campaign.MonthlyBudget=1000
+        campaign.BudgetType='DailyBudgetStandard'
+        campaign.MonthlyBudget=50
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.DaylightSaving='true' # Accepts 'true', 'false', True, or False
         campaign.Status='Paused'
