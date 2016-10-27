@@ -985,8 +985,8 @@ if __name__ == '__main__':
         campaign.CampaignType=['Shopping']
         campaign.Name='Bing Shopping Campaign ' + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description='Bing Shopping Campaign Example.'
-        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-        campaign.MonthlyBudget=1000
+        campaign.BudgetType='DailyBudgetStandard'
+        campaign.MonthlyBudget=50
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.DaylightSaving='true' 
         campaign.Status='Paused'

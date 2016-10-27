@@ -636,8 +636,8 @@ if __name__ == '__main__':
         campaign.Id=CAMPAIGN_ID_KEY
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
-        campaign.BudgetType='MonthlyBudgetSpendUntilDepleted'
-        campaign.MonthlyBudget=1000
+        campaign.BudgetType='DailyBudgetStandard'
+        campaign.MonthlyBudget=50
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.Status='Paused'
 
