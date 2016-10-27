@@ -369,21 +369,13 @@ def output_ad_results(ads, ad_ids, ad_errors):
     error_index=0
 
     for ad_index in range(len(ads['Ad'])):
-        attribute_value=None
-        if ads['Ad'][ad_index].Type == 'Text':
-            attribute_value="Title: {0}".format(ads['Ad'][ad_index].Title)
-        elif ads['Ad'][ad_index].Type == 'Product':
-            attribute_value="PromotionalText: {0}".format(ads['Ad'][ad_index].PromotionalText)
-        else:
-            attribute_value="Unknown Ad Type"
-        
         if ad_errors is not None \
             and ad_errors['BatchError'] is not None \
             and ad_index < len(ad_errors['BatchError']) + success_count \
             and ad_index == ad_errors['BatchError'][error_index].Index:
             # One ad may have multiple errors, for example editorial errors in multiple publisher countries
             while(error_index < len(ad_errors['BatchError']) and ad_errors['BatchError'][error_index].Index == ad_index):
-                output_status_message("Ad[{0}] ({1}) not added due to the following error:".format(ad_index, attribute_value))
+                output_status_message("Ad[{0}] not added due to the following error:".format(ad_index))
                 output_status_message("Index: {0}".format(ad_errors['BatchError'][error_index].Index))
                 output_status_message("Code: {0}".format(ad_errors['BatchError'][error_index].Code))
                 output_status_message("ErrorCode: {0}".format(ad_errors['BatchError'][error_index].ErrorCode))
@@ -395,12 +387,79 @@ def output_ad_results(ads, ad_ids, ad_errors):
                     output_status_message("ReasonCode: {0}".format(ad_errors['BatchError'][error_index].ReasonCode)) 
                 error_index=error_index + 1
         elif ad_ids['long'][ad_index - suds_index_0_gap] is not None:
-            output_status_message("Ad[{0}] ({1}) successfully added and assigned AdId {2}".format( 
+            output_status_message("Ad[{0}] successfully added and assigned AdId {1}".format( 
                         ad_index,
-                        attribute_value,
                         ad_ids['long'][ad_index - suds_index_0_gap]))
             success_count=success_count + 1
+
+        if ads['Ad'][ad_index].Type == 'ExpandedText':
+            output_expanded_text_ad(ads['Ad'][ad_index])
+        elif ads['Ad'][ad_index].Type == 'Product':
+            output_product_ad(ads['Ad'][ad_index])
+        elif ads['Ad'][ad_index].Type == 'Text':
+            output_text_ad(ads['Ad'][ad_index])
+        else:
+            output_status_message("Unknown Ad Type")
+        
         output_status_message('')
+
+def output_ad(ad):
+    if ad is not None:
+        output_status_message("DevicePreference: {0}".format(ad.DevicePreference))
+        output_status_message("EditorialStatus: {0}".format(ad.EditorialStatus))
+        output_status_message("FinalMobileUrls: ")
+        if ad.FinalMobileUrls is not None:
+            for final_mobile_url in ad.FinalMobileUrls['string']:
+                output_status_message("\t{0}".format(final_mobile_url))
+        output_status_message("FinalUrls: ")
+        if ad.FinalUrls is not None:
+            for final_url in ad.FinalUrls['string']:
+                output_status_message("\t{0}".format(final_url))
+        output_status_message("ForwardCompatibilityMap: ")
+        if ad.ForwardCompatibilityMap is not None and len(ad.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
+            for pair in ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+                output_status_message("Key: {0}".format(pair.key))
+                output_status_message("Value: {0}".format(pair.value))
+        output_status_message("Id: {0}".format(ad.Id))
+        output_status_message("Status: {0}".format(ad.Status))
+        output_status_message("TrackingUrlTemplate: {0}".format(ad.TrackingUrlTemplate))
+        output_status_message("UrlCustomParameters: ")
+        if ad.UrlCustomParameters is not None and ad.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in ad.UrlCustomParameters.Parameters['CustomParameter']:
+                output_status_message("\tKey: {0}".format(custom_parameter.Key))
+                output_status_message("\tValue: {0}".format(custom_parameter.Value))
+
+def output_expanded_text_ad(ad):
+    if ad is not None:
+        # Output inherited properties of the Ad base class.
+        output_ad(ad)
+            
+        # Output properties that are specific to the ExpandedTextAd
+        output_status_message("DisplayUrl: {0}".format(ad.DisplayUrl))
+        output_status_message("Path1: {0}".format(ad.Path1))
+        output_status_message("Path2: {0}".format(ad.Path2))
+        output_status_message("Text: {0}".format(ad.Text))
+        output_status_message("TitlePart1: {0}".format(ad.TitlePart1))
+        output_status_message("TitlePart2: {0}".format(ad.TitlePart2))
+
+def output_product_ad(ad):
+    if ad is not None:
+        # Output inherited properties of the Ad base class.
+        output_ad(ad)
+            
+        # Output properties that are specific to the ProductAd
+        output_status_message("PromotionalText: {0}".format(ad.PromotionalText))
+
+def output_text_ad(ad):
+    if ad is not None:
+        # Output inherited properties of the Ad base class.
+        output_ad(ad)
+            
+        # Output properties that are specific to the TextAd
+        output_status_message("DestinationUrl: {0}".format(ad.DestinationUrl))
+        output_status_message("DisplayUrl: {0}".format(ad.DisplayUrl))
+        output_status_message("Text: {0}".format(ad.Text))
+        output_status_message("Title: {0}".format(ad.Title))
 
 def output_keyword_results(keywords, keyword_ids, keyword_errors):
     # Since len(keywords['Keyword']) and len(keyword_errors['long']) differ, we will need to adjust the keyword_errors index 
@@ -514,7 +573,7 @@ if __name__ == '__main__':
         campaign_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme'))
         campaign.BiddingScheme=campaign_bidding_scheme
 
-        # Used with FinalUrls shown in the text ads that we will add below.
+        # Used with FinalUrls shown in the expanded text ads that we will add below.
         campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
         
         campaigns.Campaign.append(campaign)
@@ -552,44 +611,37 @@ if __name__ == '__main__':
         ad_groups.AdGroup.append(ad_group)
 
         # In this example only the first 3 ads should succeed. 
-        # The Title of the fourth ad is empty and not valid,
+        # The TitlePart2 of the fourth ad is empty and not valid,
         # and the fifth ad is a duplicate of the second ad.
         
         ads=campaign_service.factory.create('ArrayOfAd')
         
         for index in range(5):
-            text_ad=set_elements_to_none(campaign_service.factory.create('TextAd'))
-            text_ad.Title='Red Shoe Sale'
-            text_ad.Text='Huge Savings on red shoes.'
-            text_ad.DisplayUrl='Contoso.com'
-            text_ad.Type='Text'
-
-            # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-            # Here is an example of a DestinationUrl you might have used previously. 
-            # text_ad.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
-
-            # To migrate from DestinationUrl to FinalUrls for existing ads, you can set DestinationUrl
-            # to an empty string when updating the ad. If you are removing DestinationUrl,
-            # then FinalUrls is required.
-            # text_ad.DestinationUrl=""
+            expanded_text_ad=set_elements_to_none(campaign_service.factory.create('ExpandedTextAd'))
+            expanded_text_ad.TitlePart1='Contoso'
+            expanded_text_ad.TitlePart2='Fast & Easy Setup'
+            expanded_text_ad.Text='Huge Savings on red shoes.'
+            expanded_text_ad.Path1='seattle'
+            expanded_text_ad.Path2='shoe sale'
+            expanded_text_ad.Type='ExpandedText'
             
             # With FinalUrls you can separate the tracking template, custom parameters, and 
             # landing page URLs.
             final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
             final_urls.string.append('http://www.contoso.com/womenshoesale')
-            text_ad.FinalUrls=final_urls
+            expanded_text_ad.FinalUrls=final_urls
 
             # Final Mobile URLs can also be used if you want to direct the user to a different page 
             # for mobile devices.
             final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
             final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
-            text_ad.FinalMobileUrls=final_mobile_urls
+            expanded_text_ad.FinalMobileUrls=final_mobile_urls
 
             # You could use a tracking template which would override the campaign level
             # tracking template. Tracking templates defined for lower level entities 
             # override those set for higher level entities.
             # In this example we are using the campaign level tracking template.
-            text_ad.TrackingUrlTemplate=None,
+            expanded_text_ad.TrackingUrlTemplate=None,
 
             # Set custom parameters that are specific to this ad, 
             # and can be used by the ad, ad group, campaign, or account level tracking template. 
@@ -605,14 +657,13 @@ if __name__ == '__main__':
             custom_parameter2.Value='summer'
             parameters.CustomParameter.append(custom_parameter2)
             url_custom_parameters.Parameters=parameters
-            text_ad.UrlCustomParameters=url_custom_parameters
-            ads.Ad.append(text_ad)
+            expanded_text_ad.UrlCustomParameters=url_custom_parameters
+            ads.Ad.append(expanded_text_ad)
         
-        ads.Ad[0].Title="Women's Shoe Sale"
-        ads.Ad[1].Title="Women's Super Shoe Sale"
-        ads.Ad[2].Title="Women's Red Shoe Sale"
-        ads.Ad[3].Title=''
-        ads.Ad[4].Title="Women's Super Shoe Sale"
+        ads.Ad[1].TitlePart2="Quick & Easy Setup"
+        ads.Ad[2].TitlePart2="Fast & Simple Setup"
+        ads.Ad[3].TitlePart2=''
+        ads.Ad[4].TitlePart2="Quick & Easy Setup"
 
         # In this example only the second keyword should succeed. The Text of the first keyword exceeds the limit,
         # and the third keyword is a duplicate of the second keyword.  
@@ -807,18 +858,18 @@ if __name__ == '__main__':
 
         # Set the UrlCustomParameters element to null or empty to retain any 
         # existing custom parameters.
-        text_ad_0=set_elements_to_none(campaign_service.factory.create('TextAd'))
-        text_ad_0.Id=ad_ids['long'][0]
-        text_ad_0.Text='Huge Savings on All Red Shoes.'
-        text_ad_0.UrlCustomParameters=None
-        text_ad_0.Type='Text'
-        update_ads.Ad.append(text_ad_0)
+        expanded_text_ad_0=set_elements_to_none(campaign_service.factory.create('ExpandedTextAd'))
+        expanded_text_ad_0.Id=ad_ids['long'][0]
+        expanded_text_ad_0.Text='Huge Savings on All Red Shoes.'
+        expanded_text_ad_0.UrlCustomParameters=None
+        expanded_text_ad_0.Type='Text'
+        update_ads.Ad.append(expanded_text_ad_0)
 
         # To remove all custom parameters, set the Parameters element of the 
         # CustomParameters object to null or empty.
-        text_ad_1=set_elements_to_none(campaign_service.factory.create('TextAd'))
-        text_ad_1.Id=ad_ids['long'][1]
-        text_ad_1.Text='Huge Savings on All Red Shoes.'
+        expanded_text_ad_1=set_elements_to_none(campaign_service.factory.create('ExpandedTextAd'))
+        expanded_text_ad_1.Id=ad_ids['long'][1]
+        expanded_text_ad_1.Text='Huge Savings on All Red Shoes.'
         url_custom_parameters_1=campaign_service.factory.create('ns0:CustomParameters')
         parameters_1=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
         custom_parameter_1=campaign_service.factory.create('ns0:CustomParameter')
@@ -826,15 +877,15 @@ if __name__ == '__main__':
         #custom_parameter_1=None
         parameters_1.CustomParameter.append(custom_parameter_1)
         url_custom_parameters_1.Parameters=parameters_1
-        text_ad_1.UrlCustomParameters=url_custom_parameters_1
-        text_ad_1.Type='Text'
-        update_ads.Ad.append(text_ad_1)
+        expanded_text_ad_1.UrlCustomParameters=url_custom_parameters_1
+        expanded_text_ad_1.Type='Text'
+        update_ads.Ad.append(expanded_text_ad_1)
 
         # To remove a subset of custom parameters, specify the custom parameters that 
         # you want to keep in the Parameters element of the CustomParameters object.
-        text_ad_2=set_elements_to_none(campaign_service.factory.create('TextAd'))
-        text_ad_2.Id=ad_ids['long'][2]
-        text_ad_2.Text='Huge Savings on All Red Shoes.'
+        expanded_text_ad_2=set_elements_to_none(campaign_service.factory.create('ExpandedTextAd'))
+        expanded_text_ad_2.Id=ad_ids['long'][2]
+        expanded_text_ad_2.Text='Huge Savings on All Red Shoes.'
         url_custom_parameters_2=campaign_service.factory.create('ns0:CustomParameters')
         parameters_2=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
         custom_parameter_2=campaign_service.factory.create('ns0:CustomParameter')
@@ -842,9 +893,9 @@ if __name__ == '__main__':
         custom_parameter_2.Value='updatedpromo'
         parameters_2.CustomParameter.append(custom_parameter_2)
         url_custom_parameters_2.Parameters=parameters_2
-        text_ad_2.UrlCustomParameters=url_custom_parameters_2
-        text_ad_2.Type='Text'
-        update_ads.Ad.append(text_ad_2)
+        expanded_text_ad_2.UrlCustomParameters=url_custom_parameters_2
+        expanded_text_ad_2.Type='Text'
+        update_ads.Ad.append(expanded_text_ad_2)
 
         # As an exercise you can step through using the debugger and view the results.
 

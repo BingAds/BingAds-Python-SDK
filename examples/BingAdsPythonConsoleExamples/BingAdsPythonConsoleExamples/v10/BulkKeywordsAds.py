@@ -312,7 +312,7 @@ def output_campaign(campaign):
         output_status_message("Description: {0}".format(campaign.Description))
         output_status_message("ForwardCompatibilityMap: ")
         if campaign.ForwardCompatibilityMap is not None and len(campaign.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+            for pair in campaign.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
@@ -367,7 +367,7 @@ def output_ad_group(ad_group):
         output_bidding_scheme(ad_group.BiddingScheme)
         output_status_message("ForwardCompatibilityMap: ")
         if ad_group.ForwardCompatibilityMap is not None and len(ad_group.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+            for pair in ad_group.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(ad_group.Id))
@@ -388,9 +388,9 @@ def output_ad_group(ad_group):
                 output_status_message("\tKey: {0}".format(custom_parameter.Key))
                 output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
-def output_bulk_text_ads(bulk_entities):
+def output_bulk_expanded_text_ads(bulk_entities):
     for entity in bulk_entities:
-        output_status_message("BulkTextAd: \n")
+        output_status_message("BulkExpandedTextAd: \n")
         output_status_message("AdGroup Id: {0}".format(entity.ad_group_id))
         output_status_message("AdGroup Name: {0}".format(entity.ad_group_name))
         output_status_message("Campaign Name: {0}".format(entity.campaign_name))
@@ -401,44 +401,53 @@ def output_bulk_text_ads(bulk_entities):
 
         output_bulk_performance_data(entity.performance_data)
 
-        # Output the Campaign Management TextAd Object
-        output_text_ad(entity.text_ad)
+        # Output the Campaign Management ExpandedTextAd Object
+        output_expanded_text_ad(entity.expanded_text_ad)
 
         if entity.has_errors:
             output_bulk_errors(entity.errors)
 
         output_status_message('')
 
-def output_text_ad(text_ad):
-    if text_ad is not None:
-        output_status_message("DestinationUrl: {0}".format(text_ad.DestinationUrl))
-        output_status_message("DevicePreference: {0}".format(text_ad.DevicePreference))
-        output_status_message("DisplayUrl: {0}".format(text_ad.DisplayUrl))
-        output_status_message("EditorialStatus: {0}".format(text_ad.EditorialStatus))
+def output_ad(ad):
+    if ad is not None:
+        output_status_message("DevicePreference: {0}".format(ad.DevicePreference))
+        output_status_message("EditorialStatus: {0}".format(ad.EditorialStatus))
         output_status_message("FinalMobileUrls: ")
-        if text_ad.FinalMobileUrls is not None:
-            for final_mobile_url in text_ad.FinalMobileUrls['string']:
+        if ad.FinalMobileUrls is not None:
+            for final_mobile_url in ad.FinalMobileUrls['string']:
                 output_status_message("\t{0}".format(final_mobile_url))
         output_status_message("FinalUrls: ")
-        if text_ad.FinalUrls is not None:
-            for final_url in text_ad.FinalUrls['string']:
+        if ad.FinalUrls is not None:
+            for final_url in ad.FinalUrls['string']:
                 output_status_message("\t{0}".format(final_url))
         output_status_message("ForwardCompatibilityMap: ")
-        if text_ad.ForwardCompatibilityMap is not None and len(text_ad.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+        if ad.ForwardCompatibilityMap is not None and len(ad.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
+            for pair in ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
-        output_status_message("Id: {0}".format(text_ad.Id))
-        output_status_message("Status: {0}".format(text_ad.Status))
-        output_status_message("Text: {0}".format(text_ad.Text))
-        output_status_message("Title: {0}".format(text_ad.Title))
-        output_status_message("TrackingUrlTemplate: {0}".format(text_ad.TrackingUrlTemplate))
+        output_status_message("Id: {0}".format(ad.Id))
+        output_status_message("Status: {0}".format(ad.Status))
+        output_status_message("TrackingUrlTemplate: {0}".format(ad.TrackingUrlTemplate))
         output_status_message("UrlCustomParameters: ")
-        if text_ad.UrlCustomParameters is not None and text_ad.UrlCustomParameters.Parameters is not None:
-            for custom_parameter in text_ad.UrlCustomParameters.Parameters['CustomParameter']:
+        if ad.UrlCustomParameters is not None and ad.UrlCustomParameters.Parameters is not None:
+            for custom_parameter in ad.UrlCustomParameters.Parameters['CustomParameter']:
                 output_status_message("\tKey: {0}".format(custom_parameter.Key))
                 output_status_message("\tValue: {0}".format(custom_parameter.Value))
 
+def output_expanded_text_ad(ad):
+    if ad is not None:
+        # Output inherited properties of the Ad base class.
+        output_ad(ad)
+            
+        # Output properties that are specific to the ExpandedTextAd
+        output_status_message("DisplayUrl: {0}".format(ad.DisplayUrl))
+        output_status_message("Path1: {0}".format(ad.Path1))
+        output_status_message("Path2: {0}".format(ad.Path2))
+        output_status_message("Text: {0}".format(ad.Text))
+        output_status_message("TitlePart1: {0}".format(ad.TitlePart1))
+        output_status_message("TitlePart2: {0}".format(ad.TitlePart2))
+        
 def output_bulk_keywords(bulk_entities):
     for entity in bulk_entities:
         output_status_message("BulkKeyword: \n")
@@ -480,7 +489,7 @@ def output_keyword(keyword):
                 output_status_message("\t{0}".format(final_url))
         output_status_message("ForwardCompatibilityMap: ")
         if keyword.ForwardCompatibilityMap is not None and len(keyword.ForwardCompatibilityMap.KeyValuePairOfstringstring) > 0:
-            for pair in text_ad.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
+            for pair in keyword.ForwardCompatibilityMap['KeyValuePairOfstringstring']:
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(keyword.Id))
@@ -761,7 +770,7 @@ if __name__ == '__main__':
         campaign_bidding_scheme=set_elements_to_none(campaign_service.factory.create('ns0:EnhancedCpcBiddingScheme'))
         campaign.BiddingScheme=campaign_bidding_scheme
                 
-        # Used with FinalUrls shown in the text ads that we will add below.
+        # Used with FinalUrls shown in the expanded text ads that we will add below.
         campaign.TrackingUrlTemplate="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
 
         bulk_campaign.campaign=campaign
@@ -801,45 +810,38 @@ if __name__ == '__main__':
         # The Title of the fourth ad is empty and not valid,
         # and the fifth ad is a duplicate of the second ad 
 
-        bulk_text_ads=[]
+        bulk_expanded_text_ads=[]
 
         for index in range(5):
-            bulk_text_ad=BulkTextAd()
-            bulk_text_ad.ad_group_id=AD_GROUP_ID_KEY
-            text_ad=set_elements_to_none(campaign_service.factory.create('TextAd'))
-            text_ad.DisplayUrl='Contoso.com'
-            text_ad.Text='Huge Savings on red shoes.'
-            text_ad.Title='Red Shoe Sale'
-            text_ad.Type='Text'
-            text_ad.Status=None
-            text_ad.EditorialStatus=None
-
-            # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-            # Here is an example of a DestinationUrl you might have used previously. 
-            # text_ad.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
-
-            # To migrate from DestinationUrl to FinalUrls for existing ads, you can set DestinationUrl
-            # to an empty string when updating the ad. If you are removing DestinationUrl,
-            # then FinalUrls is required.
-            # text_ad.DestinationUrl=""
+            bulk_expanded_text_ad=BulkExpandedTextAd()
+            bulk_expanded_text_ad.ad_group_id=AD_GROUP_ID_KEY
+            expanded_text_ad=set_elements_to_none(campaign_service.factory.create('ExpandedTextAd'))
+            expanded_text_ad.TitlePart1='Contoso'
+            expanded_text_ad.TitlePart2='Fast & Easy Setup'
+            expanded_text_ad.Text='Huge Savings on red shoes.'
+            expanded_text_ad.Path1='seattle'
+            expanded_text_ad.Path2='shoe sale'
+            expanded_text_ad.Type='ExpandedText'
+            expanded_text_ad.Status=None
+            expanded_text_ad.EditorialStatus=None
             
             # With FinalUrls you can separate the tracking template, custom parameters, and 
             # landing page URLs.
             final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
             final_urls.string.append('http://www.contoso.com/womenshoesale')
-            text_ad.FinalUrls=final_urls
+            expanded_text_ad.FinalUrls=final_urls
 
             # Final Mobile URLs can also be used if you want to direct the user to a different page 
             # for mobile devices.
             final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
             final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
-            text_ad.FinalMobileUrls=final_mobile_urls
+            expanded_text_ad.FinalMobileUrls=final_mobile_urls
 
             # You could use a tracking template which would override the campaign level
             # tracking template. Tracking templates defined for lower level entities 
             # override those set for higher level entities.
             # In this example we are using the campaign level tracking template.
-            text_ad.TrackingUrlTemplate=None
+            expanded_text_ad.TrackingUrlTemplate=None
 
             # Set custom parameters that are specific to this ad, 
             # and can be used by the ad, ad group, campaign, or account level tracking template. 
@@ -855,15 +857,14 @@ if __name__ == '__main__':
             custom_parameter2.Value='summer'
             parameters.CustomParameter.append(custom_parameter2)
             url_custom_parameters.Parameters=parameters
-            text_ad.UrlCustomParameters=url_custom_parameters
-            bulk_text_ad.ad=text_ad
-            bulk_text_ads.append(bulk_text_ad)
+            expanded_text_ad.UrlCustomParameters=url_custom_parameters
+            bulk_expanded_text_ad.ad=expanded_text_ad
+            bulk_expanded_text_ads.append(bulk_expanded_text_ad)
 
-        bulk_text_ads[0].ad.Title="Women's Shoe Sale"
-        bulk_text_ads[1].ad.Title="Women's Super Shoe Sale"
-        bulk_text_ads[2].ad.Title="Women's Red Shoe Sale"
-        bulk_text_ads[3].ad.Title=''
-        bulk_text_ads[4].ad.Title="Women's Super Shoe Sale"
+        bulk_expanded_text_ads[1].ad.Title="Quick & Easy Setup"
+        bulk_expanded_text_ads[2].ad.Title="Fast & Simple Setup"
+        bulk_expanded_text_ads[3].ad.Title=''
+        bulk_expanded_text_ads[4].ad.Title="Quick & Easy Setup"
 
         # In this example only the second keyword should succeed. The Text of the first keyword exceeds the limit,
         # and the third keyword is a duplicate of the second keyword.
@@ -900,8 +901,8 @@ if __name__ == '__main__':
 
         upload_entities.append(bulk_campaign)
         upload_entities.append(bulk_ad_group)
-        for bulk_text_ad in bulk_text_ads:
-            upload_entities.append(bulk_text_ad)
+        for bulk_expanded_text_ad in bulk_expanded_text_ads:
+            upload_entities.append(bulk_expanded_text_ad)
         for bulk_keyword in bulk_keywords:
             upload_entities.append(bulk_keyword)      
         
@@ -923,8 +924,8 @@ if __name__ == '__main__':
             if isinstance(entity, BulkAdGroup):
                 adgroup_results.append(entity)
                 output_bulk_ad_groups([entity])
-            if isinstance(entity, BulkTextAd):
-                output_bulk_text_ads([entity])
+            if isinstance(entity, BulkExpandedTextAd):
+                output_bulk_expanded_text_ads([entity])
             if isinstance(entity, BulkKeyword):
                 keyword_results.append(entity)
                 output_bulk_keywords([entity])
