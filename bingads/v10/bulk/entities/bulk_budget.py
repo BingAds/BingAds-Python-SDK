@@ -68,12 +68,12 @@ class BulkBudget(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Id,
             field_to_csv=lambda c: bulk_str(c.budget.Id),
-            csv_to_field=lambda c, v: setattr(c.budget, 'Id', long(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c.budget, 'Id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.account_id),
-            csv_to_field=lambda c, v: setattr(c, 'account_id', long(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, 'account_id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Status,

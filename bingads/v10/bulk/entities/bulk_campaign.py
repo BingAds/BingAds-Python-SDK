@@ -265,7 +265,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.BudgetId,
             field_to_csv=lambda c: bulk_str(c.campaign.BudgetId),
-            csv_to_field=lambda c, v: setattr(c.campaign, 'BudgetId', long(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c.campaign, 'BudgetId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.BudgetType,
