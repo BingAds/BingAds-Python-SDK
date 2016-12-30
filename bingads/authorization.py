@@ -1,7 +1,8 @@
 try:
-    from urllib.parse import parse_qs, urlparse
+    from urllib.parse import parse_qs, urlparse, quote_plus
 except ImportError:
     from urlparse import parse_qs, urlparse
+    from urllib import quote_plus
 import json
 
 import requests
@@ -370,7 +371,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
             self._client_id,
             'code',
-            self._redirection_uri
+            quote_plus(self._redirection_uri)
         )
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 

@@ -10,6 +10,7 @@ ProductAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ProductAd'))
 TextAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('TextAd'))
 AppInstallAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('AppInstallAd'))
 ExpandedTextAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ExpandedTextAd'))
+DynamicSearchAd = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAd'))
 
 
 class _BulkAd(_SingleRecordBulkEntity):
@@ -21,6 +22,7 @@ class _BulkAd(_SingleRecordBulkEntity):
     * :class:`.BulkTextAd`
     * :class:`.BulkAppInstallAd`
     * :class:`.BulkExpandedTextAd`
+    * :class:`.BulkDynamicSearchAd`
     """
 
     def __init__(self,
@@ -479,3 +481,76 @@ class BulkExpandedTextAd(_BulkAd):
         self._validate_property_not_null(self.expanded_text_ad, 'expanded_text_ad')
         super(BulkExpandedTextAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkExpandedTextAd._MAPPINGS)
+
+
+class BulkDynamicSearchAd(_BulkAd):
+    """ Represents a Dynamic Search Ad.
+
+    This class exposes the :attr:`dynamic_search_ad` property that can be read and written as fields of the Dynamic Search Ad record in a bulk file.
+
+    For more information, see Dynamic Search Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self,
+                 ad_group_id=None,
+                 campaign_name=None,
+                 ad_group_name=None,
+                 ad=None):
+        super(BulkDynamicSearchAd, self).__init__(
+            ad_group_id,
+            campaign_name,
+            ad_group_name,
+            ad,
+        )
+        self.dynamic_search_ad = ad
+
+    @property
+    def dynamic_search_ad(self):
+        """ The dynamic search ad.
+
+        see Dynamic Search Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+        """
+
+        return self._ad
+
+    @dynamic_search_ad.setter
+    def dynamic_search_ad(self, dynamic_search_ad):
+        if dynamic_search_ad is not None and not isinstance(dynamic_search_ad, DynamicSearchAd):
+            raise ValueError('Not an instance of DynamicSearchAd')
+        self._ad = dynamic_search_ad
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Text,
+            field_to_csv=lambda c: c.dynamic_search_ad.Text,
+            csv_to_field=lambda c, v: setattr(c.dynamic_search_ad, 'Text', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Path1,
+            field_to_csv=lambda c: c.dynamic_search_ad.Path1,
+            csv_to_field=lambda c, v: setattr(c.dynamic_search_ad, 'Path1', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Path2,
+            field_to_csv=lambda c: c.dynamic_search_ad.Path2,
+            csv_to_field=lambda c, v: setattr(c.dynamic_search_ad, 'Path2', v)
+        ),
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        self.dynamic_search_ad = _CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAd')
+        self.dynamic_search_ad.Type = 'DynamicSearch'
+        super(BulkDynamicSearchAd, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, BulkDynamicSearchAd._MAPPINGS)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.dynamic_search_ad, 'dynamic_search_ad')
+        super(BulkDynamicSearchAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkDynamicSearchAd._MAPPINGS)

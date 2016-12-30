@@ -53,6 +53,7 @@ class _BulkObjectFactory():
         _StringTable.TextAd: _EntityInfo(lambda: BulkTextAd()),
         _StringTable.AppInstallAd: _EntityInfo(lambda: BulkAppInstallAd()),
         _StringTable.ExpandedTextAd: _EntityInfo(lambda: BulkExpandedTextAd()),
+        _StringTable.DynamicSearchAd: _EntityInfo(lambda: BulkDynamicSearchAd()),
         "Campaign Negative Site": _EntityInfo(
             lambda: BulkCampaignNegativeSite(),
             _StringTable.Website,
@@ -143,6 +144,9 @@ class _BulkObjectFactory():
         'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition()),
         'Remarketing List': _EntityInfo(lambda : BulkRemarketingList()),
         'Ad Group Remarketing List Association': _EntityInfo(lambda : BulkAdGroupRemarketingListAssociation()),
+        'Campaign Negative Dynamic Search Ad Target': _EntityInfo(lambda: BulkCampaignNegativeDynamicSearchAdTarget()),
+        'Ad Group Dynamic Search Ad Target': _EntityInfo(lambda: BulkAdGroupDynamicSearchAdTarget()),
+        'Ad Group Negative Dynamic Search Ad Target': _EntityInfo(lambda: BulkAdGroupNegativeDynamicSearchAdTarget()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

@@ -205,6 +205,15 @@ class _CsvHeaders:
         # Ad Scheduling
         _StringTable.AdSchedule,
         _StringTable.UseSearcherTimeZone,
+
+        # Dynamic Search Ads
+        _StringTable.DomainLanguage,
+        _StringTable.DynamicAdTargetCondition1,
+        _StringTable.DynamicAdTargetValue1,
+        _StringTable.DynamicAdTargetCondition2,
+        _StringTable.DynamicAdTargetValue2,
+        _StringTable.DynamicAdTargetCondition3,
+        _StringTable.DynamicAdTargetValue3,
     ]
 
     @staticmethod

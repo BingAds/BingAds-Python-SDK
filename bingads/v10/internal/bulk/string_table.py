@@ -18,6 +18,7 @@ class _StringTable:
     TextAd = "Text Ad"
     ProductAd = "Product Ad"
     AppInstallAd = "App Install Ad"
+    DynamicSearchAd = "Dynamic Search Ad"
     ExpandedTextAd = "Expanded Text Ad"
     Title = "Title"
     EditorialStatus = "Editorial Status"
@@ -261,3 +262,12 @@ class _StringTable:
     # Ad Extension Scheduling
     AdSchedule = "Ad Schedule"
     UseSearcherTimeZone = "Use Searcher Time Zone"
+
+    # Dynamic Search Ads
+    DomainLanguage = "Domain Language"
+    DynamicAdTargetCondition1 = "Dynamic Ad Target Condition 1"
+    DynamicAdTargetValue1 = "Dynamic Ad Target Value 1"
+    DynamicAdTargetCondition2 = "Dynamic Ad Target Condition 2"
+    DynamicAdTargetValue2 = "Dynamic Ad Target Value 2"
+    DynamicAdTargetCondition3 = "Dynamic Ad Target Condition 3"
+    DynamicAdTargetValue3 = "Dynamic Ad Target Value 3"

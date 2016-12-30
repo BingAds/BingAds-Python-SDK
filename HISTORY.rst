@@ -3,6 +3,13 @@
 Release History
 ---------------
 
+10.4.11(2016-12-30)
++++++++++++++++++++
+
+* Add bulk support for Dynamic Search Ads feature
+* Update wsdl proxy to latest version
+* Bug fixes
+
 10.4.10(2016-10-28)
 +++++++++++++++++++
 

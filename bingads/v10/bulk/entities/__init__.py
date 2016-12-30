@@ -16,6 +16,9 @@ from .bulk_campaign_product_scope import *
 from .bulk_ad_group_product_partition import *
 from .bulk_ad_group_remarketing_list_association import *
 from .bulk_remarketing_list import *
+from .bulk_campaign_negative_dynamic_search_ad_target import *
+from .bulk_ad_group_dynamic_search_ad_target import *
+from .bulk_ad_group_negative_dynamic_search_ad_target import *
 
 from .ad_extensions import *
 from .bulk_ads import *

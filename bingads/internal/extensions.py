@@ -3,7 +3,7 @@ from datetime import datetime
 from bingads.v10.internal.bulk.string_table import _StringTable
 from six import PY2
 import re
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10, _CAMPAIGN_MANAGEMENT_SERVICE_V10
 
 
 DELETE_VALUE = "delete_value"
@@ -16,6 +16,9 @@ custom_param_splitter = "(?<!\\\\);\\s*"
 custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
 
 BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V10.create('BudgetLimitType')
+DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAdsSetting')
+Webpage = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:Webpage')
+WebpageConditionOperand = _CAMPAIGN_OBJECT_FACTORY_V10.create('WebpageConditionOperand')
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -558,6 +561,150 @@ def csv_to_field_BudgetType(entity, value):
         entity.BudgetType = BudgetLimitType.DailyBudgetStandard
     else:
         raise ValueError('Unable to parse BudgetType: {0}'.format(value))
+
+
+def csv_to_field_DSAWebsite(entity, value):
+    """
+    Set Campaign settings Domain Name from bulk value if the campaign type is Dynamic Search Campaign
+    :param entity: campaign entity
+    :param value: bulk str value
+    """
+    if not entity.CampaignType or len(entity.CampaignType) == 0 or entity.CampaignType[0] != "DynamicSearchAds":
+        return
+    if len(entity.Settings.Setting) > 0 and entity.Settings.Setting[0].Type == 'DynamicSearchAdsSetting':
+        entity.Settings.Setting[0].DomainName = value
+    else:
+        setting = _CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAdsSetting')
+        setting.DomainName = value
+        setting.Type = 'DynamicSearchAdsSetting'
+        entity.Settings.Setting.append(setting)
+
+
+def field_to_csv_DSAWebsite(entity):
+    """
+    convert campaign settings Domain Name to bulk str if the campaign is Dynamic Search Campaign
+    :param entity: campaign entity
+    :return: bulk str
+    """
+    if entity.CampaignType is not None and (entity.CampaignType == 'DynamicSearchAds' or (
+            len(entity.CampaignType) != 0 and entity.CampaignType[0] == 'DynamicSearchAds')):
+        if entity.Settings is None or entity.Settings.Setting is None or len(entity.Settings.Setting) == 0:
+            return None
+        setting = entity.Settings.Setting[0]
+        if isinstance(setting, type(DynamicSearchAdsSetting)):
+            return setting.DomainName
+    return None
+
+
+def csv_to_field_DSADomainLanguage(entity, value):
+    """
+    Set Campaign settings Language from bulk value if the campaign type is Dynamic Search Campaign
+    :param entity: campaign entity
+    :param value: bulk str value
+    """
+    if not entity.CampaignType or len(entity.CampaignType) == 0 or entity.CampaignType[0] != "DynamicSearchAds":
+        return
+    if len(entity.Settings.Setting) > 0 and entity.Settings.Setting[0].Type == 'DynamicSearchAdsSetting':
+        entity.Settings.Setting[0].Language = value
+    else:
+        setting = _CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAdsSetting')
+        setting.Language = value
+        setting.Type = 'DynamicSearchAdsSetting'
+        entity.Settings.Setting.append(setting)
+
+
+def field_to_csv_DSADomainLanguage(entity):
+    """
+    convert campaign settings Language to bulk str if the campaign is Dynamic Search Campaign
+    :param entity: campaign entity
+    :return: bulk str
+    """
+    if entity.CampaignType is not None and (entity.CampaignType == 'DynamicSearchAds' or (
+            len(entity.CampaignType) != 0 and entity.CampaignType[0] == 'DynamicSearchAds')):
+        if not entity.Settings or not entity.Settings.Setting or len(entity.Settings.Setting) == 0:
+            return None
+        setting = entity.Settings.Setting[0]
+        if isinstance(setting, type(DynamicSearchAdsSetting)):
+            return setting.Language
+
+    return None
+
+
+def field_to_csv_WebpageParameter_CriterionName(entity):
+    if entity.Criterion is None or entity.Criterion.Parameter is None or entity.Criterion.Parameter.CriterionName is None:
+        return None
+    if not entity.Criterion.Parameter.CriterionName:
+        return DELETE_VALUE
+    return entity.Criterion.Parameter.CriterionName
+
+
+def csv_to_field_WebpageParameter_CriterionName(entity, value):
+    if value is None or value == '':
+        return
+    if entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)):
+        entity.Criterion.Parameter.CriterionName = value
+    else:
+        webpage = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:Webpage')
+        webpage.Parameter.CriterionName = value
+        entity.Criterion = webpage
+
+
+def entity_to_csv_DSAWebpageParameter(entity, row_values):
+    """
+    Set Campaign/AdGroup Criterion (WebpagePage) Web page parameters from bulk values
+    :param entity: campaign/ad group criterion entity
+    :param row_values: bulk row values
+    """
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)) and \
+            entity.Criterion.Parameter is not None and entity.Criterion.Parameter.Conditions is not None and \
+            entity.Criterion.Parameter.Conditions.WebpageCondition is not None:
+        condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
+        value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+
+        conditions = entity.Criterion.Parameter.Conditions.WebpageCondition
+        for i in range(0, len(conditions)):
+            row_values[condition_prefix + str(i + 1)] = conditions[i].Operand
+            row_values[value_prefix + str(i + 1)] = conditions[i].Argument
+
+
+def csv_to_entity_DSAWebpageParameter(row_values, entity):
+    """
+    convert Campaign/Ad Group Criterion (WebpagePage) Web page parameters to bulk row values
+    :param row_values: bulk row values
+    :param entity: campaign/ad group criterion entity
+    """
+    MAX_NUMBER_OF_CONDITIONS = 3
+    condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
+    value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+
+    conditions = []
+    for i in range(0, MAX_NUMBER_OF_CONDITIONS):
+        condition_success, webpage_condition = row_values.try_get_value(condition_prefix + str(i + 1))
+        value_success, webpage_value = row_values.try_get_value(value_prefix + str(i + 1))
+        if condition_success and value_success and webpage_condition is not None and webpage_condition != '':
+            condition = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:WebpageCondition')
+            if webpage_condition.lower() == 'url':
+                condition.Operand = WebpageConditionOperand.Url
+            elif webpage_condition.lower() == "category":
+                condition.Operand = WebpageConditionOperand.Category
+            elif webpage_condition.lower() == 'pagetitle':
+                condition.Operand = WebpageConditionOperand.PageTitle
+            elif webpage_condition.lower() == 'pagecontent':
+                condition.Operand = WebpageConditionOperand.PageContent
+            else:
+                raise ValueError("Unknown WebpageConditionOperand value: {0}".format(webpage_condition))
+
+            condition.Argument = webpage_value
+            conditions.append(condition)
+
+    if len(conditions) > 0:
+        if entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)):
+            entity.Criterion.Parameter.Conditions.WebpageCondition = conditions
+        else:
+            webpage = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:Webpage')
+            webpage.Parameter.Conditions.WebpageCondition = conditions
+            entity.Criterion = webpage
+
 
 def parse_bool(value):
     if value is None or value == '':

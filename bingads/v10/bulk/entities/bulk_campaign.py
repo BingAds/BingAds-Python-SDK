@@ -277,6 +277,16 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.budget_name),
             csv_to_field=lambda c, v: setattr(c, 'budget_name', v if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.Website,
+            field_to_csv=lambda c: field_to_csv_DSAWebsite(c.campaign),
+            csv_to_field=lambda c, v: csv_to_field_DSAWebsite(c.campaign, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.DomainLanguage,
+            field_to_csv=lambda c: field_to_csv_DSADomainLanguage(c.campaign),
+            csv_to_field=lambda c, v: csv_to_field_DSADomainLanguage(c.campaign, v)
+        ),
     ]
 
     def read_additional_data(self, stream_reader):
