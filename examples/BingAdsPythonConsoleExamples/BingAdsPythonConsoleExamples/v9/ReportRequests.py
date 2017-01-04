@@ -13,7 +13,7 @@ from suds import WebFault
 #import logging
 #logging.basicConfig(level=logging.INFO)
 #logging.getLogger('suds.client').setLevel(logging.DEBUG)
-
+#logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
 if __name__ == '__main__':
     print("Python loads the web service proxies at runtime, so you will observe " \
@@ -67,6 +67,9 @@ if __name__ == '__main__':
         environment=ENVIRONMENT,
         version=9,
     )
+
+    # You can print the service SOAP client to view the namespaces as needed.
+    #print(reporting_service.soap_client)
     
 def authenticate_with_username():
     ''' 
@@ -423,6 +426,71 @@ def get_keyword_performance_report_request():
 
     return report_request
 
+def get_geo_location_performance_report_request():
+    '''
+    Build a geo location performance report request, including Format, ReportName, Aggregation,
+    Scope, Time, Filter, and Columns.
+    '''
+    report_request=reporting_service.factory.create('GeoLocationPerformanceReportRequest')
+    report_request.Format=REPORT_FILE_FORMAT
+    report_request.ReportName='My Geo Location Performance Report'
+    report_request.ReturnOnlyCompleteData=False
+    report_request.Aggregation='Daily'
+    report_request.Language='English'
+
+    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
+    scope.AccountIds={'long': [authorization_data.account_id] }
+    scope.Campaigns=None
+    scope.AdGroups=None
+    report_request.Scope=scope
+
+    report_time=reporting_service.factory.create('ReportTime')
+    # You may either use a custom date range or predefined time.
+    
+    #custom_date_range_start=reporting_service.factory.create('Date')
+    #custom_date_range_start.Day=1
+    #custom_date_range_start.Month=1
+    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
+    #report_time.CustomDateRangeStart=custom_date_range_start
+    #custom_date_range_end=reporting_service.factory.create('Date')
+    #custom_date_range_end.Day=31
+    #custom_date_range_end.Month=12
+    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
+    #report_time.CustomDateRangeEnd=custom_date_range_end
+    #report_time.PredefinedTime=None
+    
+    report_time.PredefinedTime='Yesterday'
+    report_request.Time=report_time
+
+    # If you specify a filter, results may differ from data you see in the Bing Ads web application
+
+    report_filter=reporting_service.factory.create('GeoLocationPerformanceReportFilter')
+    country_codes=reporting_service.factory.create('ns1:ArrayOfstring')
+    country_codes.string.append('US')
+    report_filter.CountryCode=country_codes
+    report_request.Filter=report_filter
+
+    # Specify the attribute and data report columns.
+
+    report_columns=reporting_service.factory.create('ArrayOfGeoLocationPerformanceReportColumn')
+    report_columns.GeoLocationPerformanceReportColumn.append([
+        'TimePeriod',
+        'AccountId',
+        'AccountName',
+        'CampaignId',
+        'AdGroupId',
+        'LocationType',
+        'Country',
+        'Clicks',
+        'Impressions',
+        'Ctr',
+        'AverageCpc',
+        'Spend',
+    ])
+    report_request.Columns=report_columns
+
+    return report_request
+
 def background_completion(reporting_download_parameters):
     '''
     You can submit a download request and the ReportingServiceManager will automatically 
@@ -519,8 +587,9 @@ if __name__ == '__main__':
         
         # You can submit one of the example reports, or build your own.
 
-        report_request=get_keyword_performance_report_request()
         #report_request=get_budget_summary_report_request()
+        #report_request=get_geo_location_performance_report_request()
+        report_request=get_keyword_performance_report_request()
         
         reporting_download_parameters = ReportingDownloadParameters(
             report_request=report_request,
