@@ -312,13 +312,6 @@ if __name__ == '__main__':
         user = get_user_response.User
         accounts = search_accounts_by_user_id(user.Id)
 
-        # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
-        account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
-        tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
-        tracking_url_template.key="TrackingUrlTemplate"
-        tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
-        account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
-
         output_status_message("The user can access the following Bing Ads accounts: \n")
         for account in accounts['Account']:
             customer_service.GetAccount(AccountId=account.Id)
@@ -330,12 +323,16 @@ if __name__ == '__main__':
             output_status_message("Customer Pilot flags:")
             output_status_message("; ".join(str(flag) for flag in feature_pilot_flags['int']) + "\n")
             
-            # Optionally if you are enabled for Final Urls, you can update each account with a tracking template.
-            # The pilot flag value for Final Urls is 194.
-            if(194 in feature_pilot_flags['int']):
-                account.ForwardCompatibilityMap = account_FCM
-                customer_service.UpdateAccount(account)
-                output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
+            # Optionally you can update each account with a tracking template.
+            account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
+            tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
+            tracking_url_template.key="TrackingUrlTemplate"
+            tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
+            account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
+
+            account.ForwardCompatibilityMap = account_FCM
+            customer_service.UpdateAccount(account)
+            output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
 
         output_status_message("Program execution completed")
     except WebFault as ex:
