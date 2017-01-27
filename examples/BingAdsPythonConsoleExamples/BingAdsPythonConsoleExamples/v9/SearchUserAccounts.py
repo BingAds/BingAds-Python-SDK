@@ -324,15 +324,15 @@ if __name__ == '__main__':
             output_status_message("; ".join(str(flag) for flag in feature_pilot_flags['int']) + "\n")
             
             # Optionally you can update each account with a tracking template.
-            account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
-            tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
-            tracking_url_template.key="TrackingUrlTemplate"
-            tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
-            account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
+            #account_FCM = customer_service.factory.create('ns0:ArrayOfKeyValuePairOfstringstring')
+            #tracking_url_template=customer_service.factory.create('ns0:KeyValuePairOfstringstring')
+            #tracking_url_template.key="TrackingUrlTemplate"
+            #tracking_url_template.value="http://tracker.example.com/?season={_season}&promocode={_promocode}&u={lpurl}"
+            #account_FCM.KeyValuePairOfstringstring.append(tracking_url_template)
 
-            account.ForwardCompatibilityMap = account_FCM
-            customer_service.UpdateAccount(account)
-            output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
+            #account.ForwardCompatibilityMap = account_FCM
+            #customer_service.UpdateAccount(account)
+            #output_status_message("Updated the account with a TrackingUrlTemplate: {0}\n".format(tracking_url_template.value))
 
         output_status_message("Program execution completed")
     except WebFault as ex:
