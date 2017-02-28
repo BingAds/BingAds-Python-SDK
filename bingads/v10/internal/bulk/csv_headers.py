@@ -195,6 +195,7 @@ class _CsvHeaders:
         _StringTable.TagId,
         _StringTable.RemarketingListId,
         _StringTable.RemarketingTargetingSetting,
+        _StringTable.RemarketingRule,
 
         # Expanded Text Ad
         _StringTable.TitlePart1,

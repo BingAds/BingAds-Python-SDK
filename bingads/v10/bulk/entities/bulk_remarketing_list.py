@@ -70,6 +70,11 @@ class BulkRemarketingList(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.remarketing_list.TagId),
             csv_to_field=lambda c, v: setattr(c.remarketing_list, 'TagId', int(v) if v else None)
         ),
+        _SimpleBulkMapping(
+            _StringTable.RemarketingRule,
+            field_to_csv=lambda c: field_to_csv_RemarketingRule(c.remarketing_list),
+            csv_to_field=lambda c, v: csv_to_field_RemarketingRule(c.remarketing_list, v)
+        ),
     ]
 
     @property

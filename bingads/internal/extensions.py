@@ -20,6 +20,14 @@ DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V10.create('DynamicSearchAdsS
 Webpage = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:Webpage')
 WebpageConditionOperand = _CAMPAIGN_OBJECT_FACTORY_V10.create('WebpageConditionOperand')
 
+RemarketingRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:RemarketingRule')
+PageVisitorsRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsRule')
+PageVisitorsWhoVisitedAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsWhoVisitedAnotherPageRule')
+PageVisitorsWhoDidNotVisitAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsWhoDidNotVisitAnotherPageRule')
+CustomEventsRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:CustomEventsRule')
+StringOperator = _CAMPAIGN_OBJECT_FACTORY_V10.create('StringOperator')
+NumberOperator = _CAMPAIGN_OBJECT_FACTORY_V10.create('NumberOperator')
+
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
         return None
@@ -692,6 +700,9 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
             elif webpage_condition.lower() == 'pagecontent':
                 condition.Operand = WebpageConditionOperand.PageContent
             else:
+                # TODO wait bug 54825 to be fixed
+                if webpage_condition.lower() == 'none':
+                    continue
                 raise ValueError("Unknown WebpageConditionOperand value: {0}".format(webpage_condition))
 
             condition.Argument = webpage_value
@@ -715,3 +726,256 @@ def parse_bool(value):
         return False
     else:
         raise ValueError('Unable to parse bool value: {0}.'.format(value))
+
+
+def field_to_csv_RemarketingRule(entity):
+    """
+    convert remarketing rule to bulk string
+    :param entity: remarketing list entity
+    """
+    if entity.Rule == None:
+        return None
+
+    rule = entity.Rule
+    if (isinstance(rule, type(PageVisitorsRule))):
+        return 'PageVisitors{0}'.format(rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(PageVisitorsWhoVisitedAnotherPageRule))):
+        return 'PageVisitorsWhoVisitedAnotherPage({0}) and ({1})'.format(
+            rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup),
+            rule_item_groups_str(rule.AnotherRuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(PageVisitorsWhoDidNotVisitAnotherPageRule))):
+        return 'PageVisitorsWhoDidNotVisitAnotherPage({0}) and not ({1})'.format(
+            rule_item_groups_str(rule.IncludeRuleItemGroups.RuleItemGroup),
+            rule_item_groups_str(rule.ExcludeRuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(CustomEventsRule))):
+        return 'CustomEvents{0}'.format(custom_event_rule_str(rule))
+    elif (isinstance(rule, type(RemarketingRule))):
+        return None
+    else:
+        raise ValueError('Unsupported Remarketing Rule type: {0}'.format(type(entity.RemarketingRule)))
+
+
+def rule_item_groups_str(groups):
+    if groups is None or len(groups) == 0:
+        raise ValueError('Remarketing RuleItemGroups is None or empty.')
+
+    return ' or '.join(['({0})'.format(rule_items_str(group.Items.RuleItem)) for group in groups])
+
+
+def rule_items_str(items):
+    if items is None or len(items) == 0:
+        raise ValueError('Remarketing RuleItem list is None or empty.')
+
+    return ' and '.join(['({0} {1} {2})'.format(item.Operand, item.Operator, item.Value) for item in items])
+
+
+def custom_event_rule_str(rule):
+    rule_items = []
+    if rule.ActionOperator is not None and rule.Action is not None:
+        rule_items.append('Action {0} {1}'.format(rule.ActionOperator, rule.Action))
+    if rule.CategoryOperator is not None and rule.Category is not None:
+        rule_items.append('Category {0} {1}'.format(rule.CategoryOperator, rule.Category))
+    if rule.LabelOperator is not None and rule.Label is not None:
+        rule_items.append('Label {0} {1}'.format(rule.LabelOperator, rule.Label))
+    if rule.ValueOperator is not None and rule.Value is not None:
+        rule_items.append('Value {0} {1}'.format(rule.ValueOperator, rule.Value))
+
+    if len(rule_items) == 0:
+        raise ValueError('Remarketing CustomEvents RuleItem list is empty')
+
+    return ' and '.join('({0})'.format(item) for item in rule_items)
+
+
+def csv_to_field_RemarketingRule(entity, value):
+    """
+    parse remarketing rule string and set remarketing rule attribute value
+    :param entity: remarketing list entity
+    :param value: bulk string value
+    """
+    if value is None or value == '':
+        return
+
+    type_end_pos = value.index('(')
+    if type_end_pos <= 0:
+        raise ValueError('Invalid Remarketing Rule: {0}'.format(value))
+
+    rule_type = value[:type_end_pos]
+    rule = value[type_end_pos:]
+
+    if rule_type.lower() == 'pagevisitors':
+        entity.Rule = parse_rule_PageVisitors(rule)
+    elif rule_type.lower() == 'pagevisitorswhovisitedanotherpage':
+        entity.Rule = parse_rule_PageVisitorsWhoVisitedAnotherPage(rule)
+    elif rule_type.lower() == 'pagevisitorswhodidnotvisitanotherpage':
+        entity.Rule = parse_rule_PageVisitorsWhoDidNotVisitAnotherPage(rule)
+    elif rule_type.lower() == 'customevents':
+        entity.Rule = parse_rule_CustomEvents(rule)
+    else:
+        raise ValueError('Invalid Remarketing Rule Type: {0}'.format(rule_type))
+
+
+def parse_rule_PageVisitors(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsRule')
+    rule.Type = 'PageVisitors'
+    rule.RuleItemGroups = parse_rule_groups(rule_str)
+    return rule
+
+
+def parse_rule_PageVisitorsWhoVisitedAnotherPage(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsWhoVisitedAnotherPageRule')
+    rule.Type = 'PageVisitorsWhoVisitedAnotherPage'
+
+    groups_split = '))) and ((('
+    groups_string_list = rule_str.split(groups_split)
+
+    rule.RuleItemGroups = parse_rule_groups(groups_string_list[0])
+    rule.AnotherRuleItemGroups = parse_rule_groups(groups_string_list[1])
+
+    return rule
+
+
+def parse_rule_PageVisitorsWhoDidNotVisitAnotherPage(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsWhoDidNotVisitAnotherPageRule')
+    rule.Type = 'PageVisitorsWhoDidNotVisitAnotherPage'
+
+    groups_split = '))) and not ((('
+    groups_string_list = rule_str.split(groups_split)
+
+    rule.IncludeRuleItemGroups = parse_rule_groups(groups_string_list[0])
+    rule.ExcludeRuleItemGroups = parse_rule_groups(groups_string_list[1])
+
+    return rule
+
+
+def parse_rule_CustomEvents(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:CustomEventsRule')
+    rule.Type = 'CustomEvents'
+
+    item_split = ') and ('
+    pattern_for_operand_str = '^(Category|Action|Label|Value) ([^()]*)$'
+    pattern_for_operand = re.compile(pattern_for_operand_str)
+
+    pattern_number_item_str = '^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$'
+    pattern_number_item = re.compile(pattern_number_item_str)
+
+    pattern_string_item_str = '^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern_string_item = re.compile(pattern_string_item_str)
+
+    item_string_list = rule_str.split(item_split)
+    for item_string in item_string_list:
+        item_string = item_string.strip('(').strip(')')
+        match_for_operand = pattern_for_operand.match(item_string)
+
+        if not match_for_operand:
+            raise ValueError('Invalid Custom Event rule item: {0}'.format(item_string))
+
+        operand = match_for_operand.group(1)
+        operater_and_value_string = match_for_operand.group(2)
+
+        if operand.lower() == 'value':
+            match_number_item = pattern_number_item.match(operater_and_value_string)
+
+            if not match_number_item:
+                raise ValueError('Invalid Custom Event number rule item: {0}'.format(item_string))
+
+            rule.ValueOperator = parse_number_operator(match_number_item.group(1))
+            rule.Value = float(match_number_item.group(2))
+        else:
+            match_string_item = pattern_string_item.match(operater_and_value_string)
+
+            if not match_string_item:
+                raise ValueError('Invalid Custom Event string rule item: {0}'.format(item_string))
+
+            if operand.lower() == 'category':
+                rule.CategoryOperator = parse_string_operator(match_string_item.group(1))
+                rule.Category = match_string_item.group(2)
+            elif operand.lower() == 'label':
+                rule.LabelOperator = parse_string_operator(match_string_item.group(1))
+                rule.Label = match_string_item.group(2)
+            elif operand.lower() == 'action':
+                rule.ActionOperator = parse_string_operator(match_string_item.group(1))
+                rule.Action = match_string_item.group(2)
+            else:
+                raise ValueError('Invalid Custom Event string rule operator: {0}'.format(operand))
+
+    return rule
+
+
+def parse_rule_groups(groups_str):
+    group_split = ')) or (('
+    group_str_list = groups_str.split(group_split)
+
+    rule_item_groups = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:ArrayOfRuleItemGroup')
+    for group_str in group_str_list:
+        item_group = parse_rule_items(group_str)
+        rule_item_groups.RuleItemGroup.append(item_group)
+
+    return rule_item_groups
+
+
+def parse_rule_items(items_str):
+    item_split = ') and ('
+    item_str_list = items_str.split(item_split)
+
+    rule_item_group = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:RuleItemGroup')
+    for item_str in item_str_list:
+        item = parse_string_rule_item(item_str)
+        rule_item_group.Items.RuleItem.append(item)
+
+    return rule_item_group
+
+
+def parse_string_rule_item(item_str):
+    item_str = item_str.strip('(').strip(')')
+    pattern_str = '^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern = re.compile(pattern_str)
+
+    match = pattern.match(item_str)
+
+    if not match:
+        ValueError('Invalid Rule Item:{0}'.format(item_str))
+
+    item = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:StringRuleItem')
+    item.Type = 'String'
+    item.Operand = match.group(1)
+    item.Operator = parse_string_operator(match.group(2))
+    item.Value = match.group(3)
+
+    return item
+
+
+def parse_number_operator(operator):
+    oper = operator.lower()
+    if oper == 'equals':
+        return NumberOperator.Equals
+    if oper == 'greaterthan':
+        return NumberOperator.GreaterThan
+    if oper == 'lessthan':
+        return NumberOperator.LessThan
+    if oper == 'greaterthanequalto':
+        return NumberOperator.GreaterThanEqualTo
+    if oper == 'lessthanequalto':
+        return NumberOperator.LessThanEqualTo
+    raise ValueError('Invalid Number Rule Item operator:{0}'.format(operator))
+
+
+def parse_string_operator(operator):
+    oper = operator.lower()
+    if oper == 'equals':
+        return StringOperator.Equals
+    if oper == 'contains':
+        return StringOperator.Contains
+    if oper == 'beginswith':
+        return StringOperator.BeginsWith
+    if oper == 'endswith':
+        return StringOperator.EndsWith
+    if oper == 'notequals':
+        return StringOperator.NotEquals
+    if oper == 'doesnotcontain':
+        return StringOperator.DoesNotContain
+    if oper == 'doesnotbeginwith':
+        return StringOperator.DoesNotBeginWith
+    if oper == 'doesnotendwith':
+        return StringOperator.DoesNotEndWith
+
+    raise ValueError('Invalid String Rule Item operator:{0}'.format(operator))

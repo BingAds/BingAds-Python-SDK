@@ -252,6 +252,7 @@ class _StringTable:
     TagId = "UET Tag Id"
     RemarketingListId = "Remarketing List Id"
     RemarketingTargetingSetting = "Remarketing Targeting Setting"
+    RemarketingRule = "Remarketing Rule"
 
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"

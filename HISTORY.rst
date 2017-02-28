@@ -3,6 +3,12 @@
 Release History
 ---------------
 
+10.4.12(2017-02-28)
++++++++++++++++++++
+
+* Support Remarketing list bulk upload
+* Add Remarketing Rule in bulk schema
+
 10.4.11(2016-12-30)
 +++++++++++++++++++
 
