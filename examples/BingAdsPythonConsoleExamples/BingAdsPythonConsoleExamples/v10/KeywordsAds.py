@@ -849,7 +849,7 @@ if __name__ == '__main__':
         expanded_text_ad_0.Id=ad_ids['long'][0]
         expanded_text_ad_0.Text='Huge Savings on All Red Shoes.'
         expanded_text_ad_0.UrlCustomParameters=None
-        expanded_text_ad_0.Type='Text'
+        expanded_text_ad_0.Type='ExpandedText'
         update_ads.Ad.append(expanded_text_ad_0)
 
         # To remove all custom parameters, set the Parameters element of the 
@@ -865,7 +865,7 @@ if __name__ == '__main__':
         parameters_1.CustomParameter.append(custom_parameter_1)
         url_custom_parameters_1.Parameters=parameters_1
         expanded_text_ad_1.UrlCustomParameters=url_custom_parameters_1
-        expanded_text_ad_1.Type='Text'
+        expanded_text_ad_1.Type='ExpandedText'
         update_ads.Ad.append(expanded_text_ad_1)
 
         # To remove a subset of custom parameters, specify the custom parameters that 
@@ -881,7 +881,7 @@ if __name__ == '__main__':
         parameters_2.CustomParameter.append(custom_parameter_2)
         url_custom_parameters_2.Parameters=parameters_2
         expanded_text_ad_2.UrlCustomParameters=url_custom_parameters_2
-        expanded_text_ad_2.Type='Text'
+        expanded_text_ad_2.Type='ExpandedText'
         update_ads.Ad.append(expanded_text_ad_2)
 
         # As an exercise you can step through using the debugger and view the results.
