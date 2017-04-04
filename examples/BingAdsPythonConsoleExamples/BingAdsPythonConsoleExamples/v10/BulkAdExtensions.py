@@ -265,7 +265,6 @@ def output_campaign(campaign):
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
-        output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
         output_status_message("Name: {0}".format(campaign.Name))
         output_status_message("NativeBidAdjustment: {0}".format(campaign.NativeBidAdjustment))
         output_status_message("Settings: ")
@@ -1182,7 +1181,7 @@ if __name__ == '__main__':
         campaign.Name="Summer Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         campaign.Description="Summer shoes line."
         campaign.BudgetType='DailyBudgetStandard'
-        campaign.MonthlyBudget=50
+        campaign.DailyBudget=10
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
         campaign.Status='Paused'
 
