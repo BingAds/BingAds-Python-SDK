@@ -306,7 +306,6 @@ def output_campaign(campaign):
                 output_status_message("Key: {0}".format(pair.key))
                 output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign.Id))
-        output_status_message("MonthlyBudget: {0}".format(campaign.MonthlyBudget))
         output_status_message("Name: {0}".format(campaign.Name))
         output_status_message("Settings:");
         if campaign.Settings is not None:
@@ -807,7 +806,7 @@ if __name__ == '__main__':
                 output_campaign(campaign)
                 set_read_only_campaign_elements_to_none(campaign)
 
-                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in calendar year 2017. 
+                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in April 2017. 
                 # Shared budgets do not support the monthly budget type, so this is only applicable to unshared budgets. 
                 # During the migration all campaign level unshared budgets will be rationalized as daily. 
                 # The formula that will be used to convert monthly to daily budgets is: Monthly budget amount / 30.4.
