@@ -8,6 +8,12 @@ import webbrowser
 from time import gmtime, strftime
 from suds import WebFault
 
+# The length of the Remarketing Rule field can be large. You may need to adjust the 
+# field size limit to avoid the field larger than field limit csv error.
+
+import csv
+csv.field_size_limit(sys.maxsize)
+
 # Optionally you can include logging to output traffic, for example the SOAP request and response.
 
 #import logging
@@ -623,7 +629,7 @@ if __name__ == '__main__':
         
         # You must already have at least one remarketing list. The Bing Ads API does not support
         # remarketing list add, update, or delete operations.
-        if remarketing_list_results.count < 1:
+        if len(remarketing_list_results) < 1:
             output_status_message("You do not have any remarketing lists that the current user can associate with ad groups.\n")
             sys.exit(0)
 

@@ -510,11 +510,11 @@ def output_site_links_ad_extension(extension):
         output_ad_extension(extension)
 
         # Output properties that are specific to the SiteLinksAdExtension
-        output_site_links(extension.SiteLinks)
+        output_site_links(extension.SiteLinks['SiteLink'])
 
 def output_site_links(site_links):
     if site_links is not None:
-        for site_link in site_links['SiteLink']:
+        for site_link in site_links:
             output_status_message("Description1: {0}".format(site_link.Description1))
             output_status_message("Description2: {0}".format(site_link.Description2))
             output_status_message("DevicePreference: {0}".format(site_link.DevicePreference))
@@ -942,8 +942,9 @@ if __name__ == '__main__':
                                   'ImageAdExtension ' \
                                   'LocationAdExtension ' \
                                   'ReviewAdExtension ' \
-                                  'SiteLinksAdExtension ' if sitelink_migration_is_completed else 'Sitelink2AdExtension ' \
                                   'StructuredSnippetAdExtension'
+        
+        ad_extensions_type_filter+=(' Sitelink2AdExtension' if sitelink_migration_is_completed else ' SiteLinksAdExtension')
         
         return_additional_fields='Scheduling'
 
