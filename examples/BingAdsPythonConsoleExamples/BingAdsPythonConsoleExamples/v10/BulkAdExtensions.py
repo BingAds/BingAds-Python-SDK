@@ -724,11 +724,11 @@ def output_site_links_ad_extension(extension):
         output_ad_extension(extension)
 
         # Output properties that are specific to the SiteLinksAdExtension
-        output_site_links(extension.SiteLinks)
+        output_site_links(extension.SiteLinks['SiteLink'])
 
 def output_site_links(site_links):
     if site_links is not None:
-        for site_link in site_links['SiteLink']:
+        for site_link in site_links:
             output_status_message("Description1: {0}".format(site_link.Description1))
             output_status_message("Description2: {0}".format(site_link.Description2))
             output_status_message("DevicePreference: {0}".format(site_link.DevicePreference))
@@ -857,7 +857,7 @@ def get_sample_bulk_sitelink2_ad_extensions(account_id):
 
     return entities
 
-def get_sample_bulk_site_link_ad_extensions(account_id):
+def get_sample_bulk_site_links_ad_extensions(account_id):
     entities=[]
 
     bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
