@@ -611,7 +611,7 @@ class _LiveComOAuthService:
             r.raise_for_status()
         except Exception:
             error_json = json.loads(r.text)
-            raise OAuthTokenRequestException(error_json['error'], error_json['error_description'])
+            raise OAuthTokenRequestException(error_json['error'], error_json.get('error_description'))
 
         r_json = json.loads(r.text)
         return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'])
