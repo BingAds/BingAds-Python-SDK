@@ -995,20 +995,9 @@ if __name__ == '__main__':
         
         for entity in get_campaign_results:
             if entity.campaign.BudgetId == None or entity.campaign.BudgetId <= 0:
-                # Increase existing budgets by 20%
-                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in April 2017. 
-                # Shared budgets do not support the monthly budget type, so this is only applicable to unshared budgets. 
-                # During the migration all campaign level unshared budgets will be rationalized as daily. 
-                # The formula that will be used to convert monthly to daily budgets is: Monthly budget amount / 30.4.
-                # Moving campaign monthly budget to daily budget is encouraged before monthly budgets are migrated. 
-
-                if entity.campaign.BudgetType == 'MonthlyBudgetSpendUntilDepleted':
-                    # Increase budget by 20 %
-                    entity.campaign.BudgetType = 'DailyBudgetStandard'
-                    entity.campaign.DailyBudget = entity.campaign.MonthlyBudget / 30.4 * 1.2
-                else:
-                    # Increase budget by 20 %
-                    entity.campaign.DailyBudget *= 1.2
+                # Increase budget by 20 %
+                entity.campaign.DailyBudget *= 1.2
+                    
                 upload_entities.append(entity)
                     
         if len(upload_entities) > 0:
