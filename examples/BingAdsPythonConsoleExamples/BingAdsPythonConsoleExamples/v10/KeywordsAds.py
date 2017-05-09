@@ -24,7 +24,11 @@ if __name__ == '__main__':
     # If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
     CLIENT_ID='ClientIdGoesHere'
     CLIENT_STATE='ClientStateGoesHere'
-        
+            
+    ALL_AD_TYPES={
+        'AdType': ['AppInstall', 'DynamicSearch', 'ExpandedText', 'Product', 'Text']
+    }
+
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -806,20 +810,9 @@ if __name__ == '__main__':
                 output_campaign(campaign)
                 set_read_only_campaign_elements_to_none(campaign)
 
-                # Monthly budgets are deprecated and there will be a forced migration to daily budgets in April 2017. 
-                # Shared budgets do not support the monthly budget type, so this is only applicable to unshared budgets. 
-                # During the migration all campaign level unshared budgets will be rationalized as daily. 
-                # The formula that will be used to convert monthly to daily budgets is: Monthly budget amount / 30.4.
-                # Moving campaign monthly budget to daily budget is encouraged before monthly budgets are migrated. 
-
-                if campaign.BudgetType == 'MonthlyBudgetSpendUntilDepleted':
-                    # Increase budget by 20 %
-                    campaign.BudgetType = 'DailyBudgetStandard'
-                    campaign.DailyBudget = (campaign.MonthlyBudget / 30.4) * 1.2
-                else:
-                    # Increase budget by 20 %
-                    campaign.DailyBudget *= 1.2
-
+                # Increase budget by 20 %
+                campaign.DailyBudget *= 1.2
+                    
                 get_campaign_ids.append(campaign.Id)
             
             campaign_service.UpdateCampaigns(
@@ -887,7 +880,7 @@ if __name__ == '__main__':
 
         campaign_service.GetAdsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
-            AdTypes=None
+            AdTypes=ALL_AD_TYPES
         )
         campaign_service.UpdateAds(
             AdGroupId=ad_group_ids['long'][0],
@@ -895,7 +888,7 @@ if __name__ == '__main__':
         )
         campaign_service.GetAdsByAdGroupId(
             AdGroupId=ad_group_ids['long'][0],
-            AdTypes=None
+            AdTypes=ALL_AD_TYPES
         )
 
         update_keywords=campaign_service.factory.create('ArrayOfKeyword')
