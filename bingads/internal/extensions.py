@@ -3,7 +3,7 @@ from datetime import datetime
 from bingads.v10.internal.bulk.string_table import _StringTable
 from six import PY2
 import re
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10, _CAMPAIGN_MANAGEMENT_SERVICE_V10
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V10, _CAMPAIGN_MANAGEMENT_SERVICE_V10, _CAMPAIGN_OBJECT_FACTORY_V11, _CAMPAIGN_MANAGEMENT_SERVICE_V11
 
 
 DELETE_VALUE = "delete_value"
@@ -27,6 +27,17 @@ PageVisitorsWhoDidNotVisitAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V10.create(
 CustomEventsRule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:CustomEventsRule')
 StringOperator = _CAMPAIGN_OBJECT_FACTORY_V10.create('StringOperator')
 NumberOperator = _CAMPAIGN_OBJECT_FACTORY_V10.create('NumberOperator')
+
+AudienceCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('AudienceCriterion')
+BidMultiplier = _CAMPAIGN_OBJECT_FACTORY_V11.create('BidMultiplier')
+
+AgeCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('AgeCriterion')
+DayTimeCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('DayTimeCriterion')
+DeviceCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('DeviceCriterion')
+GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('GenderCriterion')
+LocationCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationCriterion')
+LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationIntentCriterion')
+RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('RadiusCriterion')
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -97,6 +108,28 @@ def budget_to_csv(bulk_campaign, row_values):
         row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
     else:
         row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.MonthlyBudget)
+
+
+# TODO as version specific logic added, consider to separate extensions with ap versions
+def csv_to_budget_v11(row_values, bulk_campaign):
+    success, budget_type = row_values.try_get_value(_StringTable.BudgetType)
+    if not success or not budget_type:
+        return
+
+    success, budget_row_value = row_values.try_get_value(_StringTable.Budget)
+    if not success:
+        return
+    budget_value = float(budget_row_value) if budget_row_value else None
+
+    bulk_campaign.campaign.BudgetType = budget_type
+    bulk_campaign.campaign.DailyBudget = budget_value
+
+
+def budget_to_csv_v11(bulk_campaign, row_values):
+    budget_type = bulk_campaign.campaign.BudgetType
+    if not budget_type:
+        return
+    row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
 
 
 def bulk_optional_str(value):
@@ -558,10 +591,10 @@ def field_to_csv_UseSearcherTimeZone(entity):
         return str(entity.UseSearcherTimeZone)
 
 
-def csv_to_field_BudgetType(entity, value):
+def csv_to_field_BudgetType(entity, value, version=10):
     if value is None or value == '':
         entity.BudgetType = None
-    elif value == 'MonthlyBudgetSpendUntilDepleted':
+    elif value == 'MonthlyBudgetSpendUntilDepleted' and version == 10:
         entity.BudgetType = BudgetLimitType.MonthlyBudgetSpendUntilDepleted
     elif value == 'DailyBudgetAccelerated':
         entity.BudgetType = BudgetLimitType.DailyBudgetAccelerated
@@ -813,6 +846,229 @@ def csv_to_field_RemarketingRule(entity, value):
     else:
         raise ValueError('Invalid Remarketing Rule Type: {0}'.format(rule_type))
 
+
+def field_to_csv_CriterionAudienceId(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.AudienceId is None:
+        return None
+    return bulk_str(entity.Criterion.AudienceId)
+
+
+def csv_to_field_CriterionAudienceId(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(AudienceCriterion)):
+        entity.Criterion.AudienceId = value
+
+
+def field_to_csv_BidAdjustment(entity):
+    if entity is None or entity.CriterionBid is None or entity.CriterionBid.Multiplier is None:
+        return None
+    return bulk_str(entity.CriterionBid.Multiplier)
+
+
+def csv_to_field_BidAdjustment(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.CriterionBid is not None and isinstance(entity.CriterionBid, type(BidMultiplier)):
+        entity.CriterionBid.Multiplier = value
+
+def field_to_csv_AgeTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.AgeRange is None:
+        return None
+    return entity.Criterion.AgeRange
+
+def csv_to_field_AgeTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(AgeCriterion)):
+        setattr(entity.Criterion, "AgeRange", value)
+
+def field_to_csv_DayTimeTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Day is None:
+        return None
+    return entity.Criterion.Day
+
+def csv_to_field_DayTimeTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "Day", value)
+
+def field_to_csv_FromHour(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.FromHour is None:
+        return None
+    return str(entity.Criterion.FromHour)
+
+def csv_to_field_FromHour(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "FromHour", value)
+
+def field_to_csv_FromMinute(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.FromMinute is None:
+        return None
+    return minute_bulk_str(entity.Criterion.FromMinute)
+
+def csv_to_field_FromMinute(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "FromMinute", parse_minute(value))
+
+def field_to_csv_ToHour(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.ToHour is None:
+        return None
+    return str(entity.Criterion.ToHour)
+
+def csv_to_field_ToHour(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "ToHour", value)
+
+def field_to_csv_ToMinute(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.ToMinute is None:
+        return None
+    return minute_bulk_str(entity.Criterion.ToMinute)
+
+def csv_to_field_ToMinute(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "ToMinute", parse_minute(value))
+
+def field_to_csv_DeviceTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.DeviceName is None:
+        return None
+    return entity.Criterion.DeviceName
+
+def csv_to_field_DeviceTarget(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DeviceCriterion)):
+        setattr(entity.Criterion, "DeviceName", value)
+
+def field_to_csv_OSName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.OSName is None:
+        return None
+    return entity.Criterion.OSName
+
+def csv_to_field_OSName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DeviceCriterion)):
+        setattr(entity.Criterion, "OSName", value)
+
+def field_to_csv_GenderTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.GenderType is None:
+        return None
+    return entity.Criterion.GenderType
+
+def csv_to_field_GenderTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(GenderCriterion)):
+        setattr(entity.Criterion, "GenderType", value)
+
+def field_to_csv_LocationTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LocationId is None:
+        return None
+    return str(entity.Criterion.LocationId)
+
+def csv_to_field_LocationTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "LocationId", value)
+
+def field_to_csv_LocationType(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LocationType is None:
+        return None
+    return entity.Criterion.LocationType
+
+def csv_to_field_LocationType(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "LocationType", value)
+
+def field_to_csv_LocationName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.DisplayName is None:
+        return None
+    return entity.Criterion.DisplayName
+
+def csv_to_field_LocationName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "DisplayName", value)
+
+def field_to_csv_LocationIntentTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.IntentOption is None:
+        return None
+    return entity.Criterion.IntentOption
+
+def csv_to_field_LocationIntentTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationIntentCriterion)):
+        setattr(entity.Criterion, "IntentOption", value)
+
+def field_to_csv_RadiusName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Name is None:
+        return None
+    return entity.Criterion.Name
+
+def csv_to_field_RadiusName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "Name", value)
+
+def field_to_csv_Radius(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Radius is None:
+        return None
+    return str(entity.Criterion.Radius)
+
+def csv_to_field_Radius(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "Radius", value)
+
+def field_to_csv_RadiusUnit(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.RadiusUnit is None:
+        return None
+    return entity.Criterion.RadiusUnit
+
+def csv_to_field_RadiusUnit(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "RadiusUnit", value)
+
+def field_to_csv_LatitudeDegrees(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LatitudeDegrees is None:
+        return None
+    return  str(entity.Criterion.LatitudeDegrees)
+
+def csv_to_field_LatitudeDegrees(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "LatitudeDegrees", value)
+
+def field_to_csv_LongitudeDegrees(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LongitudeDegrees is None:
+        return None
+    return  str(entity.Criterion.LongitudeDegrees)
+
+def csv_to_field_LongitudeDegrees(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "LongitudeDegrees", value)
 
 def parse_rule_PageVisitors(rule_str):
     rule = _CAMPAIGN_OBJECT_FACTORY_V10.create('ns0:PageVisitorsRule')

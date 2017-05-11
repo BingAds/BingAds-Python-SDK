@@ -12,8 +12,8 @@ from .exceptions import *
 from bingads.util import _PollingBlocker
 from bingads.exceptions import *
 
-from ..service_client import ServiceClient
-from ..manifest import *
+from ...service_client import ServiceClient
+from ...manifest import *
 
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
@@ -53,7 +53,7 @@ class ReportingDownloadOperation(object):
                  environment='production',
                  **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('ReportingService', authorization_data, environment, 9, **suds_options)
+        self._service_client = ServiceClient('ReportingService', authorization_data, environment, 11, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None

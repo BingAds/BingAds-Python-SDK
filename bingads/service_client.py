@@ -1,7 +1,7 @@
 from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .authorization import *
-from .service_info import SERVICE_INFO_DICT, SERVICE_INFO_DICT_V10
+from .service_info import SERVICE_INFO_DICT, SERVICE_INFO_DICT_V10, SERVICE_INFO_DICT_V11
 from .manifest import USER_AGENT
 from getpass import getuser
 from tempfile import gettempdir
@@ -194,6 +194,8 @@ class ServiceClient:
             version = 9
         elif version == 'v10' or version == 10:
             version = 10
+        elif version == 'v11' or version == 11:
+            version = 11
         else:
             raise ValueError(str.format('version error: [{0}] is not supported.', version))
         return version
@@ -210,6 +212,8 @@ class ServiceClient:
             return SERVICE_INFO_DICT
         elif version == 10:
             return SERVICE_INFO_DICT_V10
+        elif version == 11:
+            return SERVICE_INFO_DICT_V11
         else:
             # Should not run to here, set default to v10
             return SERVICE_INFO_DICT_V10
@@ -305,6 +309,14 @@ _CAMPAIGN_OBJECT_FACTORY_V10 = _CAMPAIGN_MANAGEMENT_SERVICE_V10.factory
 _CAMPAIGN_OBJECT_FACTORY_V10.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V10.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V10.create
 
+
+_CAMPAIGN_MANAGEMENT_SERVICE_V11 = Client(
+    'file:///' + pkg_resources.resource_filename('bingads', 'v11/proxies/campaign_management_service.xml')
+)
+_CAMPAIGN_OBJECT_FACTORY_V11 = _CAMPAIGN_MANAGEMENT_SERVICE_V11.factory
+# TODO Better to push suds-jurko accept this caching
+_CAMPAIGN_OBJECT_FACTORY_V11.object_cache = {}
+_CAMPAIGN_OBJECT_FACTORY_V11.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V11.create
 
 def _suds_objects_deepcopy(origin):
     if origin is None:
