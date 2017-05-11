@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bid_suggestion_data &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.entities.bid_suggestion_data &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,12 +48,12 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.entities.bid_suggestion_data</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="kn">import</span> <span class="n">PerformanceData</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="k">import</span> <span class="n">PerformanceData</span>
 
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.bulk_object</span> <span class="kn">import</span> <span class="n">_BulkObject</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
-<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.bulk_object</span> <span class="k">import</span> <span class="n">_BulkObject</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
 
 <div class="viewcode-block" id="BidSuggestionData"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BidSuggestionData">[docs]</a><span class="k">class</span> <span class="nc">BidSuggestionData</span><span class="p">:</span>
@@ -69,9 +70,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_best_position</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_main_line</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_first_page</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_best_position</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_line</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_page</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">best_position</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -90,7 +91,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_best_position</span>
 
-    <span class="nd">@best_position.setter</span>
+    <span class="nd">@best_position</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">best_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">best_position</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_best_position</span> <span class="o">=</span> <span class="n">best_position</span>
 
@@ -111,7 +112,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_line</span>
 
-    <span class="nd">@main_line.setter</span>
+    <span class="nd">@main_line</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">main_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_line</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_main_line</span> <span class="o">=</span> <span class="n">main_line</span>
 
@@ -130,11 +131,11 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_first_page</span>
 
-    <span class="nd">@first_page.setter</span>
+    <span class="nd">@first_page</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">first_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first_page</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_first_page</span> <span class="o">=</span> <span class="n">first_page</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_page</span> <span class="o">=</span> <span class="n">first_page</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BulkKeywordBidSuggestion"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordBidSuggestion">[docs]</a><span class="k">class</span> <span class="nc">BulkKeywordBidSuggestion</span><span class="p">(</span><span class="n">_BulkObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a best position bid suggestion.</span>
 
@@ -143,9 +144,9 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_text</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_bid</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_text</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">keyword_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -179,38 +180,38 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Keyword</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword_text</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_keyword_text&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_keyword_text&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Bid</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">bid</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_bid&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_bid&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkKeywordBidSuggestion.read_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordBidSuggestion.read_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkKeywordBidSuggestion</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkKeywordBidSuggestion.write_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordBidSuggestion.write_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkKeywordBidSuggestion</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_readonly_data</span><span class="p">:</span>
-            <span class="n">PerformanceData</span><span class="o">.</span><span class="n">write_to_row_values_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">performance_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">)</span>
-</div>
+            <span class="n">PerformanceData</span><span class="o">.</span><span class="n">write_to_row_values_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">performance_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="BulkKeywordBidSuggestion.write_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordBidSuggestion.write_if_not_null">[docs]</a>    <span class="k">def</span> <span class="nf">write_if_not_null</span><span class="p">(</span><span class="n">keyword_bid_suggestion</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">keyword_bid_suggestion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">row_writer</span><span class="o">.</span><span class="n">write_object_row</span><span class="p">(</span><span class="n">keyword_bid_suggestion</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">keyword_bid_suggestion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">row_writer</span><span class="o">.</span><span class="n">write_object_row</span><span class="p">(</span><span class="n">keyword_bid_suggestion</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="BulkKeywordBestPositionBid"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordBestPositionBid">[docs]</a><span class="k">class</span> <span class="nc">BulkKeywordBestPositionBid</span><span class="p">(</span><span class="n">BulkKeywordBidSuggestion</span><span class="p">):</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BulkKeywordFirstPageBid"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordFirstPageBid">[docs]</a><span class="k">class</span> <span class="nc">BulkKeywordFirstPageBid</span><span class="p">(</span><span class="n">BulkKeywordBidSuggestion</span><span class="p">):</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BulkKeywordMainLineBid"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bid_suggestion_data.BulkKeywordMainLineBid">[docs]</a><span class="k">class</span> <span class="nc">BulkKeywordMainLineBid</span><span class="p">(</span><span class="n">BulkKeywordBidSuggestion</span><span class="p">):</span>
     <span class="k">pass</span></div>
 </pre></div>
@@ -223,14 +224,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -246,13 +244,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

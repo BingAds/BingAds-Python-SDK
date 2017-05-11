@@ -1,0 +1,375 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bingads.v11.bulk.entities.bulk_keyword &#8212; Bing Ads SDK 11.5.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '11.5.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v11.bulk.entities.bulk_keyword</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span>
+<span class="kn">from</span> <span class="nn">bingads.v11.bulk.entities</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bingads.v11.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v11.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v11.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="BulkKeyword"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_keyword.BulkKeyword">[docs]</a><span class="k">class</span> <span class="nc">BulkKeyword</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a keyword that can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`keyword` property that can be read and written as fields of the Keyword record in a bulk file.</span>
+<span class="sd">    Properties of this class and of classes that it is derived from, correspond to fields of the Keyword record in a bulk file.</span>
+<span class="sd">    For more information, see Keyword at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keyword</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_id</span> <span class="o">=</span> <span class="n">ad_group_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword</span> <span class="o">=</span> <span class="n">keyword</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The identifier of the ad group that contains the keyword.</span>
+
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_id</span>
+
+    <span class="nd">@ad_group_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_id</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_id</span> <span class="o">=</span> <span class="n">ad_group_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Defines a keyword within an ad group.</span>
+
+<span class="sd">        See Keyword at https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-keyword.aspx</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyword</span>
+
+    <span class="nd">@keyword</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">keyword</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyword</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword</span> <span class="o">=</span> <span class="n">keyword</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the campaign that contains the keyword.</span>
+
+<span class="sd">        Corresponds to the &#39;Campaign&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
+
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the ad group that contains the keyword.</span>
+
+<span class="sd">        Corresponds to the &#39;Ad Group&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span>
+
+    <span class="nd">@ad_group_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">quality_score_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The quality score data for the keyword.</span>
+
+<span class="sd">        :rtype: QualityScoreData</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">performance_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The historical performance data for the keyword.</span>
+
+<span class="sd">        :rtype: PerformanceData</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bid_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The bid suggestion data for the keyword.</span>
+
+<span class="sd">        :rtype: BidSuggestionData</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Status</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Status&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Id&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="s1">&#39;_ad_group_id&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AdGroup</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">ad_group_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_ad_group_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Keyword</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Text</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">EditorialStatus</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">EditorialStatus</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;EditorialStatus&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">MatchType</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">MatchType</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;MatchType&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;DestinationUrl&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Bid</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">keyword_bid_bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Bid</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Bid&#39;</span><span class="p">,</span>
+                <span class="n">parse_keyword_bid</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Param1</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Param1</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Param1&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Param2</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Param2</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Param2&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Param3</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">Param3</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span>
+                <span class="s1">&#39;Param3&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalMobileUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TrackingTemplate</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">TrackingUrlTemplate</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span> <span class="s1">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CustomParameter</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_UrlCustomParameters</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_UrlCustomParameters</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyType</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_BidStrategyType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_BidStrategyType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkKeyword.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_keyword.BulkKeyword.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_keyword</span><span class="p">,</span> <span class="s1">&#39;keyword&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_readonly_data</span><span class="p">:</span>
+            <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">write_to_row_values_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_score_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">)</span>
+            <span class="n">PerformanceData</span><span class="o">.</span><span class="n">write_to_row_values_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">performance_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkKeyword.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_keyword.BulkKeyword.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Keyword&#39;</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkKeyword</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkKeyword.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_keyword.BulkKeyword.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="n">success</span><span class="p">,</span> <span class="n">next_bid_suggestion</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span><span class="n">BulkKeywordBidSuggestion</span><span class="p">)</span>
+
+        <span class="k">while</span> <span class="n">success</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span> <span class="o">=</span> <span class="n">BidSuggestionData</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">next_bid_suggestion</span><span class="p">,</span> <span class="n">BulkKeywordBestPositionBid</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span><span class="o">.</span><span class="n">best_position</span> <span class="o">=</span> <span class="n">next_bid_suggestion</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">next_bid_suggestion</span><span class="p">,</span> <span class="n">BulkKeywordMainLineBid</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span><span class="o">.</span><span class="n">main_line</span> <span class="o">=</span> <span class="n">next_bid_suggestion</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">next_bid_suggestion</span><span class="p">,</span> <span class="n">BulkKeywordFirstPageBid</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_bid_suggestions</span><span class="o">.</span><span class="n">first_page</span> <span class="o">=</span> <span class="n">next_bid_suggestion</span>
+
+            <span class="n">success</span><span class="p">,</span> <span class="n">next_bid_suggestion</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span><span class="n">BulkKeywordBidSuggestion</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkKeyword.write_additional_data"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_keyword.BulkKeyword.write_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">write_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bid_suggestions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">BulkKeywordBidSuggestion</span><span class="o">.</span><span class="n">write_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bid_suggestions</span><span class="o">.</span><span class="n">best_position</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">)</span>
+            <span class="n">BulkKeywordBidSuggestion</span><span class="o">.</span><span class="n">write_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bid_suggestions</span><span class="o">.</span><span class="n">main_line</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">)</span>
+            <span class="n">BulkKeywordBidSuggestion</span><span class="o">.</span><span class="n">write_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">bid_suggestions</span><span class="o">.</span><span class="n">first_page</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+    </div>
+  </body>
+</html>

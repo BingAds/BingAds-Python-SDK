@@ -1,0 +1,54 @@
+bingads\.reporting package
+==========================
+
+Submodules
+----------
+
+bingads\.reporting\.exceptions module
+-------------------------------------
+
+.. automodule:: bingads.reporting.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.reporting\.reporting\_download\_parameters module
+----------------------------------------------------------
+
+.. automodule:: bingads.reporting.reporting_download_parameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.reporting\.reporting\_operation module
+-----------------------------------------------
+
+.. automodule:: bingads.reporting.reporting_operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.reporting\.reporting\_operation\_status module
+-------------------------------------------------------
+
+.. automodule:: bingads.reporting.reporting_operation_status
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.reporting\.reporting\_service\_manager module
+------------------------------------------------------
+
+.. automodule:: bingads.reporting.reporting_service_manager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.reporting
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,30 @@
+bingads\.internal package
+=========================
+
+Submodules
+----------
+
+bingads\.internal\.error\_messages module
+-----------------------------------------
+
+.. automodule:: bingads.internal.error_messages
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.internal\.extensions module
+------------------------------------
+
+.. automodule:: bingads.internal.extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.internal
+    :members:
+    :undoc-members:
+    :show-inheritance:

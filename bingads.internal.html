@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.internal package &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.internal package &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="index.html" />
-    <link rel="up" title="bingads package" href="bingads.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="bingads.reporting package" href="bingads.reporting.html" />
     <link rel="prev" title="bingads package" href="bingads.html" /> 
   </head>
@@ -44,8 +45,8 @@
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="bingads.html" accesskey="U">bingads package</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" accesskey="U">bingads package</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -77,6 +78,11 @@
 <dl class="function">
 <dt id="bingads.internal.extensions.budget_to_csv">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">budget_to_csv</code><span class="sig-paren">(</span><em>bulk_campaign</em>, <em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#budget_to_csv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.budget_to_csv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.budget_to_csv_v11">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">budget_to_csv_v11</code><span class="sig-paren">(</span><em>bulk_campaign</em>, <em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#budget_to_csv_v11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.budget_to_csv_v11" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -115,6 +121,19 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.csv_to_budget_v11">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_budget_v11</code><span class="sig-paren">(</span><em>row_values</em>, <em>bulk_campaign</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_budget_v11"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_budget_v11" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_entity_DSAWebpageParameter">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_entity_DSAWebpageParameter</code><span class="sig-paren">(</span><em>row_values</em>, <em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_entity_DSAWebpageParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_entity_DSAWebpageParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert Campaign/Ad Group Criterion (WebpagePage) Web page parameters to bulk row values
+:param row_values: bulk row values
+:param entity: campaign/ad group criterion entity</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_AdFormatPreference">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_AdFormatPreference</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_AdFormatPreference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_AdFormatPreference" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse csv content and set entity attribute
@@ -129,6 +148,16 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_AgeTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_AgeTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_AgeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_AgeTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_BidAdjustment">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BidAdjustment</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BidAdjustment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BidAdjustment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_BidStrategyType">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BidStrategyType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BidStrategyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BidStrategyType" title="Permalink to this definition">¶</a></dt>
 <dd><p>set BiddingScheme
@@ -139,12 +168,88 @@
 
 <dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_BudgetType">
-<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BudgetType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BudgetType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BudgetType" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_BudgetType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em>, <em>version=10</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_BudgetType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_BudgetType" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_CriterionAudienceId">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_CriterionAudienceId</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_CriterionAudienceId"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_CriterionAudienceId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_DSADomainLanguage">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_DSADomainLanguage</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_DSADomainLanguage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_DSADomainLanguage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Campaign settings Language from bulk value if the campaign type is Dynamic Search Campaign
+:param entity: campaign entity
+:param value: bulk str value</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_DSAWebsite">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_DSAWebsite</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_DSAWebsite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_DSAWebsite" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Campaign settings Domain Name from bulk value if the campaign type is Dynamic Search Campaign
+:param entity: campaign entity
+:param value: bulk str value</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_Date">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_Date</code><span class="sig-paren">(</span><em>entity</em>, <em>property_name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_Date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_Date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_DayTimeTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_DayTimeTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_DayTimeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_DayTimeTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_DeviceTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_DeviceTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_DeviceTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_DeviceTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_FromHour">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_FromHour</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_FromHour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_FromHour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_FromMinute">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_FromMinute</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_FromMinute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_FromMinute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_GenderTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_GenderTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_GenderTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_GenderTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LatitudeDegrees">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LatitudeDegrees</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LatitudeDegrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LatitudeDegrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LocationIntentTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LocationIntentTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LocationIntentTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LocationIntentTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LocationName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LocationName</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LocationName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LocationName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LocationTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LocationTarget</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LocationType">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LocationType</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LocationType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LocationType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_LongitudeDegrees">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_LongitudeDegrees</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_LongitudeDegrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_LongitudeDegrees" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -156,8 +261,46 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_OSName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_OSName</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_OSName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_OSName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_Radius">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_Radius</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_Radius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_Radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_RadiusName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_RadiusName</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_RadiusName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_RadiusName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_RadiusUnit">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_RadiusUnit</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_RadiusUnit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_RadiusUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_RemarketingRule">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_RemarketingRule</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_RemarketingRule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_RemarketingRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse remarketing rule string and set remarketing rule attribute value
+:param entity: remarketing list entity
+:param value: bulk string value</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.csv_to_field_StructuredSnippetValues">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_StructuredSnippetValues</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_StructuredSnippetValues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_StructuredSnippetValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_ToHour">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_ToHour</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_ToHour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_ToHour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_ToMinute">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_ToMinute</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_ToMinute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_ToMinute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -175,9 +318,27 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.csv_to_field_WebpageParameter_CriterionName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_field_WebpageParameter_CriterionName</code><span class="sig-paren">(</span><em>entity</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_field_WebpageParameter_CriterionName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_field_WebpageParameter_CriterionName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.csv_to_status">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">csv_to_status</code><span class="sig-paren">(</span><em>c</em>, <em>v</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#csv_to_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.csv_to_status" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.custom_event_rule_str">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">custom_event_rule_str</code><span class="sig-paren">(</span><em>rule</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#custom_event_rule_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.custom_event_rule_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.entity_to_csv_DSAWebpageParameter">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">entity_to_csv_DSAWebpageParameter</code><span class="sig-paren">(</span><em>entity</em>, <em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#entity_to_csv_DSAWebpageParameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.entity_to_csv_DSAWebpageParameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Campaign/AdGroup Criterion (WebpagePage) Web page parameters from bulk values
+:param entity: campaign/ad group criterion entity
+:param row_values: bulk row values</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="bingads.internal.extensions.escape_parameter_text">
@@ -201,6 +362,16 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_AgeTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_AgeTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_AgeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_AgeTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_BidAdjustment">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_BidAdjustment</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_BidAdjustment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_BidAdjustment" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.field_to_csv_BidStrategyType">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_BidStrategyType</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_BidStrategyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_BidStrategyType" title="Permalink to this definition">¶</a></dt>
 <dd><p>parse entity to csv content
@@ -209,11 +380,114 @@
 </dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_CriterionAudienceId">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_CriterionAudienceId</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_CriterionAudienceId"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_CriterionAudienceId" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_DSADomainLanguage">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_DSADomainLanguage</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_DSADomainLanguage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_DSADomainLanguage" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert campaign settings Language to bulk str if the campaign is Dynamic Search Campaign
+:param entity: campaign entity
+:return: bulk str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_DSAWebsite">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_DSAWebsite</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_DSAWebsite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_DSAWebsite" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert campaign settings Domain Name to bulk str if the campaign is Dynamic Search Campaign
+:param entity: campaign entity
+:return: bulk str</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_DayTimeTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_DayTimeTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_DayTimeTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_DayTimeTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_DeviceTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_DeviceTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_DeviceTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_DeviceTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_FromHour">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_FromHour</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_FromHour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_FromHour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_FromMinute">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_FromMinute</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_FromMinute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_FromMinute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_GenderTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_GenderTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_GenderTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_GenderTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LatitudeDegrees">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LatitudeDegrees</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LatitudeDegrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LatitudeDegrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LocationIntentTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LocationIntentTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LocationIntentTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LocationIntentTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LocationName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LocationName</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LocationName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LocationName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LocationTarget">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LocationTarget</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LocationTarget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LocationTarget" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LocationType">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LocationType</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LocationType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LocationType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_LongitudeDegrees">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_LongitudeDegrees</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_LongitudeDegrees"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_LongitudeDegrees" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.field_to_csv_MediaIds">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_MediaIds</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_MediaIds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_MediaIds" title="Permalink to this definition">¶</a></dt>
 <dd><p>MediaIds field to csv content
 :param entity: entity which has MediaIds attribute
 :return:</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_OSName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_OSName</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_OSName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_OSName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_Radius">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_Radius</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_Radius"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_Radius" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_RadiusName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_RadiusName</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_RadiusName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_RadiusName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_RadiusUnit">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_RadiusUnit</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_RadiusUnit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_RadiusUnit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_RemarketingRule">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_RemarketingRule</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_RemarketingRule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_RemarketingRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>convert remarketing rule to bulk string
+:param entity: remarketing list entity</p>
 </dd></dl>
 
 <dl class="function">
@@ -235,6 +509,16 @@
 <dl class="function">
 <dt id="bingads.internal.extensions.field_to_csv_StructuredSnippetValues">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_StructuredSnippetValues</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_StructuredSnippetValues"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_StructuredSnippetValues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_ToHour">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_ToHour</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_ToHour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_ToHour" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_ToMinute">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_ToMinute</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_ToMinute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_ToMinute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -260,6 +544,11 @@
 :param entity: Scheduling entity
 :return: bulk str</p>
 </dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.field_to_csv_WebpageParameter_CriterionName">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">field_to_csv_WebpageParameter_CriterionName</code><span class="sig-paren">(</span><em>entity</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#field_to_csv_WebpageParameter_CriterionName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.field_to_csv_WebpageParameter_CriterionName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="bingads.internal.extensions.format_Day">
@@ -340,6 +629,61 @@
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="bingads.internal.extensions.parse_number_operator">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_number_operator</code><span class="sig-paren">(</span><em>operator</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_number_operator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_number_operator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_CustomEvents">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_CustomEvents</code><span class="sig-paren">(</span><em>rule_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_CustomEvents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_CustomEvents" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_PageVisitors">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_PageVisitors</code><span class="sig-paren">(</span><em>rule_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_PageVisitors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_PageVisitors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_PageVisitorsWhoDidNotVisitAnotherPage">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_PageVisitorsWhoDidNotVisitAnotherPage</code><span class="sig-paren">(</span><em>rule_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_PageVisitorsWhoDidNotVisitAnotherPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_PageVisitorsWhoDidNotVisitAnotherPage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_PageVisitorsWhoVisitedAnotherPage">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_PageVisitorsWhoVisitedAnotherPage</code><span class="sig-paren">(</span><em>rule_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_PageVisitorsWhoVisitedAnotherPage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_PageVisitorsWhoVisitedAnotherPage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_groups">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_groups</code><span class="sig-paren">(</span><em>groups_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_rule_items">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_rule_items</code><span class="sig-paren">(</span><em>items_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_rule_items"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_rule_items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_string_operator">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_string_operator</code><span class="sig-paren">(</span><em>operator</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_string_operator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_string_operator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.parse_string_rule_item">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">parse_string_rule_item</code><span class="sig-paren">(</span><em>item_str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#parse_string_rule_item"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.parse_string_rule_item" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.rule_item_groups_str">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">rule_item_groups_str</code><span class="sig-paren">(</span><em>groups</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#rule_item_groups_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.rule_item_groups_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="bingads.internal.extensions.rule_items_str">
+<code class="descclassname">bingads.internal.extensions.</code><code class="descname">rule_items_str</code><span class="sig-paren">(</span><em>items</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#rule_items_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.rule_items_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="bingads.internal.extensions.unescape_parameter_text">
 <code class="descclassname">bingads.internal.extensions.</code><code class="descname">unescape_parameter_text</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/internal/extensions.html#unescape_parameter_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.internal.extensions.unescape_parameter_text" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -376,21 +720,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/bingads.internal.txt"
+      <li><a href="_sources/bingads.internal.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -412,13 +753,13 @@
         <li class="right" >
           <a href="bingads.html" title="bingads package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

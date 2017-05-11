@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,12 +48,12 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
-<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
 <div class="viewcode-block" id="BulkAdGroupRemarketingListAssociation"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupRemarketingListAssociation</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an Ad Group Remarketing List Association that can be read or written in a bulk file.</span>
@@ -71,11 +72,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">ad_group_remarketing_list_association</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">remarketing_list_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupRemarketingListAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+                 <span class="n">ad_group_remarketing_list_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">remarketing_list_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupRemarketingListAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_remarketing_list_association</span> <span class="o">=</span> <span class="n">ad_group_remarketing_list_association</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
@@ -86,42 +87,42 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">Status</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;Status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">AdGroupId</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;AdGroupId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;AdGroupId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">AdGroup</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">ad_group_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;ad_group_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;ad_group_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">RemarketingList</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">remarketing_list_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;remarketing_list_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;remarketing_list_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;BidAdjustment&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;BidAdjustment&#39;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">RemarketingListId</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">RemarketingListId</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;RemarketingListId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;RemarketingListId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -131,7 +132,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_remarketing_list_association</span>
 
-    <span class="nd">@ad_group_remarketing_list_association.setter</span>
+    <span class="nd">@ad_group_remarketing_list_association</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_remarketing_list_association</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_remarketing_list_association</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_remarketing_list_association</span> <span class="o">=</span> <span class="n">ad_group_remarketing_list_association</span>
 
@@ -144,7 +145,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
 
@@ -157,7 +158,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span>
 
-    <span class="nd">@ad_group_name.setter</span>
+    <span class="nd">@ad_group_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
 
@@ -170,18 +171,18 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_remarketing_list_name</span>
 
-    <span class="nd">@remarketing_list_name.setter</span>
+    <span class="nd">@remarketing_list_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">remarketing_list_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remarketing_list_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_remarketing_list_name</span> <span class="o">=</span> <span class="n">remarketing_list_name</span>
 
 <div class="viewcode-block" id="BulkAdGroupRemarketingListAssociation.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s">&#39;ad_group_remarketing_list_association&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAdGroupRemarketingListAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ad_group_remarketing_list_association</span><span class="p">,</span> <span class="s1">&#39;ad_group_remarketing_list_association&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAdGroupRemarketingListAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkAdGroupRemarketingListAssociation.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_remarketing_list_association</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdGroupRemarketingListAssociation&#39;</span><span class="p">)</span>
-        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAdGroupRemarketingListAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_remarketing_list_association</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AdGroupRemarketingListAssociation&#39;</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAdGroupRemarketingListAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkAdGroupRemarketingListAssociation.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupRemarketingListAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
 </pre></div>
@@ -194,14 +195,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -217,13 +215,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.upload_parameters &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.upload_parameters &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,7 +48,7 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.upload_parameters</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span></span><span class="kn">from</span> <span class="nn">os</span> <span class="k">import</span> <span class="n">path</span>
 
 
 <div class="viewcode-block" id="FileUploadParameters"><a class="viewcode-back" href="../../../../bingads.v10.bulk.html#bingads.v10.bulk.upload_parameters.FileUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">FileUploadParameters</span><span class="p">:</span>
@@ -55,12 +56,12 @@
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">upload_file_path</span><span class="p">,</span>
-                 <span class="n">result_file_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">result_file_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">compress_upload_file</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
-                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                 <span class="n">result_file_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">result_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">compress_upload_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s1">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param result_file_directory: The directory where the file will be downloaded.</span>
@@ -82,11 +83,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">result_file_name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s">&#39;.zip&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.zip&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite_result_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span> <span class="o">=</span> <span class="n">SubmitUploadParameters</span><span class="p">(</span>
             <span class="n">upload_file_path</span><span class="o">=</span><span class="n">upload_file_path</span><span class="p">,</span>
@@ -108,7 +109,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span>
 
-    <span class="nd">@upload_file_path.setter</span>
+    <span class="nd">@upload_file_path</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span> <span class="o">=</span> <span class="n">upload_file_path</span>
 
@@ -121,7 +122,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">compress_upload_file</span>
 
-    <span class="nd">@compress_upload_file.setter</span>
+    <span class="nd">@compress_upload_file</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">compress_upload_file</span> <span class="o">=</span> <span class="n">compress</span>
 
@@ -136,7 +137,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">response_mode</span>
 
-    <span class="nd">@response_mode.setter</span>
+    <span class="nd">@response_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_submit_upload_parameters</span><span class="o">.</span><span class="n">response_mode</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -149,7 +150,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
 
-    <span class="nd">@result_file_directory.setter</span>
+    <span class="nd">@result_file_directory</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
 
@@ -162,7 +163,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
 
-    <span class="nd">@result_file_name.setter</span>
+    <span class="nd">@result_file_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
 
@@ -175,23 +176,23 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
 
-    <span class="nd">@overwrite_result_file.setter</span>
+    <span class="nd">@overwrite_result_file</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span></div>
 
-</div>
+
 <div class="viewcode-block" id="SubmitUploadParameters"><a class="viewcode-back" href="../../../../bingads.v10.bulk.html#bingads.v10.bulk.upload_parameters.SubmitUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">upload_file_path</span><span class="p">,</span>
-                 <span class="n">compress_upload_file</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
-                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                 <span class="n">compress_upload_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s1">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param upload_file_path: The fully qualified local path of the upload file.</span>
@@ -228,11 +229,11 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span>
 
-    <span class="nd">@upload_file_path.setter</span>
+    <span class="nd">@upload_file_path</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">upload_file_path</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_upload_file_path</span> <span class="o">=</span> <span class="n">upload_file_path</span>
 
-    <span class="nd">@compress_upload_file.setter</span>
+    <span class="nd">@compress_upload_file</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">compress_upload_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">compress</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span> <span class="o">=</span> <span class="n">compress</span>
 
@@ -247,7 +248,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span>
 
-    <span class="nd">@response_mode.setter</span>
+    <span class="nd">@response_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -255,21 +256,21 @@
     <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
 
-    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="nd">@timeout_in_milliseconds</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span></div>
 
-</div>
+
 <div class="viewcode-block" id="EntityUploadParameters"><a class="viewcode-back" href="../../../../bingads.v10.bulk.html#bingads.v10.bulk.upload_parameters.EntityUploadParameters">[docs]</a><span class="k">class</span> <span class="nc">EntityUploadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Describes the available parameters when submitting entities for upload, such as the entities that you want to upload. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">entities</span><span class="p">,</span>
-                 <span class="n">result_file_directory</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">result_file_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">response_mode</span><span class="o">=</span><span class="s">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
-                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                 <span class="n">result_file_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">result_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">response_mode</span><span class="o">=</span><span class="s1">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class.</span>
 
 <span class="sd">        :param entities: The list of bulk entities that you want to upload.</span>
@@ -289,11 +290,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">result_file_name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s">&#39;.zip&#39;</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.zip&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="n">entities</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite_result_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">response_mode</span>
@@ -312,7 +313,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span>
 
-    <span class="nd">@entities.setter</span>
+    <span class="nd">@entities</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -327,7 +328,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span>
 
-    <span class="nd">@response_mode.setter</span>
+    <span class="nd">@response_mode</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">response_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -340,7 +341,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
 
-    <span class="nd">@result_file_directory.setter</span>
+    <span class="nd">@result_file_directory</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
 
@@ -353,7 +354,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
 
-    <span class="nd">@result_file_name.setter</span>
+    <span class="nd">@result_file_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
 
@@ -366,7 +367,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
 
-    <span class="nd">@overwrite_result_file.setter</span>
+    <span class="nd">@overwrite_result_file</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
 
@@ -374,7 +375,7 @@
     <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
 
-    <span class="nd">@timeout_in_milliseconds.setter</span>
+    <span class="nd">@timeout_in_milliseconds</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
@@ -387,14 +388,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -410,13 +408,13 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

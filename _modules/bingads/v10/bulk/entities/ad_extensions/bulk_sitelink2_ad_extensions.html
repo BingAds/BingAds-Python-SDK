@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,17 +48,17 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
 
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionBase</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdGroupAdExtensionAssociation</span>
-<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkAdExtensionBase</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkAdGroupAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
 
-<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="n">_Sitelink2AdExtension</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Sitelink2AdExtension&#39;</span><span class="p">))</span>
+<span class="n">_Sitelink2AdExtension</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Sitelink2AdExtension&#39;</span><span class="p">))</span>
 
 
 <div class="viewcode-block" id="BulkSitelink2AdExtension"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkSitelink2AdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkSitelink2AdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionBase</span><span class="p">):</span>
@@ -76,13 +77,13 @@
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">ad_extension</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ad_extension</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">ad_extension</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">,</span> <span class="n">_Sitelink2AdExtension</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;The type of ad_extension is: {0}, should be: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The type of ad_extension is: </span><span class="si">{0}</span><span class="s1">, should be: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="nb">type</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">),</span>
-                <span class="s">&#39;Sitelink2AdExtension&#39;</span>
+                <span class="s1">&#39;Sitelink2AdExtension&#39;</span>
             <span class="p">))</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSitelink2AdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSitelink2AdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
             <span class="n">ad_extension</span><span class="o">=</span><span class="n">ad_extension</span>
         <span class="p">)</span>
@@ -96,7 +97,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span>
 
-    <span class="nd">@sitelink2_ad_extension.setter</span>
+    <span class="nd">@sitelink2_ad_extension</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">sitelink2_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -104,27 +105,27 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDescription1</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">Description1</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;Description1&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;Description1&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDescription2</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">Description2</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;Description2&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;Description2&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;DestinationUrl&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DestinationUrl&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_device_preference_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;DevicePreference&#39;</span><span class="p">,</span> <span class="n">parse_device_preference</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DevicePreference&#39;</span><span class="p">,</span> <span class="n">parse_device_preference</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SiteLinkDisplayText</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">DisplayText</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;DisplayText&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DisplayText&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrl</span><span class="p">,</span>
@@ -139,7 +140,7 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TrackingTemplate</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">TrackingUrlTemplate</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CustomParameter</span><span class="p">,</span>
@@ -149,17 +150,17 @@
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkSitelink2AdExtension.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkSitelink2AdExtension.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Sitelink2AdExtension&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;Sitelink2AdExtension&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Sitelink2AdExtension&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Sitelink2AdExtension&#39;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkSitelink2AdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
-        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkSitelink2AdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="BulkSitelink2AdExtension.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkSitelink2AdExtension.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s">&#39;sitelink2_ad_extension&#39;</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSitelink2AdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkSitelink2AdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkSitelink2AdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
 
-</div></div>
+<div class="viewcode-block" id="BulkSitelink2AdExtension.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkSitelink2AdExtension.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sitelink2_ad_extension</span><span class="p">,</span> <span class="s1">&#39;sitelink2_ad_extension&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkSitelink2AdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkSitelink2AdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div></div>
+
+
 <div class="viewcode-block" id="BulkCampaignSitelink2AdExtension"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkCampaignSitelink2AdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignSitelink2AdExtension</span><span class="p">(</span><span class="n">_BulkCampaignAdExtensionAssociation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an campaign level sitelink2 ad extension.</span>
 
@@ -176,9 +177,9 @@
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BulkAdGroupSitelink2AdExtension"><a class="viewcode-back" href="../../../../../../bingads.v10.bulk.entities.ad_extensions.html#bingads.v10.bulk.entities.ad_extensions.bulk_sitelink2_ad_extensions.BulkAdGroupSitelink2AdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupSitelink2AdExtension</span><span class="p">(</span><span class="n">_BulkAdGroupAdExtensionAssociation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an ad group level Sitelink2 ad extension.</span>
 
@@ -206,14 +207,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -229,13 +227,13 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bulk_campaign &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.entities.bulk_campaign &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,15 +48,15 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.entities.bulk_campaign</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="kn">import</span> <span class="n">QualityScoreData</span><span class="p">,</span> <span class="n">PerformanceData</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_ComplexBulkMapping</span>
-<span class="c"># from bingads.internal.extensions import bulk_str, csv_to_budget, budget_to_csv</span>
-<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.bulk.entities</span> <span class="k">import</span> <span class="n">QualityScoreData</span><span class="p">,</span> <span class="n">PerformanceData</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_ComplexBulkMapping</span>
+<span class="c1"># from bingads.internal.extensions import bulk_str, csv_to_budget, budget_to_csv</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
-<span class="n">_ShoppingSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ShoppingSetting&#39;</span><span class="p">))</span>
+<span class="n">_ShoppingSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">))</span>
 
 <div class="viewcode-block" id="BulkCampaign"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_campaign.BulkCampaign">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaign</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a campaign that can be read or written in a bulk file.</span>
@@ -73,14 +74,14 @@
 <span class="sd">    * :class:`.BulkFileWriter`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">campaign</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaign</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaign</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">campaign</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -93,7 +94,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span>
 
-    <span class="nd">@account_id.setter</span>
+    <span class="nd">@account_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
 
@@ -107,7 +108,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span>
 
-    <span class="nd">@budget_name.setter</span>
+    <span class="nd">@budget_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">budget_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_budget_name</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -120,7 +121,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span>
 
-    <span class="nd">@campaign.setter</span>
+    <span class="nd">@campaign</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">campaign</span>
 
@@ -144,19 +145,19 @@
 
     <span class="k">def</span> <span class="nf">_get_shopping_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="n">shopping_settings</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span> <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="k">if</span>
                              <span class="nb">isinstance</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">_ShoppingSetting</span><span class="p">)]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shopping_settings</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Can only have 1 ShoppingSetting in Campaign Settings.&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 ShoppingSetting in Campaign Settings.&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">shopping_settings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_campaign_type</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Only 1 CampaignType can be set in Campaign&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Only 1 CampaignType can be set in Campaign&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
@@ -165,70 +166,70 @@
             <span class="k">return</span> <span class="p">[]</span>
         <span class="n">campaign_type</span> <span class="o">=</span> <span class="n">v</span>
         <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s">&#39;shopping&#39;</span><span class="p">:</span>
-            <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ArrayOfSetting&#39;</span><span class="p">)</span>
-            <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
-            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s">&#39;ShoppingSetting&#39;</span>
+        <span class="k">if</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;shopping&#39;</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ArrayOfSetting&#39;</span><span class="p">)</span>
+            <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
+            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ShoppingSetting&#39;</span>
             <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="o">=</span> <span class="p">[</span><span class="n">shopping_setting</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_store_id</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">shopping_setting</span><span class="o">.</span><span class="n">StoreId</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_read_store_id</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
-            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">StoreId</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">StoreId</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_priority</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">shopping_setting</span><span class="o">.</span><span class="n">Priority</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_read_priority</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
-            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">Priority</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">Priority</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_sales_country_code</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
             <span class="k">return</span> <span class="n">shopping_setting</span><span class="o">.</span><span class="n">SalesCountryCode</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_read_sales_country_code</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-        <span class="k">if</span> <span class="s">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">in</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]:</span>
             <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_shopping_setting</span><span class="p">()</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                <span class="k">return</span> <span class="kc">None</span>
             <span class="n">shopping_setting</span><span class="o">.</span><span class="n">SalesCountryCode</span> <span class="o">=</span> <span class="n">v</span>
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
@@ -242,8 +243,8 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Status</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
                 <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
-                <span class="s">&#39;Status&#39;</span><span class="p">,</span>
-                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="s1">&#39;Status&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -251,24 +252,24 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
                 <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
-                <span class="s">&#39;Id&#39;</span><span class="p">,</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="s1">&#39;Id&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">account_id</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_account_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_account_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;Name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TimeZone</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">TimeZone</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;TimeZone&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;TimeZone&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_ComplexBulkMapping</span><span class="p">(</span><span class="n">budget_to_csv</span><span class="p">,</span> <span class="n">csv_to_budget</span><span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -276,8 +277,8 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">NativeBidAdjustment</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
                 <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
-                <span class="s">&#39;NativeBidAdjustment&#39;</span><span class="p">,</span>
-                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span>
+                <span class="s1">&#39;NativeBidAdjustment&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -296,10 +297,10 @@
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_sales_country_code</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="c"># TODO now use bulk_str not bulk_optional_str</span>
+            <span class="c1"># TODO now use bulk_str not bulk_optional_str</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TrackingTemplate</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">TrackingUrlTemplate</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CustomParameter</span><span class="p">,</span>
@@ -314,7 +315,7 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetId</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetId</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;BudgetId&#39;</span><span class="p">,</span> <span class="nb">long</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;BudgetId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">,</span>
@@ -324,21 +325,31 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetName</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget_name</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;budget_name&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;budget_name&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Website</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_DSAWebsite</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_DSAWebsite</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DomainLanguage</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_DSADomainLanguage</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_DSADomainLanguage</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkCampaign.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_campaign.BulkCampaign.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaign</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
-</div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaign</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkCampaign.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_campaign.BulkCampaign.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;Campaign&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Campaign&#39;</span><span class="p">)</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score_data</span> <span class="o">=</span> <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="o">.</span><span class="n">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkCampaign.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_campaign.BulkCampaign.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s">&#39;campaign&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;campaign&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">exclude_readonly_data</span><span class="p">:</span>
             <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">write_to_row_values_if_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quality_score_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">)</span>
@@ -353,14 +364,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -376,13 +384,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

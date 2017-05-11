@@ -1,0 +1,30 @@
+bingads\.v11\.bulk\.entities\.audiences package
+===============================================
+
+Submodules
+----------
+
+bingads\.v11\.bulk\.entities\.audiences\.bulk\_ad\_group\_remarketing\_list\_association module
+-----------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v11.bulk.entities.audiences.bulk_ad_group_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v11\.bulk\.entities\.audiences\.bulk\_remarketing\_list module
+-----------------------------------------------------------------------
+
+.. automodule:: bingads.v11.bulk.entities.audiences.bulk_remarketing_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.v11.bulk.entities.audiences
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.exceptions &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.exceptions &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,7 +48,7 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.exceptions</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="SdkException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.SdkException">[docs]</a><span class="k">class</span> <span class="nc">SdkException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="SdkException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.SdkException">[docs]</a><span></span><span class="k">class</span> <span class="nc">SdkException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Base Exception for exceptions in SDK. &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
@@ -68,9 +69,9 @@
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_message</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OAuthTokenRequestException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.OAuthTokenRequestException">[docs]</a><span class="k">class</span> <span class="nc">OAuthTokenRequestException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This exception is thrown if an error was returned from the Microsoft Account authorization server. &quot;&quot;&quot;</span>
 
@@ -83,8 +84,8 @@
 <span class="sd">        :type description: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthTokenRequestException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
-            <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;error_code: {0}, error_description: {1}&quot;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">description</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthTokenRequestException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;error_code: </span><span class="si">{0}</span><span class="s2">, error_description: </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">error_code</span><span class="p">,</span> <span class="n">description</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_code</span> <span class="o">=</span> <span class="n">error_code</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_error_description</span> <span class="o">=</span> <span class="n">description</span>
 
@@ -104,9 +105,9 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_description</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error_description</span></div>
 
-</div>
+
 <div class="viewcode-block" id="FileUploadException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.FileUploadException">[docs]</a><span class="k">class</span> <span class="nc">FileUploadException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
 
@@ -116,9 +117,9 @@
 <span class="sd">        :param description: The description of the file upload error.</span>
 <span class="sd">        :type description: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">FileUploadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FileUploadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
 
-</div>
+
 <div class="viewcode-block" id="FileDownloadException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.FileDownloadException">[docs]</a><span class="k">class</span> <span class="nc">FileDownloadException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
 
@@ -128,9 +129,9 @@
 <span class="sd">        :param description: The description of the file download error.</span>
 <span class="sd">        :type description: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">FileDownloadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FileDownloadException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
 
-</div>
+
 <div class="viewcode-block" id="TimeoutException"><a class="viewcode-back" href="../../bingads.html#bingads.exceptions.TimeoutException">[docs]</a><span class="k">class</span> <span class="nc">TimeoutException</span><span class="p">(</span><span class="n">SdkException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This exception is thrown if timeout occurs &quot;&quot;&quot;</span>
 
@@ -140,7 +141,7 @@
 <span class="sd">        :param description: The description of the file download error.</span>
 <span class="sd">        :type description: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">TimeoutException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TimeoutException</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">description</span><span class="p">))</span></div>
 </pre></div>
 
           </div>
@@ -151,14 +152,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -174,13 +172,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

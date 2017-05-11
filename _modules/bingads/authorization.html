@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.authorization &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.authorization &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../index.html" />
-    <link rel="up" title="Module code" href="../index.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,15 +48,16 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.authorization</h1><div class="highlight"><pre>
-<span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">parse_qs</span><span class="p">,</span> <span class="n">urlparse</span>
+<span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="k">import</span> <span class="n">parse_qs</span><span class="p">,</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">quote_plus</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="kn">import</span> <span class="n">parse_qs</span><span class="p">,</span> <span class="n">urlparse</span>
+    <span class="kn">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">parse_qs</span><span class="p">,</span> <span class="n">urlparse</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">quote_plus</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">OAuthTokenRequestException</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">OAuthTokenRequestException</span>
 
 
 <div class="viewcode-block" id="AuthorizationData"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData">[docs]</a><span class="k">class</span> <span class="nc">AuthorizationData</span><span class="p">:</span>
@@ -66,10 +68,10 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">account_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">customer_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">developer_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">authentication</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+                 <span class="n">account_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">customer_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">developer_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">authentication</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
 
 <span class="sd">        :param account_id: The identifier of the account that owns the entities in the request.</span>
@@ -141,23 +143,23 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authentication</span>
 
-    <span class="nd">@account_id.setter</span>
+    <span class="nd">@account_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
 
-    <span class="nd">@customer_id.setter</span>
+    <span class="nd">@customer_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">customer_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customer_id</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_customer_id</span> <span class="o">=</span> <span class="n">customer_id</span>
 
-    <span class="nd">@developer_token.setter</span>
+    <span class="nd">@developer_token</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">developer_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">developer_token</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_developer_token</span> <span class="o">=</span> <span class="n">developer_token</span>
 
-    <span class="nd">@authentication.setter</span>
+    <span class="nd">@authentication</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">authentication</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authentication</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_authentication</span> <span class="o">=</span> <span class="n">authentication</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_authentication</span> <span class="o">=</span> <span class="n">authentication</span></div>
 
-</div>
+
 <div class="viewcode-block" id="Authentication"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.Authentication">[docs]</a><span class="k">class</span> <span class="nc">Authentication</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The base class for all authentication classes.</span>
 
@@ -180,9 +182,9 @@
 <span class="sd">        :rtype: None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="PasswordAuthentication"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication">[docs]</a><span class="k">class</span> <span class="nc">PasswordAuthentication</span><span class="p">(</span><span class="n">Authentication</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a legacy Bing Ads authentication method using user name and password.</span>
 
@@ -230,10 +232,10 @@
 <div class="viewcode-block" id="PasswordAuthentication.enrich_headers"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.PasswordAuthentication.enrich_headers">[docs]</a>    <span class="k">def</span> <span class="nf">enrich_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Sets the user name and password as headers elements for Bing Ads service or bulk file upload operation. &quot;&quot;&quot;</span>
 
-        <span class="n">headers</span><span class="p">[</span><span class="s">&#39;UserName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_name</span>
-        <span class="n">headers</span><span class="p">[</span><span class="s">&#39;Password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;UserName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_name</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;Password&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="OAuthTokens"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthTokens">[docs]</a><span class="k">class</span> <span class="nc">OAuthTokens</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Contains information about OAuth access tokens received from the Microsoft Account authorization service.</span>
 
@@ -241,7 +243,7 @@
 <span class="sd">    either the :class:`.OAuthDesktopMobileAuthCodeGrant` or :class:`.OAuthWebAuthCodeGrant` classes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">access_token_expires_in_seconds</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">access_token_expires_in_seconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
 
 <span class="sd">        :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.</span>
@@ -281,9 +283,9 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OAuthAuthorization"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization">[docs]</a><span class="k">class</span> <span class="nc">OAuthAuthorization</span><span class="p">(</span><span class="n">Authentication</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The abstract base class for all OAuth authentication classes.</span>
 
@@ -298,7 +300,7 @@
 <span class="sd">    * :class:`.OAuthWebAuthCodeGrant`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the OAuthAuthorization class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -308,11 +310,11 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="n">client_id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Client id cannot be None.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">client_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Client id cannot be None.&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">oauth_tokens</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -344,7 +346,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span>
 
-    <span class="nd">@state.setter</span>
+    <span class="nd">@state</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; An opaque value used by the client to maintain state between the request and callback</span>
 <span class="sd">        :rtype: str</span>
@@ -367,16 +369,16 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
-</div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="OAuthAuthorization.enrich_headers"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization.enrich_headers">[docs]</a>    <span class="k">def</span> <span class="nf">enrich_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">headers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Sets the AuthenticationToken headers elements for Bing Ads service or bulk file upload operation. &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;OAuth access token hasn&#39;t been requested.&quot;</span><span class="p">)</span>
-        <span class="n">headers</span><span class="p">[</span><span class="s">&#39;AuthenticationToken&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="o">.</span><span class="n">access_token</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;OAuth access token hasn&#39;t been requested.&quot;</span><span class="p">)</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;AuthenticationToken&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="o">.</span><span class="n">access_token</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="OAuthWithAuthorizationCode"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode">[docs]</a><span class="k">class</span> <span class="nc">OAuthWithAuthorizationCode</span><span class="p">(</span><span class="n">OAuthAuthorization</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a proxy to the Microsoft account authorization service.</span>
 
@@ -387,7 +389,7 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -404,7 +406,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
@@ -416,13 +418,13 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="s">&#39;https://login.live.com/oauth20_authorize.srf?client_id={0}&amp;scope=bingads.manage&amp;response_type={1}&amp;redirect_uri={2}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span>
-            <span class="s">&#39;code&#39;</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span>
+            <span class="s1">&#39;code&#39;</span><span class="p">,</span>
+            <span class="n">quote_plus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
-</div>
+        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span></div>
+
 <div class="viewcode-block" id="OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_response_uri">[docs]</a>    <span class="k">def</span> <span class="nf">request_oauth_tokens_by_response_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</span>
 
@@ -437,24 +439,24 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">parameters</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">urlparse</span><span class="p">(</span><span class="n">response_uri</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s">&#39;code&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s">&quot;Uri passed doesn&#39;t contain code param. &quot;</span>
-                <span class="s">&quot;Please make sure the uri has a code in it, for example http://myurl.com?code=123&quot;</span>
+                <span class="s2">&quot;Uri passed doesn&#39;t contain code param. &quot;</span>
+                <span class="s2">&quot;Please make sure the uri has a code in it, for example http://myurl.com?code=123&quot;</span>
             <span class="p">)</span>
-        <span class="n">code</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">&#39;code&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
             <span class="n">redirect_uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redirection_uri</span><span class="p">,</span>
-            <span class="n">grant_type</span><span class="o">=</span><span class="s">&#39;authorization_code&#39;</span><span class="p">,</span>
+            <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
             <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c"># invoke the callback when token refreshed.</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span>
-</div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c1"># invoke the callback when token refreshed.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span></div>
+
 <div class="viewcode-block" id="OAuthWithAuthorizationCode.request_oauth_tokens_by_refresh_token"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWithAuthorizationCode.request_oauth_tokens_by_refresh_token">[docs]</a>    <span class="k">def</span> <span class="nf">request_oauth_tokens_by_refresh_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">refresh_token</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</span>
 
@@ -472,14 +474,14 @@
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
             <span class="n">redirect_uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redirection_uri</span><span class="p">,</span>
-            <span class="n">grant_type</span><span class="o">=</span><span class="s">&#39;refresh_token&#39;</span><span class="p">,</span>
+            <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">,</span>
             <span class="n">refresh_token</span><span class="o">=</span><span class="n">refresh_token</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c"># invoke the callback when token refreshed.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c1"># invoke the callback when token refreshed.</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span></div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The client secret corresponding to your registered application, or None if your app is a desktop or mobile app.</span>
@@ -507,19 +509,19 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span>
 
-    <span class="nd">@client_secret.setter</span>
+    <span class="nd">@client_secret</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">client_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
 
-    <span class="nd">@redirection_uri.setter</span>
+    <span class="nd">@redirection_uri</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
 
-    <span class="nd">@token_refreshed_callback.setter</span>
+    <span class="nd">@token_refreshed_callback</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OAuthDesktopMobileAuthCodeGrant"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileAuthCodeGrant">[docs]</a><span class="k">class</span> <span class="nc">OAuthDesktopMobileAuthCodeGrant</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop</span>
 <span class="sd">    or mobile application.</span>
@@ -534,7 +536,7 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -543,14 +545,14 @@
 <span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileAuthCodeGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileAuthCodeGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">client_id</span><span class="p">,</span>
-            <span class="bp">None</span><span class="p">,</span>
+            <span class="kc">None</span><span class="p">,</span>
             <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
             <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OAuthWebAuthCodeGrant"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthWebAuthCodeGrant">[docs]</a><span class="k">class</span> <span class="nc">OAuthWebAuthCodeGrant</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.</span>
 
@@ -564,9 +566,9 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant">[docs]</a><span class="k">class</span> <span class="nc">OAuthDesktopMobileImplicitGrant</span><span class="p">(</span><span class="n">OAuthAuthorization</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an OAuth authorization object implementing the implicit grant flow for use in a desktop or mobile application.</span>
 
@@ -580,7 +582,7 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -589,7 +591,7 @@
 <span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
 
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.get_authorization_endpoint"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.get_authorization_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_authorization_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</span>
@@ -599,13 +601,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="s">&#39;https://login.live.com/oauth20_authorize.srf?client_id={0}&amp;scope=bingads.manage&amp;response_type={1}&amp;redirect_uri={2}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
-            <span class="s">&#39;token&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;token&#39;</span><span class="p">,</span>
             <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span>
-</div>
+        <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span></div>
+
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri">[docs]</a>    <span class="k">def</span> <span class="nf">extract_access_token_from_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Extracts the access token from the specified redirect URI.</span>
 
@@ -616,31 +618,31 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">parameters</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="n">urlparse</span><span class="p">(</span><span class="n">redirection_uri</span><span class="p">)</span><span class="o">.</span><span class="n">fragment</span><span class="p">)</span>
-        <span class="k">if</span> <span class="s">&#39;access_token&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s">&#39;access_token&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Input URI: {0} doesn&#39;t contain access_token parameter&quot;</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">))</span>
-        <span class="n">access_token</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">&#39;access_token&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s">&#39;expires_in&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s">&#39;expires_in&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">expires_in</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="s1">&#39;access_token&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;Input URI: </span><span class="si">{0}</span><span class="s2"> doesn&#39;t contain access_token parameter&quot;</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">))</span>
+        <span class="n">access_token</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;expires_in&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameters</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;expires_in&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">expires_in</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">expires_in</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s">&#39;expires_in&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">expires_in</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;expires_in&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">OAuthTokens</span><span class="p">(</span>
             <span class="n">access_token</span><span class="p">,</span>
-            <span class="nb">int</span><span class="p">(</span><span class="n">expires_in</span><span class="p">)</span> <span class="k">if</span> <span class="n">expires_in</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">None</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">expires_in</span><span class="p">)</span> <span class="k">if</span> <span class="n">expires_in</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span></div>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span>
+        <span class="k">return</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span></div>
 
-</div>
+
 <span class="k">class</span> <span class="nc">_LiveComOAuthService</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Provides method for getting OAuth tokens from the live.com authorization server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="n">DESKTOP_REDIRECTION_URI</span> <span class="o">=</span> <span class="s">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span>
+    <span class="n">DESKTOP_REDIRECTION_URI</span> <span class="o">=</span> <span class="s1">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -651,18 +653,18 @@
 <span class="sd">        :rtype: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="s">&#39;client_secret&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;client_secret&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;client_secret&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;client_secret&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span>
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="n">error_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="n">OAuthTokenRequestException</span><span class="p">(</span><span class="n">error_json</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">],</span> <span class="n">error_json</span><span class="p">[</span><span class="s">&#39;error_description&#39;</span><span class="p">])</span>
+            <span class="k">raise</span> <span class="n">OAuthTokenRequestException</span><span class="p">(</span><span class="n">error_json</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">],</span> <span class="n">error_json</span><span class="p">[</span><span class="s1">&#39;error_description&#39;</span><span class="p">])</span>
 
         <span class="n">r_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">OAuthTokens</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s">&#39;access_token&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s">&#39;expires_in&#39;</span><span class="p">]),</span> <span class="n">r_json</span><span class="p">[</span><span class="s">&#39;refresh_token&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">OAuthTokens</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;expires_in&#39;</span><span class="p">]),</span> <span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">])</span>
 </pre></div>
 
           </div>
@@ -673,14 +675,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -696,13 +695,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>bingads.v10.bulk.entities.bulk_negative_sites &mdash; Bing Ads SDK 10.4.8 documentation</title>
+    <title>bingads.v10.bulk.entities.bulk_negative_sites &#8212; Bing Ads SDK 11.5.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
@@ -14,17 +14,18 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '10.4.8',
+        VERSION:     '11.5.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
-    <link rel="top" title="Bing Ads SDK 10.4.8 documentation" href="../../../../../index.html" />
-    <link rel="up" title="Module code" href="../../../../index.html" /> 
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,8 +37,8 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -47,14 +48,14 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v10.bulk.entities.bulk_negative_sites</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span>
 
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.bulk_entity_identifier</span> <span class="kn">import</span> <span class="n">_BulkEntityIdentifier</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_DynamicColumnNameMapping</span>
-<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.multi_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_MultiRecordBulkEntity</span>
-<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="kn">import</span> <span class="n">bulk_str</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.bulk_entity_identifier</span> <span class="k">import</span> <span class="n">_BulkEntityIdentifier</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_DynamicColumnNameMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v10.internal.bulk.entities.multi_record_bulk_entity</span> <span class="k">import</span> <span class="n">_MultiRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.internal.extensions</span> <span class="k">import</span> <span class="n">bulk_str</span>
 
 
 <span class="k">class</span> <span class="nc">_BulkNegativeSite</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
@@ -66,8 +67,8 @@
 <span class="sd">    * :class:`.BulkCampaignNegativeSite`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">website</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">website</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">identifier</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_website</span> <span class="o">=</span> <span class="n">website</span>
@@ -83,7 +84,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_website</span>
 
-    <span class="nd">@website.setter</span>
+    <span class="nd">@website</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">website</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">website</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_website</span> <span class="o">=</span> <span class="n">website</span>
 
@@ -96,7 +97,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span>
 
-    <span class="nd">@status.setter</span>
+    <span class="nd">@status</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -104,7 +105,7 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Website</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">website</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;website&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;website&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -118,7 +119,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="kc">True</span>
 
     <span class="k">def</span> <span class="nf">enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_negative_sites_with_this_negative_site</span><span class="p">()</span>
@@ -151,12 +152,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">website</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                 <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">website</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">_BulkAdGroupNegativeSitesIdentifier</span><span class="p">(</span>
                 <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
                 <span class="n">ad_group_id</span><span class="o">=</span><span class="n">ad_group_id</span><span class="p">,</span>
@@ -177,7 +178,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_id</span>
 
-    <span class="nd">@ad_group_id.setter</span>
+    <span class="nd">@ad_group_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_id</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -192,7 +193,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_name</span>
 
-    <span class="nd">@ad_group_name.setter</span>
+    <span class="nd">@ad_group_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -207,14 +208,14 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">=</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="BulkAdGroupNegativeSite.create_negative_sites_with_this_negative_site"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSite.create_negative_sites_with_this_negative_site">[docs]</a>    <span class="k">def</span> <span class="nf">create_negative_sites_with_this_negative_site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">BulkAdGroupNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BulkAdGroupNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSite"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSite">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeSite</span><span class="p">(</span><span class="n">_BulkNegativeSite</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a negative site that is assigned to an campaign. Each negative site can be read or written in a bulk file.</span>
 
@@ -236,11 +237,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">website</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                 <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">website</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeSite</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">_BulkCampaignNegativeSitesIdentifier</span><span class="p">(</span>
                 <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
                 <span class="n">campaign_id</span><span class="o">=</span><span class="n">campaign_id</span><span class="p">,</span>
@@ -260,7 +261,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_id</span>
 
-    <span class="nd">@campaign_id.setter</span>
+    <span class="nd">@campaign_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_id</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -274,40 +275,40 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">campaign_name</span> <span class="o">=</span> <span class="n">value</span>
 
 <div class="viewcode-block" id="BulkCampaignNegativeSite.create_negative_sites_with_this_negative_site"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSite.create_negative_sites_with_this_negative_site">[docs]</a>    <span class="k">def</span> <span class="nf">create_negative_sites_with_this_negative_site</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">BulkCampaignNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">BulkCampaignNegativeSites</span><span class="p">(</span><span class="n">site</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <span class="k">class</span> <span class="nc">_BulkNegativeSites</span><span class="p">(</span><span class="n">_MultiRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This abstract base class for the bulk negative sites that assigned in sets to a campaign or ad group entity. &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_negative_sites</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_first_row_identifier</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_first_row_identifier</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_site</span> <span class="o">=</span> <span class="n">site</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="n">identifier</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Conflicting keyword arguments of site and identifier provided&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Conflicting keyword arguments of site and identifier provided&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">site_class</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Negative site object provided is not of type: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_class</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Negative site object provided is not of type: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">site_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_negative_sites</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_site</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_site</span><span class="o">.</span><span class="n">_identifier</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier_class</span><span class="p">):</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s">&#39;Negative site object provided is not of type: {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier_class</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+                    <span class="s1">&#39;Negative site object provided is not of type: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_first_row_identifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identifier</span><span class="o">.</span><span class="n">is_delete_row</span>
 
@@ -322,7 +323,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
 
-    <span class="nd">@status.setter</span>
+    <span class="nd">@status</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
 
@@ -344,10 +345,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_properties_not_null</span><span class="p">()</span>
 
         <span class="n">delete_row</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_identifier</span><span class="p">()</span>
-        <span class="n">delete_row</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="s">&#39;Deleted&#39;</span>
+        <span class="n">delete_row</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="s1">&#39;Deleted&#39;</span>
         <span class="n">row_writer</span><span class="o">.</span><span class="n">write_object_row</span><span class="p">(</span><span class="n">delete_row</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="s">&#39;Deleted&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="s1">&#39;Deleted&#39;</span><span class="p">:</span>
             <span class="k">return</span>
 
         <span class="k">for</span> <span class="n">site</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">convert_api_to_bulk_negative_sites</span><span class="p">():</span>
@@ -368,7 +369,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">read_related_data_from_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
-        <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">has_more_rows</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">while</span> <span class="n">has_more_rows</span><span class="p">:</span>
             <span class="n">site_success</span><span class="p">,</span> <span class="n">site</span> <span class="o">=</span> <span class="n">stream_reader</span><span class="o">.</span><span class="n">try_read</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">site_class</span><span class="p">,</span>
@@ -383,12 +384,12 @@
                 <span class="p">)</span>
                 <span class="k">if</span> <span class="n">identifier_success</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">identifier</span><span class="o">.</span><span class="n">is_delete_row</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_has_delete_all_row</span> <span class="o">=</span> <span class="kc">True</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">has_more_rows</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">has_more_rows</span> <span class="o">=</span> <span class="kc">False</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">reconstruct_api_objects</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="s">&#39;Active&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_negative_sites</span> <span class="k">else</span> <span class="s">&#39;Deleted&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="s1">&#39;Active&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bulk_negative_sites</span> <span class="k">else</span> <span class="s1">&#39;Deleted&#39;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">all_children_are_present</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -415,13 +416,13 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">ad_group_negative_sites</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">site</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">identifier</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                 <span class="n">ad_group_negative_sites</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
             <span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">,</span>
             <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span><span class="p">,</span>
@@ -444,7 +445,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span>
 
-    <span class="nd">@ad_group_negative_sites.setter</span>
+    <span class="nd">@ad_group_negative_sites</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_negative_sites</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span> <span class="o">=</span> <span class="n">ad_group_negative_sites</span>
 
@@ -459,7 +460,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span>
 
-    <span class="nd">@ad_group_name.setter</span>
+    <span class="nd">@ad_group_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ad_group_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
 
@@ -474,21 +475,21 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
 
 <div class="viewcode-block" id="BulkAdGroupNegativeSites.set_data_from_identifier"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.set_data_from_identifier">[docs]</a>    <span class="k">def</span> <span class="nf">set_data_from_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;AdGroupNegativeSites&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AdGroupNegativeSites&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">AdGroupId</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">ad_group_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">ad_group_name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_name</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_name</span></div>
+
 <div class="viewcode-block" id="BulkAdGroupNegativeSites.convert_api_to_bulk_negative_sites"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.convert_api_to_bulk_negative_sites">[docs]</a>    <span class="k">def</span> <span class="nf">convert_api_to_bulk_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_list_not_null_or_empty</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">,</span>
-            <span class="s">&#39;ad_group_negative_sites.negative_sites&#39;</span>
+            <span class="s1">&#39;ad_group_negative_sites.negative_sites&#39;</span>
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">convert_api_to_bulk_negative_site</span><span class="p">(</span><span class="n">website</span><span class="p">):</span>
@@ -499,11 +500,11 @@
             <span class="n">bulk_ad_group_negative_site</span><span class="o">.</span><span class="n">_website</span> <span class="o">=</span> <span class="n">website</span>
             <span class="k">return</span> <span class="n">bulk_ad_group_negative_site</span>
 
-        <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert_api_to_bulk_negative_site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert_api_to_bulk_negative_site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkAdGroupNegativeSites.reconstruct_api_objects"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkAdGroupNegativeSites.reconstruct_api_objects">[docs]</a>    <span class="k">def</span> <span class="nf">reconstruct_api_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">website</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">negative_sites</span><span class="p">))</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">website</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">negative_sites</span><span class="p">))</span></div>
+
     <span class="k">def</span> <span class="nf">_create_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_BulkAdGroupNegativeSitesIdentifier</span><span class="p">(</span>
             <span class="n">ad_group_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="o">.</span><span class="n">AdGroupId</span><span class="p">,</span>
@@ -512,7 +513,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_validate_properties_not_null</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="p">,</span> <span class="s">&#39;ad_group_negative_sites&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_negative_sites</span><span class="p">,</span> <span class="s1">&#39;ad_group_negative_sites&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -520,9 +521,9 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">BulkAdGroupNegativeSite</span>
+        <span class="k">return</span> <span class="n">BulkAdGroupNegativeSite</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSites"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeSites</span><span class="p">(</span><span class="n">_BulkNegativeSites</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents one or more negative sites that are assigned to an campaign. Each negative site can be read or written in a bulk file.</span>
 
@@ -543,12 +544,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">campaign_negative_sites</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">site</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">identifier</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                 <span class="n">campaign_negative_sites</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">site</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">identifier</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeSites</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">,</span>
             <span class="n">site</span><span class="o">=</span><span class="n">site</span><span class="p">,</span>
             <span class="n">identifier</span><span class="o">=</span><span class="n">identifier</span>
@@ -571,7 +572,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span>
 
-    <span class="nd">@campaign_negative_sites.setter</span>
+    <span class="nd">@campaign_negative_sites</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_negative_sites</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span> <span class="o">=</span> <span class="n">campaign_negative_sites</span>
 
@@ -585,20 +586,20 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
 
 <div class="viewcode-block" id="BulkCampaignNegativeSites.set_data_from_identifier"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.set_data_from_identifier">[docs]</a>    <span class="k">def</span> <span class="nf">set_data_from_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;CampaignNegativeSites&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V10</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;CampaignNegativeSites&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">campaign_negative_sites</span><span class="o">.</span><span class="n">CampaignId</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_name</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">identifier</span><span class="o">.</span><span class="n">campaign_name</span></div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSites.convert_api_to_bulk_negative_sites"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.convert_api_to_bulk_negative_sites">[docs]</a>    <span class="k">def</span> <span class="nf">convert_api_to_bulk_negative_sites</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate_list_not_null_or_empty</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">,</span>
-            <span class="s">&#39;campaign_negative_sites.negative_sites&#39;</span>
+            <span class="s1">&#39;campaign_negative_sites.negative_sites&#39;</span>
         <span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">convert_api_to_bulk_negative_site</span><span class="p">(</span><span class="n">website</span><span class="p">):</span>
@@ -608,11 +609,11 @@
             <span class="n">bulk_campaign_negative_site</span><span class="o">.</span><span class="n">_website</span> <span class="o">=</span> <span class="n">website</span>
             <span class="k">return</span> <span class="n">bulk_campaign_negative_site</span>
 
-        <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert_api_to_bulk_negative_site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="n">convert_api_to_bulk_negative_site</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BulkCampaignNegativeSites.reconstruct_api_objects"><a class="viewcode-back" href="../../../../../bingads.v10.bulk.entities.html#bingads.v10.bulk.entities.bulk_negative_sites.BulkCampaignNegativeSites.reconstruct_api_objects">[docs]</a>    <span class="k">def</span> <span class="nf">reconstruct_api_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">website</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">negative_sites</span><span class="p">))</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">NegativeSites</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">website</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">negative_sites</span><span class="p">))</span></div>
+
     <span class="k">def</span> <span class="nf">_create_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">_BulkCampaignNegativeSitesIdentifier</span><span class="p">(</span>
             <span class="n">campaign_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="o">.</span><span class="n">CampaignId</span><span class="p">,</span>
@@ -620,7 +621,7 @@
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_validate_properties_not_null</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="p">,</span> <span class="s">&#39;campaign_negative_sites&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_campaign_negative_sites</span><span class="p">,</span> <span class="s1">&#39;campaign_negative_sites&#39;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">identifier_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -628,11 +629,11 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">site_class</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">BulkCampaignNegativeSite</span>
+        <span class="k">return</span> <span class="n">BulkCampaignNegativeSite</span></div>
 
-</div>
+
 <span class="k">class</span> <span class="nc">_BulkNegativeSiteIdentifier</span><span class="p">(</span><span class="n">_BulkEntityIdentifier</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">entity_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">entity_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entity_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">entity_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">=</span> <span class="n">entity_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">entity_name</span>
@@ -657,23 +658,23 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">_status</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="bp">None</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">_entity_id</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_entity_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">_entity_id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_entity_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_DynamicColumnNameMapping</span><span class="p">(</span>
             <span class="n">header_func</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">_parent_column_name</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">_entity_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;_entity_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_entity_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">]</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">is_delete_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="s">&#39;Deleted&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">==</span> <span class="s1">&#39;Deleted&#39;</span>
 
     <span class="k">def</span> <span class="nf">read_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_BulkNegativeSiteIdentifier</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
@@ -683,8 +684,8 @@
 
 
 <span class="k">class</span> <span class="nc">_BulkCampaignNegativeSitesIdentifier</span><span class="p">(</span><span class="n">_BulkNegativeSiteIdentifier</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">campaign_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkCampaignNegativeSitesIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkCampaignNegativeSitesIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">status</span><span class="p">,</span>
             <span class="n">campaign_id</span><span class="p">,</span>
             <span class="n">campaign_name</span><span class="p">,</span>
@@ -692,7 +693,7 @@
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span>
@@ -710,7 +711,7 @@
     <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span>
 
-    <span class="nd">@campaign_id.setter</span>
+    <span class="nd">@campaign_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -718,7 +719,7 @@
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -732,11 +733,11 @@
 
 <span class="k">class</span> <span class="nc">_BulkAdGroupNegativeSitesIdentifier</span><span class="p">(</span><span class="n">_BulkNegativeSiteIdentifier</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                 <span class="n">status</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">ad_group_name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">campaign_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkAdGroupNegativeSitesIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span>
+                 <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ad_group_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkAdGroupNegativeSitesIdentifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">status</span><span class="p">,</span>
             <span class="n">ad_group_id</span><span class="p">,</span>
             <span class="n">ad_group_name</span><span class="p">,</span>
@@ -745,9 +746,9 @@
 
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="n">is_name_not_empty</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
             <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ad_group_name</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span>
@@ -766,7 +767,7 @@
     <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span>
 
-    <span class="nd">@ad_group_id.setter</span>
+    <span class="nd">@ad_group_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_id</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -774,7 +775,7 @@
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span>
 
-    <span class="nd">@ad_group_name.setter</span>
+    <span class="nd">@ad_group_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">ad_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_entity_name</span> <span class="o">=</span> <span class="n">value</span>
 
@@ -782,7 +783,7 @@
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
 
-    <span class="nd">@campaign_name.setter</span>
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
 
@@ -790,7 +791,7 @@
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -818,14 +819,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -841,13 +839,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 10.4.8 documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
     </div>
   </body>
 </html>

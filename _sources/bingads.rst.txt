@@ -1,0 +1,72 @@
+bingads package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    bingads.internal
+    bingads.reporting
+    bingads.v10
+    bingads.v11
+
+Submodules
+----------
+
+bingads\.authorization module
+-----------------------------
+
+.. automodule:: bingads.authorization
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.exceptions module
+--------------------------
+
+.. automodule:: bingads.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.manifest module
+------------------------
+
+.. automodule:: bingads.manifest
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.service\_client module
+-------------------------------
+
+.. automodule:: bingads.service_client
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.service\_info module
+-----------------------------
+
+.. automodule:: bingads.service_info
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.util module
+--------------------
+
+.. automodule:: bingads.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads
+    :members:
+    :undoc-members:
+    :show-inheritance:
