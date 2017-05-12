@@ -67,10 +67,10 @@
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-age-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.</code><code class="descname">BulkAdGroupAgeCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_age_criterion.html#BulkAdGroupAgeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.</code><code class="descname">BulkAdGroupAgeCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_age_criterion.html#BulkAdGroupAgeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Age Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Age Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Age Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -80,12 +80,6 @@ Ad Group Age Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -98,6 +92,12 @@ Ad Group Age Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_age_criterion.BulkAdGroupAgeCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -136,10 +136,10 @@ Ad Group Age Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-day-time-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.</code><code class="descname">BulkAdGroupDayTimeCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_day_time_criterion.html#BulkAdGroupDayTimeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.</code><code class="descname">BulkAdGroupDayTimeCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_day_time_criterion.html#BulkAdGroupDayTimeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Day Time Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Day Time Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Day Time Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -149,12 +149,6 @@ Ad Group Day Time Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -167,6 +161,12 @@ Ad Group Day Time Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion.BulkAdGroupDayTimeCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -205,10 +205,10 @@ Ad Group Day Time Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-device-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.</code><code class="descname">BulkAdGroupDeviceCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_device_criterion.html#BulkAdGroupDeviceCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.</code><code class="descname">BulkAdGroupDeviceCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_device_criterion.html#BulkAdGroupDeviceCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Device Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Device Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Device Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -218,12 +218,6 @@ Ad Group Device Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -236,6 +230,12 @@ Ad Group Device Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_device_criterion.BulkAdGroupDeviceCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -274,10 +274,10 @@ Ad Group Device Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-gender-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.</code><code class="descname">BulkAdGroupGenderCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_gender_criterion.html#BulkAdGroupGenderCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.</code><code class="descname">BulkAdGroupGenderCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_gender_criterion.html#BulkAdGroupGenderCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Gender Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Gender Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Gender Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -287,12 +287,6 @@ Ad Group Gender Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -305,6 +299,12 @@ Ad Group Gender Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_gender_criterion.BulkAdGroupGenderCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -343,10 +343,10 @@ Ad Group Gender Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-location-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.</code><code class="descname">BulkAdGroupLocationCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_location_criterion.html#BulkAdGroupLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.</code><code class="descname">BulkAdGroupLocationCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_location_criterion.html#BulkAdGroupLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Location Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Location Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Location Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -356,12 +356,6 @@ Ad Group Location Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -374,6 +368,12 @@ Ad Group Location Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_criterion.BulkAdGroupLocationCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -412,10 +412,10 @@ Ad Group Location Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-location-intent-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.</code><code class="descname">BulkAdGroupLocationIntentCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_location_intent_criterion.html#BulkAdGroupLocationIntentCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.</code><code class="descname">BulkAdGroupLocationIntentCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_location_intent_criterion.html#BulkAdGroupLocationIntentCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Location Intent Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Location Intent Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Age Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -425,12 +425,6 @@ Ad Group Location Intent Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -443,6 +437,12 @@ Ad Group Location Intent Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion.BulkAdGroupLocationIntentCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -481,10 +481,10 @@ Ad Group Location Intent Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-negative-location-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.</code><code class="descname">BulkAdGroupNegativeLocationCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_negative_location_criterion.html#BulkAdGroupNegativeLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.</code><code class="descname">BulkAdGroupNegativeLocationCriterion</code><span class="sig-paren">(</span><em>negative_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_negative_location_criterion.html#BulkAdGroupNegativeLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Negative Location Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.negative_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.negative_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">negative_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Negative Location Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Negative Location Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -494,12 +494,6 @@ Ad Group Negative Location Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -528,6 +522,12 @@ Ad Group Negative Location Criterion record in a bulk file.</p>
 </table>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.negative_ad_group_criterion">
+<code class="descname">negative_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.negative_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
+</dd></dl>
+
 <dl class="method">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.process_mappings_from_row_values">
 <code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_negative_location_criterion.html#BulkAdGroupNegativeLocationCriterion.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion.BulkAdGroupNegativeLocationCriterion.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
@@ -550,10 +550,10 @@ Ad Group Negative Location Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-ad-group-radius-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.</code><code class="descname">BulkAdGroupRadiusCriterion</code><span class="sig-paren">(</span><em>ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_radius_criterion.html#BulkAdGroupRadiusCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.</code><code class="descname">BulkAdGroupRadiusCriterion</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_ad_group_radius_criterion.html#BulkAdGroupRadiusCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Ad Group Radius Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">ad_group_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.biddable_ad_group_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
 Ad Group Radius Criterion record in a bulk file.</p>
 <p>For more information, see Ad Group Radius Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -563,12 +563,6 @@ Ad Group Radius Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_criterion">
-<code class="descname">ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Ad Group Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_name">
 <code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.ad_group_name" title="Permalink to this definition">¶</a></dt>
@@ -581,6 +575,12 @@ Ad Group Radius Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_ad_group_radius_criterion.BulkAdGroupRadiusCriterion.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Ad Group Criterion</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -619,10 +619,10 @@ Ad Group Radius Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-age-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.</code><code class="descname">BulkCampaignAgeCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_age_criterion.html#BulkCampaignAgeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.</code><code class="descname">BulkCampaignAgeCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_age_criterion.html#BulkCampaignAgeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Age Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Age Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Age Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -633,8 +633,8 @@ Campaign Age Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_age_criterion.BulkCampaignAgeCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -674,10 +674,10 @@ Campaign Age Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-day-time-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.</code><code class="descname">BulkCampaignDayTimeCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_day_time_criterion.html#BulkCampaignDayTimeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.</code><code class="descname">BulkCampaignDayTimeCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_day_time_criterion.html#BulkCampaignDayTimeCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Day Time Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Day Time Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Day Time Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -688,8 +688,8 @@ Campaign Day Time Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_day_time_criterion.BulkCampaignDayTimeCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -729,10 +729,10 @@ Campaign Day Time Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-device-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.</code><code class="descname">BulkCampaignDeviceCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_device_criterion.html#BulkCampaignDeviceCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.</code><code class="descname">BulkCampaignDeviceCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_device_criterion.html#BulkCampaignDeviceCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Device Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Device Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Device Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -743,8 +743,8 @@ Campaign Device Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_device_criterion.BulkCampaignDeviceCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -784,10 +784,10 @@ Campaign Device Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-gender-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.</code><code class="descname">BulkCampaignGenderCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_gender_criterion.html#BulkCampaignGenderCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.</code><code class="descname">BulkCampaignGenderCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_gender_criterion.html#BulkCampaignGenderCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Gender Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Gender Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Gender Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -798,8 +798,8 @@ Campaign Gender Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_gender_criterion.BulkCampaignGenderCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -839,10 +839,10 @@ Campaign Gender Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-location-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.</code><code class="descname">BulkCampaignLocationCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_location_criterion.html#BulkCampaignLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.</code><code class="descname">BulkCampaignLocationCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_location_criterion.html#BulkCampaignLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Location Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Location Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Location Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -853,8 +853,8 @@ Campaign Location Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_criterion.BulkCampaignLocationCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -894,10 +894,10 @@ Campaign Location Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-location-intent-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.</code><code class="descname">BulkCampaignLocationIntentCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_location_intent_criterion.html#BulkCampaignLocationIntentCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.</code><code class="descname">BulkCampaignLocationIntentCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_location_intent_criterion.html#BulkCampaignLocationIntentCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Location Intent Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Location Intent Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Location Intent Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -908,8 +908,8 @@ Campaign Location Intent Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion.BulkCampaignLocationIntentCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
@@ -949,10 +949,10 @@ Campaign Location Intent Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-negative-location-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.</code><code class="descname">BulkCampaignNegativeLocationCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_negative_location_criterion.html#BulkCampaignNegativeLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.</code><code class="descname">BulkCampaignNegativeLocationCriterion</code><span class="sig-paren">(</span><em>negative_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_negative_location_criterion.html#BulkCampaignNegativeLocationCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Negative Location Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.negative_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.negative_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">negative_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Negative Location Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Negative Location Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -962,12 +962,6 @@ Campaign Negative Location Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_reader.BulkFileReader" title="bingads.v10.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
-<dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
-<dd><p>Defines a Campaign Criterion</p>
-</dd></dl>
-
 <dl class="attribute">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_name">
 <code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.campaign_name" title="Permalink to this definition">¶</a></dt>
@@ -980,6 +974,12 @@ Campaign Negative Location Criterion record in a bulk file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.negative_campaign_criterion">
+<code class="descname">negative_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion.BulkCampaignNegativeLocationCriterion.negative_campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 
 <dl class="method">
@@ -1004,10 +1004,10 @@ Campaign Negative Location Criterion record in a bulk file.</p>
 <span id="bingads-v11-bulk-entities-target-criterions-bulk-campaign-radius-criterion-module"></span><h2>bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion module<a class="headerlink" href="#module-bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.</code><code class="descname">BulkCampaignRadiusCriterion</code><span class="sig-paren">(</span><em>campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_radius_criterion.html#BulkCampaignRadiusCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.</code><code class="descname">BulkCampaignRadiusCriterion</code><span class="sig-paren">(</span><em>biddable_campaign_criterion=None</em>, <em>campaign_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/entities/target_criterions/bulk_campaign_radius_criterion.html#BulkCampaignRadiusCriterion"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v11.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
 <p>Represents an Campaign Radius Criterion that can be read or written in a bulk file.</p>
-<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">campaign_criterion</span></code></a> property that can be read and written as fields of the
+<p>This class exposes the <a class="reference internal" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.biddable_campaign_criterion" title="bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.biddable_campaign_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_campaign_criterion</span></code></a> property that can be read and written as fields of the
 Campaign Radius Criterion record in a bulk file.</p>
 <p>For more information, see Campaign Radius Criterion at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
 <p><em>See also:</em></p>
@@ -1018,8 +1018,8 @@ Campaign Radius Criterion record in a bulk file.</p>
 <li><a class="reference internal" href="bingads.v10.bulk.html#bingads.v10.bulk.file_writer.BulkFileWriter" title="bingads.v10.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
 </ul>
 <dl class="attribute">
-<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.campaign_criterion">
-<code class="descname">campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.campaign_criterion" title="Permalink to this definition">¶</a></dt>
+<dt id="bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.biddable_campaign_criterion">
+<code class="descname">biddable_campaign_criterion</code><a class="headerlink" href="#bingads.v11.bulk.entities.target_criterions.bulk_campaign_radius_criterion.BulkCampaignRadiusCriterion.biddable_campaign_criterion" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a Campaign Criterion</p>
 </dd></dl>
 

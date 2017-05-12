@@ -8,6 +8,18 @@ Subpackages
 
     bingads.v11.internal.bulk
 
+Submodules
+----------
+
+bingads\.v11\.internal\.extensions module
+-----------------------------------------
+
+.. automodule:: bingads.v11.internal.extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
 Module contents
 ---------------
 
