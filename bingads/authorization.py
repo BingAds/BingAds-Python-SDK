@@ -375,6 +375,26 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         )
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
+    def request_oauth_tokens_by_authorization_code(self, code):
+        """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service using the
+        authorization received through the OAuth Flow.
+
+        :param code: The authorization code.
+        :return: OAuth tokens
+        :rtype: OAuthTokens
+        """
+        self._oauth_tokens = _LiveComOAuthService.get_access_token(
+            client_id=self.client_id,
+            client_secret=self.client_secret,
+            redirect_uri=self.redirection_uri,
+            grant_type='authorization_code',
+            code=code,
+        )
+
+        if self.token_refreshed_callback is not None:
+            self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
+        return self.oauth_tokens
+
     def request_oauth_tokens_by_response_uri(self, response_uri):
         """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.
 
