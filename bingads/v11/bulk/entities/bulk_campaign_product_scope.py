@@ -3,7 +3,7 @@ from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _Single
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.bulk.entities.common import _ProductConditionHelper
-from bingads.internal.extensions import bulk_str
+from bingads.v11.internal.extensions import bulk_str
 
 
 class BulkCampaignProductScope(_SingleRecordBulkEntity):

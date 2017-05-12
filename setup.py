@@ -39,6 +39,7 @@ setup(
         'bingads.v10.internal',
         'bingads.v10.internal.bulk',
         'bingads.v10.internal.bulk.entities',
+        'bingads.v11.reporting',
         'bingads.v11',
         'bingads.v11.bulk',
         'bingads.v11.bulk.entities',

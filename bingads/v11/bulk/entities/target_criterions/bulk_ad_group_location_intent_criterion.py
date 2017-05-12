@@ -3,12 +3,12 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 class BulkAdGroupLocationIntentCriterion(_SingleRecordBulkEntity):
     """ Represents an Ad Group Location Intent Criterion that can be read or written in a bulk file.
 
-    This class exposes the :attr:`ad_group_criterion` property that can be read and written as fields of the
+    This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written as fields of the
     Ad Group Location Intent Criterion record in a bulk file.
 
     For more information, see Ad Group Age Criterion at https://go.microsoft.com/fwlink/?linkid=846127.
@@ -22,30 +22,30 @@ class BulkAdGroupLocationIntentCriterion(_SingleRecordBulkEntity):
     """
 
     def __init__(self,
-                 ad_group_criterion=None,
+                 biddable_ad_group_criterion=None,
                  campaign_name=None,
                  ad_group_name=None, ):
         super(BulkAdGroupLocationIntentCriterion, self).__init__()
 
-        self._ad_group_criterion = ad_group_criterion
+        self._biddable_ad_group_criterion = biddable_ad_group_criterion
         self._campaign_name = campaign_name
         self._ad_group_name =ad_group_name
 
     _MAPPINGS = [
         _SimpleBulkMapping(
             _StringTable.Status,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Status),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'Status', v if v else None)
+            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.Status),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'Status', v if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'Id', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.Id),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'Id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.AdGroupId),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'AdGroupId', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.AdGroupId),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'AdGroupId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.Campaign,
@@ -59,20 +59,20 @@ class BulkAdGroupLocationIntentCriterion(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             _StringTable.Target,
-            field_to_csv=lambda c: field_to_csv_LocationIntentTarget(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationIntentTarget(c.ad_group_criterion, v)
+            field_to_csv=lambda c: field_to_csv_LocationIntentTarget(c.biddable_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_LocationIntentTarget(c.biddable_ad_group_criterion, v)
         ),
     ]
 
     @property
-    def ad_group_criterion(self):
+    def biddable_ad_group_criterion(self):
         """ Defines a Ad Group Criterion """
 
-        return self._ad_group_criterion
+        return self._biddable_ad_group_criterion
 
-    @ad_group_criterion.setter
-    def ad_group_criterion(self, ad_group_criterion):
-        self._ad_group_criterion = ad_group_criterion
+    @biddable_ad_group_criterion.setter
+    def biddable_ad_group_criterion(self, biddable_ad_group_criterion):
+        self._biddable_ad_group_criterion = biddable_ad_group_criterion
 
     @property
     def campaign_name(self):
@@ -102,14 +102,14 @@ class BulkAdGroupLocationIntentCriterion(_SingleRecordBulkEntity):
 
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.ad_group_criterion, 'ad_group_criterion')
+        self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
         self.convert_to_values(row_values, BulkAdGroupLocationIntentCriterion._MAPPINGS)
 
     def process_mappings_from_row_values(self, row_values):
-        self._ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('BiddableAdGroupCriterion')
-        self._ad_group_criterion.Type = 'BiddableAdGroupCriterion'
-        self._ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationIntentCriterion')
-        self._ad_group_criterion.Criterion.Type = 'LocationIntentCriterion'
+        self._biddable_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('BiddableAdGroupCriterion')
+        self._biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
+        self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationIntentCriterion')
+        self._biddable_ad_group_criterion.Criterion.Type = 'LocationIntentCriterion'
         row_values.convert_to_entity(self, BulkAdGroupLocationIntentCriterion._MAPPINGS)
 
     def read_additional_data(self, stream_reader):

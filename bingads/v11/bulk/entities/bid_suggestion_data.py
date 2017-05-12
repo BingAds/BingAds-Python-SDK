@@ -3,7 +3,7 @@ from bingads.v11.bulk.entities import PerformanceData
 from bingads.v11.internal.bulk.bulk_object import _BulkObject
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 
 class BidSuggestionData:

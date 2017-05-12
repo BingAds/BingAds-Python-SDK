@@ -4,7 +4,7 @@ from bingads.v11.internal.bulk.entities.bulk_entity_identifier import _BulkEntit
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 Date = _CAMPAIGN_OBJECT_FACTORY_V11.create('Date')
 

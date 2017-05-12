@@ -6,7 +6,7 @@ from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
 
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 _ReviewAdExtension = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('ReviewAdExtension'))
 

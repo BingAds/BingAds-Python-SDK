@@ -3,8 +3,8 @@ from bingads.v11.bulk.entities import QualityScoreData, PerformanceData
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
-# from bingads.internal.extensions import bulk_str, csv_to_budget, budget_to_csv
-from bingads.internal.extensions import *
+# from bingads.v11.internal.extensions import bulk_str, csv_to_budget, budget_to_csv
+from bingads.v11.internal.extensions import *
 
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('ShoppingSetting'))
 

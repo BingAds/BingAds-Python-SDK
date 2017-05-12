@@ -3,12 +3,12 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
     """ Represents an Ad Group Negative Location Criterion that can be read or written in a bulk file.
 
-    This class exposes the :attr:`ad_group_criterion` property that can be read and written as fields of the
+    This class exposes the :attr:`negative_ad_group_criterion` property that can be read and written as fields of the
     Ad Group Negative Location Criterion record in a bulk file.
 
     For more information, see Ad Group Negative Location Criterion at https://go.microsoft.com/fwlink/?linkid=846127.
@@ -22,30 +22,30 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
     """
 
     def __init__(self,
-                 ad_group_criterion=None,
+                 negative_ad_group_criterion=None,
                  campaign_name=None,
                  ad_group_name=None, ):
         super(BulkAdGroupNegativeLocationCriterion, self).__init__()
 
-        self._ad_group_criterion = ad_group_criterion
+        self._negative_ad_group_criterion = negative_ad_group_criterion
         self._campaign_name = campaign_name
         self._ad_group_name =ad_group_name
 
     _MAPPINGS = [
         _SimpleBulkMapping(
             _StringTable.Status,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Status),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'Status', v if v else None)
+            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.Status),
+            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'Status', v if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'Id', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.Id),
+            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'Id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.AdGroupId),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'AdGroupId', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.AdGroupId),
+            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'AdGroupId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.Campaign,
@@ -59,30 +59,30 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             _StringTable.Target,
-            field_to_csv=lambda c: field_to_csv_LocationTarget(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.ad_group_criterion, long(v) if v else None)
+            field_to_csv=lambda c: field_to_csv_LocationTarget(c.negative_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.negative_ad_group_criterion, long(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.SubType,
-            field_to_csv=lambda c: field_to_csv_LocationType(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationType(c.ad_group_criterion, v)
+            field_to_csv=lambda c: field_to_csv_LocationType(c.negative_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_LocationType(c.negative_ad_group_criterion, v)
         ),
         _SimpleBulkMapping(
             _StringTable.Name,
-            field_to_csv=lambda c: field_to_csv_LocationName(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationName(c.ad_group_criterion, v)
+            field_to_csv=lambda c: field_to_csv_LocationName(c.negative_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_LocationName(c.negative_ad_group_criterion, v)
         ),
     ]
 
     @property
-    def ad_group_criterion(self):
+    def negative_ad_group_criterion(self):
         """ Defines a Ad Group Criterion """
 
-        return self._ad_group_criterion
+        return self._negative_ad_group_criterion
 
-    @ad_group_criterion.setter
-    def ad_group_criterion(self, ad_group_criterion):
-        self._ad_group_criterion = ad_group_criterion
+    @negative_ad_group_criterion.setter
+    def negative_ad_group_criterion(self, negative_ad_group_criterion):
+        self._negative_ad_group_criterion = negative_ad_group_criterion
 
     @property
     def campaign_name(self):
@@ -112,14 +112,14 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
 
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.ad_group_criterion, 'ad_group_criterion')
+        self._validate_property_not_null(self.negative_ad_group_criterion, 'negative_ad_group_criterion')
         self.convert_to_values(row_values, BulkAdGroupNegativeLocationCriterion._MAPPINGS)
 
     def process_mappings_from_row_values(self, row_values):
-        self._ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('NegativeAdGroupCriterion')
-        self._ad_group_criterion.Type = 'NegativeAdGroupCriterion'
-        self._ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationCriterion')
-        self._ad_group_criterion.Criterion.Type = 'LocationCriterion'
+        self._negative_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('NegativeAdGroupCriterion')
+        self._negative_ad_group_criterion.Type = 'NegativeAdGroupCriterion'
+        self._negative_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationCriterion')
+        self._negative_ad_group_criterion.Criterion.Type = 'LocationCriterion'
         row_values.convert_to_entity(self, BulkAdGroupNegativeLocationCriterion._MAPPINGS)
 
     def read_additional_data(self, stream_reader):

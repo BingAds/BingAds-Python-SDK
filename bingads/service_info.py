@@ -25,6 +25,11 @@ _SERVICE_INFO_LIST = [
         "production",
         "https://clientcenter.api.bingads.microsoft.com/Api/Billing/v9/CustomerBillingService.svc?singleWsdl"
     ),
+    _ServiceInfo(
+        "customerbilling",
+        "sandbox",
+        "https://clientcenter.api.sandbox.bingads.microsoft.com/Api/Billing/v9/CustomerBillingService.svc?singleWsdl"
+    ),
 
     # customer management
     _ServiceInfo(
@@ -100,7 +105,6 @@ SERVICE_INFO_DICT_V10 = {}
 for service_info in _SERVICE_INFO_LIST_V10:
     SERVICE_INFO_DICT_V10[(service_info.name, service_info.env)] = service_info
 
-
 _SERVICE_INFO_LIST_V11 = [
     # ad insight service
     _ServiceInfo(
@@ -136,6 +140,30 @@ _SERVICE_INFO_LIST_V11 = [
         "campaignmanagement",
         "sandbox",
         "https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v11/CampaignManagementService.svc?singleWsdl"
+    ),
+
+    # customer billing
+    _ServiceInfo(
+        "customerbilling",
+        "production",
+        "https://clientcenter.api.bingads.microsoft.com/Api/Billing/v11/CustomerBillingService.svc?singleWsdl"
+    ),
+    _ServiceInfo(
+        "customerbilling",
+        "sandbox",
+        "https://clientcenter.api.sandbox.bingads.microsoft.com/Api/Billing/v11/CustomerBillingService.svc?singleWsdl"
+    ),
+
+    # customer management
+    _ServiceInfo(
+        "customermanagement",
+        "production",
+        "https://clientcenter.api.bingads.microsoft.com/Api/CustomerManagement/v11/CustomerManagementService.svc?singleWsdl"
+    ),
+    _ServiceInfo(
+        "customermanagement",
+        "sandbox",
+        "https://clientcenter.api.sandbox.bingads.microsoft.com/Api/CustomerManagement/v11/CustomerManagementService.svc?singleWsdl"
     ),
 
     # reporting

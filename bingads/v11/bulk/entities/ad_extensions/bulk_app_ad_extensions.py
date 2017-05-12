@@ -5,7 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 
 _AppAdExtension = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('AppAdExtension'))

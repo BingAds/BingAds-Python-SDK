@@ -2,7 +2,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _DynamicColumnNameMapping
-from bingads.internal.extensions import bulk_str
+from bingads.v11.internal.extensions import bulk_str
 
 
 class _BulkNegativeKeyword(_SingleRecordBulkEntity):

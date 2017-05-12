@@ -6,7 +6,7 @@ from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.bulk.entities.bulk_entity import BulkEntity
 from bingads.v11.bulk.entities.bulk_error import BulkError
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 
 class _SingleRecordBulkEntity(with_metaclass(ABCMeta, BulkEntity)):

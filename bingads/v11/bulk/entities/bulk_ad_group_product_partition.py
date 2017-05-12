@@ -4,8 +4,8 @@ from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _Single
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.bulk.entities.common import PerformanceData
-# from bingads.internal.extensions import bulk_str
-from bingads.internal.extensions import *
+# from bingads.v11.internal.extensions import bulk_str
+from bingads.v11.internal.extensions import *
 
 _BiddableAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('BiddableAdGroupCriterion'))
 _NegativeAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('NegativeAdGroupCriterion'))

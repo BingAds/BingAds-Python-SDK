@@ -1,7 +1,7 @@
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 
 
 class BulkAccount(_SingleRecordBulkEntity):

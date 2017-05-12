@@ -2,7 +2,7 @@ from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 
-from bingads.internal.extensions import *
+from bingads.v11.internal.extensions import *
 from .common import _BulkAdExtensionBase
 from .common import _BulkCampaignAdExtensionAssociation
 from .common import _BulkAdGroupAdExtensionAssociation
