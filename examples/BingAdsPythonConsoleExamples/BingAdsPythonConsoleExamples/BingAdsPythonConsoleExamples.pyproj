@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>8c0b9e76-2267-4699-857d-42f5b7055310</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>v10\ConsoleGettingStarted.py</StartupFile>
+    <StartupFile>v11\console_getting_started.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -27,6 +27,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="v10\" />
+    <Folder Include="v11\" />
     <Folder Include="v9\" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +53,30 @@
     <Compile Include="v10\RemarketingLists.py" />
     <Compile Include="v10\ShoppingCampaigns.py" />
     <Compile Include="v10\Targets.py" />
+    <Compile Include="v11\ad_extensions.py" />
+    <Compile Include="v11\auth_helper.py" />
+    <Compile Include="v11\budget_opportunities.py" />
+    <Compile Include="v11\bulk_ad_extensions.py" />
+    <Compile Include="v11\bulk_helper.py" />
+    <Compile Include="v11\bulk_keywords_ads.py" />
+    <Compile Include="v11\bulk_keyword_bid_update.py" />
+    <Compile Include="v11\bulk_product_partition_bid_update.py" />
+    <Compile Include="v11\bulk_remarketing_lists.py" />
+    <Compile Include="v11\bulk_service_manager_demo.py" />
+    <Compile Include="v11\bulk_shopping_campaigns.py" />
+    <Compile Include="v11\console_getting_started.py" />
+    <Compile Include="v11\conversion_goals.py" />
+    <Compile Include="v11\customer_signup.py" />
+    <Compile Include="v11\geographical_locations.py" />
+    <Compile Include="v11\invite_user.py" />
+    <Compile Include="v11\keywords_ads.py" />
+    <Compile Include="v11\manage_client.py" />
+    <Compile Include="v11\negative_keywords.py" />
+    <Compile Include="v11\output_helper.py" />
+    <Compile Include="v11\remarketing_lists.py" />
+    <Compile Include="v11\report_requests.py" />
+    <Compile Include="v11\search_user_accounts.py" />
+    <Compile Include="v11\shopping_campaigns.py" />
     <Compile Include="v9\CustomerSignup.py" />
     <Compile Include="v9\InviteUser.py" />
     <Compile Include="v9\ManageClient.py" />

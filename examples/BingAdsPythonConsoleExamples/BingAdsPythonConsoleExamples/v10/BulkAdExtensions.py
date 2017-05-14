@@ -1126,8 +1126,8 @@ if __name__ == '__main__':
         authorization_data.account_id=accounts['Account'][0].Id
         authorization_data.customer_id=accounts['Account'][0].ParentCustomerId
 
-        # To prepare for the sitelink ad extensions migration in 2017, you will need to determine
-        # whether the account has been migrated from SiteLinksAdExtension to Sitelink2AdExtension. 
+        # To prepare for the sitelink ad extensions migration by the end of September 2017, you will need 
+        # to determine whether the account has been migrated from SiteLinksAdExtension to Sitelink2AdExtension. 
         # All ad extension service operations available for both types of sitelinks; however you will 
         # need to determine which type to add, update, and retrieve.
 
