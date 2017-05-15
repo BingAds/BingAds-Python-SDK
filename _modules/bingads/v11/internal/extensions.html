@@ -131,37 +131,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">False</span>
 
-
 <div class="viewcode-block" id="csv_to_budget"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_budget">[docs]</a><span class="k">def</span> <span class="nf">csv_to_budget</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="p">):</span>
-    <span class="n">success</span><span class="p">,</span> <span class="n">budget_type</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="n">success</span><span class="p">,</span> <span class="n">budget_row_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
-        <span class="k">return</span>
-    <span class="n">budget_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">budget_row_value</span><span class="p">)</span> <span class="k">if</span> <span class="n">budget_row_value</span> <span class="k">else</span> <span class="kc">None</span>
-
-    <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span> <span class="o">=</span> <span class="n">budget_type</span>
-    <span class="k">if</span> <span class="n">_is_daily_budget</span><span class="p">(</span><span class="n">budget_type</span><span class="p">):</span>
-        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span> <span class="o">=</span> <span class="n">budget_value</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">MonthlyBudget</span> <span class="o">=</span> <span class="n">budget_value</span></div>
-
-
-<div class="viewcode-block" id="budget_to_csv"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.budget_to_csv">[docs]</a><span class="k">def</span> <span class="nf">budget_to_csv</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-    <span class="n">budget_type</span> <span class="o">=</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
-        <span class="k">return</span>
-
-    <span class="k">if</span> <span class="n">_is_daily_budget</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">budget_type</span><span class="p">)):</span>
-        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">MonthlyBudget</span><span class="p">)</span></div>
-
-
-<span class="c1"># TODO as version specific logic added, consider to separate extensions with ap versions</span>
-<div class="viewcode-block" id="csv_to_budget_v11"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_budget_v11">[docs]</a><span class="k">def</span> <span class="nf">csv_to_budget_v11</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="p">):</span>
     <span class="n">success</span><span class="p">,</span> <span class="n">budget_type</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
         <span class="k">return</span>
@@ -175,7 +145,7 @@
     <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span> <span class="o">=</span> <span class="n">budget_value</span></div>
 
 
-<div class="viewcode-block" id="budget_to_csv_v11"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.budget_to_csv_v11">[docs]</a><span class="k">def</span> <span class="nf">budget_to_csv_v11</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+<div class="viewcode-block" id="budget_to_csv"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.budget_to_csv">[docs]</a><span class="k">def</span> <span class="nf">budget_to_csv</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
     <span class="n">budget_type</span> <span class="o">=</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BudgetType</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
         <span class="k">return</span>
@@ -506,6 +476,17 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown minute&#39;</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="parse_fixed_bid"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_fixed_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_fixed_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">fixed_bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;FixedBid&#39;</span><span class="p">)</span>
+    <span class="n">fixed_bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">fixed_bid</span></div>
+
+<div class="viewcode-block" id="fixed_bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.fixed_bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">fixed_bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;Amount&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="parse_minute"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_minute">[docs]</a><span class="k">def</span> <span class="nf">parse_minute</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="n">minute_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>

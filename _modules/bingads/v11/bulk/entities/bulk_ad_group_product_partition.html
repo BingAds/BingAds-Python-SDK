@@ -128,15 +128,13 @@
     <span class="k">def</span> <span class="nf">_write_bid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
         <span class="n">criterion</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">_BiddableAdGroupCriterion</span><span class="p">)</span> <span class="ow">and</span> \
-                <span class="n">criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="p">,</span> <span class="s1">&#39;Bid&#39;</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">ad_group_bid_bulk_str</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="o">.</span><span class="n">Bid</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">None</span>
+                <span class="n">criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fixed_bid_bulk_str</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_read_bid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">row_value</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="p">,</span> <span class="n">_BiddableAdGroupCriterion</span><span class="p">):</span>
-            <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="o">.</span><span class="n">Bid</span> <span class="o">=</span> <span class="n">parse_ad_group_bid</span><span class="p">(</span><span class="n">row_value</span><span class="p">)</span>
+            <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">parse_fixed_bid</span><span class="p">(</span><span class="n">row_value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
 
