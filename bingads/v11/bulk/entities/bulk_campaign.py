@@ -221,7 +221,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: c.campaign.TimeZone,
             csv_to_field=lambda c, v: setattr(c.campaign, 'TimeZone', v)
         ),
-        _ComplexBulkMapping(budget_to_csv_v11, csv_to_budget_v11),
+        _ComplexBulkMapping(budget_to_csv, csv_to_budget),
         _SimpleBulkMapping(
             header=_StringTable.BidAdjustment,
             field_to_csv=lambda c: bulk_str(c.campaign.NativeBidAdjustment),

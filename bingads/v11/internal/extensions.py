@@ -81,37 +81,7 @@ def _is_daily_budget(budget_type):
     else:
         return False
 
-
 def csv_to_budget(row_values, bulk_campaign):
-    success, budget_type = row_values.try_get_value(_StringTable.BudgetType)
-    if not success or not budget_type:
-        return
-
-    success, budget_row_value = row_values.try_get_value(_StringTable.Budget)
-    if not success:
-        return
-    budget_value = float(budget_row_value) if budget_row_value else None
-
-    bulk_campaign.campaign.BudgetType = budget_type
-    if _is_daily_budget(budget_type):
-        bulk_campaign.campaign.DailyBudget = budget_value
-    else:
-        bulk_campaign.campaign.MonthlyBudget = budget_value
-
-
-def budget_to_csv(bulk_campaign, row_values):
-    budget_type = bulk_campaign.campaign.BudgetType
-    if not budget_type:
-        return
-
-    if _is_daily_budget(str(budget_type)):
-        row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
-    else:
-        row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.MonthlyBudget)
-
-
-# TODO as version specific logic added, consider to separate extensions with ap versions
-def csv_to_budget_v11(row_values, bulk_campaign):
     success, budget_type = row_values.try_get_value(_StringTable.BudgetType)
     if not success or not budget_type:
         return
@@ -125,7 +95,7 @@ def csv_to_budget_v11(row_values, bulk_campaign):
     bulk_campaign.campaign.DailyBudget = budget_value
 
 
-def budget_to_csv_v11(bulk_campaign, row_values):
+def budget_to_csv(bulk_campaign, row_values):
     budget_type = bulk_campaign.campaign.BudgetType
     if not budget_type:
         return
@@ -456,6 +426,17 @@ def minute_bulk_str(value):
     else:
         raise ValueError('Unknown minute')
 
+def parse_fixed_bid(value):
+    if not value:
+        return None
+    fixed_bid = _CAMPAIGN_OBJECT_FACTORY_V11.create('FixedBid')
+    fixed_bid.Amount = float(value)
+    return fixed_bid
+
+def fixed_bid_bulk_str(value):
+    if value is None or not hasattr(value, 'Amount') or value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
 
 def parse_minute(value):
     minute_number = int(value)

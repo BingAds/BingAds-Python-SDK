@@ -78,15 +78,13 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
     def _write_bid(cls, entity):
         criterion = entity.ad_group_criterion
         if isinstance(criterion, _BiddableAdGroupCriterion) and \
-                criterion.CriterionBid is not None and hasattr(criterion.CriterionBid, 'Bid'):
-            return ad_group_bid_bulk_str(entity.ad_group_criterion.CriterionBid.Bid)
-        else:
-            return None
+                criterion.CriterionBid is not None:
+            return fixed_bid_bulk_str(entity.ad_group_criterion.CriterionBid)
 
     @classmethod
     def _read_bid(cls, entity, row_value):
         if isinstance(entity.ad_group_criterion, _BiddableAdGroupCriterion):
-            entity.ad_group_criterion.CriterionBid.Bid = parse_ad_group_bid(row_value)
+            entity.ad_group_criterion.CriterionBid = parse_fixed_bid(row_value)
         else:
             pass
 

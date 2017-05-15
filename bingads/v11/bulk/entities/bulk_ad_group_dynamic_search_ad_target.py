@@ -9,7 +9,7 @@ from bingads.v11.internal.extensions import *
 class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
     """ Represents a Ad Group Criterion that can be read or written in a bulk file.
 
-    This class exposes the :attr:`ad_group_criterion` property that can be read and written as fields of the
+    This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written as fields of the
     Ad Group Dynamic Search Ad Target record in a bulk file.
 
     For more information, see Ad Group Dynamic Search Ad Target at https://go.microsoft.com/fwlink/?linkid=836837.
@@ -26,13 +26,13 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
                  campaign_name=None,
                  ad_group_name=None,
                  status=None,
-                 ad_group_criterion=None):
+                 biddable_ad_group_criterion=None):
         super(BulkAdGroupDynamicSearchAdTarget, self).__init__()
 
         self._campaign_name = campaign_name
         self._ad_group_name = ad_group_name
         self._status = status
-        self._ad_group_criterion = ad_group_criterion
+        self._biddable_ad_group_criterion = biddable_ad_group_criterion
         self._performance_data = None
 
 
@@ -44,13 +44,13 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'Id', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.Id),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'Id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.ad_group_criterion.AdGroupId),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'AdGroupId', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.AdGroupId),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'AdGroupId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Campaign,
@@ -64,27 +64,27 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Bid,
-            field_to_csv=lambda c: ad_group_bid_bulk_str(c.ad_group_criterion.CriterionBid.Amount),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion.CriterionBid, 'Amount', parse_ad_group_bid(v))
+            field_to_csv=lambda c: fixed_bid_bulk_str(c.biddable_ad_group_criterion.CriterionBid),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'CriterionBid', parse_fixed_bid(v))
         ),
         _SimpleBulkMapping(
             header=_StringTable.Name,
-            field_to_csv=lambda c: field_to_csv_WebpageParameter_CriterionName(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_WebpageParameter_CriterionName(c.ad_group_criterion, v)
+            field_to_csv=lambda c: field_to_csv_WebpageParameter_CriterionName(c.biddable_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_WebpageParameter_CriterionName(c.biddable_ad_group_criterion, v)
         ),
         _ComplexBulkMapping(
-            entity_to_csv=lambda c, v: entity_to_csv_DSAWebpageParameter(c.ad_group_criterion, v),
-            csv_to_entity=lambda v, c: csv_to_entity_DSAWebpageParameter(v, c.ad_group_criterion)
+            entity_to_csv=lambda c, v: entity_to_csv_DSAWebpageParameter(c.biddable_ad_group_criterion, v),
+            csv_to_entity=lambda v, c: csv_to_entity_DSAWebpageParameter(v, c.biddable_ad_group_criterion)
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_optional_str(c.ad_group_criterion.TrackingUrlTemplate),
-            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'TrackingUrlTemplate', v if v else None)
+            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.TrackingUrlTemplate),
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'TrackingUrlTemplate', v if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CustomParameter,
-            field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad_group_criterion, v)
+            field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.biddable_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.biddable_ad_group_criterion, v)
         ),
     ]
 
@@ -132,33 +132,33 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
         self._status = status
 
     @property
-    def ad_group_criterion(self):
+    def biddable_ad_group_criterion(self):
         """ Defines a Ad Group Criterion """
 
-        return self._ad_group_criterion
+        return self._biddable_ad_group_criterion
 
-    @ad_group_criterion.setter
-    def ad_group_criterion(self, ad_group_criterion):
-        self._ad_group_criterion = ad_group_criterion
+    @biddable_ad_group_criterion.setter
+    def biddable_ad_group_criterion(self, biddable_ad_group_criterion):
+        self._biddable_ad_group_criterion = biddable_ad_group_criterion
 
     @property
     def performance_data(self):
         return self._performance_data
 
     def process_mappings_from_row_values(self, row_values):
-        self._ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('BiddableAdGroupCriterion')
-        self._ad_group_criterion.Type = 'BiddableAdGroupCriterion'
-        self._ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:Webpage')
-        self._ad_group_criterion.Criterion.Type = 'Webpage'
-        self._ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V11.create('FixedBid')
-        self._ad_group_criterion.CriterionBid.Type = 'FixedBid'
+        self._biddable_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('BiddableAdGroupCriterion')
+        self._biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
+        self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:Webpage')
+        self._biddable_ad_group_criterion.Criterion.Type = 'Webpage'
+        self._biddable_ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V11.create('FixedBid')
+        self._biddable_ad_group_criterion.CriterionBid.Type = 'FixedBid'
 
         row_values.convert_to_entity(self, BulkAdGroupDynamicSearchAdTarget._MAPPINGS)
 
         self._performance_data = PerformanceData.read_from_row_values_or_null(row_values)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.ad_group_criterion, 'ad_group_criterion')
+        self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
         self.convert_to_values(row_values, BulkAdGroupDynamicSearchAdTarget._MAPPINGS)
 
         PerformanceData.write_to_row_values_if_not_null(self._performance_data, row_values)
