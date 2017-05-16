@@ -1,9 +1,3 @@
-import sys
-import webbrowser
-from time import gmtime, strftime
-from suds import WebFault
-from decimal import Decimal
-
 from auth_helper import *
 from bulk_helper import *
 from output_helper import *

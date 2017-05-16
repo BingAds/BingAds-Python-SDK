@@ -1,3 +1,8 @@
+import sys
+import webbrowser
+from time import gmtime, strftime
+from suds import WebFault
+
 from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.v11 import *
@@ -64,7 +69,7 @@ def authenticate_with_username(authorization_data):
         password=PASSWORD
     )
 
-    # Assign this authentication instance to the global authorization_data. 
+    # Assign this authentication instance to the authorization_data. 
     authorization_data.authentication=authentication
  
 def authenticate_with_oauth(authorization_data):
@@ -77,7 +82,7 @@ def authenticate_with_oauth(authorization_data):
     # cross site request forgery (CSRF). 
     authentication.state=CLIENT_STATE
 
-    # Assign this authentication instance to the global authorization_data. 
+    # Assign this authentication instance to the authorization_data. 
     authorization_data.authentication=authentication   
 
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
@@ -91,15 +96,13 @@ def authenticate_with_oauth(authorization_data):
         if refresh_token is not None:
             authorization_data.authentication.request_oauth_tokens_by_refresh_token(refresh_token)
         else:
-            request_user_consent()
+            request_user_consent(authorization_data)
     except OAuthTokenRequestException:
         # The user could not be authenticated or the grant is expired. 
         # The user must first sign in and if needed grant the client application access to the requested scope.
-        request_user_consent()
+        request_user_consent(authorization_data)
             
-def request_user_consent():
-    global authorization_data
-
+def request_user_consent(authorization_data):
     webbrowser.open(authorization_data.authentication.get_authorization_endpoint(), new=1)
     # For Python 3.x use 'input' instead of 'raw_input'
     if(sys.version_info.major >= 3):
