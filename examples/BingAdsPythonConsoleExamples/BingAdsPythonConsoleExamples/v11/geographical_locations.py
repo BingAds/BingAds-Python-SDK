@@ -1,7 +1,4 @@
 import urllib.request as urllib2
-import sys
-import webbrowser
-from suds import WebFault
 
 from auth_helper import *
 from output_helper import *

@@ -1,8 +1,3 @@
-import sys
-import webbrowser
-from time import gmtime, strftime
-from suds import WebFault
-
 # The length of the Remarketing Rule field can be large. You may need to adjust the 
 # field size limit to avoid the field larger than field limit csv error.
 

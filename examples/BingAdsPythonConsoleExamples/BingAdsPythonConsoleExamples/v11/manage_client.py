@@ -1,8 +1,4 @@
 import datetime
-import sys
-import webbrowser
-from time import gmtime, strftime
-from suds import WebFault
 
 from auth_helper import *
 from output_helper import *
