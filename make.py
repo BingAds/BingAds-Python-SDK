@@ -110,7 +110,7 @@ def make_execution_plan(func_name):
                 next_tasks[dependent_func] = []
             next_tasks[dependent_func].append(current)
     while len(in_degree) != 0:
-        for t in in_degree.keys():
+        for t in list(in_degree.keys()):
             # can be optimized here, use linear search for easy to implemented and no performance concern currently
             if in_degree[t] == 0:
                 t_selected = t
@@ -205,19 +205,19 @@ if __name__ == '__main__':
             print('No task defined yet.')
             exit(0)
         max_length = 0
-        for key in tasks.keys():
+        for key in list(tasks.keys()):
             if len(key) > max_length:
                 max_length = len(key)
         format_str = '{0:<' + str(max_length) + '}  --  {1}'
-        for key in tasks.keys():
-            print(format_str.format(key, tasks[key]))
+        for key in list(tasks.keys()):
+            print((format_str.format(key, tasks[key])))
     elif len(argv) > 2:
         print('Only support one task at a time')
         exit(-1)
     else:
         task_name = argv[1]
         if task_name not in tasks:
-            print(str.format("Task: '{0}' not defined", task_name))
+            print((str.format("Task: '{0}' not defined", task_name)))
             exit(-1)
         task_names = make_execution_plan(task_name)
         for task_name in task_names:

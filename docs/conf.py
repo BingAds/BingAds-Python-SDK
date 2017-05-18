@@ -21,7 +21,7 @@ import os
 # relative to the documentation root, use os.path.abspath to make it
 # absolute, like shown here.
 sys.path.insert(0, os.path.abspath('../bingads'))
-print(sys.path)
+print((sys.path))
 
 # Get the project root dir, which is the parent dir of this
 cwd = os.getcwd()
@@ -56,8 +56,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Bing Ads SDK'
-copyright = u'2016, Bing Ads SDK Team'
+project = 'Bing Ads SDK'
+copyright = '2016, Bing Ads SDK Team'
 
 # The version info for the project you're documenting, acts as replacement
 # for |version| and |release|, also used in various other places throughout
@@ -210,8 +210,8 @@ latex_elements = {
 # [howto/manual]).
 latex_documents = [
     ('index', 'bingads.tex',
-     u'Bing Ads SDK Documentation',
-     u'Bing Ads SDK Team', 'manual'),
+     'Bing Ads SDK Documentation',
+     'Bing Ads SDK Team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at
@@ -241,8 +241,8 @@ latex_documents = [
 # (source start file, name, description, authors, manual section).
 man_pages = [
     ('index', 'bingads',
-     u'Bing Ads SDK Documentation',
-     [u'Bing Ads SDK Team'], 1)
+     'Bing Ads SDK Documentation',
+     ['Bing Ads SDK Team'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -256,8 +256,8 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     ('index', 'bingads',
-     u'Bing Ads SDK Documentation',
-     u'Bing Ads SDK Team',
+     'Bing Ads SDK Documentation',
+     'Bing Ads SDK Team',
      'bingads',
      'One line description of project.',
      'Miscellaneous'),

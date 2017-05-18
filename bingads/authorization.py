@@ -1,8 +1,8 @@
 try:
     from urllib.parse import parse_qs, urlparse, quote_plus
 except ImportError:
-    from urlparse import parse_qs, urlparse
-    from urllib import quote_plus
+    from urllib.parse import parse_qs, urlparse
+    from urllib.parse import quote_plus
 import json
 
 import requests

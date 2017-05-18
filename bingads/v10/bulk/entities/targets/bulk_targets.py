@@ -1731,7 +1731,7 @@ class _BulkDeviceOsTargetBid(_BulkTargetBid):
             csv_to_field=lambda c, v: setattr(
                 c.device_os_target_bid.OSNames,
                 'string',
-                list(filter(None, v.split(';'))) if v else [],
+                list([_f for _f in v.split(';') if _f]) if v else [],
             ),
         ),
         _SimpleBulkMapping(

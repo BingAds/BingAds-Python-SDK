@@ -38,7 +38,7 @@ class _CsvWriter:
             self._csv_writer.writerow(row)
         elif PY2:
             def unicode_to_str(value):
-                if not isinstance(value, unicode):
+                if not isinstance(value, str):
                     return value
                 return value.encode('utf-8')
             self._csv_writer.writerow([unicode_to_str(cell) for cell in row])

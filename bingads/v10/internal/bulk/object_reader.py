@@ -13,7 +13,7 @@ class _BulkObjectReader():
         self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter)
         self._csv_reader.__enter__()
         headers = self._read_headers()
-        self._column_mapping = dict(zip(headers, range(0, len(headers))))
+        self._column_mapping = dict(list(zip(headers, list(range(0, len(headers))))))
 
     def __enter__(self):
         return self
@@ -27,7 +27,7 @@ class _BulkObjectReader():
     def __next__(self):
         return self.read_next_bulk_object()
 
-    def next(self):
+    def __next__(self):
         return self.__next__()
 
     def read_next_bulk_object(self):
@@ -54,7 +54,7 @@ class _BulkObjectReader():
     def _read_headers(self):
         # Need to strip BOM marker by hand, take care
         def remove_bom(unicode_str):
-            unicode_bom = u'\N{ZERO WIDTH NO-BREAK SPACE}'
+            unicode_bom = '\N{ZERO WIDTH NO-BREAK SPACE}'
             if unicode_str and unicode_str[0] == unicode_bom:
                 unicode_str = unicode_str[1:]
             return unicode_str

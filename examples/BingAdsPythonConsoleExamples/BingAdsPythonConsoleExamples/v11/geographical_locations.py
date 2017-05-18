@@ -22,20 +22,20 @@ def main(authorization_data):
     try:
         get_geo_locations_file_url_response = campaign_service.GetGeoLocationsFileUrl(VERSION, LANGUAGE_LOCALE)
 
-        request=urllib2.Request(get_geo_locations_file_url_response.FileUrl)
-        response=urllib2.urlopen(request)
+        request=urllib.request.Request(get_geo_locations_file_url_response.FileUrl)
+        response=urllib.request.urlopen(request)
                 
         if response.getcode() == 200:
             download_locations_file(response)
-            print("Downloaded the geographical locations to {0}.\n".format(LOCAL_FILE))
+            print(("Downloaded the geographical locations to {0}.\n".format(LOCAL_FILE)))
         
         output_status_message("Program execution completed")
 
-    except urllib2.URLError as ex:
+    except urllib.error.URLError as ex:
         if hasattr(ex, 'code'):
-            print("Error code: {0}".format(ex.code))
+            print(("Error code: {0}".format(ex.code)))
         elif hasattr(ex, 'reason'):
-            print("Reason: {0}".format(ex.reason))
+            print(("Reason: {0}".format(ex.reason)))
         
     except WebFault as ex:
         output_webfault_errors(ex)

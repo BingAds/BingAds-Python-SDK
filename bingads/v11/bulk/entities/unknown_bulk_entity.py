@@ -21,7 +21,7 @@ class UnknownBulkEntity(_SingleRecordBulkEntity):
         self._values = row_values.to_dict()
 
     def process_mappings_to_row_values(self, row_values):
-        for (key, value) in self._values.items():
+        for (key, value) in list(self._values.items()):
             row_values[key] = value
 
     def read_additional_data(self, stream_reader):

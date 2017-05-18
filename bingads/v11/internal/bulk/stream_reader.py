@@ -36,7 +36,7 @@ class _BulkStreamReader():
     def close(self):
         self.__exit__(None, None, None)
 
-    def next(self):
+    def __next__(self):
         return self.__next__()
 
     def read(self):
