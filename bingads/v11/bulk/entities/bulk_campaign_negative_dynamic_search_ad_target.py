@@ -8,7 +8,7 @@ from bingads.v11.internal.extensions import *
 class BulkCampaignNegativeDynamicSearchAdTarget(_SingleRecordBulkEntity):
     """ Represents a Campaign Criterion that can be read or written in a bulk file.
 
-    This class exposes the :attr:`campaign_criterion` property that can be read and written as fields of the
+    This class exposes the :attr:`negative_campaign_criterion` property that can be read and written as fields of the
     Campaign Negative Dynamic Search Ad Target record in a bulk file.
 
     For more information, see Campaign Negative Dynamic Search Ad Target at https://go.microsoft.com/fwlink/?linkid=836839.
@@ -24,12 +24,12 @@ class BulkCampaignNegativeDynamicSearchAdTarget(_SingleRecordBulkEntity):
     def __init__(self,
                  campaign_name=None,
                  status=None,
-                 campaign_criterion=None):
+                 negative_campaign_criterion=None):
         super(BulkCampaignNegativeDynamicSearchAdTarget, self).__init__()
 
         self._campaign_name = campaign_name
         self._status = status
-        self._campaign_criterion = campaign_criterion
+        self._negative_campaign_criterion = negative_campaign_criterion
 
 
     _MAPPINGS = [
@@ -40,13 +40,13 @@ class BulkCampaignNegativeDynamicSearchAdTarget(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.campaign_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.campaign_criterion, 'Id', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.negative_campaign_criterion.Id),
+            csv_to_field=lambda c, v: setattr(c.negative_campaign_criterion, 'Id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.campaign_criterion.CampaignId),
-            csv_to_field=lambda c, v: setattr(c.campaign_criterion, 'CampaignId', int(v) if v else None)
+            field_to_csv=lambda c: bulk_str(c.negative_campaign_criterion.CampaignId),
+            csv_to_field=lambda c, v: setattr(c.negative_campaign_criterion, 'CampaignId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Campaign,
@@ -55,12 +55,12 @@ class BulkCampaignNegativeDynamicSearchAdTarget(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Name,
-            field_to_csv=lambda c: field_to_csv_WebpageParameter_CriterionName(c.campaign_criterion),
-            csv_to_field=lambda c, v: csv_to_field_WebpageParameter_CriterionName(c.campaign_criterion, v)
+            field_to_csv=lambda c: field_to_csv_WebpageParameter_CriterionName(c.negative_campaign_criterion),
+            csv_to_field=lambda c, v: csv_to_field_WebpageParameter_CriterionName(c.negative_campaign_criterion, v)
         ),
         _ComplexBulkMapping(
-            entity_to_csv=lambda c, v: entity_to_csv_DSAWebpageParameter(c.campaign_criterion, v),
-            csv_to_entity=lambda v, c: csv_to_entity_DSAWebpageParameter(v, c.campaign_criterion)
+            entity_to_csv=lambda c, v: entity_to_csv_DSAWebpageParameter(c.negative_campaign_criterion, v),
+            csv_to_entity=lambda v, c: csv_to_entity_DSAWebpageParameter(v, c.negative_campaign_criterion)
         )
     ]
 
@@ -91,25 +91,25 @@ class BulkCampaignNegativeDynamicSearchAdTarget(_SingleRecordBulkEntity):
         self._status = status
 
     @property
-    def campaign_criterion(self):
+    def negative_campaign_criterion(self):
         """ Defines a Campaign Criterion """
 
-        return self._campaign_criterion
+        return self._negative_campaign_criterion
 
-    @campaign_criterion.setter
-    def campaign_criterion(self, campaign_criterion):
-        self._campaign_criterion = campaign_criterion
+    @negative_campaign_criterion.setter
+    def negative_campaign_criterion(self, negative_campaign_criterion):
+        self._negative_campaign_criterion = negative_campaign_criterion
 
     def process_mappings_from_row_values(self, row_values):
-        self._campaign_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('NegativeCampaignCriterion')
-        self._campaign_criterion.Type = 'NegativeCampaignCriterion'
-        self._campaign_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:Webpage')
-        self._campaign_criterion.Criterion.Type = 'Webpage'
+        self._negative_campaign_criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('NegativeCampaignCriterion')
+        self._negative_campaign_criterion.Type = 'NegativeCampaignCriterion'
+        self._negative_campaign_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:Webpage')
+        self._negative_campaign_criterion.Criterion.Type = 'Webpage'
 
         row_values.convert_to_entity(self, BulkCampaignNegativeDynamicSearchAdTarget._MAPPINGS)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.campaign_criterion, 'campaign_criterion')
+        self._validate_property_not_null(self.negative_campaign_criterion, 'negative_campaign_criterion')
         self.convert_to_values(row_values, BulkCampaignNegativeDynamicSearchAdTarget._MAPPINGS)
 
     def read_additional_data(self, stream_reader):

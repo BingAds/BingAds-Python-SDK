@@ -102,6 +102,48 @@ def budget_to_csv(bulk_campaign, row_values):
     row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
 
 
+def csv_to_biddingscheme(row_values, bulk_campaign):
+    success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
+    if not success or not bid_strategy_type:
+        return
+
+    csv_to_field_BidStrategyType(bulk_campaign.campaign, bid_strategy_type)
+
+    success, max_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyMaxCpc)
+    max_cpc_value = parse_bid(max_cpc_row_value) if max_cpc_row_value else None
+
+    success, target_cpa_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCpa)
+    target_cpa_value = float(target_cpa_row_value) if target_cpa_row_value else None
+
+    if  bid_strategy_type == 'MaxConversions':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "MaxConversions"
+    elif bid_strategy_type == 'MaxClicks':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "MaxClicks"
+    elif bid_strategy_type == 'TargetCpa':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "TargetCpa"
+        bulk_campaign.campaign.BiddingScheme.TargetCpa = target_cpa_value
+
+
+def biddingscheme_to_csv(bulk_campaign, row_values):
+    bid_strategy_type = field_to_csv_BidStrategyType(bulk_campaign.campaign)
+
+    if not bid_strategy_type:
+        return
+
+    row_values[_StringTable.BidStrategyType] = bid_strategy_type
+
+    if  bid_strategy_type == 'MaxConversions':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+    elif bid_strategy_type == 'MaxClicks':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+    elif bid_strategy_type == 'TargetCpa':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
+
+
 def bulk_optional_str(value):
     if value is None:
         return None
@@ -266,6 +308,32 @@ def field_to_csv_Urls(entity):
         return None
     return '; '.join(entity.string)
 
+def csv_to_field_CampaignLanguages(entity, value):
+    """
+    set Languages string field
+    :param entity: Languages
+    :param value: the content in csv
+    :return:set field values
+    """
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_CampaignLanguages(entity):
+    """
+    parse entity to csv content
+    :param entity: Languages
+    :return: csv content
+    """
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE
+    if len(entity.string) == 0:
+        return None
+    return ';'.join(entity.string)
 
 def field_to_csv_BidStrategyType(entity):
     """
@@ -315,45 +383,6 @@ def csv_to_field_BidStrategyType(entity, value):
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value
-
-
-def field_to_csv_AdFormatPreference(entity):
-    """
-    convert entity field to csv content
-    :param entity: entity which has ForwardCompatibilityMap attribute
-    :return:
-    """
-    if entity.ForwardCompatibilityMap is None or entity.ForwardCompatibilityMap.KeyValuePairOfstringstring is None \
-        or len(entity.ForwardCompatibilityMap.KeyValuePairOfstringstring) == 0:
-        return None
-    for key_value_pair in entity.ForwardCompatibilityMap.KeyValuePairOfstringstring:
-        if key_value_pair.key == 'NativePreference':
-            if key_value_pair.value.lower() == 'true':
-                return 'Native'
-            elif key_value_pair.value.lower() == 'false':
-                return 'All'
-            else:
-                raise ValueError('Unknown value for Native Preference: {0}'.format(key_value_pair.value))
-    return None
-
-
-def csv_to_field_AdFormatPreference(entity, value):
-    """
-    parse csv content and set entity attribute
-    :param entity: entity which has ForwardCompatibilityMap attribute
-    :param value: csv content value
-    :return:
-    """
-    ad_format_preference = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns2:KeyValuePairOfstringstring')
-    ad_format_preference.key = 'NativePreference'
-    if value is None or value == '' or value == 'All':
-        ad_format_preference.value = 'False'
-    elif value == 'Native':
-        ad_format_preference.value = 'True'
-    else:
-        raise ValueError('Unknown value for Native Preference: {0}'.format(value))
-    entity.ForwardCompatibilityMap = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns2:ArrayOfKeyValuePairOfstringstring')
-    entity.ForwardCompatibilityMap.KeyValuePairOfstringstring.append(ad_format_preference)
 
 
 def csv_to_field_StructuredSnippetValues(entity, value):
@@ -413,6 +442,22 @@ def parse_keyword_bid(value):
         bid.Amount = float(value)
     return bid
 
+
+def bid_bulk_str(value):
+    if value is None:
+        return DELETE_VALUE
+    if value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+
+def parse_bid(value):
+    bid = _CAMPAIGN_OBJECT_FACTORY_V11.create('Bid')
+    if not value:
+        bid.Amount = None
+    else:
+        bid.Amount = float(value)
+    return bid
 
 def minute_bulk_str(value):
     if value == 'Zero':
@@ -729,6 +774,85 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
             webpage = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:Webpage')
             webpage.Parameter.Conditions.WebpageCondition = conditions
             entity.Criterion = webpage
+
+def entity_to_csv_PriceTableRows(entity, row_values):
+    """
+    Set Price Ad Extension price table rows from bulk values
+    :param entity: price ad extension entity
+    :param row_values: bulk row values
+    """
+    if entity is not None and entity.TableRows is not None and \
+            entity.TableRows.PriceTableRow is not None:
+        currency_code_prefix = _StringTable.CurrencyCode1[:-1]
+        price_description_prefix = _StringTable.PriceDescription1[:-1]
+        header_prefix = _StringTable.Header1[:-1]
+        final_mobile_url_prefix = _StringTable.FinalMobileUrl1[:-1]
+        final_url_prefix = _StringTable.FinalUrl1[:-1]
+        price_prefix = _StringTable.Price1[:-1]
+        price_qualifier_prefix = _StringTable.PriceQualifier1[:-1]
+        price_unit_prefix = _StringTable.PriceUnit1[:-1]
+
+        price_table_rows = entity.TableRows.PriceTableRow
+        for i in range(0, len(price_table_rows)):
+            row_values[currency_code_prefix + str(i + 1)] = price_table_rows[i].CurrencyCode
+            row_values[price_description_prefix + str(i + 1)] = price_table_rows[i].Description
+            row_values[header_prefix + str(i + 1)] = price_table_rows[i].Header
+            row_values[final_mobile_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalMobileUrls)
+            row_values[final_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalUrls)
+            row_values[price_prefix + str(i + 1)] = bulk_str(price_table_rows[i].Price)
+            row_values[price_qualifier_prefix + str(i + 1)] = price_table_rows[i].PriceQualifier
+            row_values[price_unit_prefix + str(i + 1)] = price_table_rows[i].PriceUnit
+
+
+def csv_to_entity_PriceTableRows(row_values, entity):
+    """
+    convert Price Ad Extension price table rows to bulk row values
+    :param row_values: bulk row values
+    :param entity: price ad extension entity
+    """
+    MAX_NUMBER_OF_PRICE_TABLE_ROWS = 8
+    currency_code_prefix = _StringTable.CurrencyCode1[:-1]
+    price_description_prefix = _StringTable.PriceDescription1[:-1]
+    header_prefix = _StringTable.Header1[:-1]
+    final_mobile_url_prefix = _StringTable.FinalMobileUrl1[:-1]
+    final_url_prefix = _StringTable.FinalUrl1[:-1]
+    price_prefix = _StringTable.Price1[:-1]
+    price_qualifier_prefix = _StringTable.PriceQualifier1[:-1]
+    price_unit_prefix = _StringTable.PriceUnit1[:-1]
+
+    price_table_rows = []
+    for i in range(0, MAX_NUMBER_OF_PRICE_TABLE_ROWS):
+        currency_code_success, currency_code = row_values.try_get_value(currency_code_prefix + str(i + 1))
+        price_description_success, price_description = row_values.try_get_value(price_description_prefix + str(i + 1))
+        header_success, header = row_values.try_get_value(header_prefix + str(i + 1))
+        final_mobile_url_success, final_mobile_url = row_values.try_get_value(final_mobile_url_prefix + str(i + 1))
+        final_url_success, final_url = row_values.try_get_value(final_url_prefix + str(i + 1))
+        price_success, price = row_values.try_get_value(price_prefix + str(i + 1))
+        price_qualifier_success, price_qualifier = row_values.try_get_value(price_qualifier_prefix + str(i + 1))
+        price_unit_success, price_unit = row_values.try_get_value(price_unit_prefix + str(i + 1))
+
+        if currency_code_success \
+           or price_description_success \
+           or header_success \
+           or final_mobile_url_success \
+           or final_url_success \
+           or price_success \
+           or price_qualifier_success \
+           or price_unit_success:
+            price_table_row = _CAMPAIGN_OBJECT_FACTORY_V11.create('PriceTableRow')
+            price_table_row.CurrencyCode = currency_code
+            price_table_row.Description = price_description
+            price_table_row.Header = header
+            csv_to_field_Urls(price_table_row.FinalMobileUrls, final_mobile_url)
+            csv_to_field_Urls(price_table_row.FinalUrls, final_url)
+            price_table_row.Price = price
+            price_table_row.PriceQualifier = price_qualifier
+            price_table_row.PriceUnit = price_unit
+
+            price_table_rows.append(price_table_row)
+
+    if len(price_table_rows) > 0:
+        entity.TableRows.PriceTableRow = price_table_rows
 
 
 def parse_bool(value):
@@ -1050,6 +1174,39 @@ def csv_to_field_LongitudeDegrees(entity, value):
         return
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
         setattr(entity.Criterion, "LongitudeDegrees", value)
+
+def field_to_csv_AdFormatPreference(value):
+    """
+    convert field value to csv content
+    :param value: field value
+    :return:
+    """
+    if value is None or value == '':
+        return None
+    if value.lower() == 'true':
+        return 'Native'
+    elif value.lower() == 'false':
+        return 'All'
+    else:
+        raise ValueError('Unsupported value for Native Preference: {0}'.format(value))
+    return None
+
+
+def csv_to_field_AdFormatPreference(entity, value):
+    """
+    parse csv content and set entity attribute
+    :param entity:  entity which has AdFormatPreference attribute
+    :param value: csv content value
+    :return:
+    """
+
+    if value is None or value == '' or value == 'All':
+        entity.AdFormatPreference = 'False'
+    elif value == 'Native':
+        entity.AdFormatPreference = 'True'
+    else:
+        raise ValueError('Unsupported value for Native Preference: {0}'.format(value))
+
 
 def parse_rule_PageVisitors(rule_str):
     rule = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:PageVisitorsRule')

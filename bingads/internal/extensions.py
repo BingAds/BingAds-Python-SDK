@@ -109,27 +109,43 @@ def budget_to_csv(bulk_campaign, row_values):
     else:
         row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.MonthlyBudget)
 
-
-# TODO as version specific logic added, consider to separate extensions with ap versions
-def csv_to_budget_v11(row_values, bulk_campaign):
-    success, budget_type = row_values.try_get_value(_StringTable.BudgetType)
-    if not success or not budget_type:
+def csv_to_biddingscheme(row_values, bulk_campaign):
+    success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
+    if not success or not bid_strategy_type:
         return
 
-    success, budget_row_value = row_values.try_get_value(_StringTable.Budget)
-    if not success:
+    csv_to_field_BidStrategyType(bulk_campaign.campaign, bid_strategy_type)
+
+    success, max_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyMaxCpc)
+    max_cpc_value = float(max_cpc_row_value) if max_cpc_row_value else None
+
+    success, target_cpa_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCpa)
+    target_cpa_value = parse_bid(target_cpa_row_value) if target_cpa_row_value else None
+
+    if  bid_strategy_type == 'MaxConversions':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+    elif bid_strategy_type == 'MaxClicks':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+    elif bid_strategy_type == 'TargetCpa':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.TargetCpa = target_cpa_value
+
+
+def biddingscheme_to_csv(bulk_campaign, row_values):
+    bid_strategy_type = field_to_csv_BidStrategyType(bulk_campaign.campaign)
+    
+    if not bid_strategy_type:
         return
-    budget_value = float(budget_row_value) if budget_row_value else None
+    
+    row_values[_StringTable.BidStrategyType] = bid_strategy_type
 
-    bulk_campaign.campaign.BudgetType = budget_type
-    bulk_campaign.campaign.DailyBudget = budget_value
-
-
-def budget_to_csv_v11(bulk_campaign, row_values):
-    budget_type = bulk_campaign.campaign.BudgetType
-    if not budget_type:
-        return
-    row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
+    if  bid_strategy_type == 'MaxConversions':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc.Bid)
+    elif bid_strategy_type == 'MaxClicks':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc.Bid)
+    elif bid_strategy_type == 'TargetCpa':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc.Bid)
+        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
 
 
 def bulk_optional_str(value):
@@ -296,6 +312,33 @@ def field_to_csv_Urls(entity):
         return None
     return '; '.join(entity.string)
 
+def csv_to_field_CampaignLanguages(entity, value):
+    """
+    set Languages string field
+    :param entity: Languages
+    :param value: the content in csv
+    :return:set field values
+    """
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_CampaignLanguages(entity):
+    """
+    parse entity to csv content
+    :param entity: Languages
+    :return: csv content
+    """
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE
+    if len(entity.string) == 0:
+        return None
+    return '; '.join(entity.string)
+
 
 def field_to_csv_BidStrategyType(entity):
     """
@@ -443,6 +486,22 @@ def parse_keyword_bid(value):
         bid.Amount = float(value)
     return bid
 
+
+def bid_bulk_str(value):
+    if value is None:
+        return DELETE_VALUE
+    if value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+
+def parse_bid(value):
+    bid = _CAMPAIGN_OBJECT_FACTORY_V10.create('Bid')
+    if not value:
+        bid.Amount = None
+    else:
+        bid.Amount = float(value)
+    return bid
 
 def minute_bulk_str(value):
     if value == 'Zero':

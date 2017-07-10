@@ -66,6 +66,7 @@ class _StringTable:
     SyncTime = "Sync Time"
     Name = "Name"
     LastModifiedTime = "Modified Time"
+    AdFormatPreference = "Ad Format Preference"
 
     # Entity Types
     SemanticVersion = "Format Version"
@@ -242,7 +243,9 @@ class _StringTable:
 
     # Bid Strategy
     BidStrategyType = "Bid Strategy Type"
-    AdFormatPreference = "Ad Format Preference"
+    BidStrategyMaxCpc = "Bid Strategy MaxCpc"
+    BidStrategyTargetCpa = "Bid Strategy TargetCpa"
+    
 
     # Remarketing
     RemarketingList = "Remarketing List"

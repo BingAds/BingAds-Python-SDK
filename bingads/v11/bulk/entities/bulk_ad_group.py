@@ -184,8 +184,8 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Language,
-            field_to_csv=lambda c: c.ad_group.Language,
-            csv_to_field=lambda c, v: setattr(c.ad_group, 'Language', v)
+            field_to_csv=lambda c: bulk_str(c.ad_group.Language),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'Language', v if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.BidAdjustment,

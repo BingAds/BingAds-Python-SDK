@@ -9,3 +9,4 @@ from .bulk_callout_ad_extensions import *
 from .bulk_review_ad_extensions import *
 from .bulk_structured_snippet_ad_extensions import *
 from .bulk_sitelink2_ad_extensions import *
+from .bulk_price_ad_extensions import *

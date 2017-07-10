@@ -140,6 +140,12 @@ class _BulkAd(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_device_preference_str(c.ad.DevicePreference),
             csv_to_field=lambda c, v: setattr(c.ad, 'DevicePreference', parse_device_preference(v))
         ),
+
+        _SimpleBulkMapping(
+            header=_StringTable.AdFormatPreference,
+            field_to_csv=lambda c: bulk_str(c.ad.AdFormatPreference),
+            csv_to_field=lambda c, v: setattr(c.ad, 'AdFormatPreference', v if v else None)
+        ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
             field_to_csv=lambda c: field_to_csv_Urls(c.ad.FinalUrls),
@@ -302,11 +308,6 @@ class BulkTextAd(_BulkAd):
             header=_StringTable.DestinationUrl,
             field_to_csv=lambda c: bulk_optional_str(c.text_ad.DestinationUrl),
             csv_to_field=lambda c, v: setattr(c.text_ad, 'DestinationUrl', v if v else '')
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.AdFormatPreference,
-            field_to_csv=lambda c: field_to_csv_AdFormatPreference(c.text_ad),
-            csv_to_field=lambda c, v: csv_to_field_AdFormatPreference(c.text_ad, v)
         ),
     ]
 

@@ -81,6 +81,11 @@ class _BulkAdExtensionBase(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c._ad_extension.Scheduling),
             csv_to_field=lambda c, v: setattr(c._ad_extension.Scheduling, 'UseSearcherTimeZone', parse_bool(v))
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.DevicePreference,
+            field_to_csv=lambda c: bulk_device_preference_str(c._ad_extension.DevicePreference),
+            csv_to_field=lambda c, v: setattr(c._ad_extension, 'DevicePreference', parse_device_preference(v))
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
@@ -198,6 +203,20 @@ class _BulkAdExtensionAssociation(_SingleRecordBulkEntity):
 
     def read_additional_data(self, stream_reader):
         super(_BulkAdExtensionAssociation, self).read_additional_data(stream_reader)
+
+
+class _BulkAccountAdExtensionAssociation(_BulkAdExtensionAssociation):
+    """ This abstract class provides properties that are shared by all bulk account ad extension association classes. """
+
+    def __init__(self,
+                 ad_extension_id_to_entity_id_association=None,
+                 status=None,
+                 editorial_status=None):
+        super(_BulkAccountAdExtensionAssociation, self).__init__(
+            ad_extension_id_to_entity_id_association,
+            status,
+            editorial_status,
+        )
 
 
 class _BulkCampaignAdExtensionAssociation(_BulkAdExtensionAssociation):

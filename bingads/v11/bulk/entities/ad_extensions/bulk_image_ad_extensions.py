@@ -6,7 +6,7 @@ from bingads.v11.internal.extensions import *
 from .common import _BulkAdExtensionBase
 from .common import _BulkCampaignAdExtensionAssociation
 from .common import _BulkAdGroupAdExtensionAssociation
-
+from .common import _BulkAccountAdExtensionAssociation
 
 _ImageAdExtension = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('ImageAdExtension'))
 
@@ -83,8 +83,27 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkImageAdExtension._MAPPINGS)
 
 
+class BulkAccountImageAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level image ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Image Ad Extension record in a bulk file.
+
+    For more information, see Account Image Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
+
 class BulkCampaignImageAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level image ad extension.
+    """ Represents a campaign level image ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Image Ad Extension record in a bulk file.
@@ -100,7 +119,6 @@ class BulkCampaignImageAdExtension(_BulkCampaignAdExtensionAssociation):
     """
 
     pass
-
 
 class BulkAdGroupImageAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level image ad extension.

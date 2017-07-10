@@ -183,6 +183,8 @@ class _CsvHeaders:
 
         # Bid Strategy
         _StringTable.BidStrategyType,
+        _StringTable.BidStrategyMaxCpc,
+        _StringTable.BidStrategyTargetCpa,
 
         # Ad Format Preference
         _StringTable.AdFormatPreference,

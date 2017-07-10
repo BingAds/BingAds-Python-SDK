@@ -5,6 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAccountAdExtensionAssociation
 
 from bingads.v11.internal.extensions import *
 
@@ -76,8 +77,26 @@ class BulkStructuredSnippetAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkStructuredSnippetAdExtension._MAPPINGS)
 
 
+class BulkAccountStructuredSnippetAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level structured snippet ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Structured Snippet Ad Extension record in a bulk file.
+
+    For more information, see Account Structured Snippet Extension at https://go.microsoft.com/fwlink/?linkid=846127
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
 class BulkCampaignStructuredSnippetAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level structured snippet ad extension.
+    """ Represents a campaign level structured snippet ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Structured Snippet Ad Extension record in a bulk file.
@@ -93,7 +112,6 @@ class BulkCampaignStructuredSnippetAdExtension(_BulkCampaignAdExtensionAssociati
     """
 
     pass
-
 
 class BulkAdGroupStructuredSnippetAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level structured snippet ad extension.

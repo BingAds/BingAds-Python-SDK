@@ -3,7 +3,6 @@ from bingads.v11.bulk.entities import QualityScoreData, PerformanceData
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
-# from bingads.v11.internal.extensions import bulk_str, csv_to_budget, budget_to_csv
 from bingads.v11.internal.extensions import *
 
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('ShoppingSetting'))
@@ -182,6 +181,26 @@ class BulkCampaign(_SingleRecordBulkEntity):
                 return None
             shopping_setting.SalesCountryCode = v
 
+    @staticmethod
+    def _write_local_inventory_ads_enabled(c):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            return shopping_setting.LocalInventoryAdsEnabled
+
+    @staticmethod
+    def _read_local_inventory_ads_enabled(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+            shopping_setting = c._get_shopping_setting()
+            if not shopping_setting:
+                return None
+            shopping_setting.LocalInventoryAdsEnabled = v.lower() == 'true' if v else None
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.CampaignType,
@@ -209,7 +228,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.account_id),
-            csv_to_field=lambda c, v: setattr(c, '_account_id', int(v))
+            csv_to_field=lambda c, v: setattr(c, '_account_id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Campaign,
@@ -220,6 +239,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.TimeZone,
             field_to_csv=lambda c: c.campaign.TimeZone,
             csv_to_field=lambda c, v: setattr(c.campaign, 'TimeZone', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Language,
+            field_to_csv=lambda c: field_to_csv_CampaignLanguages(c.campaign.Languages),
+            csv_to_field=lambda c, v: csv_to_field_CampaignLanguages(c.campaign.Languages, v)
         ),
         _ComplexBulkMapping(budget_to_csv, csv_to_budget),
         _SimpleBulkMapping(
@@ -247,7 +271,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: BulkCampaign._read_sales_country_code(c, v)
         ),
         _SimpleBulkMapping(
-            # TODO now use bulk_str not bulk_optional_str
+            header=_StringTable.LocalInventoryAdsEnabled,
+            field_to_csv=lambda c: BulkCampaign._write_local_inventory_ads_enabled(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_local_inventory_ads_enabled(c, v)
+        ),
+        _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
             field_to_csv=lambda c: bulk_str(c.campaign.TrackingUrlTemplate),
             csv_to_field=lambda c, v: setattr(c.campaign, 'TrackingUrlTemplate', v if v else None)
@@ -257,11 +285,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.campaign),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.campaign, v)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.BidStrategyType,
-            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.campaign),
-            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.campaign, v)
-        ),
+        _ComplexBulkMapping(biddingscheme_to_csv, csv_to_biddingscheme),
         _SimpleBulkMapping(
             header=_StringTable.BudgetId,
             field_to_csv=lambda c: bulk_str(c.campaign.BudgetId),

@@ -5,7 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import *
 from .common import _BulkAdExtensionBase
 from .common import _BulkCampaignAdExtensionAssociation
-
+from .common import _BulkAccountAdExtensionAssociation
 
 _LocationAdExtension = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('LocationAdExtension'))
 
@@ -209,8 +209,27 @@ class BulkLocationAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkLocationAdExtension._MAPPINGS)
 
 
+class BulkAccountLocationAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level location ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Location Ad Extension record in a bulk file.
+
+    For more information, see Account Location Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
+
 class BulkCampaignLocationAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level location ad extension.
+    """ Represents a campaign level location ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Location Ad Extension record in a bulk file.

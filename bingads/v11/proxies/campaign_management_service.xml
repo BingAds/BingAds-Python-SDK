@@ -1261,6 +1261,60 @@
         </xs:restriction>
       </xs:simpleType>
       <xs:element name="MigrationStatus" nillable="true" type="tns:MigrationStatus"/>
+      <xs:element name="SetAccountPropertiesRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AccountProperties" nillable="true" type="tns:ArrayOfAccountProperty"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfAccountProperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountProperty" nillable="true" type="tns:AccountProperty"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAccountProperty" nillable="true" type="tns:ArrayOfAccountProperty"/>
+      <xs:complexType name="AccountProperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Name" type="tns:AccountPropertyName"/>
+          <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AccountProperty" nillable="true" type="tns:AccountProperty"/>
+      <xs:simpleType name="AccountPropertyName">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None"/>
+          <xs:enumeration value="TrackingUrlTemplate"/>
+          <xs:enumeration value="MSCLKIDAutoTaggingEnabled"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="AccountPropertyName" nillable="true" type="tns:AccountPropertyName"/>
+      <xs:element name="SetAccountPropertiesResponse">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetAccountPropertiesRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AccountPropertyNames" nillable="true" type="tns:ArrayOfAccountPropertyName"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfAccountPropertyName">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountPropertyName" type="tns:AccountPropertyName"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAccountPropertyName" nillable="true" type="tns:ArrayOfAccountPropertyName"/>
+      <xs:element name="GetAccountPropertiesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="AccountProperties" nillable="true" type="tns:ArrayOfAccountProperty"/>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="AddAdExtensionsRequest">
         <xs:complexType>
           <xs:sequence>
@@ -2342,6 +2396,7 @@
           <xs:enumeration value="ThirtyFiveToFourtyNine"/>
           <xs:enumeration value="FiftyToSixtyFour"/>
           <xs:enumeration value="SixtyFiveAndAbove"/>
+          <xs:enumeration value="ThirteenToSeventeen"/>
         </xs:restriction>
       </xs:simpleType>
       <xs:element name="AgeRange" nillable="true" type="tns:AgeRange"/>
@@ -3531,6 +3586,7 @@
               <xs:enumeration value="PagesViewedPerVisit"/>
               <xs:enumeration value="Event"/>
               <xs:enumeration value="AppInstall"/>
+              <xs:enumeration value="OfflineConversion"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:list>
@@ -3681,6 +3737,14 @@
         </xs:complexContent>
       </xs:complexType>
       <xs:element name="AppInstallGoal" nillable="true" type="tns:AppInstallGoal"/>
+      <xs:complexType name="OfflineConversionGoal">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ConversionGoal">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="OfflineConversionGoal" nillable="true" type="tns:OfflineConversionGoal"/>
       <xs:element name="GetConversionGoalsByTagIdsRequest">
         <xs:complexType>
           <xs:sequence>
@@ -3720,6 +3784,36 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="UpdateConversionGoalsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ApplyOfflineConversionsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="OfflineConversions" nillable="true" type="tns:ArrayOfOfflineConversion"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfOfflineConversion">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OfflineConversion" nillable="true" type="tns:OfflineConversion"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfOfflineConversion" nillable="true" type="tns:ArrayOfOfflineConversion"/>
+      <xs:complexType name="OfflineConversion">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ConversionCurrencyCode" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ConversionName" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="ConversionTime" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="ConversionValue" nillable="true" type="xs:double"/>
+          <xs:element minOccurs="0" name="MicrosoftClickId" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="OfflineConversion" nillable="true" type="tns:OfflineConversion"/>
+      <xs:element name="ApplyOfflineConversionsResponse">
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
@@ -4745,6 +4839,54 @@
   <wsdl:message name="ICampaignManagementService_GetAccountMigrationStatuses_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
   </wsdl:message>
+  <wsdl:message name="SetAccountPropertiesRequest">
+    <wsdl:part name="parameters" element="tns:SetAccountPropertiesRequest"/>
+  </wsdl:message>
+  <wsdl:message name="SetAccountPropertiesRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="SetAccountPropertiesResponse">
+    <wsdl:part name="parameters" element="tns:SetAccountPropertiesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SetAccountPropertiesResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_SetAccountProperties_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_SetAccountProperties_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountPropertiesRequest">
+    <wsdl:part name="parameters" element="tns:GetAccountPropertiesRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountPropertiesRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountPropertiesResponse">
+    <wsdl:part name="parameters" element="tns:GetAccountPropertiesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAccountPropertiesResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetAccountProperties_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q34="https://adapi.microsoft.com" name="detail" element="q34:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetAccountProperties_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
   <wsdl:message name="AddAdExtensionsRequest">
     <wsdl:part name="parameters" element="tns:AddAdExtensionsRequest"/>
   </wsdl:message>
@@ -4764,7 +4906,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAdExtensions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q35="https://adapi.microsoft.com" name="detail" element="q35:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAdExtensions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4788,7 +4930,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q34="https://adapi.microsoft.com" name="detail" element="q34:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q36="https://adapi.microsoft.com" name="detail" element="q36:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4812,7 +4954,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAdExtensions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q35="https://adapi.microsoft.com" name="detail" element="q35:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q37="https://adapi.microsoft.com" name="detail" element="q37:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAdExtensions_EditorialApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:EditorialApiFaultDetail"/>
@@ -4836,7 +4978,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdExtensions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q36="https://adapi.microsoft.com" name="detail" element="q36:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q38="https://adapi.microsoft.com" name="detail" element="q38:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdExtensions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4860,7 +5002,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsEditorialReasons_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q37="https://adapi.microsoft.com" name="detail" element="q37:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q39="https://adapi.microsoft.com" name="detail" element="q39:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsEditorialReasons_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4884,7 +5026,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_SetAdExtensionsAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q38="https://adapi.microsoft.com" name="detail" element="q38:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q40="https://adapi.microsoft.com" name="detail" element="q40:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_SetAdExtensionsAssociations_EditorialApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:EditorialApiFaultDetail"/>
@@ -4908,7 +5050,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q39="https://adapi.microsoft.com" name="detail" element="q39:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q41="https://adapi.microsoft.com" name="detail" element="q41:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionsAssociations_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4932,7 +5074,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdExtensionsAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q40="https://adapi.microsoft.com" name="detail" element="q40:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q42="https://adapi.microsoft.com" name="detail" element="q42:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdExtensionsAssociations_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4956,7 +5098,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionIdsByAccountId_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q41="https://adapi.microsoft.com" name="detail" element="q41:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q43="https://adapi.microsoft.com" name="detail" element="q43:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdExtensionIdsByAccountId_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -4980,7 +5122,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddMedia_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q42="https://adapi.microsoft.com" name="detail" element="q42:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q44="https://adapi.microsoft.com" name="detail" element="q44:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddMedia_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5004,7 +5146,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteMedia_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q43="https://adapi.microsoft.com" name="detail" element="q43:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q45="https://adapi.microsoft.com" name="detail" element="q45:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteMedia_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5028,7 +5170,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q44="https://adapi.microsoft.com" name="detail" element="q44:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q46="https://adapi.microsoft.com" name="detail" element="q46:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5052,7 +5194,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaMetaDataByAccountId_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q45="https://adapi.microsoft.com" name="detail" element="q45:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q47="https://adapi.microsoft.com" name="detail" element="q47:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaMetaDataByAccountId_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5076,7 +5218,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaMetaDataByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q46="https://adapi.microsoft.com" name="detail" element="q46:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q48="https://adapi.microsoft.com" name="detail" element="q48:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaMetaDataByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5100,7 +5242,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q47="https://adapi.microsoft.com" name="detail" element="q47:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q49="https://adapi.microsoft.com" name="detail" element="q49:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetMediaAssociations_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5124,7 +5266,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdGroupCriterionsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q48="https://adapi.microsoft.com" name="detail" element="q48:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q50="https://adapi.microsoft.com" name="detail" element="q50:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAdGroupCriterionsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5148,7 +5290,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAdGroupCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q49="https://adapi.microsoft.com" name="detail" element="q49:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q51="https://adapi.microsoft.com" name="detail" element="q51:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAdGroupCriterions_EditorialApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:EditorialApiFaultDetail"/>
@@ -5172,7 +5314,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAdGroupCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q50="https://adapi.microsoft.com" name="detail" element="q50:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q52="https://adapi.microsoft.com" name="detail" element="q52:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAdGroupCriterions_EditorialApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:EditorialApiFaultDetail"/>
@@ -5196,7 +5338,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdGroupCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q51="https://adapi.microsoft.com" name="detail" element="q51:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q53="https://adapi.microsoft.com" name="detail" element="q53:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAdGroupCriterions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5220,7 +5362,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_ApplyProductPartitionActions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q52="https://adapi.microsoft.com" name="detail" element="q52:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q54="https://adapi.microsoft.com" name="detail" element="q54:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_ApplyProductPartitionActions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5244,7 +5386,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetBMCStoresByCustomerId_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q53="https://adapi.microsoft.com" name="detail" element="q53:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q55="https://adapi.microsoft.com" name="detail" element="q55:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetBMCStoresByCustomerId_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5268,7 +5410,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddNegativeKeywordsToEntities_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q54="https://adapi.microsoft.com" name="detail" element="q54:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q56="https://adapi.microsoft.com" name="detail" element="q56:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddNegativeKeywordsToEntities_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5292,7 +5434,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetNegativeKeywordsByEntityIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q55="https://adapi.microsoft.com" name="detail" element="q55:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q57="https://adapi.microsoft.com" name="detail" element="q57:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetNegativeKeywordsByEntityIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5316,7 +5458,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteNegativeKeywordsFromEntities_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q56="https://adapi.microsoft.com" name="detail" element="q56:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q58="https://adapi.microsoft.com" name="detail" element="q58:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteNegativeKeywordsFromEntities_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5340,7 +5482,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntitiesByAccountId_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q57="https://adapi.microsoft.com" name="detail" element="q57:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q59="https://adapi.microsoft.com" name="detail" element="q59:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntitiesByAccountId_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5364,7 +5506,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddSharedEntity_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q58="https://adapi.microsoft.com" name="detail" element="q58:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q60="https://adapi.microsoft.com" name="detail" element="q60:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddSharedEntity_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5388,7 +5530,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetListItemsBySharedList_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q59="https://adapi.microsoft.com" name="detail" element="q59:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q61="https://adapi.microsoft.com" name="detail" element="q61:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetListItemsBySharedList_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5412,7 +5554,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddListItemsToSharedList_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q60="https://adapi.microsoft.com" name="detail" element="q60:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q62="https://adapi.microsoft.com" name="detail" element="q62:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddListItemsToSharedList_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5436,7 +5578,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateSharedEntities_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q61="https://adapi.microsoft.com" name="detail" element="q61:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q63="https://adapi.microsoft.com" name="detail" element="q63:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateSharedEntities_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5460,7 +5602,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteListItemsFromSharedList_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q62="https://adapi.microsoft.com" name="detail" element="q62:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q64="https://adapi.microsoft.com" name="detail" element="q64:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteListItemsFromSharedList_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5484,7 +5626,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_SetSharedEntityAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q63="https://adapi.microsoft.com" name="detail" element="q63:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q65="https://adapi.microsoft.com" name="detail" element="q65:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_SetSharedEntityAssociations_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5508,7 +5650,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteSharedEntityAssociations_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q64="https://adapi.microsoft.com" name="detail" element="q64:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q66="https://adapi.microsoft.com" name="detail" element="q66:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteSharedEntityAssociations_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5532,7 +5674,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntityAssociationsBySharedEntityIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q65="https://adapi.microsoft.com" name="detail" element="q65:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q67="https://adapi.microsoft.com" name="detail" element="q67:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntityAssociationsBySharedEntityIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5556,7 +5698,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntityAssociationsByEntityIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q66="https://adapi.microsoft.com" name="detail" element="q66:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q68="https://adapi.microsoft.com" name="detail" element="q68:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetSharedEntityAssociationsByEntityIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5580,7 +5722,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteSharedEntities_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q67="https://adapi.microsoft.com" name="detail" element="q67:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q69="https://adapi.microsoft.com" name="detail" element="q69:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteSharedEntities_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5604,7 +5746,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignSizesByAccountId_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q68="https://adapi.microsoft.com" name="detail" element="q68:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q70="https://adapi.microsoft.com" name="detail" element="q70:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignSizesByAccountId_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5652,7 +5794,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddCampaignCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q69="https://adapi.microsoft.com" name="detail" element="q69:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q71="https://adapi.microsoft.com" name="detail" element="q71:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddCampaignCriterions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5676,7 +5818,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateCampaignCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q70="https://adapi.microsoft.com" name="detail" element="q70:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q72="https://adapi.microsoft.com" name="detail" element="q72:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateCampaignCriterions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5700,7 +5842,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteCampaignCriterions_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q71="https://adapi.microsoft.com" name="detail" element="q71:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q73="https://adapi.microsoft.com" name="detail" element="q73:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteCampaignCriterions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5724,7 +5866,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignCriterionsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q72="https://adapi.microsoft.com" name="detail" element="q72:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q74="https://adapi.microsoft.com" name="detail" element="q74:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignCriterionsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5748,7 +5890,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddBudgets_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q73="https://adapi.microsoft.com" name="detail" element="q73:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q75="https://adapi.microsoft.com" name="detail" element="q75:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddBudgets_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5772,7 +5914,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateBudgets_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q74="https://adapi.microsoft.com" name="detail" element="q74:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q76="https://adapi.microsoft.com" name="detail" element="q76:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateBudgets_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5796,7 +5938,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteBudgets_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q75="https://adapi.microsoft.com" name="detail" element="q75:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q77="https://adapi.microsoft.com" name="detail" element="q77:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteBudgets_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5820,7 +5962,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetBudgetsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q76="https://adapi.microsoft.com" name="detail" element="q76:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q78="https://adapi.microsoft.com" name="detail" element="q78:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetBudgetsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5844,7 +5986,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignIdsByBudgetIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q77="https://adapi.microsoft.com" name="detail" element="q77:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q79="https://adapi.microsoft.com" name="detail" element="q79:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetCampaignIdsByBudgetIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5868,7 +6010,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAudiences_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q78="https://adapi.microsoft.com" name="detail" element="q78:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q80="https://adapi.microsoft.com" name="detail" element="q80:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddAudiences_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5892,7 +6034,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAudiences_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q79="https://adapi.microsoft.com" name="detail" element="q79:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q81="https://adapi.microsoft.com" name="detail" element="q81:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateAudiences_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5916,7 +6058,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAudiences_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q80="https://adapi.microsoft.com" name="detail" element="q80:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q82="https://adapi.microsoft.com" name="detail" element="q82:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_DeleteAudiences_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5940,7 +6082,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAudiencesByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q81="https://adapi.microsoft.com" name="detail" element="q81:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q83="https://adapi.microsoft.com" name="detail" element="q83:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetAudiencesByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5964,7 +6106,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetUetTagsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q82="https://adapi.microsoft.com" name="detail" element="q82:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q84="https://adapi.microsoft.com" name="detail" element="q84:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetUetTagsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -5988,7 +6130,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddUetTags_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q83="https://adapi.microsoft.com" name="detail" element="q83:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q85="https://adapi.microsoft.com" name="detail" element="q85:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddUetTags_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -6012,7 +6154,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateUetTags_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q84="https://adapi.microsoft.com" name="detail" element="q84:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q86="https://adapi.microsoft.com" name="detail" element="q86:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateUetTags_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -6036,7 +6178,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetConversionGoalsByIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q85="https://adapi.microsoft.com" name="detail" element="q85:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q87="https://adapi.microsoft.com" name="detail" element="q87:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetConversionGoalsByIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -6060,7 +6202,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetConversionGoalsByTagIds_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q86="https://adapi.microsoft.com" name="detail" element="q86:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q88="https://adapi.microsoft.com" name="detail" element="q88:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_GetConversionGoalsByTagIds_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -6084,7 +6226,7 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddConversionGoals_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q87="https://adapi.microsoft.com" name="detail" element="q87:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q89="https://adapi.microsoft.com" name="detail" element="q89:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_AddConversionGoals_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
@@ -6108,9 +6250,33 @@
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateConversionGoals_AdApiFaultDetailFault_FaultMessage">
-    <wsdl:part xmlns:q88="https://adapi.microsoft.com" name="detail" element="q88:AdApiFaultDetail"></wsdl:part>
+    <wsdl:part xmlns:q90="https://adapi.microsoft.com" name="detail" element="q90:AdApiFaultDetail"></wsdl:part>
   </wsdl:message>
   <wsdl:message name="ICampaignManagementService_UpdateConversionGoals_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="ApplyOfflineConversionsRequest">
+    <wsdl:part name="parameters" element="tns:ApplyOfflineConversionsRequest"/>
+  </wsdl:message>
+  <wsdl:message name="ApplyOfflineConversionsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="ApplyOfflineConversionsResponse">
+    <wsdl:part name="parameters" element="tns:ApplyOfflineConversionsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ApplyOfflineConversionsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_ApplyOfflineConversions_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q91="https://adapi.microsoft.com" name="detail" element="q91:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_ApplyOfflineConversions_ApiFaultDetail2Fault_FaultMessage">
     <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
   </wsdl:message>
   <wsdl:message name="GetSuggestedLanguagesForTargetCountriesRequest_Headers">
@@ -6123,6 +6289,102 @@
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
   <wsdl:message name="GetSuggestedLanguagesForTargetCountriesResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="AddLabelsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="AddLabelsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateLabelsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateLabelsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelsByIdsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelsByIdsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="SetLabelAssociationsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="SetLabelAssociationsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelAssociationsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelAssociationsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByEntityIdsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByEntityIdsResponse_Headers">
+    <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByLabelIdsRequest_Headers">
+    <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
+    <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
+    <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId"/>
+    <wsdl:part name="CustomerId" element="tns:CustomerId"/>
+    <wsdl:part name="DeveloperToken" element="tns:DeveloperToken"/>
+    <wsdl:part name="Password" element="tns:Password"/>
+    <wsdl:part name="UserName" element="tns:UserName"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByLabelIdsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
   <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
@@ -6317,6 +6579,18 @@
       <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountMigrationStatusesResponse" name="GetAccountMigrationStatusesResponse" message="tns:GetAccountMigrationStatusesResponse"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountMigrationStatusesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetAccountMigrationStatuses_AdApiFaultDetailFault_FaultMessage"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountMigrationStatusesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetAccountMigrationStatuses_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="SetAccountProperties">
+      <wsdl:input wsaw:Action="SetAccountProperties" name="SetAccountPropertiesRequest" message="tns:SetAccountPropertiesRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetAccountPropertiesResponse" name="SetAccountPropertiesResponse" message="tns:SetAccountPropertiesResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetAccountPropertiesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_SetAccountProperties_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetAccountPropertiesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_SetAccountProperties_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountProperties">
+      <wsdl:input wsaw:Action="GetAccountProperties" name="GetAccountPropertiesRequest" message="tns:GetAccountPropertiesRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountPropertiesResponse" name="GetAccountPropertiesResponse" message="tns:GetAccountPropertiesResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountPropertiesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetAccountProperties_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetAccountPropertiesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetAccountProperties_ApiFaultDetail2Fault_FaultMessage"/>
     </wsdl:operation>
     <wsdl:operation name="AddAdExtensions">
       <wsdl:input wsaw:Action="AddAdExtensions" name="AddAdExtensionsRequest" message="tns:AddAdExtensionsRequest"/>
@@ -6653,6 +6927,12 @@
       <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateConversionGoalsResponse" name="UpdateConversionGoalsResponse" message="tns:UpdateConversionGoalsResponse"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateConversionGoalsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateConversionGoals_AdApiFaultDetailFault_FaultMessage"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateConversionGoalsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateConversionGoals_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyOfflineConversions">
+      <wsdl:input wsaw:Action="ApplyOfflineConversions" name="ApplyOfflineConversionsRequest" message="tns:ApplyOfflineConversionsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsResponse" name="ApplyOfflineConversionsResponse" message="tns:ApplyOfflineConversionsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_ApplyOfflineConversions_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_ApplyOfflineConversions_ApiFaultDetail2Fault_FaultMessage"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -7385,6 +7665,52 @@
       </wsdl:input>
       <wsdl:output name="GetAccountMigrationStatusesResponse">
         <soap:header message="tns:GetAccountMigrationStatusesResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetAccountProperties">
+      <soap:operation soapAction="SetAccountProperties" style="document"/>
+      <wsdl:input name="SetAccountPropertiesRequest">
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:SetAccountPropertiesRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetAccountPropertiesResponse">
+        <soap:header message="tns:SetAccountPropertiesResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccountProperties">
+      <soap:operation soapAction="GetAccountProperties" style="document"/>
+      <wsdl:input name="GetAccountPropertiesRequest">
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:GetAccountPropertiesRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetAccountPropertiesResponse">
+        <soap:header message="tns:GetAccountPropertiesResponse_Headers" part="TrackingId" use="literal"/>
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="AdApiFaultDetailFault">
@@ -8673,6 +8999,29 @@
       </wsdl:input>
       <wsdl:output name="UpdateConversionGoalsResponse">
         <soap:header message="tns:UpdateConversionGoalsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ApplyOfflineConversions">
+      <soap:operation soapAction="ApplyOfflineConversions" style="document"/>
+      <wsdl:input name="ApplyOfflineConversionsRequest">
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:ApplyOfflineConversionsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ApplyOfflineConversionsResponse">
+        <soap:header message="tns:ApplyOfflineConversionsResponse_Headers" part="TrackingId" use="literal"/>
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="AdApiFaultDetailFault">

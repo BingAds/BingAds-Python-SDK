@@ -5,6 +5,8 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAccountAdExtensionAssociation
+
 from bingads.v11.internal.extensions import *
 
 
@@ -72,11 +74,6 @@ class BulkAppAdExtension(_BulkAdExtensionBase):
             field_to_csv=lambda c: c.app_ad_extension.DisplayText,
             csv_to_field=lambda c, v: setattr(c.app_ad_extension, 'DisplayText', v)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.DevicePreference,
-            field_to_csv=lambda c: bulk_device_preference_str(c.app_ad_extension.DevicePreference),
-            csv_to_field=lambda c, v: setattr(c.app_ad_extension, 'DevicePreference', parse_device_preference(v))
-        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
@@ -91,8 +88,26 @@ class BulkAppAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkAppAdExtension._MAPPINGS)
 
 
+class BulkAccountAppAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level app ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account App Ad Extension record in a bulk file.
+
+    For more information, see Account App Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
 class BulkCampaignAppAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level app ad extension.
+    """ Represents a campaign level app ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign App Ad Extension record in a bulk file.
@@ -108,7 +123,6 @@ class BulkCampaignAppAdExtension(_BulkCampaignAdExtensionAssociation):
     """
 
     pass
-
 
 class BulkAdGroupAppAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level App ad extension.

@@ -5,6 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAccountAdExtensionAssociation
 
 _CalloutAdExtension = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('CalloutAdExtension'))
 
@@ -69,8 +70,26 @@ class BulkCalloutAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkCalloutAdExtension._MAPPINGS)
 
 
+class BulkAccountCalloutAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level callout ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Callout Ad Extension record in a bulk file.
+
+    For more information, see Account Callout Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
 class BulkCampaignCalloutAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level callout ad extension.
+    """ Represents a campaign level callout ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Callout Ad Extension record in a bulk file.
@@ -86,7 +105,6 @@ class BulkCampaignCalloutAdExtension(_BulkCampaignAdExtensionAssociation):
     """
 
     pass
-
 
 class BulkAdGroupCalloutAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level Callout ad extension.

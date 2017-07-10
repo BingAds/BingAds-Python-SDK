@@ -66,6 +66,7 @@ class _StringTable:
     SyncTime = "Sync Time"
     Name = "Name"
     LastModifiedTime = "Modified Time"
+    AdFormatPreference = "Ad Format Preference"
 
     # Entity Types
     SemanticVersion = "Format Version"
@@ -90,6 +91,7 @@ class _StringTable:
     # Image Ad Extension
     AltText = "Alternative Text"
     MediaIds = "Media Ids"
+    AccountImageAdExtension = "Account Image Ad Extension"
     CampaignImageAdExtension = "Campaign Image Ad Extension"
     AdGroupImageAdExtension = "Ad Group Image Ad Extension"
 
@@ -112,6 +114,7 @@ class _StringTable:
     GeoCodeStatus = "Geo Code Status"
     IconMediaId = "Map Icon"
     ImageMediaId = "Business Icon"
+    AccountLocationAdExtension = "Account Location Ad Extension"
     CampaignLocationAdExtension = "Campaign Location Ad Extension"
 
     # Call Ad Extensions
@@ -123,6 +126,7 @@ class _StringTable:
 
     # Structured Snippet Ad Extension
     StructuredSnippetAdExtension = "Structured Snippet Ad Extension"
+    AccountStructuredSnippetAdExtension = "Account Structured Snippet Ad Extension"
     CampaignStructuredSnippetAdExtension = "Campaign Structured Snippet Ad Extension"
     AdGroupStructuredSnippetAdExtension = "Ad Group Structured Snippet Ad Extension"
     StructuredSnippetHeader = "Structured Snippet Header"
@@ -132,6 +136,7 @@ class _StringTable:
     Sitelink2AdExtension = "Sitelink2 Ad Extension"
     AdGroupSitelink2AdExtension = "Ad Group Sitelink2 Ad Extension"
     CampaignSitelink2AdExtension = "Campaign Sitelink2 Ad Extension"
+    AccountSitelink2AdExtension = "Account Sitelink2 Ad Extension"
 
     # Editorial Rejection Reasons
     PublisherCountries = "Publisher Countries"
@@ -165,6 +170,7 @@ class _StringTable:
     AppAdExtension = "App Ad Extension"
     AppPlatform = "App Platform"
     AppStoreId = "App Id"
+    AccountAppAdExtension = "Account App Ad Extension"
     CampaignAppAdExtension = "Campaign App Ad Extension"
     AdGroupAppAdExtension = "Ad Group App Ad Extension"
     IsTrackingEnabled = "Tracking Enabled"
@@ -192,8 +198,7 @@ class _StringTable:
     LandingPageRelevance = "Landing Page Relevance"
     LandingPageUserExperience = "Landing Page User Experience"
 
-    # DayTime Target
-    DayTimeTarget = "DayTime Target"
+    # DayTime Criterion
     FromHour = "From Hour"
     ToHour = "To Hour"
     FromMinute = "From Minute"
@@ -216,6 +221,7 @@ class _StringTable:
     ParentAdGroupCriterionId = "Parent Criterion Id"
     CampaignType = "Campaign Type"
     CampaignPriority = "Priority"
+    LocalInventoryAdsEnabled = "LocalInventoryAdsEnabled"
 
     # V10 added
     FieldPath = "Field Path"
@@ -228,21 +234,95 @@ class _StringTable:
 
     # Review Ad Extension
     ReviewAdExtension = "Review Ad Extension"
+    AccountReviewAdExtension = "Account Review Ad Extension"
     CampaignReviewAdExtension = "Campaign Review Ad Extension"
     AdGroupReviewAdExtension = "Ad Group Review Ad Extension"
     IsExact = "Is Exact"
     Source = "Source"
     Url = "Url"
 
+    # Price Ad Extension
+    PriceAdExtension = "Price Ad Extension"
+    AccountPriceAdExtension = "Account Price Ad Extension"
+    CampaignPriceAdExtension = "Campaign Price Ad Extension"
+    AdGroupPriceAdExtension = "Ad Group Price Ad Extension"
+    PriceExtensionType = "Price Extension Type"
+    Header1 = "Header 1"
+    Header2 = "Header 2"  
+    Header3 = "Header 3"
+    Header4 = "Header 4"
+    Header5 = "Header 5"
+    Header6 = "Header 6"
+    Header7 = "Header 7"
+    Header8 = "Header 8"
+    PriceDescription1 = "Price Description 1"
+    PriceDescription2 = "Price Description 2"
+    PriceDescription3 = "Price Description 3"
+    PriceDescription4 = "Price Description 4"
+    PriceDescription5 = "Price Description 5"
+    PriceDescription6 = "Price Description 6"
+    PriceDescription7 = "Price Description 7"
+    PriceDescription8 = "Price Description 8"
+    FinalUrl1 = "Final Url 1"
+    FinalUrl2 = "Final Url 2"
+    FinalUrl3 = "Final Url 3"
+    FinalUrl4 = "Final Url 4"
+    FinalUrl5 = "Final Url 5"
+    FinalUrl6 = "Final Url 6"
+    FinalUrl7 = "Final Url 7"
+    FinalUrl8 = "Final Url 8"
+    FinalMobileUrl1 = "Final Mobile Url 1"
+    FinalMobileUrl2 = "Final Mobile Url 2"
+    FinalMobileUrl3 = "Final Mobile Url 3"
+    FinalMobileUrl4 = "Final Mobile Url 4"
+    FinalMobileUrl5 = "Final Mobile Url 5"
+    FinalMobileUrl6 = "Final Mobile Url 6"
+    FinalMobileUrl7 = "Final Mobile Url 7"
+    FinalMobileUrl8 = "Final Mobile Url 8"
+    Price1 = "Price 1" 
+    Price2 = "Price 2"
+    Price3 = "Price 3"
+    Price4 = "Price 4"
+    Price5 = "Price 5"
+    Price6 = "Price 6"
+    Price7 = "Price 7"
+    Price8 = "Price 8"
+    CurrencyCode1 = "Currency Code 1"
+    CurrencyCode2 = "Currency Code 2"
+    CurrencyCode3 = "Currency Code 3"
+    CurrencyCode4 = "Currency Code 4"
+    CurrencyCode5 = "Currency Code 5"
+    CurrencyCode6 = "Currency Code 6"
+    CurrencyCode7 = "Currency Code 7"
+    CurrencyCode8 = "Currency Code 8"
+    PriceUnit1 = "Price Unit 1"
+    PriceUnit2 = "Price Unit 2"
+    PriceUnit3 = "Price Unit 3"
+    PriceUnit4 = "Price Unit 4"
+    PriceUnit5 = "Price Unit 5"
+    PriceUnit6 = "Price Unit 6"
+    PriceUnit7 = "Price Unit 7"
+    PriceUnit8 = "Price Unit 8"
+    PriceQualifier1 = "Price Qualifier 1"
+    PriceQualifier2 = "Price Qualifier 2"
+    PriceQualifier3 = "Price Qualifier 3"
+    PriceQualifier4 = "Price Qualifier 4"
+    PriceQualifier5 = "Price Qualifier 5"
+    PriceQualifier6 = "Price Qualifier 6"
+    PriceQualifier7 = "Price Qualifier 7"
+    PriceQualifier8 = "Price Qualifier 8"
+
     # Callout Ad Extension
     CalloutAdExtension = "Callout Ad Extension"
+    AccountCalloutAdExtension = "Account Callout Ad Extension"
     CampaignCalloutAdExtension = "Campaign Callout Ad Extension"
     AdGroupCalloutAdExtension = "Ad Group Callout Ad Extension"
     CalloutText = "Callout Text"
 
     # Bid Strategy
     BidStrategyType = "Bid Strategy Type"
-    AdFormatPreference = "Ad Format Preference"
+    BidStrategyMaxCpc = "Bid Strategy MaxCpc"
+    BidStrategyTargetCpa = "Bid Strategy TargetCpa"
 
     # Remarketing
     RemarketingList = "Remarketing List"

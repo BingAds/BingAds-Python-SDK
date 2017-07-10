@@ -6,13 +6,13 @@ from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.extensions import *
 
 
-class BulkAdGroupRemarketingListAssociation(_SingleRecordBulkEntity):
-    """ Represents an Ad Group Remarketing List Association that can be read or written in a bulk file.
+class BulkAdGroupCustomAudienceAssociation(_SingleRecordBulkEntity):
+    """ Represents an Ad Group Custom Audience Association that can be read or written in a bulk file.
 
     This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written as fields of the
-    Ad Group Remarketing List Association record in a bulk file.
+    Ad Group Custom Audience Association record in a bulk file.
 
-    For more information, see Ad Group Remarketing List Association at https://go.microsoft.com/fwlink/?linkid=846127.
+    For more information, see Ad Group Custom Audience Association at https://go.microsoft.com/fwlink/?linkid=846127.
 
     *See also:*
 
@@ -26,13 +26,13 @@ class BulkAdGroupRemarketingListAssociation(_SingleRecordBulkEntity):
                  biddable_ad_group_criterion=None,
                  campaign_name=None,
                  ad_group_name=None,
-                 remarketing_list_name=None):
-        super(BulkAdGroupRemarketingListAssociation, self).__init__()
+                 custom_audience_name=None):
+        super(BulkAdGroupCustomAudienceAssociation, self).__init__()
 
         self._biddable_ad_group_criterion = biddable_ad_group_criterion
         self._campaign_name = campaign_name
         self._ad_group_name = ad_group_name
-        self._remarketing_list_name = remarketing_list_name
+        self._custom_audience_name = custom_audience_name
         self._performance_data = None
 
     _MAPPINGS = [
@@ -63,8 +63,8 @@ class BulkAdGroupRemarketingListAssociation(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             _StringTable.Audience,
-            field_to_csv=lambda c: c.remarketing_list_name,
-            csv_to_field=lambda c, v: setattr(c, 'remarketing_list_name', v)
+            field_to_csv=lambda c: c.custom_audience_name,
+            csv_to_field=lambda c, v: setattr(c, 'custom_audience_name', v)
         ),
         _SimpleBulkMapping(
             _StringTable.BidAdjustment,
@@ -115,17 +115,17 @@ class BulkAdGroupRemarketingListAssociation(_SingleRecordBulkEntity):
         self._ad_group_name = ad_group_name
 
     @property
-    def remarketing_list_name(self):
-        """ Defines the name of the Remarketing List
+    def custom_audience_name(self):
+        """ Defines the name of the Custom Audience
 
         :rtype: str
         """
 
-        return self._remarketing_list_name
+        return self._custom_audience_name
 
-    @remarketing_list_name.setter
-    def remarketing_list_name(self, remarketing_list_name):
-        self._remarketing_list_name = remarketing_list_name
+    @custom_audience_name.setter
+    def custom_audience_name(self, custom_audience_name):
+        self._custom_audience_name = custom_audience_name
 
     @property
     def performance_data(self):
@@ -138,15 +138,15 @@ class BulkAdGroupRemarketingListAssociation(_SingleRecordBulkEntity):
         self._biddable_ad_group_criterion.Criterion.Type = 'AudienceCriterion'
         self._biddable_ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V11.create('BidMultiplier')
         self._biddable_ad_group_criterion.CriterionBid.Type = 'BidMultiplier'
-        row_values.convert_to_entity(self, BulkAdGroupRemarketingListAssociation._MAPPINGS)
+        row_values.convert_to_entity(self, BulkAdGroupCustomAudienceAssociation._MAPPINGS)
 
         self._performance_data = PerformanceData.read_from_row_values_or_null(row_values)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
         self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
-        self.convert_to_values(row_values, BulkAdGroupRemarketingListAssociation._MAPPINGS)
+        self.convert_to_values(row_values, BulkAdGroupCustomAudienceAssociation._MAPPINGS)
 
         PerformanceData.write_to_row_values_if_not_null(self._performance_data, row_values)
     
     def read_additional_data(self, stream_reader):
-        super(BulkAdGroupRemarketingListAssociation, self).read_additional_data(stream_reader)
+        super(BulkAdGroupCustomAudienceAssociation, self).read_additional_data(stream_reader)

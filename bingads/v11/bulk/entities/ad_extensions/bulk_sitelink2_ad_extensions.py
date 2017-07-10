@@ -5,6 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAccountAdExtensionAssociation
 
 from bingads.v11.internal.extensions import *
 
@@ -68,11 +69,6 @@ class BulkSitelink2AdExtension(_BulkAdExtensionBase):
             csv_to_field=lambda c, v: setattr(c.sitelink2_ad_extension, 'DestinationUrl', v if v else '')
         ),
         _SimpleBulkMapping(
-            header=_StringTable.DevicePreference,
-            field_to_csv=lambda c: bulk_device_preference_str(c.sitelink2_ad_extension.DevicePreference),
-            csv_to_field=lambda c, v: setattr(c.sitelink2_ad_extension, 'DevicePreference', parse_device_preference(v))
-        ),
-        _SimpleBulkMapping(
             header=_StringTable.SiteLinkDisplayText,
             field_to_csv=lambda c: c.sitelink2_ad_extension.DisplayText,
             csv_to_field=lambda c, v: setattr(c.sitelink2_ad_extension, 'DisplayText', v)
@@ -111,8 +107,26 @@ class BulkSitelink2AdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkSitelink2AdExtension._MAPPINGS)
 
 
+class BulkAccountSitelink2AdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level sitelink2 ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Sitelink2 Ad Extension record in a bulk file.
+
+    For more information, see Account Sitelink2 Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
 class BulkCampaignSitelink2AdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level sitelink2 ad extension.
+    """ Represents a campaign level sitelink2 ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Sitelink2 Ad Extension record in a bulk file.
@@ -128,7 +142,6 @@ class BulkCampaignSitelink2AdExtension(_BulkCampaignAdExtensionAssociation):
     """
 
     pass
-
 
 class BulkAdGroupSitelink2AdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level Sitelink2 ad extension.

@@ -5,6 +5,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 from .common import _BulkAdExtensionBase
 from .common import _BulkAdGroupAdExtensionAssociation
 from .common import _BulkCampaignAdExtensionAssociation
+from .common import _BulkAccountAdExtensionAssociation
 
 from bingads.v11.internal.extensions import *
 
@@ -87,8 +88,27 @@ class BulkReviewAdExtension(_BulkAdExtensionBase):
         self.convert_to_values(row_values, BulkReviewAdExtension._MAPPINGS)
 
 
+class BulkAccountReviewAdExtension(_BulkAccountAdExtensionAssociation):
+    """ Represents an account level review ad extension.
+
+    This class exposes properties that can be read and written
+    as fields of the Account Review Ad Extension record in a bulk file.
+
+    For more information, see Account Review Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    pass
+
+
 class BulkCampaignReviewAdExtension(_BulkCampaignAdExtensionAssociation):
-    """ Represents an campaign level review ad extension.
+    """ Represents a campaign level review ad extension.
 
     This class exposes properties that can be read and written
     as fields of the Campaign Review Ad Extension record in a bulk file.
@@ -104,7 +124,6 @@ class BulkCampaignReviewAdExtension(_BulkCampaignAdExtensionAssociation):
     """
 
     pass
-
 
 class BulkAdGroupReviewAdExtension(_BulkAdGroupAdExtensionAssociation):
     """ Represents an ad group level Review ad extension.

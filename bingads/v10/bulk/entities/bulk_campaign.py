@@ -3,7 +3,6 @@ from bingads.v10.bulk.entities import QualityScoreData, PerformanceData
 from bingads.v10.internal.bulk.string_table import _StringTable
 from bingads.v10.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v10.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
-# from bingads.internal.extensions import bulk_str, csv_to_budget, budget_to_csv
 from bingads.internal.extensions import *
 
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V10.create('ShoppingSetting'))
@@ -221,6 +220,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: c.campaign.TimeZone,
             csv_to_field=lambda c, v: setattr(c.campaign, 'TimeZone', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.Language,
+            field_to_csv=lambda c: field_to_csv_CampaignLanguages(c.campaign.Languages),
+            csv_to_field=lambda c, v: csv_to_field_CampaignLanguages(c.campaign.Languages, v)
+        ),
         _ComplexBulkMapping(budget_to_csv, csv_to_budget),
         _SimpleBulkMapping(
             header=_StringTable.BidAdjustment,
@@ -247,7 +251,6 @@ class BulkCampaign(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: BulkCampaign._read_sales_country_code(c, v)
         ),
         _SimpleBulkMapping(
-            # TODO now use bulk_str not bulk_optional_str
             header=_StringTable.TrackingTemplate,
             field_to_csv=lambda c: bulk_str(c.campaign.TrackingUrlTemplate),
             csv_to_field=lambda c, v: setattr(c.campaign, 'TrackingUrlTemplate', v if v else None)
@@ -257,11 +260,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.campaign),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.campaign, v)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.BidStrategyType,
-            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.campaign),
-            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.campaign, v)
-        ),
+        _ComplexBulkMapping(biddingscheme_to_csv, csv_to_biddingscheme),
         _SimpleBulkMapping(
             header=_StringTable.BudgetId,
             field_to_csv=lambda c: bulk_str(c.campaign.BudgetId),

@@ -42,9 +42,9 @@ class BulkCampaignProductScope(_SingleRecordBulkEntity):
 
     _MAPPINGS = [
         _SimpleBulkMapping(
-            header=_StringTable.Status,
-            field_to_csv=lambda c: c.status,
-            csv_to_field=lambda c, v: setattr(c, 'status', v)
+            _StringTable.Status,
+            field_to_csv=lambda c: c.biddable_campaign_criterion.Status,
+            csv_to_field=lambda c, v: setattr(c.biddable_campaign_criterion, 'Status', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -62,10 +62,6 @@ class BulkCampaignProductScope(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'campaign_name', v)
         ),
         _ComplexBulkMapping(
-            #entity_to_csv=lambda c, v: _ProductConditionHelper.add_row_values_from_conditions(
-            #    c.campaign_criterion.Criterion.Conditions.ProductCondition,
-            #    v
-            #),
             entity_to_csv=lambda c, v: BulkCampaignProductScope._add_product_condition_to_row_values(c, v),
             csv_to_entity=lambda v, c: _ProductConditionHelper.add_conditions_from_row_values(
                 v,
