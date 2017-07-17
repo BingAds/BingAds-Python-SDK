@@ -803,7 +803,7 @@ def output_bulk_ad_group_product_partitions(bulk_entities):
 
         # BulkAdGroupProductPartition can have either BiddableAdGroupCriterion or NegativeAdGroupCriterion
         if entity.ad_group_criterion is None:
-            output_status_message("Criterion is null or invalid.\n")
+            output_status_message("Criterion is null or invalid.")
         elif entity.ad_group_criterion.Type == 'BiddableAdGroupCriterion':
             # Output the Campaign Management BiddableAdGroupCriterion
             output_biddable_ad_group_criterion(entity.ad_group_criterion)
@@ -811,7 +811,7 @@ def output_bulk_ad_group_product_partitions(bulk_entities):
             # Output the Campaign Management NegativeAdGroupCriterion
             output_negative_ad_group_criterion(entity.ad_group_criterion)
         else:
-            output_status_message("Unknown ad group criterion type.\n")
+            output_status_message("Unknown ad group criterion type.")
 
         if entity.has_errors:
             output_bulk_errors(entity.errors)
@@ -1395,7 +1395,7 @@ def output_remarketing_rule(remarketing_rule):
                 output_status_message("RuleItemGroups: ")
                 output_rule_item_groups(remarketing_rule.RuleItemGroups)
         else:
-            output_status_message("Unknown remarketing rule type.\n")
+            output_status_message("Unknown remarketing rule type.")
 
 def output_rule_item_groups(rule_item_groups):
     if rule_item_groups is not None:
@@ -1407,7 +1407,7 @@ def output_rule_item_groups(rule_item_groups):
                         output_status_message("\tOperator: {0}".format(rule_item.Operator))
                         output_status_message("\tValue: {0}".format(rule_item.Value))
                     else:
-                        output_status_message("Unknown remarketing rule item type.\n")
+                        output_status_message("Unknown remarketing rule item type.")
 
 def output_uet_tag(uet_tag):
     if uet_tag is not None:
@@ -1467,7 +1467,7 @@ def output_biddable_ad_group_criterion(ad_group_criterion):
 
         output_status_message("DestinationUrl: {0}".format(ad_group_criterion.DestinationUrl))
         if ad_group_criterion.EditorialStatus is not None:
-            output_status_message("EditorialStatus: {0}".format(ad_group_criterion.EditorialStatus['value']))
+            output_status_message("EditorialStatus: {0}".format(ad_group_criterion.EditorialStatus))
         output_status_message("FinalMobileUrls: ")
         if ad_group_criterion.FinalMobileUrls is not None:
             for final_mobile_url in ad_group_criterion.FinalMobileUrls['string']:
@@ -1482,7 +1482,8 @@ def output_biddable_ad_group_criterion(ad_group_criterion):
             for custom_parameter in ad_group_criterion.UrlCustomParameters.Parameters['CustomParameter']:
                 output_status_message("\tKey: {0}".format(custom_parameter.Key))
                 output_status_message("\tValue: {0}".format(custom_parameter.Value))
-              
+        output_status_message("\n")
+
 def output_negative_ad_group_criterion(ad_group_criterion):
     if ad_group_criterion is not None:
         # Output inherited properties of the AdGroupCriterion base class.
@@ -1493,13 +1494,13 @@ def output_negative_ad_group_criterion(ad_group_criterion):
 def output_ad_group_criterions(ad_group_criterions):
     for ad_group_criterion in ad_group_criterions['AdGroupCriterion']:
         if ad_group_criterion is None:
-            output_status_message("Criterion is null or invalid.\n")
+            output_status_message("Criterion is null or invalid.")
         elif ad_group_criterion.Type == 'BiddableAdGroupCriterion':
             output_biddable_ad_group_criterion(ad_group_criterion)
         elif ad_group_criterion.Type == 'NegativeAdGroupCriterion':
             output_negative_ad_group_criterion(ad_group_criterion)
         else:
-            output_status_message("Unknown ad group criterion type.\n")
+            output_status_message("Unknown ad group criterion type.")
         
 def output_ad_group_criterion(ad_group_criterion):
     if ad_group_criterion is not None:
@@ -1507,7 +1508,7 @@ def output_ad_group_criterion(ad_group_criterion):
         output_criterion(ad_group_criterion.Criterion)   
         output_status_message("Id: {0}".format(ad_group_criterion.Id))
         output_status_message("Status: {0}".format(ad_group_criterion.Status))
-        output_status_message("AdGroupCriterion Type: {0}".format(ad_group_criterion.Type))        
+        output_status_message("AdGroupCriterion Type: {0}".format(ad_group_criterion.Type))   
         
 def output_biddable_campaign_criterion(campaign_criterion):
     if campaign_criterion is not None:
@@ -1516,6 +1517,8 @@ def output_biddable_campaign_criterion(campaign_criterion):
 
         # Output properties that are specific to the BiddableCampaignCriterion
         output_criterion_bid(campaign_criterion.CriterionBid)
+
+        output_status_message("\n")
                       
 def output_negative_campaign_criterion(campaign_criterion):
     if campaign_criterion is not None:
@@ -1527,13 +1530,13 @@ def output_negative_campaign_criterion(campaign_criterion):
 def output_campaign_criterions(campaign_criterions):
     for campaign_criterion in campaign_criterions['CampaignCriterion']:
         if campaign_criterion is None:
-            output_status_message("Criterion is null or invalid.\n")
+            output_status_message("Criterion is null or invalid.")
         elif campaign_criterion.Type == 'BiddableCampaignCriterion':
             output_biddable_campaign_criterion(campaign_criterion)
         elif campaign_criterion.Type == 'NegativeCampaignCriterion':
             output_negative_campaign_criterion(campaign_criterion)
         else:
-            output_status_message("Unknown ad group criterion type.\n")
+            output_status_message("Unknown campaign criterion type.")
         
 def output_campaign_criterion(campaign_criterion):
     if campaign_criterion is not None:
@@ -1545,7 +1548,7 @@ def output_campaign_criterion(campaign_criterion):
                output_status_message("Value: {0}".format(pair.value))
         output_status_message("Id: {0}".format(campaign_criterion.Id))
         output_status_message("Status: {0}".format(campaign_criterion.Status))
-        output_status_message("CampaignCriterion Type: {0}".format(campaign_criterion.Type))        
+        output_status_message("CampaignCriterion Type: {0}".format(campaign_criterion.Type))     
         
 def output_criterion(criterion):
     if criterion is not None:
@@ -1558,8 +1561,22 @@ def output_criterion(criterion):
             output_webpage(criterion)
         elif criterion.Type == 'AudienceCriterion':
             output_audience_criterion(criterion)
+        elif criterion.Type == 'AgeCriterion':
+            output_age_criterion(criterion)
+        elif criterion.Type == 'DayTimeCriterion':
+            output_day_time_criterion(criterion)
+        elif criterion.Type == 'DeviceCriterion':
+            output_device_criterion(criterion)
+        elif criterion.Type == 'GenderCriterion':
+            output_gender_criterion(criterion)
+        elif criterion.Type == 'LocationCriterion':
+            output_location_criterion(criterion)
+        elif criterion.Type == 'LocationIntentCriterion':
+            output_location_intent_criterion(criterion)
+        elif criterion.Type == 'RadiusCriterion':
+            output_radius_criterion(criterion)
         else:
-            output_status_message("Unknown criterion type.\n")
+            output_status_message("Unknown criterion type.")
 
 def output_product_partition(criterion):
     if criterion is not None:
@@ -1585,7 +1602,7 @@ def output_webpage(criterion):
 
         output_status_message("Webpage CriterionName: {0}".format(criterion.Parameter.CriterionName))
         output_status_message("Webpage Conditions:")
-        for condition in criterion.Conditions['WebpageCondition']:
+        for condition in criterion.Parameter.Conditions['WebpageCondition']:
             output_status_message("Operand: {0}".format(condition.Operand))
             output_status_message("Argument: {0}".format(condition.Argument))
             
@@ -1593,7 +1610,45 @@ def output_audience_criterion(criterion):
     if criterion is not None:
         output_status_message("AudienceId: {0}".format(criterion.AudienceId))
         output_status_message("AudienceType: {0}".format(criterion.AudienceType))
-        
+
+def output_age_criterion(criterion):
+    if criterion is not None:
+        output_status_message("AgeRange: {0}".format(criterion.AgeRange))
+
+def output_day_time_criterion(criterion):
+    if criterion is not None:
+        output_status_message("Day: {0}".format(criterion.Day))
+        output_status_message("FromHour: {0}".format(criterion.FromHour))
+        output_status_message("FromMinute: {0}".format(criterion.FromMinute))
+        output_status_message("ToHour: {0}".format(criterion.ToHour))
+        output_status_message("ToMinute: {0}".format(criterion.ToMinute))
+
+def output_device_criterion(criterion):
+    if criterion is not None:
+        output_status_message("DeviceName: {0}".format(criterion.DeviceName))
+
+def output_gender_criterion(criterion):
+    if criterion is not None:
+        output_status_message("GenderType: {0}".format(criterion.GenderType))
+
+def output_location_criterion(criterion):
+    if criterion is not None:
+        output_status_message("DisplayName: {0}".format(criterion.DisplayName))
+        output_status_message("LocationId: {0}".format(criterion.LocationId))
+        output_status_message("LocationType: {0}".format(criterion.LocationType))
+
+def output_location_intent_criterion(criterion):
+    if criterion is not None:
+        output_status_message("IntentOption: {0}".format(criterion.IntentOption))
+     
+def output_radius_criterion(criterion):
+    if criterion is not None:
+        output_status_message("LatitudeDegrees: {0}".format(criterion.LatitudeDegrees))
+        output_status_message("LongitudeDegrees: {0}".format(criterion.LongitudeDegrees))
+        output_status_message("Name: {0}".format(criterion.Name))
+        output_status_message("Radius: {0}".format(criterion.Radius))
+        output_status_message("RadiusUnit: {0}".format(criterion.RadiusUnit))
+                                
 def output_criterion_bid(criterion_bid):
     if criterion_bid is not None:
         output_status_message("CriterionBid Type: {0}".format(criterion_bid.Type))
