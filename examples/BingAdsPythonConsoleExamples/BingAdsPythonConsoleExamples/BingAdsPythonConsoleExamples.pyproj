@@ -67,6 +67,7 @@
     <Compile Include="v11\console_getting_started.py" />
     <Compile Include="v11\conversion_goals.py" />
     <Compile Include="v11\customer_signup.py" />
+    <Compile Include="v11\dynamic_search_campaigns.py" />
     <Compile Include="v11\geographical_locations.py" />
     <Compile Include="v11\invite_user.py" />
     <Compile Include="v11\keywords_ads.py" />
@@ -77,6 +78,9 @@
     <Compile Include="v11\report_requests.py" />
     <Compile Include="v11\search_user_accounts.py" />
     <Compile Include="v11\shopping_campaigns.py" />
+    <Compile Include="v11\target_criterions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v9\CustomerSignup.py" />
     <Compile Include="v9\InviteUser.py" />
     <Compile Include="v9\ManageClient.py" />

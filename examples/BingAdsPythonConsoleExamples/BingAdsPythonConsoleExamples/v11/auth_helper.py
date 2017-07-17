@@ -25,6 +25,8 @@ USER_NAME='UserNameGoesHere'
 PASSWORD='PasswordGoesHere'
 
 ALL_CAMPAIGN_TYPES=['DynamicSearchAds SearchAndContent Shopping']
+ALL_TARGET_CAMPAIGN_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
+ALL_TARGET_AD_GROUP_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 
 ALL_AD_TYPES={
     'AdType': ['AppInstall', 'DynamicSearch', 'ExpandedText', 'Product', 'Text']
