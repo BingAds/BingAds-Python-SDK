@@ -3,8 +3,34 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11
 
 from bingads.v11.internal.bulk.string_table import _StringTable
 from bingads.v11.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
-from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping
+from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.v11.internal.extensions import *
+
+
+def bidding_scheme_to_csv(bulk_ad_group, row_values):
+    bid_strategy_type = field_to_csv_BidStrategyType(bulk_ad_group.ad_group)
+    if not bid_strategy_type:
+        return
+    row_values[_StringTable.BidStrategyType] = bid_strategy_type
+    if bid_strategy_type == 'InheritFromParent' \
+        and hasattr(bulk_ad_group.ad_group.BiddingScheme, 'InheritedBidStrategyType'):
+        row_values[_StringTable.InheritedBidStrategyType] = bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType
+
+
+def csv_to_bidding_scheme(row_values, bulk_ad_group):
+    success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
+    if not success or not bid_strategy_type:
+        return
+    csv_to_field_BidStrategyType(bulk_ad_group.ad_group, bid_strategy_type)
+    if bid_strategy_type == 'InheritFromParent':
+        bulk_ad_group.ad_group.BiddingScheme.Type = "InheritFromParent"
+        success, inherited_bid_strategy_type = row_values.try_get_value(_StringTable.InheritedBidStrategyType)
+        if success and inherited_bid_strategy_type != '':
+            bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType = inherited_bid_strategy_type
+        elif hasattr(bulk_ad_group.ad_group.BiddingScheme, 'InheritedBidStrategyType'):
+            del bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType
+    else:
+        bulk_ad_group.ad_group.BiddingScheme.Type = bid_strategy_type
 
 
 class BulkAdGroup(_SingleRecordBulkEntity):
@@ -206,11 +232,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad_group),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad_group, v)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.BidStrategyType,
-            field_to_csv=lambda c: field_to_csv_BidStrategyType(c.ad_group),
-            csv_to_field=lambda c, v: csv_to_field_BidStrategyType(c.ad_group, v)
-        ),
+        _ComplexBulkMapping(bidding_scheme_to_csv, csv_to_bidding_scheme),
         _SimpleBulkMapping(
             header=_StringTable.RemarketingTargetingSetting,
             field_to_csv=lambda c: bulk_str(c.ad_group.RemarketingTargetingSetting),

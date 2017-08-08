@@ -323,6 +323,7 @@ class _StringTable:
     BidStrategyType = "Bid Strategy Type"
     BidStrategyMaxCpc = "Bid Strategy MaxCpc"
     BidStrategyTargetCpa = "Bid Strategy TargetCpa"
+    InheritedBidStrategyType = "Inherited Bid Strategy Type"
 
     # Remarketing
     RemarketingList = "Remarketing List"
@@ -353,3 +354,23 @@ class _StringTable:
     DynamicAdTargetValue2 = "Dynamic Ad Target Value 2"
     DynamicAdTargetCondition3 = "Dynamic Ad Target Condition 3"
     DynamicAdTargetValue3 = "Dynamic Ad Target Value 3"
+
+    # Labels
+    ColorCode = "Color"
+    Label = "Label"
+    CampaignLabel = "Campaign Label"
+    AdGroupLabel = "Ad Group Label"
+    KeywordLabel = "Keyword Label"
+    AppInstallAdLabel = "App Install Ad Label"
+    DynamicSearchAdLabel = "Dynamic Search Ad Label"
+    ExpandedTextAdLabel = "Expanded Text Ad Label"
+    ProductAdLabel = "Product Ad Label"
+    TextAdLabel = "Text Ad Label"
+
+    # Offline Conversions
+    OfflineConversion = "Offline Conversion"
+    ConversionCurrencyCode = "Conversion Currency Code"
+    ConversionName = "Conversion Name"
+    ConversionTime = "Conversion Time"
+    ConversionValue = "Conversion Value"
+    MicrosoftClickId = "Microsoft Click Id"

@@ -244,15 +244,16 @@ class _CsvHeaders:
         _StringTable.PriceQualifier2,
         _StringTable.PriceQualifier3,
         _StringTable.PriceQualifier4,
-        _StringTable.PriceQualifier5, 
+        _StringTable.PriceQualifier5,
         _StringTable.PriceQualifier6,
         _StringTable.PriceQualifier7,
         _StringTable.PriceQualifier8,
-        
+
         # Bid Strategy
         _StringTable.BidStrategyType,
         _StringTable.BidStrategyMaxCpc,
         _StringTable.BidStrategyTargetCpa,
+        _StringTable.InheritedBidStrategyType,
 
         # Ad Format Preference
         _StringTable.AdFormatPreference,
@@ -285,6 +286,17 @@ class _CsvHeaders:
         _StringTable.DynamicAdTargetValue2,
         _StringTable.DynamicAdTargetCondition3,
         _StringTable.DynamicAdTargetValue3,
+
+        # Labels
+        _StringTable.ColorCode,
+        _StringTable.Label,
+
+        # Offline Conversions
+        _StringTable.ConversionCurrencyCode,
+        _StringTable.ConversionName,
+        _StringTable.ConversionTime,
+        _StringTable.ConversionValue,
+        _StringTable.MicrosoftClickId
 
     ]
 

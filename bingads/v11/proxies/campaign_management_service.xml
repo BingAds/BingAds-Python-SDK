@@ -281,7 +281,15 @@
       <xs:complexType name="InheritFromParentBiddingScheme">
         <xs:complexContent mixed="false">
           <xs:extension base="tns:BiddingScheme">
-            <xs:sequence/>
+            <xs:sequence>
+              <xs:element minOccurs="0" name="InheritedBidStrategyType" nillable="true" type="xs:string">
+                <xs:annotation>
+                  <xs:appinfo>
+                    <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false"></DefaultValue>
+                  </xs:appinfo>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
           </xs:extension>
         </xs:complexContent>
       </xs:complexType>
@@ -690,9 +698,20 @@
           <xs:sequence>
             <xs:element minOccurs="0" name="CampaignId" type="xs:long"/>
             <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupIds" nillable="true" type="q21:ArrayOflong"></xs:element>
+            <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:simpleType name="AdGroupAdditionalField">
+        <xs:list>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="InheritedBidStrategyType"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:list>
+      </xs:simpleType>
+      <xs:element name="AdGroupAdditionalField" nillable="true" type="tns:AdGroupAdditionalField"/>
       <xs:element name="GetAdGroupsByIdsResponse">
         <xs:complexType>
           <xs:sequence>
@@ -705,6 +724,7 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" name="CampaignId" type="xs:long"/>
+            <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -1012,9 +1032,20 @@
           <xs:sequence>
             <xs:element minOccurs="0" name="AdGroupId" type="xs:long"/>
             <xs:element minOccurs="0" name="EditorialStatus" type="tns:KeywordEditorialStatus"/>
+            <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:simpleType name="KeywordAdditionalField">
+        <xs:list>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="InheritedBidStrategyType"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:list>
+      </xs:simpleType>
+      <xs:element name="KeywordAdditionalField" nillable="true" type="tns:KeywordAdditionalField"/>
       <xs:element name="GetKeywordsByEditorialStatusResponse">
         <xs:complexType>
           <xs:sequence>
@@ -1027,6 +1058,7 @@
           <xs:sequence>
             <xs:element minOccurs="0" name="AdGroupId" type="xs:long"/>
             <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="KeywordIds" nillable="true" type="q35:ArrayOflong"></xs:element>
+            <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -1042,6 +1074,7 @@
         <xs:complexType>
           <xs:sequence>
             <xs:element minOccurs="0" name="AdGroupId" type="xs:long"/>
+            <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -3587,6 +3620,7 @@
               <xs:enumeration value="Event"/>
               <xs:enumeration value="AppInstall"/>
               <xs:enumeration value="OfflineConversion"/>
+              <xs:enumeration value="InStoreTransaction"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:list>
@@ -3745,6 +3779,14 @@
         </xs:complexContent>
       </xs:complexType>
       <xs:element name="OfflineConversionGoal" nillable="true" type="tns:OfflineConversionGoal"/>
+      <xs:complexType name="InStoreTransactionGoal">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ConversionGoal">
+            <xs:sequence/>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="InStoreTransactionGoal" nillable="true" type="tns:InStoreTransactionGoal"/>
       <xs:element name="GetConversionGoalsByTagIdsRequest">
         <xs:complexType>
           <xs:sequence>
@@ -3816,6 +3858,163 @@
       <xs:element name="ApplyOfflineConversionsResponse">
         <xs:complexType>
           <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AddLabelsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Labels" nillable="true" type="tns:ArrayOfLabel"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfLabel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Label" nillable="true" type="tns:Label"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfLabel" nillable="true" type="tns:ArrayOfLabel"/>
+      <xs:complexType name="Label">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ColorCode" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long"/>
+          <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Label" nillable="true" type="tns:Label"/>
+      <xs:element name="AddLabelsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="LabelIds" nillable="true" type="q109:ArrayOfNullableOflong"></xs:element>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteLabelsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q110="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LabelIds" nillable="true" type="q110:ArrayOflong"></xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteLabelsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateLabelsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Labels" nillable="true" type="tns:ArrayOfLabel"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateLabelsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetLabelsByIdsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LabelIds" nillable="true" type="q111:ArrayOflong"></xs:element>
+            <xs:element minOccurs="0" name="PageInfo" nillable="true" type="tns:Paging"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="Paging">
+        <xs:sequence>
+          <xs:element name="Index" type="xs:int"/>
+          <xs:element name="Size" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Paging" nillable="true" type="tns:Paging"/>
+      <xs:element name="GetLabelsByIdsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="Labels" nillable="true" type="tns:ArrayOfLabel"/>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SetLabelAssociationsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="EntityType" type="tns:EntityType"/>
+            <xs:element minOccurs="0" name="LabelAssociations" nillable="true" type="tns:ArrayOfLabelAssociation"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfLabelAssociation">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="LabelAssociation" nillable="true" type="tns:LabelAssociation"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfLabelAssociation" nillable="true" type="tns:ArrayOfLabelAssociation"/>
+      <xs:complexType name="LabelAssociation">
+        <xs:sequence>
+          <xs:element name="EntityId" type="xs:long"/>
+          <xs:element name="LabelId" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="LabelAssociation" nillable="true" type="tns:LabelAssociation"/>
+      <xs:element name="SetLabelAssociationsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteLabelAssociationsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="EntityType" type="tns:EntityType"/>
+            <xs:element minOccurs="0" name="LabelAssociations" nillable="true" type="tns:ArrayOfLabelAssociation"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="DeleteLabelAssociationsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetLabelAssociationsByEntityIdsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q112="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntityIds" nillable="true" type="q112:ArrayOflong"></xs:element>
+            <xs:element minOccurs="0" name="EntityType" type="tns:EntityType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetLabelAssociationsByEntityIdsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="LabelAssociations" nillable="true" type="tns:ArrayOfLabelAssociation"/>
+            <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetLabelAssociationsByLabelIdsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="EntityType" type="tns:EntityType"/>
+            <xs:element xmlns:q113="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LabelIds" nillable="true" type="q113:ArrayOflong"></xs:element>
+            <xs:element minOccurs="0" name="PageInfo" nillable="true" type="tns:Paging"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetLabelAssociationsByLabelIdsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="LabelAssociations" nillable="true" type="tns:ArrayOfLabelAssociation"/>
             <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError"/>
           </xs:sequence>
         </xs:complexType>
@@ -3997,6 +4196,24 @@
         </xs:sequence>
       </xs:complexType>
       <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring"/>
+      <xs:complexType name="ArrayOfKeyValueOfstringstring">
+        <xs:annotation>
+          <xs:appinfo>
+            <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Key" nillable="true" type="xs:string"/>
+                <xs:element name="Value" nillable="true" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring"/>
       <xs:complexType name="ArrayOflong">
         <xs:sequence>
           <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long"/>
@@ -6291,6 +6508,9 @@
   <wsdl:message name="GetSuggestedLanguagesForTargetCountriesResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
   </wsdl:message>
+  <wsdl:message name="AddLabelsRequest">
+    <wsdl:part name="parameters" element="tns:AddLabelsRequest"/>
+  </wsdl:message>
   <wsdl:message name="AddLabelsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
     <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken"/>
@@ -6300,8 +6520,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="AddLabelsResponse">
+    <wsdl:part name="parameters" element="tns:AddLabelsResponse"/>
+  </wsdl:message>
   <wsdl:message name="AddLabelsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_AddLabels_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q92="https://adapi.microsoft.com" name="detail" element="q92:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_AddLabels_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelsRequest">
+    <wsdl:part name="parameters" element="tns:DeleteLabelsRequest"/>
   </wsdl:message>
   <wsdl:message name="DeleteLabelsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6312,8 +6544,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="DeleteLabelsResponse">
+    <wsdl:part name="parameters" element="tns:DeleteLabelsResponse"/>
+  </wsdl:message>
   <wsdl:message name="DeleteLabelsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_DeleteLabels_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q93="https://adapi.microsoft.com" name="detail" element="q93:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_DeleteLabels_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateLabelsRequest">
+    <wsdl:part name="parameters" element="tns:UpdateLabelsRequest"/>
   </wsdl:message>
   <wsdl:message name="UpdateLabelsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6324,8 +6568,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="UpdateLabelsResponse">
+    <wsdl:part name="parameters" element="tns:UpdateLabelsResponse"/>
+  </wsdl:message>
   <wsdl:message name="UpdateLabelsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_UpdateLabels_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q94="https://adapi.microsoft.com" name="detail" element="q94:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_UpdateLabels_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelsByIdsRequest">
+    <wsdl:part name="parameters" element="tns:GetLabelsByIdsRequest"/>
   </wsdl:message>
   <wsdl:message name="GetLabelsByIdsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6336,8 +6592,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="GetLabelsByIdsResponse">
+    <wsdl:part name="parameters" element="tns:GetLabelsByIdsResponse"/>
+  </wsdl:message>
   <wsdl:message name="GetLabelsByIdsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelsByIds_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q95="https://adapi.microsoft.com" name="detail" element="q95:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelsByIds_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="SetLabelAssociationsRequest">
+    <wsdl:part name="parameters" element="tns:SetLabelAssociationsRequest"/>
   </wsdl:message>
   <wsdl:message name="SetLabelAssociationsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6348,8 +6616,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="SetLabelAssociationsResponse">
+    <wsdl:part name="parameters" element="tns:SetLabelAssociationsResponse"/>
+  </wsdl:message>
   <wsdl:message name="SetLabelAssociationsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_SetLabelAssociations_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q96="https://adapi.microsoft.com" name="detail" element="q96:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_SetLabelAssociations_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="DeleteLabelAssociationsRequest">
+    <wsdl:part name="parameters" element="tns:DeleteLabelAssociationsRequest"/>
   </wsdl:message>
   <wsdl:message name="DeleteLabelAssociationsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6360,8 +6640,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="DeleteLabelAssociationsResponse">
+    <wsdl:part name="parameters" element="tns:DeleteLabelAssociationsResponse"/>
+  </wsdl:message>
   <wsdl:message name="DeleteLabelAssociationsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_DeleteLabelAssociations_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q97="https://adapi.microsoft.com" name="detail" element="q97:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_DeleteLabelAssociations_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByEntityIdsRequest">
+    <wsdl:part name="parameters" element="tns:GetLabelAssociationsByEntityIdsRequest"/>
   </wsdl:message>
   <wsdl:message name="GetLabelAssociationsByEntityIdsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6372,8 +6664,20 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByEntityIdsResponse">
+    <wsdl:part name="parameters" element="tns:GetLabelAssociationsByEntityIdsResponse"/>
+  </wsdl:message>
   <wsdl:message name="GetLabelAssociationsByEntityIdsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelAssociationsByEntityIds_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q98="https://adapi.microsoft.com" name="detail" element="q98:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelAssociationsByEntityIds_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
+  </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByLabelIdsRequest">
+    <wsdl:part name="parameters" element="tns:GetLabelAssociationsByLabelIdsRequest"/>
   </wsdl:message>
   <wsdl:message name="GetLabelAssociationsByLabelIdsRequest_Headers">
     <wsdl:part name="ApplicationToken" element="tns:ApplicationToken"/>
@@ -6384,8 +6688,17 @@
     <wsdl:part name="Password" element="tns:Password"/>
     <wsdl:part name="UserName" element="tns:UserName"/>
   </wsdl:message>
+  <wsdl:message name="GetLabelAssociationsByLabelIdsResponse">
+    <wsdl:part name="parameters" element="tns:GetLabelAssociationsByLabelIdsResponse"/>
+  </wsdl:message>
   <wsdl:message name="GetLabelAssociationsByLabelIdsResponse_Headers">
     <wsdl:part name="TrackingId" element="tns:TrackingId"/>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelAssociationsByLabelIds_AdApiFaultDetailFault_FaultMessage">
+    <wsdl:part xmlns:q99="https://adapi.microsoft.com" name="detail" element="q99:AdApiFaultDetail"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ICampaignManagementService_GetLabelAssociationsByLabelIds_ApiFaultDetail2Fault_FaultMessage">
+    <wsdl:part name="detail" element="tns:ApiFaultDetail"/>
   </wsdl:message>
   <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
     <wsdl:operation name="AddCampaigns">
@@ -6933,6 +7246,54 @@
       <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsResponse" name="ApplyOfflineConversionsResponse" message="tns:ApplyOfflineConversionsResponse"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_ApplyOfflineConversions_AdApiFaultDetailFault_FaultMessage"/>
       <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/ApplyOfflineConversionsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_ApplyOfflineConversions_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddLabels">
+      <wsdl:input wsaw:Action="AddLabels" name="AddLabelsRequest" message="tns:AddLabelsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/AddLabelsResponse" name="AddLabelsResponse" message="tns:AddLabelsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/AddLabelsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddLabels_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/AddLabelsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddLabels_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLabels">
+      <wsdl:input wsaw:Action="DeleteLabels" name="DeleteLabelsRequest" message="tns:DeleteLabelsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelsResponse" name="DeleteLabelsResponse" message="tns:DeleteLabelsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteLabels_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteLabels_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLabels">
+      <wsdl:input wsaw:Action="UpdateLabels" name="UpdateLabelsRequest" message="tns:UpdateLabelsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateLabelsResponse" name="UpdateLabelsResponse" message="tns:UpdateLabelsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateLabelsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateLabels_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/UpdateLabelsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateLabels_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelsByIds">
+      <wsdl:input wsaw:Action="GetLabelsByIds" name="GetLabelsByIdsRequest" message="tns:GetLabelsByIdsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelsByIdsResponse" name="GetLabelsByIdsResponse" message="tns:GetLabelsByIdsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelsByIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetLabelsByIds_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelsByIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetLabelsByIds_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="SetLabelAssociations">
+      <wsdl:input wsaw:Action="SetLabelAssociations" name="SetLabelAssociationsRequest" message="tns:SetLabelAssociationsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetLabelAssociationsResponse" name="SetLabelAssociationsResponse" message="tns:SetLabelAssociationsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetLabelAssociationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_SetLabelAssociations_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/SetLabelAssociationsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_SetLabelAssociations_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLabelAssociations">
+      <wsdl:input wsaw:Action="DeleteLabelAssociations" name="DeleteLabelAssociationsRequest" message="tns:DeleteLabelAssociationsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelAssociationsResponse" name="DeleteLabelAssociationsResponse" message="tns:DeleteLabelAssociationsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelAssociationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteLabelAssociations_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/DeleteLabelAssociationsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteLabelAssociations_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelAssociationsByEntityIds">
+      <wsdl:input wsaw:Action="GetLabelAssociationsByEntityIds" name="GetLabelAssociationsByEntityIdsRequest" message="tns:GetLabelAssociationsByEntityIdsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByEntityIdsResponse" name="GetLabelAssociationsByEntityIdsResponse" message="tns:GetLabelAssociationsByEntityIdsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByEntityIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetLabelAssociationsByEntityIds_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByEntityIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetLabelAssociationsByEntityIds_ApiFaultDetail2Fault_FaultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelAssociationsByLabelIds">
+      <wsdl:input wsaw:Action="GetLabelAssociationsByLabelIds" name="GetLabelAssociationsByLabelIdsRequest" message="tns:GetLabelAssociationsByLabelIdsRequest"/>
+      <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsResponse" name="GetLabelAssociationsByLabelIdsResponse" message="tns:GetLabelAssociationsByLabelIdsResponse"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetLabelAssociationsByLabelIds_AdApiFaultDetailFault_FaultMessage"/>
+      <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetLabelAssociationsByLabelIds_ApiFaultDetail2Fault_FaultMessage"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -9022,6 +9383,190 @@
       </wsdl:input>
       <wsdl:output name="ApplyOfflineConversionsResponse">
         <soap:header message="tns:ApplyOfflineConversionsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddLabels">
+      <soap:operation soapAction="AddLabels" style="document"/>
+      <wsdl:input name="AddLabelsRequest">
+        <soap:header message="tns:AddLabelsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:AddLabelsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AddLabelsResponse">
+        <soap:header message="tns:AddLabelsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLabels">
+      <soap:operation soapAction="DeleteLabels" style="document"/>
+      <wsdl:input name="DeleteLabelsRequest">
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:DeleteLabelsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="DeleteLabelsResponse">
+        <soap:header message="tns:DeleteLabelsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateLabels">
+      <soap:operation soapAction="UpdateLabels" style="document"/>
+      <wsdl:input name="UpdateLabelsRequest">
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:UpdateLabelsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="UpdateLabelsResponse">
+        <soap:header message="tns:UpdateLabelsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelsByIds">
+      <soap:operation soapAction="GetLabelsByIds" style="document"/>
+      <wsdl:input name="GetLabelsByIdsRequest">
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:GetLabelsByIdsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetLabelsByIdsResponse">
+        <soap:header message="tns:GetLabelsByIdsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetLabelAssociations">
+      <soap:operation soapAction="SetLabelAssociations" style="document"/>
+      <wsdl:input name="SetLabelAssociationsRequest">
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:SetLabelAssociationsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SetLabelAssociationsResponse">
+        <soap:header message="tns:SetLabelAssociationsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLabelAssociations">
+      <soap:operation soapAction="DeleteLabelAssociations" style="document"/>
+      <wsdl:input name="DeleteLabelAssociationsRequest">
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:DeleteLabelAssociationsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="DeleteLabelAssociationsResponse">
+        <soap:header message="tns:DeleteLabelAssociationsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelAssociationsByEntityIds">
+      <soap:operation soapAction="GetLabelAssociationsByEntityIds" style="document"/>
+      <wsdl:input name="GetLabelAssociationsByEntityIdsRequest">
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetLabelAssociationsByEntityIdsResponse">
+        <soap:header message="tns:GetLabelAssociationsByEntityIdsResponse_Headers" part="TrackingId" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="AdApiFaultDetailFault">
+        <soap:fault use="literal" name="AdApiFaultDetailFault" namespace=""/>
+      </wsdl:fault>
+      <wsdl:fault name="ApiFaultDetail2Fault">
+        <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace=""/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetLabelAssociationsByLabelIds">
+      <soap:operation soapAction="GetLabelAssociationsByLabelIds" style="document"/>
+      <wsdl:input name="GetLabelAssociationsByLabelIdsRequest">
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="ApplicationToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="AuthenticationToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="CustomerAccountId" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="CustomerId" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="DeveloperToken" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="Password" use="literal"/>
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsRequest_Headers" part="UserName" use="literal"/>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetLabelAssociationsByLabelIdsResponse">
+        <soap:header message="tns:GetLabelAssociationsByLabelIdsResponse_Headers" part="TrackingId" use="literal"/>
         <soap:body use="literal"/>
       </wsdl:output>
       <wsdl:fault name="AdApiFaultDetailFault">

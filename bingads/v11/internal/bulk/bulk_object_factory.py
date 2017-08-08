@@ -109,6 +109,15 @@ class _BulkObjectFactory():
         'Campaign Location Intent Criterion': _EntityInfo(lambda: BulkCampaignLocationIntentCriterion()),
         'Campaign Negative Location Criterion': _EntityInfo(lambda: BulkCampaignNegativeLocationCriterion()),
         'Campaign Radius Criterion': _EntityInfo(lambda: BulkCampaignRadiusCriterion()),
+        _StringTable.Label: _EntityInfo(lambda: BulkLabel()),
+        _StringTable.CampaignLabel: _EntityInfo(lambda: BulkCampaignLabel()),
+        _StringTable.AdGroupLabel: _EntityInfo(lambda: BulkAdGroupLabel()),
+        _StringTable.KeywordLabel: _EntityInfo(lambda: BulkKeywordLabel()),
+        _StringTable.AppInstallAdLabel: _EntityInfo(lambda: BulkAppInstallAdLabel()),
+        _StringTable.DynamicSearchAdLabel: _EntityInfo(lambda: BulkDynamicSearchAdLabel()),
+        _StringTable.ExpandedTextAdLabel: _EntityInfo(lambda: BulkExpandedTextAdLabel()),
+        _StringTable.ProductAdLabel: _EntityInfo(lambda: BulkProductAdLabel()),
+        _StringTable.OfflineConversion: _EntityInfo(lambda: BulkOfflineConversion()),
     }
 
     ADDITIONAL_OBJECT_MAP = {
