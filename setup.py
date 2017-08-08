@@ -46,6 +46,7 @@ setup(
         'bingads.v11.bulk.entities.ad_extensions',
         'bingads.v11.bulk.entities.audiences',
         'bingads.v11.bulk.entities.target_criterions',
+        'bingads.v11.bulk.entities.labels',
         'bingads.v11.internal',
         'bingads.v11.internal.bulk',
         'bingads.v11.internal.bulk.entities',
