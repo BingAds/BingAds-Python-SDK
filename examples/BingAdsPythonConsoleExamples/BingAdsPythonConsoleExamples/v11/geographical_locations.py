@@ -14,9 +14,9 @@ LOCAL_FILE="c:\geolocations\geolocations.csv"
 
 LANGUAGE_LOCALE = "en"
 
-# The only supported file format version is 1.0. 
+# The latest supported file format version is 2.0. 
 
-VERSION = "1.0"
+VERSION = "2.0"
        
 def main(authorization_data):    
     try:
