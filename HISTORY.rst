@@ -2,6 +2,14 @@
 
 Release History
 ---------------
+11.5.4(2017-08-08)
++++++++++++++++++++
+
+* The [Campaign Management]( https://msdn.microsoft.com/library/bing-ads-overview-release-notes.aspx#inheritedbidstrategytype_july2017) service proxies are updated to support inherited bid strategy type.  
+* The [Reporting]( https://msdn.microsoft.com/library/bing-ads-overview-release-notes.aspx#reporting_bsc_july2017) service proxies are updated to support new columns for Bing Shopping campaigns.
+* New version 11 bulk labels objects are added i.e., *BulkLabel*, *BulkCampaignLabel*, *BulkAdGroupLabel*, *BulkKeywordLabel*, *BulkAppInstallAdLabel*, *BulkDynamicSearchAdLabel*, *BulkExpandedTextAdLabel*, *BulkProductAdLabel*, and *BulkTextAdLabel* objects are added to the SDK for reading and writing the corresponding [Bulk file records]( https://msdn.microsoft.com/library/bing-ads-overview-release-notes.aspx#bulk_v11_labels_july2017).
+* A new version 11 bulk offline conversion object is added i.e., the *BulkOfflineConversion* object is added to the SDK for writing and uploading the corresponding [Bulk file record]( https://msdn.microsoft.com/library/bing-ads-overview-release-notes.aspx#bulk_v11_offline_conversions_july2017).
+
 
 10.4.12(2017-02-28)
 +++++++++++++++++++

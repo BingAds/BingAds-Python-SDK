@@ -164,9 +164,9 @@
               <xs:element minOccurs="0" name="DisplayUrl" nillable="true" type="xs:string"/>
               <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string"/>
               <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string"/>
-              <xs:element name="Text" nillable="true" type="xs:string"/>
-              <xs:element name="TitlePart1" nillable="true" type="xs:string"/>
-              <xs:element name="TitlePart2" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="TitlePart1" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="TitlePart2" nillable="true" type="xs:string"/>
             </xs:sequence>
           </xs:extension>
         </xs:complexContent>
@@ -1369,7 +1369,7 @@
           <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long"/>
           <xs:element minOccurs="0" name="Scheduling" nillable="true" type="tns:Schedule"/>
           <xs:element minOccurs="0" name="Status" nillable="true" type="tns:AdExtensionStatus"/>
-          <xs:element name="Type" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
           <xs:element minOccurs="0" name="Version" nillable="true" type="xs:int"/>
         </xs:sequence>
       </xs:complexType>
@@ -1585,10 +1585,10 @@
         <xs:complexContent mixed="false">
           <xs:extension base="tns:AdExtension">
             <xs:sequence>
-              <xs:element name="Description1" nillable="true" type="xs:string"/>
-              <xs:element name="Description2" nillable="true" type="xs:string"/>
-              <xs:element name="DestinationUrl" nillable="true" type="xs:string"/>
-              <xs:element name="DisplayText" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="Description1" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="Description2" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="DestinationUrl" nillable="true" type="xs:string"/>
+              <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string"/>
               <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/Microsoft.AdCenter.Advertiser.CampaignManagement.Api.DataContracts.V11" minOccurs="0" name="FinalAppUrls" nillable="true" type="q54:ArrayOfAppUrl"></xs:element>
               <xs:element xmlns:q55="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q55:ArrayOfstring"></xs:element>
               <xs:element xmlns:q56="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q56:ArrayOfstring"></xs:element>
@@ -2809,7 +2809,7 @@
         <xs:complexContent mixed="false">
           <xs:extension base="tns:SharedListItem">
             <xs:sequence>
-              <xs:element name="Id" nillable="true" type="xs:long"/>
+              <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long"/>
               <xs:element name="MatchType" type="tns:MatchType"/>
               <xs:element name="Text" nillable="true" type="xs:string"/>
             </xs:sequence>
@@ -2820,7 +2820,7 @@
       <xs:complexType name="SharedListItem">
         <xs:sequence>
           <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q82:ArrayOfKeyValuePairOfstringstring"></xs:element>
-          <xs:element name="Type" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="SharedListItem" nillable="true" type="tns:SharedListItem"/>
@@ -2899,9 +2899,9 @@
         <xs:sequence>
           <xs:element name="AssociationCount" nillable="true" type="xs:int"/>
           <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q85:ArrayOfKeyValuePairOfstringstring"></xs:element>
-          <xs:element name="Id" nillable="true" type="xs:long"/>
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long"/>
           <xs:element name="Name" nillable="true" type="xs:string"/>
-          <xs:element name="Type" nillable="true" type="xs:string"/>
+          <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
         </xs:sequence>
       </xs:complexType>
       <xs:element name="SharedEntity" nillable="true" type="tns:SharedEntity"/>
@@ -2909,7 +2909,7 @@
         <xs:complexContent mixed="false">
           <xs:extension base="tns:SharedEntity">
             <xs:sequence>
-              <xs:element name="ItemCount" nillable="true" type="xs:int"/>
+              <xs:element minOccurs="0" name="ItemCount" nillable="true" type="xs:int"/>
             </xs:sequence>
           </xs:extension>
         </xs:complexContent>
@@ -3143,7 +3143,7 @@
           <xs:element name="CampaignId" type="xs:long"/>
           <xs:element minOccurs="0" name="Criterion" nillable="true" type="tns:Criterion"/>
           <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q92:ArrayOfKeyValuePairOfstringstring"></xs:element>
-          <xs:element name="Id" nillable="true" type="xs:long"/>
+          <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long"/>
           <xs:element minOccurs="0" name="Status" nillable="true" type="tns:CampaignCriterionStatus"/>
           <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string"/>
         </xs:sequence>
