@@ -17,7 +17,7 @@ class _BulkStreamReader():
 
         self._delimiter = ',' if self.file_format == DownloadFileType.csv else '\t'
         self._passed_first_row = False
-        self._bulk_object_reader = _BulkObjectReader(self.file_path, self.delimiter)
+        self._bulk_object_reader = _BulkObjectReader(self.file_path, self.delimiter, encoding = self._encoding)
         self._bulk_object_reader.__enter__()
         self._next_object = None
 
