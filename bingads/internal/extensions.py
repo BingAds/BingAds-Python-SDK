@@ -45,7 +45,7 @@ def bulk_str(value):
     if isinstance(value, str):
         return value
     if PY2:
-        if isinstance(value, unicode):
+        if isinstance(value, str):
             return value
     return str(value)
 

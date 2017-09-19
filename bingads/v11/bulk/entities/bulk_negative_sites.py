@@ -450,10 +450,10 @@ class BulkAdGroupNegativeSites(_BulkNegativeSites):
             bulk_ad_group_negative_site._website = website
             return bulk_ad_group_negative_site
 
-        return map(convert_api_to_bulk_negative_site, self._ad_group_negative_sites.NegativeSites.string)
+        return list(map(convert_api_to_bulk_negative_site, self._ad_group_negative_sites.NegativeSites.string))
 
     def reconstruct_api_objects(self):
-        self._ad_group_negative_sites.NegativeSites.string = list(map(lambda x: x.website, self.negative_sites))
+        self._ad_group_negative_sites.NegativeSites.string = list([x.website for x in self.negative_sites])
 
     def _create_identifier(self):
         return _BulkAdGroupNegativeSitesIdentifier(
@@ -559,10 +559,10 @@ class BulkCampaignNegativeSites(_BulkNegativeSites):
             bulk_campaign_negative_site._website = website
             return bulk_campaign_negative_site
 
-        return map(convert_api_to_bulk_negative_site, self._campaign_negative_sites.NegativeSites.string)
+        return list(map(convert_api_to_bulk_negative_site, self._campaign_negative_sites.NegativeSites.string))
 
     def reconstruct_api_objects(self):
-        self._campaign_negative_sites.NegativeSites.string = list(map(lambda x: x.website, self.negative_sites))
+        self._campaign_negative_sites.NegativeSites.string = list([x.website for x in self.negative_sites])
 
     def _create_identifier(self):
         return _BulkCampaignNegativeSitesIdentifier(

@@ -48,12 +48,12 @@ class BulkFileReader:
         return self
 
     def __next__(self):
-        return self.next()
+        return next(self)
 
     def close(self):
         self.__exit__(None, None, None)
 
-    def next(self):
+    def __next__(self):
         return self.read_next_entity()
 
     def read_next_entity(self):

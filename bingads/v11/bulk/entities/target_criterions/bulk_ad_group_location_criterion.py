@@ -65,7 +65,7 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             _StringTable.Target,
             field_to_csv=lambda c: field_to_csv_LocationTarget(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.biddable_ad_group_criterion, long(v) if v else None)
+            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.biddable_ad_group_criterion, int(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.SubType,

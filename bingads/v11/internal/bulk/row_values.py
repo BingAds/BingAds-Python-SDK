@@ -26,7 +26,7 @@ class _RowValues:
         return len(self.mappings)
 
     def __str__(self):
-        return u'{' + u', '.join([u'{0}:{1}'.format(k, self.columns[v]) for (k, v) in self.mappings.items()]) + u'}'
+        return '{' + ', '.join(['{0}:{1}'.format(k, self.columns[v]) for (k, v) in list(self.mappings.items())]) + '}'
 
     def convert_to_entity(self, entity, bulk_mappings):
         for mapping in bulk_mappings:
@@ -49,7 +49,7 @@ class _RowValues:
         message += " See ColumnValues for detailed row information and InnerException for error details."
         if six.PY2:
             message = message.decode('ascii')
-        message += u' row values: {0}'.format(self)
+        message += ' row values: {0}'.format(self)
 
         return EntityReadException(message=message, row_values=str(self), inner_exception=ex)
 
@@ -59,7 +59,7 @@ class _RowValues:
         return True, self[header]
 
     def to_dict(self):
-        return dict([(k, self.columns[v]) for (k, v) in self.mappings.items()])
+        return dict([(k, self.columns[v]) for (k, v) in list(self.mappings.items())])
 
     @property
     def mappings(self):

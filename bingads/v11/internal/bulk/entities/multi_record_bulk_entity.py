@@ -42,7 +42,7 @@ class _MultiRecordBulkEntity(with_metaclass(ABCMeta, BulkEntity)):
         :rtype: bool
         """
 
-        return any(map(lambda x: x.has_errors, self.child_entities))
+        return any([x.has_errors for x in self.child_entities])
 
     @property
     def last_modified_time(self):

@@ -92,7 +92,7 @@ if not activate_this:
 
 def get_virtualenv_handler():
     log('Activating virtualenv with %s\n' % activate_this)
-    execfile(activate_this, dict(__file__=activate_this))
+    exec(compile(open(activate_this).read(), activate_this, 'exec'), dict(__file__=activate_this))
 
     log('Getting handler %s\n' % os.getenv('WSGI_ALT_VIRTUALENV_HANDLER'))
     handler = get_wsgi_handler(os.getenv('WSGI_ALT_VIRTUALENV_HANDLER'))

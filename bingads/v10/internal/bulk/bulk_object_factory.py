@@ -186,7 +186,7 @@ class _BulkObjectFactory():
         return _BulkObjectFactory.TYPE_REVERSE_MAP[type(bulk_object)]
 
 
-for (k, v) in _BulkObjectFactory.INDIVIDUAL_ENTITY_MAP.items():
+for (k, v) in list(_BulkObjectFactory.INDIVIDUAL_ENTITY_MAP.items()):
     _BulkObjectFactory.TYPE_REVERSE_MAP[type(v.create_func())] = k
 
     if v.create_identifier_func is not None:

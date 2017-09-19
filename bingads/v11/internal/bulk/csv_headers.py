@@ -306,7 +306,7 @@ class _CsvHeaders:
 
     @staticmethod
     def initialize_map():
-        return dict(zip(_CsvHeaders.HEADERS, range(len(_CsvHeaders.HEADERS))))
+        return dict(list(zip(_CsvHeaders.HEADERS, list(range(len(_CsvHeaders.HEADERS))))))
 
 
 _CsvHeaders.COLUMN_INDEX_MAP = _CsvHeaders.initialize_map()

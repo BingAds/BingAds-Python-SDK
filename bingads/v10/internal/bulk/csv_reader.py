@@ -48,17 +48,17 @@ class _CsvReader:
         return self
 
     def __next__(self):
-        return self.next()
+        return next(self)
 
     def close(self):
         self.__exit__(None, None, None)
 
-    def next(self):
+    def __next__(self):
         if PY3:
             return next(self._csv_reader)
         elif PY2:
             row = next(self._csv_reader)
-            return [unicode(cell, encoding='utf-8') for cell in row]
+            return [str(cell, encoding='utf-8') for cell in row]
 
     @property
     def filename(self):
