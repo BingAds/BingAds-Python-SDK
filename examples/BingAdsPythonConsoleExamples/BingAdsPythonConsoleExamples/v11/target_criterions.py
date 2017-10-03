@@ -52,49 +52,8 @@ def get_example_campaign_ids(authorization_data):
     output_ids(ad_group_ids)
     if hasattr(add_ad_groups_response.PartialErrors, 'BatchError'):
         output_partial_errors(add_ad_groups_response.PartialErrors)
-
-    # This example uses the deprecated version 10 shared target library in order to later demonstrate
-    # the inline migration from shared target criterions to unshared target criterions.
-    # The shared target ID is output within the share_deprecated_targets method.
-    # We won't do anything further with it in this example.
-
-    shared_target_id = share_deprecated_targets(authorization_data, ad_group_ids)
-
+    
     return campaign_ids
-
-# Shares a target with multiple new ad groups. This helper function is used to setup
-# criterion migration scenarios.
-# 
-# This is an example of a deprecated scenario. In Bing Ads API version 11 you can no longer use 
-# the AddTargetsToLibrary, SetTargetToCampaign, or SetTargetToAdGroup operations. Instead you will 
-# be required to use criterions. Support for targets will end no later than the sunset 
-# of Bing Ads API version 10. 
-def share_deprecated_targets(authorization_data, ad_group_ids):
-    
-    shared_targets=campaign_service_v10.factory.create('ArrayOfTarget')
-    shared_target=set_elements_to_none(campaign_service_v10.factory.create('Target'))
-    shared_target.Name = "My Target"
-    device_os_target=campaign_service_v10.factory.create('DeviceOSTarget')
-    device_os_target_bids=campaign_service_v10.factory.create('ArrayOfDeviceOSTargetBid')
-    device_os_target_bid=campaign_service_v10.factory.create('DeviceOSTargetBid')
-    device_os_target_bid.BidAdjustment = 20
-    device_os_target_bid.DeviceName='Computers'
-    device_os_target_bids.DeviceOSTargetBid.append(device_os_target_bid)
-    device_os_target.Bids=device_os_target_bids
-    shared_target.DeviceOS=device_os_target
-    shared_targets.Target.append(shared_target)
-    
-    shared_target_id=campaign_service_v10.AddTargetsToLibrary(Targets=shared_targets)['long'][0]
-    output_status_message("Added Target Id: {0}\n".format(shared_target_id))
-
-    campaign_service_v10.SetTargetToAdGroup(ad_group_ids['long'][0], shared_target_id)
-    output_status_message("Associated AdGroupId {0} with TargetId {1}.\n".format(ad_group_ids['long'][0], shared_target_id))
-    campaign_service_v10.SetTargetToAdGroup(ad_group_ids['long'][1], shared_target_id)
-    output_status_message("Associated AdGroupId {0} with TargetId {1}.\n".format(ad_group_ids['long'][1], shared_target_id))
-    campaign_service_v10.SetTargetToAdGroup(ad_group_ids['long'][2], shared_target_id)
-    output_status_message("Associated AdGroupId {0} with TargetId {1}.\n".format(ad_group_ids['long'][2], shared_target_id))
-            
-    return shared_target_id
 
 def main(authorization_data):
 
@@ -172,30 +131,16 @@ def main(authorization_data):
                     CriterionType='Targets'
                 )
                 
-                # If the campaign used to share target criterions with another campaign or ad group,
-                # and the add operation resulted in new target criterion identifiers for this campaign,
-                # then we need to get the new criterion IDs.
+                # Capture the new criterion IDs.
 
-                # Otherwise we only need to capture the new criterion IDs.
-
-                if add_campaign_criterions_response.IsMigrated:
-                    get_campaign_criterions_by_ids_response = campaign_service.GetCampaignCriterionsByIds(
-                        CampaignId=campaign_id,
-                        CampaignCriterionIds=None,
-                        CriterionType=ALL_TARGET_CAMPAIGN_CRITERION_TYPES
-                    )
-                    campaign_criterions= get_campaign_criterions_by_ids_response.CampaignCriterions['CampaignCriterion'] \
-                        if hasattr(get_campaign_criterions_by_ids_response.CampaignCriterions, 'CampaignCriterion') \
-                        else None
-                elif add_campaign_criterions_response is not None and len(add_campaign_criterions_response.CampaignCriterionIds) > 0:
+                if add_campaign_criterions_response is not None and len(add_campaign_criterions_response.CampaignCriterionIds) > 0:
                     campaign_criterion_ids={
                         'long': add_campaign_criterions_response.CampaignCriterionIds['long'] if add_campaign_criterions_response.CampaignCriterionIds['long'] else None
                     }
                     for index in range(len(campaign_criterion_ids['long'])):
                         campaign_criterions['CampaignCriterion'][index].Id = campaign_criterion_ids['long'][index]
                          
-            # You can now store or output the campaign criterions, whether or not they were 
-            # migrated from a shared target library.
+            # You can now store or output the campaign criterions
 
             output_status_message("Campaign Criterions: \n")
             output_campaign_criterions(campaign_criterions)
@@ -219,41 +164,28 @@ def main(authorization_data):
                     if hasattr(get_ad_group_criterions_by_ids_response, 'AdGroupCriterion') \
                     else None
 
-                # If the Smartphones device criterion already exists, we'll increase the bid multiplier by 5 percent.
+                if ad_group_criterions is not None:
+
+                    # If the Smartphones device criterion already exists, we'll increase the bid multiplier by 5 percent.
  
-                update_ad_group_criterions=campaign_service.factory.create('ArrayOfAdGroupCriterion')
-                for ad_group_criterion in ad_group_criterions['AdGroupCriterion']:
-                    if ad_group_criterion.Criterion is not None \
-                       and ad_group_criterion.Criterion.Type.lower() == 'devicecriterion' \
-                       and ad_group_criterion.Criterion.DeviceName.lower() == "smartphones":
-                        ad_group_criterion.CriterionBid.Multiplier *= 1.05
-                        update_ad_group_criterions.AdGroupCriterion.append(ad_group_criterion)
+                    update_ad_group_criterions=campaign_service.factory.create('ArrayOfAdGroupCriterion')
+                    for ad_group_criterion in ad_group_criterions['AdGroupCriterion']:
+                        if ad_group_criterion.Criterion is not None \
+                           and ad_group_criterion.Criterion.Type.lower() == 'devicecriterion' \
+                           and ad_group_criterion.Criterion.DeviceName.lower() == "smartphones":
+                            ad_group_criterion.CriterionBid.Multiplier *= 1.05
+                            update_ad_group_criterions.AdGroupCriterion.append(ad_group_criterion)
                         
-                if update_ad_group_criterions is not None and len(update_ad_group_criterions) > 0:
-                    update_ad_group_criterions_response = campaign_service.UpdateAdGroupCriterions(
-                        AdGroupCriterions=update_ad_group_criterions,
-                        CriterionType='Targets'
-                    )
-
-                    # If the ad group used to share target criterions with another campaign or ad group,
-                    # and the update operation resulted in new target criterion identifiers for this ad group,
-                    # then we need to get the new criterion IDs.
-
-                    if update_ad_group_criterions_response.IsMigrated:
-                        get_ad_group_criterions_by_ids_response = campaign_service.GetAdGroupCriterionsByIds(
-                            AdGroupId=ad_group_id,
-                            AdGroupCriterionIds=None,
-                            CriterionType=ALL_TARGET_AD_GROUP_CRITERION_TYPES
+                    if update_ad_group_criterions is not None and len(update_ad_group_criterions) > 0:
+                        update_ad_group_criterions_response = campaign_service.UpdateAdGroupCriterions(
+                            AdGroupCriterions=update_ad_group_criterions,
+                            CriterionType='Targets'
                         )
-                        ad_group_criterions= get_ad_group_criterions_by_ids_response \
-                            if hasattr(get_ad_group_criterions_by_ids_response, 'AdGroupCriterion') \
-                            else None
                         
-                # You can now store or output the ad group criterions, whether or not they were 
-                # migrated from a shared target library.
+                    # You can now store or output the ad group criterions
 
-                output_status_message("Ad Group Criterions: ")
-                output_ad_group_criterions(ad_group_criterions)
+                    output_status_message("Ad Group Criterions: ")
+                    output_ad_group_criterions(ad_group_criterions)
 
         # Delete the campaign and ad group that were previously added. 
                 
