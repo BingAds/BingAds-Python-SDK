@@ -26,33 +26,9 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="v10\" />
     <Folder Include="v11\" />
-    <Folder Include="v9\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="v10\GeographicalLocations.py" />
-    <Compile Include="v10\AdExtensions.py" />
-    <Compile Include="v10\BudgetOpportunities.py" />
-    <Compile Include="v10\BulkAdExtensions.py" />
-    <Compile Include="v10\BulkKeywordBidUpdate.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="v10\BulkKeywordsAds.py" />
-    <Compile Include="v10\BulkProductPartitionBidUpdate.py" />
-    <Compile Include="v10\BulkRemarketingLists.py" />
-    <Compile Include="v10\BulkServiceManagerDemo.py" />
-    <Compile Include="v10\BulkShoppingCampaigns.py" />
-    <Compile Include="v10\BulkTargets.py" />
-    <Compile Include="v10\ConsoleGettingStarted.py" />
-    <Compile Include="v10\ConversionGoals.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="v10\KeywordsAds.py" />
-    <Compile Include="v10\NegativeKeywords.py" />
-    <Compile Include="v10\RemarketingLists.py" />
-    <Compile Include="v10\ShoppingCampaigns.py" />
-    <Compile Include="v10\Targets.py" />
     <Compile Include="v11\ad_extensions.py" />
     <Compile Include="v11\auth_helper.py" />
     <Compile Include="v11\budget_opportunities.py" />
@@ -81,11 +57,6 @@
     <Compile Include="v11\target_criterions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v9\CustomerSignup.py" />
-    <Compile Include="v9\InviteUser.py" />
-    <Compile Include="v9\ManageClient.py" />
-    <Compile Include="v9\ReportRequests.py" />
-    <Compile Include="v9\SearchUserAccounts.py" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
