@@ -10,7 +10,7 @@ class _BulkObjectReader():
         self._delimiter = delimiter
         self._encoding = encoding
 
-        self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter)
+        self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter, encoding=self._encoding)
         self._csv_reader.__enter__()
         headers = self._read_headers()
         self._column_mapping = dict(zip(headers, range(0, len(headers))))
