@@ -14,7 +14,7 @@ class BulkFileReader:
                  file_path,
                  file_format=DownloadFileType.csv,
                  result_file_type=ResultFileType.full_download,
-                 encoding=None):
+                 encoding='utf-8'):
         """ Initializes a new instance of this class with the specified file details.
 
         :param file_path: The path of the bulk file to read.
