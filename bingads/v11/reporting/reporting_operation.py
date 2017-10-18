@@ -6,6 +6,7 @@ import zipfile
 import os
 import six
 import sys
+imoprt shutil
 
 from .reporting_operation_status import *
 from .exceptions import *
@@ -124,8 +125,8 @@ class ReportingDownloadOperation(object):
             if decompress:
                 with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
                     first = compressed.namelist()[0]
-                    with open(result_file_path, 'wb') as f:
-                        f.write(compressed.read(first))
+                    with open(result_file_path, 'wb') as f, compressed.open(first, 'r') as cc:
+                        shutil.copyfileobj(cc, f)
         except Exception as ex:
             raise ex
         finally:
