@@ -14,7 +14,7 @@ class BulkFileReader:
                  file_path,
                  file_format=DownloadFileType.csv,
                  result_file_type=ResultFileType.full_download,
-                 encoding=None):
+                 encoding='utf-8'):
         """ Initializes a new instance of this class with the specified file details.
 
         :param file_path: The path of the bulk file to read.
@@ -34,7 +34,7 @@ class BulkFileReader:
 
         self._is_for_full_download = result_file_type is ResultFileType.full_download
         self._entities_iterator = None
-        self._bulk_stream_reader = _BulkStreamReader(file_path=self.file_path, file_format=self.file_format)
+        self._bulk_stream_reader = _BulkStreamReader(file_path=self.file_path, file_format=self.file_format, encoding=self._encoding)
         self._bulk_stream_reader.__enter__()
 
     def __enter__(self):
