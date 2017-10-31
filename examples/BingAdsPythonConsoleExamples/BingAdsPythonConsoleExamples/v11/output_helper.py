@@ -841,7 +841,7 @@ def output_bulk_campaign_product_scopes(bulk_entities):
 def output_keyword(keyword):
     if keyword is not None:
         output_status_message("Bid.Amount: {0}".format(
-            keyword.Amount if keyword.Bid is not None else None)
+            keyword.Bid.Amount if keyword.Bid is not None else None)
         )
         output_bidding_scheme(keyword.BiddingScheme)
         output_status_message("DestinationUrl: {0}".format(keyword.DestinationUrl))
