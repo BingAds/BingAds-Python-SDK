@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '11.5.5.1'
+VERSION = '11.5.6'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -16,7 +16,6 @@ requirements = [
     'six',
     'requests',
     'enum34',
-    'chardet',
 ]
 
 setup(
@@ -29,16 +28,7 @@ setup(
     url='https://github.com/BingAds/BingAds-Python-SDK',
     packages=[
         'bingads',
-        'bingads.reporting',
         'bingads.internal',
-        'bingads.v10',
-        'bingads.v10.bulk',
-        'bingads.v10.bulk.entities',
-        'bingads.v10.bulk.entities.ad_extensions',
-        'bingads.v10.bulk.entities.targets',
-        'bingads.v10.internal',
-        'bingads.v10.internal.bulk',
-        'bingads.v10.internal.bulk.entities',
         'bingads.v11.reporting',
         'bingads.v11',
         'bingads.v11.bulk',

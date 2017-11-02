@@ -25,7 +25,6 @@ External Dependencies
 
     - `suds-jurko`_
     - `requests`_
-    - `chardet`_
     - `future`_
     - `six`_
     - `enum34`_

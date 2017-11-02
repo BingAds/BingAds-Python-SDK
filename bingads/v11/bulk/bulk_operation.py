@@ -6,6 +6,7 @@ import zipfile
 import os
 import six
 import sys
+import shutil
 
 
 from .bulk_operation_status import *
@@ -117,8 +118,9 @@ class BulkOperation(object):
             if decompress:
                 with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
                     first = compressed.namelist()[0]
-                    with open(result_file_path, 'wb') as f:
-                        f.write(compressed.read(first))
+                    with open(result_file_path, 'wb') as f, compressed.open(first, 'r') as cc:
+                        #f.write(compressed.read(first))
+                        shutil.copyfileobj(cc, f)
         except Exception as ex:
             raise ex
         finally:

@@ -152,10 +152,6 @@ def ut():
     run_cmd('coverage run --source bingads -m py.test -k "not functional" -v --strict')
     run_cmd('coverage report')
 
-@task('run all v10 unit tests under current interpreter, and print coverage report')
-def v10_ut():
-    run_cmd('coverage run --source bingads -m py.test v10tests/ -k "not functional" -v --strict')
-    run_cmd('coverage report')
 
 @task('run all v11 unit tests under current interpreter, and print coverage report')
 def v11_ut():
@@ -166,11 +162,6 @@ def v11_ut():
 @task('run all functional tests under current interpreter.')
 def ft():
     run_cmd('py.test -k "functional" -v --strict')
-
-
-@task('run all v10 functional tests under current interpreter.')
-def v10_ft():
-    run_cmd('py.test v10tests/ -k "functional" -v --strict')
 
 
 @task('run all v11 functional tests under current interpreter.')
