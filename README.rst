@@ -13,7 +13,7 @@ The SDK includes proxy classes for all Bing Ads API web services and abstracts t
 Getting Started
 ---------------
 
-To get started developing Bing Ads applications with Python, install the SDK and either start with the `examples`_ or follow one of the application walkthroughs. For more information, see `Getting Started Using Python with Bing Ads Services`_.
+To get started developing Bing Ads applications with Python, install the SDK and either start with the `examples`_ or follow one of the application walkthroughs. For more information, see `Get Started Using Python with Bing Ads Services`_.
 
 External Dependencies
 ---------------------
