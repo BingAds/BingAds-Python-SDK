@@ -8,6 +8,7 @@ Subpackages
 
     bingads.v11.bulk.entities.ad_extensions
     bingads.v11.bulk.entities.audiences
+    bingads.v11.bulk.entities.labels
     bingads.v11.bulk.entities.target_criterions
 
 Submodules
@@ -137,6 +138,14 @@ bingads\.v11\.bulk\.entities\.bulk\_negative\_sites module
 ----------------------------------------------------------
 
 .. automodule:: bingads.v11.bulk.entities.bulk_negative_sites
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v11\.bulk\.entities\.bulk\_offline\_conversion module
+--------------------------------------------------------------
+
+.. automodule:: bingads.v11.bulk.entities.bulk_offline_conversion
     :members:
     :undoc-members:
     :show-inheritance:

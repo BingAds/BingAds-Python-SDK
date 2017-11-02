@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target &#8212; Bing Ads SDK 11.5.1 documentation</title>
-    
+    <title>bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target &#8212; Bing Ads SDK 11.5.6 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '11.5.1',
+        VERSION:     '11.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +24,7 @@
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,7 +34,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -58,7 +55,7 @@
 <div class="viewcode-block" id="BulkCampaignNegativeDynamicSearchAdTarget"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target.BulkCampaignNegativeDynamicSearchAdTarget">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignNegativeDynamicSearchAdTarget</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a Campaign Criterion that can be read or written in a bulk file.</span>
 
-<span class="sd">    This class exposes the :attr:`campaign_criterion` property that can be read and written as fields of the</span>
+<span class="sd">    This class exposes the :attr:`negative_campaign_criterion` property that can be read and written as fields of the</span>
 <span class="sd">    Campaign Negative Dynamic Search Ad Target record in a bulk file.</span>
 
 <span class="sd">    For more information, see Campaign Negative Dynamic Search Ad Target at https://go.microsoft.com/fwlink/?linkid=836839.</span>
@@ -74,12 +71,12 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                 <span class="n">campaign_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">negative_campaign_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeDynamicSearchAdTarget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span> <span class="o">=</span> <span class="n">campaign_criterion</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span> <span class="o">=</span> <span class="n">negative_campaign_criterion</span>
 
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
@@ -90,13 +87,13 @@
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="o">.</span><span class="n">CampaignId</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;CampaignId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="o">.</span><span class="n">CampaignId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;CampaignId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
@@ -105,12 +102,12 @@
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_WebpageParameter_CriterionName</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_WebpageParameter_CriterionName</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_WebpageParameter_CriterionName</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_WebpageParameter_CriterionName</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_ComplexBulkMapping</span><span class="p">(</span>
-            <span class="n">entity_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">entity_to_csv_DSAWebpageParameter</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span>
-            <span class="n">csv_to_entity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">csv_to_entity_DSAWebpageParameter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">)</span>
+            <span class="n">entity_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">entity_to_csv_DSAWebpageParameter</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span>
+            <span class="n">csv_to_entity</span><span class="o">=</span><span class="k">lambda</span> <span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">csv_to_entity_DSAWebpageParameter</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">]</span>
 
@@ -141,25 +138,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">negative_campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Defines a Campaign Criterion &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span>
 
-    <span class="nd">@campaign_criterion</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_criterion</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span> <span class="o">=</span> <span class="n">campaign_criterion</span>
+    <span class="nd">@negative_campaign_criterion</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">negative_campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">negative_campaign_criterion</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span> <span class="o">=</span> <span class="n">negative_campaign_criterion</span>
 
 <div class="viewcode-block" id="BulkCampaignNegativeDynamicSearchAdTarget.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target.BulkCampaignNegativeDynamicSearchAdTarget.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NegativeCampaignCriterion&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;NegativeCampaignCriterion&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns0:Webpage&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Webpage&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NegativeCampaignCriterion&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;NegativeCampaignCriterion&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns0:Webpage&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_negative_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Webpage&#39;</span>
 
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkCampaignNegativeDynamicSearchAdTarget</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BulkCampaignNegativeDynamicSearchAdTarget.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target.BulkCampaignNegativeDynamicSearchAdTarget.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;campaign_criterion&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">negative_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;negative_campaign_criterion&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkCampaignNegativeDynamicSearchAdTarget</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BulkCampaignNegativeDynamicSearchAdTarget.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.bulk_campaign_negative_dynamic_search_ad_target.BulkCampaignNegativeDynamicSearchAdTarget.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
@@ -194,13 +191,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

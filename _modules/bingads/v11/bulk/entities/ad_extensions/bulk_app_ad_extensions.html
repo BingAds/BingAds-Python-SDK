@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions &#8212; Bing Ads SDK 11.5.1 documentation</title>
-    
+    <title>bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions &#8212; Bing Ads SDK 11.5.6 documentation</title>
     <link rel="stylesheet" href="../../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../../',
-        VERSION:     '11.5.1',
+        VERSION:     '11.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +24,7 @@
     <link rel="index" title="Index" href="../../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../../search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,7 +34,7 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -55,6 +52,8 @@
 <span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkAdExtensionBase</span>
 <span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkAdGroupAdExtensionAssociation</span>
 <span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="k">import</span> <span class="n">_BulkAccountAdExtensionAssociation</span>
+
 <span class="kn">from</span> <span class="nn">bingads.v11.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
 
@@ -122,11 +121,6 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">app_ad_extension</span><span class="o">.</span><span class="n">DisplayText</span><span class="p">,</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DisplayText&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_device_preference_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_ad_extension</span><span class="o">.</span><span class="n">DevicePreference</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">app_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DevicePreference&#39;</span><span class="p">,</span> <span class="n">parse_device_preference</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
-        <span class="p">),</span>
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkAppAdExtension.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v11.bulk.entities.ad_extensions.html#bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions.BulkAppAdExtension.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
@@ -141,8 +135,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAppAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div></div>
 
 
+<div class="viewcode-block" id="BulkAccountAppAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v11.bulk.entities.ad_extensions.html#bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions.BulkAccountAppAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAccountAppAdExtension</span><span class="p">(</span><span class="n">_BulkAccountAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an account level app ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Account App Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Account App Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
 <div class="viewcode-block" id="BulkCampaignAppAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v11.bulk.entities.ad_extensions.html#bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions.BulkCampaignAppAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignAppAdExtension</span><span class="p">(</span><span class="n">_BulkCampaignAdExtensionAssociation</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Represents an campaign level app ad extension.</span>
+    <span class="sd">&quot;&quot;&quot; Represents a campaign level app ad extension.</span>
 
 <span class="sd">    This class exposes properties that can be read and written</span>
 <span class="sd">    as fields of the Campaign App Ad Extension record in a bulk file.</span>
@@ -158,7 +170,6 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">pass</span></div>
-
 
 <div class="viewcode-block" id="BulkAdGroupAppAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v11.bulk.entities.ad_extensions.html#bingads.v11.bulk.entities.ad_extensions.bulk_app_ad_extensions.BulkAdGroupAppAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupAppAdExtension</span><span class="p">(</span><span class="n">_BulkAdGroupAdExtensionAssociation</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an ad group level App ad extension.</span>
@@ -207,13 +218,13 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

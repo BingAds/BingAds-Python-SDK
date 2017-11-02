@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>bingads.v11.bulk.entities.common &#8212; Bing Ads SDK 11.5.1 documentation</title>
-    
+    <title>bingads.v11.bulk.entities.common &#8212; Bing Ads SDK 11.5.6 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../../',
-        VERSION:     '11.5.1',
+        VERSION:     '11.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +24,7 @@
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,7 +34,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -256,14 +253,14 @@
         <span class="p">)</span>
     <span class="p">]</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="PerformanceData.read_from_row_values_or_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.PerformanceData.read_from_row_values_or_null">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">):</span>
+<div class="viewcode-block" id="PerformanceData.read_from_row_values_or_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.PerformanceData.read_from_row_values_or_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">):</span>
         <span class="n">performance_data</span> <span class="o">=</span> <span class="n">PerformanceData</span><span class="p">()</span>
         <span class="n">performance_data</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">performance_data</span> <span class="k">if</span> <span class="n">performance_data</span><span class="o">.</span><span class="n">has_any_values</span> <span class="k">else</span> <span class="kc">None</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="PerformanceData.write_to_row_values_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.PerformanceData.write_to_row_values_if_not_null">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_row_values_if_not_null</span><span class="p">(</span><span class="n">performance_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+<div class="viewcode-block" id="PerformanceData.write_to_row_values_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.PerformanceData.write_to_row_values_if_not_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">write_to_row_values_if_not_null</span><span class="p">(</span><span class="n">performance_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">performance_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">performance_data</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
@@ -371,14 +368,14 @@
         <span class="p">),</span>
     <span class="p">]</span>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="QualityScoreData.read_from_row_values_or_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.QualityScoreData.read_from_row_values_or_null">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">):</span>
+<div class="viewcode-block" id="QualityScoreData.read_from_row_values_or_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.QualityScoreData.read_from_row_values_or_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">):</span>
         <span class="n">quality_score_data</span> <span class="o">=</span> <span class="n">QualityScoreData</span><span class="p">()</span>
         <span class="n">quality_score_data</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">quality_score_data</span> <span class="k">if</span> <span class="n">quality_score_data</span><span class="o">.</span><span class="n">has_any_values</span> <span class="k">else</span> <span class="kc">None</span></div>
 
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="QualityScoreData.write_to_row_values_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.QualityScoreData.write_to_row_values_if_not_null">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_row_values_if_not_null</span><span class="p">(</span><span class="n">quality_score_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+<div class="viewcode-block" id="QualityScoreData.write_to_row_values_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v11.bulk.entities.html#bingads.v11.bulk.entities.common.QualityScoreData.write_to_row_values_if_not_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">write_to_row_values_if_not_null</span><span class="p">(</span><span class="n">quality_score_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">quality_score_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">quality_score_data</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
 
@@ -438,13 +435,13 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

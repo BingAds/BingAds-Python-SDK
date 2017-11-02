@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>bingads.v11.reporting package &#8212; Bing Ads SDK 11.5.1 documentation</title>
-    
+    <title>bingads.v11.reporting package &#8212; Bing Ads SDK 11.5.6 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '11.5.1',
+        VERSION:     '11.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,7 +26,7 @@
     <link rel="next" title="Release History" href="history.html" />
     <link rel="prev" title="bingads.v11.internal.bulk.entities package" href="bingads.v11.internal.bulk.entities.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -45,7 +42,7 @@
         <li class="right" >
           <a href="bingads.v11.internal.bulk.entities.html" title="bingads.v11.internal.bulk.entities package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" accesskey="U">bingads.v11 package</a> &#187;</li> 
       </ul>
@@ -164,7 +161,7 @@
 <code class="descname">decompress_result_file</code><a class="headerlink" href="#bingads.v11.reporting.reporting_download_parameters.ReportingDownloadParameters.decompress_result_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>If need to decompress the result file after download.
 This property is determined by the result_file_name, by default will do decompression.
-if the result_file_name has the extension of &#8216;.zip&#8217; then do not do decompression.
+if the result_file_name has the extension of ‘.zip’ then do not do decompression.
 :rtype: bool</p>
 </dd></dl>
 
@@ -213,7 +210,7 @@ if the result_file_name has the extension of &#8216;.zip&#8217; then do not do d
 <p>Represents a reporting download operation requested by a user.</p>
 <p>You can use this class to poll for the download status, and then download the file when available.</p>
 <p><em>Example:</em></p>
-<p>The <a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">ReportingServiceManager.submit_download()</span></code></a> method returns an instance of this class.
+<p>The <a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">ReportingServiceManager.submit_download()</span></code></a> method returns an instance of this class.
 If for any reason you do not want to wait for the file to be prepared for download,
 for example if your application quits unexpectedly or you have other tasks to process, you can
 use an instance of <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">ReportingDownloadOperation</span></code></a> to download the file when it is available.</p>
@@ -226,13 +223,13 @@ use an instance of <a class="reference internal" href="#bingads.v11.reporting.re
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file_directory</strong> (<em>str</em>) &#8211; The download result local directory name.</li>
-<li><strong>result_file_name</strong> (<em>str | None</em>) &#8211; The download result local file name.</li>
-<li><strong>decompress</strong> (<em>bool</em>) &#8211; Determines whether to decompress the ZIP file.
+<li><strong>result_file_directory</strong> (<em>str</em>) – The download result local directory name.</li>
+<li><strong>result_file_name</strong> (<em>str | None</em>) – The download result local file name.</li>
+<li><strong>decompress</strong> (<em>bool</em>) – Determines whether to decompress the ZIP file.
 If set to true, the file will be decompressed after download.
 The default value is false, in which case the downloaded file is not decompressed.</li>
-<li><strong>overwrite</strong> (<em>bool</em>) &#8211; Indicates whether the result file should overwrite the existing file if any.</li>
-<li><strong>timeout_in_milliseconds</strong> (<em>int</em>) &#8211; (optional) timeout for download result file in milliseconds</li>
+<li><strong>overwrite</strong> (<em>bool</em>) – Indicates whether the result file should overwrite the existing file if any.</li>
+<li><strong>timeout_in_milliseconds</strong> (<em>int</em>) – (optional) timeout for download result file in milliseconds</li>
 </ul>
 </td>
 </tr>
@@ -254,7 +251,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
 </tr>
 </tbody>
 </table>
@@ -270,7 +267,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status of reporting download operation.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
 </tr>
 </tbody>
 </table>
@@ -326,11 +323,11 @@ The default value is false, in which case the downloaded file is not decompresse
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout_in_milliseconds</strong> (<em>int</em>) &#8211; (optional) timeout for tracking reporting download operation</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout_in_milliseconds</strong> (<em>int</em>) – (optional) timeout for tracking reporting download operation</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The final ReportingOperationStatus.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus" title="bingads.v11.reporting.reporting_operation_status.ReportingOperationStatus">ReportingOperationStatus</a></td>
 </tr>
 </tbody>
 </table>
@@ -342,7 +339,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <dt id="bingads.v11.reporting.reporting_operation.TlsHttpAdapter">
 <em class="property">class </em><code class="descclassname">bingads.v11.reporting.reporting_operation.</code><code class="descname">TlsHttpAdapter</code><span class="sig-paren">(</span><em>pool_connections=10</em>, <em>pool_maxsize=10</em>, <em>max_retries=0</em>, <em>pool_block=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/reporting/reporting_operation.html#TlsHttpAdapter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.reporting.reporting_operation.TlsHttpAdapter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">requests.adapters.HTTPAdapter</span></code></p>
-<p>&#8221; Transport adapter that chooses the TLS protocols based on python versions.</p>
+<p>” Transport adapter that chooses the TLS protocols based on python versions.</p>
 <dl class="method">
 <dt id="bingads.v11.reporting.reporting_operation.TlsHttpAdapter.init_poolmanager">
 <code class="descname">init_poolmanager</code><span class="sig-paren">(</span><em>connections</em>, <em>maxsize</em>, <em>block=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/reporting/reporting_operation.html#TlsHttpAdapter.init_poolmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.reporting.reporting_operation.TlsHttpAdapter.init_poolmanager" title="Permalink to this definition">¶</a></dt>
@@ -386,7 +383,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <p><a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.download_file" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.download_file"><code class="xref py py-func docutils literal"><span class="pre">download_file()</span></code></a> will submit the download request to the reporting service,
 poll until the status is completed (or returns an error), and downloads the file locally.
 If instead you want to manage the low level details you would first call <a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-func docutils literal"><span class="pre">submit_download()</span></code></a>,
-wait for the results file to be prepared using either <a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_operation.ReportingDownloadOperation.get_status" title="bingads.reporting.reporting_operation.ReportingDownloadOperation.get_status"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.get_status()</span></code></a>
+wait for the results file to be prepared using either <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.get_status" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.get_status"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.get_status()</span></code></a>
 or <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.track" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.track"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.track()</span></code></a>, and then download the file with the
 <code class="xref py py-meth docutils literal"><span class="pre">ReportingOperation.download_result_file()</span></code> method.</p>
 <dl class="method">
@@ -397,7 +394,7 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v11.reporting.reporting_download_parameters.ReportingDownloadParameters" title="bingads.v11.reporting.reporting_download_parameters.ReportingDownloadParameters"><em>ReportingDownloadParameters</em></a>) &#8211; Determines various download parameters, for example where the file should be downloaded.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v11.reporting.reporting_download_parameters.ReportingDownloadParameters" title="bingads.v11.reporting.reporting_download_parameters.ReportingDownloadParameters"><em>ReportingDownloadParameters</em></a>) – Determines various download parameters, for example where the file should be downloaded.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The downloaded local reporting file path.</td>
 </tr>
@@ -443,11 +440,11 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>report_request</strong> (<em>ReportRequest</em>) &#8211; Determines what kind of reporting file to download</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>report_request</strong> (<em>ReportRequest</em>) – Determines what kind of reporting file to download</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted download operation</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.reporting.html#bingads.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.reporting.reporting_operation.ReportingDownloadOperation">ReportingDownloadOperation</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation">ReportingDownloadOperation</a></td>
 </tr>
 </tbody>
 </table>
@@ -551,14 +548,14 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
         <li class="right" >
           <a href="bingads.v11.internal.bulk.entities.html" title="bingads.v11.internal.bulk.entities package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" >bingads.v11 package</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>

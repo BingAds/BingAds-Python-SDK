@@ -7,8 +7,6 @@ Subpackages
 .. toctree::
 
     bingads.internal
-    bingads.reporting
-    bingads.v10
     bingads.v11
 
 Submodules

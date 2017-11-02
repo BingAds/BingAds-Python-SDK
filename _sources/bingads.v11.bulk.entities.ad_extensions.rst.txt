@@ -44,6 +44,14 @@ bingads\.v11\.bulk\.entities\.ad\_extensions\.bulk\_location\_ad\_extensions mod
     :undoc-members:
     :show-inheritance:
 
+bingads\.v11\.bulk\.entities\.ad\_extensions\.bulk\_price\_ad\_extensions module
+--------------------------------------------------------------------------------
+
+.. automodule:: bingads.v11.bulk.entities.ad_extensions.bulk_price_ad_extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads\.v11\.bulk\.entities\.ad\_extensions\.bulk\_review\_ad\_extensions module
 ---------------------------------------------------------------------------------
 

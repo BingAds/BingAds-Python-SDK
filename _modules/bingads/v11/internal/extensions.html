@@ -1,20 +1,17 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>bingads.v11.internal.extensions &#8212; Bing Ads SDK 11.5.1 documentation</title>
-    
+    <title>bingads.v11.internal.extensions &#8212; Bing Ads SDK 11.5.6 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '11.5.1',
+        VERSION:     '11.5.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -27,7 +24,7 @@
     <link rel="index" title="Index" href="../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../search.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -37,7 +34,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -150,6 +147,48 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="n">budget_type</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">DailyBudget</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="csv_to_biddingscheme"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_biddingscheme">[docs]</a><span class="k">def</span> <span class="nf">csv_to_biddingscheme</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="p">):</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">bid_strategy_type</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyType</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">bid_strategy_type</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">csv_to_field_BidStrategyType</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">bid_strategy_type</span><span class="p">)</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">max_cpc_row_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">)</span>
+    <span class="n">max_cpc_value</span> <span class="o">=</span> <span class="n">parse_bid</span><span class="p">(</span><span class="n">max_cpc_row_value</span><span class="p">)</span> <span class="k">if</span> <span class="n">max_cpc_row_value</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="n">success</span><span class="p">,</span> <span class="n">target_cpa_row_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyTargetCpa</span><span class="p">)</span>
+    <span class="n">target_cpa_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">target_cpa_row_value</span><span class="p">)</span> <span class="k">if</span> <span class="n">target_cpa_row_value</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">if</span>  <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxConversions&#39;</span><span class="p">:</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span> <span class="o">=</span> <span class="n">max_cpc_value</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s2">&quot;MaxConversions&quot;</span>
+    <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxClicks&#39;</span><span class="p">:</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span> <span class="o">=</span> <span class="n">max_cpc_value</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s2">&quot;MaxClicks&quot;</span>
+    <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;TargetCpa&#39;</span><span class="p">:</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span> <span class="o">=</span> <span class="n">max_cpc_value</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s2">&quot;TargetCpa&quot;</span>
+        <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">TargetCpa</span> <span class="o">=</span> <span class="n">target_cpa_value</span></div>
+
+
+<div class="viewcode-block" id="biddingscheme_to_csv"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.biddingscheme_to_csv">[docs]</a><span class="k">def</span> <span class="nf">biddingscheme_to_csv</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+    <span class="n">bid_strategy_type</span> <span class="o">=</span> <span class="n">field_to_csv_BidStrategyType</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bid_strategy_type</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyType</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_strategy_type</span>
+
+    <span class="k">if</span>  <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxConversions&#39;</span><span class="p">:</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxClicks&#39;</span><span class="p">:</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;TargetCpa&#39;</span><span class="p">:</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyTargetCpa</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">TargetCpa</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="bulk_optional_str"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.bulk_optional_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_optional_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -316,6 +355,32 @@
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="csv_to_field_CampaignLanguages"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_field_CampaignLanguages">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_CampaignLanguages</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    set Languages string field</span>
+<span class="sd">    :param entity: Languages</span>
+<span class="sd">    :param value: the content in csv</span>
+<span class="sd">    :return:set field values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">splitter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="field_to_csv_CampaignLanguages"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.field_to_csv_CampaignLanguages">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_CampaignLanguages</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parse entity to csv content</span>
+<span class="sd">    :param entity: Languages</span>
+<span class="sd">    :return: csv content</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="field_to_csv_BidStrategyType"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.field_to_csv_BidStrategyType">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_BidStrategyType</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -365,45 +430,6 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown Bid Strategy Type&#39;</span><span class="p">)</span>
     <span class="n">entity</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">value</span></div>
-
-
-<div class="viewcode-block" id="field_to_csv_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.field_to_csv_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    convert entity field to csv content</span>
-<span class="sd">    :param entity: entity which has ForwardCompatibilityMap attribute</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span> <span class="ow">is</span> <span class="kc">None</span> \
-        <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">for</span> <span class="n">key_value_pair</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;NativePreference&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s1">&#39;Native&#39;</span>
-            <span class="k">elif</span> <span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="s1">&#39;All&#39;</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key_value_pair</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
-
-
-<div class="viewcode-block" id="csv_to_field_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_field_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    parse csv content and set entity attribute</span>
-<span class="sd">    :param entity: entity which has ForwardCompatibilityMap attribute</span>
-<span class="sd">    :param value: csv content value</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">ad_format_preference</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns2:KeyValuePairOfstringstring&#39;</span><span class="p">)</span>
-    <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">key</span> <span class="o">=</span> <span class="s1">&#39;NativePreference&#39;</span>
-    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
-        <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
-    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;Native&#39;</span><span class="p">:</span>
-        <span class="n">ad_format_preference</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-    <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns2:ArrayOfKeyValuePairOfstringstring&#39;</span><span class="p">)</span>
-    <span class="n">entity</span><span class="o">.</span><span class="n">ForwardCompatibilityMap</span><span class="o">.</span><span class="n">KeyValuePairOfstringstring</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ad_format_preference</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="csv_to_field_StructuredSnippetValues"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_field_StructuredSnippetValues">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_StructuredSnippetValues</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -463,6 +489,22 @@
         <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">bid</span></div>
 
+
+<div class="viewcode-block" id="bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse_bid"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_bid">[docs]</a><span class="k">def</span> <span class="nf">parse_bid</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Bid&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+        <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">bid</span></div>
 
 <div class="viewcode-block" id="minute_bulk_str"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.minute_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">minute_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;Zero&#39;</span><span class="p">:</span>
@@ -779,6 +821,85 @@
             <span class="n">webpage</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns0:Webpage&#39;</span><span class="p">)</span>
             <span class="n">webpage</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">Conditions</span><span class="o">.</span><span class="n">WebpageCondition</span> <span class="o">=</span> <span class="n">conditions</span>
             <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">webpage</span></div>
+
+<div class="viewcode-block" id="entity_to_csv_PriceTableRows"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.entity_to_csv_PriceTableRows">[docs]</a><span class="k">def</span> <span class="nf">entity_to_csv_PriceTableRows</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set Price Ad Extension price table rows from bulk values</span>
+<span class="sd">    :param entity: price ad extension entity</span>
+<span class="sd">    :param row_values: bulk row values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">TableRows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> \
+            <span class="n">entity</span><span class="o">.</span><span class="n">TableRows</span><span class="o">.</span><span class="n">PriceTableRow</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">currency_code_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">CurrencyCode1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">price_description_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceDescription1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">Header1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_mobile_url_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalMobileUrl1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">final_url_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrl1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">price_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">Price1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">price_qualifier_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceQualifier1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">price_unit_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceUnit1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">price_table_rows</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">TableRows</span><span class="o">.</span><span class="n">PriceTableRow</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">)):</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">currency_code_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">CurrencyCode</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">price_description_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Description</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Header</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">final_mobile_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">)</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">final_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">)</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">price_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Price</span><span class="p">)</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">price_qualifier_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">PriceQualifier</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">price_unit_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">PriceUnit</span></div>
+
+
+<div class="viewcode-block" id="csv_to_entity_PriceTableRows"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_entity_PriceTableRows">[docs]</a><span class="k">def</span> <span class="nf">csv_to_entity_PriceTableRows</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert Price Ad Extension price table rows to bulk row values</span>
+<span class="sd">    :param row_values: bulk row values</span>
+<span class="sd">    :param entity: price ad extension entity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">MAX_NUMBER_OF_PRICE_TABLE_ROWS</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">currency_code_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">CurrencyCode1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">price_description_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceDescription1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">Header1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">final_mobile_url_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalMobileUrl1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">final_url_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrl1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">price_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">Price1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">price_qualifier_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceQualifier1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">price_unit_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">PriceUnit1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">price_table_rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_NUMBER_OF_PRICE_TABLE_ROWS</span><span class="p">):</span>
+        <span class="n">currency_code_success</span><span class="p">,</span> <span class="n">currency_code</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">currency_code_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">price_description_success</span><span class="p">,</span> <span class="n">price_description</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">price_description_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">header_success</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">final_mobile_url_success</span><span class="p">,</span> <span class="n">final_mobile_url</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">final_mobile_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">final_url_success</span><span class="p">,</span> <span class="n">final_url</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">final_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">price_success</span><span class="p">,</span> <span class="n">price</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">price_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">price_qualifier_success</span><span class="p">,</span> <span class="n">price_qualifier</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">price_qualifier_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">price_unit_success</span><span class="p">,</span> <span class="n">price_unit</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">price_unit_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">currency_code_success</span> \
+           <span class="ow">or</span> <span class="n">price_description_success</span> \
+           <span class="ow">or</span> <span class="n">header_success</span> \
+           <span class="ow">or</span> <span class="n">final_mobile_url_success</span> \
+           <span class="ow">or</span> <span class="n">final_url_success</span> \
+           <span class="ow">or</span> <span class="n">price_success</span> \
+           <span class="ow">or</span> <span class="n">price_qualifier_success</span> \
+           <span class="ow">or</span> <span class="n">price_unit_success</span><span class="p">:</span>
+            <span class="n">price_table_row</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;PriceTableRow&#39;</span><span class="p">)</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">CurrencyCode</span> <span class="o">=</span> <span class="n">currency_code</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">Description</span> <span class="o">=</span> <span class="n">price_description</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">header</span>
+            <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">price_table_row</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">,</span> <span class="n">final_mobile_url</span><span class="p">)</span>
+            <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">price_table_row</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">,</span> <span class="n">final_url</span><span class="p">)</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">Price</span> <span class="o">=</span> <span class="n">price</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">PriceQualifier</span> <span class="o">=</span> <span class="n">price_qualifier</span>
+            <span class="n">price_table_row</span><span class="o">.</span><span class="n">PriceUnit</span> <span class="o">=</span> <span class="n">price_unit</span>
+
+            <span class="n">price_table_rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">price_table_row</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">TableRows</span><span class="o">.</span><span class="n">PriceTableRow</span> <span class="o">=</span> <span class="n">price_table_rows</span></div>
 
 
 <div class="viewcode-block" id="parse_bool"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_bool">[docs]</a><span class="k">def</span> <span class="nf">parse_bool</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
@@ -1101,6 +1222,39 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">RadiusCriterion</span><span class="p">)):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span> <span class="s2">&quot;LongitudeDegrees&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="field_to_csv_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.field_to_csv_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdFormatPreference</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    convert field value to csv content</span>
+<span class="sd">    :param value: field value</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;Native&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;All&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="csv_to_field_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_field_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    parse csv content and set entity attribute</span>
+<span class="sd">    :param entity:  entity which has AdFormatPreference attribute</span>
+<span class="sd">    :param value: csv content value</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">AdFormatPreference</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;Native&#39;</span><span class="p">:</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">AdFormatPreference</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
+
+
 <div class="viewcode-block" id="parse_rule_PageVisitors"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_rule_PageVisitors">[docs]</a><span class="k">def</span> <span class="nf">parse_rule_PageVisitors</span><span class="p">(</span><span class="n">rule_str</span><span class="p">):</span>
     <span class="n">rule</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns0:PageVisitorsRule&#39;</span><span class="p">)</span>
     <span class="n">rule</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;PageVisitors&#39;</span>
@@ -1296,13 +1450,13 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2016, Bing Ads SDK Team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.5.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
     </div>
   </body>
 </html>
