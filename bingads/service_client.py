@@ -1,7 +1,7 @@
 from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .authorization import *
-from .service_info import SERVICE_INFO_DICT, SERVICE_INFO_DICT_V10, SERVICE_INFO_DICT_V11
+from .service_info import SERVICE_INFO_DICT_V11
 from .manifest import USER_AGENT
 from getpass import getuser
 from tempfile import gettempdir
@@ -11,7 +11,7 @@ from os import path
 class ServiceClient:
     """ Provides an interface for calling the methods of the specified Bing Ads service."""
 
-    def __init__(self, service, authorization_data=None, environment='production', version='v10', **suds_options):
+    def __init__(self, service, authorization_data=None, environment='production', version='v11', **suds_options):
         """ Initializes a new instance of this class.
 
         :param service: The service name.
@@ -208,15 +208,7 @@ class ServiceClient:
         :param version:
         :return: the service info dict
         """
-        if version == 9:
-            return SERVICE_INFO_DICT
-        elif version == 10:
-            return SERVICE_INFO_DICT_V10
-        elif version == 11:
-            return SERVICE_INFO_DICT_V11
-        else:
-            # Should not run to here, set default to v10
-            return SERVICE_INFO_DICT_V10
+        return SERVICE_INFO_DICT_V11
 
 
     @staticmethod
@@ -297,17 +289,8 @@ class _ServiceCall:
 
 import pkg_resources
 import types
-
 from suds.sudsobject import Property
 from suds.sax.text import Text
-
-_CAMPAIGN_MANAGEMENT_SERVICE_V10 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v10/proxies/campaign_management_service.xml')
-)
-_CAMPAIGN_OBJECT_FACTORY_V10 = _CAMPAIGN_MANAGEMENT_SERVICE_V10.factory
-# TODO Better to push suds-jurko accept this caching
-_CAMPAIGN_OBJECT_FACTORY_V10.object_cache = {}
-_CAMPAIGN_OBJECT_FACTORY_V10.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V10.create
 
 
 _CAMPAIGN_MANAGEMENT_SERVICE_V11 = Client(
@@ -317,6 +300,7 @@ _CAMPAIGN_OBJECT_FACTORY_V11 = _CAMPAIGN_MANAGEMENT_SERVICE_V11.factory
 # TODO Better to push suds-jurko accept this caching
 _CAMPAIGN_OBJECT_FACTORY_V11.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V11.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V11.create
+
 
 def _suds_objects_deepcopy(origin):
     if origin is None:
@@ -346,5 +330,3 @@ def _create_with_cache(self, name):
     obj = self.object_cache[name]
     copied_obj = _suds_objects_deepcopy(obj)
     return copied_obj
-
-_CAMPAIGN_OBJECT_FACTORY_V10.create = types.MethodType(_create_with_cache, _CAMPAIGN_OBJECT_FACTORY_V10)

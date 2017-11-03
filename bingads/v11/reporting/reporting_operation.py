@@ -6,7 +6,7 @@ import zipfile
 import os
 import six
 import sys
-imoprt shutil
+import shutil
 
 from .reporting_operation_status import *
 from .exceptions import *

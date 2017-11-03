@@ -3,6 +3,15 @@
 Release History
 ---------------
 
+11.5.6(2017-11-01)
++++++++++++++++++++
+* Support for version 9 and 10 ended on October 31st, 2017. The following version 9 and 10 proxies are now removed from the SDK. You must upgrade to version 11.
+  - Removed the Version 9 proxies for Customer Billing, Customer Management, and Reporting services. Also removed the Version 9 ReportingServiceManager.
+  - Removed the Version 10 proxies for Ad Insight, Bulk, and Campaign Management services. Also removed the Version 10 BulkServiceManager and Version 10 Bulk entities.
+* The Version 11 Reporting service proxies are updated to support new columns for [Exact Match Impression Share Percent](https://docs.microsoft.com/en-us/bingads/guides/release-notes#reporting-exactmatchimpressionshare-october2017) and [Labels](https://docs.microsoft.com/en-us/bingads/guides/release-notes#reporting-labels-october2017).
+* Improved memory usage for decompressing the bulk and report files.
+* Set the default encoding to utf-8-sig and removed the chardet requirement. Bulk file download and upload should always be UTF-8 encoding with BOM.
+
 11.5.5.1(2017-09-19)
 +++++++++++++++++++
 

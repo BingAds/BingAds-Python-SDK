@@ -3,7 +3,6 @@ requests
 future
 six
 enum34
-chardet
 pytest
 mock
 parameterizedtestcase

@@ -5,12 +5,12 @@ from .csv_reader import _CsvReader
 class _BulkObjectReader():
     """ Provides a method to read one row from bulk file and return the corresponding :class:`._BulkObject` """
 
-    def __init__(self, file_path, delimiter, encoding=None):
+    def __init__(self, file_path, delimiter, encoding='utf-8-sig'):
         self._file_path = file_path
         self._delimiter = delimiter
         self._encoding = encoding
 
-        self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter)
+        self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter, encoding=self._encoding)
         self._csv_reader.__enter__()
         headers = self._read_headers()
         self._column_mapping = dict(zip(headers, range(0, len(headers))))

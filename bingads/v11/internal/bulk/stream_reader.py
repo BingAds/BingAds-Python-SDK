@@ -10,14 +10,14 @@ class _BulkStreamReader():
 
     __SUPPORTED_VERSIONS = ["5", "5.0"]
 
-    def __init__(self, file_path, file_format, encoding=None):
+    def __init__(self, file_path, file_format, encoding='utf-8-sig'):
         self._file_path = file_path
         self._file_format = file_format
         self._encoding = encoding
 
         self._delimiter = ',' if self.file_format == DownloadFileType.csv else '\t'
         self._passed_first_row = False
-        self._bulk_object_reader = _BulkObjectReader(self.file_path, self.delimiter)
+        self._bulk_object_reader = _BulkObjectReader(self.file_path, self.delimiter, encoding=self._encoding)
         self._bulk_object_reader.__enter__()
         self._next_object = None
 
