@@ -2,9 +2,14 @@
 
 Release History
 ---------------
+11.5.7(2017-12-12)
++++++++++++++++++++
+
+*The Version 11 Reporting service proxies are updated to support new columns for [Estimated Bids](https://docs.microsoft.com/en-us/bingads/guides/release-notes#reporting-estimatedbids-november2017). 
 
 11.5.6(2017-11-01)
 +++++++++++++++++++
+
 * Support for version 9 and 10 ended on October 31st, 2017. The following version 9 and 10 proxies are now removed from the SDK. You must upgrade to version 11.
   - Removed the Version 9 proxies for Customer Billing, Customer Management, and Reporting services. Also removed the Version 9 ReportingServiceManager.
   - Removed the Version 10 proxies for Ad Insight, Bulk, and Campaign Management services. Also removed the Version 10 BulkServiceManager and Version 10 Bulk entities.
