@@ -12,14 +12,6 @@ bingads\.internal\.error\_messages module
     :undoc-members:
     :show-inheritance:
 
-bingads\.internal\.extensions module
-------------------------------------
-
-.. automodule:: bingads.internal.extensions
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
