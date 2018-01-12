@@ -65,6 +65,11 @@ class BulkCustomAudience(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.custom_audience.Scope),
             csv_to_field=lambda c, v: setattr(c.custom_audience, 'Scope', v if v else None)
         ),
+        _SimpleBulkMapping(
+            _StringTable.AudienceSearchSize,
+            field_to_csv=lambda c: bulk_str(c.custom_audience.SearchSize),
+            csv_to_field=lambda c, v: setattr(c.custom_audience, 'SearchSize', int(v) if v else None)
+        ),
     ]
 
     @property

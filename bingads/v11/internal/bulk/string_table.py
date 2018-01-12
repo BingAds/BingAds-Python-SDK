@@ -335,6 +335,7 @@ class _StringTable:
     AudienceId = "Audience Id"
     RemarketingTargetingSetting = "Remarketing Targeting Setting"
     RemarketingRule = "Remarketing Rule"
+    AudienceSearchSize = "Audience Search Size"
 
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"

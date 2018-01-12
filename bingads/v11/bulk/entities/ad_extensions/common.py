@@ -376,7 +376,7 @@ class _BulkAdExtensionIdentifier(_BulkEntityIdentifier):
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.account_id),
-            csv_to_field=lambda c, v: setattr(c, 'account_id', int(v))
+            csv_to_field=lambda c, v: setattr(c, 'account_id', int(v) if v else None)
         ),
     ]
 

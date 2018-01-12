@@ -1,5 +1,6 @@
 from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
+from .headerplugin import HeaderPlugin
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT_V11
 from .manifest import USER_AGENT
@@ -42,6 +43,8 @@ class ServiceClient:
         self._service = ServiceClient._format_service(service)
         self._environment = ServiceClient._format_environment(environment)
 
+        self.hp=HeaderPlugin()
+        suds_options['plugins'] = [self.hp]
         self._soap_client = Client(self.service_url, **suds_options)
 
     def __getattr__(self, name):

@@ -49,12 +49,14 @@ class BulkOperation(object):
                  authorization_data,
                  poll_interval_in_milliseconds=15000,
                  environment='production',
+                 tracking_id=None,
                  **suds_options):
         self._request_id = request_id
         self._service_client = ServiceClient('BulkService', authorization_data, environment, version='v11', **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
+        self.tracking_id=tracking_id
 
     def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite, timeout_in_milliseconds=None):
         """ Download file with specified URL and download parameters.
@@ -193,12 +195,14 @@ class BulkDownloadOperation(BulkOperation):
                  authorization_data,
                  poll_interval_in_milliseconds=15000,
                  environment='production',
+                 tracking_id=None,
                  **suds_options):
         super(BulkDownloadOperation, self).__init__(
             request_id=request_id,
             authorization_data=authorization_data,
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
+            tracking_id=tracking_id,
             **suds_options
         )
 
@@ -238,6 +242,8 @@ class BulkDownloadOperation(BulkOperation):
         if self.final_status is not None:
             return self.final_status
         response = self._get_status_with_retry(3)
+        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.GetBulkDownloadStatus)
+        self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = BulkOperationStatus(
             status=response.RequestStatus,
             percent_complete=int(response.PercentComplete),
@@ -285,12 +291,14 @@ class BulkUploadOperation(BulkOperation):
                  authorization_data,
                  poll_interval_in_milliseconds=15000,
                  environment='production',
+                 tracking_id=None,
                  **suds_options):
         super(BulkUploadOperation, self).__init__(
             request_id=request_id,
             authorization_data=authorization_data,
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
+            tracking_id=tracking_id,
             **suds_options
         )
 
@@ -330,6 +338,8 @@ class BulkUploadOperation(BulkOperation):
         if self.final_status is not None:
             return self.final_status
         response = self._get_status_with_retry(3)
+        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.GetBulkUploadStatus)
+        self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = BulkOperationStatus(
             status=response.RequestStatus,
             percent_complete=int(response.PercentComplete),

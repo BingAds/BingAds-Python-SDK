@@ -2,6 +2,13 @@
 
 Release History
 ---------------
+11.5.8(2018-01-12)
++++++++++++++++++++
+*The Bulk and Campaign Management proxies are updated to support [audience search size](https://docs.microsoft.com/en-us/bingads/guides/release-notes#audiencesearchsize-january2018). In addition the SDK supports audience search size via the BulkCustomAudience, BulkInMarketAudience, and BulkRemarketingList classes.
+	
+*Allow the Parent Id to be empty when deleting Bulk entities. Previously the Parent Id was required by the SDK although the Bulk service does not always require it.
+
+---------------
 11.5.7(2017-12-12)
 +++++++++++++++++++
 

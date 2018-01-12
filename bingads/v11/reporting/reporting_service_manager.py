@@ -84,11 +84,13 @@ class ReportingServiceManager:
         :rtype: ReportingDownloadOperation
         """
         response = self.service_client.SubmitGenerateReport(report_request)
+        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.SubmitGenerateReport)
         operation = ReportingDownloadOperation(
             request_id=response,
             authorization_data=self._authorization_data,
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
+            tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None,
             **self.suds_options
         )
         return operation

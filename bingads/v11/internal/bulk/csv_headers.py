@@ -267,6 +267,7 @@ class _CsvHeaders:
         _StringTable.AudienceId,
         _StringTable.RemarketingTargetingSetting,
         _StringTable.RemarketingRule,
+        _StringTable.AudienceSearchSize,
 
         # Expanded Text Ad
         _StringTable.TitlePart1,
