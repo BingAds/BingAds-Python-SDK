@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.bulk package &#8212; Bing Ads SDK 11.5.7 documentation</title>
+    <title>bingads.v11.bulk package &#8212; Bing Ads SDK 11.5.8 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '11.5.7',
+        VERSION:     '11.5.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="bingads.v11.html" title="bingads.v11 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" accesskey="U">bingads.v11 package</a> &#187;</li> 
       </ul>
@@ -154,7 +154,7 @@
 <span id="bingads-v11-bulk-bulk-operation-module"></span><h2>bingads.v11.bulk.bulk_operation module<a class="headerlink" href="#module-bingads.v11.bulk.bulk_operation" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="bingads.v11.bulk.bulk_operation.BulkDownloadOperation">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkDownloadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkDownloadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkDownloadOperation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkDownloadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkDownloadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkDownloadOperation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">bingads.v11.bulk.bulk_operation.BulkOperation</span></code></a></p>
 <p>Represents a bulk download operation requested by a user.</p>
 <p>You can use this class to poll for the download status, and then download the file when available.</p>
@@ -201,7 +201,7 @@ use an instance of <a class="reference internal" href="#bingads.v11.bulk.bulk_op
 
 <dl class="class">
 <dt id="bingads.v11.bulk.bulk_operation.BulkOperation">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkOperation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkOperation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>The base class that can be derived to represent a bulk operation requested by a user.</p>
 <p>You can use either the <a class="reference internal" href="#bingads.v11.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v11.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkDownloadOperation</span></code></a> or <a class="reference internal" href="#bingads.v11.bulk.bulk_operation.BulkUploadOperation" title="bingads.v11.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkUploadOperation</span></code></a>
@@ -305,7 +305,7 @@ The default value is false, in which case the downloaded file is not decompresse
 
 <dl class="class">
 <dt id="bingads.v11.bulk.bulk_operation.BulkUploadOperation">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkUploadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkUploadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkUploadOperation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.bulk_operation.</code><code class="descname">BulkUploadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=15000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/bulk_operation.html#BulkUploadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.bulk_operation.BulkUploadOperation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">bingads.v11.bulk.bulk_operation.BulkOperation</span></code></a></p>
 <p>Represents a bulk upload operation requested by a user.</p>
 <p>You can use this class to poll for the upload status, and then download the upload results file when available.</p>
@@ -1610,7 +1610,7 @@ should be excluded when writing to file</li>
         <li class="right" >
           <a href="bingads.v11.html" title="bingads.v11 package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" >bingads.v11 package</a> &#187;</li> 
       </ul>

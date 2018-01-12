@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.service_client &#8212; Bing Ads SDK 11.5.7 documentation</title>
+    <title>bingads.service_client &#8212; Bing Ads SDK 11.5.8 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '11.5.7',
+        VERSION:     '11.5.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -47,6 +47,7 @@
   <h1>Source code for bingads.service_client</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">suds.client</span> <span class="k">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">Factory</span><span class="p">,</span> <span class="n">WebFault</span><span class="p">,</span> <span class="n">ObjectCache</span>  <span class="c1"># noqa</span>
 
+<span class="kn">from</span> <span class="nn">.headerplugin</span> <span class="k">import</span> <span class="n">HeaderPlugin</span>
 <span class="kn">from</span> <span class="nn">.authorization</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">.service_info</span> <span class="k">import</span> <span class="n">SERVICE_INFO_DICT_V11</span>
 <span class="kn">from</span> <span class="nn">.manifest</span> <span class="k">import</span> <span class="n">USER_AGENT</span>
@@ -89,6 +90,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_service</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_format_service</span><span class="p">(</span><span class="n">service</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_format_environment</span><span class="p">(</span><span class="n">environment</span><span class="p">)</span>
 
+        <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="o">=</span><span class="n">HeaderPlugin</span><span class="p">()</span>
+        <span class="n">suds_options</span><span class="p">[</span><span class="s1">&#39;plugins&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_soap_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service_url</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -407,7 +410,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

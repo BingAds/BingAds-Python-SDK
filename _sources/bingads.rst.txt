@@ -28,6 +28,14 @@ bingads\.exceptions module
     :undoc-members:
     :show-inheritance:
 
+bingads\.headerplugin module
+----------------------------
+
+.. automodule:: bingads.headerplugin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads\.manifest module
 ------------------------
 

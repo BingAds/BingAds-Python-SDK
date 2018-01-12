@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.reporting.reporting_operation &#8212; Bing Ads SDK 11.5.7 documentation</title>
+    <title>bingads.v11.reporting.reporting_operation &#8212; Bing Ads SDK 11.5.8 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '11.5.7',
+        VERSION:     '11.5.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -99,12 +99,14 @@
                  <span class="n">authorization_data</span><span class="p">,</span>
                  <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span>
                  <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span>
+                 <span class="n">tracking_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">suds_options</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_request_id</span> <span class="o">=</span> <span class="n">request_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_service_client</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="p">(</span><span class="s1">&#39;ReportingService&#39;</span><span class="p">,</span> <span class="n">authorization_data</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span> <span class="o">=</span> <span class="n">authorization_data</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span> <span class="o">=</span> <span class="n">poll_interval_in_milliseconds</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_final_status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_id</span><span class="o">=</span><span class="n">tracking_id</span>
 
 <div class="viewcode-block" id="ReportingDownloadOperation.download_result_file"><a class="viewcode-back" href="../../../../bingads.v11.reporting.html#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.download_result_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">,</span> <span class="n">decompress</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">,</span> <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Download file with specified URL and download parameters.</span>
@@ -213,6 +215,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_status</span>
         <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_with_retry</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">service_client</span><span class="o">.</span><span class="n">hp</span><span class="o">.</span><span class="n">get_headers</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">service_client</span><span class="o">.</span><span class="n">soap_client</span><span class="o">.</span><span class="n">service</span><span class="o">.</span><span class="n">PollGenerateReport</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tracking_id</span> <span class="o">=</span> <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;TrackingId&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;TrackingId&#39;</span> <span class="ow">in</span> <span class="n">headers</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="n">status</span> <span class="o">=</span> <span class="n">ReportingOperationStatus</span><span class="p">(</span>
             <span class="n">status</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
             <span class="n">report_download_url</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">ReportDownloadUrl</span>
@@ -300,7 +304,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
