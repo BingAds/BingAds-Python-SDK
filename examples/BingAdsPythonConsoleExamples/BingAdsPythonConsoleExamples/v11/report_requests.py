@@ -250,7 +250,7 @@ def get_user_location_performance_report_request():
         'AccountName',
         'CampaignId',
         'AdGroupId',
-        'LocationType',
+        'LocationId',
         'Country',
         'Clicks',
         'Impressions',
