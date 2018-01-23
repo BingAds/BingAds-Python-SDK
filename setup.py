@@ -15,7 +15,7 @@ requirements = [
     'future',
     'six',
     'requests',
-    'enum34',
+    'enum-compat',
 ]
 
 setup(
