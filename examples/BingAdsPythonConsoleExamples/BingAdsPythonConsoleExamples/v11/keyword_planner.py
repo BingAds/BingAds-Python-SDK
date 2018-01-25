@@ -244,14 +244,14 @@ def main(authorization_data):
             idea_text_search_parameter,
             date_range_search_parameter,
             competition_search_parameter])
+
         # Call the GetKeywordIdeas Function
         # If ExpandIdeas is false, the QuerySearchParameter is required.
 
         get_keyword_ideas_response=adinsight_service.GetKeywordIdeas(
             IdeaAttributes=ideas_attributes,
             SearchParameters=search_parameters,
-            ExpandIdeas= True
-#/ false
+            ExpandIdeas=True
         )
 
         output_array_of_keywordidea(get_keyword_ideas_response)
