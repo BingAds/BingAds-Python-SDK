@@ -2,10 +2,11 @@
 # field size limit to avoid the field larger than field limit csv error.
 
 import csv
+import sys
 csv.field_size_limit(sys.maxsize)
 
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.
@@ -25,7 +26,7 @@ def main(authorization_data):
         
         download_entities=download_file(bulk_service_manager, download_parameters)
         remarketing_list_results=[]
-        output_status_message("Downloaded all remarketing lists that the current user can associate with ad groups.\n");
+        output_status_message("Downloaded all remarketing lists that the current user can associate with ad groups.\n")
         for entity in download_entities:
             if isinstance(entity, BulkRemarketingList):
                 remarketing_list_results.append(entity)

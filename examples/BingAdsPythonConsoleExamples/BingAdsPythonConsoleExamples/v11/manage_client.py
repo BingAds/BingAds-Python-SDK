@@ -1,7 +1,7 @@
 import datetime
 
 from auth_helper import *
-from output_helper import *
+from customermanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -123,9 +123,9 @@ def main(authorization_data):
 
             # Print errors if any occurred when updating the client link.
             if update_client_links_response is not None:
-                output_operation_errors(
-                    update_client_links_response.OperationErrors, 
-                    update_client_links_response.PartialErrors)
+                output_array_of_operationerror(update_client_links_response.OperationErrors)
+                for arrayofoperationerror in update_client_links_response.PartialErrors['ArrayOfOperationError']:
+                    output_array_of_operationerror(arrayofoperationerror)
 
         # If no links exist between the agency and specified client account, or a link exists with status  
         # either Inactive, LinkCanceled, LinkDeclined, LinkExpired, or LinkFailed, then the agency must
@@ -147,7 +147,9 @@ def main(authorization_data):
 
             # Print errors if any occurred when adding the client link.
 
-            output_operation_errors(add_client_links_response.OperationErrors, add_client_links_response.PartialErrors)
+            output_array_of_operationerror(add_client_links_response.OperationErrors)
+            for arrayofoperationerror in add_client_links_response.PartialErrors['ArrayOfOperationError']:
+                output_array_of_operationerror(arrayofoperationerror)
             output_status_message("The user attempted to add a new ClientLink.\n")
             output_status_message("Login as the client Super Admin to accept the agency's request to manage AccountId {0}.\n".format(CLIENT_ACCOUNT_ID))
         
@@ -159,7 +161,7 @@ def main(authorization_data):
             Predicates=predicates
         )
 
-        output_client_links(client_links)
+        output_array_of_clientlink(client_links)
 
         output_status_message("Program execution completed")
 

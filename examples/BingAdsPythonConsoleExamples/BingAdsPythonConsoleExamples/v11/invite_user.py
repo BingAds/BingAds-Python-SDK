@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 from auth_helper import *
-from output_helper import *
+from customermanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -85,7 +85,7 @@ def main(authorization_data):
             Predicates = predicates
         )['UserInvitation']
         output_status_message("Existing UserInvitation(s):\n")
-        output_user_invitations(user_invitations)
+        output_array_of_userinvitation(user_invitations)
 
         # Determine whether the invitation has been accepted or has expired.
         # If you specified a valid InvitationId, and if the invitation is not found, 

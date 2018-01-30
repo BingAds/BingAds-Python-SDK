@@ -1,5 +1,5 @@
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.
@@ -9,42 +9,7 @@ def main(authorization_data):
     errors=[]
 
     try:
-        # To prepare for the sitelink ad extensions migration by the end of September 2017, you will need 
-        # to determine whether the account has been migrated from SiteLinksAdExtension to Sitelink2AdExtension. 
-        # All ad extension service operations available for both types of sitelinks; however you will 
-        # need to determine which type to add, update, and retrieve.
 
-        SITELINK_MIGRATION = 'SiteLinkAdExtension'
-        sitelink_migration_is_completed = False
-
-        # Optionally you can find out which pilot features the customer is able to use. Even if the customer 
-        # is in pilot for sitelink migrations, the accounts that it contains might not be migrated.
-        feature_pilot_flags = customer_service.GetCustomerPilotFeatures(authorization_data.customer_id)
-
-        # The pilot flag value for Sitelink ad extension migration is 253.
-        # Pilot flags apply to all accounts within a given customer; however,
-        # each account goes through migration individually and has its own migration status.
-        if(253 in feature_pilot_flags['int']):
-            # Account migration status below will be either NotStarted, InProgress, or Completed.
-            output_status_message("Customer is in pilot for Sitelink migration.\n")
-        else:
-            # Account migration status below will be NotInPilot.
-            output_status_message("Customer is not in pilot for Sitelink migration.\n")
-        
-        # Even if you have multiple accounts per customer, each account will have its own
-        # migration status. This example checks one account using the provided AuthorizationData.
-        account_migration_statuses_infos = campaign_service.GetAccountMigrationStatuses(
-            {'long': authorization_data.account_id},
-            SITELINK_MIGRATION
-        )
-
-        for account_migration_statuses_info in account_migration_statuses_infos['AccountMigrationStatusesInfo']:
-            output_account_migration_statuses_info(account_migration_statuses_info)
-            for migration_status_info in account_migration_statuses_info['MigrationStatusInfo']:
-                if migration_status_info[1][0].Status == 'Completed' and SITELINK_MIGRATION == migration_status_info[1][0].MigrationType: 
-                    sitelink_migration_is_completed = True
-        
-        
         # Prepare the bulk entities that you want to upload. Each bulk entity contains the corresponding campaign management object,  
         # and additional elements needed to read from and write to a bulk file.
 
@@ -267,12 +232,8 @@ def main(authorization_data):
         upload_entities.append(bulk_structured_snippet_ad_extension)
         upload_entities.append(bulk_campaign_structured_snippet_ad_extension)
 
-        if sitelink_migration_is_completed:
-            for entity in get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id):
-                upload_entities.append(entity)
-        else:
-            for entity in get_sample_bulk_site_links_ad_extensions(authorization_data.account_id):
-                upload_entities.append(entity)
+        for entity in get_sample_bulk_sitelink2_ad_extensions(authorization_data.account_id):
+            upload_entities.append(entity)
 
         output_status_message("\nAdding campaign, ad extensions, and associations . . .")
         download_entities=write_entities_and_upload_file(bulk_service_manager, upload_entities)
@@ -344,7 +305,7 @@ def main(authorization_data):
                 # for the ad extension. In this example, we will remove any existing scheduling by setting this element  
                 # to an empty Schedule object.
                 location_ad_extension_result.location_ad_extension.Scheduling=set_elements_to_none(campaign_service.factory.create('Schedule'))
-                upload_entities.append(location_ad_extension_result);
+                upload_entities.append(location_ad_extension_result)
             
         # Upload and write the output
 
@@ -445,15 +406,6 @@ def get_sample_bulk_sitelink2_ad_extensions(account_id):
         sitelink2_ad_extension.Description1="Simple & Transparent."
         sitelink2_ad_extension.Description2="No Upfront Cost."
         sitelink2_ad_extension.DisplayText = "Women's Shoe Sale " + str(index+1)
-
-        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-        # Here is an example of a DestinationUrl you might have used previously. 
-        # sitelink2_ad_extension.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
-
-        # To migrate from DestinationUrl to FinalUrls, you can set DestinationUrl
-        # to an empty string when updating the ad extension. If you are removing DestinationUrl,
-        # then FinalUrls is required.
-        # sitelink2_ad_extension.DestinationUrl=""
             
         # With FinalUrls you can separate the tracking template, custom parameters, and 
         # landing page URLs.
@@ -502,81 +454,6 @@ def get_sample_bulk_sitelink2_ad_extensions(account_id):
     bulk_campaign_sitelink2_ad_extension.ad_extension_id_to_entity_id_association=sitelink2_ad_extension_id_to_entity_id_association
         
     entities.append(bulk_campaign_sitelink2_ad_extension)
-
-    return entities
-
-def get_sample_bulk_site_links_ad_extensions(account_id):
-    entities=[]
-
-    bulk_site_link_ad_extension=BulkSiteLinkAdExtension()
-    bulk_site_link_ad_extension.account_id=account_id
-    site_links_ad_extension=set_elements_to_none(campaign_service.factory.create('SiteLinksAdExtension'))
-    site_links=campaign_service.factory.create('ArrayOfSiteLink')
-
-    for index in range(2):
-        site_link=set_elements_to_none(campaign_service.factory.create('SiteLink'))
-        site_link.Description1="Simple & Transparent."
-        site_link.Description2="No Upfront Cost."
-        site_link.DisplayText = "Women's Shoe Sale " + str(index+1)
-
-        # If you are currently using the Destination URL, you must upgrade to Final URLs. 
-        # Here is an example of a DestinationUrl you might have used previously. 
-        # site_link.DestinationUrl='http://www.contoso.com/womenshoesale/?season=spring&promocode=PROMO123'
-
-        # To migrate from DestinationUrl to FinalUrls, you can set DestinationUrl
-        # to an empty string when updating the sitelink. If you are removing DestinationUrl,
-        # then FinalUrls is required.
-        # site_link.DestinationUrl=""
-            
-        # With FinalUrls you can separate the tracking template, custom parameters, and 
-        # landing page URLs.
-        final_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
-        site_link.FinalUrls=final_urls
-
-        # Final Mobile URLs can also be used if you want to direct the user to a different page 
-        # for mobile devices.
-        final_mobile_urls=campaign_service.factory.create('ns4:ArrayOfstring')
-        final_mobile_urls.string.append('http://mobile.contoso.com/womenshoesale')
-        site_link.FinalMobileUrls=final_mobile_urls
-
-        # You could use a tracking template which would override the campaign level
-        # tracking template. Tracking templates defined for lower level entities 
-        # override those set for higher level entities.
-        # In this example we are using the campaign level tracking template.
-        site_link.TrackingUrlTemplate=None
-
-        # Set custom parameters that are specific to this sitelink, 
-        # and can be used by the sitelink, ad group, campaign, or account level tracking template. 
-        # In this example we are using the campaign level tracking template.
-        url_custom_parameters=campaign_service.factory.create('ns0:CustomParameters')
-        parameters=campaign_service.factory.create('ns0:ArrayOfCustomParameter')
-        custom_parameter1=campaign_service.factory.create('ns0:CustomParameter')
-        custom_parameter1.Key='promoCode'
-        custom_parameter1.Value='PROMO' + str(index+1)
-        parameters.CustomParameter.append(custom_parameter1)
-        custom_parameter2=campaign_service.factory.create('ns0:CustomParameter')
-        custom_parameter2.Key='season'
-        custom_parameter2.Value='summer'
-        parameters.CustomParameter.append(custom_parameter2)
-        url_custom_parameters.Parameters=parameters
-        site_link.UrlCustomParameters=url_custom_parameters
-        site_links.SiteLink.append(site_link)
-
-    site_links_ad_extension.SiteLinks=site_links
-    site_links_ad_extension.Status=None
-    site_links_ad_extension.Id=SITE_LINK_AD_EXTENSION_ID_KEY
-    bulk_site_link_ad_extension.site_links_ad_extension=site_links_ad_extension
-
-    entities.append(bulk_site_link_ad_extension)
-
-    bulk_campaign_site_link_ad_extension=BulkCampaignSiteLinkAdExtension()
-    site_link_ad_extension_id_to_entity_id_association=campaign_service.factory.create('AdExtensionIdToEntityIdAssociation')
-    site_link_ad_extension_id_to_entity_id_association.AdExtensionId=SITE_LINK_AD_EXTENSION_ID_KEY
-    site_link_ad_extension_id_to_entity_id_association.EntityId=CAMPAIGN_ID_KEY
-    bulk_campaign_site_link_ad_extension.ad_extension_id_to_entity_id_association=site_link_ad_extension_id_to_entity_id_association
-        
-    entities.append(bulk_campaign_site_link_ad_extension)
 
     return entities
 

@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -65,7 +65,7 @@ def main(authorization_data):
             'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
         }
         output_status_message("Campaign Ids:")
-        output_ids(campaign_ids)
+        output_array_of_long(campaign_ids)
         
         add_ad_groups_response=campaign_service.AddAdGroups(
             CampaignId=campaign_ids['long'][0],
@@ -75,7 +75,7 @@ def main(authorization_data):
             'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
         }
         output_status_message("Ad Group Ids:")
-        output_ids(ad_group_ids)
+        output_array_of_long(ad_group_ids)
 
         # If the campaign or ad group add operations failed then we cannot continue this example. 
 
@@ -101,7 +101,7 @@ def main(authorization_data):
             ad_group_remarketing_list_associations.AdGroupCriterion.append(biddable_ad_group_criterion)
 
             output_status_message("\nAssociating the following remarketing list with the ad group\n")
-            output_remarketing_list(remarketing_list)
+            output_remarketinglist(remarketing_list)
 
          
         add_ad_group_criterions_response = campaign_service.AddAdGroupCriterions(
@@ -112,7 +112,7 @@ def main(authorization_data):
             'long': add_ad_group_criterions_response.AdGroupCriterionIds['long'] if add_ad_group_criterions_response.AdGroupCriterionIds['long'] else None
         }
         output_status_message("Ad Group Criterion Ids:")
-        output_ids(ad_group_criterion_ids)
+        output_array_of_long(ad_group_criterion_ids)
 
         get_ad_group_criterions_by_ids_response = campaign_service.GetAdGroupCriterionsByIds(
             AdGroupId=ad_group_ids['long'][0],
@@ -122,7 +122,7 @@ def main(authorization_data):
         
         for ad_group_remarketing_list_association in get_ad_group_criterions_by_ids_response['AdGroupCriterion']:
             output_status_message("\nThe following ad group remarketing list association was added.\n")
-            output_biddable_ad_group_criterion(ad_group_remarketing_list_association);
+            output_biddableadgroupcriterion(ad_group_remarketing_list_association)
                
         # If the associations were added and retrieved successfully let's practice updating and deleting one of them.
 

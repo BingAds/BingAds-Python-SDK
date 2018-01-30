@@ -1,7 +1,7 @@
-import urllib.request as urllib2
+import urllib2
 
 from auth_helper import *
-from output_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 

@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -9,7 +9,7 @@ def main(authorization_data):
         # Before you can track conversions or target audiences using a remarketing list, 
         # you need to create a UET tag in Bing Ads (web application or API) and then 
         # add the UET tag tracking code to every page of your website. For more information, please see 
-        # Universal Event Tracking at https://msdn.microsoft.com/library/bing-ads-universal-event-tracking-guide.aspx.
+        # Universal Event Tracking at https://docs.microsoft.com/en-us/bingads/guides/universal-event-tracking.
 
         # First you should call the GetUetTagsByIds operation to check whether a tag has already been created. 
         # You can leave the TagIds element null or empty to request all UET tags available for the customer.
@@ -38,7 +38,7 @@ def main(authorization_data):
         
         output_status_message("List of all UET Tags:\n")
         for uet_tag in uet_tags['UetTag']:
-            output_uet_tag(uet_tag)
+            output_uettag(uet_tag)
 
 
         # After you retreive the tracking script from the AddUetTags or GetUetTagsByIds operation, 
@@ -46,7 +46,7 @@ def main(authorization_data):
         # or your website administrator, add it to your entire website in either the head or body sections. 
         # If your website has a master page, then that is the best place to add it because you add it once 
         # and it is included on all pages. For more information, please see 
-        # Universal Event Tracking at https://msdn.microsoft.com/library/bing-ads-universal-event-tracking-guide.aspx.
+        # Universal Event Tracking at https://docs.microsoft.com/en-us/bingads/guides/universal-event-tracking.
 
 
         # We will use the same UET tag for the remainder of this example.
@@ -56,7 +56,7 @@ def main(authorization_data):
         # Optionally you can update the name and description of a UetTag with the UpdateUetTags operation.
 
         output_status_message("UET Tag BEFORE update:\n")
-        output_uet_tag(uet_tags['UetTag'][0])
+        output_uettag(uet_tags['UetTag'][0])
 
         update_uet_tags=campaign_service.factory.create('ArrayOfUetTag')
         update_uet_tag=set_elements_to_none(campaign_service.factory.create('UetTag'))
@@ -70,7 +70,7 @@ def main(authorization_data):
         uet_tags = campaign_service.GetUetTagsByIds({'long': tag_id }).UetTags
 
         output_status_message("UET Tag AFTER update:\n")
-        output_uet_tag(uet_tags['UetTag'][0])
+        output_uettag(uet_tags['UetTag'][0])
 
         # Add conversion goals that depend on the UET Tag Id retreived above.
         # Please note that you cannot delete conversion goals. If you want to stop 
@@ -182,8 +182,8 @@ def main(authorization_data):
             if goal_id is not None:
                 conversion_goal_ids.append(goal_id)
 
-        output_status_message("List of errors returned from AddConversionGoals (if any):\n");
-        output_partial_errors(add_conversion_goals_response.PartialErrors);
+        output_status_message("List of errors returned from AddConversionGoals (if any):\n")
+        output_array_of_batcherror(add_conversion_goals_response.PartialErrors)
         
         conversion_goal_types='AppInstall ' \
                               'Duration ' \
@@ -194,11 +194,9 @@ def main(authorization_data):
         get_conversion_goals = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
             ConversionGoalTypes=conversion_goal_types
-        ).ConversionGoals
-
+        )
         output_status_message("List of conversion goals BEFORE update:\n")
-        for conversion_goal in get_conversion_goals['ConversionGoal']:
-            output_conversion_goal(conversion_goal)
+        output_array_of_conversiongoal(get_conversion_goals.ConversionGoals)
         
         update_conversion_goals=campaign_service.factory.create('ArrayOfConversionGoal')
 
@@ -268,18 +266,17 @@ def main(authorization_data):
 
         update_conversion_goals_response = campaign_service.UpdateConversionGoals(update_conversion_goals)
 
-        output_status_message("List of errors returned from UpdateConversionGoals (if any):\n");
+        output_status_message("List of errors returned from UpdateConversionGoals (if any):\n")
         if hasattr(update_conversion_goals_response, 'BatchError'):
-            output_partial_errors(update_conversion_goals_response)
+            output_array_of_batcherror(update_conversion_goals_response)
                 
         get_conversion_goals = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
             ConversionGoalTypes=conversion_goal_types
-        ).ConversionGoals
+        )
 
         output_status_message("List of conversion goals AFTER update:\n")
-        for conversion_goal in get_conversion_goals['ConversionGoal']:
-            output_conversion_goal(conversion_goal)
+        output_array_of_conversiongoal(get_conversion_goals.ConversionGoals)
 
         output_status_message("Program execution completed")
 

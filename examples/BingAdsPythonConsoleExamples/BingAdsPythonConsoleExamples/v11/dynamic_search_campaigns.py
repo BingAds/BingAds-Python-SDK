@@ -1,5 +1,6 @@
 from auth_helper import *
-from output_helper import *
+from adinsight_example_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -182,10 +183,10 @@ def main(authorization_data):
         }
 
         output_status_message('Campaign Ids:')
-        output_ids(campaign_ids)
+        output_array_of_long(campaign_ids)
 
         if hasattr(add_campaigns_response.PartialErrors, 'BatchError'):
-            output_partial_errors(add_campaigns_response.PartialErrors)
+            output_array_of_batcherror(add_campaigns_response.PartialErrors)
 
         # Next, create a new AdGroup within the dynamic search ads campaign.
 
@@ -221,10 +222,10 @@ def main(authorization_data):
         }
 
         output_status_message("Ad Group Ids:")
-        output_ids(ad_group_ids)
+        output_array_of_long(ad_group_ids)
 
         if hasattr(add_ad_groups_response.PartialErrors, 'BatchError'):
-            output_partial_errors(add_ad_groups_response.PartialErrors)
+            output_array_of_batcherror(add_ad_groups_response.PartialErrors)
 
         # You can add one or more Webpage criterions to each ad group that helps determine 
         # whether or not to serve dynamic search ads.
@@ -255,7 +256,7 @@ def main(authorization_data):
         ad_group_criterions.AdGroupCriterion.append(ad_group_webpage_negative_url)
         
         output_status_message("Adding Ad Group Webpage Criterion . . . \n")
-        output_ad_group_criterions(ad_group_criterions)
+        output_array_of_adgroupcriterion(ad_group_criterions)
         add_ad_group_criterions_response = campaign_service.AddAdGroupCriterions(
             AdGroupCriterions=ad_group_criterions,
             CriterionType='Webpage'
@@ -264,7 +265,7 @@ def main(authorization_data):
             'long': add_ad_group_criterions_response.AdGroupCriterionIds['long'] if add_ad_group_criterions_response.AdGroupCriterionIds['long'] else None
         }
         output_status_message("Ad Group Criterion Ids:")
-        output_ids(ad_group_criterion_ids)
+        output_array_of_long(ad_group_criterion_ids)
         
         get_ad_group_criterions_by_ids_response = campaign_service.GetAdGroupCriterionsByIds(
             AdGroupId=ad_group_ids['long'][0],
@@ -281,7 +282,7 @@ def main(authorization_data):
         campaign_criterions.CampaignCriterion.append(campaign_webpage_negative_url)
 
         output_status_message("Adding Campaign Webpage Criterion . . . \n")
-        output_campaign_criterions(campaign_criterions)
+        output_array_of_campaigncriterion(campaign_criterions)
         add_campaign_criterions_response = campaign_service.AddCampaignCriterions(
             CampaignCriterions=campaign_criterions,
             CriterionType='Webpage'
@@ -290,7 +291,7 @@ def main(authorization_data):
             'long': add_campaign_criterions_response.CampaignCriterionIds['long'] if add_campaign_criterions_response.CampaignCriterionIds['long'] else None
         }
         output_status_message("Campaign Criterion Ids:")
-        output_ids(campaign_criterion_ids)
+        output_array_of_long(campaign_criterion_ids)
 
         # Finally you can add a DynamicSearchAd into the ad group. The ad title and display URL 
         # are generated automatically based on the website domain and language that you want to target.
@@ -346,7 +347,7 @@ def main(authorization_data):
             'BatchError': add_ads_response.PartialErrors['BatchError'] if add_ads_response.PartialErrors else None
         }    
         output_status_message("Ad Ids:")
-        output_ids(ad_ids)
+        output_array_of_long(ad_ids)
 
         # Retrieve the Webpage criterion for the campaign.
         output_status_message("Retrieving the Campaign Webpage Criterions that we added . . . \n")
@@ -355,10 +356,10 @@ def main(authorization_data):
             CampaignCriterionIds=None,
             CriterionType='Webpage'
         )
-        campaign_criterions= get_campaign_criterions_by_ids_response.CampaignCriterions['CampaignCriterion'] \
+        campaign_criterions= get_campaign_criterions_by_ids_response.CampaignCriterions \
             if hasattr(get_campaign_criterions_by_ids_response.CampaignCriterions, 'CampaignCriterion') \
             else None
-        output_campaign_criterions(campaign_criterions)
+        output_array_of_campaigncriterion(campaign_criterions)
 
         # Retrieve the Webpage criterion for the ad group and then test some update scenarios.
         output_status_message("Retrieving the Ad Group Webpage Criterions that we added . . . \n")
@@ -370,7 +371,7 @@ def main(authorization_data):
         ad_group_criterions= get_ad_group_criterions_by_ids_response \
             if hasattr(get_ad_group_criterions_by_ids_response, 'AdGroupCriterion') \
             else None
-        output_ad_group_criterions(ad_group_criterions)
+        output_array_of_adgroupcriterion(ad_group_criterions)
                 
         # You can update the bid for BiddableAdGroupCriterion
 
@@ -411,7 +412,7 @@ def main(authorization_data):
                 ad_group_criterion.Criterion = update_criterion_attempt_failure     
 
         output_status_message("Updating Ad Group Webpage Criterion . . . \n")
-        output_ad_group_criterions(ad_group_criterions)
+        output_array_of_adgroupcriterion(ad_group_criterions)
         update_ad_group_criterions_response = campaign_service.UpdateAdGroupCriterions(
                 AdGroupCriterions=ad_group_criterions,
                 CriterionType='Webpage'

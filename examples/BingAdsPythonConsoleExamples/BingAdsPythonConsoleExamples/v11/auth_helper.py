@@ -9,6 +9,8 @@ from bingads.v11 import *
 from bingads.v11.bulk import *
 from bingads.v11.reporting import *
 
+from output_helper import output_bing_ads_webfault_error, output_webfault_errors, output_status_message
+
 # Required
 DEVELOPER_TOKEN='DeveloperTokenGoesHere'
 ENVIRONMENT='production'

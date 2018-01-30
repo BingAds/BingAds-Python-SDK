@@ -1,5 +1,5 @@
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.

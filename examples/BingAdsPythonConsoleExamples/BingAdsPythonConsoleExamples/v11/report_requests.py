@@ -1,5 +1,4 @@
 from auth_helper import *
-from output_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -37,14 +36,14 @@ def main(authorization_data):
         #return results. The ReportingServiceManager abstracts the details of checking for result file 
         #completion, and you don't have to write any code for results polling.
 
-        output_status_message("Awaiting Background Completion . . .");
+        output_status_message("Awaiting Background Completion . . .")
         background_completion(reporting_download_parameters)
 
         #Option B - Submit and Download with ReportingServiceManager
         #Submit the download request and then use the ReportingDownloadOperation result to 
         #track status yourself using ReportingServiceManager.get_status().
 
-        output_status_message("Awaiting Submit and Download . . .");
+        output_status_message("Awaiting Submit and Download . . .")
         submit_and_download(report_request)
 
         #Option C - Download Results with ReportingServiceManager
@@ -53,13 +52,13 @@ def main(authorization_data):
         #to download the result file. 
 
         #For example you might have previously retrieved a request ID using submit_download.
-        reporting_operation=reporting_service_manager.submit_download(report_request);
+        reporting_operation=reporting_service_manager.submit_download(report_request)
         request_id=reporting_operation.request_id;
 
         #Given the request ID above, you can resume the workflow and download the report.
         #The report request identifier is valid for two days. 
         #If you do not download the report within two days, you must request the report again.
-        output_status_message("Awaiting Download Results . . .");
+        output_status_message("Awaiting Download Results . . .")
         download_results(request_id, authorization_data)
 
         output_status_message("Program execution completed")
@@ -204,7 +203,7 @@ def get_user_location_performance_report_request():
     '''
     report_request=reporting_service.factory.create('UserLocationPerformanceReportRequest')
     report_request.Format=REPORT_FILE_FORMAT
-    report_request.ReportName='My Geographic Performance Report'
+    report_request.ReportName='My User Location Performance Report'
     report_request.ReturnOnlyCompleteData=False
     report_request.Aggregation='Daily'
     report_request.Language='English'

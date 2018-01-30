@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -20,7 +20,7 @@ def main(authorization_data):
             'long': add_budgets_response.BudgetIds['long'] if add_budgets_response.BudgetIds['long'] else None
         }
         output_status_message("Budget Ids:")
-        output_ids(budget_ids)
+        output_array_of_long(budget_ids)
 
         # Specify one or more campaigns.
         
@@ -172,7 +172,7 @@ def main(authorization_data):
             'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
         }
         output_status_message("Campaign Ids:")
-        output_ids(campaign_ids)
+        output_array_of_long(campaign_ids)
         
         add_ad_groups_response=campaign_service.AddAdGroups(
             CampaignId=campaign_ids['long'][0],
@@ -182,7 +182,7 @@ def main(authorization_data):
             'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
         }
         output_status_message("Ad Group Ids:")
-        output_ids(ad_group_ids)
+        output_array_of_long(ad_group_ids)
         
         add_ads_response=campaign_service.AddAds(
             AdGroupId=ad_group_ids['long'][0],
@@ -195,7 +195,7 @@ def main(authorization_data):
             'BatchError': add_ads_response.PartialErrors['BatchError'] if add_ads_response.PartialErrors else None
         }    
         output_status_message("Ad Ids:")
-        output_ids(ad_ids)
+        output_array_of_long(ad_ids)
         
         add_keywords_response=campaign_service.AddKeywords(
             AdGroupId=ad_group_ids['long'][0],
@@ -208,7 +208,7 @@ def main(authorization_data):
             'BatchError': add_keywords_response.PartialErrors['BatchError'] if add_keywords_response.PartialErrors else None
         } 
         output_status_message("Keyword Ids:")
-        output_ids(keyword_ids)
+        output_array_of_long(keyword_ids)
         
         # Here is a simple example that updates the campaign budget.
         # If the campaign has a shared budget you cannot update the Campaign budget amount,
@@ -250,14 +250,14 @@ def main(authorization_data):
                 output_status_message("Budget:")
                 output_budget(budget)
 
-            output_status_message("List of campaigns that share each budget:\n");
+            output_status_message("List of campaigns that share each budget:\n")
             get_campaign_id_collection = campaign_service.GetCampaignIdsByBudgetIds(distinct_budget_ids).CampaignIdCollection
 
             index=0
 
             for index in range(len(get_campaign_id_collection['IdCollection'])):
                 output_status_message("BudgetId: {0}".format(distinct_budget_ids['long'][index]))
-                output_status_message("Campaign Ids:");
+                output_status_message("Campaign Ids:")
                 if get_campaign_id_collection['IdCollection'][index] is not None:
                     for id in get_campaign_id_collection['IdCollection'][index].Ids['long']:
                         output_status_message("\t{0}".format(id))
@@ -274,7 +274,7 @@ def main(authorization_data):
                 BudgetIds=distinct_budget_ids
             ).Budgets
 
-            output_status_message("List of shared budgets AFTER update:\n");
+            output_status_message("List of shared budgets AFTER update:\n")
             for budget in get_budgets['Budget']:
                 output_status_message("Budget:")
                 output_budget(budget)
@@ -289,9 +289,9 @@ def main(authorization_data):
             for campaign in update_100_campaigns:
                 update_campaigns.Campaign.append(campaign)
 
-            output_status_message("List of campaigns with unshared budget BEFORE budget update:\n");
+            output_status_message("List of campaigns with unshared budget BEFORE budget update:\n")
             for campaign in update_campaigns['Campaign']:
-                output_status_message("Campaign:");
+                output_status_message("Campaign:")
                 output_campaign(campaign)
                 set_read_only_campaign_elements_to_none(campaign)
 
@@ -303,7 +303,7 @@ def main(authorization_data):
             campaign_service.UpdateCampaigns(
                 AccountId=authorization_data.account_id,
                 Campaigns=update_campaigns
-            );
+            )
 
             get_campaigns=campaign_service.GetCampaignsByIds(
                 AccountId=authorization_data.account_id,
@@ -311,9 +311,9 @@ def main(authorization_data):
                 CampaignType=ALL_CAMPAIGN_TYPES
             ).Campaigns
             
-            output_status_message("List of campaigns with unshared budget AFTER budget update:\n");
+            output_status_message("List of campaigns with unshared budget AFTER budget update:\n")
             for campaign in get_campaigns['Campaign']:
-                output_status_message("Campaign:");
+                output_status_message("Campaign:")
                 output_campaign(campaign)
         
         # Update the Text for the 3 successfully created ads, and update some UrlCustomParameters.
