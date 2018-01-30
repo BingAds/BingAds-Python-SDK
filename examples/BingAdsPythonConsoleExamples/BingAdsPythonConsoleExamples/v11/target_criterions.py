@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -37,9 +37,9 @@ def get_example_campaign_ids(authorization_data):
         'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
     }
     output_status_message('Campaign Ids:')
-    output_ids(campaign_ids)
+    output_array_of_long(campaign_ids)
     if hasattr(add_campaigns_response.PartialErrors, 'BatchError'):
-        output_partial_errors(add_campaigns_response.PartialErrors)
+        output_array_of_batcherror(add_campaigns_response.PartialErrors)
         
     add_ad_groups_response=campaign_service.AddAdGroups(
         CampaignId=campaign_ids['long'][0],
@@ -49,9 +49,9 @@ def get_example_campaign_ids(authorization_data):
         'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
     }
     output_status_message("Ad Group Ids:")
-    output_ids(ad_group_ids)
+    output_array_of_long(ad_group_ids)
     if hasattr(add_ad_groups_response.PartialErrors, 'BatchError'):
-        output_partial_errors(add_ad_groups_response.PartialErrors)
+        output_array_of_batcherror(add_ad_groups_response.PartialErrors)
     
     return campaign_ids
 
@@ -143,7 +143,7 @@ def main(authorization_data):
             # You can now store or output the campaign criterions
 
             output_status_message("Campaign Criterions: \n")
-            output_campaign_criterions(campaign_criterions)
+            output_array_of_campaigncriterion(campaign_criterions)
 
             get_ad_groups=campaign_service.GetAdGroupsByCampaignId(
                 CampaignId=campaign_id
@@ -185,7 +185,7 @@ def main(authorization_data):
                     # You can now store or output the ad group criterions
 
                     output_status_message("Ad Group Criterions: ")
-                    output_ad_group_criterions(ad_group_criterions)
+                    output_array_of_adgroupcriterion(ad_group_criterions)
 
         # Delete the campaign and ad group that were previously added. 
                 

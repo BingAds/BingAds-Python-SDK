@@ -1,44 +1,10 @@
 from auth_helper import *
-from output_helper import *
+from adinsight_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
 # Summary
 # This example demonstrates how to get keyword ideas and traffic estimates for search advertising campaigns.
-
-def output_status_message(message):
-    print(message)
-
-def output_array_of_long(items):
-    if items is None or len(items) == 0:
-        return
-    output_status_message("Array Of long:")
-    for item in items['long']:
-        output_status_message("Value of the long: {0}".format(item))
-
-def output_keywordidea(data_object):
-    if data_object is None:
-        return
-    output_status_message("KeywordIdea (Data Object):")
-    output_status_message("AdGroupId: {0}".format(data_object.AdGroupId))
-    output_status_message("AdGroupName: {0}".format(data_object.AdGroupName))
-    output_status_message("AdImpressionShare: {0}".format(data_object.AdImpressionShare))
-    output_status_message("Competition: {0}".format(data_object.Competition))
-    output_status_message("Keyword: {0}".format(data_object.Keyword))
-    output_status_message("MonthlySearchCounts (Element Name):")
-    output_array_of_long(data_object.MonthlySearchCounts)
-    output_status_message("Relevance: {0}".format(data_object.Relevance))
-    output_status_message("Source: {0}".format(data_object.Source))
-    output_status_message("SuggestedBid: {0}".format(data_object.SuggestedBid))
-
-def output_array_of_keywordidea(data_objects):
-    if data_objects is None or len(data_objects) == 0:
-        return
-    output_status_message("Array Of KeywordIdea:\n")
-    for data_object in data_objects['KeywordIdea']:
-        output_keywordidea(data_object)
-        output_status_message("\n")
-
 
 def main(authorization_data):
 
@@ -230,20 +196,20 @@ def main(authorization_data):
         # Populate ArrayOfSearchParameter
 
         search_parameters.SearchParameter.append([
-            network_search_parameter,
-            query_search_parameter,
+            category_search_parameter,
+            competition_search_parameter,
+            date_range_search_parameter,
+            device_search_parameter,
+            exclude_account_keyword_search_parameter,
+            idea_text_search_parameter,
+            impression_share_search_parameter,
             language_search_parameter,
             location_search_parameter,
-            url_search_parameter,
-            category_search_parameter,
+            network_search_parameter,
+            query_search_parameter,            
             search_volume_search_parameter,
             suggested_bid_search_parameter,
-            exclude_account_keyword_search_parameter,
-            impression_share_search_parameter,
-            device_search_parameter,
-            idea_text_search_parameter,
-            date_range_search_parameter,
-            competition_search_parameter])
+            url_search_parameter])
 
         # Call the GetKeywordIdeas Function
         # If ExpandIdeas is false, the QuerySearchParameter is required.
@@ -257,20 +223,16 @@ def main(authorization_data):
         output_array_of_keywordidea(get_keyword_ideas_response)
         output_status_message("Program execution completed")
 
-
     except WebFault as ex:
-
         output_webfault_errors(ex)
-
     except Exception as ex:
-
         output_status_message(ex)
 
-
 # Main execution
-
 if __name__ == '__main__':
 
+    print("Python loads the web service proxies at runtime, so you will observe " \
+          "a performance delay between program launch and main execution...\n")
 
     authorization_data=AuthorizationData(
         account_id=None,

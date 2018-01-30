@@ -1,5 +1,5 @@
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.
@@ -19,7 +19,7 @@ def main(authorization_data):
 
         # Download all product partitions across all ad groups in the account.
         download_entities=download_file(bulk_service_manager, download_parameters)
-        output_status_message("Downloaded all product partitions across all ad groups in the account.\n");
+        output_status_message("Downloaded all product partitions across all ad groups in the account.\n")
         for entity in download_entities:
             if isinstance(entity, BulkAdGroupProductPartition):
                 output_bulk_ad_group_product_partitions([entity])

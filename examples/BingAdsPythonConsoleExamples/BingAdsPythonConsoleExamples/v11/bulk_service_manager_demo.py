@@ -1,5 +1,5 @@
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.
@@ -46,14 +46,14 @@ def main(authorization_data):
         #return results. The BulkServiceManager abstracts the details of checking for result file 
         #completion, and you don't have to write any code for results polling.
 
-        output_status_message("Awaiting Background Completion . . .");
+        output_status_message("Awaiting Background Completion . . .")
         background_completion(download_parameters)
 
         #Option B - Submit and Download with BulkServiceManager
         #Submit the download request and then use the BulkDownloadOperation result to 
         #track status yourself using BulkServiceManager.get_status().
 
-        output_status_message("Awaiting Submit and Download . . .");
+        output_status_message("Awaiting Submit and Download . . .")
         submit_and_download(submit_download_parameters)
 
         #Option C - Download Results with BulkServiceManager
@@ -63,13 +63,13 @@ def main(authorization_data):
         #should wait to ensure that the download status is completed.
 
         #For example you might have previously retrieved a request ID using submit_download.
-        bulk_download_operation=bulk_service_manager.submit_download(submit_download_parameters);
+        bulk_download_operation=bulk_service_manager.submit_download(submit_download_parameters)
         request_id=bulk_download_operation.request_id;
 
         #Given the request ID above, you can resume the workflow and download the bulk file.
         #The download request identifier is valid for two days. 
         #If you do not download the bulk file within two days, you must request it again.
-        output_status_message("Awaiting Download Results . . .");
+        output_status_message("Awaiting Download Results . . .")
         download_results(request_id, authorization_data)
 
         output_status_message("Program execution completed")

@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from customermanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -14,7 +14,7 @@ def main(authorization_data):
         # Only a user with the aggregator role (33) can sign up new customers. 
         # If the user does not have the aggregator role, then do not continue.
         if(not 33 in get_user_response.Roles['int']):
-            output_status_message("Only a user with the aggregator role (33) can sign up new customers.");
+            output_status_message("Only a user with the aggregator role (33) can sign up new customers.")
             exit(0)
 
         # For Customer.CustomerAddress and Account.BusinessAddress, you can use the same address 
@@ -37,11 +37,11 @@ def main(authorization_data):
         customer.Industry = 'Other'
 
         # The primary country where the customer operates. This country will be the 
-        # default country for ad groups in the customer�s campaigns.
+        # default country for ad groups in the customer's campaigns.
         customer.MarketCountry = 'US'
 
         # The primary language that the customer uses. This language will be the 
-        # default language for ad groups in the customer�s campaigns.
+        # default language for ad groups in the customer's campaigns.
         customer.MarketLanguage = 'English'
 
         # The name of the customer. This element can contain a maximum of 100 characters.
@@ -108,7 +108,7 @@ def main(authorization_data):
         signup_customer_response =  customer_service.SignupCustomer(
             customer,
             account,
-            user.CustomerId);
+            user.CustomerId)
 
         output_status_message("New Customer and Account:\n")
 

@@ -1,5 +1,5 @@
 from auth_helper import *
-from output_helper import *
+from adinsight_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -14,7 +14,8 @@ def main(authorization_data):
         for campaign in campaigns['Campaign']:
             if campaign.Id is not None:
                 opportunities=adinsight_service.GetBudgetOpportunities(campaign.Id)
-                output_budget_opportunities(opportunities, campaign.Id)
+                output_status_message("Budget Opportunities for CampaignId {0}:\n".format(campaign.Id))
+                output_array_of_budgetopportunity(opportunities)
 
         output_status_message("Program execution completed")
 

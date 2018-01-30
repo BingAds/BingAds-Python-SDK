@@ -1,5 +1,5 @@
 from auth_helper import *
-from bulk_helper import *
+from bulk_service_manager_helper import *
 from output_helper import *
 
 # You must provide credentials in auth_helper.py.
@@ -197,8 +197,8 @@ def main(authorization_data):
         #You could build the entire tree in a single call since there are less than 5,000 nodes; however, 
         #we will build it in steps to demonstrate how to use the results from ApplyProductPartitionActions to update the tree. 
         
-        #For a list of validation rules, see the Bing Shopping Campaigns technical guide:
-        #https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-bing-shopping-campaigns.aspx
+        #For a list of validation rules, see the Product Ads technical guide:
+        #https://docs.microsoft.com/en-us/bingads/guides/product-ads
         
 
         helper=ProductPartitionHelper(ad_group_id)
@@ -223,7 +223,7 @@ def main(authorization_data):
         #The direct children of any node must have the same Operand. 
         #For this example we will use CategoryL1 nodes as children of the root. 
         #For a list of valid CategoryL1 through CategoryL5 values, see the Bing Category Taxonomy:
-        #http://advertise.bingads.microsoft.com/en-us/WWDocs/user/search/en-us/Bing_Category_Taxonomy.txt
+        #http://go.microsoft.com/fwlink?LinkId=507666
         
         animals_condition=campaign_service.factory.create('ProductCondition')
         animals_condition.Operand='CategoryL1'

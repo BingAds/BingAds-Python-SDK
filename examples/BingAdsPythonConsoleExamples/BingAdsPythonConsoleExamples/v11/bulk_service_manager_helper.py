@@ -39,7 +39,7 @@ def write_entities_and_upload_file(bulk_service_manager, upload_entities):
     # Writes the specified entities to a local file and uploads the file. We could have uploaded directly
     # without writing to file. This example writes to file as an exercise so that you can view the structure 
     # of the bulk records being uploaded as needed. 
-    writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME);
+    writer=BulkFileWriter(FILE_DIRECTORY+UPLOAD_FILE_NAME)
     for entity in upload_entities:
         writer.write_entity(entity)
     writer.close()

@@ -26,7 +26,7 @@ def main(authorization_data):
             'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
         }
         output_status_message("Campaign Ids:")
-        output_ids(campaign_ids)
+        output_array_of_long(add_campaigns_response.CampaignIds)
 
         # You may choose to associate an exclusive set of negative keywords to an individual campaign 
         # or ad group. An exclusive set of negative keywords cannot be shared with other campaigns 
@@ -48,15 +48,15 @@ def main(authorization_data):
             EntityNegativeKeywords=entity_negative_keywords
         )
 
-        output_negative_keyword_ids(add_negative_keywords_to_entities_response.NegativeKeywordIds)
-        output_nested_partial_errors(add_negative_keywords_to_entities_response.NestedPartialErrors)
+        output_array_of_idcollection(add_negative_keywords_to_entities_response.NegativeKeywordIds)
+        output_array_of_batcherrorcollection(add_negative_keywords_to_entities_response.NestedPartialErrors)
 
         if add_negative_keywords_to_entities_response.NestedPartialErrors is None \
         and len(add_negative_keywords_to_entities_response.NestedPartialErrors['BatchErrorCollection']) == 0:
             output_status_message("Added an exclusive set of negative keywords to the Campaign.\n")
-            output_negative_keyword_ids(add_negative_keywords_to_entities_response.NegativeKeywordIds)
+            output_array_of_idcollection(add_negative_keywords_to_entities_response.NegativeKeywordIds)
         else:
-            output_nested_partial_errors(add_negative_keywords_to_entities_response.NestedPartialErrors)
+            output_array_of_batcherrorcollection(add_negative_keywords_to_entities_response.NestedPartialErrors)
         
         get_negative_keywords_by_entity_ids_response=campaign_service.GetNegativeKeywordsByEntityIds(
             EntityIds=campaign_ids, 
@@ -64,21 +64,21 @@ def main(authorization_data):
             ParentEntityId=authorization_data.account_id
         )
 
-        output_entity_negative_keywords(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
-        output_partial_errors(get_negative_keywords_by_entity_ids_response.PartialErrors)
+        output_array_of_entitynegativekeyword(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
+        output_array_of_batcherror(get_negative_keywords_by_entity_ids_response.PartialErrors)
 
         if hasattr(get_negative_keywords_by_entity_ids_response.PartialErrors, 'BatchError'):
-            output_partial_errors(get_negative_keywords_by_entity_ids_response.PartialErrors)
+            output_array_of_batcherror(get_negative_keywords_by_entity_ids_response.PartialErrors)
         else:
             output_status_message("Retrieved an exclusive set of negative keywords for the Campaign.\n")
-            output_entity_negative_keywords(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
+            output_array_of_entitynegativekeyword(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
         '''
         if get_negative_keywords_by_entity_ids_response.PartialErrors is None \
         and len(get_negative_keywords_by_entity_ids_response.PartialErrors) == 0:
             output_status_message("Retrieved an exclusive set of negative keywords for the Campaign.\n")
-            output_entity_negative_keywords(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
+            output_array_of_entitynegativekeyword(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
         else:
-            output_partial_errors(get_negative_keywords_by_entity_ids_response.PartialErrors)
+            output_array_of_batcherror(get_negative_keywords_by_entity_ids_response.PartialErrors)
         '''
         # If you attempt to delete a negative keyword without an identifier the operation will
         # succeed but will return partial errors corresponding to the index of the negative keyword
@@ -91,14 +91,14 @@ def main(authorization_data):
             output_status_message("Deleted an exclusive set of negative keywords from the Campaign.\n")
         else:
             output_status_message("Attempt to DeleteNegativeKeywordsFromEntities without NegativeKeyword identifier partially fails by design.")
-            output_nested_partial_errors(nested_partial_errors)
+            output_array_of_batcherrorcollection(nested_partial_errors)
 
         # Delete the negative keywords with identifiers that were returned above.
         nested_partial_errors=campaign_service.DeleteNegativeKeywordsFromEntities(get_negative_keywords_by_entity_ids_response.EntityNegativeKeywords)
         if nested_partial_errors is None or len(nested_partial_errors) == 0:
             output_status_message("Deleted an exclusive set of negative keywords from the Campaign.\n")
         else:
-            output_nested_partial_errors(nested_partial_errors)
+            output_array_of_batcherrorcollection(nested_partial_errors)
 
         # Negative keywords can also be added and deleted from a shared negative keyword list. 
         # The negative keyword list can be shared or associated with multiple campaigns.
@@ -130,14 +130,13 @@ def main(authorization_data):
         list_item_ids=add_shared_entity_response.ListItemIds
 
         output_status_message("NegativeKeywordList successfully added to account library and assigned identifer {0}\n".format(shared_entity_id))
-
-        output_negative_keyword_results(
-            shared_entity_id,
-            negative_keywords,
-            list_item_ids,
-            add_shared_entity_response.PartialErrors
-        )
-
+        output_status_message("Negative keywords:")
+        output_array_of_sharedlistitem(negative_keywords)
+        output_status_message("Negative keyword identifiers:")
+        output_array_of_long(list_item_ids)
+        output_status_message("List of errors returned from AddSharedEntity (if any):\n")
+        output_array_of_batcherror(add_shared_entity_response.PartialErrors)
+        
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
         negative_keyword_list=set_elements_to_none(campaign_service.factory.create('NegativeKeywordList'))
@@ -146,7 +145,7 @@ def main(authorization_data):
         if negative_keywords is None or len(negative_keywords) == 0:
             output_status_message("None\n")
         else:
-            output_negative_keywords(negative_keywords)
+            output_array_of_sharedlistitem(negative_keywords)
 
         # To update the list of negative keywords, you must either add or remove from the list
         # using the respective AddListItemsToSharedList or DeleteListItemsFromSharedList operations.
@@ -162,7 +161,7 @@ def main(authorization_data):
         if partial_errors is None:
             output_status_message("Deleted most recently added negative keywords from negative keyword list.\n")
         else:
-            output_partial_errors(partial_errors)
+            output_array_of_batcherror(partial_errors)
 
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
@@ -172,7 +171,7 @@ def main(authorization_data):
         if negative_keywords is None or len(negative_keywords) == 0:
             output_status_message("None\n")
         else:
-            output_negative_keywords(negative_keywords)
+            output_array_of_sharedlistitem(negative_keywords)
 
         # Whether you created the list with or without negative keywords, more can be added 
         # using the AddListItemsToSharedList operation.
@@ -198,12 +197,13 @@ def main(authorization_data):
         )
         list_item_ids=add_list_items_to_shared_list_response.ListItemIds
 
-        output_negative_keyword_results(
-            shared_entity_id,
-            negative_keywords,
-            list_item_ids,
-            add_list_items_to_shared_list_response.PartialErrors
-        )
+        output_status_message("Added negative keywords to list (Id = {0}) via AddListItemsToSharedList:\n".format(shared_entity_id))
+        output_status_message("Negative keywords:")
+        output_array_of_sharedlistitem(negative_keywords)
+        output_status_message("Negative keyword identifiers:")
+        output_array_of_long(list_item_ids)
+        output_status_message("List of errors returned from AddListItemsToSharedList (if any):\n")
+        output_array_of_batcherror(add_list_items_to_shared_list_response.PartialErrors)
 
         output_status_message("Negative keywords currently in NegativeKeywordList:")
 
@@ -213,7 +213,7 @@ def main(authorization_data):
         if negative_keywords is None or len(negative_keywords) == 0:
             output_status_message("None\n")
         else:
-            output_negative_keywords(negative_keywords)
+            output_array_of_sharedlistitem(negative_keywords)
 
         # You can update the name of the negative keyword list. 
 
@@ -230,7 +230,7 @@ def main(authorization_data):
         if partial_errors is None:
             output_status_message("Updated Negative Keyword List Name to {0}.\n".format(negative_keyword_list.Name))
         else:
-            output_partial_errors(partial_errors)
+            output_array_of_batcherror(partial_errors)
 
         # Get and print the negative keyword lists and return the list of identifiers.
 
@@ -269,7 +269,7 @@ def main(authorization_data):
                 "Associated CampaignId {0} with Negative Keyword List Id {1}.\n".format(campaign_ids['long'][0], shared_entity_id)
             )
         else:
-            output_partial_errors(partial_errors)
+            output_array_of_batcherror(partial_errors)
 
         # Get and print the associations either by Campaign or NegativeKeywordList identifier.
         get_shared_entity_associations_by_entity_ids_response=campaign_service.GetSharedEntityAssociationsByEntityIds(
@@ -277,8 +277,8 @@ def main(authorization_data):
             EntityType="Campaign", 
             SharedEntityType="NegativeKeywordList"
         )
-        output_shared_entity_associations(get_shared_entity_associations_by_entity_ids_response.Associations)
-        output_partial_errors(get_shared_entity_associations_by_entity_ids_response.PartialErrors)
+        output_array_of_sharedentityassociation(get_shared_entity_associations_by_entity_ids_response.Associations)
+        output_array_of_batcherror(get_shared_entity_associations_by_entity_ids_response.PartialErrors)
 
         # Currently the GetSharedEntityAssociationsBySharedEntityIds operation accepts only one shared entity identifier in the list.
         get_shared_entity_associations_by_shared_entity_ids_response=campaign_service.GetSharedEntityAssociationsBySharedEntityIds(
@@ -286,8 +286,8 @@ def main(authorization_data):
             SharedEntityIds={'long': [shared_entity_ids[len(shared_entity_ids) - 1]]}, 
             SharedEntityType="NegativeKeywordList"
         )
-        output_shared_entity_associations(get_shared_entity_associations_by_shared_entity_ids_response.Associations)
-        output_partial_errors(get_shared_entity_associations_by_shared_entity_ids_response.PartialErrors)
+        output_array_of_sharedentityassociation(get_shared_entity_associations_by_shared_entity_ids_response.Associations)
+        output_array_of_batcherror(get_shared_entity_associations_by_shared_entity_ids_response.PartialErrors)
 
         # Explicitly delete the association between the campaign and the negative keyword list.
 
@@ -295,7 +295,7 @@ def main(authorization_data):
         if partial_errors is None:
             output_status_message("Deleted NegativeKeywordList associations\n")
         else:
-            output_partial_errors(partial_errors)
+            output_array_of_batcherror(partial_errors)
 
         # Delete the campaign and any remaining assocations. 
 
@@ -318,7 +318,7 @@ def main(authorization_data):
         if partial_errors is None:
             output_status_message("Deleted Negative Keyword List (SharedEntity) Id {0}\n".format(shared_entity_id))
         else:
-            output_partial_errors(partial_errors)
+            output_array_of_batcherror(partial_errors)
 
         output_status_message("Program execution completed")
 
