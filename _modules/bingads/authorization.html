@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.authorization &#8212; Bing Ads SDK 11.5.8 documentation</title>
+    <title>bingads.authorization &#8212; Bing Ads SDK 11.5.9 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '11.5.8',
+        VERSION:     '11.5.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -56,6 +56,8 @@
 
 <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="k">import</span> <span class="n">OAuthTokenRequestException</span>
 
+<span class="n">PRODUCTION</span><span class="o">=</span><span class="s1">&#39;production&#39;</span>
+<span class="n">SANDBOX</span><span class="o">=</span><span class="s1">&#39;sandbox&#39;</span>
 
 <div class="viewcode-block" id="AuthorizationData"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.AuthorizationData">[docs]</a><span class="k">class</span> <span class="nc">AuthorizationData</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Represents a user who intends to access the corresponding customer and account.</span>
@@ -297,7 +299,7 @@
 <span class="sd">    * :class:`.OAuthWebAuthCodeGrant`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the OAuthAuthorization class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -312,6 +314,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span> <span class="o">=</span> <span class="n">client_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">oauth_tokens</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">=</span><span class="n">env</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -319,7 +322,7 @@
 
 <span class="sd">        For more information about using a client identifier for authentication, see the</span>
 <span class="sd">        Client Password Authentication section of the OAuth 2.0 spec at</span>
-<span class="sd">        http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1</span>
+<span class="sd">        https://tools.ietf.org/html/rfc6749#section-4.1</span>
 
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -382,11 +385,11 @@
 <span class="sd">    Implement an extension of this class in compliance with the authorization code grant flow for Managing User</span>
 <span class="sd">    Authentication with OAuth documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0</span>
 <span class="sd">    flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at</span>
-<span class="sd">    http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
+<span class="sd">    https://tools.ietf.org/html/rfc6749#section-4.1.</span>
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -403,7 +406,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
@@ -415,7 +418,7 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span>
             <span class="s1">&#39;code&#39;</span><span class="p">,</span>
             <span class="n">quote_plus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span><span class="p">)</span>
@@ -427,7 +430,7 @@
 
 <span class="sd">        Using the specified authorization response redirection uri.</span>
 <span class="sd">        For more information, see the Authorization Response section in the OAuth 2.0 spec</span>
-<span class="sd">        at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2.</span>
+<span class="sd">        at https://tools.ietf.org/html/rfc6749#section-4.1.</span>
 
 <span class="sd">        :param response_uri: The response redirection uri.</span>
 <span class="sd">        :type response_uri: str</span>
@@ -443,11 +446,12 @@
             <span class="p">)</span>
         <span class="n">code</span> <span class="o">=</span> <span class="n">parameters</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
             <span class="n">redirect_uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redirection_uri</span><span class="p">,</span>
             <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
+            <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span>
             <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -459,7 +463,7 @@
 
 <span class="sd">        Using the specified refresh token.</span>
 <span class="sd">        For more information, see the Refreshing an Access Token section in the OAuth 2.0 spec</span>
-<span class="sd">        at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6.</span>
+<span class="sd">        at https://tools.ietf.org/html/rfc6749#section-6.</span>
 
 <span class="sd">        :param refresh_token: The refresh token used to request new access and refresh tokens.</span>
 <span class="sd">        :type refresh_token: str</span>
@@ -467,12 +471,13 @@
 <span class="sd">        :rtype: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
             <span class="n">redirect_uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redirection_uri</span><span class="p">,</span>
             <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">,</span>
             <span class="n">refresh_token</span><span class="o">=</span><span class="n">refresh_token</span><span class="p">,</span>
+            <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c1"># invoke the callback when token refreshed.</span>
@@ -529,11 +534,11 @@
 
 <span class="sd">    This class implements the authorization code grant flow for Managing User Authentication with OAuth</span>
 <span class="sd">    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the</span>
-<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
+<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.</span>
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -545,8 +550,9 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileAuthCodeGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">client_id</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
-            <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="n">env</span><span class="p">],</span>
             <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span>
+            <span class="n">env</span><span class="o">=</span><span class="n">env</span>
         <span class="p">)</span></div>
 
 
@@ -559,7 +565,7 @@
 
 <span class="sd">    This class implements the authorization code grant flow for Managing User Authentication with OAuth</span>
 <span class="sd">    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the</span>
-<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
+<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.</span>
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -575,11 +581,12 @@
 
 <span class="sd">    This class implements the implicit grant flow for Managing User Authentication with OAuth</span>
 <span class="sd">    documented at http://go.microsoft.com/fwlink/?LinkID=511608. This is a standard OAuth 2.0 flow and is defined in detail in the</span>
-<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.</span>
+<span class="sd">    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.</span>
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -588,7 +595,9 @@
 <span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+        
+    
 
 <div class="viewcode-block" id="OAuthDesktopMobileImplicitGrant.get_authorization_endpoint"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthDesktopMobileImplicitGrant.get_authorization_endpoint">[docs]</a>    <span class="k">def</span> <span class="nf">get_authorization_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.</span>
@@ -598,10 +607,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="s1">&#39;token&#39;</span><span class="p">,</span>
-            <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span><span class="p">,</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span></div>
 
@@ -630,16 +639,21 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_LiveComOAuthService</span><span class="o">.</span><span class="n">DESKTOP_REDIRECTION_URI</span></div>
+        <span class="k">return</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">]</span></div>
 
 
-<span class="k">class</span> <span class="nc">_LiveComOAuthService</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">_UriOAuthService</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Provides method for getting OAuth tokens from the live.com authorization server.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="n">DESKTOP_REDIRECTION_URI</span> <span class="o">=</span> <span class="s1">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span>
+    <span class="n">REDIRECTION_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span><span class="p">,</span>
+                      <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_desktop.srf&#39;</span><span class="p">}</span>
+    <span class="n">AUTH_TOKEN_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span>
+                    <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_token.srf&#39;</span><span class="p">}</span>
+    <span class="n">AUTHORIZE_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                   <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&amp;prompt=login&#39;</span><span class="p">}</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -653,7 +667,7 @@
         <span class="k">if</span> <span class="s1">&#39;client_secret&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span>
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s1">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTH_TOKEN_URI</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;environment&#39;</span><span class="p">]],</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
@@ -692,7 +706,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

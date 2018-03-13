@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads package &#8212; Bing Ads SDK 11.5.8 documentation</title>
+    <title>bingads package &#8212; Bing Ads SDK 11.5.9 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '11.5.8',
+        VERSION:     '11.5.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -42,7 +42,7 @@
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -337,7 +337,7 @@ whereas the UserName and Password headers will remain empty.</p>
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthAuthorization">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthAuthorization</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthAuthorization</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em>, <em>env='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthAuthorization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthAuthorization" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.Authentication" title="bingads.authorization.Authentication"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.Authentication</span></code></a></p>
 <p>The abstract base class for all OAuth authentication classes.</p>
 <p>You can use this class to dynamically instantiate a derived OAuth authentication class at run time.
@@ -355,7 +355,7 @@ This class cannot be instantiated, and instead you should use either <a class="r
 <dd><p>The client identifier corresponding to your registered application.</p>
 <p>For more information about using a client identifier for authentication, see the
 Client Password Authentication section of the OAuth 2.0 spec at
-<a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1</a></p>
+<a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -427,7 +427,7 @@ Client Password Authentication section of the OAuth 2.0 spec at
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthDesktopMobileAuthCodeGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em>, <em>env='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a desktop
 or mobile application.</p>
@@ -436,13 +436,13 @@ of an <a class="reference internal" href="#bingads.authorization.AuthorizationDa
 In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
 <p>This class implements the authorization code grant flow for Managing User Authentication with OAuth
 documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
-Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a>.
 For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileImplicitGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthDesktopMobileImplicitGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>oauth_tokens=None</em>, <em>env='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthDesktopMobileImplicitGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthDesktopMobileImplicitGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the implicit grant flow for use in a desktop or mobile application.</p>
 <p>You can use an instance of this class as the AuthorizationData.Authentication property
@@ -450,7 +450,7 @@ of an <a class="reference internal" href="#bingads.authorization.AuthorizationDa
 In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
 <p>This class implements the implicit grant flow for Managing User Authentication with OAuth
 documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511608">http://go.microsoft.com/fwlink/?LinkID=511608</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
-Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a>.
 For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
 <dl class="method">
 <dt id="bingads.authorization.OAuthDesktopMobileImplicitGrant.extract_access_token_from_uri">
@@ -545,7 +545,7 @@ either the <a class="reference internal" href="#bingads.authorization.OAuthDeskt
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthWebAuthCodeGrant">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWebAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWebAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWebAuthCodeGrant</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em>, <em>env='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWebAuthCodeGrant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWebAuthCodeGrant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthWithAuthorizationCode" title="bingads.authorization.OAuthWithAuthorizationCode"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthWithAuthorizationCode</span></code></a></p>
 <p>Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.</p>
 <p>You can use an instance of this class as the AuthorizationData.Authentication property
@@ -553,19 +553,19 @@ of an <a class="reference internal" href="#bingads.authorization.AuthorizationDa
 In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.</p>
 <p>This class implements the authorization code grant flow for Managing User Authentication with OAuth
 documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0 flow and is defined in detail in the
-Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+Authorization Code Grant section of the OAuth 2.0 spec at <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a>.
 For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="bingads.authorization.OAuthWithAuthorizationCode">
-<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWithAuthorizationCode</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.authorization.</code><code class="descname">OAuthWithAuthorizationCode</code><span class="sig-paren">(</span><em>client_id</em>, <em>client_secret</em>, <em>redirection_uri</em>, <em>token_refreshed_callback=None</em>, <em>oauth_tokens=None</em>, <em>env='production'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/authorization.html#OAuthWithAuthorizationCode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.authorization.OAuthWithAuthorizationCode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bingads.authorization.OAuthAuthorization" title="bingads.authorization.OAuthAuthorization"><code class="xref py py-class docutils literal"><span class="pre">bingads.authorization.OAuthAuthorization</span></code></a></p>
 <p>Represents a proxy to the Microsoft account authorization service.</p>
 <p>Implement an extension of this class in compliance with the authorization code grant flow for Managing User
 Authentication with OAuth documented at <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511609">http://go.microsoft.com/fwlink/?LinkID=511609</a>. This is a standard OAuth 2.0
 flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at
-<a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1</a>.
+<a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a>.
 For more information about registering a Bing Ads application, see <a class="reference external" href="http://go.microsoft.com/fwlink/?LinkID=511607">http://go.microsoft.com/fwlink/?LinkID=511607</a>.</p>
 <dl class="attribute">
 <dt id="bingads.authorization.OAuthWithAuthorizationCode.client_secret">
@@ -617,7 +617,7 @@ For more information about registering a Bing Ads application, see <a class="ref
 <dd><p>Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</p>
 <p>Using the specified refresh token.
 For more information, see the Refreshing an Access Token section in the OAuth 2.0 spec
-at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6</a>.</p>
+at <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-6">https://tools.ietf.org/html/rfc6749#section-6</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -638,7 +638,7 @@ at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oau
 <dd><p>Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.</p>
 <p>Using the specified authorization response redirection uri.
 For more information, see the Authorization Response section in the OAuth 2.0 spec
-at <a class="reference external" href="http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2">http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2</a>.</p>
+at <a class="reference external" href="https://tools.ietf.org/html/rfc6749#section-4.1">https://tools.ietf.org/html/rfc6749#section-4.1</a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -993,7 +993,7 @@ or <a class="reference internal" href="#bingads.authorization.OAuthWebAuthCodeGr
         <li class="right" >
           <a href="readme.html" title="Bing Ads Python SDK"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
