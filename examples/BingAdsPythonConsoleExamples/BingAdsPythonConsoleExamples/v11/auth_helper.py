@@ -48,13 +48,12 @@ def authenticate(authorization_data):
         version=11,
     )
 
-    # You should authenticate for Bing Ads production services with a Microsoft Account, 
+    # You should authenticate for Bing Ads services with a Microsoft Account, 
     # instead of providing the Bing Ads username and password set. 
-    # Authentication with a Microsoft Account is currently not supported in Sandbox.
     authenticate_with_oauth(authorization_data)
 
-    # Uncomment to run with Bing Ads legacy UserName and Password credentials.
-    # For example you would use this method to authenticate in sandbox.
+    # Bing Ads API Version 11 is the last version to support UserName and Password authentication,
+    # so this method is deprecated.
     #authenticate_with_username(authorization_data)
         
     # Set to an empty user identifier to get the current authenticated Bing Ads user,
@@ -79,7 +78,8 @@ def authenticate_with_username(authorization_data):
 def authenticate_with_oauth(authorization_data):
     
     authentication=OAuthDesktopMobileAuthCodeGrant(
-        client_id=CLIENT_ID
+        client_id=CLIENT_ID,
+        env=ENVIRONMENT
     )
 
     # It is recommended that you specify a non guessable 'state' request parameter to help prevent
