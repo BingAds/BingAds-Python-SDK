@@ -71,9 +71,9 @@
          <xs:import namespace="http://schemas.datacontract.org/2004/07/Microsoft.AdCenter.Advertiser.CampaignManagement.Api.DataContracts.V11" />
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
          <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
          <xs:import namespace="https://adapi.microsoft.com" />
-         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:complexType name="TextAd">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
@@ -130,6 +130,7 @@
                <xs:enumeration value="AppInstall" />
                <xs:enumeration value="ExpandedText" />
                <xs:enumeration value="DynamicSearch" />
+               <xs:enumeration value="ResponsiveAd" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdType" nillable="true" type="tns:AdType" />
@@ -183,6 +184,50 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="DynamicSearchAd" nillable="true" type="tns:DynamicSearchAd" />
+         <xs:complexType name="ResponsiveAd">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Ad">
+                  <xs:sequence>
+                     <xs:element name="BusinessName" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
+                     <xs:element name="Headline" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="LandscapeImageMediaId" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="LandscapeLogoMediaId" nillable="true" type="xs:long" />
+                     <xs:element name="LongHeadline" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="SquareImageMediaId" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="SquareLogoMediaId" nillable="true" type="xs:long" />
+                     <xs:element name="Text" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ResponsiveAd" nillable="true" type="tns:ResponsiveAd" />
+         <xs:simpleType name="CallToAction">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="AddToCart" />
+               <xs:enumeration value="ApplyNow" />
+               <xs:enumeration value="BookNow" />
+               <xs:enumeration value="BookTravel" />
+               <xs:enumeration value="Buy" />
+               <xs:enumeration value="BuyNow" />
+               <xs:enumeration value="ContactUs" />
+               <xs:enumeration value="Download" />
+               <xs:enumeration value="GetQuote" />
+               <xs:enumeration value="Install" />
+               <xs:enumeration value="LearnMore" />
+               <xs:enumeration value="NoButton" />
+               <xs:enumeration value="OpenLink" />
+               <xs:enumeration value="OrderNow" />
+               <xs:enumeration value="RegisterNow" />
+               <xs:enumeration value="SeeMore" />
+               <xs:enumeration value="ShopNow" />
+               <xs:enumeration value="SignUp" />
+               <xs:enumeration value="Subscrib" />
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="VisitSite" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CallToAction" nillable="true" type="tns:CallToAction" />
          <xs:element name="AddCampaignsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -318,6 +363,7 @@
                      <xs:enumeration value="SearchAndContent" />
                      <xs:enumeration value="Shopping" />
                      <xs:enumeration value="DynamicSearchAds" />
+                     <xs:enumeration value="Audience" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -359,6 +405,82 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="DynamicSearchAdsSetting" nillable="true" type="tns:DynamicSearchAdsSetting" />
+         <xs:complexType name="TargetSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Details" nillable="true" type="tns:ArrayOfTargetSettingDetail" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="TargetSetting" nillable="true" type="tns:TargetSetting" />
+         <xs:complexType name="ArrayOfTargetSettingDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="TargetSettingDetail" nillable="true" type="tns:TargetSettingDetail" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfTargetSettingDetail" nillable="true" type="tns:ArrayOfTargetSettingDetail" />
+         <xs:complexType name="TargetSettingDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CriterionTypeGroup" type="tns:CriterionTypeGroup" />
+               <xs:element minOccurs="0" name="TargetAll" type="xs:boolean" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="TargetSettingDetail" nillable="true" type="tns:TargetSettingDetail" />
+         <xs:simpleType name="CriterionTypeGroup">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Gender">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Age">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Audience">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CompanyName">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="JobFunction">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Industry">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CriterionTypeGroup" nillable="true" type="tns:CriterionTypeGroup" />
+         <xs:simpleType name="BidOption">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="BidValue" />
+               <xs:enumeration value="BidBoost" />
+            </xs:restriction>
+         </xs:simpleType>
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
@@ -594,6 +716,13 @@
                <xs:element minOccurs="0" name="NativeBidAdjustment" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="Network" nillable="true" type="tns:Network" />
                <xs:element minOccurs="0" name="PricingModel" nillable="true" type="tns:PricingModel" />
+               <xs:element minOccurs="0" name="PrivacyStatus" nillable="true" type="tns:AdGroupPrivacyStatus">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="RemarketingTargetingSetting" nillable="true" type="tns:RemarketingTargetingSetting" />
                <xs:element minOccurs="0" name="SearchBid" nillable="true" type="tns:Bid" />
                <xs:element minOccurs="0" name="Settings" nillable="true" type="tns:ArrayOfSetting" />
@@ -643,6 +772,7 @@
                <xs:enumeration value="OwnedAndOperatedAndSyndicatedSearch" />
                <xs:enumeration value="OwnedAndOperatedOnly" />
                <xs:enumeration value="SyndicatedSearchOnly" />
+               <xs:enumeration value="InHousePromotion" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="Network" nillable="true" type="tns:Network" />
@@ -653,6 +783,15 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="PricingModel" nillable="true" type="tns:PricingModel" />
+         <xs:simpleType name="AdGroupPrivacyStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="Active" />
+               <xs:enumeration value="TargetingTooNarrow" />
+               <xs:enumeration value="Pending" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AdGroupPrivacyStatus" nillable="true" type="tns:AdGroupPrivacyStatus" />
          <xs:simpleType name="RemarketingTargetingSetting">
             <xs:restriction base="xs:string">
                <xs:enumeration value="BidOnly" />
@@ -706,6 +845,8 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="InheritedBidStrategyType" />
+                     <xs:enumeration value="PrivacyStatus" />
+                     <xs:enumeration value="TargetSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2098,6 +2239,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="ImageAdExtension" />
+                     <xs:enumeration value="ResponsiveAd" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2205,6 +2347,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q73="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupCriterionIds" nillable="true" type="q73:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAgeGenderUnknownValue" nillable="true" type="xs:boolean" />
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="CriterionType" type="tns:AdGroupCriterionType" />
                </xs:sequence>
@@ -2309,6 +2452,27 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16384</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="CompanyName">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32768</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="JobFunction">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65536</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Industry">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131072</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -2422,6 +2586,7 @@
          <xs:element name="AgeCriterion" nillable="true" type="tns:AgeCriterion" />
          <xs:simpleType name="AgeRange">
             <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
                <xs:enumeration value="ZeroToSeventeen" />
                <xs:enumeration value="EighteenToTwentyFour" />
                <xs:enumeration value="TwentyFiveToThirtyFour" />
@@ -2469,6 +2634,7 @@
          <xs:element name="GenderCriterion" nillable="true" type="tns:GenderCriterion" />
          <xs:simpleType name="GenderType">
             <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
                <xs:enumeration value="Male" />
                <xs:enumeration value="Female" />
             </xs:restriction>
@@ -2577,6 +2743,47 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="AudienceType" nillable="true" type="tns:AudienceType" />
+         <xs:complexType name="ProfileCriterion">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Criterion">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="ProfileId" type="xs:long" />
+                     <xs:element minOccurs="0" name="ProfileType" type="tns:ProfileType" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ProfileCriterion" nillable="true" type="tns:ProfileCriterion" />
+         <xs:simpleType name="ProfileType">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="CompanyName">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="JobFunction">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Industry">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="ProfileType" nillable="true" type="tns:ProfileType" />
          <xs:simpleType name="AdGroupCriterionStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Active" />
@@ -2777,6 +2984,17 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BMCStore" nillable="true" type="tns:BMCStore" />
+         <xs:simpleType name="BMCStoreSubType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="CoOp">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
          <xs:element name="AddNegativeKeywordsToEntitiesRequest">
             <xs:complexType>
                <xs:sequence>
@@ -4033,6 +4251,23 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="LabelAssociations" nillable="true" type="tns:ArrayOfLabelAssociation" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetProfileDataFileUrlRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="LanguageLocale" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="ProfileType" type="tns:ProfileType" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetProfileDataFileUrlResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="FileUrl" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="FileUrlExpiryTimeUtc" nillable="true" type="xs:dateTime" />
+                  <xs:element minOccurs="0" name="LastModifiedTimeUtc" type="xs:dateTime" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6717,6 +6952,30 @@
    <wsdl:message name="ICampaignManagementService_GetLabelAssociationsByLabelIds_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetProfileDataFileUrlRequest">
+      <wsdl:part name="parameters" element="tns:GetProfileDataFileUrlRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetProfileDataFileUrlRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetProfileDataFileUrlResponse">
+      <wsdl:part name="parameters" element="tns:GetProfileDataFileUrlResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetProfileDataFileUrlResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetProfileDataFileUrl_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q100="https://adapi.microsoft.com" name="detail" element="q100:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetProfileDataFileUrl_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
       <wsdl:operation name="AddCampaigns">
          <wsdl:input wsaw:Action="AddCampaigns" name="AddCampaignsRequest" message="tns:AddCampaignsRequest" />
@@ -7311,6 +7570,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsResponse" name="GetLabelAssociationsByLabelIdsResponse" message="tns:GetLabelAssociationsByLabelIdsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetLabelAssociationsByLabelIds_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetLabelAssociationsByLabelIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetLabelAssociationsByLabelIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetProfileDataFileUrl">
+         <wsdl:input wsaw:Action="GetProfileDataFileUrl" name="GetProfileDataFileUrlRequest" message="tns:GetProfileDataFileUrlRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetProfileDataFileUrlResponse" name="GetProfileDataFileUrlResponse" message="tns:GetProfileDataFileUrlResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetProfileDataFileUrlAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetProfileDataFileUrl_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v11/ICampaignManagementService/GetProfileDataFileUrlApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetProfileDataFileUrl_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -9593,10 +9858,33 @@
             <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
          </wsdl:fault>
       </wsdl:operation>
+      <wsdl:operation name="GetProfileDataFileUrl">
+         <soap:operation soapAction="GetProfileDataFileUrl" style="document" />
+         <wsdl:input name="GetProfileDataFileUrlRequest">
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetProfileDataFileUrlRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetProfileDataFileUrlResponse">
+            <soap:header message="tns:GetProfileDataFileUrlResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
    </wsdl:binding>
    <wsdl:service name="CampaignManagementService">
       <wsdl:port name="BasicHttpBinding_ICampaignManagementService" binding="tns:BasicHttpBinding_ICampaignManagementService">
-         <soap:address location="https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V11/CampaignManagementService.svc" />
+         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v11/CampaignManagementService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

@@ -2,6 +2,11 @@
 
 Release History
 ---------------
+11.5.9(2018-03-12)
++++++++++++++++++++
+*Updated to support [Microsoft Account authentication in sandbox](https://docs.microsoft.com/en-us/bingads/guides/sandbox.md#access). 
+
+---------------
 11.5.8(2018-01-12)
 +++++++++++++++++++
 *The Bulk and Campaign Management proxies are updated to support [audience search size](https://docs.microsoft.com/en-us/bingads/guides/release-notes#audiencesearchsize-january2018). In addition the SDK supports audience search size via the BulkCustomAudience, BulkInMarketAudience, and BulkRemarketingList classes.

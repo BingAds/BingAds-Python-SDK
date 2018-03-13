@@ -9,6 +9,8 @@ import requests
 
 from .exceptions import OAuthTokenRequestException
 
+PRODUCTION='production'
+SANDBOX='sandbox'
 
 class AuthorizationData:
     """ Represents a user who intends to access the corresponding customer and account.
@@ -250,7 +252,7 @@ class OAuthAuthorization(Authentication):
     * :class:`.OAuthWebAuthCodeGrant`
     """
 
-    def __init__(self, client_id, oauth_tokens=None):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION):
         """ Initializes a new instance of the OAuthAuthorization class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -265,6 +267,7 @@ class OAuthAuthorization(Authentication):
         self._client_id = client_id
         self._oauth_tokens = oauth_tokens
         self._state = None
+        self.environment=env
 
     @property
     def client_id(self):
@@ -272,7 +275,7 @@ class OAuthAuthorization(Authentication):
 
         For more information about using a client identifier for authentication, see the
         Client Password Authentication section of the OAuth 2.0 spec at
-        http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-3.1
+        https://tools.ietf.org/html/rfc6749#section-4.1
 
         :rtype: str
         """
@@ -335,11 +338,11 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
     Implement an extension of this class in compliance with the authorization code grant flow for Managing User
     Authentication with OAuth documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0
     flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at
-    http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
+    https://tools.ietf.org/html/rfc6749#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None):
+    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION):
         """ Initialize a new instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -356,7 +359,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :return:
         """
 
-        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens)
+        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env)
         self._client_secret = client_secret
         self._redirection_uri = redirection_uri
         self._token_refreshed_callback = token_refreshed_callback
@@ -368,7 +371,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :rtype: str
         """
         endpoint = str.format(
-            'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
+            _UriOAuthService.AUTHORIZE_URI[self.environment],
             self._client_id,
             'code',
             quote_plus(self._redirection_uri)
@@ -380,7 +383,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
 
         Using the specified authorization response redirection uri.
         For more information, see the Authorization Response section in the OAuth 2.0 spec
-        at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.2.
+        at https://tools.ietf.org/html/rfc6749#section-4.1.
 
         :param response_uri: The response redirection uri.
         :type response_uri: str
@@ -396,11 +399,12 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             )
         code = parameters['code'][0]
 
-        self._oauth_tokens = _LiveComOAuthService.get_access_token(
+        self._oauth_tokens = _UriOAuthService.get_access_token(
             client_id=self.client_id,
             client_secret=self.client_secret,
             redirect_uri=self.redirection_uri,
             grant_type='authorization_code',
+            environment=self.environment,
             code=code,
         )
         if self.token_refreshed_callback is not None:
@@ -412,7 +416,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
 
         Using the specified refresh token.
         For more information, see the Refreshing an Access Token section in the OAuth 2.0 spec
-        at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-6.
+        at https://tools.ietf.org/html/rfc6749#section-6.
 
         :param refresh_token: The refresh token used to request new access and refresh tokens.
         :type refresh_token: str
@@ -420,12 +424,13 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :rtype: OAuthTokens
         """
 
-        self._oauth_tokens = _LiveComOAuthService.get_access_token(
+        self._oauth_tokens = _UriOAuthService.get_access_token(
             client_id=self.client_id,
             client_secret=self.client_secret,
             redirect_uri=self.redirection_uri,
             grant_type='refresh_token',
             refresh_token=refresh_token,
+            environment=self.environment,
         )
         if self.token_refreshed_callback is not None:
             self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
@@ -482,11 +487,11 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
 
     This class implements the authorization code grant flow for Managing User Authentication with OAuth
     documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
+    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, oauth_tokens=None):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -498,8 +503,9 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
         super(OAuthDesktopMobileAuthCodeGrant, self).__init__(
             client_id,
             None,
-            _LiveComOAuthService.DESKTOP_REDIRECTION_URI,
+            _UriOAuthService.REDIRECTION_URI[env],
             oauth_tokens=oauth_tokens,
+            env=env
         )
 
 
@@ -512,7 +518,7 @@ class OAuthWebAuthCodeGrant(OAuthWithAuthorizationCode):
 
     This class implements the authorization code grant flow for Managing User Authentication with OAuth
     documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
+    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
@@ -528,11 +534,12 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
 
     This class implements the implicit grant flow for Managing User Authentication with OAuth
     documented at http://go.microsoft.com/fwlink/?LinkID=511608. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at http://tools.ietf.org/html/draft-ietf-oauth-v2-15#section-4.1.
+    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
+    
 
-    def __init__(self, client_id, oauth_tokens=None):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -541,7 +548,9 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         :type oauth_tokens: OAuthTokens
         """
 
-        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens)
+        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env)
+        
+    
 
     def get_authorization_endpoint(self):
         """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.
@@ -551,10 +560,10 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         """
 
         endpoint = str.format(
-            'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
+            _UriOAuthService.AUTHORIZE_URI[self.environment],
             self.client_id,
             'token',
-            _LiveComOAuthService.DESKTOP_REDIRECTION_URI,
+            _UriOAuthService.REDIRECTION_URI[self.environment],
         )
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
@@ -583,16 +592,21 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
 
     @property
     def redirection_uri(self):
-        return _LiveComOAuthService.DESKTOP_REDIRECTION_URI
+        return _UriOAuthService.REDIRECTION_URI[self.environment]
 
 
-class _LiveComOAuthService:
+class _UriOAuthService:
     """ Provides method for getting OAuth tokens from the live.com authorization server."""
 
     def __init__(self):
         pass
 
-    DESKTOP_REDIRECTION_URI = 'https://login.live.com/oauth20_desktop.srf'
+    REDIRECTION_URI={PRODUCTION:'https://login.live.com/oauth20_desktop.srf',
+                      SANDBOX:'https://login.live-int.com/oauth20_desktop.srf'}
+    AUTH_TOKEN_URI={PRODUCTION:'https://login.live.com/oauth20_token.srf',
+                    SANDBOX:'https://login.live-int.com/oauth20_token.srf'}
+    AUTHORIZE_URI={PRODUCTION:'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}', 
+                   SANDBOX:'https://login.live-int.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}&prompt=login'}
 
     @staticmethod
     def get_access_token(**kwargs):
@@ -606,7 +620,7 @@ class _LiveComOAuthService:
         if 'client_secret' in kwargs and kwargs['client_secret'] is None:
             del kwargs['client_secret']
 
-        r = requests.post('https://login.live.com/oauth20_token.srf', kwargs, verify=True)
+        r = requests.post(_UriOAuthService.AUTH_TOKEN_URI[kwargs['environment']], kwargs, verify=True)
         try:
             r.raise_for_status()
         except Exception:
