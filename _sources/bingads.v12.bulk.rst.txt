@@ -1,0 +1,101 @@
+bingads\.v12\.bulk package
+==========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    bingads.v12.bulk.entities
+
+Submodules
+----------
+
+bingads\.v12\.bulk\.bulk\_operation module
+------------------------------------------
+
+.. automodule:: bingads.v12.bulk.bulk_operation
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.bulk\_operation\_progress\_info module
+----------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.bulk_operation_progress_info
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.bulk\_operation\_status module
+--------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.bulk_operation_status
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.bulk\_service\_manager module
+-------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.bulk_service_manager
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.download\_parameters module
+-----------------------------------------------
+
+.. automodule:: bingads.v12.bulk.download_parameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.enums module
+--------------------------------
+
+.. automodule:: bingads.v12.bulk.enums
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.exceptions module
+-------------------------------------
+
+.. automodule:: bingads.v12.bulk.exceptions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.file\_reader module
+---------------------------------------
+
+.. automodule:: bingads.v12.bulk.file_reader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.file\_writer module
+---------------------------------------
+
+.. automodule:: bingads.v12.bulk.file_writer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads\.v12\.bulk\.upload\_parameters module
+---------------------------------------------
+
+.. automodule:: bingads.v12.bulk.upload_parameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.v12.bulk
+    :members:
+    :undoc-members:
+    :show-inheritance:

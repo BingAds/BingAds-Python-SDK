@@ -1,0 +1,378 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v12.bulk.entities.labels package &#8212; Bing Ads SDK 11.12.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '11.12.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bingads.v12.bulk.entities.target_criterions package" href="bingads.v12.bulk.entities.target_criterions.html" />
+    <link rel="prev" title="bingads.v12.bulk.entities.audiences package" href="bingads.v12.bulk.entities.audiences.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.target_criterions.html" title="bingads.v12.bulk.entities.target_criterions package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.audiences.html" title="bingads.v12.bulk.entities.audiences package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v12.html" >bingads.v12 package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v12.bulk.html" >bingads.v12.bulk package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v12.bulk.entities.html" accesskey="U">bingads.v12.bulk.entities package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bingads-v12-bulk-entities-labels-package">
+<h1>bingads.v12.bulk.entities.labels package<a class="headerlink" href="#bingads-v12-bulk-entities-labels-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.labels.bulk_label">
+<span id="bingads-v12-bulk-entities-labels-bulk-label-module"></span><h2>bingads.v12.bulk.entities.labels.bulk_label module<a class="headerlink" href="#module-bingads.v12.bulk.entities.labels.bulk_label" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label.</code><code class="descname">BulkLabel</code><span class="sig-paren">(</span><em>label=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label.html#BulkLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents a label that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.label" title="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.label"><code class="xref py py-attr docutils literal"><span class="pre">label</span></code></a> property that can be read and written as fields of the Keyword record in a bulk file.
+Properties of this class and of classes that it is derived from, correspond to fields of the Keyword record in a bulk file.
+For more information, see Keyword at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.label">
+<code class="descname">label</code><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Label Data Object of the Campaign Management Service.</p>
+<p>A subset of Label properties are available in the Ad Group record.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label.html#BulkLabel.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label.html#BulkLabel.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label.html#BulkLabel.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label.BulkLabel.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Status’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.labels.bulk_label_associations">
+<span id="bingads-v12-bulk-entities-labels-bulk-label-associations-module"></span><h2>bingads.v12.bulk.entities.labels.bulk_label_associations module<a class="headerlink" href="#module-bingads.v12.bulk.entities.labels.bulk_label_associations" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkAdGroupLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em>, <em>campaign=None</em>, <em>ad_group=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkAdGroupLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a AdGroup label.</p>
+<p>Defines an association record between a AdGroup and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see AdGroup Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.ad_group">
+<code class="descname">ad_group</code><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.ad_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ad group name of the Campaign Management Service.</p>
+<p>A subset of Label properties are available in the Ad Group record.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.campaign">
+<code class="descname">campaign</code><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.campaign" title="Permalink to this definition">¶</a></dt>
+<dd><p>The campaign name of the Campaign Management Service.</p>
+<p>A subset of Label properties are available in the Ad Group record.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkAdGroupLabel.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkAdGroupLabel.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkAdGroupLabel.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAppInstallAdLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkAppInstallAdLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkAppInstallAdLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAppInstallAdLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a AppInstallAd label.</p>
+<p>Defines an association record between a AppInstallAd and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see AppInstallAd Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkCampaignLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em>, <em>campaign=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkCampaignLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a campaign label.</p>
+<p>Defines an association record between a Campaign and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see Campaign Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.campaign">
+<code class="descname">campaign</code><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.campaign" title="Permalink to this definition">¶</a></dt>
+<dd><p>The campaign name of the Campaign Management Service.</p>
+<p>A subset of Label properties are available in the Ad Group record.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkCampaignLabel.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkCampaignLabel.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkCampaignLabel.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkDynamicSearchAdLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkDynamicSearchAdLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkDynamicSearchAdLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkDynamicSearchAdLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a DynamicSearchAd label.</p>
+<p>Defines an association record between a DynamicSearchAd and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see DynamicSearchAd Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkExpandedTextAdLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkExpandedTextAdLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkExpandedTextAdLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkExpandedTextAdLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a ExpandedTextAd label.</p>
+<p>Defines an association record between a ExpandedTextAd and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see ExpandedTextAd Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkKeywordLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkKeywordLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkKeywordLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkKeywordLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a Keyword label.</p>
+<p>Defines an association record between a Keyword and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see Keyword Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkProductAdLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkProductAdLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkProductAdLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkProductAdLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a ProductAd label.</p>
+<p>Defines an association record between a ProductAd and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see ProductAd Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.labels.bulk_label_associations.BulkTextAdLabel">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.labels.bulk_label_associations.</code><code class="descname">BulkTextAdLabel</code><span class="sig-paren">(</span><em>label_association=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/labels/bulk_label_associations.html#BulkTextAdLabel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkTextAdLabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.bulk.entities.labels.bulk_label_associations._BulkLabelAssociation</span></code></p>
+<p>Represents a TextAd label.</p>
+<p>Defines an association record between a TextAd and a Label that can be uploaded and downloaded in a bulk file.</p>
+<p>For more information, see TextAd Label at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.labels">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads.v12.bulk.entities.labels" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bingads.v12.bulk.entities.labels package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.labels.bulk_label">bingads.v12.bulk.entities.labels.bulk_label module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.labels.bulk_label_associations">bingads.v12.bulk.entities.labels.bulk_label_associations module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.labels">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bingads.v12.bulk.entities.audiences.html"
+                        title="previous chapter">bingads.v12.bulk.entities.audiences package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bingads.v12.bulk.entities.target_criterions.html"
+                        title="next chapter">bingads.v12.bulk.entities.target_criterions package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bingads.v12.bulk.entities.labels.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.target_criterions.html" title="bingads.v12.bulk.entities.target_criterions package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.audiences.html" title="bingads.v12.bulk.entities.audiences package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v12.html" >bingads.v12 package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v12.bulk.html" >bingads.v12.bulk package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v12.bulk.entities.html" >bingads.v12.bulk.entities package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

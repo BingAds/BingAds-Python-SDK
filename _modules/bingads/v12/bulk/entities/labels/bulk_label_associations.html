@@ -1,0 +1,431 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v12.bulk.entities.labels.bulk_label_associations &#8212; Bing Ads SDK 11.12.1 documentation</title>
+    <link rel="stylesheet" href="../../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../../',
+        VERSION:     '11.12.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v12.bulk.entities.labels.bulk_label_associations</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span>
+<span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v12.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
+
+
+<span class="k">class</span> <span class="nc">_BulkLabelAssociation</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a label association that can be read or written in a bulk file.</span>
+
+<span class="sd">    This class exposes the :attr:`label_association` property that can be read and written as fields of the Keyword record in a bulk file.</span>
+<span class="sd">    Properties of this class and of classes that it is derived from, correspond to fields of the Keyword record in a bulk file.</span>
+<span class="sd">    For more information, see Keyword at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label_association</span> <span class="o">=</span> <span class="n">label_association</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">label_association</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The LabelAssociation Data Object of the Campaign Management Service.</span>
+
+<span class="sd">        A subset of Label properties are available in the Ad Group record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_association</span>
+
+    <span class="nd">@label_association</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">label_association</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label_association</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; the status of bulk record</span>
+<span class="sd">        Corresponds to the &#39;Status&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="s1">&#39;status&#39;</span><span class="p">,</span>
+                <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">label_association</span><span class="o">.</span><span class="n">LabelId</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">label_association</span><span class="p">,</span>
+                <span class="s1">&#39;LabelId&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">label_association</span><span class="o">.</span><span class="n">EntityId</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">label_association</span><span class="p">,</span>
+                <span class="s1">&#39;EntityId&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_label_association</span><span class="p">,</span> <span class="s1">&#39;label_association&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">_BulkLabelAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_label_association</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;LabelAssociation&#39;</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_BulkLabelAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="BulkCampaignLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a campaign label.</span>
+
+<span class="sd">    Defines an association record between a Campaign and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">campaign</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The campaign name of the Campaign Management Service.</span>
+
+<span class="sd">        A subset of Label properties are available in the Ad Group record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span>
+
+    <span class="nd">@campaign</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="s1">&#39;campaign&#39;</span><span class="p">,</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkCampaignLabel.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkCampaignLabel</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkCampaignLabel.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkCampaignLabel</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkCampaignLabel.read_additional_data"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkCampaignLabel.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BulkAdGroupLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a AdGroup label.</span>
+
+<span class="sd">    Defines an association record between a AdGroup and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see AdGroup Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">campaign</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ad_group</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">campaign</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group</span> <span class="o">=</span> <span class="n">ad_group</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The campaign name of the Campaign Management Service.</span>
+
+<span class="sd">        A subset of Label properties are available in the Ad Group record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span>
+
+    <span class="nd">@campaign</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ad_group</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The ad group name of the Campaign Management Service.</span>
+
+<span class="sd">        A subset of Label properties are available in the Ad Group record.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign</span>
+
+    <span class="nd">@ad_group</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">ad_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="s1">&#39;campaign&#39;</span><span class="p">,</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AdGroup</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="p">,</span>
+                <span class="s1">&#39;ad_group&#39;</span><span class="p">,</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkAdGroupLabel.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAdGroupLabel</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkAdGroupLabel.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAdGroupLabel</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkAdGroupLabel.read_additional_data"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAdGroupLabel.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAdGroupLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BulkKeywordLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkKeywordLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkKeywordLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a Keyword label.</span>
+
+<span class="sd">    Defines an association record between a Keyword and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see Keyword Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkKeywordLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BulkAppInstallAdLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkAppInstallAdLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkAppInstallAdLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a AppInstallAd label.</span>
+
+<span class="sd">    Defines an association record between a AppInstallAd and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see AppInstallAd Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAppInstallAdLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BulkDynamicSearchAdLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkDynamicSearchAdLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkDynamicSearchAdLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a DynamicSearchAd label.</span>
+
+<span class="sd">    Defines an association record between a DynamicSearchAd and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see DynamicSearchAd Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkDynamicSearchAdLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BulkExpandedTextAdLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkExpandedTextAdLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkExpandedTextAdLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a ExpandedTextAd label.</span>
+
+<span class="sd">    Defines an association record between a ExpandedTextAd and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see ExpandedTextAd Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkExpandedTextAdLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BulkProductAdLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkProductAdLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkProductAdLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a ProductAd label.</span>
+
+<span class="sd">    Defines an association record between a ProductAd and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see ProductAd Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkProductAdLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BulkTextAdLabel"><a class="viewcode-back" href="../../../../../../bingads.v12.bulk.entities.labels.html#bingads.v12.bulk.entities.labels.bulk_label_associations.BulkTextAdLabel">[docs]</a><span class="k">class</span> <span class="nc">BulkTextAdLabel</span><span class="p">(</span><span class="n">_BulkLabelAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a TextAd label.</span>
+
+<span class="sd">    Defines an association record between a TextAd and a Label that can be uploaded and downloaded in a bulk file.</span>
+
+<span class="sd">    For more information, see TextAd Label at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label_association</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkTextAdLabel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">label_association</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

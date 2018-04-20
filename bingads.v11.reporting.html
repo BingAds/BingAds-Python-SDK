@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.reporting package &#8212; Bing Ads SDK 11.5.9 documentation</title>
+    <title>bingads.v11.reporting package &#8212; Bing Ads SDK 11.12.1 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '11.5.9',
+        VERSION:     '11.12.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Release History" href="history.html" />
+    <link rel="next" title="bingads.v12 package" href="bingads.v12.html" />
     <link rel="prev" title="bingads.v11.internal.bulk.entities package" href="bingads.v11.internal.bulk.entities.html" /> 
   </head>
   <body>
@@ -37,12 +37,12 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="history.html" title="Release History"
+          <a href="bingads.v12.html" title="bingads.v12 package"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="bingads.v11.internal.bulk.entities.html" title="bingads.v11.internal.bulk.entities package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" accesskey="U">bingads.v11 package</a> &#187;</li> 
       </ul>
@@ -210,7 +210,7 @@ if the result_file_name has the extension of ‘.zip’ then do not do decompres
 <p>Represents a reporting download operation requested by a user.</p>
 <p>You can use this class to poll for the download status, and then download the file when available.</p>
 <p><em>Example:</em></p>
-<p>The <a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">ReportingServiceManager.submit_download()</span></code></a> method returns an instance of this class.
+<p>The <a class="reference internal" href="bingads.v12.reporting.html#bingads.v12.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.v12.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-meth docutils literal"><span class="pre">ReportingServiceManager.submit_download()</span></code></a> method returns an instance of this class.
 If for any reason you do not want to wait for the file to be prepared for download,
 for example if your application quits unexpectedly or you have other tasks to process, you can
 use an instance of <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation"><code class="xref py py-class docutils literal"><span class="pre">ReportingDownloadOperation</span></code></a> to download the file when it is available.</p>
@@ -383,7 +383,7 @@ The default value is false, in which case the downloaded file is not decompresse
 <p><a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.download_file" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.download_file"><code class="xref py py-func docutils literal"><span class="pre">download_file()</span></code></a> will submit the download request to the reporting service,
 poll until the status is completed (or returns an error), and downloads the file locally.
 If instead you want to manage the low level details you would first call <a class="reference internal" href="#bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download" title="bingads.v11.reporting.reporting_service_manager.ReportingServiceManager.submit_download"><code class="xref py py-func docutils literal"><span class="pre">submit_download()</span></code></a>,
-wait for the results file to be prepared using either <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.get_status" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.get_status"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.get_status()</span></code></a>
+wait for the results file to be prepared using either <a class="reference internal" href="bingads.v12.reporting.html#bingads.v12.reporting.reporting_operation.ReportingDownloadOperation.get_status" title="bingads.v12.reporting.reporting_operation.ReportingDownloadOperation.get_status"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.get_status()</span></code></a>
 or <a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.track" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation.track"><code class="xref py py-meth docutils literal"><span class="pre">ReportingDownloadOperation.track()</span></code></a>, and then download the file with the
 <code class="xref py py-meth docutils literal"><span class="pre">ReportingOperation.download_result_file()</span></code> method.</p>
 <dl class="method">
@@ -444,7 +444,7 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted download operation</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v11.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.v11.reporting.reporting_operation.ReportingDownloadOperation">ReportingDownloadOperation</a></td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.v12.reporting.html#bingads.v12.reporting.reporting_operation.ReportingDownloadOperation" title="bingads.v12.reporting.reporting_operation.ReportingDownloadOperation">ReportingDownloadOperation</a></td>
 </tr>
 </tbody>
 </table>
@@ -510,8 +510,8 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
   <p class="topless"><a href="bingads.v11.internal.bulk.entities.html"
                         title="previous chapter">bingads.v11.internal.bulk.entities package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="history.html"
-                        title="next chapter">Release History</a></p>
+  <p class="topless"><a href="bingads.v12.html"
+                        title="next chapter">bingads.v12 package</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -543,12 +543,12 @@ or <a class="reference internal" href="#bingads.v11.reporting.reporting_operatio
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="history.html" title="Release History"
+          <a href="bingads.v12.html" title="bingads.v12 package"
              >next</a> |</li>
         <li class="right" >
           <a href="bingads.v11.internal.bulk.entities.html" title="bingads.v11.internal.bulk.entities package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" >bingads.v11 package</a> &#187;</li> 
       </ul>

@@ -1,0 +1,29 @@
+bingads\.v12\.internal package
+==============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    bingads.v12.internal.bulk
+
+Submodules
+----------
+
+bingads\.v12\.internal\.extensions module
+-----------------------------------------
+
+.. automodule:: bingads.v12.internal.extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.v12.internal
+    :members:
+    :undoc-members:
+    :show-inheritance:

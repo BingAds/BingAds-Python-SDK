@@ -1,0 +1,824 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v12.bulk.entities.audiences package &#8212; Bing Ads SDK 11.12.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '11.12.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bingads.v12.bulk.entities.labels package" href="bingads.v12.bulk.entities.labels.html" />
+    <link rel="prev" title="bingads.v12.bulk.entities.ad_extensions package" href="bingads.v12.bulk.entities.ad_extensions.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.labels.html" title="bingads.v12.bulk.entities.labels package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.ad_extensions.html" title="bingads.v12.bulk.entities.ad_extensions package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v12.html" >bingads.v12 package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v12.bulk.html" >bingads.v12.bulk package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v12.bulk.entities.html" accesskey="U">bingads.v12.bulk.entities package</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bingads-v12-bulk-entities-audiences-package">
+<h1>bingads.v12.bulk.entities.audiences package<a class="headerlink" href="#bingads-v12-bulk-entities-audiences-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-custom-audience-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.</code><code class="descname">BulkAdGroupCustomAudienceAssociation</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>custom_audience_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_custom_audience_association.html#BulkAdGroupCustomAudienceAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group Custom Audience Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.biddable_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group Custom Audience Association record in a bulk file.</p>
+<p>For more information, see Ad Group Custom Audience Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Biddable Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.custom_audience_name">
+<code class="descname">custom_audience_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.custom_audience_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Custom Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.performance_data">
+<code class="descname">performance_data</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.performance_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_custom_audience_association.html#BulkAdGroupCustomAudienceAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_custom_audience_association.html#BulkAdGroupCustomAudienceAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_custom_audience_association.html#BulkAdGroupCustomAudienceAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association.BulkAdGroupCustomAudienceAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-in-market-audience-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.</code><code class="descname">BulkAdGroupInMarketAudienceAssociation</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>in_market_audience_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_in_market_audience_association.html#BulkAdGroupInMarketAudienceAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group In Market Audience Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.biddable_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group In Market Audience Association record in a bulk file.</p>
+<p>For more information, see Ad Group In Market Audience Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Biddable Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.in_market_audience_name">
+<code class="descname">in_market_audience_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.in_market_audience_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the In Market Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.performance_data">
+<code class="descname">performance_data</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.performance_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_in_market_audience_association.html#BulkAdGroupInMarketAudienceAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_in_market_audience_association.html#BulkAdGroupInMarketAudienceAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_in_market_audience_association.html#BulkAdGroupInMarketAudienceAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association.BulkAdGroupInMarketAudienceAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-negative-custom-audience-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.</code><code class="descname">BulkAdGroupNegativeCustomAudienceAssociation</code><span class="sig-paren">(</span><em>negative_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>custom_audience_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_custom_audience_association.html#BulkAdGroupNegativeCustomAudienceAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group Negative Custom Audience Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.negative_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.negative_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">negative_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group Negative Custom Audience Association record in a bulk file.</p>
+<p>For more information, see Ad Group Negative Custom Audience Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.custom_audience_name">
+<code class="descname">custom_audience_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.custom_audience_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Custom Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.negative_ad_group_criterion">
+<code class="descname">negative_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.negative_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Negative Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_custom_audience_association.html#BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_custom_audience_association.html#BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_custom_audience_association.html#BulkAdGroupNegativeCustomAudienceAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association.BulkAdGroupNegativeCustomAudienceAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-negative-in-market-audience-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.</code><code class="descname">BulkAdGroupNegativeInMarketAudienceAssociation</code><span class="sig-paren">(</span><em>negative_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>in_market_audience_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_in_market_audience_association.html#BulkAdGroupNegativeInMarketAudienceAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group Negative In Market Audience Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.negative_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.negative_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">negative_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group Negative In Market Audience Association record in a bulk file.</p>
+<p>For more information, see Ad Group Negative In Market Audience Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.in_market_audience_name">
+<code class="descname">in_market_audience_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.in_market_audience_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the In Market Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.negative_ad_group_criterion">
+<code class="descname">negative_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.negative_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Negative Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_in_market_audience_association.html#BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_in_market_audience_association.html#BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_in_market_audience_association.html#BulkAdGroupNegativeInMarketAudienceAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association.BulkAdGroupNegativeInMarketAudienceAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-negative-remarketing-list-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.</code><code class="descname">BulkAdGroupNegativeRemarketingListAssociation</code><span class="sig-paren">(</span><em>negative_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>remarketing_list_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_remarketing_list_association.html#BulkAdGroupNegativeRemarketingListAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group Negative Remarketing List Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.negative_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.negative_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">negative_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group Negative Remarketing List Association record in a bulk file.</p>
+<p>For more information, see Ad Group Negative Remarketing List Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.negative_ad_group_criterion">
+<code class="descname">negative_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.negative_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Negative Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_remarketing_list_association.html#BulkAdGroupNegativeRemarketingListAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_remarketing_list_association.html#BulkAdGroupNegativeRemarketingListAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_negative_remarketing_list_association.html#BulkAdGroupNegativeRemarketingListAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.remarketing_list_name">
+<code class="descname">remarketing_list_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association.BulkAdGroupNegativeRemarketingListAssociation.remarketing_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Remarketing List</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association">
+<span id="bingads-v12-bulk-entities-audiences-bulk-ad-group-remarketing-list-association-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.</code><code class="descname">BulkAdGroupRemarketingListAssociation</code><span class="sig-paren">(</span><em>biddable_ad_group_criterion=None</em>, <em>campaign_name=None</em>, <em>ad_group_name=None</em>, <em>remarketing_list_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_remarketing_list_association.html#BulkAdGroupRemarketingListAssociation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Ad Group Remarketing List Association that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.biddable_ad_group_criterion" title="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.biddable_ad_group_criterion"><code class="xref py py-attr docutils literal"><span class="pre">biddable_ad_group_criterion</span></code></a> property that can be read and written as fields of the
+Ad Group Remarketing List Association record in a bulk file.</p>
+<p>For more information, see Ad Group Remarketing List Association at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.ad_group_name">
+<code class="descname">ad_group_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.ad_group_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Ad Group</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.biddable_ad_group_criterion">
+<code class="descname">biddable_ad_group_criterion</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.biddable_ad_group_criterion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Biddable Ad Group Criterion</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.campaign_name">
+<code class="descname">campaign_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.campaign_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Campaign.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.performance_data">
+<code class="descname">performance_data</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.performance_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_remarketing_list_association.html#BulkAdGroupRemarketingListAssociation.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_remarketing_list_association.html#BulkAdGroupRemarketingListAssociation.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_ad_group_remarketing_list_association.html#BulkAdGroupRemarketingListAssociation.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.remarketing_list_name">
+<code class="descname">remarketing_list_name</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association.BulkAdGroupRemarketingListAssociation.remarketing_list_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the name of the Remarketing List</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_custom_audience">
+<span id="bingads-v12-bulk-entities-audiences-bulk-custom-audience-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_custom_audience module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_custom_audience" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_custom_audience.</code><code class="descname">BulkCustomAudience</code><span class="sig-paren">(</span><em>custom_audience=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_custom_audience.html#BulkCustomAudience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents a Custom Audience that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.custom_audience" title="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.custom_audience"><code class="xref py py-attr docutils literal"><span class="pre">custom_audience</span></code></a> property that can be read and written as fields of the
+Custom Audience record in a bulk file.</p>
+<p>For more information, see Custom Audience at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.custom_audience">
+<code class="descname">custom_audience</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.custom_audience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Custom Audience</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_custom_audience.html#BulkCustomAudience.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_custom_audience.html#BulkCustomAudience.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_custom_audience.html#BulkCustomAudience.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_custom_audience.BulkCustomAudience.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of the Custom Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_in_market_audience">
+<span id="bingads-v12-bulk-entities-audiences-bulk-in-market-audience-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_in_market_audience module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_in_market_audience" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_in_market_audience.</code><code class="descname">BulkInMarketAudience</code><span class="sig-paren">(</span><em>in_market_audience=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_in_market_audience.html#BulkInMarketAudience"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an In Market Audience that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.in_market_audience" title="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.in_market_audience"><code class="xref py py-attr docutils literal"><span class="pre">in_market_audience</span></code></a> property that can be read and written as fields of the
+In Market Audience record in a bulk file.</p>
+<p>For more information, see In Market Audience at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.in_market_audience">
+<code class="descname">in_market_audience</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.in_market_audience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines an In Market Audience</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_in_market_audience.html#BulkInMarketAudience.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_in_market_audience.html#BulkInMarketAudience.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_in_market_audience.html#BulkInMarketAudience.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_in_market_audience.BulkInMarketAudience.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of the In Market Audience</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences.bulk_remarketing_list">
+<span id="bingads-v12-bulk-entities-audiences-bulk-remarketing-list-module"></span><h2>bingads.v12.bulk.entities.audiences.bulk_remarketing_list module<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences.bulk_remarketing_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList">
+<em class="property">class </em><code class="descclassname">bingads.v12.bulk.entities.audiences.bulk_remarketing_list.</code><code class="descname">BulkRemarketingList</code><span class="sig-paren">(</span><em>remarketing_list=None</em>, <em>status=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_remarketing_list.html#BulkRemarketingList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bingads.v12.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents an Remarketing List that can be read or written in a bulk file.</p>
+<p>This class exposes the <a class="reference internal" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.remarketing_list" title="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.remarketing_list"><code class="xref py py-attr docutils literal"><span class="pre">remarketing_list</span></code></a> property that can be read and written as fields of the
+Remarketing List record in a bulk file.</p>
+<p>For more information, see Remarketing List at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v11.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.bulk_operation.BulkOperation" title="bingads.v11.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.file_reader.BulkFileReader" title="bingads.v12.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v11.bulk.html#bingads.v11.bulk.file_writer.BulkFileWriter" title="bingads.v11.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_remarketing_list.html#BulkRemarketingList.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_remarketing_list.html#BulkRemarketingList.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v12/bulk/entities/audiences/bulk_remarketing_list.html#BulkRemarketingList.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.remarketing_list">
+<code class="descname">remarketing_list</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.remarketing_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a Remarketing List</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v12.bulk.entities.audiences.bulk_remarketing_list.BulkRemarketingList.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>The status of the Remarketing List</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v12.bulk.entities.audiences">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads.v12.bulk.entities.audiences" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bingads.v12.bulk.entities.audiences package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_custom_audience_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_custom_audience_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_in_market_audience_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_remarketing_list_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association">bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_custom_audience">bingads.v12.bulk.entities.audiences.bulk_custom_audience module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_in_market_audience">bingads.v12.bulk.entities.audiences.bulk_in_market_audience module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences.bulk_remarketing_list">bingads.v12.bulk.entities.audiences.bulk_remarketing_list module</a></li>
+<li><a class="reference internal" href="#module-bingads.v12.bulk.entities.audiences">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bingads.v12.bulk.entities.ad_extensions.html"
+                        title="previous chapter">bingads.v12.bulk.entities.ad_extensions package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="bingads.v12.bulk.entities.labels.html"
+                        title="next chapter">bingads.v12.bulk.entities.labels package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bingads.v12.bulk.entities.audiences.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.labels.html" title="bingads.v12.bulk.entities.labels package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bingads.v12.bulk.entities.ad_extensions.html" title="bingads.v12.bulk.entities.ad_extensions package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="bingads.v12.html" >bingads.v12 package</a> &#187;</li>
+          <li class="nav-item nav-item-3"><a href="bingads.v12.bulk.html" >bingads.v12.bulk package</a> &#187;</li>
+          <li class="nav-item nav-item-4"><a href="bingads.v12.bulk.entities.html" >bingads.v12.bulk.entities package</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

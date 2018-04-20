@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.service_client &#8212; Bing Ads SDK 11.5.9 documentation</title>
+    <title>bingads.service_client &#8212; Bing Ads SDK 11.12.1 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '11.5.9',
+        VERSION:     '11.12.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -49,7 +49,7 @@
 
 <span class="kn">from</span> <span class="nn">.headerplugin</span> <span class="k">import</span> <span class="n">HeaderPlugin</span>
 <span class="kn">from</span> <span class="nn">.authorization</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">.service_info</span> <span class="k">import</span> <span class="n">SERVICE_INFO_DICT_V11</span>
+<span class="kn">from</span> <span class="nn">.service_info</span> <span class="k">import</span> <span class="n">SERVICE_INFO_DICT</span>
 <span class="kn">from</span> <span class="nn">.manifest</span> <span class="k">import</span> <span class="n">USER_AGENT</span>
 <span class="kn">from</span> <span class="nn">getpass</span> <span class="k">import</span> <span class="n">getuser</span>
 <span class="kn">from</span> <span class="nn">tempfile</span> <span class="k">import</span> <span class="n">gettempdir</span>
@@ -59,7 +59,7 @@
 <div class="viewcode-block" id="ServiceClient"><a class="viewcode-back" href="../../bingads.html#bingads.service_client.ServiceClient">[docs]</a><span class="k">class</span> <span class="nc">ServiceClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Provides an interface for calling the methods of the specified Bing Ads service.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">authorization_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s1">&#39;v11&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">authorization_data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of this class.</span>
 
 <span class="sd">        :param service: The service name.</span>
@@ -68,7 +68,7 @@
 <span class="sd">        :type authorization_data: AuthorizationData or None</span>
 <span class="sd">        :param environment: (optional) The environment name, can only be &#39;production&#39; or &#39;sandbox&#39;, the default is &#39;production&#39;</span>
 <span class="sd">        :type environment: str</span>
-<span class="sd">        :param version: to specify the service version, only support v9 and v10, valid input is: 9, 10, &#39;v9&#39;, &#39;v10&#39;, the default is &#39;v10&#39;</span>
+<span class="sd">        :param version: to specify the service version</span>
 <span class="sd">        :param suds_options: The suds options need to pass to suds client</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -240,14 +240,12 @@
 <span class="sd">        :param version:</span>
 <span class="sd">        :return: int version</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;v9&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">9</span><span class="p">:</span>
-            <span class="n">version</span> <span class="o">=</span> <span class="mi">9</span>
-        <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;v10&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">10</span><span class="p">:</span>
-            <span class="n">version</span> <span class="o">=</span> <span class="mi">10</span>
-        <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;v11&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">11</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;v11&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">11</span><span class="p">:</span>
             <span class="n">version</span> <span class="o">=</span> <span class="mi">11</span>
+        <span class="k">elif</span> <span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;v12&#39;</span> <span class="ow">or</span> <span class="n">version</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="mi">12</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;version error: [</span><span class="si">{0}</span><span class="s1">] is not supported.&#39;</span><span class="p">,</span> <span class="n">version</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;version error: [</span><span class="si">{0}</span><span class="s1">] is not supported. Please specify V11 or V12&#39;</span><span class="p">,</span> <span class="n">version</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">version</span>
 
 
@@ -258,8 +256,7 @@
 <span class="sd">        :param version:</span>
 <span class="sd">        :return: the service info dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">SERVICE_INFO_DICT_V11</span>
-
+        <span class="k">return</span> <span class="n">SERVICE_INFO_DICT</span><span class="p">[</span><span class="n">version</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_format_environment</span><span class="p">(</span><span class="n">environment</span><span class="p">):</span>
@@ -342,7 +339,6 @@
 <span class="kn">from</span> <span class="nn">suds.sudsobject</span> <span class="k">import</span> <span class="n">Property</span>
 <span class="kn">from</span> <span class="nn">suds.sax.text</span> <span class="k">import</span> <span class="n">Text</span>
 
-
 <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V11</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span>
     <span class="s1">&#39;file:///&#39;</span> <span class="o">+</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;bingads&#39;</span><span class="p">,</span> <span class="s1">&#39;v11/proxies/campaign_management_service.xml&#39;</span><span class="p">)</span>
 <span class="p">)</span>
@@ -350,6 +346,15 @@
 <span class="c1"># TODO Better to push suds-jurko accept this caching</span>
 <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">object_cache</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create_without_cache</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span>
+
+
+<span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V12</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span>
+    <span class="s1">&#39;file:///&#39;</span> <span class="o">+</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_filename</span><span class="p">(</span><span class="s1">&#39;bingads&#39;</span><span class="p">,</span> <span class="s1">&#39;v12/proxies/campaign_management_service.xml&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span> <span class="o">=</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V12</span><span class="o">.</span><span class="n">factory</span>
+<span class="c1"># TODO Better to push suds-jurko accept this caching</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">object_cache</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create_without_cache</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span>
 
 
 <span class="k">def</span> <span class="nf">_suds_objects_deepcopy</span><span class="p">(</span><span class="n">origin</span><span class="p">):</span>
@@ -410,7 +415,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

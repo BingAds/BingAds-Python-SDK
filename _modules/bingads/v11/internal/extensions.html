@@ -5,13 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.internal.extensions &#8212; Bing Ads SDK 11.5.9 documentation</title>
+    <title>bingads.v11.internal.extensions &#8212; Bing Ads SDK 11.12.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../../',
-        VERSION:     '11.5.9',
+        VERSION:     '11.12.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -34,7 +34,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -50,7 +50,7 @@
 <span class="kn">from</span> <span class="nn">bingads.v11.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">PY2</span>
 <span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="p">,</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V11</span><span class="p">,</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="p">,</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V11</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="p">,</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V11</span>
 
 
 <span class="n">DELETE_VALUE</span> <span class="o">=</span> <span class="s2">&quot;delete_value&quot;</span>
@@ -1222,39 +1222,6 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">RadiusCriterion</span><span class="p">)):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span> <span class="s2">&quot;LongitudeDegrees&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="field_to_csv_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.field_to_csv_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdFormatPreference</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    convert field value to csv content</span>
-<span class="sd">    :param value: field value</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;Native&#39;</span>
-    <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s1">&#39;All&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-    <span class="k">return</span> <span class="kc">None</span></div>
-
-
-<div class="viewcode-block" id="csv_to_field_AdFormatPreference"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.csv_to_field_AdFormatPreference">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_AdFormatPreference</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    parse csv content and set entity attribute</span>
-<span class="sd">    :param entity:  entity which has AdFormatPreference attribute</span>
-<span class="sd">    :param value: csv content value</span>
-<span class="sd">    :return:</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;All&#39;</span><span class="p">:</span>
-        <span class="n">entity</span><span class="o">.</span><span class="n">AdFormatPreference</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
-    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;Native&#39;</span><span class="p">:</span>
-        <span class="n">entity</span><span class="o">.</span><span class="n">AdFormatPreference</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unsupported value for Native Preference: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
-
-
 <div class="viewcode-block" id="parse_rule_PageVisitors"><a class="viewcode-back" href="../../../../bingads.v11.internal.html#bingads.v11.internal.extensions.parse_rule_PageVisitors">[docs]</a><span class="k">def</span> <span class="nf">parse_rule_PageVisitors</span><span class="p">(</span><span class="n">rule_str</span><span class="p">):</span>
     <span class="n">rule</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V11</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ns0:PageVisitorsRule&#39;</span><span class="p">)</span>
     <span class="n">rule</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;PageVisitors&#39;</span>
@@ -1450,7 +1417,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.5.9 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

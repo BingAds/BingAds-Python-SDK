@@ -1,0 +1,194 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v12.reporting.reporting_download_parameters &#8212; Bing Ads SDK 11.12.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '11.12.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v12.reporting.reporting_download_parameters</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="ReportingDownloadParameters"><a class="viewcode-back" href="../../../../bingads.v12.reporting.html#bingads.v12.reporting.reporting_download_parameters.ReportingDownloadParameters">[docs]</a><span class="k">class</span> <span class="nc">ReportingDownloadParameters</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Describes the related parameters when downloading file from server.</span>
+
+<span class="sd">    such as the file name and directory that you want to specify.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">report_request</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">result_file_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">result_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param report_request: the report request object, which derives from the base request report class</span>
+<span class="sd">        :type report_request: ReportRequest</span>
+<span class="sd">        :param result_file_directory: (optional) The directory where the file will be downloaded.</span>
+<span class="sd">        :type result_file_directory: str</span>
+<span class="sd">        :param result_file_name: (optional) The name of the download result file.</span>
+<span class="sd">        :type result_file_name: str</span>
+<span class="sd">        :param overwrite_result_file:</span>
+<span class="sd">        :type overwrite_result_file: bool</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for reporting download operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report_request</span> <span class="o">=</span> <span class="n">report_request</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">result_file_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.zip&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite_result_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span><span class="o">=</span><span class="n">timeout_in_milliseconds</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The directory where the reporting file will be downloaded.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the download reporting file.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether the local result file should be overwritten if it already exists.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
+
+    <span class="nd">@result_file_directory</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
+
+    <span class="nd">@result_file_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
+
+    <span class="nd">@overwrite_result_file</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; If need to decompress the result file after download.</span>
+<span class="sd">        This property is determined by the result_file_name, by default will do decompression.</span>
+<span class="sd">        if the result_file_name has the extension of &#39;.zip&#39; then do not do decompression.</span>
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">report_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The report request.</span>
+<span class="sd">        :rtype: ReportRequest</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_report_request</span>
+
+
+    <span class="nd">@report_request</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">report_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_report_request</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+
+    <span class="nd">@timeout_in_milliseconds</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
