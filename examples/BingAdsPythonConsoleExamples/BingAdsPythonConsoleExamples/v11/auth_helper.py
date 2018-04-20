@@ -22,7 +22,7 @@ CLIENT_ID='ClientIdGoesHere'
 CLIENT_STATE='ClientStateGoesHere'
 REFRESH_TOKEN_PATH="refresh.txt"
 
-# If you are not using OAuth in production, USER_NAME and PASSWORD are required.
+# Bing Ads API Version 11 is the last version to support UserName and Password authentication.
 USER_NAME='UserNameGoesHere'
 PASSWORD='PasswordGoesHere'
 
@@ -36,10 +36,10 @@ ALL_AD_TYPES={
 
 def authenticate(authorization_data):
     
-    #import logging
-    #logging.basicConfig(level=logging.INFO)
-    #logging.getLogger('suds.client').setLevel(logging.DEBUG)
-    #logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
+    # import logging
+    # logging.basicConfig(level=logging.INFO)
+    # logging.getLogger('suds.client').setLevel(logging.DEBUG)
+    # logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
@@ -60,7 +60,7 @@ def authenticate(authorization_data):
     # and then search for all accounts the user may access.
     user=customer_service.GetUser(None).User
     accounts=search_accounts_by_user_id(customer_service, user.Id)
-
+    
     # For this example we'll use the first account.
     authorization_data.account_id=accounts['Account'][0].Id
     authorization_data.customer_id=accounts['Account'][0].ParentCustomerId

@@ -1,4 +1,5 @@
 from auth_helper import *
+from bingads.v11.reporting import *
 
 # You must provide credentials in auth_helper.py.
 
@@ -21,8 +22,9 @@ def main(authorization_data):
 
         #report_request=get_budget_summary_report_request()
         #report_request=get_user_location_performance_report_request()
-        report_request=get_keyword_performance_report_request()
-        
+        #report_request=get_keyword_performance_report_request()
+        report_request=get_campaign_performance_report_request(None)
+
         reporting_download_parameters = ReportingDownloadParameters(
             report_request=report_request,
             result_file_directory = FILE_DIRECTORY, 
@@ -43,8 +45,8 @@ def main(authorization_data):
         #Submit the download request and then use the ReportingDownloadOperation result to 
         #track status yourself using ReportingServiceManager.get_status().
 
-        output_status_message("Awaiting Submit and Download . . .")
-        submit_and_download(report_request)
+        #output_status_message("Awaiting Submit and Download . . .")
+        #submit_and_download(report_request)
 
         #Option C - Download Results with ReportingServiceManager
         #If for any reason you have to resume from a previous application state, 
@@ -52,14 +54,14 @@ def main(authorization_data):
         #to download the result file. 
 
         #For example you might have previously retrieved a request ID using submit_download.
-        reporting_operation=reporting_service_manager.submit_download(report_request)
-        request_id=reporting_operation.request_id;
+        #reporting_operation=reporting_service_manager.submit_download(report_request)
+        #request_id=reporting_operation.request_id
 
         #Given the request ID above, you can resume the workflow and download the report.
         #The report request identifier is valid for two days. 
         #If you do not download the report within two days, you must request the report again.
-        output_status_message("Awaiting Download Results . . .")
-        download_results(request_id, authorization_data)
+        #output_status_message("Awaiting Download Results . . .")
+        #download_results(request_id, authorization_data)
 
         output_status_message("Program execution completed")
 
@@ -117,6 +119,55 @@ def get_budget_summary_report_request():
 
     return report_request
 
+def get_campaign_performance_report_request(campaign_ids):
+    '''
+    Build a campaign performance report request, including Format, ReportName,
+    Time, and Columns.
+    '''
+    report_request=reporting_service.factory.create('CampaignPerformanceReportRequest')
+    report_request.Format=REPORT_FILE_FORMAT
+    report_request.ReportName='My Campaign Performance Report'
+    report_request.ReturnOnlyCompleteData=False
+    report_request.Aggregation='Daily'
+    report_request.Language='English'
+
+    scope=reporting_service.factory.create('AccountThroughCampaignReportScope')
+    if campaign_ids is None:
+        scope.AccountIds={'long': [authorization_data.account_id] }
+        scope.Campaigns=None
+    else:
+        scope.AccountIds=None
+        campaigns=reporting_service.factory.create('ArrayOfCampaignReportScope')
+        for campaign_id in campaign_ids['long']:
+            campaign_report_scope=reporting_service.factory.create('CampaignReportScope')
+            campaign_report_scope.AccountId=authorization_data.account_id
+            campaign_report_scope.CampaignId=campaign_id
+            campaigns.CampaignReportScope.append(campaign_report_scope)
+        scope.Campaigns=campaigns
+    report_request.Scope=scope
+
+    # You may either use a custom date range or predefined time.
+    report_time=reporting_service.factory.create('ReportTime')
+    report_time.PredefinedTime='Yesterday'
+    report_request.Time=report_time
+
+    # Specify the attribute and data report columns.
+
+    report_columns=reporting_service.factory.create('ArrayOfCampaignPerformanceReportColumn')
+    report_columns.CampaignPerformanceReportColumn.append([
+        'TimePeriod',
+        'CampaignName',
+        'Impressions',
+        'Clicks',
+        'Spend',
+        'AveragePosition',
+        'Revenue',
+        'DeviceType'
+    ])
+    report_request.Columns=report_columns
+
+    return report_request
+
 def get_keyword_performance_report_request():
     '''
     Build a keyword performance report request, including Format, ReportName, Aggregation,
@@ -151,6 +202,7 @@ def get_keyword_performance_report_request():
     #report_time.PredefinedTime=None
     
     report_time.PredefinedTime='Yesterday'
+    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
     report_request.Time=report_time
 
     # If you specify a filter, results may differ from data you see in the Bing Ads web application
@@ -230,6 +282,7 @@ def get_user_location_performance_report_request():
     #report_time.PredefinedTime=None
     
     report_time.PredefinedTime='Yesterday'
+    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
     report_request.Time=report_time
 
     # If you specify a filter, results may differ from data you see in the Bing Ads web application
@@ -338,7 +391,7 @@ if __name__ == '__main__':
 
     print("Python loads the web service proxies at runtime, so you will observe " \
           "a performance delay between program launch and main execution...\n")
-    
+
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
@@ -362,9 +415,7 @@ if __name__ == '__main__':
         version=11,
     )
 
-    # You should authenticate for Bing Ads production services with a Microsoft Account, 
-    # instead of providing the Bing Ads username and password set. 
-    # Authentication with a Microsoft Account is currently not supported in Sandbox.
+    # You should authenticate for Bing Ads production services with a Microsoft Account.
         
     authenticate(authorization_data)
         

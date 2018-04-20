@@ -218,13 +218,6 @@ if __name__ == '__main__':
         authentication=None,
     )
 
-    campaign_service_v10=ServiceClient(
-        service='CampaignManagementService', 
-        authorization_data=authorization_data, 
-        environment=ENVIRONMENT,
-        version=10,
-    )
-
     campaign_service=ServiceClient(
         service='CampaignManagementService', 
         authorization_data=authorization_data, 

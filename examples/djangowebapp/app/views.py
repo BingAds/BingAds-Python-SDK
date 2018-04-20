@@ -17,7 +17,7 @@ from app.models import BingAdsUser
 from app.forms import BingAdsPasswordAuthenticationForm
 
 from bingads import *
-from bingads.bulk import *
+from bingads.v12.bulk import *
 
 import pickle
 
@@ -28,7 +28,12 @@ logging.getLogger('suds.transport').setLevel(logging.DEBUG)
 
 authorization_data = AuthorizationData(account_id=None, customer_id=None, developer_token=None, authentication=None)
 bulk_service = BulkServiceManager(authorization_data=authorization_data,poll_interval_in_milliseconds = 15000)
-customer_service = ServiceClient('CustomerManagementService', authorization_data)
+customer_service = ServiceClient(
+    service='CustomerManagementService', 
+    version=12,
+    authorization_data=authorization_data,
+    environment=environment
+)
 
 def home(request, 
          template_name='/index.html',
@@ -163,7 +168,7 @@ def callback(request):
 
     authentication = OAuthWebAuthCodeGrant(settings.CLIENT_ID,
                                           settings.CLIENT_SECRET, 
-                                          settings.REDIRECTION_URI);
+                                          settings.REDIRECTION_URI)
     authentication_type = 'OAuthWebAuthCodeGrant'
     environment = 'production'
 
@@ -305,9 +310,12 @@ def set_session_data(request, authentication, authentication_type, environment):
         bulk_service = BulkServiceManager(authorization_data=authorization_data,
                                           poll_interval_in_milliseconds = 15000,
                                           environment=environment)
-        customer_service = ServiceClient('CustomerManagementService', 
-                                         authorization_data,
-                                         environment=environment)
+        customer_service = customer_service = ServiceClient(
+            service='CustomerManagementService', 
+            version=12,
+            authorization_data=authorization_data,
+            environment=environment
+        )
 
     except KeyError:
         pass
@@ -324,7 +332,12 @@ def clear_session_data(request):
 
     authorization_data = AuthorizationData(account_id=None, customer_id=None, developer_token=None, authentication=None)
     bulk_service = BulkServiceManager(authorization_data=authorization_data,poll_interval_in_milliseconds = 15000)
-    customer_service = ServiceClient('CustomerManagementService', authorization_data)
+    customer_service = customer_service = ServiceClient(
+        service='CustomerManagementService', 
+        version=12,
+        authorization_data=authorization_data,
+        environment=environment
+    )
 
 def applogout(request):
     logout(request)
@@ -352,7 +365,7 @@ def search_accounts_by_user_id(user_id):
     :param user_id: The Bing Ads user identifier.
     :type user_id: long
     :return: List of accounts that the user can manage.
-    :rtype: ArrayOfAccount
+    :rtype: ArrayOfAdvertiserAccount
     '''
     global customer_service
     paging = {
@@ -381,7 +394,7 @@ def search_accounts_by_user_id(user_id):
         Predicates = predicates
     )
         
-    return search_accounts_response['Account']
+    return search_accounts_response['AdvertiserAccount']
 
 def get_webfault_errors(ex):
     errors=[]
