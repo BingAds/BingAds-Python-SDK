@@ -58,6 +58,8 @@ def output_ad(data_object):
         output_expandedtextad(data_object)
     if data_object.Type == 'ProductAd':
         output_productad(data_object)
+    if data_object.Type == 'ResponsiveAd':
+        output_responsivead(data_object)
     if data_object.Type == 'TextAd':
         output_textad(data_object)
 
@@ -281,6 +283,7 @@ def output_adgroup(data_object):
     output_status_message("NativeBidAdjustment: {0}".format(data_object.NativeBidAdjustment))
     output_status_message("Network: {0}".format(data_object.Network))
     output_status_message("PricingModel: {0}".format(data_object.PricingModel))
+    output_status_message("PrivacyStatus: {0}".format(data_object.PrivacyStatus))
     output_status_message("RemarketingTargetingSetting: {0}".format(data_object.RemarketingTargetingSetting))
     output_status_message("SearchBid (Element Name):")
     output_bid(data_object.SearchBid)
@@ -500,6 +503,7 @@ def output_audience(data_object):
     if data_object is None:
         return
     output_status_message("Audience (Data Object):")
+    output_status_message("AudienceNetworkSize: {0}".format(data_object.AudienceNetworkSize))
     output_status_message("Description: {0}".format(data_object.Description))
     output_status_message("ForwardCompatibilityMap (Element Name):")
     output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
@@ -509,11 +513,15 @@ def output_audience(data_object):
     output_status_message("ParentId: {0}".format(data_object.ParentId))
     output_status_message("Scope: {0}".format(data_object.Scope))
     output_status_message("SearchSize: {0}".format(data_object.SearchSize))
+    output_status_message("SupportedCampaignTypes (Element Name):")
+    output_array_of_string(data_object.SupportedCampaignTypes)
     output_status_message("Type: {0}".format(data_object.Type))
     if data_object.Type == 'CustomAudience':
         output_customaudience(data_object)
     if data_object.Type == 'InMarketAudience':
         output_inmarketaudience(data_object)
+    if data_object.Type == 'ProductAudience':
+        output_productaudience(data_object)
     if data_object.Type == 'RemarketingList':
         output_remarketinglist(data_object)
 
@@ -903,6 +911,8 @@ def output_criterion(data_object):
         output_productpartition(data_object)
     if data_object.Type == 'ProductScope':
         output_productscope(data_object)
+    if data_object.Type == 'ProfileCriterion':
+        output_profilecriterion(data_object)
     if data_object.Type == 'RadiusCriterion':
         output_radiuscriterion(data_object)
     if data_object.Type == 'Webpage':
@@ -1929,6 +1939,21 @@ def output_array_of_productad(data_objects):
         output_productad(data_object)
         output_status_message("\n")
 
+def output_productaudience(data_object):
+    if data_object is None:
+        return
+    output_status_message("ProductAudience (Data Object):")
+    output_status_message("ProductAudienceType: {0}".format(data_object.ProductAudienceType))
+    output_status_message("TagId: {0}".format(data_object.TagId))
+
+def output_array_of_productaudience(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ProductAudience:\n")
+    for data_object in data_objects['ProductAudience']:
+        output_productaudience(data_object)
+        output_status_message("\n")
+
 def output_productcondition(data_object):
     if data_object is None:
         return
@@ -1974,6 +1999,21 @@ def output_array_of_productscope(data_objects):
     output_status_message("Array Of ProductScope:\n")
     for data_object in data_objects['ProductScope']:
         output_productscope(data_object)
+        output_status_message("\n")
+
+def output_profilecriterion(data_object):
+    if data_object is None:
+        return
+    output_status_message("ProfileCriterion (Data Object):")
+    output_status_message("ProfileId: {0}".format(data_object.ProfileId))
+    output_status_message("ProfileType: {0}".format(data_object.ProfileType))
+
+def output_array_of_profilecriterion(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ProfileCriterion:\n")
+    for data_object in data_objects['ProfileCriterion']:
+        output_profilecriterion(data_object)
         output_status_message("\n")
 
 def output_radiuscriterion(data_object):
@@ -2030,6 +2070,28 @@ def output_array_of_remarketingrule(data_objects):
     output_status_message("Array Of RemarketingRule:\n")
     for data_object in data_objects['RemarketingRule']:
         output_remarketingrule(data_object)
+        output_status_message("\n")
+
+def output_responsivead(data_object):
+    if data_object is None:
+        return
+    output_status_message("ResponsiveAd (Data Object):")
+    output_status_message("BusinessName: {0}".format(data_object.BusinessName))
+    output_status_message("CallToAction: {0}".format(data_object.CallToAction))
+    output_status_message("Headline: {0}".format(data_object.Headline))
+    output_status_message("LandscapeImageMediaId: {0}".format(data_object.LandscapeImageMediaId))
+    output_status_message("LandscapeLogoMediaId: {0}".format(data_object.LandscapeLogoMediaId))
+    output_status_message("LongHeadline: {0}".format(data_object.LongHeadline))
+    output_status_message("SquareImageMediaId: {0}".format(data_object.SquareImageMediaId))
+    output_status_message("SquareLogoMediaId: {0}".format(data_object.SquareLogoMediaId))
+    output_status_message("Text: {0}".format(data_object.Text))
+
+def output_array_of_responsivead(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ResponsiveAd:\n")
+    for data_object in data_objects['ResponsiveAd']:
+        output_responsivead(data_object)
         output_status_message("\n")
 
 def output_reviewadextension(data_object):
@@ -2109,6 +2171,8 @@ def output_setting(data_object):
         output_dynamicsearchadssetting(data_object)
     if data_object.Type == 'ShoppingSetting':
         output_shoppingsetting(data_object)
+    if data_object.Type == 'TargetSetting':
+        output_targetsetting(data_object)
 
 def output_array_of_setting(data_objects):
     if data_objects is None or len(data_objects) == 0:
@@ -2325,6 +2389,36 @@ def output_array_of_targetcpabiddingscheme(data_objects):
         output_targetcpabiddingscheme(data_object)
         output_status_message("\n")
 
+def output_targetsetting(data_object):
+    if data_object is None:
+        return
+    output_status_message("TargetSetting (Data Object):")
+    output_status_message("Details (Element Name):")
+    output_array_of_targetsettingdetail(data_object.Details)
+
+def output_array_of_targetsetting(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of TargetSetting:\n")
+    for data_object in data_objects['TargetSetting']:
+        output_targetsetting(data_object)
+        output_status_message("\n")
+
+def output_targetsettingdetail(data_object):
+    if data_object is None:
+        return
+    output_status_message("TargetSettingDetail (Data Object):")
+    output_status_message("CriterionTypeGroup: {0}".format(data_object.CriterionTypeGroup))
+    output_status_message("TargetAndBid: {0}".format(data_object.TargetAndBid))
+
+def output_array_of_targetsettingdetail(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of TargetSettingDetail:\n")
+    for data_object in data_objects['TargetSettingDetail']:
+        output_targetsettingdetail(data_object)
+        output_status_message("\n")
+
 def output_textad(data_object):
     if data_object is None:
         return
@@ -2458,6 +2552,18 @@ def output_array_of_adtype(value_sets):
     for value_set in value_sets['AdType']:
         output_adtype(value_set)
 
+def output_calltoaction(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_calltoaction(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of CallToAction:\n")
+    for value_set in value_sets['CallToAction']:
+        output_calltoaction(value_set)
+
 def output_budgetlimittype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2493,6 +2599,30 @@ def output_array_of_campaigntype(value_sets):
     output_status_message("Array Of CampaignType:\n")
     for value_set in value_sets['CampaignType']:
         output_campaigntype(value_set)
+
+def output_criteriontypegroup(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_criteriontypegroup(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of CriterionTypeGroup:\n")
+    for value_set in value_sets['CriterionTypeGroup']:
+        output_criteriontypegroup(value_set)
+
+def output_bidoption(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_bidoption(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of BidOption:\n")
+    for value_set in value_sets['BidOption']:
+        output_bidoption(value_set)
 
 def output_addistribution(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -2541,6 +2671,18 @@ def output_array_of_pricingmodel(value_sets):
     output_status_message("Array Of PricingModel:\n")
     for value_set in value_sets['PricingModel']:
         output_pricingmodel(value_set)
+
+def output_adgroupprivacystatus(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adgroupprivacystatus(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdGroupPrivacyStatus:\n")
+    for value_set in value_sets['AdGroupPrivacyStatus']:
+        output_adgroupprivacystatus(value_set)
 
 def output_remarketingtargetingsetting(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -2902,6 +3044,18 @@ def output_array_of_audiencetype(value_sets):
     for value_set in value_sets['AudienceType']:
         output_audiencetype(value_set)
 
+def output_profiletype(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_profiletype(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ProfileType:\n")
+    for value_set in value_sets['ProfileType']:
+        output_profiletype(value_set)
+
 def output_adgroupcriterionstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2937,6 +3091,18 @@ def output_array_of_itemaction(value_sets):
     output_status_message("Array Of ItemAction:\n")
     for value_set in value_sets['ItemAction']:
         output_itemaction(value_set)
+
+def output_bmcstoresubtype(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_bmcstoresubtype(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of BMCStoreSubType:\n")
+    for value_set in value_sets['BMCStoreSubType']:
+        output_bmcstoresubtype(value_set)
 
 def output_campaigncriterionstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -2997,6 +3163,18 @@ def output_array_of_numberoperator(value_sets):
     output_status_message("Array Of NumberOperator:\n")
     for value_set in value_sets['NumberOperator']:
         output_numberoperator(value_set)
+
+def output_productaudiencetype(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_productaudiencetype(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ProductAudienceType:\n")
+    for value_set in value_sets['ProductAudienceType']:
+        output_productaudiencetype(value_set)
 
 def output_audienceadditionalfield(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

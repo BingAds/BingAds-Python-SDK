@@ -134,6 +134,62 @@ def output_array_of_applicationfault(data_objects):
         output_applicationfault(data_object)
         output_status_message("\n")
 
+def output_auctioninsightkpinode(data_object):
+    if data_object is None:
+        return
+    output_status_message("AuctionInsightKPINode (Data Object):")
+    output_status_message("DimensionNames (Element Name):")
+    output_array_of_string(data_object.DimensionNames)
+    output_status_message("ImpressionShare: {0}".format(data_object.ImpressionShare))
+    output_status_message("OverlapRate: {0}".format(data_object.OverlapRate))
+    output_status_message("AveragePosition: {0}".format(data_object.AveragePosition))
+    output_status_message("AboveRate: {0}".format(data_object.AboveRate))
+    output_status_message("TopOfPageRate: {0}".format(data_object.TopOfPageRate))
+
+def output_array_of_auctioninsightkpinode(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of AuctionInsightKPINode:\n")
+    for data_object in data_objects['AuctionInsightKPINode']:
+        output_auctioninsightkpinode(data_object)
+        output_status_message("\n")
+
+def output_auctioninsightresult(data_object):
+    if data_object is None:
+        return
+    output_status_message("AuctionInsightResult (Data Object):")
+    output_status_message("TotalNumEntries: {0}".format(data_object.TotalNumEntries))
+    output_status_message("Entries (Element Name):")
+    output_array_of_auctioninsightv2entity(data_object.Entries)
+    output_status_message("UsedImpressions: {0}".format(data_object.UsedImpressions))
+    output_status_message("UsedKeywords: {0}".format(data_object.UsedKeywords))
+
+def output_array_of_auctioninsightresult(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of AuctionInsightResult:\n")
+    for data_object in data_objects['AuctionInsightResult']:
+        output_auctioninsightresult(data_object)
+        output_status_message("\n")
+
+def output_auctioninsightv2entity(data_object):
+    if data_object is None:
+        return
+    output_status_message("AuctionInsightV2Entity (Data Object):")
+    output_status_message("DisplayDomain: {0}".format(data_object.DisplayDomain))
+    output_status_message("AggregatedKPI (Element Name):")
+    output_auctioninsightkpinode(data_object.AggregatedKPI)
+    output_status_message("KPIs (Element Name):")
+    output_array_of_auctioninsightkpinode(data_object.KPIs)
+
+def output_array_of_auctioninsightv2entity(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of AuctionInsightV2Entity:\n")
+    for data_object in data_objects['AuctionInsightV2Entity']:
+        output_auctioninsightv2entity(data_object)
+        output_status_message("\n")
+
 def output_batcherror(data_object):
     if data_object is None:
         return
@@ -360,6 +416,21 @@ def output_array_of_criterion(data_objects):
     output_status_message("Array Of Criterion:\n")
     for data_object in data_objects['Criterion']:
         output_criterion(data_object)
+        output_status_message("\n")
+
+def output_daterange(data_object):
+    if data_object is None:
+        return
+    output_status_message("DateRange (Data Object):")
+    output_status_message("MaxDate: {0}".format(data_object.MaxDate))
+    output_status_message("MinDate: {0}".format(data_object.MinDate))
+
+def output_array_of_daterange(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of DateRange:\n")
+    for data_object in data_objects['DateRange']:
+        output_daterange(data_object)
         output_status_message("\n")
 
 def output_daterangesearchparameter(data_object):
@@ -1093,6 +1164,53 @@ def output_array_of_opportunity(data_objects):
         output_opportunity(data_object)
         output_status_message("\n")
 
+def output_orderby(data_object):
+    if data_object is None:
+        return
+    output_status_message("OrderBy (Data Object):")
+    output_status_message("SortOrder: {0}".format(data_object.SortOrder))
+    output_status_message("SortingField: {0}".format(data_object.SortingField))
+
+def output_array_of_orderby(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of OrderBy:\n")
+    for data_object in data_objects['OrderBy']:
+        output_orderby(data_object)
+        output_status_message("\n")
+
+def output_paging(data_object):
+    if data_object is None:
+        return
+    output_status_message("Paging (Data Object):")
+    output_status_message("Index: {0}".format(data_object.Index))
+    output_status_message("Size: {0}".format(data_object.Size))
+
+def output_array_of_paging(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of Paging:\n")
+    for data_object in data_objects['Paging']:
+        output_paging(data_object)
+        output_status_message("\n")
+
+def output_predicate(data_object):
+    if data_object is None:
+        return
+    output_status_message("Predicate (Data Object):")
+    output_status_message("FilteringField: {0}".format(data_object.FilteringField))
+    output_status_message("Operator: {0}".format(data_object.Operator))
+    output_status_message("Values (Element Name):")
+    output_array_of_string(data_object.Values)
+
+def output_array_of_predicate(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of Predicate:\n")
+    for data_object in data_objects['Predicate']:
+        output_predicate(data_object)
+        output_status_message("\n")
+
 def output_querysearchparameter(data_object):
     if data_object is None:
         return
@@ -1178,6 +1296,31 @@ def output_array_of_searchvolumesearchparameter(data_objects):
     output_status_message("Array Of SearchVolumeSearchParameter:\n")
     for data_object in data_objects['SearchVolumeSearchParameter']:
         output_searchvolumesearchparameter(data_object)
+        output_status_message("\n")
+
+def output_selector(data_object):
+    if data_object is None:
+        return
+    output_status_message("Selector (Data Object):")
+    output_status_message("DateRange (Element Name):")
+    output_daterange(data_object.DateRange)
+    output_status_message("GroupBy (Element Name):")
+    output_array_of_field(data_object.GroupBy)
+    output_status_message("Ordering (Element Name):")
+    output_array_of_orderby(data_object.Ordering)
+    output_status_message("PageInfo (Element Name):")
+    output_paging(data_object.PageInfo)
+    output_status_message("Predicates (Element Name):")
+    output_array_of_predicate(data_object.Predicates)
+    output_status_message("SelectedFields (Element Name):")
+    output_array_of_field(data_object.SelectedFields)
+
+def output_array_of_selector(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of Selector:\n")
+    for data_object in data_objects['Selector']:
+        output_selector(data_object)
         output_status_message("\n")
 
 def output_suggestedbidsearchparameter(data_object):
@@ -1347,6 +1490,42 @@ def output_array_of_adposition(value_sets):
     output_status_message("Array Of AdPosition:\n")
     for value_set in value_sets['AdPosition']:
         output_adposition(value_set)
+
+def output_field(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_field(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of Field:\n")
+    for value_set in value_sets['Field']:
+        output_field(value_set)
+
+def output_sortorder(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_sortorder(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of SortOrder:\n")
+    for value_set in value_sets['SortOrder']:
+        output_sortorder(value_set)
+
+def output_operator(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_operator(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of Operator:\n")
+    for value_set in value_sets['Operator']:
+        output_operator(value_set)
 
 def output_keywordideaattribute(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

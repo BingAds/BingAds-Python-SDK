@@ -390,6 +390,47 @@ def output_array_of_adperformancereportrequest(data_objects):
         output_adperformancereportrequest(data_object)
         output_status_message("\n")
 
+def output_agegenderaudiencereportfilter(data_object):
+    if data_object is None:
+        return
+    output_status_message("AgeGenderAudienceReportFilter (Data Object):")
+    output_status_message("AccountStatus: {0}".format(data_object.AccountStatus))
+    output_status_message("AdDistribution: {0}".format(data_object.AdDistribution))
+    output_status_message("AdGroupStatus: {0}".format(data_object.AdGroupStatus))
+    output_status_message("CampaignStatus: {0}".format(data_object.CampaignStatus))
+    output_status_message("LanguageCode (Element Name):")
+    output_array_of_string(data_object.LanguageCode)
+
+def output_array_of_agegenderaudiencereportfilter(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of AgeGenderAudienceReportFilter:\n")
+    for data_object in data_objects['AgeGenderAudienceReportFilter']:
+        output_agegenderaudiencereportfilter(data_object)
+        output_status_message("\n")
+
+def output_agegenderaudiencereportrequest(data_object):
+    if data_object is None:
+        return
+    output_status_message("AgeGenderAudienceReportRequest (Data Object):")
+    output_status_message("Aggregation: {0}".format(data_object.Aggregation))
+    output_status_message("Columns (Element Name):")
+    output_array_of_agegenderaudiencereportcolumn(data_object.Columns)
+    output_status_message("Filter (Element Name):")
+    output_agegenderaudiencereportfilter(data_object.Filter)
+    output_status_message("Scope (Element Name):")
+    output_accountthroughadgroupreportscope(data_object.Scope)
+    output_status_message("Time (Element Name):")
+    output_reporttime(data_object.Time)
+
+def output_array_of_agegenderaudiencereportrequest(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of AgeGenderAudienceReportRequest:\n")
+    for data_object in data_objects['AgeGenderAudienceReportRequest']:
+        output_agegenderaudiencereportrequest(data_object)
+        output_status_message("\n")
+
 def output_agegenderdemographicreportfilter(data_object):
     if data_object is None:
         return
@@ -1138,6 +1179,26 @@ def output_array_of_productdimensionperformancereportrequest(data_objects):
         output_productdimensionperformancereportrequest(data_object)
         output_status_message("\n")
 
+def output_productmatchcountreportrequest(data_object):
+    if data_object is None:
+        return
+    output_status_message("ProductMatchCountReportRequest (Data Object):")
+    output_status_message("Aggregation: {0}".format(data_object.Aggregation))
+    output_status_message("Columns (Element Name):")
+    output_array_of_productmatchcountreportcolumn(data_object.Columns)
+    output_status_message("Scope (Element Name):")
+    output_accountthroughadgroupreportscope(data_object.Scope)
+    output_status_message("Time (Element Name):")
+    output_reporttime(data_object.Time)
+
+def output_array_of_productmatchcountreportrequest(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ProductMatchCountReportRequest:\n")
+    for data_object in data_objects['ProductMatchCountReportRequest']:
+        output_productmatchcountreportrequest(data_object)
+        output_status_message("\n")
+
 def output_productpartitionperformancereportfilter(data_object):
     if data_object is None:
         return
@@ -1267,6 +1328,47 @@ def output_array_of_productsearchqueryperformancereportrequest(data_objects):
         output_productsearchqueryperformancereportrequest(data_object)
         output_status_message("\n")
 
+def output_professionaldemographicsaudiencereportfilter(data_object):
+    if data_object is None:
+        return
+    output_status_message("ProfessionalDemographicsAudienceReportFilter (Data Object):")
+    output_status_message("AccountStatus: {0}".format(data_object.AccountStatus))
+    output_status_message("AdDistribution: {0}".format(data_object.AdDistribution))
+    output_status_message("AdGroupStatus: {0}".format(data_object.AdGroupStatus))
+    output_status_message("CampaignStatus: {0}".format(data_object.CampaignStatus))
+    output_status_message("LanguageCode (Element Name):")
+    output_array_of_string(data_object.LanguageCode)
+
+def output_array_of_professionaldemographicsaudiencereportfilter(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ProfessionalDemographicsAudienceReportFilter:\n")
+    for data_object in data_objects['ProfessionalDemographicsAudienceReportFilter']:
+        output_professionaldemographicsaudiencereportfilter(data_object)
+        output_status_message("\n")
+
+def output_professionaldemographicsaudiencereportrequest(data_object):
+    if data_object is None:
+        return
+    output_status_message("ProfessionalDemographicsAudienceReportRequest (Data Object):")
+    output_status_message("Aggregation: {0}".format(data_object.Aggregation))
+    output_status_message("Columns (Element Name):")
+    output_array_of_professionaldemographicsaudiencereportcolumn(data_object.Columns)
+    output_status_message("Filter (Element Name):")
+    output_professionaldemographicsaudiencereportfilter(data_object.Filter)
+    output_status_message("Scope (Element Name):")
+    output_accountthroughadgroupreportscope(data_object.Scope)
+    output_status_message("Time (Element Name):")
+    output_reporttime(data_object.Time)
+
+def output_array_of_professionaldemographicsaudiencereportrequest(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of ProfessionalDemographicsAudienceReportRequest:\n")
+    for data_object in data_objects['ProfessionalDemographicsAudienceReportRequest']:
+        output_professionaldemographicsaudiencereportrequest(data_object)
+        output_status_message("\n")
+
 def output_publisherusageperformancereportfilter(data_object):
     if data_object is None:
         return
@@ -1333,6 +1435,8 @@ def output_reportrequest(data_object):
         output_adgroupperformancereportrequest(data_object)
     if data_object.Type == 'AdPerformanceReportRequest':
         output_adperformancereportrequest(data_object)
+    if data_object.Type == 'AgeGenderAudienceReportRequest':
+        output_agegenderaudiencereportrequest(data_object)
     if data_object.Type == 'AgeGenderDemographicReportRequest':
         output_agegenderdemographicreportrequest(data_object)
     if data_object.Type == 'AudiencePerformanceReportRequest':
@@ -1363,12 +1467,16 @@ def output_reportrequest(data_object):
         output_negativekeywordconflictreportrequest(data_object)
     if data_object.Type == 'ProductDimensionPerformanceReportRequest':
         output_productdimensionperformancereportrequest(data_object)
+    if data_object.Type == 'ProductMatchCountReportRequest':
+        output_productmatchcountreportrequest(data_object)
     if data_object.Type == 'ProductPartitionPerformanceReportRequest':
         output_productpartitionperformancereportrequest(data_object)
     if data_object.Type == 'ProductPartitionUnitPerformanceReportRequest':
         output_productpartitionunitperformancereportrequest(data_object)
     if data_object.Type == 'ProductSearchQueryPerformanceReportRequest':
         output_productsearchqueryperformancereportrequest(data_object)
+    if data_object.Type == 'ProfessionalDemographicsAudienceReportRequest':
+        output_professionaldemographicsaudiencereportrequest(data_object)
     if data_object.Type == 'PublisherUsagePerformanceReportRequest':
         output_publisherusageperformancereportrequest(data_object)
     if data_object.Type == 'SearchCampaignChangeHistoryReportRequest':
@@ -1929,6 +2037,30 @@ def output_array_of_agegenderdemographicreportcolumn(value_sets):
     for value_set in value_sets['AgeGenderDemographicReportColumn']:
         output_agegenderdemographicreportcolumn(value_set)
 
+def output_agegenderaudiencereportcolumn(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_agegenderaudiencereportcolumn(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AgeGenderAudienceReportColumn:\n")
+    for value_set in value_sets['AgeGenderAudienceReportColumn']:
+        output_agegenderaudiencereportcolumn(value_set)
+
+def output_professionaldemographicsaudiencereportcolumn(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_professionaldemographicsaudiencereportcolumn(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ProfessionalDemographicsAudienceReportColumn:\n")
+    for value_set in value_sets['ProfessionalDemographicsAudienceReportColumn']:
+        output_professionaldemographicsaudiencereportcolumn(value_set)
+
 def output_userlocationperformancereportcolumn(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2156,6 +2288,18 @@ def output_array_of_productsearchqueryperformancereportcolumn(value_sets):
     output_status_message("Array Of ProductSearchQueryPerformanceReportColumn:\n")
     for value_set in value_sets['ProductSearchQueryPerformanceReportColumn']:
         output_productsearchqueryperformancereportcolumn(value_set)
+
+def output_productmatchcountreportcolumn(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_productmatchcountreportcolumn(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ProductMatchCountReportColumn:\n")
+    for value_set in value_sets['ProductMatchCountReportColumn']:
+        output_productmatchcountreportcolumn(value_set)
 
 def output_calldetailreportcolumn(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
