@@ -1,6 +1,14 @@
 .. :changelog:
 
 Release History
+
+---------------
+11.12.1(2018-04-12)
++++++++++++++++++++
+*Added support for Bing Ads API Version 12. For more information, see [Migrating to Bing Ads API Version 12](https://docs.microsoft.com/en-us/bingads/guides/migration-guide).
+*The version parameter is now required when creating each ServiceClient. Previously the version was optional and defaulted to version 11. The version parameter is moved to the second position between the service client name and the authorization data. 
+*The file_type parameter now defaults to 'Csv' as an *str* datatype instead of the DownloadFileType for BulkFileReader, BulkServiceManager, DownloadParameters and SubmitDownloadParameters. You can set 'Tsv' if you prefer the tab separated file format type.  
+
 ---------------
 11.5.9(2018-03-12)
 +++++++++++++++++++

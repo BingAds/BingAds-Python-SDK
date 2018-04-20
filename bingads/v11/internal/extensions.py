@@ -3,7 +3,7 @@ from datetime import datetime
 from bingads.v11.internal.bulk.string_table import _StringTable
 from six import PY2
 import re
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11, _CAMPAIGN_MANAGEMENT_SERVICE_V11, _CAMPAIGN_OBJECT_FACTORY_V11, _CAMPAIGN_MANAGEMENT_SERVICE_V11
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11, _CAMPAIGN_MANAGEMENT_SERVICE_V11
 
 
 DELETE_VALUE = "delete_value"
@@ -1174,39 +1174,6 @@ def csv_to_field_LongitudeDegrees(entity, value):
         return
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
         setattr(entity.Criterion, "LongitudeDegrees", value)
-
-def field_to_csv_AdFormatPreference(value):
-    """
-    convert field value to csv content
-    :param value: field value
-    :return:
-    """
-    if value is None or value == '':
-        return None
-    if value.lower() == 'true':
-        return 'Native'
-    elif value.lower() == 'false':
-        return 'All'
-    else:
-        raise ValueError('Unsupported value for Native Preference: {0}'.format(value))
-    return None
-
-
-def csv_to_field_AdFormatPreference(entity, value):
-    """
-    parse csv content and set entity attribute
-    :param entity:  entity which has AdFormatPreference attribute
-    :param value: csv content value
-    :return:
-    """
-
-    if value is None or value == '' or value == 'All':
-        entity.AdFormatPreference = 'False'
-    elif value == 'Native':
-        entity.AdFormatPreference = 'True'
-    else:
-        raise ValueError('Unsupported value for Native Preference: {0}'.format(value))
-
 
 def parse_rule_PageVisitors(rule_str):
     rule = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:PageVisitorsRule')

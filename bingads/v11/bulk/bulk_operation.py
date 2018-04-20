@@ -27,13 +27,11 @@ class TlsHttpAdapter(HTTPAdapter):
     """" Transport adapter that chooses the TLS protocols based on python versions. """
 
     def init_poolmanager(self, connections, maxsize, block=False):
-        ssl_version = ssl.PROTOCOL_TLSv1 if sys.version_info < (2, 7, 9) or sys.version_info[0:2] == (3, 3) \
-                                         else ssl.PROTOCOL_SSLv23
         self.poolmanager = PoolManager(
             num_pools=connections,
             maxsize=maxsize,
             block=block,
-            ssl_version=ssl_version
+            ssl_version=ssl.PROTOCOL_SSLv23
         )
 
 
@@ -52,7 +50,7 @@ class BulkOperation(object):
                  tracking_id=None,
                  **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('BulkService', authorization_data, environment, version='v11', **suds_options)
+        self._service_client = ServiceClient('BulkService', 11, authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None

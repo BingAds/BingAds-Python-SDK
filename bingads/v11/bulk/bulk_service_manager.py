@@ -43,7 +43,7 @@ class BulkServiceManager:
         """
 
         self._environment = environment
-        self._service_client = ServiceClient('BulkService', authorization_data, environment, version='v11', **suds_options)
+        self._service_client = ServiceClient('BulkService', 11, authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._working_directory = os.path.join(tempfile.gettempdir(), WORKING_NAME)

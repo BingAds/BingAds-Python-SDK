@@ -2,7 +2,7 @@ from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .headerplugin import HeaderPlugin
 from .authorization import *
-from .service_info import SERVICE_INFO_DICT_V11
+from .service_info import SERVICE_INFO_DICT
 from .manifest import USER_AGENT
 from getpass import getuser
 from tempfile import gettempdir
@@ -12,7 +12,7 @@ from os import path
 class ServiceClient:
     """ Provides an interface for calling the methods of the specified Bing Ads service."""
 
-    def __init__(self, service, authorization_data=None, environment='production', version='v11', **suds_options):
+    def __init__(self, service, version, authorization_data=None, environment='production', **suds_options):
         """ Initializes a new instance of this class.
 
         :param service: The service name.
@@ -21,7 +21,7 @@ class ServiceClient:
         :type authorization_data: AuthorizationData or None
         :param environment: (optional) The environment name, can only be 'production' or 'sandbox', the default is 'production'
         :type environment: str
-        :param version: to specify the service version, only support v9 and v10, valid input is: 9, 10, 'v9', 'v10', the default is 'v10'
+        :param version: to specify the service version
         :param suds_options: The suds options need to pass to suds client
         """
 
@@ -193,14 +193,12 @@ class ServiceClient:
         :param version:
         :return: int version
         """
-        if version == 'v9' or version == 9:
-            version = 9
-        elif version == 'v10' or version == 10:
-            version = 10
-        elif version == 'v11' or version == 11:
+        if version == 'v11' or version == 11:
             version = 11
+        elif version == 'v12' or version == 12:
+            version = 12
         else:
-            raise ValueError(str.format('version error: [{0}] is not supported.', version))
+            raise ValueError(str.format('version error: [{0}] is not supported. Please specify V11 or V12', version))
         return version
 
 
@@ -211,8 +209,7 @@ class ServiceClient:
         :param version:
         :return: the service info dict
         """
-        return SERVICE_INFO_DICT_V11
-
+        return SERVICE_INFO_DICT[version]
 
     @staticmethod
     def _format_environment(environment):
@@ -295,7 +292,6 @@ import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
 
-
 _CAMPAIGN_MANAGEMENT_SERVICE_V11 = Client(
     'file:///' + pkg_resources.resource_filename('bingads', 'v11/proxies/campaign_management_service.xml')
 )
@@ -303,6 +299,15 @@ _CAMPAIGN_OBJECT_FACTORY_V11 = _CAMPAIGN_MANAGEMENT_SERVICE_V11.factory
 # TODO Better to push suds-jurko accept this caching
 _CAMPAIGN_OBJECT_FACTORY_V11.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V11.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V11.create
+
+
+_CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(
+    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml')
+)
+_CAMPAIGN_OBJECT_FACTORY_V12 = _CAMPAIGN_MANAGEMENT_SERVICE_V12.factory
+# TODO Better to push suds-jurko accept this caching
+_CAMPAIGN_OBJECT_FACTORY_V12.object_cache = {}
+_CAMPAIGN_OBJECT_FACTORY_V12.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V12.create
 
 
 def _suds_objects_deepcopy(origin):
