@@ -1,5 +1,5 @@
-bingads\.v11 package
-====================
+bingads.v11 package
+===================
 
 Subpackages
 -----------

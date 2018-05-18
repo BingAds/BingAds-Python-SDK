@@ -1,19 +1,19 @@
-bingads\.v12\.bulk\.entities\.labels package
-============================================
+bingads.v12.bulk.entities.labels package
+========================================
 
 Submodules
 ----------
 
-bingads\.v12\.bulk\.entities\.labels\.bulk\_label module
---------------------------------------------------------
+bingads.v12.bulk.entities.labels.bulk\_label module
+---------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.labels.bulk_label
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.v12\.bulk\.entities\.labels\.bulk\_label\_associations module
-----------------------------------------------------------------------
+bingads.v12.bulk.entities.labels.bulk\_label\_associations module
+-----------------------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.labels.bulk_label_associations
     :members:

@@ -13,56 +13,56 @@ Subpackages
 Submodules
 ----------
 
-bingads\.authorization module
------------------------------
+bingads.authorization module
+----------------------------
 
 .. automodule:: bingads.authorization
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.exceptions module
---------------------------
+bingads.exceptions module
+-------------------------
 
 .. automodule:: bingads.exceptions
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.headerplugin module
-----------------------------
+bingads.headerplugin module
+---------------------------
 
 .. automodule:: bingads.headerplugin
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.manifest module
-------------------------
+bingads.manifest module
+-----------------------
 
 .. automodule:: bingads.manifest
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.service\_client module
--------------------------------
+bingads.service\_client module
+------------------------------
 
 .. automodule:: bingads.service_client
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.service\_info module
------------------------------
+bingads.service\_info module
+----------------------------
 
 .. automodule:: bingads.service_info
     :members:
     :undoc-members:
     :show-inheritance:
 
-bingads\.util module
---------------------
+bingads.util module
+-------------------
 
 .. automodule:: bingads.util
     :members:

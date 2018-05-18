@@ -1,5 +1,5 @@
-bingads\.v11\.internal package
-==============================
+bingads.v11.internal package
+============================
 
 Subpackages
 -----------
@@ -11,8 +11,8 @@ Subpackages
 Submodules
 ----------
 
-bingads\.v11\.internal\.extensions module
------------------------------------------
+bingads.v11.internal.extensions module
+--------------------------------------
 
 .. automodule:: bingads.v11.internal.extensions
     :members:
