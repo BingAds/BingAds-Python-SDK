@@ -76,7 +76,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
     def keyword(self):
         """ Defines a keyword within an ad group.
 
-        See Keyword at https://msdn.microsoft.com/en-US/library/bing-ads-campaign-management-keyword.aspx
+        See Keyword at https://docs.microsoft.com/en-us/bingads/campaign-management-service/keyword?view=bingads-12
         """
 
         return self._keyword

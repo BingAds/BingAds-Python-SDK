@@ -1,5 +1,6 @@
 import time
 from bingads.exceptions import TimeoutException
+from suds.client import WebFault
 
 class _TimeHelper(object):
     """
@@ -45,3 +46,18 @@ class _PollingBlocker(object):
             time.sleep(self._poll_interval_in_milliseconds / 1000.0)
         else:
             time.sleep(_PollingBlocker.INITIAL_STATUS_CHECK_INTERVAL_IN_MS / 1000.0)
+
+
+ratelimit_retry_duration=[15, 20, 25, 30]
+def errorcode_of_exception(ex):
+    if isinstance(ex, WebFault):
+        if hasattr(ex.fault, 'detail') \
+                and hasattr(ex.fault.detail, 'AdApiFaultDetail') \
+                and hasattr(ex.fault.detail.AdApiFaultDetail, 'Errors') \
+                and hasattr(ex.fault.detail.AdApiFaultDetail.Errors, 'AdApiError'):
+            ad_api_errors = ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
+            if type(ad_api_errors) == list:
+                return ad_api_erros[0].Code
+            else:
+                return ad_api_errors.Code
+    return -1

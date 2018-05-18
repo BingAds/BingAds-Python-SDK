@@ -65,7 +65,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def campaign(self):
         """ Defines a campaign within an account.
 
-        See Campaign at https://msdn.microsoft.com/en-us/library/bing-ads-campaign-management-campaign.aspx
+        See Campaign at https://docs.microsoft.com/en-us/bingads/campaign-management-service/campaign?view=bingads-12
         """
 
         return self._campaign
@@ -115,7 +115,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             return []
         campaign_type = v
         c.campaign.CampaignType = [campaign_type]
-        if campaign_type.lower() == 'shopping':
+        if campaign_type.lower() == 'shopping' or campaign_type.lower() == 'audience':
             c.campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V11.create('ArrayOfSetting')
             shopping_setting = _CAMPAIGN_OBJECT_FACTORY_V11.create('ShoppingSetting')
             shopping_setting.Type = 'ShoppingSetting'
@@ -125,7 +125,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _write_store_id(c):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -135,7 +136,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _read_store_id(c, v):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -145,7 +147,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _write_priority(c):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -155,7 +158,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _read_priority(c, v):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -165,7 +169,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _write_sales_country_code(c):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -175,7 +180,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _read_sales_country_code(c, v):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -185,7 +191,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _write_local_inventory_ads_enabled(c):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None
@@ -195,7 +202,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _read_local_inventory_ads_enabled(c, v):
         if not c.campaign.CampaignType:
             return None
-        if 'shopping' in [campaign_type.lower() for campaign_type in c.campaign.CampaignType]:
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'shopping' in campgaign_types or 'audience' in campgaign_types:
             shopping_setting = c._get_shopping_setting()
             if not shopping_setting:
                 return None

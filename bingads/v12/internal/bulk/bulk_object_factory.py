@@ -51,6 +51,7 @@ class _BulkObjectFactory():
         _StringTable.AppInstallAd: _EntityInfo(lambda: BulkAppInstallAd()),
         _StringTable.ExpandedTextAd: _EntityInfo(lambda: BulkExpandedTextAd()),
         _StringTable.DynamicSearchAd: _EntityInfo(lambda: BulkDynamicSearchAd()),
+        _StringTable.ResponsiveAd: _EntityInfo(lambda: BulkResponsiveAd()),
         "Campaign Negative Site": _EntityInfo(
             lambda: BulkCampaignNegativeSite(),
             _StringTable.Website,
@@ -97,6 +98,17 @@ class _BulkObjectFactory():
         'Campaign Location Intent Criterion': _EntityInfo(lambda: BulkCampaignLocationIntentCriterion()),
         'Campaign Negative Location Criterion': _EntityInfo(lambda: BulkCampaignNegativeLocationCriterion()),
         'Campaign Radius Criterion': _EntityInfo(lambda: BulkCampaignRadiusCriterion()),
+        _StringTable.ProductAudience: _EntityInfo(lambda: BulkProductAudience()),
+        _StringTable.AdGroupProductAudienceAssociation: _EntityInfo(lambda: BulkAdGroupProductAudienceAssociation()),
+        _StringTable.AdGroupNegativeProductAudienceAssociation: _EntityInfo(lambda: BulkAdGroupNegativeProductAudienceAssociation()),
+        _StringTable.AdGroupIndustryCriterion: _EntityInfo(lambda: BulkAdGroupIndustryCriterion()),
+        _StringTable.AdGroupCompanyNameCriterion: _EntityInfo(lambda: BulkAdGroupCompanyNameCriterion()),
+        _StringTable.AdGroupJobFunctionCriterion: _EntityInfo(lambda: BulkAdGroupJobFunctionCriterion()),
+        _StringTable.AdGroupNegativeAgeCriterion: _EntityInfo(lambda: BulkAdGroupNegativeAgeCriterion()),
+        _StringTable.AdGroupNegativeCompanyNameCriterion: _EntityInfo(lambda: BulkAdGroupNegativeCompanyNameCriterion()),
+        _StringTable.AdGroupNegativeGenderCriterion: _EntityInfo(lambda: BulkAdGroupNegativeGenderCriterion()),
+        _StringTable.AdGroupNegativeIndustryCriterion: _EntityInfo(lambda: BulkAdGroupNegativeIndustryCriterion()),
+        _StringTable.AdGroupNegativeJobFunctionCriterion: _EntityInfo(lambda: BulkAdGroupNegativeJobFunctionCriterion()),
         _StringTable.Label: _EntityInfo(lambda: BulkLabel()),
         _StringTable.CampaignLabel: _EntityInfo(lambda: BulkCampaignLabel()),
         _StringTable.AdGroupLabel: _EntityInfo(lambda: BulkAdGroupLabel()),
@@ -105,6 +117,7 @@ class _BulkObjectFactory():
         _StringTable.DynamicSearchAdLabel: _EntityInfo(lambda: BulkDynamicSearchAdLabel()),
         _StringTable.ExpandedTextAdLabel: _EntityInfo(lambda: BulkExpandedTextAdLabel()),
         _StringTable.ProductAdLabel: _EntityInfo(lambda: BulkProductAdLabel()),
+        _StringTable.ResponsiveAdLabel: _EntityInfo(lambda: BulkResponsiveAdLabel()),
         _StringTable.OfflineConversion: _EntityInfo(lambda: BulkOfflineConversion()),
     }
 

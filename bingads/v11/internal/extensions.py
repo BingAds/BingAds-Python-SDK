@@ -5,6 +5,7 @@ from six import PY2
 import re
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V11, _CAMPAIGN_MANAGEMENT_SERVICE_V11
 
+target_setting_detail_pattern="^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$"
 
 DELETE_VALUE = "delete_value"
 _BULK_DATETIME_FORMAT = '%m/%d/%Y %H:%M:%S'
@@ -38,6 +39,7 @@ GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('GenderCriterion')
 LocationCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationCriterion')
 LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('LocationIntentCriterion')
 RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V11.create('RadiusCriterion')
+TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V11.create('TargetSetting'))
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -1182,6 +1184,51 @@ def parse_rule_PageVisitors(rule_str):
     return rule
 
 
+def target_setting_to_csv(ad_group):
+    if not ad_group.Settings or not ad_group.Settings.Setting:
+        return None
+    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, TargetSetting_Type)]
+    if len(settings) != 1:
+        raise ValueError('Can only have 1 TargetSetting in AdGroup Settings.')
+    target_setting = settings[0]
+    if not target_setting.Details.TargetSettingDetail:
+        return DELETE_VALUE
+    return ";".join([s.CriterionTypeGroup for s in target_setting.Details.TargetSettingDetail])
+    pass
+
+
+def csv_to_target_setting(ad_group, value):
+    target_setting = _CAMPAIGN_OBJECT_FACTORY_V11.create('TargetSetting')
+    target_setting.Type = 'TargetSetting'
+    if value is None:
+        ad_group.Settings.Setting.append(target_setting)
+        return
+    tokens = [t.strip() for t in value.split(';')]
+    target_setting_detail_list = []
+    for token in tokens:
+        m_token = match_target_setting(token)
+        if m_token:
+            target_setting_detail_list.append(create_target_setting_detail(m_token))
+    target_setting.Details.TargetSettingDetail.extend(target_setting_detail_list)
+    ad_group.Settings.Setting.append(target_setting)
+    pass
+
+def match_target_setting(token):
+    
+    pattern = re.compile(target_setting_detail_pattern)
+    m = pattern.match(token)
+    if m:
+        return m.group(1)
+    return None
+
+def create_target_setting_detail(token):
+    target_setting_detail = _CAMPAIGN_OBJECT_FACTORY_V11.create('TargetSettingDetail')
+    target_setting_detail.TargetAndBid = True
+    target_setting_detail.CriterionTypeGroup = token
+    return target_setting_detail
+    pass
+
+
 def parse_rule_PageVisitorsWhoVisitedAnotherPage(rule_str):
     rule = _CAMPAIGN_OBJECT_FACTORY_V11.create('ns0:PageVisitorsWhoVisitedAnotherPageRule')
     rule.Type = 'PageVisitorsWhoVisitedAnotherPage'
@@ -1340,3 +1387,20 @@ def parse_string_operator(operator):
         return StringOperator.DoesNotEndWith
 
     raise ValueError('Invalid String Rule Item operator:{0}'.format(operator))
+
+
+def csv_to_field_SupportedCampaignTypes(entity, value):
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_SupportedCampaignTypes(entity):
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE
+    if len(entity.string) == 0:
+        return None
+    return ';'.join(entity.string)

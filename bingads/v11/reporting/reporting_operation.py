@@ -10,7 +10,7 @@ import shutil
 
 from .reporting_operation_status import *
 from .exceptions import *
-from bingads.util import _PollingBlocker
+from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration
 from bingads.exceptions import *
 
 from ...service_client import ServiceClient
@@ -165,7 +165,7 @@ class ReportingDownloadOperation(object):
         """
         if self.final_status is not None:
             return self.final_status
-        response = self._get_status_with_retry(3)
+        response = self._get_status_with_retry(4)
         headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.PollGenerateReport)
         self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = ReportingOperationStatus(
@@ -181,9 +181,12 @@ class ReportingDownloadOperation(object):
         while retry_times > 1:
             try:
                 return self.service_client.PollGenerateReport(self.request_id)
-            except Exception:
+            except Exception as ex:
                 retry_times -= 1
-                time.sleep(1000)
+                if '117' == errorcode_of_exception(ex):
+                    time.sleep(ratelimit_retry_duration[3 - retry_times])
+                else:
+                    time.sleep(1)
         return self.service_client.PollGenerateReport(self.request_id)
 
     @property

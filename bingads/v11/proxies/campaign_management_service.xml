@@ -253,6 +253,13 @@
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="NativeBidAdjustment" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="Status" nillable="true" type="tns:CampaignStatus" />
+               <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="TimeZone" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Microsoft.AdCenter.Advertiser.CampaignManagement.Api.DataContracts.V11" minOccurs="0" name="UrlCustomParameters" nillable="true" type="q7:CustomParameters" />
@@ -475,12 +482,25 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CriterionTypeGroup" nillable="true" type="tns:CriterionTypeGroup" />
+         <xs:complexType name="CoOpSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="BidBoostValue" nillable="true" type="xs:double" />
+                     <xs:element minOccurs="0" name="BidMaxValue" nillable="true" type="xs:double" />
+                     <xs:element minOccurs="0" name="BidOption" nillable="true" type="tns:BidOption" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CoOpSetting" nillable="true" type="tns:CoOpSetting" />
          <xs:simpleType name="BidOption">
             <xs:restriction base="xs:string">
                <xs:enumeration value="BidValue" />
                <xs:enumeration value="BidBoost" />
             </xs:restriction>
          </xs:simpleType>
+         <xs:element name="BidOption" nillable="true" type="tns:BidOption" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
@@ -561,6 +581,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element minOccurs="0" name="CampaignType" type="tns:CampaignType" />
+                  <xs:element minOccurs="0" name="ReturnCoOpCampaigns" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -577,6 +598,7 @@
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CampaignIds" nillable="true" type="q12:ArrayOflong" />
                   <xs:element minOccurs="0" name="CampaignType" type="tns:CampaignType" />
+                  <xs:element minOccurs="0" name="ReturnCoOpCampaigns" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -837,6 +859,7 @@
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
                   <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupIds" nillable="true" type="q21:ArrayOflong" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField" />
+                  <xs:element minOccurs="0" name="ReturnCoOpAdGroups" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -865,6 +888,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField" />
+                  <xs:element minOccurs="0" name="ReturnCoOpAdGroups" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2972,7 +2996,9 @@
          </xs:element>
          <xs:element name="GetBMCStoresByCustomerIdRequest">
             <xs:complexType>
-               <xs:sequence />
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ReturnCoOpStores" nillable="true" type="xs:boolean" />
+               </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="GetBMCStoresByCustomerIdResponse">
@@ -2995,6 +3021,13 @@
                <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
                <xs:element minOccurs="0" name="IsProductAdsEnabled" type="xs:boolean" />
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="SubType" nillable="true" type="tns:BMCStoreSubType">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BMCStore" nillable="true" type="tns:BMCStore" />
@@ -3009,6 +3042,7 @@
                </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
+         <xs:element name="BMCStoreSubType" nillable="true" type="tns:BMCStoreSubType" />
          <xs:element name="AddNegativeKeywordsToEntitiesRequest">
             <xs:complexType>
                <xs:sequence>

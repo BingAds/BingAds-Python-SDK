@@ -232,7 +232,18 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad_group),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad_group, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.PrivacyStatus,
+            field_to_csv=lambda c: bulk_str(c.ad_group.PrivacyStatus),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'PrivacyStatus', v if v else None)
+        ),
         _ComplexBulkMapping(bidding_scheme_to_csv, csv_to_bidding_scheme),
+        
+        _SimpleBulkMapping(
+            header=_StringTable.TargetSetting,
+            field_to_csv=lambda c: target_setting_to_csv(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_target_setting(c.ad_group, v)
+        ),
         _SimpleBulkMapping(
             header=_StringTable.RemarketingTargetingSetting,
             field_to_csv=lambda c: bulk_str(c.ad_group.RemarketingTargetingSetting),

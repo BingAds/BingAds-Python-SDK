@@ -9,6 +9,11 @@ from .bulk_ad_group_location_criterion import *
 from .bulk_ad_group_location_intent_criterion import *
 from .bulk_ad_group_negative_location_criterion import *
 from .bulk_ad_group_radius_criterion import *
+from .bulk_ad_group_profile_criterion import *
+from .bulk_ad_group_negative_age_criterion import *
+from .bulk_ad_group_negative_gender_criterion import *
+from .bulk_ad_group_negative_profile_criterion import *
+
 from .bulk_campaign_age_criterion import *
 from .bulk_campaign_day_time_criterion import *
 from .bulk_campaign_device_criterion import *

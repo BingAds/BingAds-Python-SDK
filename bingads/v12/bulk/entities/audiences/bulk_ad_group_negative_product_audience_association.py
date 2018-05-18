@@ -5,13 +5,14 @@ from bingads.v12.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v12.internal.bulk.string_table import _StringTable
 from bingads.v12.internal.extensions import *
 
-class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
-    """ Represents an Ad Group Negative Location Criterion that can be read or written in a bulk file.
+
+class BulkAdGroupNegativeProductAudienceAssociation(_SingleRecordBulkEntity):
+    """ Represents an Ad Group Negative Product Audience Association that can be read or written in a bulk file.
 
     This class exposes the :attr:`negative_ad_group_criterion` property that can be read and written as fields of the
-    Ad Group Negative Location Criterion record in a bulk file.
+    Ad Group Negative Product Audience Association record in a bulk file.
 
-    For more information, see Ad Group Negative Location Criterion at https://go.microsoft.com/fwlink/?linkid=846127.
+    For more information, see Ad Group Negative Product Audience Association at https://go.microsoft.com/fwlink/?linkid=846127.
 
     *See also:*
 
@@ -24,12 +25,14 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
     def __init__(self,
                  negative_ad_group_criterion=None,
                  campaign_name=None,
-                 ad_group_name=None, ):
-        super(BulkAdGroupNegativeLocationCriterion, self).__init__()
+                 ad_group_name=None,
+                 product_audience_name=None):
+        super(BulkAdGroupNegativeProductAudienceAssociation, self).__init__()
 
         self._negative_ad_group_criterion = negative_ad_group_criterion
         self._campaign_name = campaign_name
-        self._ad_group_name =ad_group_name
+        self._ad_group_name = ad_group_name
+        self._product_audience_name = product_audience_name
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -58,25 +61,20 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'ad_group_name', v)
         ),
         _SimpleBulkMapping(
-            _StringTable.Target,
-            field_to_csv=lambda c: field_to_csv_LocationTarget(c.negative_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.negative_ad_group_criterion, int(v) if v else None)
+            _StringTable.Audience,
+            field_to_csv=lambda c: c.product_audience_name,
+            csv_to_field=lambda c, v: setattr(c, 'product_audience_name', v)
         ),
         _SimpleBulkMapping(
-            _StringTable.SubType,
-            field_to_csv=lambda c: field_to_csv_LocationType(c.negative_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationType(c.negative_ad_group_criterion, v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Name,
-            field_to_csv=lambda c: field_to_csv_LocationName(c.negative_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationName(c.negative_ad_group_criterion, v)
+            _StringTable.AudienceId,
+            field_to_csv=lambda c: field_to_csv_CriterionAudienceId(c.negative_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_CriterionAudienceId(c.negative_ad_group_criterion, int(v) if v else None)
         ),
     ]
 
     @property
     def negative_ad_group_criterion(self):
-        """ Defines a Ad Group Criterion """
+        """ Defines a Negative Ad Group Criterion """
 
         return self._negative_ad_group_criterion
 
@@ -86,7 +84,7 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
 
     @property
     def campaign_name(self):
-        """ The name of the Campaign
+        """ Defines the name of the Campaign.
 
         :rtype: str
         """
@@ -99,7 +97,7 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
 
     @property
     def ad_group_name(self):
-        """ The name of the Ad Group
+        """ Defines the name of the Ad Group
 
         :rtype: str
         """
@@ -110,17 +108,29 @@ class BulkAdGroupNegativeLocationCriterion(_SingleRecordBulkEntity):
     def ad_group_name(self, ad_group_name):
         self._ad_group_name = ad_group_name
 
+    @property
+    def product_audience_name(self):
+        """ Defines the name of the Product Audience
 
-    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.negative_ad_group_criterion, 'negative_ad_group_criterion')
-        self.convert_to_values(row_values, BulkAdGroupNegativeLocationCriterion._MAPPINGS)
+        :rtype: str
+        """
+
+        return self._product_audience_name
+
+    @product_audience_name.setter
+    def product_audience_name(self, product_audience_name):
+        self._product_audience_name = product_audience_name
 
     def process_mappings_from_row_values(self, row_values):
         self._negative_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('NegativeAdGroupCriterion')
         self._negative_ad_group_criterion.Type = 'NegativeAdGroupCriterion'
-        self._negative_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('LocationCriterion')
-        self._negative_ad_group_criterion.Criterion.Type = 'LocationCriterion'
-        row_values.convert_to_entity(self, BulkAdGroupNegativeLocationCriterion._MAPPINGS)
+        self._negative_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('AudienceCriterion')
+        self._negative_ad_group_criterion.Criterion.Type = 'AudienceCriterion'
+        row_values.convert_to_entity(self, BulkAdGroupNegativeProductAudienceAssociation._MAPPINGS)
 
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.negative_ad_group_criterion, 'negative_ad_group_criterion')
+        self.convert_to_values(row_values, BulkAdGroupNegativeProductAudienceAssociation._MAPPINGS)
+    
     def read_additional_data(self, stream_reader):
-        super(BulkAdGroupNegativeLocationCriterion, self).read_additional_data(stream_reader)
+        super(BulkAdGroupNegativeProductAudienceAssociation, self).read_additional_data(stream_reader)

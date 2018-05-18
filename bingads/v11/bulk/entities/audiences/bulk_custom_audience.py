@@ -70,6 +70,16 @@ class BulkCustomAudience(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.custom_audience.SearchSize),
             csv_to_field=lambda c, v: setattr(c.custom_audience, 'SearchSize', int(v) if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.AudienceNetworkSize,
+            field_to_csv=lambda c: bulk_str(c.custom_audience.AudienceNetworkSize),
+            csv_to_field=lambda c, v: setattr(c.custom_audience, 'AudienceNetworkSize', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            _StringTable.SupportedCampaignTypes,
+            field_to_csv=lambda c: field_to_csv_SupportedCampaignTypes(c.custom_audience.SupportedCampaignTypes),
+            csv_to_field=lambda c, v: csv_to_field_SupportedCampaignTypes(c.custom_audience.SupportedCampaignTypes, v)
+        ),
     ]
 
     @property

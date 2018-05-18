@@ -5,13 +5,14 @@ from bingads.v12.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v12.internal.bulk.string_table import _StringTable
 from bingads.v12.internal.extensions import *
 
-class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
-    """ Represents an Ad Group Location Criterion that can be read or written in a bulk file.
+
+class BulkAdGroupProductAudienceAssociation(_SingleRecordBulkEntity):
+    """ Represents an Ad Group Product Audience Association that can be read or written in a bulk file.
 
     This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written as fields of the
-    Ad Group Location Criterion record in a bulk file.
+    Ad Group Product Audience Association record in a bulk file.
 
-    For more information, see Ad Group Location Criterion at https://go.microsoft.com/fwlink/?linkid=846127.
+    For more information, see Ad Group Product Audience Association at https://go.microsoft.com/fwlink/?linkid=846127.
 
     *See also:*
 
@@ -24,12 +25,15 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
     def __init__(self,
                  biddable_ad_group_criterion=None,
                  campaign_name=None,
-                 ad_group_name=None, ):
-        super(BulkAdGroupLocationCriterion, self).__init__()
+                 ad_group_name=None,
+                 product_audience_name=None):
+        super(BulkAdGroupProductAudienceAssociation, self).__init__()
 
         self._biddable_ad_group_criterion = biddable_ad_group_criterion
         self._campaign_name = campaign_name
-        self._ad_group_name =ad_group_name
+        self._ad_group_name = ad_group_name
+        self._product_audience_name = product_audience_name
+        self._performance_data = None
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -58,30 +62,25 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'ad_group_name', v)
         ),
         _SimpleBulkMapping(
+            _StringTable.Audience,
+            field_to_csv=lambda c: c.product_audience_name,
+            csv_to_field=lambda c, v: setattr(c, 'product_audience_name', v)
+        ),
+        _SimpleBulkMapping(
             _StringTable.BidAdjustment,
             field_to_csv=lambda c: field_to_csv_BidAdjustment(c.biddable_ad_group_criterion),
             csv_to_field=lambda c, v: csv_to_field_BidAdjustment(c.biddable_ad_group_criterion, float(v) if v else None)
         ),
         _SimpleBulkMapping(
-            _StringTable.Target,
-            field_to_csv=lambda c: field_to_csv_LocationTarget(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationTarget(c.biddable_ad_group_criterion, int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.SubType,
-            field_to_csv=lambda c: field_to_csv_LocationType(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationType(c.biddable_ad_group_criterion, v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Name,
-            field_to_csv=lambda c: field_to_csv_LocationName(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_LocationName(c.biddable_ad_group_criterion, v)
+            _StringTable.AudienceId,
+            field_to_csv=lambda c: field_to_csv_CriterionAudienceId(c.biddable_ad_group_criterion),
+            csv_to_field=lambda c, v: csv_to_field_CriterionAudienceId(c.biddable_ad_group_criterion, int(v) if v else None)
         ),
     ]
 
     @property
     def biddable_ad_group_criterion(self):
-        """ Defines a Ad Group Criterion """
+        """ Defines a Biddable Ad Group Criterion """
 
         return self._biddable_ad_group_criterion
 
@@ -91,7 +90,7 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
 
     @property
     def campaign_name(self):
-        """ The name of the Campaign
+        """ Defines the name of the Campaign.
 
         :rtype: str
         """
@@ -104,7 +103,7 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
 
     @property
     def ad_group_name(self):
-        """ The name of the Ad Group
+        """ Defines the name of the Ad Group
 
         :rtype: str
         """
@@ -115,19 +114,39 @@ class BulkAdGroupLocationCriterion(_SingleRecordBulkEntity):
     def ad_group_name(self, ad_group_name):
         self._ad_group_name = ad_group_name
 
+    @property
+    def product_audience_name(self):
+        """ Defines the name of the Product Audience
 
-    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
-        self.convert_to_values(row_values, BulkAdGroupLocationCriterion._MAPPINGS)
+        :rtype: str
+        """
+
+        return self._product_audience_name
+
+    @product_audience_name.setter
+    def product_audience_name(self, product_audience_name):
+        self._product_audience_name = product_audience_name
+
+    @property
+    def performance_data(self):
+        return self._performance_data
 
     def process_mappings_from_row_values(self, row_values):
         self._biddable_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('BiddableAdGroupCriterion')
         self._biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
-        self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('LocationCriterion')
-        self._biddable_ad_group_criterion.Criterion.Type = 'LocationCriterion'
+        self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('AudienceCriterion')
+        self._biddable_ad_group_criterion.Criterion.Type = 'AudienceCriterion'
         self._biddable_ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V12.create('BidMultiplier')
         self._biddable_ad_group_criterion.CriterionBid.Type = 'BidMultiplier'
-        row_values.convert_to_entity(self, BulkAdGroupLocationCriterion._MAPPINGS)
+        row_values.convert_to_entity(self, BulkAdGroupProductAudienceAssociation._MAPPINGS)
 
+        self._performance_data = PerformanceData.read_from_row_values_or_null(row_values)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
+        self.convert_to_values(row_values, BulkAdGroupProductAudienceAssociation._MAPPINGS)
+
+        PerformanceData.write_to_row_values_if_not_null(self._performance_data, row_values)
+    
     def read_additional_data(self, stream_reader):
-        super(BulkAdGroupLocationCriterion, self).read_additional_data(stream_reader)
+        super(BulkAdGroupProductAudienceAssociation, self).read_additional_data(stream_reader)

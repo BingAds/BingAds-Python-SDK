@@ -1,6 +1,11 @@
 .. :changelog:
 
 Release History
+-----------
+11.12.2(2018-05-15)
++++++++++++++++++++
+*To extend support for [Microsoft Audience Ads](https://docs.microsoft.com/en-us/bingads/guides/audience-ads), new bulk objects are added to the SDK for reading and writing Bulk file records e.g., BulkResponsiveAd and BulkResponsiveAdLabel. 
+*Added retries for the 117 throttling error if encountered while polling for the status of a bulk or reporting operation. 
 
 ---------------
 11.12.1(2018-04-12)

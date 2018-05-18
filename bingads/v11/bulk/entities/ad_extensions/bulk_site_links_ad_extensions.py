@@ -127,7 +127,7 @@ class BulkSiteLink(_SingleRecordBulkEntity):
     def site_link(self):
         """ The sitelink.
 
-        See SiteLink at: https://msdn.microsoft.com/en-US/library/jj134381.aspx
+        See SiteLink at: https://docs.microsoft.com/en-us/bingads/campaign-management-service/sitelink?view=bingads-11
         """
 
         return self._site_link

@@ -31,6 +31,7 @@ class _CsvHeaders:
         _StringTable.AdRotation,
         _StringTable.CpcBid,
         _StringTable.Language,
+        _StringTable.PrivacyStatus,
 
         # Ads
         _StringTable.Title,
@@ -72,6 +73,10 @@ class _CsvHeaders:
         _StringTable.FromMinute,
         _StringTable.ToHour,
         _StringTable.ToMinute,
+        
+        # Profile Criterion
+        _StringTable.Profile,
+        _StringTable.ProfileId,
 
         # AdExtensions common
         _StringTable.Version,
@@ -263,12 +268,25 @@ class _CsvHeaders:
         _StringTable.TargetSetting,
         _StringTable.RemarketingRule,
         _StringTable.AudienceSearchSize,
+        _StringTable.AudienceNetworkSize,
+        _StringTable.SupportedCampaignTypes,
+        _StringTable.ProductAudienceType,
+
 
         # Expanded Text Ad
         _StringTable.TitlePart1,
         _StringTable.TitlePart2,
         _StringTable.Path1,
         _StringTable.Path2,
+        
+        # Responsive Ad
+        _StringTable.CallToAction,
+        _StringTable.Headline,
+        _StringTable.LandscapeImageMediaId,
+        _StringTable.LandscapeLogoMediaId,
+        _StringTable.LongHeadline,
+        _StringTable.SquareImageMediaId,
+        _StringTable.SquareLogoMediaId,
 
         # Ad Scheduling
         _StringTable.AdSchedule,

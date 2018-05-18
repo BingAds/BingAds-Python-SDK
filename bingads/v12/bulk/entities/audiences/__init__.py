@@ -10,3 +10,6 @@ from .bulk_ad_group_negative_custom_audience_association import *
 from .bulk_in_market_audience import *
 from .bulk_ad_group_in_market_audience_association import *
 from .bulk_ad_group_negative_in_market_audience_association import *
+from .bulk_ad_group_product_audience_association import *
+from .bulk_ad_group_negative_product_audience_association import *
+from .bulk_product_audience import *

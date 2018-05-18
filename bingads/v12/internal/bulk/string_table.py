@@ -49,6 +49,8 @@ class _StringTable:
     Target = "Target"
     PhysicalIntent = "Physical Intent"
     Bid = "Bid"
+    Profile = "Profile"
+    ProfileId = "Profile Id"
     BidAdjustment = "Bid Adjustment"
     SubType = "Sub Type"
     OsNames = "OS Names"
@@ -58,6 +60,7 @@ class _StringTable:
     Language = "Language"
     CpcBid = "Cpc Bid"
     AdRotation = "Ad Rotation"
+    PrivacyStatus = "Privacy Status"
     Account = "Account"
     SyncTime = "Sync Time"
     Name = "Name"
@@ -328,7 +331,13 @@ class _StringTable:
     TargetSetting = "Target Setting"
     RemarketingRule = "Remarketing Rule"
     AudienceSearchSize = "Audience Search Size"
-
+    ProductAudience = "Product Audience"
+    AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
+    AdGroupNegativeProductAudienceAssociation = "Ad Group Negative Product Audience Association"
+    AudienceNetworkSize = "Audience Network Size"
+    SupportedCampaignTypes = "Supported Campaign Types"
+    ProductAudienceType = "Product Audience Type"
+    
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"
     TitlePart2 = "Title Part 2"
@@ -347,6 +356,36 @@ class _StringTable:
     DynamicAdTargetValue2 = "Dynamic Ad Target Value 2"
     DynamicAdTargetCondition3 = "Dynamic Ad Target Condition 3"
     DynamicAdTargetValue3 = "Dynamic Ad Target Value 3"
+    
+    AdGroupAgeCriterion = "Ad Group Age Criterion"
+    AdGroupDayTimeCriterion = "Ad Group DayTime Criterion"
+    AdGroupDeviceCriterion = "Ad Group DeviceOS Criterion"
+    AdGroupGenderCriterion = "Ad Group Gender Criterion"
+    AdGroupRadiusCriterion = "Ad Group Radius Criterion"
+    AdGroupLocationCriterion = "Ad Group Location Criterion"
+    AdGroupLocationIntentCriterion = "Ad Group Location Intent Criterion"
+    AdGroupNegativeLocationCriterion = "Ad Group Negative Location Criterion"
+    AdGroupCompanyNameCriterion = "Ad Group Company Name Criterion"
+    AdGroupIndustryCriterion = "Ad Group Industry Criterion"
+    AdGroupJobFunctionCriterion = "Ad Group Job Function Criterion"
+    AdGroupNegativeAgeCriterion = "Ad Group Negative Age Criterion"
+    AdGroupNegativeCompanyNameCriterion = "Ad Group Negative Company Name Criterion"
+    AdGroupNegativeGenderCriterion = "Ad Group Negative Gender Criterion"
+    AdGroupNegativeIndustryCriterion = "Ad Group Negative Industry Criterion"
+    AdGroupNegativeJobFunctionCriterion = "Ad Group Negative Job Function Criterion"
+
+
+    # Responsive Ad
+    ResponsiveAd = "Responsive Ad"
+    CallToAction = "Call To Action"
+    Headline = "Headline"
+    LandscapeImageMediaId = "Landscape Image Media Id"
+    LandscapeLogoMediaId = "Landscape Logo Media Id"
+    LongHeadline = "Long Headline"
+    SquareImageMediaId = "Square Image Media Id"
+    SquareLogoMediaId = "Square Logo Media Id"
+
+
 
     # Labels
     ColorCode = "Color"
@@ -359,6 +398,7 @@ class _StringTable:
     ExpandedTextAdLabel = "Expanded Text Ad Label"
     ProductAdLabel = "Product Ad Label"
     TextAdLabel = "Text Ad Label"
+    ResponsiveAdLabel = "Responsive Ad Label"
 
     # Offline Conversions
     OfflineConversion = "Offline Conversion"

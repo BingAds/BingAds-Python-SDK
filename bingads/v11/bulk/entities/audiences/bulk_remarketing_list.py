@@ -80,6 +80,16 @@ class BulkRemarketingList(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.remarketing_list.SearchSize),
             csv_to_field=lambda c, v: setattr(c.remarketing_list, 'SearchSize', int(v) if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.AudienceNetworkSize,
+            field_to_csv=lambda c: bulk_str(c.remarketing_list.AudienceNetworkSize),
+            csv_to_field=lambda c, v: setattr(c.remarketing_list, 'AudienceNetworkSize', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            _StringTable.SupportedCampaignTypes,
+            field_to_csv=lambda c: field_to_csv_SupportedCampaignTypes(c.remarketing_list.SupportedCampaignTypes),
+            csv_to_field=lambda c, v: csv_to_field_SupportedCampaignTypes(c.remarketing_list.SupportedCampaignTypes, v)
+        ),
     ]
 
     @property

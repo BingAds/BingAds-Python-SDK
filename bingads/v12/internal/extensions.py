@@ -1384,3 +1384,20 @@ def parse_string_operator(operator):
         return StringOperator.DoesNotEndWith
 
     raise ValueError('Invalid String Rule Item operator:{0}'.format(operator))
+
+
+def csv_to_field_SupportedCampaignTypes(entity, value):
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_SupportedCampaignTypes(entity):
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE
+    if len(entity.string) == 0:
+        return None
+    return ';'.join(entity.string)

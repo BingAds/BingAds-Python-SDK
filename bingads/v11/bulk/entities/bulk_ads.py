@@ -555,3 +555,106 @@ class BulkDynamicSearchAd(_BulkAd):
         self._validate_property_not_null(self.dynamic_search_ad, 'dynamic_search_ad')
         super(BulkDynamicSearchAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkDynamicSearchAd._MAPPINGS)
+
+
+class BulkResponsiveAd(_BulkAd):
+    """ Represents a Responsive Ad.
+
+    This class exposes the :attr:`responsive_ad` property that can be read and written as fields of the Responsive Ad record in a bulk file.
+
+    For more information, see Responsive Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self,
+                 ad_group_id=None,
+                 campaign_name=None,
+                 ad_group_name=None,
+                 ad=None):
+        super(BulkResponsiveAd, self).__init__(
+            ad_group_id,
+            campaign_name,
+            ad_group_name,
+            ad,
+        )
+        self.responsive_ad = ad
+
+    @property
+    def responsive_ad(self):
+        """ The responsive search ad.
+
+        see Responsive Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+        """
+
+        return self._ad
+
+    @responsive_ad.setter
+    def responsive_ad(self, responsive_ad):
+        if responsive_ad is not None and not isinstance(responsive_ad, ResponsiveAd):
+            raise ValueError('Not an instance of ResponsiveAd')
+        self._ad = responsive_ad
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.BusinessName,
+            field_to_csv=lambda c: c.responsive_ad.BusinessName,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'BusinessName', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CallToAction,
+            field_to_csv=lambda c: c.responsive_ad.CallToAction,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'CallToAction', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Headline,
+            field_to_csv=lambda c: c.responsive_ad.Headline,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'Headline', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.LongHeadline,
+            field_to_csv=lambda c: c.responsive_ad.LongHeadline,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LongHeadline', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.LandscapeImageMediaId,
+            field_to_csv=lambda c: c.responsive_ad.LandscapeImageMediaId,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LandscapeImageMediaId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.LandscapeLogoMediaId,
+            field_to_csv=lambda c: c.responsive_ad.LandscapeLogoMediaId,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LandscapeLogoMediaId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.SquareImageMediaId,
+            field_to_csv=lambda c: c.responsive_ad.SquareImageMediaId,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'SquareImageMediaId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.SquareLogoMediaId,
+            field_to_csv=lambda c: c.responsive_ad.SquareLogoMediaId,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'SquareLogoMediaId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Text,
+            field_to_csv=lambda c: c.responsive_ad.Text,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'Text', v)
+        ),
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        self.responsive_ad = _CAMPAIGN_OBJECT_FACTORY_V11.create('ResponsiveAd')
+        self.responsive_ad.Type = 'Responsive'
+        super(BulkResponsiveAd, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, BulkResponsiveAd._MAPPINGS)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.responsive_ad, 'responsive_ad')
+        super(BulkResponsiveAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkResponsiveAd._MAPPINGS)
