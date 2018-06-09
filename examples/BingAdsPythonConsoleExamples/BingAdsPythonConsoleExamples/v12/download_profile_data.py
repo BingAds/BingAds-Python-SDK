@@ -5,37 +5,40 @@ from campaignmanagement_example_helper import *
 
 # You must provide credentials in auth_helper.py.
 
-# The full path to the local machine's copy of the geographical locations file.
-LOCAL_FILE="c:\geolocations\geolocations.csv"
+# The full path to the profile data.
+LOCAL_FILE="c:\profiledata\profiledata.csv"
 
-# The language and locale of the geographical locations file available for download.
-# This example uses 'en' (English). Supported locales are 'zh-Hant' (Traditional Chinese), 'en' (English), 'fr' (French), 
-# 'de' (German), 'it' (Italian), 'pt-BR' (Portuguese - Brazil), and 'es' (Spanish). 
+# The language and locale of the profile data available for download.
+# This example uses 'en' (English). 
 
 LANGUAGE_LOCALE = "en"
-
-# The latest supported file format version is 2.0. 
-
-VERSION = "2.0"
        
 def main(authorization_data):    
     try:
-        get_geo_locations_file_url_response = campaign_service.GetGeoLocationsFileUrl(VERSION, LANGUAGE_LOCALE)
+        # Supported profile types are CompanyName, Industry, and JobFunction
 
-        request=urllib2.Request(get_geo_locations_file_url_response.FileUrl)
+        get_profile_data_file_url_response = campaign_service.GetProfileDataFileUrl(
+            LANGUAGE_LOCALE,
+            'CompanyName')
+        
+        output_status_message("FileUrl: {0}".format(get_profile_data_file_url_response.FileUrl))
+        output_status_message("FileUrlExpiryTimeUtc: {0}".format(get_profile_data_file_url_response.FileUrlExpiryTimeUtc))
+        output_status_message("LastModifiedTimeUtc: {0}".format(get_profile_data_file_url_response.LastModifiedTimeUtc))
+
+        request=urllib2.Request(get_profile_data_file_url_response.FileUrl)
         response=urllib2.urlopen(request)
                 
         if response.getcode() == 200:
             download_file(response)
-            print("Downloaded the geographical locations to {0}.\n".format(LOCAL_FILE))
+            output_status_message("Downloaded the profile data to {0}.\n".format(LOCAL_FILE))
         
         output_status_message("Program execution completed")
 
     except urllib2.URLError as ex:
         if hasattr(ex, 'code'):
-            print("Error code: {0}".format(ex.code))
+            output_status_message("Error code: {0}".format(ex.code))
         elif hasattr(ex, 'reason'):
-            print("Reason: {0}".format(ex.reason))
+            output_status_message("Reason: {0}".format(ex.reason))
         
     except WebFault as ex:
         output_webfault_errors(ex)

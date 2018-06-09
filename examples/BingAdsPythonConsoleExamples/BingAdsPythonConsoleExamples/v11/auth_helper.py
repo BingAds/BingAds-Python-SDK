@@ -26,12 +26,12 @@ REFRESH_TOKEN_PATH="refresh.txt"
 USER_NAME='UserNameGoesHere'
 PASSWORD='PasswordGoesHere'
 
-ALL_CAMPAIGN_TYPES=['DynamicSearchAds SearchAndContent Shopping']
+ALL_CAMPAIGN_TYPES=['DynamicSearchAds SearchAndContent Shopping Audience']
 ALL_TARGET_CAMPAIGN_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 ALL_TARGET_AD_GROUP_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 
 ALL_AD_TYPES={
-    'AdType': ['AppInstall', 'DynamicSearch', 'ExpandedText', 'Product', 'Text']
+    'AdType': ['AppInstall', 'DynamicSearch', 'ExpandedText', 'Product', 'ResponsiveAd', 'Text']
 }
 
 def authenticate(authorization_data):
@@ -188,9 +188,9 @@ def search_accounts_by_user_id(customer_service, user_id):
     )
 
 def set_elements_to_none(suds_object):
-    # Bing Ads Campaign Management service operations require that if you specify a non-primitives, 
+    # Bing Ads Campaign Management service operations require that if you specify a non-primitive, 
     # it must be one of the values defined by the service i.e. it cannot be a nil element. 
-    # Since Suds requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
+    # Since SUDS requires non-primitives and Bing Ads won't accept nil elements in place of an enum value, 
     # you must either set the non-primitives or they must be set to None. Also in case new properties are added 
     # in a future service release, it is a good practice to set each element of the SUDS object to None as a baseline. 
 
