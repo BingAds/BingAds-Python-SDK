@@ -26,7 +26,7 @@ REFRESH_TOKEN_PATH="refresh.txt"
 USER_NAME='UserNameGoesHere'
 PASSWORD='PasswordGoesHere'
 
-ALL_CAMPAIGN_TYPES=['DynamicSearchAds Search Shopping Audience']
+ALL_CAMPAIGN_TYPES=['DynamicSearchAds SearchAndContent Shopping Audience']
 ALL_TARGET_CAMPAIGN_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 ALL_TARGET_AD_GROUP_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 
