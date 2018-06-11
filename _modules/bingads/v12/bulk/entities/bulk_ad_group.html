@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.bulk.entities.bulk_ad_group &#8212; Bing Ads SDK 11.12.2 documentation</title>
+    <title>bingads.v12.bulk.entities.bulk_ad_group &#8212; Bing Ads SDK 11.12.3 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -254,6 +254,21 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">PrivacyStatus</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;PrivacyStatus&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidOption</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bid_option_to_csv</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_bid_option</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidBoostValue</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bid_boost_value_to_csv</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_bid_boost_value</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">MaximumBid</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">maximum_bid_to_csv</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_maximum_bid</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkAdGroup.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v12.bulk.entities.html#bingads.v12.bulk.entities.bulk_ad_group.BulkAdGroup.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
@@ -305,7 +320,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
