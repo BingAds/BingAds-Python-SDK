@@ -168,6 +168,11 @@ class _CsvHeaders:
         _StringTable.CampaignPriority,
         _StringTable.LocalInventoryAdsEnabled,
 
+        #CoOp
+        _StringTable.BidOption,
+        _StringTable.BidBoostValue,
+        _StringTable.MaximumBid,
+
         # V10 added
         _StringTable.FieldPath,
 
@@ -310,7 +315,10 @@ class _CsvHeaders:
         _StringTable.ConversionName,
         _StringTable.ConversionTime,
         _StringTable.ConversionValue,
-        _StringTable.MicrosoftClickId
+        _StringTable.MicrosoftClickId,
+        
+        # Account
+        _StringTable.MSCLKIDAutoTaggingEnabled
 
     ]
 

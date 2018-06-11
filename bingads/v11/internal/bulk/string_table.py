@@ -68,6 +68,7 @@ class _StringTable:
     Account = "Account"
     SyncTime = "Sync Time"
     Name = "Name"
+    MSCLKIDAutoTaggingEnabled = "MSCLKID Auto Tagging Enabled"
     LastModifiedTime = "Modified Time"
     AdFormatPreference = "Ad Format Preference"
 
@@ -225,6 +226,11 @@ class _StringTable:
     CampaignType = "Campaign Type"
     CampaignPriority = "Priority"
     LocalInventoryAdsEnabled = "LocalInventoryAdsEnabled"
+    
+    # CoOp
+    BidOption = "Bid Option"
+    BidBoostValue = "Bid Boost Value"
+    MaximumBid = "Maximum Bid"
 
     # V10 added
     FieldPath = "Field Path"

@@ -23,6 +23,8 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._id = account_id
         self._customer_id = customer_id
         self._sync_time = sync_time
+        self._msclkid_auto_tagging_enabled = None
+        self._tracking_url_template = None
 
     @property
     def id(self):
@@ -61,6 +63,23 @@ class BulkAccount(_SingleRecordBulkEntity):
 
         return self._sync_time
 
+    @property
+    def msclkid_auto_tagging_enabled(self):
+        """ Determines whether auto-tagging of the MSCLKID query string parameter is enabled. The MSCLKID is a 32-character GUID that is unique for each ad click.
+        :return: The msclkid autotag setting of the account
+        :rtype: bool
+        """
+        return self._msclkid_auto_tagging_enabled    
+    
+    @property
+    def tracking_url_template(self):
+        """ The tracking template to use as a default for all URLs in your account.
+        
+        :return: The tracking template of the account
+        :rtype: str
+        """
+        return self._tracking_url_template    
+    
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -76,6 +95,16 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.SyncTime,
             field_to_csv=lambda c: bulk_datetime_str(c.sync_time),
             csv_to_field=lambda c, v: setattr(c, '_sync_time', parse_datetime(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.MSCLKIDAutoTaggingEnabled,
+            field_to_csv=lambda c: bulk_str(c.msclkid_auto_tagging_enabled),
+            csv_to_field=lambda c, v: setattr(c, '_msclkid_auto_tagging_enabled', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TrackingTemplate,
+            field_to_csv=lambda c: bulk_str(c.tracking_url_template),
+            csv_to_field=lambda c, v: setattr(c, '_tracking_url_template', v)
         ),
     ]
 

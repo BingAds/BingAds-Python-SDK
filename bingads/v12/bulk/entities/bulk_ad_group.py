@@ -216,6 +216,21 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.ad_group.PrivacyStatus),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'PrivacyStatus', v if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidOption,
+            field_to_csv=lambda c: bid_option_to_csv(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_bid_option(c.ad_group, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidBoostValue,
+            field_to_csv=lambda c: bid_boost_value_to_csv(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_bid_boost_value(c.ad_group, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.MaximumBid,
+            field_to_csv=lambda c: maximum_bid_to_csv(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_maximum_bid(c.ad_group, v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
