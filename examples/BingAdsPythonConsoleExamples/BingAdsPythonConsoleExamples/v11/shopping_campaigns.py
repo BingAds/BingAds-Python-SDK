@@ -427,17 +427,14 @@ def main(authorization_data):
         output_product_partitions(ad_group_criterions)
 
         
-        #Create a product ad. You must add at least one ProductAd to the corresponding ad group. 
-        #A ProductAd is not used directly for delivered ad copy. Instead, the delivery engine generates 
-        #product ads from the product details that it finds in your Bing Merchant Center store's product catalog. 
-        #The primary purpose of the ProductAd object is to provide promotional text that the delivery engine 
-        #adds to the product ads that it generates. For example, if the promotional text is set to 
-        #'Free shipping on $99 purchases', the delivery engine will set the product ad's description to 
-        #'Free shipping on $99 purchases.'
+        #Create a product ad. You must add at least one product ad to the ad group. 
+        #The product ad identifier can be used for reporting analytics.
+        #Use Merchant Promotions if you want tags to appear at the bottom of your product ad 
+        #as "special offer" links, helping to increase customer engagement. For details
+        #on Merchant Promotions see https://help.bingads.microsoft.com/#apex/3/en/56805/0.
         
         ads=campaign_service.factory.create('ArrayOfAd')
         product_ad=set_elements_to_none(campaign_service.factory.create('ProductAd'))
-        product_ad.PromotionalText='Free shipping on $99 purchases.'
         product_ad.Type='Product'
         product_ad.Status=None
         product_ad.EditorialStatus=None
