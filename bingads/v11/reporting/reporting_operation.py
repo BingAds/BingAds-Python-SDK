@@ -109,7 +109,7 @@ class ReportingDownloadOperation(object):
             'User-Agent': USER_AGENT,
         }
         s = requests.Session()
-        s.mount('https://', TlsHttpAdapter())
+        #s.mount('https://', TlsHttpAdapter())
         timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
         try:
             r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
