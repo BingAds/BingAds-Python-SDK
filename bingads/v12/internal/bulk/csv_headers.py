@@ -283,6 +283,7 @@ class _CsvHeaders:
         _StringTable.TitlePart2,
         _StringTable.Path1,
         _StringTable.Path2,
+        _StringTable.Domain,
         
         # Responsive Ad
         _StringTable.CallToAction,

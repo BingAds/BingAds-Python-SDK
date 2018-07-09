@@ -11,7 +11,8 @@ class FileUploadParameters:
                  overwrite_result_file=False,
                  compress_upload_file=True,
                  response_mode='ErrorsAndResults',
-                 timeout_in_milliseconds=None):
+                 timeout_in_milliseconds=None, 
+                 rename_upload_file_to_match_request_id = True):
         """ Initialize a new instance of this class.
 
         :param result_file_directory: The directory where the file will be downloaded.
@@ -43,6 +44,7 @@ class FileUploadParameters:
             upload_file_path=upload_file_path,
             compress_upload_file=compress_upload_file,
             response_mode=response_mode,
+            rename_upload_file_to_match_request_id= rename_upload_file_to_match_request_id
         )
         self._timeout_in_milliseconds=timeout_in_milliseconds
 
@@ -142,7 +144,8 @@ class SubmitUploadParameters(object):
                  upload_file_path,
                  compress_upload_file=True,
                  response_mode='ErrorsAndResults',
-                 timeout_in_milliseconds=None):
+                 timeout_in_milliseconds=None,
+                 rename_upload_file_to_match_request_id=True):
         """ Initialize a new instance of this class.
 
         :param upload_file_path: The fully qualified local path of the upload file.
@@ -160,6 +163,15 @@ class SubmitUploadParameters(object):
         self._compress_upload_file = compress_upload_file
         self._response_mode = response_mode
         self._timeout_in_milliseconds = timeout_in_milliseconds
+        self._rename_upload_file_to_match_request_id=rename_upload_file_to_match_request_id
+
+    @property
+    def rename_upload_file_to_match_request_id(self):
+        """ rename the upload file to request id or not.
+
+        :rtype: boolean
+        """
+        return self._rename_upload_file_to_match_request_id;
 
     @property
     def upload_file_path(self):

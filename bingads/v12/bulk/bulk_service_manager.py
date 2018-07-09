@@ -246,6 +246,13 @@ class BulkServiceManager:
         request_id = response.RequestId
         upload_url = response.UploadUrl
 
+        if  submit_upload_parameters.rename_upload_file_to_match_request_id:
+            import os
+            dir = os.path.dirname(submit_upload_parameters.upload_file_path)
+            new_file_to_upload = os.path.join(dir, 'upload_' + request_id + '.csv')
+            os.rename(submit_upload_parameters.upload_file_path, new_file_to_upload)
+            submit_upload_parameters.upload_file_path = new_file_to_upload
+
         self._upload_file_by_url(
             url=upload_url,
             upload_file_path=submit_upload_parameters.upload_file_path,

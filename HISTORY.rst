@@ -2,10 +2,15 @@
 
 Release History
 -----------
+11.12.4(2018-07-10)
+* Added a mapping for the Domain column in the Bulk file to the BulkExpandedTextAd object.
+* Limited the scope to bingads.manage for access token requests. Previously the default scope was used, which can vary if a user granted your app permissions to multiple scopes. The Bing Ads SDKs only support the bingads.manage scope. 
+* Updated the Customer Management proxies to support LinkedAccountIds for agencies. For agency users the customer role can contain a list of linked accounts that the user can access as an agency on behalf of another customer. 
+
+-----------
 11.12.3(2018-06-10)
-Added support for Cooperative bidding e.g., added mappings for "Bid Boost Value", "Bid Option" and "Maximum Bid" fields via the BulkAdGroup. 
- 
-Added mappings for the 'MSCLKID Auto Tagging Enabled" and "Tracking Tempalte" fields via the BulkAccount.
+* Added support for Cooperative bidding e.g., added mappings for "Bid Boost Value", "Bid Option" and "Maximum Bid" fields via the BulkAdGroup. 
+* Added mappings for the 'MSCLKID Auto Tagging Enabled" and "Tracking Tempalte" fields via the BulkAccount.
 
 -----------
 11.12.2(2018-05-15)

@@ -462,13 +462,18 @@ class BulkExpandedTextAd(_BulkAd):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Path1,
-            field_to_csv=lambda c: c.expanded_text_ad.Path1,
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path1),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path1', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Path2,
-            field_to_csv=lambda c: c.expanded_text_ad.Path2,
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path2),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path2', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Domain,
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Domain),
+            csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Domain', v)
         ),
     ]
 

@@ -349,6 +349,7 @@ class _StringTable:
     TitlePart2 = "Title Part 2"
     Path1 = "Path 1"
     Path2 = "Path 2"
+    Domain = "Domain"
 
     # Ad Extension Scheduling
     AdSchedule = "Ad Schedule"

@@ -431,6 +431,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             grant_type='refresh_token',
             refresh_token=refresh_token,
             environment=self.environment,
+            scope='bingads.manage',
         )
         if self.token_refreshed_callback is not None:
             self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
