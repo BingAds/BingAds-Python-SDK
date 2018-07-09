@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.bulk.upload_parameters &#8212; Bing Ads SDK 11.12.3 documentation</title>
+    <title>bingads.v11.bulk.upload_parameters &#8212; Bing Ads SDK 11.12.4 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -49,7 +49,8 @@
                  <span class="n">overwrite_result_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                  <span class="n">compress_upload_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">response_mode</span><span class="o">=</span><span class="s1">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
-                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_upload_file_to_match_request_id</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param result_file_directory: The directory where the file will be downloaded.</span>
@@ -81,6 +82,7 @@
             <span class="n">upload_file_path</span><span class="o">=</span><span class="n">upload_file_path</span><span class="p">,</span>
             <span class="n">compress_upload_file</span><span class="o">=</span><span class="n">compress_upload_file</span><span class="p">,</span>
             <span class="n">response_mode</span><span class="o">=</span><span class="n">response_mode</span><span class="p">,</span>
+            <span class="n">rename_upload_file_to_match_request_id</span><span class="o">=</span><span class="n">rename_upload_file_to_match_request_id</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span><span class="o">=</span><span class="n">timeout_in_milliseconds</span>
 
@@ -180,7 +182,8 @@
                  <span class="n">upload_file_path</span><span class="p">,</span>
                  <span class="n">compress_upload_file</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                  <span class="n">response_mode</span><span class="o">=</span><span class="s1">&#39;ErrorsAndResults&#39;</span><span class="p">,</span>
-                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">rename_upload_file_to_match_request_id</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param upload_file_path: The fully qualified local path of the upload file.</span>
@@ -198,6 +201,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_compress_upload_file</span> <span class="o">=</span> <span class="n">compress_upload_file</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_response_mode</span> <span class="o">=</span> <span class="n">response_mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rename_upload_file_to_match_request_id</span><span class="o">=</span><span class="n">rename_upload_file_to_match_request_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">rename_upload_file_to_match_request_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; rename the upload file to request id or not.</span>
+
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename_upload_file_to_match_request_id</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">upload_file_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -398,7 +410,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

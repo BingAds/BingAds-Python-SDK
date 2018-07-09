@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.bulk package &#8212; Bing Ads SDK 11.12.3 documentation</title>
+    <title>bingads.v11.bulk package &#8212; Bing Ads SDK 11.12.4 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="bingads.v11.html" title="bingads.v11 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" accesskey="U">bingads.v11 package</a> &#187;</li> 
       </ul>
@@ -1398,7 +1398,7 @@ should be excluded when writing to file</li>
 
 <dl class="class">
 <dt id="bingads.v11.bulk.upload_parameters.FileUploadParameters">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.upload_parameters.</code><code class="descname">FileUploadParameters</code><span class="sig-paren">(</span><em>upload_file_path</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/upload_parameters.html#FileUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.upload_parameters.FileUploadParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.upload_parameters.</code><code class="descname">FileUploadParameters</code><span class="sig-paren">(</span><em>upload_file_path</em>, <em>result_file_directory=None</em>, <em>result_file_name=None</em>, <em>overwrite_result_file=False</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em>, <em>timeout_in_milliseconds=None</em>, <em>rename_upload_file_to_match_request_id=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/upload_parameters.html#FileUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.upload_parameters.FileUploadParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Describes the available parameters when submitting a file for upload, such as the path of the upload result file.</p>
 <dl class="attribute">
 <dt id="bingads.v11.bulk.upload_parameters.FileUploadParameters.compress_upload_file">
@@ -1499,7 +1499,7 @@ should be excluded when writing to file</li>
 
 <dl class="class">
 <dt id="bingads.v11.bulk.upload_parameters.SubmitUploadParameters">
-<em class="property">class </em><code class="descclassname">bingads.v11.bulk.upload_parameters.</code><code class="descname">SubmitUploadParameters</code><span class="sig-paren">(</span><em>upload_file_path</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/upload_parameters.html#SubmitUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.upload_parameters.SubmitUploadParameters" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">bingads.v11.bulk.upload_parameters.</code><code class="descname">SubmitUploadParameters</code><span class="sig-paren">(</span><em>upload_file_path</em>, <em>compress_upload_file=True</em>, <em>response_mode='ErrorsAndResults'</em>, <em>timeout_in_milliseconds=None</em>, <em>rename_upload_file_to_match_request_id=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v11/bulk/upload_parameters.html#SubmitUploadParameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v11.bulk.upload_parameters.SubmitUploadParameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Describes the minimum available parameters when submitting a file for upload, such as the path of the upload file.</p>
 <dl class="attribute">
@@ -1511,6 +1511,20 @@ should be excluded when writing to file</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v11.bulk.upload_parameters.SubmitUploadParameters.rename_upload_file_to_match_request_id">
+<code class="descname">rename_upload_file_to_match_request_id</code><a class="headerlink" href="#bingads.v11.bulk.upload_parameters.SubmitUploadParameters.rename_upload_file_to_match_request_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>rename the upload file to request id or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
 </tr>
 </tbody>
 </table>
@@ -1628,7 +1642,7 @@ should be excluded when writing to file</li>
         <li class="right" >
           <a href="bingads.v11.html" title="bingads.v11 package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v11.html" >bingads.v11 package</a> &#187;</li> 
       </ul>

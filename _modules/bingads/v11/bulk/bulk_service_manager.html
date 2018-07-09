@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v11.bulk.bulk_service_manager &#8212; Bing Ads SDK 11.12.3 documentation</title>
+    <title>bingads.v11.bulk.bulk_service_manager &#8212; Bing Ads SDK 11.12.4 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -288,6 +288,13 @@
         <span class="n">request_id</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">RequestId</span>
         <span class="n">upload_url</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">UploadUrl</span>
 
+        <span class="k">if</span>  <span class="n">submit_upload_parameters</span><span class="o">.</span><span class="n">rename_upload_file_to_match_request_id</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">os</span>
+            <span class="nb">dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span><span class="p">)</span>
+            <span class="n">new_file_to_upload</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s1">&#39;upload_&#39;</span> <span class="o">+</span> <span class="n">request_id</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span><span class="p">,</span> <span class="n">new_file_to_upload</span><span class="p">)</span>
+            <span class="n">submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span> <span class="o">=</span> <span class="n">new_file_to_upload</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_upload_file_by_url</span><span class="p">(</span>
             <span class="n">url</span><span class="o">=</span><span class="n">upload_url</span><span class="p">,</span>
             <span class="n">upload_file_path</span><span class="o">=</span><span class="n">submit_upload_parameters</span><span class="o">.</span><span class="n">upload_file_path</span><span class="p">,</span>
@@ -435,7 +442,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

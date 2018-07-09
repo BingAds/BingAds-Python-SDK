@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Release History &#8212; Bing Ads SDK 11.12.3 documentation</title>
+    <title>Release History &#8212; Bing Ads SDK 11.12.4 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -29,7 +29,7 @@
         <li class="right" >
           <a href="bingads.v12.reporting.html" title="bingads.v12.reporting package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -40,9 +40,13 @@
             
   <div class="section" id="release-history">
 <h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
-<p>11.12.3(2018-06-10)
-Added support for Cooperative bidding e.g., added mappings for “Bid Boost Value”, “Bid Option” and “Maximum Bid” fields via the BulkAdGroup.</p>
-<p>Added mappings for the ‘MSCLKID Auto Tagging Enabled” and “Tracking Tempalte” fields via the BulkAccount.</p>
+<p>11.12.4(2018-07-10)
+* Added a mapping for the Domain column in the Bulk file to the BulkExpandedTextAd object.
+* Limited the scope to bingads.manage for access token requests. Previously the default scope was used, which can vary if a user granted your app permissions to multiple scopes. The Bing Ads SDKs only support the bingads.manage scope.
+* Updated the Customer Management proxies to support LinkedAccountIds for agencies. For agency users the customer role can contain a list of linked accounts that the user can access as an agency on behalf of another customer.</p>
+<ul class="simple">
+<li>Added mappings for the ‘MSCLKID Auto Tagging Enabled” and “Tracking Tempalte” fields via the BulkAccount.</li>
+</ul>
 <p><a href="#id1"><span class="problematic" id="id2">*</span></a>To extend support for Microsoft Audience Ads, new bulk objects are added to the SDK for reading and writing Bulk file records e.g., BulkResponsiveAd and BulkResponsiveAdLabel.
 <a href="#id3"><span class="problematic" id="id4">*</span></a>Added retries for the 117 throttling error if encountered while polling for the status of a bulk or reporting operation.</p>
 <p><em>Added support for Bing Ads API Version 12. For more information, see Migrating to Bing Ads API Version 12.
@@ -285,7 +289,7 @@ Added support for Cooperative bidding e.g., added mappings for “Bid Boost Valu
         <li class="right" >
           <a href="bingads.v12.reporting.html" title="bingads.v12.reporting package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.3 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 11.12.4 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
