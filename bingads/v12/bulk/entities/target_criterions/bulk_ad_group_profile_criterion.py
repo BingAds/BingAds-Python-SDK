@@ -7,12 +7,11 @@ from bingads.v12.internal.extensions import *
 from abc import ABCMeta, abstractmethod
 
 class BulkAdGroupProfileCriterion(_SingleRecordBulkEntity):
-    """ Represents an Ad Group Profile Criterion that can be read or written in a bulk file.
+    """ The base class for Ad Group level profile criterion that can be read or written in a bulk file.
 
-    This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written as fields of the
-    Ad Group Profile Criterion record in a bulk file.
+    This class exposes the :attr:`biddable_ad_group_criterion` property that can be read and written in a bulk file.
 
-    For more information, see Ad Group Profile Criterion at https://go.microsoft.com/fwlink/?linkid=846127.
+    For more information, see Bulk File Schema at https://go.microsoft.com/fwlink/?linkid=846127.
 
     *See also:*
 

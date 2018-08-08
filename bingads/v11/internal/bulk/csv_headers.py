@@ -22,7 +22,6 @@ class _CsvHeaders:
         _StringTable.BudgetType,
         _StringTable.BudgetName,
         _StringTable.BudgetId,
-        _StringTable.KeywordVariantMatchEnabled,
 
         # AdGroup
         _StringTable.StartDate,

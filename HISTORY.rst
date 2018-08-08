@@ -2,6 +2,11 @@
 
 Release History
 -----------
+
+11.12.5(2018-08-10)
+*Updated service proxies to support customer address, campaign level profile criteria, similar audiences for remarketing lists, and new change history report columns. For details see the service release notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#august2018. 
+*Added BulkEntity mappings for campaign level profile criteria i.e., added BulkCampaignCompanyNameCriterion, BulkCampaignJobFunctionCriterion, and BulkCampaignIndustryCriterion. 
+
 11.12.4(2018-07-10)
 * Added a mapping for the Domain column in the Bulk file to the BulkExpandedTextAd object.
 * Limited the scope to bingads.manage for access token requests. Previously the default scope was used, which can vary if a user granted your app permissions to multiple scopes. The Bing Ads SDKs only support the bingads.manage scope. 

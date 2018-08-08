@@ -7,6 +7,34 @@ from bingads.v11.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkM
 from bingads.v11.internal.extensions import *
 
 
+def coop_setting_to_csv(bulk_ad_group, row_values):
+    if not bulk_ad_group.ad_group.Settings or not bulk_ad_group.ad_group.Settings.Setting:
+        return
+    settings = [setting for setting in bulk_ad_group.ad_group.Settings.Setting if isinstance(setting, CoOpSetting_Type)]
+    if len(settings) == 0:
+        return
+    if len(settings) != 1:
+        raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
+    
+    row_values[_StringTable.MaximumBid] = settings[0].BidMaxValue
+    row_values[_StringTable.BidBoostValue] = settings[0].BidBoostValue
+    row_values[_StringTable.BidOption] = settings[0].BidOption
+    pass
+
+def csv_to_coop_setting(row_values, bulk_ad_group):
+    maximum_bid_success, maximum_bid = row_values.try_get_value(_StringTable.MaximumBid)
+    bid_boost_value_success, bid_boost_value = row_values.try_get_value(_StringTable.BidBoostValue)
+    bid_option_success, bid_option = row_values.try_get_value(_StringTable.BidOption)
+    
+    if maximum_bid_success or bid_boost_value_success or bid_option_success:
+        coop_setting = _CAMPAIGN_OBJECT_FACTORY_V11.create('CoOpSetting')
+        coop_setting.Type = 'CoOpSetting'
+        coop_setting.BidOption = bid_option if bid_option else None
+        coop_setting.BidBoostValue = float(bid_boost_value) if bid_boost_value else None
+        coop_setting.BidMaxValue = float(maximum_bid) if maximum_bid else None
+        bulk_ad_group.ad_group.Settings.Setting.append(coop_setting)
+    pass
+
 def bidding_scheme_to_csv(bulk_ad_group, row_values):
     bid_strategy_type = field_to_csv_BidStrategyType(bulk_ad_group.ad_group)
     if not bid_strategy_type:
@@ -251,21 +279,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c.ad_group, 'RemarketingTargetingSetting', v if v else None)
         ),
 
-        _SimpleBulkMapping(
-            header=_StringTable.BidOption,
-            field_to_csv=lambda c: bid_option_to_csv(c.ad_group),
-            csv_to_field=lambda c, v: csv_to_bid_option(c.ad_group, v)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.BidBoostValue,
-            field_to_csv=lambda c: bid_boost_value_to_csv(c.ad_group),
-            csv_to_field=lambda c, v: csv_to_bid_boost_value(c.ad_group, v)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.MaximumBid,
-            field_to_csv=lambda c: maximum_bid_to_csv(c.ad_group),
-            csv_to_field=lambda c, v: csv_to_maximum_bid(c.ad_group, v)
-        ),
+        _ComplexBulkMapping(coop_setting_to_csv, csv_to_coop_setting),
     ]
 
     def process_mappings_from_row_values(self, row_values):

@@ -12,7 +12,6 @@ class _StringTable:
     BudgetType = "Budget Type"
     BudgetName = "Budget Name"
     BudgetId = "Budget Id"
-    KeywordVariantMatchEnabled = "KeywordVariantMatchEnabled"
     AdGroup = "Ad Group"
     Keyword = "Keyword"
     TextAd = "Text Ad"
@@ -414,3 +413,16 @@ class _StringTable:
     ConversionTime = "Conversion Time"
     ConversionValue = "Conversion Value"
     MicrosoftClickId = "Microsoft Click Id"
+
+    # Campaign Criterion
+    CampaignAgeCriterion = 'Campaign Age Criterion'
+    CampaignDayTimeCriterion = 'Campaign DayTime Criterion'
+    CampaignDeviceOSCriterion = 'Campaign DeviceOS Criterion'
+    CampaignGenderCriterion = 'Campaign Gender Criterion'
+    CampaignLocationCriterion = 'Campaign Location Criterion'
+    CampaignLocationIntentCriterion = 'Campaign Location Intent Criterion'
+    CampaignNegativeLocationCriterion = 'Campaign Negative Location Criterion'
+    CampaignRadiusCriterion = 'Campaign Radius Criterion'
+    CampaignCompanyNameCriterion = 'Campaign Company Name Criterion'
+    CampaignJobFunctionCriterion = 'Campaign Job Function Criterion'
+    CampaignIndustryCriterion = 'Campaign Industry Criterion'

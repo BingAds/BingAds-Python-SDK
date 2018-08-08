@@ -12,7 +12,6 @@ class _StringTable:
     BudgetType = "Budget Type"
     BudgetName = "Budget Name"
     BudgetId = "Budget Id"
-    KeywordVariantMatchEnabled = "KeywordVariantMatchEnabled"
     AdGroup = "Ad Group"
     Keyword = "Keyword"
     TextAd = "Text Ad"

@@ -1483,6 +1483,13 @@
                <xs:enumeration value="None" />
                <xs:enumeration value="TrackingUrlTemplate" />
                <xs:enumeration value="MSCLKIDAutoTaggingEnabled" />
+               <xs:enumeration value="AdClickParallelTracking">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPropertyName" nillable="true" type="tns:AccountPropertyName" />
@@ -9982,7 +9989,7 @@
    </wsdl:binding>
    <wsdl:service name="CampaignManagementService">
       <wsdl:port name="BasicHttpBinding_ICampaignManagementService" binding="tns:BasicHttpBinding_ICampaignManagementService">
-         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V11/CampaignManagementService.svc" />
+         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v11/CampaignManagementService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

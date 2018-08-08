@@ -1457,6 +1457,13 @@
                <xs:enumeration value="None" />
                <xs:enumeration value="TrackingUrlTemplate" />
                <xs:enumeration value="MSCLKIDAutoTaggingEnabled" />
+               <xs:enumeration value="AdClickParallelTracking">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPropertyName" nillable="true" type="tns:AccountPropertyName" />
@@ -2402,6 +2409,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="SimilarRemarketingList">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">524288</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2676,6 +2690,7 @@
                      <xs:enumeration value="Custom" />
                      <xs:enumeration value="InMarket" />
                      <xs:enumeration value="Product" />
+                     <xs:enumeration value="SimilarRemarketingList" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -3400,6 +3415,27 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="CompanyName">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32768</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="JobFunction">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65536</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Industry">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131072</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -3757,6 +3793,16 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="ProductAudienceType" nillable="true" type="tns:ProductAudienceType" />
+         <xs:complexType name="SimilarRemarketingList">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Audience">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="SourceId" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="SimilarRemarketingList" nillable="true" type="tns:SimilarRemarketingList" />
          <xs:element name="AddAudiencesResponse">
             <xs:complexType>
                <xs:sequence>

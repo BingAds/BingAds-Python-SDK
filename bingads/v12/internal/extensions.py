@@ -1176,66 +1176,6 @@ def csv_to_field_LongitudeDegrees(entity, value):
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
         setattr(entity.Criterion, "LongitudeDegrees", value)
 
-def maximum_bid_to_csv(ad_group):
-    if not ad_group.Settings or not ad_group.Settings.Setting:
-        return None
-    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, CoOpSetting_Type)]
-    if len(settings) == 0:
-        return None
-    if len(settings) != 1:
-        raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
-    coop_setting = settings[0]
-    return coop_setting.BidMaxValue
-
-def csv_to_maximum_bid(ad_group, value):
-    coop_setting = validate_coop_setting(ad_group)
-    coop_setting.BidMaxValue = float(value) if value else None 
-    
-def bid_boost_value_to_csv(ad_group):
-    if not ad_group.Settings or not ad_group.Settings.Setting:
-        return None
-    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, CoOpSetting_Type)]
-    if len(settings) == 0:
-        return None
-    if len(settings) != 1:
-        raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
-    coop_setting = settings[0]
-    return coop_setting.BidBoostValue
-
-def csv_to_bid_boost_value(ad_group, value):
-    coop_setting = validate_coop_setting(ad_group)
-    coop_setting.BidBoostValue = float(value) if value else None 
-
-def bid_option_to_csv(ad_group):
-    if not ad_group.Settings or not ad_group.Settings.Setting:
-        return None
-    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, CoOpSetting_Type)]
-    if len(settings) == 0:
-        return None
-    if len(settings) != 1:
-        raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
-    coop_setting = settings[0]
-    return coop_setting.BidOption
-
-def csv_to_bid_option(ad_group, value):
-    coop_setting = validate_coop_setting(ad_group)
-    coop_setting.BidOption = value if value else None 
-
-def validate_coop_setting(ad_group):
-    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, CoOpSetting_Type)]
-    if len(settings) == 0:
-        return create_coop_setting(ad_group)
-    
-    if len(settings) > 1:
-        raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
-    return settings[0]
-
-def create_coop_setting(ad_group):
-    coop_setting = _CAMPAIGN_OBJECT_FACTORY_V12.create('CoOpSetting')
-    coop_setting.Type = 'CoOpSetting'
-    ad_group.Settings.Setting.append(coop_setting)
-    return coop_setting
-
 def target_setting_to_csv(ad_group):
     if not ad_group.Settings or not ad_group.Settings.Setting:
         return None
