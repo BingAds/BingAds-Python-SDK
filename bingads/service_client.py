@@ -44,7 +44,11 @@ class ServiceClient:
         self._environment = ServiceClient._format_environment(environment)
 
         self.hp=HeaderPlugin()
-        suds_options['plugins'] = [self.hp]
+        if 'plugins' in suds_options:
+            suds_options['plugins'].append(self.hp)
+        else:
+            suds_options['plugins'] = [self.hp]
+
         self._soap_client = Client(self.service_url, **suds_options)
 
     def __getattr__(self, name):
