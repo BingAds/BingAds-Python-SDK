@@ -342,6 +342,10 @@ class _StringTable:
     AudienceNetworkSize = "Audience Network Size"
     SupportedCampaignTypes = "Supported Campaign Types"
     ProductAudienceType = "Product Audience Type"
+    SourceId = "Source Id"
+    SimilarRemarketingList = "Similar Remarketing List"
+    AdGroupSimilarRemarketingListAssociation = "Ad Group Similar Remarketing List Association"
+    AdGroupNegativeSimilarRemarketingListAssociation = "Ad Group Negative Similar Remarketing List Association"
     
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"

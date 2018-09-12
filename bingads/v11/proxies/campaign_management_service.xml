@@ -6316,36 +6316,6 @@
    <wsdl:message name="ICampaignManagementService_GetCampaignSizesByAccountId_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
-   <wsdl:message name="SetAdExtensionDeviceTargetRequest_Headers">
-      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
-      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
-      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
-      <wsdl:part name="CustomerId" element="tns:CustomerId" />
-      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
-      <wsdl:part name="Password" element="tns:Password" />
-      <wsdl:part name="UserName" element="tns:UserName" />
-   </wsdl:message>
-   <wsdl:message name="SetAdExtensionDeviceTargetResponse_Headers">
-      <wsdl:part name="TrackingId" element="tns:TrackingId" />
-   </wsdl:message>
-   <wsdl:message name="ICampaignManagementService_SetAdExtensionDeviceTarget_ApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
-   </wsdl:message>
-   <wsdl:message name="GetAdExtensionDeviceTargetByEntityIdsRequest_Headers">
-      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
-      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
-      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
-      <wsdl:part name="CustomerId" element="tns:CustomerId" />
-      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
-      <wsdl:part name="Password" element="tns:Password" />
-      <wsdl:part name="UserName" element="tns:UserName" />
-   </wsdl:message>
-   <wsdl:message name="GetAdExtensionDeviceTargetByEntityIdsResponse_Headers">
-      <wsdl:part name="TrackingId" element="tns:TrackingId" />
-   </wsdl:message>
-   <wsdl:message name="ICampaignManagementService_GetAdExtensionDeviceTargetByEntityIds_ApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
-   </wsdl:message>
    <wsdl:message name="AddCampaignCriterionsRequest">
       <wsdl:part name="parameters" element="tns:AddCampaignCriterionsRequest" />
    </wsdl:message>

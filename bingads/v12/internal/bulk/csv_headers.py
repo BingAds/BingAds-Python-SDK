@@ -275,6 +275,7 @@ class _CsvHeaders:
         _StringTable.AudienceNetworkSize,
         _StringTable.SupportedCampaignTypes,
         _StringTable.ProductAudienceType,
+        _StringTable.SourceId,
 
 
         # Expanded Text Ad

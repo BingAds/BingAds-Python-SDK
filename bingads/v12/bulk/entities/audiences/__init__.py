@@ -13,3 +13,6 @@ from .bulk_ad_group_negative_in_market_audience_association import *
 from .bulk_ad_group_product_audience_association import *
 from .bulk_ad_group_negative_product_audience_association import *
 from .bulk_product_audience import *
+from .bulk_similar_remarketing_list import *
+from .bulk_ad_group_similar_remarketing_list_association import *
+from .bulk_ad_group_negative_similar_remarketing_list_association import *

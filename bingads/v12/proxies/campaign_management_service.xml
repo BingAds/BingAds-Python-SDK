@@ -196,8 +196,22 @@
                      <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="TextPart2" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="TitlePart1" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="TitlePart2" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="TitlePart3" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
@@ -1029,6 +1043,7 @@
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="EditorialStatus" type="tns:AdEditorialStatus" />
                   <xs:element minOccurs="0" name="AdTypes" nillable="true" type="tns:ArrayOfAdType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1038,6 +1053,17 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfAdType" nillable="true" type="tns:ArrayOfAdType" />
+         <xs:simpleType name="AdAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="TitlePart3" />
+                     <xs:enumeration value="TextPart2" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdAdditionalField" nillable="true" type="tns:AdAdditionalField" />
          <xs:element name="GetAdsByEditorialStatusResponse">
             <xs:complexType>
                <xs:sequence>
@@ -1051,6 +1077,7 @@
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdIds" nillable="true" type="q26:ArrayOflong" />
                   <xs:element minOccurs="0" name="AdTypes" nillable="true" type="tns:ArrayOfAdType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1067,6 +1094,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="AdTypes" nillable="true" type="tns:ArrayOfAdType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6113,30 +6141,6 @@
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetCampaignSizesByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
-   </wsdl:message>
-   <wsdl:message name="SetAdExtensionDeviceTargetRequest_Headers">
-      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
-      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
-      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
-      <wsdl:part name="CustomerId" element="tns:CustomerId" />
-      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
-      <wsdl:part name="Password" element="tns:Password" />
-      <wsdl:part name="UserName" element="tns:UserName" />
-   </wsdl:message>
-   <wsdl:message name="SetAdExtensionDeviceTargetResponse_Headers">
-      <wsdl:part name="TrackingId" element="tns:TrackingId" />
-   </wsdl:message>
-   <wsdl:message name="GetAdExtensionDeviceTargetByEntityIdsRequest_Headers">
-      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
-      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
-      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
-      <wsdl:part name="CustomerId" element="tns:CustomerId" />
-      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
-      <wsdl:part name="Password" element="tns:Password" />
-      <wsdl:part name="UserName" element="tns:UserName" />
-   </wsdl:message>
-   <wsdl:message name="GetAdExtensionDeviceTargetByEntityIdsResponse_Headers">
-      <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="AddCampaignCriterionsRequest">
       <wsdl:part name="parameters" element="tns:AddCampaignCriterionsRequest" />

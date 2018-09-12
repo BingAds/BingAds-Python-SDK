@@ -1,6 +1,7 @@
 import tempfile
 
 from .reporting_operation import *
+from .report_file_reader import *
 from ...manifest import *
 from ...service_client import ServiceClient
 from ...exceptions import TimeoutException
@@ -46,6 +47,20 @@ class ReportingServiceManager:
         if not os.path.exists(self._working_directory):
             os.makedirs(self._working_directory)
         self._suds_options = suds_options
+        
+    def download_report(self, download_parameters):
+        """ Downloads the specified reporting to a local file and parse it with report_file_reader.
+
+        :param download_parameters: Determines various download parameters, for example where the file should be downloaded.
+        :type download_parameters: ReportingDownloadParameters
+        :return: Report object parsed from the downloaded local reporting file path.
+        :rtype: Report
+        """
+        report_file_path = self.download_file(download_parameters)
+        if report_file_path:
+            reader = ReportFileReader(report_file_path, download_parameters.report_request.Format)
+            return reader.get_report()
+        
 
     def download_file(self, download_parameters):
         """ Downloads the specified reporting to a local file.

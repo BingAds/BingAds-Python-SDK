@@ -122,6 +122,9 @@ class _BulkObjectFactory():
         _StringTable.ProductAdLabel: _EntityInfo(lambda: BulkProductAdLabel()),
         _StringTable.ResponsiveAdLabel: _EntityInfo(lambda: BulkResponsiveAdLabel()),
         _StringTable.OfflineConversion: _EntityInfo(lambda: BulkOfflineConversion()),
+        _StringTable.SimilarRemarketingList: _EntityInfo(lambda: BulkSimilarRemarketingList()),
+        _StringTable.AdGroupSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupSimilarRemarketingListAssociation()),
+        _StringTable.AdGroupNegativeSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeSimilarRemarketingListAssociation()),
     }
 
     ADDITIONAL_OBJECT_MAP = {
