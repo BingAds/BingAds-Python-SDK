@@ -454,7 +454,7 @@ if __name__ == '__main__':
         account_id=None,
         customer_id=None,
         developer_token=DEVELOPER_TOKEN,
-        authentication=password_authentication,
+        authentication=None,
     )
 
     reporting_service_manager=ReportingServiceManager(
