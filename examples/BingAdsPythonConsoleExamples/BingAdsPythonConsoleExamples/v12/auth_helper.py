@@ -10,10 +10,10 @@ from bingads.v12 import *
 from output_helper import output_bing_ads_webfault_error, output_webfault_errors, output_status_message
 
 # Required
-DEVELOPER_TOKEN='DeveloperTokenGoesHere'
-ENVIRONMENT='production'
+DEVELOPER_TOKEN='BBD37VB98' # Universal token for sandbox
+ENVIRONMENT='sandbox' # If you use 'production' then you must also update the developer token.
 
-# If you are using OAuth in production, CLIENT_ID is required and CLIENT_STATE is recommended.
+# The CLIENT_ID is required and CLIENT_STATE is recommended.
 # The REFRESH_TOKEN_PATH is required for the provided examples, although in production you should  
 # always store the refresh token securely.
 CLIENT_ID='ClientIdGoesHere'
@@ -30,10 +30,10 @@ ALL_AD_TYPES={
 
 def authenticate(authorization_data):
     
-    # import logging
-    # logging.basicConfig(level=logging.INFO)
-    # logging.getLogger('suds.client').setLevel(logging.DEBUG)
-    # logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    logging.getLogger('suds.client').setLevel(logging.DEBUG)
+    logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
@@ -42,13 +42,11 @@ def authenticate(authorization_data):
         environment=ENVIRONMENT,
     )
 
-    print(customer_service)
-
     # You should authenticate for Bing Ads services with a Microsoft Account.
     authenticate_with_oauth(authorization_data)
         
     # Set to an empty user identifier to get the current authenticated Bing Ads user,
-    # and then search for all accounts the user may access.
+    # and then search for all accounts the user can access.
     user=customer_service.GetUser(None).User
     accounts=search_accounts_by_user_id(customer_service, user.Id)
     
@@ -140,13 +138,8 @@ def search_accounts_by_user_id(customer_service, user_id):
     :param user_id: The Bing Ads user identifier.
     :type user_id: long
     :return: List of accounts that the user can manage.
-    :rtype: ArrayOfAdvertiserAccount
+    :rtype: Dictionary of AdvertiserAccount
     '''
-   
-    paging={
-        'Index': 0,
-        'Size': 10
-    }
 
     predicates={
         'Predicate': [
@@ -158,15 +151,31 @@ def search_accounts_by_user_id(customer_service, user_id):
         ]
     }
 
-    search_accounts_request={
-        'PageInfo': paging,
-        'Predicates': predicates
-    }
+    accounts=[]
+
+    page_index = 0
+    PAGE_SIZE=100
+    found_last_page = False
+
+    while (not found_last_page):
+        paging=set_elements_to_none(customer_service.factory.create('ns5:Paging'))
+        paging.Index=page_index
+        paging.Size=PAGE_SIZE
+        search_accounts_response = customer_service.SearchAccounts(
+            PageInfo=paging,
+            Predicates=predicates
+        )
         
-    return customer_service.SearchAccounts(
-        PageInfo=paging,
-        Predicates=predicates
-    )
+        if search_accounts_response is not None and hasattr(search_accounts_response, 'AdvertiserAccount'):
+            accounts.extend(search_accounts_response['AdvertiserAccount'])
+            found_last_page = PAGE_SIZE > len(search_accounts_response['AdvertiserAccount'])
+            page_index += 1
+        else:
+            found_last_page=True
+    
+    return {
+        'AdvertiserAccount': accounts
+    }
 
 def set_elements_to_none(suds_object):
     # Bing Ads Campaign Management service operations require that if you specify a non-primitive, 

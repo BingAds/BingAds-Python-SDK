@@ -58,7 +58,7 @@ def main(authorization_data):
 
         #For example you might have previously retrieved a request ID using submit_download.
         bulk_download_operation=bulk_service_manager.submit_download(submit_download_parameters)
-        request_id=bulk_download_operation.request_id;
+        request_id=bulk_download_operation.request_id
 
         #Given the request ID above, you can resume the workflow and download the bulk file.
         #The download request identifier is valid for two days. 

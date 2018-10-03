@@ -10,93 +10,58 @@ def output_bing_ads_webfault_error(error):
         output_status_message("ErrorCode: {0}".format(error.ErrorCode))
     if hasattr(error, 'Code'):
         output_status_message("Code: {0}".format(error.Code))
+    if hasattr(error, 'Details'):
+        output_status_message("Details: {0}".format(error.Details))
+    if hasattr(error, 'FieldPath'):
+        output_status_message("FieldPath: {0}".format(error.FieldPath))
     if hasattr(error, 'Message'):
         output_status_message("Message: {0}".format(error.Message))
     output_status_message('')
 
 def output_webfault_errors(ex):
-    if hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'ApiFault') \
-        and hasattr(ex.fault.detail.ApiFault, 'OperationErrors') \
-        and hasattr(ex.fault.detail.ApiFault.OperationErrors, 'OperationError'):
-        api_errors=ex.fault.detail.ApiFault.OperationErrors.OperationError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'AdApiFaultDetail') \
-        and hasattr(ex.fault.detail.AdApiFaultDetail, 'Errors') \
-        and hasattr(ex.fault.detail.AdApiFaultDetail.Errors, 'AdApiError'):
-        api_errors=ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'ApiFaultDetail') \
-        and hasattr(ex.fault.detail.ApiFaultDetail, 'BatchErrors') \
-        and hasattr(ex.fault.detail.ApiFaultDetail.BatchErrors, 'BatchError'):
-        api_errors=ex.fault.detail.ApiFaultDetail.BatchErrors.BatchError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'ApiFaultDetail') \
-        and hasattr(ex.fault.detail.ApiFaultDetail, 'OperationErrors') \
-        and hasattr(ex.fault.detail.ApiFaultDetail.OperationErrors, 'OperationError'):
-        api_errors=ex.fault.detail.ApiFaultDetail.OperationErrors.OperationError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'BatchErrors') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail.BatchErrors, 'BatchError'):
-        api_errors=ex.fault.detail.EditorialApiFaultDetail.BatchErrors.BatchError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'EditorialErrors') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail.EditorialErrors, 'EditorialError'):
-        api_errors=ex.fault.detail.EditorialApiFaultDetail.EditorialErrors.EditorialError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    elif hasattr(ex.fault, 'detail') \
-        and hasattr(ex.fault.detail, 'EditorialApiFaultDetail') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail, 'OperationErrors') \
-        and hasattr(ex.fault.detail.EditorialApiFaultDetail.OperationErrors, 'OperationError'):
-        api_errors=ex.fault.detail.EditorialApiFaultDetail.OperationErrors.OperationError
-        if type(api_errors) == list:
-            for api_error in api_errors:
-                output_bing_ads_webfault_error(api_error)
-        else:
-            output_bing_ads_webfault_error(api_errors)
-    # Handle serialization errors e.g. The formatter threw an exception while trying to deserialize the message: 
+    if not hasattr(ex.fault, "detail"):
+        raise Exception("Unknown WebFault")
+
+    error_attribute_sets = (
+        ["ApiFault", "OperationErrors", "OperationError"],
+        ["AdApiFaultDetail", "Errors", "AdApiError"],
+        ["ApiFaultDetail", "BatchErrors", "BatchError"],
+        ["ApiFaultDetail", "OperationErrors", "OperationError"],
+        ["EditorialApiFaultDetail", "BatchErrors", "BatchError"],
+        ["EditorialApiFaultDetail", "EditorialErrors", "EditorialError"],
+        ["EditorialApiFaultDetail", "OperationErrors", "OperationError"],
+    )
+
+    for error_attribute_set in error_attribute_sets:
+        if output_error_detail(ex.fault.detail, error_attribute_set):
+            return
+
+    # Handle serialization errors, for example: The formatter threw an exception while trying to deserialize the message: 
     # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v12:Entities.
-    elif hasattr(ex.fault, 'detail') \
+    if hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
-        if type(api_errors) == list:
+        if isinstance(api_errors, list):
             for api_error in api_errors:
                 output_status_message(api_error.Message)
         else:
             output_status_message(api_errors.Message)
+        return
+    
+    raise Exception("Unknown WebFault")
+
+def output_error_detail(error_detail, error_attribute_set):
+    api_errors = error_detail
+    for field in error_attribute_set:
+        api_errors = getattr(api_errors, field, None)
+    if api_errors is None:
+        return False
+    if isinstance(api_errors, list):
+        for api_error in api_errors:
+            output_bing_ads_webfault_error(api_error)
     else:
-        raise Exception('Unknown WebFault')
+        output_bing_ads_webfault_error(api_errors)
+    return True
 
 # Bulk
 

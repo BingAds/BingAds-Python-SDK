@@ -517,6 +517,8 @@ def output_audience(data_object):
         output_productaudience(data_object)
     if data_object.Type == 'RemarketingList':
         output_remarketinglist(data_object)
+    if data_object.Type == 'SimilarRemarketingList':
+        output_similarremarketinglist(data_object)
 
 def output_array_of_audience(data_objects):
     if data_objects is None or len(data_objects) == 0:
@@ -1301,8 +1303,10 @@ def output_expandedtextad(data_object):
     output_status_message("Path1: {0}".format(data_object.Path1))
     output_status_message("Path2: {0}".format(data_object.Path2))
     output_status_message("Text: {0}".format(data_object.Text))
+    output_status_message("TextPart2: {0}".format(data_object.TextPart2))
     output_status_message("TitlePart1: {0}".format(data_object.TitlePart1))
     output_status_message("TitlePart2: {0}".format(data_object.TitlePart2))
+    output_status_message("TitlePart3: {0}".format(data_object.TitlePart3))
 
 def output_array_of_expandedtextad(data_objects):
     if data_objects is None or len(data_objects) == 0:
@@ -2305,6 +2309,20 @@ def output_array_of_shoppingsetting(data_objects):
         output_shoppingsetting(data_object)
         output_status_message("\n")
 
+def output_similarremarketinglist(data_object):
+    if data_object is None:
+        return
+    output_status_message("SimilarRemarketingList (Data Object):")
+    output_status_message("SourceId: {0}".format(data_object.SourceId))
+
+def output_array_of_similarremarketinglist(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    output_status_message("Array Of SimilarRemarketingList:\n")
+    for data_object in data_objects['SimilarRemarketingList']:
+        output_similarremarketinglist(data_object)
+        output_status_message("\n")
+
 def output_sitelinkadextension(data_object):
     if data_object is None:
         return
@@ -2554,6 +2572,18 @@ def output_array_of_calltoaction(value_sets):
     for value_set in value_sets['CallToAction']:
         output_calltoaction(value_set)
 
+def output_assetlinkeditorialstatus(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_assetlinkeditorialstatus(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AssetLinkEditorialStatus:\n")
+    for value_set in value_sets['AssetLinkEditorialStatus']:
+        output_assetlinkeditorialstatus(value_set)
+
 def output_budgetlimittype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2673,6 +2703,18 @@ def output_array_of_adgroupstatus(value_sets):
     output_status_message("Array Of AdGroupStatus:\n")
     for value_set in value_sets['AdGroupStatus']:
         output_adgroupstatus(value_set)
+
+def output_adadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdAdditionalField:\n")
+    for value_set in value_sets['AdAdditionalField']:
+        output_adadditionalfield(value_set)
 
 def output_keywordeditorialstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
