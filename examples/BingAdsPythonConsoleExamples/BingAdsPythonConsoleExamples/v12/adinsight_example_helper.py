@@ -156,7 +156,8 @@ def output_auctioninsightkpi(data_object):
     if data_object is None:
         return
     output_status_message("AuctionInsightKpi (Data Object):")
-    output_status_message("Segment: {0}".format(data_object.Segment))
+    output_status_message("Segments (Element Name):")
+    output_array_of_string(data_object.Segments)
     output_status_message("ImpressionShare: {0}".format(data_object.ImpressionShare))
     output_status_message("OverlapRate: {0}".format(data_object.OverlapRate))
     output_status_message("AveragePosition: {0}".format(data_object.AveragePosition))
@@ -176,7 +177,8 @@ def output_auctioninsightresult(data_object):
     if data_object is None:
         return
     output_status_message("AuctionInsightResult (Data Object):")
-    output_status_message("Segment: {0}".format(data_object.Segment))
+    output_status_message("Segments (Element Name):")
+    output_array_of_auctionsegment(data_object.Segments)
     output_status_message("Entries (Element Name):")
     output_array_of_auctioninsightentry(data_object.Entries)
     output_status_message("UsedImpressions: {0}".format(data_object.UsedImpressions))

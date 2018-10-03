@@ -3,32 +3,28 @@ from bingads.v12.reporting import *
 
 # You must provide credentials in auth_helper.py.
 
+# The report file extension type.
+REPORT_FILE_FORMAT='Csv'
+
 # The directory for the report files.
 FILE_DIRECTORY='c:/reports/'
 
 # The name of the report download file.
-DOWNLOAD_FILE_NAME='download.csv'
-
-# The report file extension type.
-REPORT_FILE_FORMAT='Csv'
+RESULT_FILE_NAME='result.' + REPORT_FILE_FORMAT.lower()
 
 # The maximum amount of time (in milliseconds) that you want to wait for the report download.
 TIMEOUT_IN_MILLISECONDS=3600000
 
 def main(authorization_data):
-
     try:
         # You can submit one of the example reports, or build your own.
 
-        #report_request=get_budget_summary_report_request()
-        #report_request=get_user_location_performance_report_request()
-        #report_request=get_keyword_performance_report_request()
-        report_request=get_campaign_performance_report_request(None)
+        report_request=get_report_request(authorization_data.account_id)
         
         reporting_download_parameters = ReportingDownloadParameters(
             report_request=report_request,
             result_file_directory = FILE_DIRECTORY, 
-            result_file_name = DOWNLOAD_FILE_NAME, 
+            result_file_name = RESULT_FILE_NAME, 
             overwrite_result_file = True, # Set this value true if you want to overwrite the same file.
             timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
         )
@@ -38,8 +34,8 @@ def main(authorization_data):
         #return results. The ReportingServiceManager abstracts the details of checking for result file 
         #completion, and you don't have to write any code for results polling.
 
-        output_status_message("Awaiting Background Completion . . .")
-        background_completion(reporting_download_parameters)
+        #output_status_message("Awaiting Background Completion . . .")
+        #background_completion(reporting_download_parameters)
 
         #Option B - Submit and Download with ReportingServiceManager
         #Submit the download request and then use the ReportingDownloadOperation result to 
@@ -63,6 +59,11 @@ def main(authorization_data):
         #output_status_message("Awaiting Download Results . . .")
         #download_results(request_id, authorization_data)
 
+        #Option D - Download the report in memory with ReportingServiceManager.download_report
+        #The download_report helper function downloads the report and summarizes results.
+        output_status_message("Awaiting download_report . . .")
+        download_report(reporting_download_parameters)
+
         output_status_message("Program execution completed")
 
     except WebFault as ex:
@@ -70,269 +71,21 @@ def main(authorization_data):
     except Exception as ex:
         output_status_message(ex)
 
-def get_budget_summary_report_request():
-    '''
-    Build a budget summary report request, including Format, ReportName,
-    Time, and Columns.
-    '''
-    report_request=reporting_service.factory.create('BudgetSummaryReportRequest')
-    report_request.Format=REPORT_FILE_FORMAT
-    report_request.ReportName='My Budget Summary Report'
-    report_request.ReturnOnlyCompleteData=False
-    report_request.Language='English'
-
-    scope=reporting_service.factory.create('AccountThroughCampaignReportScope')
-    scope.AccountIds={'long': [authorization_data.account_id] }
-    scope.Campaigns=None
-    report_request.Scope=scope
-
-    report_time=reporting_service.factory.create('ReportTime')
-    # You may either use a custom date range or predefined time.
-    
-    #custom_date_range_start=reporting_service.factory.create('Date')
-    #custom_date_range_start.Day=1
-    #custom_date_range_start.Month=1
-    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeStart=custom_date_range_start
-    #custom_date_range_end=reporting_service.factory.create('Date')
-    #custom_date_range_end.Day=31
-    #custom_date_range_end.Month=12
-    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeEnd=custom_date_range_end
-    #report_time.PredefinedTime=None
-    
-    report_time.PredefinedTime='Yesterday'
-    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
-    report_request.Time=report_time
-
-    # Specify the attribute and data report columns.
-
-    report_columns=reporting_service.factory.create('ArrayOfBudgetSummaryReportColumn')
-    report_columns.BudgetSummaryReportColumn.append([
-        'AccountName',
-        'AccountNumber',
-        'CampaignName',
-        'CurrencyCode',
-        'Date',
-        'DailySpend',
-    ])
-    report_request.Columns=report_columns
-
-    return report_request
-
-def get_campaign_performance_report_request(campaign_ids):
-    '''
-    Build a campaign performance report request, including Format, ReportName,
-    Time, and Columns.
-    '''
-    report_request=reporting_service.factory.create('CampaignPerformanceReportRequest')
-    report_request.Format=REPORT_FILE_FORMAT
-    report_request.ReportName='My Campaign Performance Report'
-    report_request.ReturnOnlyCompleteData=False
-    report_request.Aggregation='Daily'
-    report_request.Language='English'
-
-    scope=reporting_service.factory.create('AccountThroughCampaignReportScope')
-    if campaign_ids is None:
-        scope.AccountIds={'long': [authorization_data.account_id] }
-        scope.Campaigns=None
-    else:
-        scope.AccountIds=None
-        campaigns=reporting_service.factory.create('ArrayOfCampaignReportScope')
-        for campaign_id in campaign_ids['long']:
-            campaign_report_scope=reporting_service.factory.create('CampaignReportScope')
-            campaign_report_scope.AccountId=authorization_data.account_id
-            campaign_report_scope.CampaignId=campaign_id
-            campaigns.CampaignReportScope.append(campaign_report_scope)
-        scope.Campaigns=campaigns
-    report_request.Scope=scope
-
-    # You may either use a custom date range or predefined time.
-    report_time=reporting_service.factory.create('ReportTime')
-    report_time.PredefinedTime='Yesterday'
-    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
-    report_request.Time=report_time
-
-    # Specify the attribute and data report columns.
-
-    report_columns=reporting_service.factory.create('ArrayOfCampaignPerformanceReportColumn')
-    report_columns.CampaignPerformanceReportColumn.append([
-        'TimePeriod',
-        'CampaignId',
-        'CampaignName',
-        'Impressions',
-        'Clicks',
-        'Spend',
-        'AveragePosition',
-        'Revenue',
-        'DeviceType'
-    ])
-    report_request.Columns=report_columns
-
-    return report_request
-
-def get_keyword_performance_report_request():
-    '''
-    Build a keyword performance report request, including Format, ReportName, Aggregation,
-    Scope, Time, Filter, and Columns.
-    '''
-    report_request=reporting_service.factory.create('KeywordPerformanceReportRequest')
-    report_request.Format=REPORT_FILE_FORMAT
-    report_request.ReportName='My Keyword Performance Report'
-    report_request.ReturnOnlyCompleteData=False
-    report_request.Aggregation='Daily'
-    report_request.Language='English'
-
-    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
-    scope.AccountIds={'long': [authorization_data.account_id] }
-    scope.Campaigns=None
-    scope.AdGroups=None
-    report_request.Scope=scope
-
-    report_time=reporting_service.factory.create('ReportTime')
-    # You may either use a custom date range or predefined time.
-    
-    #custom_date_range_start=reporting_service.factory.create('Date')
-    #custom_date_range_start.Day=1
-    #custom_date_range_start.Month=1
-    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeStart=custom_date_range_start
-    #custom_date_range_end=reporting_service.factory.create('Date')
-    #custom_date_range_end.Day=31
-    #custom_date_range_end.Month=12
-    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeEnd=custom_date_range_end
-    #report_time.PredefinedTime=None
-    
-    report_time.PredefinedTime='Yesterday'
-    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
-    report_request.Time=report_time
-
-    # If you specify a filter, results may differ from data you see in the Bing Ads web application
-
-    #report_filter=reporting_service.factory.create('KeywordPerformanceReportFilter')
-    #report_filter.DeviceType=[
-    #    'Computer',
-    #    'SmartPhone'
-    #]
-    #report_request.Filter=report_filter
-
-    # Specify the attribute and data report columns.
-
-    report_columns=reporting_service.factory.create('ArrayOfKeywordPerformanceReportColumn')
-    report_columns.KeywordPerformanceReportColumn.append([
-        'TimePeriod',
-        'AccountId',
-        'CampaignId',
-        'Keyword',
-        'KeywordId',
-        'DeviceType',
-        'BidMatchType',
-        'Clicks',
-        'Impressions',
-        'Ctr',
-        'AverageCpc',
-        'Spend',
-        'QualityScore',
-    ])
-    report_request.Columns=report_columns
-
-    # You may optionally sort by any KeywordPerformanceReportColumn, and optionally
-    # specify the maximum number of rows to return in the sorted report. 
-
-    report_sorts=reporting_service.factory.create('ArrayOfKeywordPerformanceReportSort')
-    report_sort=reporting_service.factory.create('KeywordPerformanceReportSort')
-    report_sort.SortColumn='Clicks'
-    report_sort.SortOrder='Ascending'
-    report_sorts.KeywordPerformanceReportSort.append(report_sort)
-    report_request.Sort=report_sorts
-
-    report_request.MaxRows=10
-
-    return report_request
-
-def get_user_location_performance_report_request():
-    '''
-    Build a geo location performance report request, including Format, ReportName, Aggregation,
-    Scope, Time, Filter, and Columns.
-    '''
-    report_request=reporting_service.factory.create('UserLocationPerformanceReportRequest')
-    report_request.Format=REPORT_FILE_FORMAT
-    report_request.ReportName='My User Location Performance Report'
-    report_request.ReturnOnlyCompleteData=False
-    report_request.Aggregation='Daily'
-    report_request.Language='English'
-
-    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
-    scope.AccountIds={'long': [authorization_data.account_id] }
-    scope.Campaigns=None
-    scope.AdGroups=None
-    report_request.Scope=scope
-
-    report_time=reporting_service.factory.create('ReportTime')
-    # You may either use a custom date range or predefined time.
-    
-    #custom_date_range_start=reporting_service.factory.create('Date')
-    #custom_date_range_start.Day=1
-    #custom_date_range_start.Month=1
-    #custom_date_range_start.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeStart=custom_date_range_start
-    #custom_date_range_end=reporting_service.factory.create('Date')
-    #custom_date_range_end.Day=31
-    #custom_date_range_end.Month=12
-    #custom_date_range_end.Year=int(strftime("%Y", gmtime()))-1
-    #report_time.CustomDateRangeEnd=custom_date_range_end
-    #report_time.PredefinedTime=None
-    
-    report_time.PredefinedTime='Yesterday'
-    report_time.ReportTimeZone='PacificTimeUSCanadaTijuana'
-    report_request.Time=report_time
-
-    # If you specify a filter, results may differ from data you see in the Bing Ads web application
-
-    report_filter=reporting_service.factory.create('UserLocationPerformanceReportFilter')
-    country_codes=reporting_service.factory.create('ns1:ArrayOfstring')
-    country_codes.string.append('US')
-    report_filter.CountryCode=country_codes
-    report_request.Filter=report_filter
-
-    # Specify the attribute and data report columns.
-
-    report_columns=reporting_service.factory.create('ArrayOfUserLocationPerformanceReportColumn')
-    report_columns.UserLocationPerformanceReportColumn.append([
-        'TimePeriod',
-        'AccountId',
-        'AccountName',
-        'CampaignId',
-        'AdGroupId',
-        'LocationId',
-        'Country',
-        'Clicks',
-        'Impressions',
-        'Ctr',
-        'AverageCpc',
-        'Spend',
-    ])
-    report_request.Columns=report_columns
-
-    return report_request
 
 def background_completion(reporting_download_parameters):
-    '''
-    You can submit a download request and the ReportingServiceManager will automatically 
+    """ You can submit a download request and the ReportingServiceManager will automatically 
     return results. The ReportingServiceManager abstracts the details of checking for result file 
-    completion, and you don't have to write any code for results polling.
-    '''
+    completion, and you don't have to write any code for results polling. """
+
     global reporting_service_manager
     result_file_path = reporting_service_manager.download_file(reporting_download_parameters)
     output_status_message("Download result file: {0}\n".format(result_file_path))
 
 def submit_and_download(report_request):
-    '''
-    Submit the download request and then use the ReportingDownloadOperation result to 
+    """ Submit the download request and then use the ReportingDownloadOperation result to 
     track status until the report is complete e.g. either using
-    ReportingDownloadOperation.track() or ReportingDownloadOperation.get_status().
-    '''
+    ReportingDownloadOperation.track() or ReportingDownloadOperation.get_status(). """
+
     global reporting_service_manager
     reporting_download_operation = reporting_service_manager.submit_download(report_request)
 
@@ -351,7 +104,7 @@ def submit_and_download(report_request):
     
     result_file_path = reporting_download_operation.download_result_file(
         result_file_directory = FILE_DIRECTORY, 
-        result_file_name = DOWNLOAD_FILE_NAME, 
+        result_file_name = RESULT_FILE_NAME, 
         decompress = True, 
         overwrite = True,  # Set this value true if you want to overwrite the same file.
         timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
@@ -360,12 +113,11 @@ def submit_and_download(report_request):
     output_status_message("Download result file: {0}\n".format(result_file_path))
 
 def download_results(request_id, authorization_data):
-    '''
-    If for any reason you have to resume from a previous application state, 
+    """ If for any reason you have to resume from a previous application state, 
     you can use an existing download request identifier and use it 
     to download the result file. Use ReportingDownloadOperation.track() to indicate that the application 
-    should wait to ensure that the download status is completed.
-    '''
+    should wait to ensure that the download status is completed. """
+    
     reporting_download_operation = ReportingDownloadOperation(
         request_id = request_id, 
         authorization_data=authorization_data, 
@@ -380,7 +132,7 @@ def download_results(request_id, authorization_data):
     
     result_file_path = reporting_download_operation.download_result_file(
         result_file_directory = FILE_DIRECTORY, 
-        result_file_name = DOWNLOAD_FILE_NAME, 
+        result_file_name = RESULT_FILE_NAME, 
         decompress = True, 
         overwrite = True,  # Set this value true if you want to overwrite the same file.
         timeout_in_milliseconds=TIMEOUT_IN_MILLISECONDS # You may optionally cancel the download after a specified time interval.
@@ -389,12 +141,315 @@ def download_results(request_id, authorization_data):
     output_status_message("Download result file: {0}".format(result_file_path))
     output_status_message("Status: {0}\n".format(reporting_operation_status.status))
 
+def download_report(reporting_download_parameters):
+    """ You can get a Report object by submitting a new download request via ReportingServiceManager. 
+    Although in this case you will not work directly with the file, under the covers a request is 
+    submitted to the Reporting service and the report file is downloaded to a local directory.  """
+    
+    global reporting_service_manager
+
+    report_container = reporting_service_manager.download_report(reporting_download_parameters)
+
+    #Otherwise if you already have a report file that was downloaded via the API, 
+    #you can get a Report object via the ReportFileReader. 
+
+    # report_file_reader = ReportFileReader(
+    #     file_path = reporting_download_parameters.result_file_directory + reporting_download_parameters.result_file_name, 
+    #     format = reporting_download_parameters.report_request.Format)
+    # report_container = report_file_reader.get_report()
+
+    if(report_container == None):
+        output_status_message("There is no report data for the submitted report request parameters.")
+        sys.exit(0)
+
+    #Once you have a Report object via either workflow above, you can access the metadata and report records. 
+
+    #Output the report metadata
+
+    record_count = report_container.record_count
+    output_status_message("ReportName: {0}".format(report_container.report_name))
+    output_status_message("ReportTimeStart: {0}".format(report_container.report_time_start))
+    output_status_message("ReportTimeEnd: {0}".format(report_container.report_time_end))
+    output_status_message("LastCompletedAvailableDate: {0}".format(report_container.last_completed_available_date))
+    output_status_message("ReportAggregation: {0}".format(report_container.report_aggregation))
+    output_status_message("ReportColumns: {0}".format("; ".join(str(column) for column in report_container.report_columns)))
+    output_status_message("ReportRecordCount: {0}".format(record_count))
+
+    #Analyze and output performance statistics
+
+    if "Impressions" in report_container.report_columns and \
+        "Clicks" in report_container.report_columns and \
+        "DeviceType" in report_container.report_columns and \
+        "Network" in report_container.report_columns:
+
+        report_record_iterable = report_container.report_records
+
+        total_impressions = 0
+        total_clicks = 0
+        distinct_devices = set()
+        distinct_networks = set()
+        for record in report_record_iterable:
+            total_impressions += record.int_value("Impressions")
+            total_clicks += record.int_value("Clicks")
+            distinct_devices.add(record.value("DeviceType"))
+            distinct_networks.add(record.value("Network"))
+
+        output_status_message("Total Impressions: {0}".format(total_impressions))
+        output_status_message("Total Clicks: {0}".format(total_clicks))
+        output_status_message("Average Impressions: {0}".format(total_impressions * 1.0 / record_count))
+        output_status_message("Average Clicks: {0}".format(total_clicks * 1.0 / record_count))
+        output_status_message("Distinct Devices: {0}".format("; ".join(str(device) for device in distinct_devices)))
+        output_status_message("Distinct Networks: {0}".format("; ".join(str(network) for network in distinct_networks)))
+
+    #Be sure to close the report.
+
+    report_container.close()
+
+def get_report_request(account_id):
+    """ 
+    Use a sample report request or build your own. 
+    """
+
+    aggregation = 'Daily'
+    exclude_column_headers=False
+    exclude_report_footer=False
+    exclude_report_header=False
+    time=reporting_service.factory.create('ReportTime')
+    # You can either use a custom date range or predefined time.
+    time.PredefinedTime='Yesterday'
+    time.ReportTimeZone='PacificTimeUSCanadaTijuana'
+    return_only_complete_data=False
+
+    #BudgetSummaryReportRequest does not contain a definition for Aggregation.
+    #BudgetSummaryReportRequest requires BudgetSummaryReportTime instead of ReportTime.
+    budget_summary_report_time=reporting_service.factory.create('BudgetSummaryReportTime')
+    budget_summary_report_time.CustomDateRangeEnd=time.CustomDateRangeEnd
+    budget_summary_report_time.CustomDateRangeStart=time.CustomDateRangeStart
+    budget_summary_report_time.PredefinedTime=time.PredefinedTime
+    budget_summary_report_time.ReportTimeZone=time.ReportTimeZone
+    budget_summary_report_request=get_budget_summary_report_request(
+        account_id=account_id,
+        exclude_column_headers=exclude_column_headers,
+        exclude_report_footer=exclude_report_footer,
+        exclude_report_header=exclude_report_header,
+        report_file_format=REPORT_FILE_FORMAT,
+        return_only_complete_data=return_only_complete_data,
+        time=budget_summary_report_time)
+
+    campaign_performance_report_request=get_campaign_performance_report_request(
+        account_id=account_id,
+        aggregation=aggregation,
+        exclude_column_headers=exclude_column_headers,
+        exclude_report_footer=exclude_report_footer,
+        exclude_report_header=exclude_report_header,
+        report_file_format=REPORT_FILE_FORMAT,
+        return_only_complete_data=return_only_complete_data,
+        time=time)
+
+    keyword_performance_report_request=get_keyword_performance_report_request(
+        account_id=account_id,
+        aggregation=aggregation,
+        exclude_column_headers=exclude_column_headers,
+        exclude_report_footer=exclude_report_footer,
+        exclude_report_header=exclude_report_header,
+        report_file_format=REPORT_FILE_FORMAT,
+        return_only_complete_data=return_only_complete_data,
+        time=time)
+
+    user_location_performance_report_request=get_user_location_performance_report_request(
+        account_id=account_id,
+        aggregation=aggregation,
+        exclude_column_headers=exclude_column_headers,
+        exclude_report_footer=exclude_report_footer,
+        exclude_report_header=exclude_report_header,
+        report_file_format=REPORT_FILE_FORMAT,
+        return_only_complete_data=return_only_complete_data,
+        time=time)
+
+    return keyword_performance_report_request
+
+def get_budget_summary_report_request(
+        account_id,
+        exclude_column_headers,
+        exclude_report_footer,
+        exclude_report_header,
+        report_file_format,
+        return_only_complete_data,
+        time):
+
+    report_request=reporting_service.factory.create('BudgetSummaryReportRequest')
+    report_request.Language='English'
+    report_request.ExcludeColumnHeaders=exclude_column_headers
+    report_request.ExcludeReportFooter=exclude_report_footer
+    report_request.ExcludeReportHeader=exclude_report_header
+    report_request.Format=report_file_format
+    report_request.ReturnOnlyCompleteData=return_only_complete_data
+    report_request.Time=time    
+    report_request.ReportName="My Budget Summary Report"
+    scope=reporting_service.factory.create('AccountThroughCampaignReportScope')
+    scope.AccountIds={'long': [account_id] }
+    scope.Campaigns=None
+    report_request.Scope=scope     
+
+    report_columns=reporting_service.factory.create('ArrayOfBudgetSummaryReportColumn')
+    report_columns.BudgetSummaryReportColumn.append([
+        'AccountName',
+        'AccountNumber',
+        'AccountId',
+        'CampaignName',
+        'CampaignId',
+        'Date',
+        'CurrencyCode',
+        'MonthlyBudget',
+        'DailySpend',
+        'MonthToDateSpend',
+    ])
+    report_request.Columns=report_columns
+
+    return report_request
+
+def get_campaign_performance_report_request(
+        account_id,
+        aggregation,
+        exclude_column_headers,
+        exclude_report_footer,
+        exclude_report_header,
+        report_file_format,
+        return_only_complete_data,
+        time):
+
+    report_request=reporting_service.factory.create('CampaignPerformanceReportRequest')
+    report_request.Language='English'
+    report_request.Aggregation=aggregation
+    report_request.ExcludeColumnHeaders=exclude_column_headers
+    report_request.ExcludeReportFooter=exclude_report_footer
+    report_request.ExcludeReportHeader=exclude_report_header
+    report_request.Format=report_file_format
+    report_request.ReturnOnlyCompleteData=return_only_complete_data
+    report_request.Time=time    
+    report_request.ReportName="My Campaign Performance Report"
+    scope=reporting_service.factory.create('AccountThroughCampaignReportScope')
+    scope.AccountIds={'long': [account_id] }
+    scope.Campaigns=None
+    report_request.Scope=scope     
+
+    report_columns=reporting_service.factory.create('ArrayOfCampaignPerformanceReportColumn')
+    report_columns.CampaignPerformanceReportColumn.append([
+        'TimePeriod',
+        'CampaignId',
+        'CampaignName',
+        'DeviceType',
+        'Network',
+        'Impressions',
+        'Clicks',  
+        'Spend',
+        'AveragePosition',
+        'Revenue'
+    ])
+    report_request.Columns=report_columns
+    
+    return report_request
+
+def get_keyword_performance_report_request(
+        account_id,
+        aggregation,
+        exclude_column_headers,
+        exclude_report_footer,
+        exclude_report_header,
+        report_file_format,
+        return_only_complete_data,
+        time):
+
+    report_request=reporting_service.factory.create('KeywordPerformanceReportRequest')
+    report_request.Language='English'
+    report_request.Aggregation=aggregation
+    report_request.ExcludeColumnHeaders=exclude_column_headers
+    report_request.ExcludeReportFooter=exclude_report_footer
+    report_request.ExcludeReportHeader=exclude_report_header
+    report_request.Format=report_file_format
+    report_request.ReturnOnlyCompleteData=return_only_complete_data
+    report_request.Time=time    
+    report_request.ReportName="My Keyword Performance Report"
+    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
+    scope.AccountIds={'long': [account_id] }
+    scope.Campaigns=None
+    scope.AdGroups=None
+    report_request.Scope=scope     
+
+    report_columns=reporting_service.factory.create('ArrayOfKeywordPerformanceReportColumn')
+    report_columns.KeywordPerformanceReportColumn.append([
+        'TimePeriod',
+        'AccountId',
+        'CampaignId',
+        'Keyword',
+        'KeywordId',
+        'DeviceType',
+        'Network',
+        'Impressions',
+        'Clicks',  
+        'Spend',
+        'BidMatchType',              
+        'Ctr',
+        'AverageCpc',        
+        'QualityScore'
+    ])
+    report_request.Columns=report_columns
+
+    return report_request
+
+def get_user_location_performance_report_request(
+        account_id,
+        aggregation,
+        exclude_column_headers,
+        exclude_report_footer,
+        exclude_report_header,
+        report_file_format,
+        return_only_complete_data,
+        time):
+    
+    report_request=reporting_service.factory.create('UserLocationPerformanceReportRequest')
+    report_request.Language='English'
+    report_request.Aggregation=aggregation
+    report_request.ExcludeColumnHeaders=exclude_column_headers
+    report_request.ExcludeReportFooter=exclude_report_footer
+    report_request.ExcludeReportHeader=exclude_report_header
+    report_request.Format=report_file_format
+    report_request.ReturnOnlyCompleteData=return_only_complete_data
+    report_request.Time=time    
+    report_request.ReportName="My User Location Performance Report"
+    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
+    scope.AccountIds={'long': [account_id] }
+    scope.Campaigns=None
+    scope.AdGroups=None
+    report_request.Scope=scope 
+
+    report_columns=reporting_service.factory.create('ArrayOfUserLocationPerformanceReportColumn')
+    report_columns.UserLocationPerformanceReportColumn.append([
+        'TimePeriod',
+        'AccountId',
+        'AccountName',
+        'CampaignId',
+        'AdGroupId',
+        'LocationId',
+        'Country',
+        'Clicks',
+        'Impressions',
+        'DeviceType',
+        'Network',
+        'Ctr',
+        'AverageCpc',
+        'Spend',
+    ])
+    report_request.Columns=report_columns
+
+    return report_request
+
 # Main execution
 if __name__ == '__main__':
 
     print("Python loads the web service proxies at runtime, so you will observe " \
           "a performance delay between program launch and main execution...\n")
-    
+
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,

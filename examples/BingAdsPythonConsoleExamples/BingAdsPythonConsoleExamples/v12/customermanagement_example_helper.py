@@ -242,6 +242,8 @@ def output_customer(data_object):
     output_status_message("CustomerLifeCycleStatus: {0}".format(data_object.CustomerLifeCycleStatus))
     output_status_message("TimeStamp: {0}".format(data_object.TimeStamp))
     output_status_message("Number: {0}".format(data_object.Number))
+    output_status_message("CustomerAddress (Element Name):")
+    output_address(data_object.CustomerAddress)
 
 def output_array_of_customer(data_objects):
     if data_objects is None or len(data_objects) == 0:
@@ -274,6 +276,8 @@ def output_customerrole(data_object):
     output_status_message("CustomerId: {0}".format(data_object.CustomerId))
     output_status_message("AccountIds (Element Name):")
     output_array_of_long(data_object.AccountIds)
+    output_status_message("LinkedAccountIds (Element Name):")
+    output_array_of_long(data_object.LinkedAccountIds)
 
 def output_array_of_customerrole(data_objects):
     if data_objects is None or len(data_objects) == 0:
