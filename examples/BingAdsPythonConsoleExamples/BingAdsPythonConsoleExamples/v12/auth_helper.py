@@ -30,10 +30,10 @@ ALL_AD_TYPES={
 
 def authenticate(authorization_data):
     
-    import logging
-    logging.basicConfig(level=logging.INFO)
-    logging.getLogger('suds.client').setLevel(logging.DEBUG)
-    logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
+    # import logging
+    # logging.basicConfig(level=logging.INFO)
+    # logging.getLogger('suds.client').setLevel(logging.DEBUG)
+    # logging.getLogger('suds.transport.http').setLevel(logging.DEBUG)
 
     customer_service=ServiceClient(
         'CustomerManagementService', 
