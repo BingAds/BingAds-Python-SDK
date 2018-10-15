@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.bulk.entities.bulk_campaign &#8212; Bing Ads SDK 11.12.6 documentation</title>
+    <title>bingads.v12.bulk.entities.bulk_campaign &#8212; Bing Ads SDK 11.12.7 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -44,6 +44,7 @@
 <span class="kn">from</span> <span class="nn">bingads.v12.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
 <span class="n">_ShoppingSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">))</span>
+<span class="n">_DsaSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">))</span>
 
 <div class="viewcode-block" id="BulkCampaign"><a class="viewcode-back" href="../../../../../bingads.v12.bulk.entities.html#bingads.v12.bulk.entities.bulk_campaign.BulkCampaign">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaign</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a campaign that can be read or written in a bulk file.</span>
@@ -131,13 +132,19 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span>
 
     <span class="k">def</span> <span class="nf">_get_shopping_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setting</span><span class="p">(</span><span class="n">_ShoppingSetting</span><span class="p">,</span> <span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_dsa_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setting</span><span class="p">(</span><span class="n">_DsaSetting</span><span class="p">,</span> <span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">_get_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setting_type</span><span class="p">,</span> <span class="n">setting_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="n">shopping_settings</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span> <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="k">if</span>
-                             <span class="nb">isinstance</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">_ShoppingSetting</span><span class="p">)]</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">shopping_settings</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 ShoppingSetting in Campaign Settings.&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">shopping_settings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">settings</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span> <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="k">if</span>
+                             <span class="nb">isinstance</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">setting_type</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 &#39;</span> <span class="o">+</span> <span class="n">setting_name</span> <span class="o">+</span>  <span class="s1">&#39; in Campaign Settings.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">settings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_campaign_type</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
@@ -154,10 +161,16 @@
         <span class="n">campaign_type</span> <span class="o">=</span> <span class="n">v</span>
         <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;shopping&#39;</span> <span class="ow">or</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;audience&#39;</span><span class="p">:</span>
-            <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ArrayOfSetting&#39;</span><span class="p">)</span>
-            <span class="n">shopping_setting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
-            <span class="n">shopping_setting</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ShoppingSetting&#39;</span>
-            <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="o">=</span> <span class="p">[</span><span class="n">shopping_setting</span><span class="p">]</span>
+            <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dynamicsearchads&#39;</span><span class="p">:</span>
+            <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_create_campaign_setting</span><span class="p">(</span><span class="n">campaign</span><span class="p">,</span> <span class="n">setting_type</span><span class="p">):</span>
+        <span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ArrayOfSetting&#39;</span><span class="p">)</span>
+        <span class="n">setting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">setting_type</span><span class="p">)</span>
+        <span class="n">setting</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="n">setting_type</span>
+        <span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span><span class="p">]</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_write_store_id</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
@@ -246,7 +259,73 @@
             <span class="k">if</span> <span class="ow">not</span> <span class="n">shopping_setting</span><span class="p">:</span>
                 <span class="k">return</span> <span class="kc">None</span>
             <span class="n">shopping_setting</span><span class="o">.</span><span class="n">LocalInventoryAdsEnabled</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_source</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">dsa_setting</span><span class="o">.</span><span class="n">Source</span> <span class="o">=</span> <span class="n">v</span>
 
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_write_source</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">dsa_setting</span><span class="o">.</span><span class="n">Source</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_domain_language</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">dsa_setting</span><span class="o">.</span><span class="n">Language</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_write_domain_language</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">dsa_setting</span><span class="o">.</span><span class="n">Language</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_website</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">dsa_setting</span><span class="o">.</span><span class="n">DomainName</span> <span class="o">=</span> <span class="n">v</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_write_website</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">campgaign_types</span> <span class="o">=</span> <span class="p">[</span><span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">campaign_type</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">in</span> <span class="n">campgaign_types</span><span class="p">:</span>
+            <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">dsa_setting</span><span class="o">.</span><span class="n">DomainName</span><span class="p">)</span>
+        
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">,</span>
@@ -349,13 +428,19 @@
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Website</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_DSAWebsite</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_DSAWebsite</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_write_website</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_website</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DomainLanguage</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_DSADomainLanguage</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_DSADomainLanguage</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_write_domain_language</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_domain_language</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Source</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_write_source</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_source</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">SubType</span><span class="p">,</span>
@@ -411,7 +496,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
