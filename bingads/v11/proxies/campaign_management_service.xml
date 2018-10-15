@@ -9959,7 +9959,7 @@
    </wsdl:binding>
    <wsdl:service name="CampaignManagementService">
       <wsdl:port name="BasicHttpBinding_ICampaignManagementService" binding="tns:BasicHttpBinding_ICampaignManagementService">
-         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v11/CampaignManagementService.svc" />
+         <soap:address location="https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v11/CampaignManagementService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

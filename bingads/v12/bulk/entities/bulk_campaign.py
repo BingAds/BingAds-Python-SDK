@@ -6,6 +6,7 @@ from bingads.v12.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkM
 from bingads.v12.internal.extensions import *
 
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('ShoppingSetting'))
+_DsaSetting = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('DynamicSearchAdsSetting'))
 
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
@@ -93,13 +94,19 @@ class BulkCampaign(_SingleRecordBulkEntity):
         return self._performance_data
 
     def _get_shopping_setting(self):
+        return self._get_setting(_ShoppingSetting, 'ShoppingSetting')
+    
+    def _get_dsa_setting(self):
+        return self._get_setting(_DsaSetting, 'DynamicSearchAdsSetting')
+    
+    def _get_setting(self, setting_type, setting_name):
         if not self.campaign.Settings.Setting:
             return None
-        shopping_settings = [setting for setting in self.campaign.Settings.Setting if
-                             isinstance(setting, _ShoppingSetting)]
-        if len(shopping_settings) != 1:
-            raise ValueError('Can only have 1 ShoppingSetting in Campaign Settings.')
-        return shopping_settings[0]
+        settings = [setting for setting in self.campaign.Settings.Setting if
+                             isinstance(setting, setting_type)]
+        if len(settings) != 1:
+            raise ValueError('Can only have 1 ' + setting_name +  ' in Campaign Settings.')
+        return settings[0]
 
     @staticmethod
     def _write_campaign_type(c):
@@ -116,10 +123,16 @@ class BulkCampaign(_SingleRecordBulkEntity):
         campaign_type = v
         c.campaign.CampaignType = [campaign_type]
         if campaign_type.lower() == 'shopping' or campaign_type.lower() == 'audience':
-            c.campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V12.create('ArrayOfSetting')
-            shopping_setting = _CAMPAIGN_OBJECT_FACTORY_V12.create('ShoppingSetting')
-            shopping_setting.Type = 'ShoppingSetting'
-            c.campaign.Settings.Setting = [shopping_setting]
+            BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
+        elif campaign_type.lower() == 'dynamicsearchads':
+            BulkCampaign._create_campaign_setting(c.campaign, 'DynamicSearchAdsSetting')
+
+    @staticmethod
+    def _create_campaign_setting(campaign, setting_type):
+        campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V12.create('ArrayOfSetting')
+        setting = _CAMPAIGN_OBJECT_FACTORY_V12.create(setting_type)
+        setting.Type = setting_type
+        campaign.Settings.Setting = [setting]
 
     @staticmethod
     def _write_store_id(c):
@@ -208,7 +221,73 @@ class BulkCampaign(_SingleRecordBulkEntity):
             if not shopping_setting:
                 return None
             shopping_setting.LocalInventoryAdsEnabled = v.lower() == 'true' if v else None
+            
+    @staticmethod
+    def _read_source(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            dsa_setting.Source = v
 
+    @staticmethod
+    def _write_source(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            return bulk_str(dsa_setting.Source)
+
+    @staticmethod
+    def _read_domain_language(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            dsa_setting.Language = v
+
+    @staticmethod
+    def _write_domain_language(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            return bulk_str(dsa_setting.Language)
+
+    @staticmethod
+    def _read_website(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            dsa_setting.DomainName = v
+
+    @staticmethod
+    def _write_website(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            return bulk_str(dsa_setting.DomainName)
+        
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.CampaignType,
@@ -311,13 +390,19 @@ class BulkCampaign(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Website,
-            field_to_csv=lambda c: field_to_csv_DSAWebsite(c.campaign),
-            csv_to_field=lambda c, v: csv_to_field_DSAWebsite(c.campaign, v)
+            field_to_csv=lambda c: BulkCampaign._write_website(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_website(c, v)
+            
         ),
         _SimpleBulkMapping(
             header=_StringTable.DomainLanguage,
-            field_to_csv=lambda c: field_to_csv_DSADomainLanguage(c.campaign),
-            csv_to_field=lambda c, v: csv_to_field_DSADomainLanguage(c.campaign, v)
+            field_to_csv=lambda c: BulkCampaign._write_domain_language(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_domain_language(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Source,
+            field_to_csv=lambda c: BulkCampaign._write_source(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_source(c, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.SubType,

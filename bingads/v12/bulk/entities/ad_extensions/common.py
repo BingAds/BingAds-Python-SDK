@@ -178,7 +178,7 @@ class _BulkAdExtensionAssociation(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.ad_extension_id_to_entity_id_association.EntityId),
-            csv_to_field=lambda c, v: setattr(c.ad_extension_id_to_entity_id_association, 'EntityId', int(v))
+            csv_to_field=lambda c, v: setattr(c.ad_extension_id_to_entity_id_association, 'EntityId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.EditorialStatus,

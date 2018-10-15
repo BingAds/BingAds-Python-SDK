@@ -98,6 +98,7 @@ class ReportingServiceManager:
         :return: The submitted download operation
         :rtype: ReportingDownloadOperation
         """
+        self.normalize_request(report_request)
         response = self.service_client.SubmitGenerateReport(report_request)
         headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.SubmitGenerateReport)
         operation = ReportingDownloadOperation(
@@ -110,6 +111,20 @@ class ReportingServiceManager:
         )
         return operation
 
+    def normalize_request(self, report_request):
+
+        if report_request is None:
+            return
+
+        if hasattr(report_request.Time, 'ReportTimeZone') \
+        and hasattr(report_request.Time.ReportTimeZone, 'value') \
+        and report_request.Time.ReportTimeZone.value is None:
+            report_request.Time.ReportTimeZone=None
+            
+        if hasattr(report_request.Time, 'PredefinedTime') \
+        and hasattr(report_request.Time.PredefinedTime, 'value') \
+        and report_request.Time.PredefinedTime.value is None:
+            report_request.Time.PredefinedTime=None
 
     @property
     def service_client(self):

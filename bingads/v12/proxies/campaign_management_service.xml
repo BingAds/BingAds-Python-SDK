@@ -273,11 +273,20 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CallToAction" nillable="true" type="tns:CallToAction" />
+         <xs:simpleType name="AssetLinkEditorialStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Active" />
+               <xs:enumeration value="Disapproved" />
+               <xs:enumeration value="Inactive" />
+               <xs:enumeration value="ActiveLimited" />
+            </xs:restriction>
+         </xs:simpleType>
          <xs:element name="AddCampaignsRequest">
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaign" />
+                  <xs:element minOccurs="0" name="IncludeDynamicSearchAdsSource" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -677,6 +686,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaign" />
+                  <xs:element minOccurs="0" name="IncludeDynamicSearchAdsSource" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -9753,7 +9763,7 @@
    </wsdl:binding>
    <wsdl:service name="CampaignManagementService">
       <wsdl:port name="BasicHttpBinding_ICampaignManagementService" binding="tns:BasicHttpBinding_ICampaignManagementService">
-         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V12/CampaignManagementService.svc" />
+         <soap:address location="https://campaign.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V12/CampaignManagementService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

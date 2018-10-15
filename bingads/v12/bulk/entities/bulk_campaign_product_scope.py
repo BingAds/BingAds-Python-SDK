@@ -54,7 +54,7 @@ class BulkCampaignProductScope(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.biddable_campaign_criterion.CampaignId),
-            csv_to_field=lambda c, v: setattr(c.biddable_campaign_criterion, 'CampaignId', int(v))
+            csv_to_field=lambda c, v: setattr(c.biddable_campaign_criterion, 'CampaignId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Campaign,

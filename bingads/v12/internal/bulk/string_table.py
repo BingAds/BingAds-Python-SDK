@@ -44,6 +44,7 @@ class _StringTable:
     KeywordNegativeKeyword = "Keyword Negative Keyword"
     AdGroupNegativeSite = "Ad Group Negative Site"
     Text = "Text"
+    TextPart2="Text Part 2"
     Website = "Website"
     Target = "Target"
     PhysicalIntent = "Physical Intent"
@@ -350,6 +351,7 @@ class _StringTable:
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"
     TitlePart2 = "Title Part 2"
+    TitlePart3 = "Title Part 3"
     Path1 = "Path 1"
     Path2 = "Path 2"
     Domain = "Domain"

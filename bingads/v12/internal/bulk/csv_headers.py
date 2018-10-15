@@ -35,6 +35,7 @@ class _CsvHeaders:
         # Ads
         _StringTable.Title,
         _StringTable.Text,
+        _StringTable.TextPart2,
         _StringTable.DisplayUrl,
         _StringTable.DestinationUrl,
         _StringTable.BusinessName,
@@ -281,6 +282,7 @@ class _CsvHeaders:
         # Expanded Text Ad
         _StringTable.TitlePart1,
         _StringTable.TitlePart2,
+        _StringTable.TitlePart3,
         _StringTable.Path1,
         _StringTable.Path2,
         _StringTable.Domain,

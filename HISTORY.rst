@@ -2,6 +2,12 @@
 
 Release History
 -----------
+11.12.7(2018-10-10)
++++++++++++++++++++
+*Update service proxies to reflect recent interface changes.
+*Map TitlePart3 and TextPart2 to BulkExpandedTextAd.
+
+-----------
 11.12.6(2018-09-10)
 +++++++++++++++++++
 *Updated service proxies to reflect recent Bulk, Campaign Management, Customer Management, and Reporting API changes. 
