@@ -195,7 +195,7 @@ class OAuthTokens:
     either the :class:`.OAuthDesktopMobileAuthCodeGrant` or :class:`.OAuthWebAuthCodeGrant` classes.
     """
 
-    def __init__(self, access_token=None, access_token_expires_in_seconds=None, refresh_token=None):
+    def __init__(self, access_token=None, access_token_expires_in_seconds=None, refresh_token=None, user_id=None):
         """ Initialize an instance of this class.
 
         :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.
@@ -209,6 +209,7 @@ class OAuthTokens:
         self._access_token = access_token
         self._access_token_expires_in_seconds = access_token_expires_in_seconds
         self._refresh_token = refresh_token
+        self._user_id = user_id
 
     @property
     def access_token(self):
@@ -236,6 +237,15 @@ class OAuthTokens:
         """
 
         return self._refresh_token
+
+    @property
+    def user_id(self):
+        """ OAuth user id that can be used to identify the user.
+
+        :rtype: str
+        """
+
+        return self._user_id
 
 
 class OAuthAuthorization(Authentication):
@@ -629,4 +639,4 @@ class _UriOAuthService:
             raise OAuthTokenRequestException(error_json.get('error'), error_json.get('error_description'))
 
         r_json = json.loads(r.text)
-        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'])
+        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'], r_json['user_id'])
