@@ -2,6 +2,13 @@
 
 Release History
 -----------
+12.0.1(2018-11-10)
++++++++++++++++++++
+*Removed support for Bing Ads API Version 11, per the October 31, 2018 sunset. 
+*Added Bulk mapping for responsive search ads i.e., BulkResponsiveSearchAd and BulkResponsiveSearchAdLabel.
+*Added all fragments returned via the tokens request as a new property in the OAuthTokens SDK class.
+
+-----------
 11.12.7(2018-10-10)
 +++++++++++++++++++
 *Update service proxies to reflect recent interface changes.

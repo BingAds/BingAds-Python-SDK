@@ -397,7 +397,8 @@ class _StringTable:
     SquareImageMediaId = "Square Image Media Id"
     SquareLogoMediaId = "Square Logo Media Id"
 
-
+    # Responsive Search Ad
+    ResponsiveSearchAd = "Responsive Search Ad"
 
     # Labels
     ColorCode = "Color"
@@ -411,6 +412,7 @@ class _StringTable:
     ProductAdLabel = "Product Ad Label"
     TextAdLabel = "Text Ad Label"
     ResponsiveAdLabel = "Responsive Ad Label"
+    ResponsiveSearchAdLabel = "Responsive Search Ad Label"
 
     # Offline Conversions
     OfflineConversion = "Offline Conversion"

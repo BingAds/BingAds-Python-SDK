@@ -195,20 +195,23 @@ class OAuthTokens:
     either the :class:`.OAuthDesktopMobileAuthCodeGrant` or :class:`.OAuthWebAuthCodeGrant` classes.
     """
 
-    def __init__(self, access_token=None, access_token_expires_in_seconds=None, refresh_token=None):
+    def __init__(self, access_token=None, access_token_expires_in_seconds=None, refresh_token=None, response_json = None):
         """ Initialize an instance of this class.
 
         :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.
         :type access_token: (optional) str or None
         :param access_token_expires_in_seconds: (optional) The access token expiration time in seconds.
         :type access_token_expires_in_seconds: int or None
-        :param refresh_token: (optional) OAuth refresh token that can be user to refresh an access token.
+        :param refresh_token: (optional) OAuth refresh token that can be used to refresh an access token.
         :type refresh_token: str or None
+        :param response_json: (optional) Whole json response along with the get access token request.
+        :type response_json: dictionary
         """
 
         self._access_token = access_token
         self._access_token_expires_in_seconds = access_token_expires_in_seconds
         self._refresh_token = refresh_token
+        self._response_json = response_json
 
     @property
     def access_token(self):
@@ -236,6 +239,14 @@ class OAuthTokens:
         """
 
         return self._refresh_token
+    
+    @property
+    def response_json(self):
+        """ OAuth whole attribute that got along with access token.
+
+        :rtype: dictionary
+        """
+        return self._response_json
 
 
 class OAuthAuthorization(Authentication):
@@ -611,6 +622,7 @@ class _UriOAuthService:
 
     @staticmethod
     def get_access_token(**kwargs):
+
         """ Calls live.com authorization server with parameters passed in, deserializes the response and returns back OAuth tokens.
 
         :param kwargs: OAuth parameters for authorization server call.
@@ -629,4 +641,4 @@ class _UriOAuthService:
             raise OAuthTokenRequestException(error_json.get('error'), error_json.get('error_description'))
 
         r_json = json.loads(r.text)
-        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'])
+        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'], r_json)

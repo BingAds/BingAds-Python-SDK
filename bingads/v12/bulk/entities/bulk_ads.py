@@ -11,6 +11,8 @@ TextAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('TextAd'))
 AppInstallAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('AppInstallAd'))
 ExpandedTextAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('ExpandedTextAd'))
 DynamicSearchAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('DynamicSearchAd'))
+ResponsiveSearchAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('ResponsiveSearchAd'))
+ResponsiveAd = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('ResponsiveAd'))
 
 
 class _BulkAd(_SingleRecordBulkEntity):
@@ -23,6 +25,8 @@ class _BulkAd(_SingleRecordBulkEntity):
     * :class:`.BulkAppInstallAd`
     * :class:`.BulkExpandedTextAd`
     * :class:`.BulkDynamicSearchAd`
+    * :class:`.BulkResponsiveAd`
+    * :class:`.BulkResponsiveSearchAd`
     """
 
     def __init__(self,
@@ -166,7 +170,6 @@ class _BulkAd(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad, v)
         ),
-        # TODO FinalAppUrls is not added
     ]
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
@@ -598,7 +601,7 @@ class BulkResponsiveAd(_BulkAd):
             ad_group_name,
             ad,
         )
-        self.responsive_ad = ad
+        self._ad = ad
 
     @property
     def responsive_ad(self):
@@ -664,7 +667,7 @@ class BulkResponsiveAd(_BulkAd):
     ]
 
     def process_mappings_from_row_values(self, row_values):
-        self.responsive_ad = _CAMPAIGN_OBJECT_FACTORY_V11.create('ResponsiveAd')
+        self.responsive_ad = _CAMPAIGN_OBJECT_FACTORY_V12.create('ResponsiveAd')
         self.responsive_ad.Type = 'Responsive'
         super(BulkResponsiveAd, self).process_mappings_from_row_values(row_values)
         row_values.convert_to_entity(self, BulkResponsiveAd._MAPPINGS)
@@ -673,3 +676,85 @@ class BulkResponsiveAd(_BulkAd):
         self._validate_property_not_null(self.responsive_ad, 'responsive_ad')
         super(BulkResponsiveAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkResponsiveAd._MAPPINGS)
+
+class BulkResponsiveSearchAd(_BulkAd):
+    """ Represents a Responsive Search Ad.
+
+    This class exposes the :attr:`responsive_search_ad` property that can be read and written as fields of the Responsive Search Ad record in a bulk file.
+
+    For more information, see Responsive Search Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self,
+                 ad_group_id=None,
+                 campaign_name=None,
+                 ad_group_name=None,
+                 ad=None):
+        super(BulkResponsiveSearchAd, self).__init__(
+            ad_group_id,
+            campaign_name,
+            ad_group_name,
+            ad,
+        )
+        self._ad = ad
+
+    @property
+    def responsive_search_ad(self):
+        """ The responsive search ad.
+
+        see Responsive Search Ad at https://go.microsoft.com/fwlink/?linkid=836840.
+        """
+
+        return self._ad
+
+    @responsive_search_ad.setter
+    def responsive_search_ad(self, rsa):
+        if rsa is not None and not isinstance(rsa, ResponsiveSearchAd):
+            raise ValueError('Not an instance of ResponsiveSearchAd')
+        self._ad = rsa
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Path1,
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path1),
+            csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Path1', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Path2,
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path2),
+            csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Path2', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Domain,
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Domain),
+            csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Domain', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Headline,
+            field_to_csv=lambda c: field_to_csv_Rsa_TextAssetLinks(c.responsive_search_ad.Headlines),
+            csv_to_field=lambda c, v: csv_to_field_Rsa_TextAssetLinks(c.responsive_search_ad.Headlines, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Description,
+            field_to_csv=lambda c: field_to_csv_Rsa_TextAssetLinks(c.responsive_search_ad.Descriptions),
+            csv_to_field=lambda c, v: csv_to_field_Rsa_TextAssetLinks(c.responsive_search_ad.Descriptions ,v)
+        )
+    ]
+
+    def process_mappings_from_row_values(self, row_values):
+        self.responsive_search_ad = _CAMPAIGN_OBJECT_FACTORY_V12.create('ResponsiveSearchAd')
+        self.responsive_search_ad.Type = 'ResponsiveSearch'
+        super(BulkResponsiveSearchAd, self).process_mappings_from_row_values(row_values)
+        row_values.convert_to_entity(self, BulkResponsiveSearchAd._MAPPINGS)
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        self._validate_property_not_null(self.responsive_search_ad, 'responsive_search_ad')
+        super(BulkResponsiveSearchAd, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkResponsiveSearchAd._MAPPINGS)

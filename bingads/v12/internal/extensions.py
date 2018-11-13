@@ -3,6 +3,7 @@ from datetime import datetime
 from bingads.v12.internal.bulk.string_table import _StringTable
 from six import PY2
 import re
+import json
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V12, _CAMPAIGN_MANAGEMENT_SERVICE_V12
 
 target_setting_detail_pattern="^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$"
@@ -393,6 +394,40 @@ def csv_to_field_StructuredSnippetValues(entity, value):
 def field_to_csv_StructuredSnippetValues(entity):
     if entity.Values is not None and entity.Values.string is not None and len(entity.Values.string) > 0:
         return ';'.join(entity.Values.string)
+    return None
+
+def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
+    if value is None or value == '':
+        return
+    assetLinkContracts = json.loads(value)
+    
+    for assetLinkContract in assetLinkContracts:
+        asset_link = _CAMPAIGN_OBJECT_FACTORY_V12.create('AssetLink')
+        asset_link.Asset.Type = 'TextAsset'
+        asset_link.Asset.Id = assetLinkContract['id']
+        asset_link.Asset.Text = assetLinkContract['text']
+        asset_link.Asset.Name = assetLinkContract['name']
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
+        asset_link.PinnedField = assetLinkContract['pinnedField']
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        assetLinks.AssetLink.append(asset_link)
+
+def field_to_csv_Rsa_TextAssetLinks(entity):
+    if entity is None or entity.AssetLink is None:
+        return None
+    assetLinkContracts = []
+    for assetLink in entity.AssetLink:
+        if assetLink.Asset is not None and assetLink.Asset.Type == 'TextAsset':
+            contract = {}
+            contract['id'] = assetLink.Asset.Id
+            contract['name'] = assetLink.Asset.Name
+            contract['text'] = assetLink.Asset.Text
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
+            contract['editorialStatus'] = assetLink.EditorialStatus
+            contract['pinnedField'] = assetLink.PinnedField
+            assetLinkContracts.append(contract)
+    if len(assetLinkContracts) > 0:
+        return json.dumps(assetLinkContracts)
     return None
 
 

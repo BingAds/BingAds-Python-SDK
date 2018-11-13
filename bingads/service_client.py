@@ -193,9 +193,7 @@ class ServiceClient:
         :param version:
         :return: int version
         """
-        if version == 'v11' or version == 11:
-            version = 11
-        elif version == 'v12' or version == 12:
+        if version == 'v12' or version == 12:
             version = 12
         else:
             raise ValueError(str.format('version error: [{0}] is not supported. Please specify V11 or V12', version))
@@ -291,14 +289,6 @@ import pkg_resources
 import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
-
-_CAMPAIGN_MANAGEMENT_SERVICE_V11 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v11/proxies/campaign_management_service.xml')
-)
-_CAMPAIGN_OBJECT_FACTORY_V11 = _CAMPAIGN_MANAGEMENT_SERVICE_V11.factory
-# TODO Better to push suds-jurko accept this caching
-_CAMPAIGN_OBJECT_FACTORY_V11.object_cache = {}
-_CAMPAIGN_OBJECT_FACTORY_V11.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V11.create
 
 
 _CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(

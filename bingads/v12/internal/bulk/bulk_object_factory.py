@@ -52,6 +52,7 @@ class _BulkObjectFactory():
         _StringTable.ExpandedTextAd: _EntityInfo(lambda: BulkExpandedTextAd()),
         _StringTable.DynamicSearchAd: _EntityInfo(lambda: BulkDynamicSearchAd()),
         _StringTable.ResponsiveAd: _EntityInfo(lambda: BulkResponsiveAd()),
+        _StringTable.ResponsiveSearchAd: _EntityInfo(lambda: BulkResponsiveSearchAd()),
         "Campaign Negative Site": _EntityInfo(
             lambda: BulkCampaignNegativeSite(),
             _StringTable.Website,
@@ -121,6 +122,7 @@ class _BulkObjectFactory():
         _StringTable.ExpandedTextAdLabel: _EntityInfo(lambda: BulkExpandedTextAdLabel()),
         _StringTable.ProductAdLabel: _EntityInfo(lambda: BulkProductAdLabel()),
         _StringTable.ResponsiveAdLabel: _EntityInfo(lambda: BulkResponsiveAdLabel()),
+        _StringTable.ResponsiveSearchAdLabel: _EntityInfo(lambda: BulkResponsiveSearchAdLabel()),
         _StringTable.OfflineConversion: _EntityInfo(lambda: BulkOfflineConversion()),
         _StringTable.SimilarRemarketingList: _EntityInfo(lambda: BulkSimilarRemarketingList()),
         _StringTable.AdGroupSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupSimilarRemarketingListAssociation()),

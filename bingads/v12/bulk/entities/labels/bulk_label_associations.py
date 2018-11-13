@@ -360,3 +360,21 @@ class BulkResponsiveAdLabel(_BulkLabelAssociation):
 
     def __init__(self, label_association=None, status=None):
         super(BulkResponsiveAdLabel, self).__init__(label_association, status)
+
+class BulkResponsiveSearchAdLabel(_BulkLabelAssociation):
+    """ Represents a ResponsiveSearchAd label.
+
+    Defines an association record between a ResponsiveSearchAd and a Label that can be uploaded and downloaded in a bulk file.
+
+    For more information, see ResponsiveSearchAd Label at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self, label_association=None, status=None):
+        super(BulkResponsiveSearchAdLabel, self).__init__(label_association, status)
