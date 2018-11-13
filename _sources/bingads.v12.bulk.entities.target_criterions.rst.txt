@@ -156,6 +156,14 @@ bingads.v12.bulk.entities.target\_criterions.bulk\_campaign\_negative\_location\
     :undoc-members:
     :show-inheritance:
 
+bingads.v12.bulk.entities.target\_criterions.bulk\_campaign\_profile\_criterion module
+--------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.target_criterions.bulk_campaign_profile_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v12.bulk.entities.target\_criterions.bulk\_campaign\_radius\_criterion module
 -------------------------------------------------------------------------------------
 

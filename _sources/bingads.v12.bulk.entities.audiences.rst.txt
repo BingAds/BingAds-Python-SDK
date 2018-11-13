@@ -52,6 +52,14 @@ bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_negative\_remarketing\_list
     :undoc-members:
     :show-inheritance:
 
+bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_negative\_similar\_remarketing\_list\_association module
+-------------------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_similar_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_product\_audience\_association module
 ------------------------------------------------------------------------------------------
 
@@ -64,6 +72,14 @@ bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_remarketing\_list\_associat
 ------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_similar\_remarketing\_list\_association module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_similar_remarketing_list_association
     :members:
     :undoc-members:
     :show-inheritance:
@@ -96,6 +112,14 @@ bingads.v12.bulk.entities.audiences.bulk\_remarketing\_list module
 ------------------------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.audiences.bulk_remarketing_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_similar\_remarketing\_list module
+---------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_similar_remarketing_list
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 11.12.7 documentation</title>
+    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 12.0.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -41,6 +41,7 @@
 <span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">six</span> <span class="k">import</span> <span class="n">PY2</span>
 <span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="p">,</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V12</span>
 
 <span class="n">target_setting_detail_pattern</span><span class="o">=</span><span class="s2">&quot;^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$&quot;</span>
@@ -431,6 +432,40 @@
 <div class="viewcode-block" id="field_to_csv_StructuredSnippetValues"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_StructuredSnippetValues">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_StructuredSnippetValues</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">Values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Values</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Values</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Values</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="csv_to_field_Rsa_TextAssetLinks"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.csv_to_field_Rsa_TextAssetLinks">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_Rsa_TextAssetLinks</span><span class="p">(</span><span class="n">assetLinks</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">assetLinkContracts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">assetLinkContract</span> <span class="ow">in</span> <span class="n">assetLinkContracts</span><span class="p">:</span>
+        <span class="n">asset_link</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AssetLink&#39;</span><span class="p">)</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;TextAsset&#39;</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">AssetPerformanceLabel</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;assetPerformanceLabel&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">PinnedField</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;pinnedField&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">EditorialStatus</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;editorialStatus&#39;</span><span class="p">]</span>
+        <span class="n">assetLinks</span><span class="o">.</span><span class="n">AssetLink</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asset_link</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="field_to_csv_Rsa_TextAssetLinks"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_Rsa_TextAssetLinks">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_Rsa_TextAssetLinks</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">AssetLink</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">assetLinkContracts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">assetLink</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">AssetLink</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Type</span> <span class="o">==</span> <span class="s1">&#39;TextAsset&#39;</span><span class="p">:</span>
+            <span class="n">contract</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Id</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Name</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Text</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;assetPerformanceLabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">AssetPerformanceLabel</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;editorialStatus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">EditorialStatus</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;pinnedField&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">PinnedField</span>
+            <span class="n">assetLinkContracts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contract</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">assetLinkContracts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">assetLinkContracts</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
@@ -1406,7 +1441,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

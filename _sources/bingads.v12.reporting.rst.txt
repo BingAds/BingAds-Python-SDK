@@ -12,6 +12,22 @@ bingads.v12.reporting.exceptions module
     :undoc-members:
     :show-inheritance:
 
+bingads.v12.reporting.report\_contract module
+---------------------------------------------
+
+.. automodule:: bingads.v12.reporting.report_contract
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.reporting.report\_file\_reader module
+-------------------------------------------------
+
+.. automodule:: bingads.v12.reporting.report_file_reader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v12.reporting.reporting\_download\_parameters module
 ------------------------------------------------------------
 

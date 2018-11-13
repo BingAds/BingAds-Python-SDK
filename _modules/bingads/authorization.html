@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.authorization &#8212; Bing Ads SDK 11.12.7 documentation</title>
+    <title>bingads.authorization &#8212; Bing Ads SDK 12.0.1 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -233,20 +233,23 @@
 <span class="sd">    either the :class:`.OAuthDesktopMobileAuthCodeGrant` or :class:`.OAuthWebAuthCodeGrant` classes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">access_token_expires_in_seconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">access_token_expires_in_seconds</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">response_json</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
 
 <span class="sd">        :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.</span>
 <span class="sd">        :type access_token: (optional) str or None</span>
 <span class="sd">        :param access_token_expires_in_seconds: (optional) The access token expiration time in seconds.</span>
 <span class="sd">        :type access_token_expires_in_seconds: int or None</span>
-<span class="sd">        :param refresh_token: (optional) OAuth refresh token that can be user to refresh an access token.</span>
+<span class="sd">        :param refresh_token: (optional) OAuth refresh token that can be used to refresh an access token.</span>
 <span class="sd">        :type refresh_token: str or None</span>
+<span class="sd">        :param response_json: (optional) Whole json response along with the get access token request.</span>
+<span class="sd">        :type response_json: dictionary</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_access_token</span> <span class="o">=</span> <span class="n">access_token</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_access_token_expires_in_seconds</span> <span class="o">=</span> <span class="n">access_token_expires_in_seconds</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span> <span class="o">=</span> <span class="n">refresh_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_response_json</span> <span class="o">=</span> <span class="n">response_json</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -273,7 +276,15 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_refresh_token</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">response_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; OAuth whole attribute that got along with access token.</span>
+
+<span class="sd">        :rtype: dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_response_json</span></div>
 
 
 <div class="viewcode-block" id="OAuthAuthorization"><a class="viewcode-back" href="../../bingads.html#bingads.authorization.OAuthAuthorization">[docs]</a><span class="k">class</span> <span class="nc">OAuthAuthorization</span><span class="p">(</span><span class="n">Authentication</span><span class="p">):</span>
@@ -649,6 +660,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
         <span class="sd">&quot;&quot;&quot; Calls live.com authorization server with parameters passed in, deserializes the response and returns back OAuth tokens.</span>
 
 <span class="sd">        :param kwargs: OAuth parameters for authorization server call.</span>
@@ -667,7 +679,7 @@
             <span class="k">raise</span> <span class="n">OAuthTokenRequestException</span><span class="p">(</span><span class="n">error_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">),</span> <span class="n">error_json</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_description&#39;</span><span class="p">))</span>
 
         <span class="n">r_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">OAuthTokens</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;expires_in&#39;</span><span class="p">]),</span> <span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">OAuthTokens</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;access_token&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;expires_in&#39;</span><span class="p">]),</span> <span class="n">r_json</span><span class="p">[</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">],</span> <span class="n">r_json</span><span class="p">)</span>
 </pre></div>
 
           </div>
@@ -700,7 +712,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 11.12.7 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
