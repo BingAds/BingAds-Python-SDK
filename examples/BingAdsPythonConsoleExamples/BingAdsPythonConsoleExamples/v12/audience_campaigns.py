@@ -157,8 +157,8 @@ def main(authorization_data):
         # criterion type group, you can set bid adjustments for specific criteria.
                 
         ad_group_criterions=campaign_service.factory.create('ArrayOfAdGroupCriterion')
-        fixed_bid=set_elements_to_none(campaign_service.factory.create('FixedBid'))
-        fixed_bid.Amount=0.50
+        bid_multiplier=set_elements_to_none(campaign_service.factory.create('BidMultiplier'))
+        bid_multiplier.Multiplier=20
         
         ad_group_companyname_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
         ad_group_companyname_criterion.AdGroupId=ad_group_ids['long'][0]
@@ -167,7 +167,7 @@ def main(authorization_data):
         companyname_criterion.ProfileId = 808251207 # Microsoft
         companyname_criterion.ProfileType = 'CompanyName'
         ad_group_companyname_criterion.Criterion=companyname_criterion        
-        ad_group_companyname_criterion.CriterionBid=fixed_bid
+        ad_group_companyname_criterion.CriterionBid=bid_multiplier
         ad_group_criterions.AdGroupCriterion.append(ad_group_companyname_criterion)
 
         ad_group_industry_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
@@ -177,7 +177,7 @@ def main(authorization_data):
         industry_criterion.ProfileId = 807658654 # Computer & Network Security
         industry_criterion.ProfileType = 'Industry'
         ad_group_industry_criterion.Criterion=industry_criterion        
-        ad_group_industry_criterion.CriterionBid=fixed_bid
+        ad_group_industry_criterion.CriterionBid=bid_multiplier
         ad_group_criterions.AdGroupCriterion.append(ad_group_industry_criterion)
 
         ad_group_jobfunction_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
@@ -187,7 +187,7 @@ def main(authorization_data):
         jobfunction_criterion.ProfileId = 807658477 # Engineering
         jobfunction_criterion.ProfileType = 'JobFunction'
         ad_group_jobfunction_criterion.Criterion=jobfunction_criterion        
-        ad_group_jobfunction_criterion.CriterionBid=fixed_bid
+        ad_group_jobfunction_criterion.CriterionBid=bid_multiplier
         ad_group_criterions.AdGroupCriterion.append(ad_group_jobfunction_criterion)
 
         # Exclude ages twenty-five through thirty-four.
