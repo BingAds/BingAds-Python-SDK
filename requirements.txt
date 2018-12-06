@@ -2,7 +2,7 @@ suds-jurko==0.6.0
 requests
 future
 six
-enum34
+enum-compat
 pytest
 mock
 parameterizedtestcase
