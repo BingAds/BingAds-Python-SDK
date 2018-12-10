@@ -118,6 +118,14 @@ bingads.v12.bulk.entities.bulk\_error module
     :undoc-members:
     :show-inheritance:
 
+bingads.v12.bulk.entities.bulk\_experiment module
+-------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.bulk_experiment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v12.bulk.entities.bulk\_keyword module
 ----------------------------------------------
 
