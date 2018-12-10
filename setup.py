@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '12.0.1'
+VERSION = '12.0.2'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -15,7 +15,7 @@ requirements = [
     'future',
     'six',
     'requests',
-    'enum34',
+    'enum34;python_version<"3.4"',
 ]
 
 setup(

@@ -168,6 +168,12 @@ class _CsvHeaders:
         _StringTable.CampaignPriority,
         _StringTable.LocalInventoryAdsEnabled,
 
+        # experiment
+        _StringTable.TrafficSplitPercent,
+        _StringTable.BaseCampaignId,
+        _StringTable.ExperimentCampaignId,
+        _StringTable.ExperimentId,
+
         #CoOp
         _StringTable.BidOption,
         _StringTable.BidBoostValue,
@@ -299,6 +305,9 @@ class _CsvHeaders:
         # Ad Scheduling
         _StringTable.AdSchedule,
         _StringTable.UseSearcherTimeZone,
+
+        # Action ad extension
+        _StringTable.ActionType,
 
         # Dynamic Search Ads
         _StringTable.DomainLanguage,

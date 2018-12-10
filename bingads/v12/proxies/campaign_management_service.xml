@@ -237,6 +237,13 @@
                      <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
                      <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Images" nillable="true" type="tns:ArrayOfAssetLink">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="LandscapeImageMediaId" nillable="true" type="xs:long" />
                      <xs:element minOccurs="0" name="LandscapeLogoMediaId" nillable="true" type="xs:long" />
                      <xs:element minOccurs="0" name="LongHeadline" nillable="true" type="xs:string" />
@@ -274,20 +281,6 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CallToAction" nillable="true" type="tns:CallToAction" />
-         <xs:complexType name="ResponsiveSearchAd">
-            <xs:complexContent mixed="false">
-               <xs:extension base="tns:Ad">
-                  <xs:sequence>
-                     <xs:element minOccurs="0" name="Descriptions" nillable="true" type="tns:ArrayOfAssetLink" />
-                     <xs:element minOccurs="0" name="Domain" nillable="true" type="xs:string" />
-                     <xs:element minOccurs="0" name="Headlines" nillable="true" type="tns:ArrayOfAssetLink" />
-                     <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
-                     <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
-                  </xs:sequence>
-               </xs:extension>
-            </xs:complexContent>
-         </xs:complexType>
-         <xs:element name="ResponsiveSearchAd" nillable="true" type="tns:ResponsiveSearchAd" />
          <xs:complexType name="ArrayOfAssetLink">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetLink" nillable="true" type="tns:AssetLink" />
@@ -321,6 +314,20 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="TextAsset" nillable="true" type="tns:TextAsset" />
+         <xs:complexType name="ImageAsset">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Asset">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="CropHeight" nillable="true" type="xs:int" />
+                     <xs:element minOccurs="0" name="CropWidth" nillable="true" type="xs:int" />
+                     <xs:element minOccurs="0" name="CropX" nillable="true" type="xs:int" />
+                     <xs:element minOccurs="0" name="CropY" nillable="true" type="xs:int" />
+                     <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ImageAsset" nillable="true" type="tns:ImageAsset" />
          <xs:simpleType name="AssetLinkEditorialStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Unknown" />
@@ -331,6 +338,20 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AssetLinkEditorialStatus" nillable="true" type="tns:AssetLinkEditorialStatus" />
+         <xs:complexType name="ResponsiveSearchAd">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Ad">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Descriptions" nillable="true" type="tns:ArrayOfAssetLink" />
+                     <xs:element minOccurs="0" name="Domain" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Headlines" nillable="true" type="tns:ArrayOfAssetLink" />
+                     <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ResponsiveSearchAd" nillable="true" type="tns:ResponsiveSearchAd" />
          <xs:element name="AddCampaignsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -1138,6 +1159,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="TitlePart3" />
                      <xs:enumeration value="TextPart2" />
+                     <xs:enumeration value="Images" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>

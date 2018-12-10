@@ -11,6 +11,11 @@ class _StringTable:
     Budget = "Budget"
     BudgetType = "Budget Type"
     BudgetName = "Budget Name"
+    Experiment = "Experiment"
+    TrafficSplitPercent = "Traffic Split Percent"
+    BaseCampaignId = "Base Campaign Id"
+    ExperimentCampaignId = "Experiment Campaign Id"
+    ExperimentId = "Experiment Id"
     BudgetId = "Budget Id"
     AdGroup = "Ad Group"
     Keyword = "Keyword"
@@ -119,6 +124,13 @@ class _StringTable:
     CampaignCallAdExtension = "Campaign Call Ad Extension"
     IsCallTrackingEnabled = "Call Tracking Enabled"
     RequireTollFreeTrackingNumber = "Toll Free"
+    
+    #Action Ad Extension
+    ActionAdExtension = "Action Ad Extension"
+    AccountActionAdExtension = "Account Action Ad Extension"
+    CampaignActionAdExtension = "Campaign Action Ad Extension"
+    AdGroupActionAdExtension = "Ad Group Action Ad Extension"
+    ActionType = "Action Type"
 
     # Structured Snippet Ad Extension
     StructuredSnippetAdExtension = "Structured Snippet Ad Extension"

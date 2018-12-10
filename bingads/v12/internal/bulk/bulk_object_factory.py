@@ -127,6 +127,11 @@ class _BulkObjectFactory():
         _StringTable.SimilarRemarketingList: _EntityInfo(lambda: BulkSimilarRemarketingList()),
         _StringTable.AdGroupSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupSimilarRemarketingListAssociation()),
         _StringTable.AdGroupNegativeSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeSimilarRemarketingListAssociation()),
+        _StringTable.ActionAdExtension: _EntityInfo(lambda: BulkActionAdExtension()),
+        _StringTable.AccountActionAdExtension: _EntityInfo(lambda: BulkAccountActionAdExtension()),
+        _StringTable.AdGroupActionAdExtension: _EntityInfo(lambda: BulkAdGroupActionAdExtension()),
+        _StringTable.CampaignActionAdExtension: _EntityInfo(lambda: BulkCampaignActionAdExtension()),
+        _StringTable.Experiment: _EntityInfo(lambda: BulkExperiment()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

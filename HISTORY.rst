@@ -2,6 +2,13 @@
 
 Release History
 -----------
+12.0.2(2018-12-10)
++++++++++++++++++++
+*Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+*Added Bulk mapping for campaign experiments i.e., BulkExperiment and BulkCampaign.
+*Added Bulk mapping for action ad extensions i.e., BulkActionAdExtension, BulkAccountActionAdExtension, BulkAdGroupActionAdExtension, and BulkCampaignActionAdExtension. 
+
+-----------
 12.0.1(2018-11-10)
 +++++++++++++++++++
 *Removed support for Bing Ads API Version 11, per the October 31, 2018 sunset. 

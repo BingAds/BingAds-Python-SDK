@@ -409,6 +409,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: c.campaign.SubType,
             csv_to_field=lambda c, v: setattr(c.campaign, 'SubType', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.ExperimentId,
+            field_to_csv=lambda c: bulk_str(c.campaign.ExperimentId),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'ExperimentId', int(v) if v else None)
+        ),
     ]
 
     def read_additional_data(self, stream_reader):
