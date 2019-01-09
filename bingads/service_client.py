@@ -1,9 +1,10 @@
-from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
+from suds.client import Client, Factory, WebFault  # noqa
 
 from .headerplugin import HeaderPlugin
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT
 from .manifest import USER_AGENT
+from .util import DictCache
 from getpass import getuser
 from tempfile import gettempdir
 from os import path
@@ -31,10 +32,9 @@ class ServiceClient:
         self._refresh_oauth_tokens_automatically = True
         self._version = ServiceClient._format_version(version)
 
-        # TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.
+        # Use in-memory cache by default.
         if 'cache' not in suds_options:
-            location = path.join(gettempdir(), 'suds', getuser())
-            suds_options['cache'] = ObjectCache(location, days=1)
+            suds_options['cache'] = DictCache()
         # set cachingpolicy to 1 to reuse WSDL cache files, otherwise will only reuse XML files
         if 'cachingpolicy' not in suds_options:
             suds_options['cachingpolicy'] = 1
@@ -292,7 +292,8 @@ from suds.sax.text import Text
 
 
 _CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml')
+    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml'),
+    cache=DictCache()
 )
 _CAMPAIGN_OBJECT_FACTORY_V12 = _CAMPAIGN_MANAGEMENT_SERVICE_V12.factory
 # TODO Better to push suds-jurko accept this caching

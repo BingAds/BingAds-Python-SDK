@@ -1,6 +1,18 @@
 import time
 from bingads.exceptions import TimeoutException
 from suds.client import WebFault
+from suds.cache import Cache
+
+
+class DictCache(dict, Cache):
+    # .get and .clear work as intended
+
+    purge = dict.__delitem__
+
+    def put(self, id_, obj):
+        self[id_] = obj
+        return obj
+
 
 class _TimeHelper(object):
     """
