@@ -2,6 +2,15 @@
 
 Release History
 -----------
+12.0.3(2019-01-10)
++++++++++++++++++++
+* BREAKING CHANGE for BulkAdGroupCustomAudienceAssociation, BulkAdGroupInMarketAudienceAssociation, BulkAdGroupNegativeCustomAudienceAssociation, BulkAdGroupNegativeInMarketAudienceAssociation, BulkAdGroupNegativeProductAudienceAssociation, BulkAdGroupNegativeRemarketingListAssociation, BulkAdGroupNegativeSimilarRemarketingListAssociation, BulkAdGroupProductAudienceAssociation, BulkAdGroupRemarketingListAssociation, and BulkAdGroupSimilarRemarketingListAssociation: Replaced custom_audience_name, in_market_audience_name, product_audience_name, remarketing_list_name, and similar_remarketing_list_name with audience_name. The audience_name property is now used to map from the 'Audience Name' field of a Bulk file via all audience association SDK objects. 
+* Updated service proxies to reflect recent interface changes. For details please see the release notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Added Bulk mapping for responsive ad images i.e., added Images to the existing BulkResponsiveAd.
+* Added Bulk mapping for campaign target setting i.e., added TargetSetting to the existing BulkCampaign.
+* Added Bulk mapping for campaign level audience associations i.e.,BulkCampaignCustomAudienceAssociation, BulkCampaignInMarketAudienceAssociation, BulkCampaignNegativeCustomAudienceAssociation, BulkCampaignNegativeInMarketAudienceAssociation, BulkCampaignNegativeProductAudienceAssociation, BulkCampaignNegativeRemarketingListAssociation, BulkCampaignNegativeSimilarRemarketingListAssociation, BulkCampaignProductAudienceAssociation, BulkCampaignRemarketingListAssociation, and BulkCampaignSimilarRemarketingListAssociation. 
+* Added the get_response_header method in class ServiceClient, to access the service TrackingId, etc per GitHub issue https://github.com/BingAds/BingAds-Python-SDK/issues/106. 
+
 12.0.2(2018-12-10)
 +++++++++++++++++++
 *Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.

@@ -100,7 +100,7 @@ class ReportingServiceManager:
         """
         self.normalize_request(report_request)
         response = self.service_client.SubmitGenerateReport(report_request)
-        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.SubmitGenerateReport)
+        headers = self.service_client.get_response_header()
         operation = ReportingDownloadOperation(
             request_id=response,
             authorization_data=self._authorization_data,

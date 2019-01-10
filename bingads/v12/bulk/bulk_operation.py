@@ -240,7 +240,7 @@ class BulkDownloadOperation(BulkOperation):
         if self.final_status is not None:
             return self.final_status
         response = self._get_status_with_retry(4)
-        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.GetBulkDownloadStatus)
+        headers = self.service_client.get_response_header()
         self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = BulkOperationStatus(
             status=response.RequestStatus,
@@ -339,7 +339,7 @@ class BulkUploadOperation(BulkOperation):
         if self.final_status is not None:
             return self.final_status
         response = self._get_status_with_retry(4)
-        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.GetBulkUploadStatus)
+        headers = self.service_client.get_response_header()
         self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = BulkOperationStatus(
             status=response.RequestStatus,

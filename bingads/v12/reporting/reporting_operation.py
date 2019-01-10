@@ -166,7 +166,7 @@ class ReportingDownloadOperation(object):
         if self.final_status is not None:
             return self.final_status
         response = self._get_status_with_retry(4)
-        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.PollGenerateReport)
+        headers = self.service_client.get_response_header()
         self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = ReportingOperationStatus(
             status=response.Status,

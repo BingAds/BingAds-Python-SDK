@@ -6914,18 +6914,6 @@
    <wsdl:message name="ICampaignManagementService_ApplyOfflineConversions_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
-   <wsdl:message name="GetSuggestedLanguagesForTargetCountriesRequest_Headers">
-      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
-      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
-      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
-      <wsdl:part name="CustomerId" element="tns:CustomerId" />
-      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
-      <wsdl:part name="Password" element="tns:Password" />
-      <wsdl:part name="UserName" element="tns:UserName" />
-   </wsdl:message>
-   <wsdl:message name="GetSuggestedLanguagesForTargetCountriesResponse_Headers">
-      <wsdl:part name="TrackingId" element="tns:TrackingId" />
-   </wsdl:message>
    <wsdl:message name="AddLabelsRequest">
       <wsdl:part name="parameters" element="tns:AddLabelsRequest" />
    </wsdl:message>

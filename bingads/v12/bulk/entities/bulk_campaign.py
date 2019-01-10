@@ -96,6 +96,9 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _get_shopping_setting(self):
         return self._get_setting(_ShoppingSetting, 'ShoppingSetting')
     
+    def _get_target_setting(self):
+        return self._get_setting(_ShoppingSetting, 'TargetSetting')
+    
     def _get_dsa_setting(self):
         return self._get_setting(_DsaSetting, 'DynamicSearchAdsSetting')
     
@@ -122,6 +125,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             return []
         campaign_type = v
         c.campaign.CampaignType = [campaign_type]
+        
         if campaign_type.lower() == 'shopping' or campaign_type.lower() == 'audience':
             BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
         elif campaign_type.lower() == 'dynamicsearchads':
@@ -413,6 +417,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.ExperimentId,
             field_to_csv=lambda c: bulk_str(c.campaign.ExperimentId),
             csv_to_field=lambda c, v: setattr(c.campaign, 'ExperimentId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TargetSetting,
+            field_to_csv=lambda c: target_setting_to_csv(c.campaign),
+            csv_to_field=lambda c, v: csv_to_target_setting(c.campaign, v)
         ),
     ]
 

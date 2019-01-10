@@ -209,7 +209,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'DestinationUrl',
-                v if v else ''
+                v if v else None
             )
         ),
         _SimpleBulkMapping(

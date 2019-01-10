@@ -396,6 +396,7 @@ def field_to_csv_StructuredSnippetValues(entity):
         return ';'.join(entity.Values.string)
     return None
 
+
 def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
     if value is None or value == '':
         return
@@ -406,6 +407,46 @@ def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
         asset_link.Asset.Type = 'TextAsset'
         asset_link.Asset.Id = assetLinkContract['id']
         asset_link.Asset.Text = assetLinkContract['text']
+        asset_link.Asset.Name = assetLinkContract['name']
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
+        asset_link.PinnedField = assetLinkContract['pinnedField']
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        assetLinks.AssetLink.append(asset_link)
+
+def field_to_csv_ImageAssetLinks(entity):
+    if entity is None or entity.AssetLink is None:
+        return None
+    assetLinkContracts = []
+    for assetLink in entity.AssetLink:
+        if assetLink.Asset is not None and assetLink.Asset.Type == 'ImageAsset':
+            contract = {}
+            contract['cropHeight'] = assetLink.Asset.CropHeight
+            contract['cropWidth'] = assetLink.Asset.CropWidth
+            contract['cropX'] = assetLink.Asset.CropX
+            contract['cropY'] = assetLink.Asset.CropY
+            contract['id'] = assetLink.Asset.Id
+            contract['name'] = assetLink.Asset.Name
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
+            contract['editorialStatus'] = assetLink.EditorialStatus
+            contract['pinnedField'] = assetLink.PinnedField
+            assetLinkContracts.append(contract)
+    if len(assetLinkContracts) > 0:
+        return json.dumps(assetLinkContracts)
+    return None
+
+def csv_to_field_ImageAssetLinks(assetLinks, value):
+    if value is None or value == '':
+        return
+    assetLinkContracts = json.loads(value)
+    
+    for assetLinkContract in assetLinkContracts:
+        asset_link = _CAMPAIGN_OBJECT_FACTORY_V12.create('AssetLink')
+        asset_link.Asset.Type = 'ImageAsset'
+        asset_link.Asset.CropHeight = assetLinkContract['cropHeight']
+        asset_link.Asset.CropWidth = assetLinkContract['cropWidth']
+        asset_link.Asset.CropX = assetLinkContract['cropX']
+        asset_link.Asset.CropY = assetLinkContract['cropY']
+        asset_link.Asset.Id = assetLinkContract['id']
         asset_link.Asset.Name = assetLinkContract['name']
         asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
         asset_link.PinnedField = assetLinkContract['pinnedField']
@@ -1143,14 +1184,14 @@ def csv_to_field_LongitudeDegrees(entity, value):
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
         setattr(entity.Criterion, "LongitudeDegrees", value)
 
-def target_setting_to_csv(ad_group):
-    if not ad_group.Settings or not ad_group.Settings.Setting:
+def target_setting_to_csv(entity):
+    if not entity.Settings or not entity.Settings.Setting:
         return None
-    settings = [setting for setting in ad_group.Settings.Setting if isinstance(setting, TargetSetting_Type)]
+    settings = [setting for setting in entity.Settings.Setting if isinstance(setting, TargetSetting_Type)]
     if len(settings) == 0:
         return None
     if len(settings) != 1:
-        raise ValueError('Can only have 1 TargetSetting in AdGroup Settings.')
+        raise ValueError('Can only have 1 TargetSetting in Settings.')
     target_setting = settings[0]
     if not target_setting.Details.TargetSettingDetail:
         return DELETE_VALUE
@@ -1158,11 +1199,11 @@ def target_setting_to_csv(ad_group):
     pass
 
 
-def csv_to_target_setting(ad_group, value):
+def csv_to_target_setting(entity, value):
     target_setting = _CAMPAIGN_OBJECT_FACTORY_V12.create('TargetSetting')
     target_setting.Type = 'TargetSetting'
     if value is None:
-        ad_group.Settings.Setting.append(target_setting)
+        entity.Settings.Setting.append(target_setting)
         return
     tokens = [t.strip() for t in value.split(';')]
     target_setting_detail_list = []
@@ -1171,7 +1212,7 @@ def csv_to_target_setting(ad_group, value):
         if m_token:
             target_setting_detail_list.append(create_target_setting_detail(m_token))
     target_setting.Details.TargetSettingDetail.extend(target_setting_detail_list)
-    ad_group.Settings.Setting.append(target_setting)
+    entity.Settings.Setting.append(target_setting)
     pass
 
 def match_target_setting(token):

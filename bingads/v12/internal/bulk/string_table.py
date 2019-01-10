@@ -339,7 +339,6 @@ class _StringTable:
     InheritedBidStrategyType = "Inherited Bid Strategy Type"
 
     # Remarketing
-    RemarketingList = "Remarketing List"
     Audience = "Audience"
     Description = "Description"
     MembershipDuration = "Membership Duration"
@@ -350,16 +349,35 @@ class _StringTable:
     RemarketingRule = "Remarketing Rule"
     AudienceSearchSize = "Audience Search Size"
     ProductAudience = "Product Audience"
-    AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
-    AdGroupNegativeProductAudienceAssociation = "Ad Group Negative Product Audience Association"
     AudienceNetworkSize = "Audience Network Size"
     SupportedCampaignTypes = "Supported Campaign Types"
     ProductAudienceType = "Product Audience Type"
     SourceId = "Source Id"
+    ProductAudienceType = "Product Audience Type"
+    AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
+    AdGroupNegativeProductAudienceAssociation = "Ad Group Negative Product Audience Association"
+    CampaignProductAudienceAssociation = "Campaign Product Audience Association"
+    CampaignNegativeProductAudienceAssociation = "Campaign Negative Product Audience Association"
     SimilarRemarketingList = "Similar Remarketing List"
     AdGroupSimilarRemarketingListAssociation = "Ad Group Similar Remarketing List Association"
     AdGroupNegativeSimilarRemarketingListAssociation = "Ad Group Negative Similar Remarketing List Association"
-    
+    CampaignSimilarRemarketingListAssociation = "Campaign Similar Remarketing List Association"
+    CampaignNegativeSimilarRemarketingListAssociation = "Campaign Negative Similar Remarketing List Association"
+    RemarketingList = "Remarketing List"
+    AdGroupRemarketingListAssociation = 'Ad Group Remarketing List Association'
+    AdGroupNegativeRemarketingListAssociation = 'Ad Group Negative Remarketing List Association'
+    CampaignRemarketingListAssociation = 'Campaign Remarketing List Association'
+    CampaignNegativeRemarketingListAssociation = 'Campaign Negative Remarketing List Association'
+    CustomAudience = "Custom Audience";
+    AdGroupCustomAudienceAssociation = "Ad Group Custom Audience Association"
+    AdGroupNegativeCustomAudienceAssociation = "Ad Group Negative Custom Audience Association"
+    CampaignCustomAudienceAssociation = "Campaign Custom Audience Association"
+    CampaignNegativeCustomAudienceAssociation = "Campaign Negative Custom Audience Association"
+    InMarketAudience = "In Market Audience"
+    AdGroupInMarketAudienceAssociation = "Ad Group In Market Audience Association"
+    AdGroupNegativeInMarketAudienceAssociation = "Ad Group Negative In Market Audience Association"
+    CampaignInMarketAudienceAssociation = "Campaign In Market Audience Association"
+    CampaignNegativeInMarketAudienceAssociation = "Campaign Negative In Market Audience Association"
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"
     TitlePart2 = "Title Part 2"
@@ -403,6 +421,7 @@ class _StringTable:
     ResponsiveAd = "Responsive Ad"
     CallToAction = "Call To Action"
     Headline = "Headline"
+    Images = "Images"
     LandscapeImageMediaId = "Landscape Image Media Id"
     LandscapeLogoMediaId = "Landscape Logo Media Id"
     LongHeadline = "Long Headline"

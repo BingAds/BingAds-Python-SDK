@@ -202,7 +202,7 @@ class BulkServiceManager:
                 LastSyncTimeInUTC=last_sync_time_in_utc,
                 PerformanceStatsDateRange=performance_stats_date_range,
             )
-            headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.DownloadCampaignsByAccountIds)
+            headers = self.service_client.get_response_header()
         else:
             response = self.service_client.DownloadCampaignsByCampaignIds(
                 Campaigns={
@@ -218,7 +218,7 @@ class BulkServiceManager:
                 LastSyncTimeInUTC=last_sync_time_in_utc,
                 PerformanceStatsDateRange=performance_stats_date_range,
             )
-            headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.DownloadCampaignsByCampaignIds)
+            headers = self.service_client.get_response_header()
         operation = BulkDownloadOperation(
             request_id=response,
             authorization_data=self._authorization_data,
@@ -242,7 +242,7 @@ class BulkServiceManager:
             AccountId=self._authorization_data.account_id,
             ResponseMode=submit_upload_parameters.response_mode,
         )
-        headers=self.service_client.hp.get_headers(self.service_client.soap_client.service.GetBulkUploadUrl)
+        headers = self.service_client.get_response_header()
         request_id = response.RequestId
         upload_url = response.UploadUrl
 

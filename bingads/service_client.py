@@ -52,6 +52,9 @@ class ServiceClient:
 
         self.set_options(**self._options)
         return _ServiceCall(self, name)
+    
+    def get_response_header(self):
+        return self.hp.get_response_header()
 
     def set_options(self, **kwargs):
         """ Set suds options, these options will be passed to suds.

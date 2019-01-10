@@ -664,6 +664,11 @@ class BulkResponsiveAd(_BulkAd):
             field_to_csv=lambda c: c.responsive_ad.Text,
             csv_to_field=lambda c, v: setattr(c.responsive_ad, 'Text', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.Images,
+            field_to_csv=lambda c: field_to_csv_ImageAssetLinks(c.responsive_ad.Images),
+            csv_to_field=lambda c, v: csv_to_field_ImageAssetLinks(c.responsive_ad.Images, v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

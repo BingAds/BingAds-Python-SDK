@@ -296,6 +296,7 @@ class _CsvHeaders:
         # Responsive Ad
         _StringTable.CallToAction,
         _StringTable.Headline,
+        _StringTable.Images,
         _StringTable.LandscapeImageMediaId,
         _StringTable.LandscapeLogoMediaId,
         _StringTable.LongHeadline,
