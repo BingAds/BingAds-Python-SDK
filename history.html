@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Release History &#8212; Bing Ads SDK 12.0.2 documentation</title>
+    <title>Release History &#8212; Bing Ads SDK 12.0.3 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -29,7 +29,7 @@
         <li class="right" >
           <a href="bingads.v12.reporting.html" title="bingads.v12.reporting package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -41,19 +41,30 @@
   <div class="section" id="release-history">
 <h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>12.0.2(2018-12-10)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p><a href="#id2"><span class="problematic" id="id3">*</span></a>Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: <a class="reference external" href="https://docs.microsoft.com/en-us/bingads/guides/release-notes">https://docs.microsoft.com/en-us/bingads/guides/release-notes</a>.
-<a href="#id4"><span class="problematic" id="id5">*</span></a>Added Bulk mapping for campaign experiments i.e., BulkExperiment and BulkCampaign.
-<a href="#id6"><span class="problematic" id="id7">*</span></a>Added Bulk mapping for action ad extensions i.e., BulkActionAdExtension, BulkAccountActionAdExtension, BulkAdGroupActionAdExtension, and BulkCampaignActionAdExtension.</p>
-<p><a href="#id8"><span class="problematic" id="id9">*</span></a>Removed support for Bing Ads API Version 11, per the October 31, 2018 sunset.
-<a href="#id10"><span class="problematic" id="id11">*</span></a>Added Bulk mapping for responsive search ads i.e., BulkResponsiveSearchAd and BulkResponsiveSearchAdLabel.
-<a href="#id12"><span class="problematic" id="id13">*</span></a>Added all fragments returned via the tokens request as a new property in the OAuthTokens SDK class.</p>
-<p><a href="#id14"><span class="problematic" id="id15">*</span></a>Update service proxies to reflect recent interface changes.
-<a href="#id16"><span class="problematic" id="id17">*</span></a>Map TitlePart3 and TextPart2 to BulkExpandedTextAd.</p>
-<p><a href="#id18"><span class="problematic" id="id19">*</span></a>Updated service proxies to reflect recent Bulk, Campaign Management, Customer Management, and Reporting API changes.
-<a href="#id20"><span class="problematic" id="id21">*</span></a>Added Bulk mapping for similar remarketing lists i.e., BulkSimilarRemarketingList, BulkAdGroupSimilarRemarketingListAssociation, and BulkAdGroupNegativeSimilarRemarketingListAssociation.</p>
-<p><a href="#id22"><span class="problematic" id="id23">*</span></a>Updated service proxies to support customer address, campaign level profile criteria, similar audiences for remarketing lists, and new change history report columns. For details see the service release notes: <a class="reference external" href="https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#august2018">https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#august2018</a>.
-<a href="#id24"><span class="problematic" id="id25">*</span></a>Added BulkEntity mappings for campaign level profile criteria i.e., added BulkCampaignCompanyNameCriterion, BulkCampaignJobFunctionCriterion, and BulkCampaignIndustryCriterion.</p>
+<h2>12.0.3(2019-01-10)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>BREAKING CHANGE for BulkAdGroupCustomAudienceAssociation, BulkAdGroupInMarketAudienceAssociation, BulkAdGroupNegativeCustomAudienceAssociation, BulkAdGroupNegativeInMarketAudienceAssociation, BulkAdGroupNegativeProductAudienceAssociation, BulkAdGroupNegativeRemarketingListAssociation, BulkAdGroupNegativeSimilarRemarketingListAssociation, BulkAdGroupProductAudienceAssociation, BulkAdGroupRemarketingListAssociation, and BulkAdGroupSimilarRemarketingListAssociation: Replaced custom_audience_name, in_market_audience_name, product_audience_name, remarketing_list_name, and similar_remarketing_list_name with audience_name. The audience_name property is now used to map from the ‘Audience Name’ field of a Bulk file via all audience association SDK objects.</li>
+<li>Updated service proxies to reflect recent interface changes. For details please see the release notes: <a class="reference external" href="https://docs.microsoft.com/en-us/bingads/guides/release-notes">https://docs.microsoft.com/en-us/bingads/guides/release-notes</a>.</li>
+<li>Added Bulk mapping for responsive ad images i.e., added Images to the existing BulkResponsiveAd.</li>
+<li>Added Bulk mapping for campaign target setting i.e., added TargetSetting to the existing BulkCampaign.</li>
+<li>Added Bulk mapping for campaign level audience associations i.e.,BulkCampaignCustomAudienceAssociation, BulkCampaignInMarketAudienceAssociation, BulkCampaignNegativeCustomAudienceAssociation, BulkCampaignNegativeInMarketAudienceAssociation, BulkCampaignNegativeProductAudienceAssociation, BulkCampaignNegativeRemarketingListAssociation, BulkCampaignNegativeSimilarRemarketingListAssociation, BulkCampaignProductAudienceAssociation, BulkCampaignRemarketingListAssociation, and BulkCampaignSimilarRemarketingListAssociation.</li>
+<li>Added the get_response_header method in class ServiceClient, to access the service TrackingId, etc per GitHub issue <a class="reference external" href="https://github.com/BingAds/BingAds-Python-SDK/issues/106">https://github.com/BingAds/BingAds-Python-SDK/issues/106</a>.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>12.0.2(2018-12-10)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><a href="#id3"><span class="problematic" id="id4">*</span></a>Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: <a class="reference external" href="https://docs.microsoft.com/en-us/bingads/guides/release-notes">https://docs.microsoft.com/en-us/bingads/guides/release-notes</a>.
+<a href="#id5"><span class="problematic" id="id6">*</span></a>Added Bulk mapping for campaign experiments i.e., BulkExperiment and BulkCampaign.
+<a href="#id7"><span class="problematic" id="id8">*</span></a>Added Bulk mapping for action ad extensions i.e., BulkActionAdExtension, BulkAccountActionAdExtension, BulkAdGroupActionAdExtension, and BulkCampaignActionAdExtension.</p>
+<p><a href="#id9"><span class="problematic" id="id10">*</span></a>Removed support for Bing Ads API Version 11, per the October 31, 2018 sunset.
+<a href="#id11"><span class="problematic" id="id12">*</span></a>Added Bulk mapping for responsive search ads i.e., BulkResponsiveSearchAd and BulkResponsiveSearchAdLabel.
+<a href="#id13"><span class="problematic" id="id14">*</span></a>Added all fragments returned via the tokens request as a new property in the OAuthTokens SDK class.</p>
+<p><a href="#id15"><span class="problematic" id="id16">*</span></a>Update service proxies to reflect recent interface changes.
+<a href="#id17"><span class="problematic" id="id18">*</span></a>Map TitlePart3 and TextPart2 to BulkExpandedTextAd.</p>
+<p><a href="#id19"><span class="problematic" id="id20">*</span></a>Updated service proxies to reflect recent Bulk, Campaign Management, Customer Management, and Reporting API changes.
+<a href="#id21"><span class="problematic" id="id22">*</span></a>Added Bulk mapping for similar remarketing lists i.e., BulkSimilarRemarketingList, BulkAdGroupSimilarRemarketingListAssociation, and BulkAdGroupNegativeSimilarRemarketingListAssociation.</p>
+<p><a href="#id23"><span class="problematic" id="id24">*</span></a>Updated service proxies to support customer address, campaign level profile criteria, similar audiences for remarketing lists, and new change history report columns. For details see the service release notes: <a class="reference external" href="https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#august2018">https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#august2018</a>.
+<a href="#id25"><span class="problematic" id="id26">*</span></a>Added BulkEntity mappings for campaign level profile criteria i.e., added BulkCampaignCompanyNameCriterion, BulkCampaignJobFunctionCriterion, and BulkCampaignIndustryCriterion.</p>
 <ul class="simple">
 <li>Added a mapping for the Domain column in the Bulk file to the BulkExpandedTextAd object.</li>
 <li>Limited the scope to bingads.manage for access token requests. Previously the default scope was used, which can vary if a user granted your app permissions to multiple scopes. The Bing Ads SDKs only support the bingads.manage scope.</li>
@@ -63,18 +74,18 @@
 <li>Added support for Cooperative bidding e.g., added mappings for “Bid Boost Value”, “Bid Option” and “Maximum Bid” fields via the BulkAdGroup.</li>
 <li>Added mappings for the ‘MSCLKID Auto Tagging Enabled” and “Tracking Tempalte” fields via the BulkAccount.</li>
 </ul>
-<p><a href="#id26"><span class="problematic" id="id27">*</span></a>To extend support for Microsoft Audience Ads, new bulk objects are added to the SDK for reading and writing Bulk file records e.g., BulkResponsiveAd and BulkResponsiveAdLabel.
-<a href="#id28"><span class="problematic" id="id29">*</span></a>Added retries for the 117 throttling error if encountered while polling for the status of a bulk or reporting operation.</p>
+<p><a href="#id27"><span class="problematic" id="id28">*</span></a>To extend support for Microsoft Audience Ads, new bulk objects are added to the SDK for reading and writing Bulk file records e.g., BulkResponsiveAd and BulkResponsiveAdLabel.
+<a href="#id29"><span class="problematic" id="id30">*</span></a>Added retries for the 117 throttling error if encountered while polling for the status of a bulk or reporting operation.</p>
 <p><em>Added support for Bing Ads API Version 12. For more information, see Migrating to Bing Ads API Version 12.
 *The version parameter is now required when creating each ServiceClient. Previously the version was optional and defaulted to version 11. The version parameter is moved to the second position between the service client name and the authorization data.
 *The file_type parameter now defaults to ‘Csv’ as an *str</em> datatype instead of the DownloadFileType for BulkFileReader, BulkServiceManager, DownloadParameters and SubmitDownloadParameters. You can set ‘Tsv’ if you prefer the tab separated file format type.</p>
-<p><a href="#id30"><span class="problematic" id="id31">*</span></a>Updated to support Microsoft Account authentication in sandbox.</p>
-<p><a href="#id32"><span class="problematic" id="id33">*</span></a>The Bulk and Campaign Management proxies are updated to support audience search size. In addition the SDK supports audience search size via the BulkCustomAudience, BulkInMarketAudience, and BulkRemarketingList classes.</p>
-<p><a href="#id34"><span class="problematic" id="id35">*</span></a>Allow the Parent Id to be empty when deleting Bulk entities. Previously the Parent Id was required by the SDK although the Bulk service does not always require it.</p>
-<p><a href="#id36"><span class="problematic" id="id37">*</span></a>The Version 11 Reporting service proxies are updated to support new columns for Estimated Bids.</p>
+<p><a href="#id31"><span class="problematic" id="id32">*</span></a>Updated to support Microsoft Account authentication in sandbox.</p>
+<p><a href="#id33"><span class="problematic" id="id34">*</span></a>The Bulk and Campaign Management proxies are updated to support audience search size. In addition the SDK supports audience search size via the BulkCustomAudience, BulkInMarketAudience, and BulkRemarketingList classes.</p>
+<p><a href="#id35"><span class="problematic" id="id36">*</span></a>Allow the Parent Id to be empty when deleting Bulk entities. Previously the Parent Id was required by the SDK although the Bulk service does not always require it.</p>
+<p><a href="#id37"><span class="problematic" id="id38">*</span></a>The Version 11 Reporting service proxies are updated to support new columns for Estimated Bids.</p>
 </div>
-<div class="section" id="id38">
-<h2>11.5.6(2017-11-01)<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id39">
+<h2>11.5.6(2017-11-01)<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Support for version 9 and 10 ended on October 31st, 2017. The following version 9 and 10 proxies are now removed from the SDK. You must upgrade to version 11.
 - Removed the Version 9 proxies for Customer Billing, Customer Management, and Reporting services. Also removed the Version 9 ReportingServiceManager.
@@ -84,20 +95,20 @@
 <li>Set the default encoding to utf-8-sig and removed the chardet requirement. Bulk file download and upload should always be UTF-8 encoding with BOM.</li>
 </ul>
 </div>
-<div class="section" id="id39">
-<h2>11.5.5.1(2017-09-19)<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id40">
+<h2>11.5.5.1(2017-09-19)<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Fix user-agent including ‘n’ character issue introduced by 11.5.5. Only (Major, Minor, Micro) tuple will be added into user-agent.</li>
 </ul>
 </div>
-<div class="section" id="id40">
-<h2>11.5.5(2017-09-13)<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id41">
+<h2>11.5.5(2017-09-13)<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>The Reporting service proxies are updated to support new columns for location targeting.</li>
 </ul>
 </div>
-<div class="section" id="id41">
-<h2>11.5.4(2017-08-08)<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id42">
+<h2>11.5.4(2017-08-08)<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>The Campaign Management service proxies are updated to support inherited bid strategy type.</li>
 <li>The Reporting service proxies are updated to support new columns for Bing Shopping campaigns.</li>
@@ -105,37 +116,37 @@
 <li>A new version 11 bulk offline conversion object is added i.e., the <em>BulkOfflineConversion</em> object is added to the SDK for writing and uploading the corresponding Bulk file record.</li>
 </ul>
 </div>
-<div class="section" id="id42">
-<h2>10.4.12(2017-02-28)<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id43">
+<h2>10.4.12(2017-02-28)<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Support Remarketing list bulk upload</li>
 <li>Add Remarketing Rule in bulk schema</li>
 </ul>
 </div>
-<div class="section" id="id43">
-<h2>10.4.11(2016-12-30)<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id44">
+<h2>10.4.11(2016-12-30)<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add bulk support for Dynamic Search Ads feature</li>
 <li>Update wsdl proxy to latest version</li>
 <li>Bug fixes</li>
 </ul>
 </div>
-<div class="section" id="id44">
-<h2>10.4.10(2016-10-28)<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id45">
+<h2>10.4.10(2016-10-28)<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Update wsdl proxy for Dynamic Search Ads Bulk</li>
 <li>Update wsdl proxy for Remarketing Add/Update/Delete APIs</li>
 </ul>
 </div>
-<div class="section" id="id45">
-<h2>10.4.9(2016-09-29)<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id46">
+<h2>10.4.9(2016-09-29)<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Update wsdl proxy for Dynamic Search Ads APIs</li>
 <li>Update wsdl proxy for Remarketing</li>
 </ul>
 </div>
-<div class="section" id="id46">
-<h2>10.4.8(2016-08-29)<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id47">
+<h2>10.4.8(2016-08-29)<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add Sitelink2 Ad Extension</li>
 <li>Add Budget</li>
@@ -144,8 +155,8 @@
 <li>Update wsdl proxy to latest version</li>
 </ul>
 </div>
-<div class="section" id="id47">
-<h2>10.4.7(2016-07-28)<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id48">
+<h2>10.4.7(2016-07-28)<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add Remarketing List and Ad Group Remarketing List Association</li>
 <li>Add Expanded Text Ad</li>
@@ -153,14 +164,14 @@
 <li>Update wsdl proxy to latest version</li>
 </ul>
 </div>
-<div class="section" id="id48">
-<h2>10.4.6(2016-07-18)<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id49">
+<h2>10.4.6(2016-07-18)<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Fix Reporting Service default version bug</li>
 </ul>
 </div>
-<div class="section" id="id49">
-<h2>10.4.5(2016-06-30)<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id50">
+<h2>10.4.5(2016-06-30)<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Sunset campaign management, bulk, ad intelligence, optimizer services in v9</li>
 <li>Add Ad Format Preference in Text Ad</li>
@@ -169,8 +180,8 @@
 <li>Bug fixes</li>
 </ul>
 </div>
-<div class="section" id="id50">
-<h2>10.4.4(2016-05-30)<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id51">
+<h2>10.4.4(2016-05-30)<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add App Install Ad support</li>
 <li>Add state property in OAuthAuthorization classes</li>
@@ -178,8 +189,8 @@
 <li>Updated wsdl proxy to latest version</li>
 </ul>
 </div>
-<div class="section" id="id51">
-<h2>10.4.3(2016-04-30)<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id52">
+<h2>10.4.3(2016-04-30)<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Changed condition to write delete value for Keyword Bid in bulk</li>
 <li>Support suds option in BulkServiceManager and ReportingServiceManager</li>
@@ -187,8 +198,8 @@
 <li>Bug fixes</li>
 </ul>
 </div>
-<div class="section" id="id52">
-<h2>10.4.2(2016-03-30)<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id53">
+<h2>10.4.2(2016-03-30)<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add suds option parameter to support timeout and location settings in soap service</li>
 <li>Add timeout logic for bulk upload, bulk download and report download methods</li>
@@ -198,8 +209,8 @@
 <li>Updated wsdl proxy file to latest version</li>
 </ul>
 </div>
-<div class="section" id="id53">
-<h2>10.4.1(2015-10-23)<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id54">
+<h2>10.4.1(2015-10-23)<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Support Bing Ads API V10 and upgrade bulk format version to 4.0</li>
 <li>Compatible with Bing Ads API V9</li>
@@ -207,28 +218,28 @@
 <li>Bug Fixes</li>
 </ul>
 </div>
-<div class="section" id="id54">
-<h2>9.3.4 (2015-08-20)<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id55">
+<h2>9.3.4 (2015-08-20)<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Replace SSLv3 with SSLv23 for TLS support</li>
 </ul>
 </div>
-<div class="section" id="id55">
-<h2>9.3.3 (2015-07-31)<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id56">
+<h2>9.3.3 (2015-07-31)<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add Bing Shopping Campaign Support</li>
 <li>Add Native Ads Support</li>
 </ul>
 </div>
-<div class="section" id="id56">
-<h2>9.3.2 (2015-04-24)<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id57">
+<h2>9.3.2 (2015-04-24)<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Add App AdExtension support.</li>
 <li>Bug Fixes.</li>
 </ul>
 </div>
-<div class="section" id="id57">
-<h2>9.3.1 (2015-03-31)<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id58">
+<h2>9.3.1 (2015-03-31)<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>First release on PyPI.</li>
 </ul>
@@ -244,27 +255,28 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Release History</a><ul>
-<li><a class="reference internal" href="#id1">12.0.2(2018-12-10)</a></li>
-<li><a class="reference internal" href="#id38">11.5.6(2017-11-01)</a></li>
-<li><a class="reference internal" href="#id39">11.5.5.1(2017-09-19)</a></li>
-<li><a class="reference internal" href="#id40">11.5.5(2017-09-13)</a></li>
-<li><a class="reference internal" href="#id41">11.5.4(2017-08-08)</a></li>
-<li><a class="reference internal" href="#id42">10.4.12(2017-02-28)</a></li>
-<li><a class="reference internal" href="#id43">10.4.11(2016-12-30)</a></li>
-<li><a class="reference internal" href="#id44">10.4.10(2016-10-28)</a></li>
-<li><a class="reference internal" href="#id45">10.4.9(2016-09-29)</a></li>
-<li><a class="reference internal" href="#id46">10.4.8(2016-08-29)</a></li>
-<li><a class="reference internal" href="#id47">10.4.7(2016-07-28)</a></li>
-<li><a class="reference internal" href="#id48">10.4.6(2016-07-18)</a></li>
-<li><a class="reference internal" href="#id49">10.4.5(2016-06-30)</a></li>
-<li><a class="reference internal" href="#id50">10.4.4(2016-05-30)</a></li>
-<li><a class="reference internal" href="#id51">10.4.3(2016-04-30)</a></li>
-<li><a class="reference internal" href="#id52">10.4.2(2016-03-30)</a></li>
-<li><a class="reference internal" href="#id53">10.4.1(2015-10-23)</a></li>
-<li><a class="reference internal" href="#id54">9.3.4 (2015-08-20)</a></li>
-<li><a class="reference internal" href="#id55">9.3.3 (2015-07-31)</a></li>
-<li><a class="reference internal" href="#id56">9.3.2 (2015-04-24)</a></li>
-<li><a class="reference internal" href="#id57">9.3.1 (2015-03-31)</a></li>
+<li><a class="reference internal" href="#id1">12.0.3(2019-01-10)</a></li>
+<li><a class="reference internal" href="#id2">12.0.2(2018-12-10)</a></li>
+<li><a class="reference internal" href="#id39">11.5.6(2017-11-01)</a></li>
+<li><a class="reference internal" href="#id40">11.5.5.1(2017-09-19)</a></li>
+<li><a class="reference internal" href="#id41">11.5.5(2017-09-13)</a></li>
+<li><a class="reference internal" href="#id42">11.5.4(2017-08-08)</a></li>
+<li><a class="reference internal" href="#id43">10.4.12(2017-02-28)</a></li>
+<li><a class="reference internal" href="#id44">10.4.11(2016-12-30)</a></li>
+<li><a class="reference internal" href="#id45">10.4.10(2016-10-28)</a></li>
+<li><a class="reference internal" href="#id46">10.4.9(2016-09-29)</a></li>
+<li><a class="reference internal" href="#id47">10.4.8(2016-08-29)</a></li>
+<li><a class="reference internal" href="#id48">10.4.7(2016-07-28)</a></li>
+<li><a class="reference internal" href="#id49">10.4.6(2016-07-18)</a></li>
+<li><a class="reference internal" href="#id50">10.4.5(2016-06-30)</a></li>
+<li><a class="reference internal" href="#id51">10.4.4(2016-05-30)</a></li>
+<li><a class="reference internal" href="#id52">10.4.3(2016-04-30)</a></li>
+<li><a class="reference internal" href="#id53">10.4.2(2016-03-30)</a></li>
+<li><a class="reference internal" href="#id54">10.4.1(2015-10-23)</a></li>
+<li><a class="reference internal" href="#id55">9.3.4 (2015-08-20)</a></li>
+<li><a class="reference internal" href="#id56">9.3.3 (2015-07-31)</a></li>
+<li><a class="reference internal" href="#id57">9.3.2 (2015-04-24)</a></li>
+<li><a class="reference internal" href="#id58">9.3.1 (2015-03-31)</a></li>
 </ul>
 </li>
 </ul>
@@ -307,7 +319,7 @@
         <li class="right" >
           <a href="bingads.v12.reporting.html" title="bingads.v12.reporting package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

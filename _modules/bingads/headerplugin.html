@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.headerplugin &#8212; Bing Ads SDK 12.0.2 documentation</title>
+    <title>bingads.headerplugin &#8212; Bing Ads SDK 12.0.3 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -45,25 +45,16 @@
 <div class="viewcode-block" id="HeaderPlugin.parsed"><a class="viewcode-back" href="../../bingads.html#bingads.headerplugin.HeaderPlugin.parsed">[docs]</a>    <span class="k">def</span> <span class="nf">parsed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">document</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">reply</span></div>
 
-<div class="viewcode-block" id="HeaderPlugin.get_headers"><a class="viewcode-back" href="../../bingads.html#bingads.headerplugin.HeaderPlugin.get_headers">[docs]</a>    <span class="k">def</span> <span class="nf">get_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">):</span>
-        <span class="n">Result</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">method</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">method</span>
-        <span class="n">binding</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">binding</span><span class="o">.</span><span class="n">output</span>
-        <span class="n">SHeaderElem</span> <span class="o">=</span> <span class="n">binding</span><span class="o">.</span><span class="n">headpart_types</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-
+<div class="viewcode-block" id="HeaderPlugin.get_response_header"><a class="viewcode-back" href="../../bingads.html#bingads.headerplugin.HeaderPlugin.get_response_header">[docs]</a>    <span class="k">def</span> <span class="nf">get_response_header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">envns</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;SOAP-ENV&#39;</span><span class="p">,</span> <span class="s1">&#39;http://schemas.xmlsoap.org/soap/envelope/&#39;</span><span class="p">)</span>
         <span class="n">soapenv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Envelope&#39;</span><span class="p">,</span> <span class="n">envns</span><span class="p">)</span>
         <span class="n">soapheaders</span> <span class="o">=</span> <span class="n">soapenv</span><span class="o">.</span><span class="n">getChild</span><span class="p">(</span><span class="s1">&#39;Header&#39;</span><span class="p">,</span> <span class="n">envns</span><span class="p">)</span>
         <span class="n">SHeaderNodes</span> <span class="o">=</span> <span class="n">soapheaders</span><span class="o">.</span><span class="n">children</span>
 
-        <span class="k">for</span> <span class="n">Elem</span> <span class="ow">in</span> <span class="n">SHeaderElem</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">Node</span> <span class="ow">in</span> <span class="n">SHeaderNodes</span><span class="p">:</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">Node</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">Elem</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
-                    <span class="n">ElemRes</span> <span class="o">=</span> <span class="n">Elem</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">nobuiltin</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="n">NodeRes</span> <span class="o">=</span> <span class="n">binding</span><span class="o">.</span><span class="n">unmarshaller</span><span class="p">()</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">ElemRes</span><span class="p">)</span>
-                    <span class="n">Result</span><span class="p">[</span><span class="n">Elem</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">NodeRes</span>
-        <span class="k">return</span> <span class="n">Result</span></div></div>
-    <span class="c1">#</span>
+        <span class="k">for</span> <span class="n">Node</span> <span class="ow">in</span> <span class="n">SHeaderNodes</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">Node</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
 </pre></div>
 
           </div>
@@ -96,7 +87,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

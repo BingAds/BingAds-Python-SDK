@@ -4,6 +4,14 @@ bingads.v12.bulk.entities.audiences package
 Submodules
 ----------
 
+bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_audience\_association module
+---------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_custom\_audience\_association module
 -----------------------------------------------------------------------------------------
 
@@ -16,6 +24,14 @@ bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_in\_market\_audience\_assoc
 ---------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_in_market_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_negative\_audience\_association module
+-------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_audience_association
     :members:
     :undoc-members:
     :show-inheritance:
@@ -80,6 +96,102 @@ bingads.v12.bulk.entities.audiences.bulk\_ad\_group\_similar\_remarketing\_list\
 ---------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v12.bulk.entities.audiences.bulk_ad_group_similar_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_audience\_association module
+--------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_custom\_audience\_association module
+----------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_custom_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_in\_market\_audience\_association module
+--------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_in_market_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_audience\_association module
+------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_custom\_audience\_association module
+--------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_custom_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_in\_market\_audience\_association module
+------------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_in_market_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_product\_audience\_association module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_product_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_remarketing\_list\_association module
+---------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_negative\_similar\_remarketing\_list\_association module
+------------------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_negative_similar_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_product\_audience\_association module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_product_audience_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_remarketing\_list\_association module
+-----------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_remarketing_list_association
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v12.bulk.entities.audiences.bulk\_campaign\_similar\_remarketing\_list\_association module
+--------------------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v12.bulk.entities.audiences.bulk_campaign_similar_remarketing_list_association
     :members:
     :undoc-members:
     :show-inheritance:

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 12.0.2 documentation</title>
+    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 12.0.3 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -434,6 +434,7 @@
         <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Values</span><span class="o">.</span><span class="n">string</span><span class="p">)</span>
     <span class="k">return</span> <span class="kc">None</span></div>
 
+
 <div class="viewcode-block" id="csv_to_field_Rsa_TextAssetLinks"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.csv_to_field_Rsa_TextAssetLinks">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_Rsa_TextAssetLinks</span><span class="p">(</span><span class="n">assetLinks</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
         <span class="k">return</span>
@@ -444,6 +445,46 @@
         <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;TextAsset&#39;</span>
         <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
         <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Text</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">AssetPerformanceLabel</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;assetPerformanceLabel&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">PinnedField</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;pinnedField&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">EditorialStatus</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;editorialStatus&#39;</span><span class="p">]</span>
+        <span class="n">assetLinks</span><span class="o">.</span><span class="n">AssetLink</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asset_link</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="field_to_csv_ImageAssetLinks"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_ImageAssetLinks">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_ImageAssetLinks</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">AssetLink</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">assetLinkContracts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">assetLink</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">AssetLink</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Type</span> <span class="o">==</span> <span class="s1">&#39;ImageAsset&#39;</span><span class="p">:</span>
+            <span class="n">contract</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;cropHeight&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropHeight</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;cropWidth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropWidth</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;cropX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropX</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;cropY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropY</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Id</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Name</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;assetPerformanceLabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">AssetPerformanceLabel</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;editorialStatus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">EditorialStatus</span>
+            <span class="n">contract</span><span class="p">[</span><span class="s1">&#39;pinnedField&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">assetLink</span><span class="o">.</span><span class="n">PinnedField</span>
+            <span class="n">assetLinkContracts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">contract</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">assetLinkContracts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">assetLinkContracts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="csv_to_field_ImageAssetLinks"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.csv_to_field_ImageAssetLinks">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_ImageAssetLinks</span><span class="p">(</span><span class="n">assetLinks</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">assetLinkContracts</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">assetLinkContract</span> <span class="ow">in</span> <span class="n">assetLinkContracts</span><span class="p">:</span>
+        <span class="n">asset_link</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AssetLink&#39;</span><span class="p">)</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ImageAsset&#39;</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropHeight</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;cropHeight&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropWidth</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;cropWidth&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropX</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;cropX&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">CropY</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;cropY&#39;</span><span class="p">]</span>
+        <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Id</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
         <span class="n">asset_link</span><span class="o">.</span><span class="n">Asset</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="n">asset_link</span><span class="o">.</span><span class="n">AssetPerformanceLabel</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;assetPerformanceLabel&#39;</span><span class="p">]</span>
         <span class="n">asset_link</span><span class="o">.</span><span class="n">PinnedField</span> <span class="o">=</span> <span class="n">assetLinkContract</span><span class="p">[</span><span class="s1">&#39;pinnedField&#39;</span><span class="p">]</span>
@@ -1181,14 +1222,14 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">RadiusCriterion</span><span class="p">)):</span>
         <span class="nb">setattr</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="p">,</span> <span class="s2">&quot;LongitudeDegrees&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="target_setting_to_csv"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.target_setting_to_csv">[docs]</a><span class="k">def</span> <span class="nf">target_setting_to_csv</span><span class="p">(</span><span class="n">ad_group</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">ad_group</span><span class="o">.</span><span class="n">Settings</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">ad_group</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">:</span>
+<div class="viewcode-block" id="target_setting_to_csv"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.target_setting_to_csv">[docs]</a><span class="k">def</span> <span class="nf">target_setting_to_csv</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">entity</span><span class="o">.</span><span class="n">Settings</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">entity</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">settings</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span> <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">ad_group</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">TargetSetting_Type</span><span class="p">)]</span>
+    <span class="n">settings</span> <span class="o">=</span> <span class="p">[</span><span class="n">setting</span> <span class="k">for</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">setting</span><span class="p">,</span> <span class="n">TargetSetting_Type</span><span class="p">)]</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 TargetSetting in AdGroup Settings.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 TargetSetting in Settings.&#39;</span><span class="p">)</span>
     <span class="n">target_setting</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">target_setting</span><span class="o">.</span><span class="n">Details</span><span class="o">.</span><span class="n">TargetSettingDetail</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DELETE_VALUE</span>
@@ -1196,11 +1237,11 @@
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="csv_to_target_setting"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.csv_to_target_setting">[docs]</a><span class="k">def</span> <span class="nf">csv_to_target_setting</span><span class="p">(</span><span class="n">ad_group</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="csv_to_target_setting"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.csv_to_target_setting">[docs]</a><span class="k">def</span> <span class="nf">csv_to_target_setting</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="n">target_setting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;TargetSetting&#39;</span><span class="p">)</span>
     <span class="n">target_setting</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;TargetSetting&#39;</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ad_group</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_setting</span><span class="p">)</span>
+        <span class="n">entity</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_setting</span><span class="p">)</span>
         <span class="k">return</span>
     <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)]</span>
     <span class="n">target_setting_detail_list</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1209,7 +1250,7 @@
         <span class="k">if</span> <span class="n">m_token</span><span class="p">:</span>
             <span class="n">target_setting_detail_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_target_setting_detail</span><span class="p">(</span><span class="n">m_token</span><span class="p">))</span>
     <span class="n">target_setting</span><span class="o">.</span><span class="n">Details</span><span class="o">.</span><span class="n">TargetSettingDetail</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">target_setting_detail_list</span><span class="p">)</span>
-    <span class="n">ad_group</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_setting</span><span class="p">)</span>
+    <span class="n">entity</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_setting</span><span class="p">)</span>
     <span class="k">pass</span></div>
 
 <div class="viewcode-block" id="match_target_setting"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.match_target_setting">[docs]</a><span class="k">def</span> <span class="nf">match_target_setting</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
@@ -1441,7 +1482,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
