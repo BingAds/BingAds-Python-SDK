@@ -2,6 +2,10 @@
 
 Release History
 -----------
+12.0.3.1(2019-02-01)
++++++++++++++++++++
+* Fix import issue introduced by version 12.0.3, in which version python 3 users will see error "ImportError: No module named 'bulk_ad_group_negative_audience_association". See issue: https://github.com/BingAds/BingAds-Python-SDK/issues/110.
+
 12.0.3(2019-01-10)
 +++++++++++++++++++
 * BREAKING CHANGE for BulkAdGroupCustomAudienceAssociation, BulkAdGroupInMarketAudienceAssociation, BulkAdGroupNegativeCustomAudienceAssociation, BulkAdGroupNegativeInMarketAudienceAssociation, BulkAdGroupNegativeProductAudienceAssociation, BulkAdGroupNegativeRemarketingListAssociation, BulkAdGroupNegativeSimilarRemarketingListAssociation, BulkAdGroupProductAudienceAssociation, BulkAdGroupRemarketingListAssociation, and BulkAdGroupSimilarRemarketingListAssociation: Replaced custom_audience_name, in_market_audience_name, product_audience_name, remarketing_list_name, and similar_remarketing_list_name with audience_name. The audience_name property is now used to map from the 'Audience Name' field of a Bulk file via all audience association SDK objects. 

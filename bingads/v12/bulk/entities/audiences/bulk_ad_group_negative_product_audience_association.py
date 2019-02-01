@@ -1,4 +1,4 @@
-from bulk_ad_group_negative_audience_association import *
+from bingads.v12.bulk.entities.audiences.bulk_ad_group_negative_audience_association import *
 
 class BulkAdGroupNegativeProductAudienceAssociation(BulkAdGroupNegativeAudienceAssociation):
     """ Represents an Ad Group Negative Product Audience Association that can be read or written in a bulk file.

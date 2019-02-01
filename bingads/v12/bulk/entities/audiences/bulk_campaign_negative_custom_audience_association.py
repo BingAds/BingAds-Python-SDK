@@ -1,4 +1,4 @@
-from bulk_campaign_negative_audience_association import *
+from bingads.v12.bulk.entities.audiences.bulk_campaign_negative_audience_association import *
 
 
 class BulkCampaignNegativeCustomAudienceAssociation(BulkCampaignNegativeAudienceAssociation):
