@@ -93,6 +93,13 @@
                <xs:element minOccurs="0" name="EditorialStatus" nillable="true" type="tns:AdEditorialStatus" />
                <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q1:ArrayOfstring" />
+               <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q2:ArrayOfstring" />
                <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q3:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
@@ -375,6 +382,13 @@
                <xs:element minOccurs="0" name="DailyBudget" nillable="true" type="xs:double" />
                <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="ExperimentId" nillable="true" type="xs:long">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
                   <xs:annotation>
                      <xs:appinfo>
                         <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
@@ -726,6 +740,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="ExperimentId" />
+                     <xs:enumeration value="FinalUrlSuffix" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -879,6 +894,13 @@
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
                <xs:element minOccurs="0" name="CpcBid" nillable="true" type="tns:Bid" />
                <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:Date" />
+               <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q15:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
@@ -978,9 +1000,20 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
                   <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupIds" nillable="true" type="q19:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="AdGroupAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="FinalUrlSuffix" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdGroupAdditionalField" nillable="true" type="tns:AdGroupAdditionalField" />
          <xs:element name="GetAdGroupsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -993,6 +1026,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1160,6 +1194,7 @@
                      <xs:enumeration value="TitlePart3" />
                      <xs:enumeration value="TextPart2" />
                      <xs:enumeration value="Images" />
+                     <xs:enumeration value="FinalUrlSuffix" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -1244,6 +1279,13 @@
                <xs:element minOccurs="0" name="EditorialStatus" nillable="true" type="tns:KeywordEditorialStatus" />
                <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q27:ArrayOfstring" />
+               <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q28:ArrayOfstring" />
                <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q29:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
@@ -1318,9 +1360,20 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="EditorialStatus" type="tns:KeywordEditorialStatus" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="KeywordAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="FinalUrlSuffix" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="KeywordAdditionalField" nillable="true" type="tns:KeywordAdditionalField" />
          <xs:element name="GetKeywordsByEditorialStatusResponse">
             <xs:complexType>
                <xs:sequence>
@@ -1333,6 +1386,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="KeywordIds" nillable="true" type="q33:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1348,6 +1402,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:KeywordAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1593,6 +1648,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="FinalUrlSuffix">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPropertyName" nillable="true" type="tns:AccountPropertyName" />
@@ -1771,6 +1833,13 @@
                      <xs:element minOccurs="0" name="DestinationUrl" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                      <xs:element xmlns:q38="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q38:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element xmlns:q39="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q39:ArrayOfstring" />
                      <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ImageMediaIds" nillable="true" type="q40:ArrayOflong" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
@@ -1790,6 +1859,13 @@
                      <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                      <xs:element xmlns:q41="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q41:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element xmlns:q42="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q42:ArrayOfstring" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
@@ -1831,6 +1907,13 @@
                      <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                      <xs:element xmlns:q43="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q43:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element xmlns:q44="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q44:ArrayOfstring" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
@@ -1845,6 +1928,13 @@
                   <xs:sequence>
                      <xs:element name="ActionType" type="tns:ActionAdExtensionActionType" />
                      <xs:element xmlns:q45="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q45:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element xmlns:q46="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q46:ArrayOfstring" />
                      <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
@@ -1940,6 +2030,13 @@
             <xs:complexContent mixed="false">
                <xs:extension base="tns:AdExtension">
                   <xs:sequence>
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                      <xs:element name="PriceExtensionType" type="tns:PriceExtensionType" />
                      <xs:element minOccurs="0" name="TableRows" nillable="true" type="tns:ArrayOfPriceTableRow" />
@@ -2070,6 +2167,7 @@
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdExtensionIds" nillable="true" type="q51:ArrayOflong" />
                   <xs:element minOccurs="0" name="AdExtensionType" type="tns:AdExtensionsTypeFilter" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdExtensionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2092,6 +2190,16 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="AdExtensionsTypeFilter" nillable="true" type="tns:AdExtensionsTypeFilter" />
+         <xs:simpleType name="AdExtensionAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="FinalUrlSuffix" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdExtensionAdditionalField" nillable="true" type="tns:AdExtensionAdditionalField" />
          <xs:element name="GetAdExtensionsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -2237,6 +2345,7 @@
                   <xs:element minOccurs="0" name="AdExtensionType" type="tns:AdExtensionsTypeFilter" />
                   <xs:element minOccurs="0" name="AssociationType" type="tns:AssociationType" />
                   <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntityIds" nillable="true" type="q54:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdExtensionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2500,6 +2609,7 @@
                   <xs:element xmlns:q60="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupCriterionIds" nillable="true" type="q60:ArrayOflong" />
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="CriterionType" type="tns:AdGroupCriterionType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdGroupCriterionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2645,6 +2755,16 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="AdGroupCriterionType" nillable="true" type="tns:AdGroupCriterionType" />
+         <xs:simpleType name="AdGroupCriterionAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="FinalUrlSuffix" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdGroupCriterionAdditionalField" nillable="true" type="tns:AdGroupCriterionAdditionalField" />
          <xs:element name="GetAdGroupCriterionsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -2978,6 +3098,13 @@
                      <xs:element minOccurs="0" name="EditorialStatus" nillable="true" type="tns:AdGroupCriterionEditorialStatus" />
                      <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                      <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q62:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element xmlns:q63="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q63:ArrayOfstring" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
@@ -3639,6 +3766,34 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="Audience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2048</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="CustomAudience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4096</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="InMarketAudience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8192</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="RemarketingList">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16384</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                      <xs:enumeration value="CompanyName">
                         <xs:annotation>
                            <xs:appinfo>
@@ -3657,6 +3812,20 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131072</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="ProductAudience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">262144</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="SimilarRemarketingList">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">524288</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>

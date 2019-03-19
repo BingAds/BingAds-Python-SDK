@@ -131,6 +131,7 @@ class _StringTable:
     CampaignActionAdExtension = "Campaign Action Ad Extension"
     AdGroupActionAdExtension = "Ad Group Action Ad Extension"
     ActionType = "Action Type"
+    ActionText = "Action Text"
 
     # Structured Snippet Ad Extension
     StructuredSnippetAdExtension = "Structured Snippet Ad Extension"

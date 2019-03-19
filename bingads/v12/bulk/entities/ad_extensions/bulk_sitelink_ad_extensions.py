@@ -65,7 +65,7 @@ class BulkSitelinkAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.DestinationUrl,
-            field_to_csv=lambda c: bulk_optional_str(c.sitelink_ad_extension.DestinationUrl),
+            field_to_csv=lambda c: bulk_optional_str(c.sitelink_ad_extension.DestinationUrl, c.sitelink_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.sitelink_ad_extension, 'DestinationUrl', v if v else '')
         ),
         _SimpleBulkMapping(
@@ -75,12 +75,12 @@ class BulkSitelinkAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.sitelink_ad_extension.FinalUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.sitelink_ad_extension.FinalUrls, c.sitelink_ad_extension.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.sitelink_ad_extension.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.sitelink_ad_extension.FinalMobileUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.sitelink_ad_extension.FinalMobileUrls, c.sitelink_ad_extension.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.sitelink_ad_extension.FinalMobileUrls, v)
         ),
         _SimpleBulkMapping(

@@ -1,4 +1,4 @@
-from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
+﻿from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .headerplugin import HeaderPlugin
 from .authorization import *
@@ -197,10 +197,8 @@ class ServiceClient:
         :return: int version
         """
         if version == 'v12' or version == 12:
-            version = 12
-        else:
-            raise ValueError(str.format('version error: [{0}] is not supported. Please specify V11 or V12', version))
-        return version
+            return 12
+        raise ValueError(str.format('version error: [{0}] is not supported.', version))
 
 
     @staticmethod
@@ -295,10 +293,8 @@ from suds.sax.text import Text
 
 
 _CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml')
-)
+    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml'))
 _CAMPAIGN_OBJECT_FACTORY_V12 = _CAMPAIGN_MANAGEMENT_SERVICE_V12.factory
-# TODO Better to push suds-jurko accept this caching
 _CAMPAIGN_OBJECT_FACTORY_V12.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V12.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V12.create
 

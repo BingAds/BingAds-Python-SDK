@@ -1,4 +1,4 @@
-import os
+﻿import os
 from subprocess import call
 
 dependent_graph = {}
@@ -151,21 +151,20 @@ def test():
 def ut():
     run_cmd('coverage run --source bingads -m py.test -k "not functional" -v --strict')
     run_cmd('coverage report')
+	
+@task('run all functional tests under current interpreter.')
+def ft():
+    run_cmd('py.test -k "functional" -v --strict')
+
 
 @task('run all v12 unit tests under current interpreter, and print coverage report')
 def v12_ut():
     run_cmd('coverage run --source bingads -m py.test v12tests/ -k "not functional" -v --strict')
     run_cmd('coverage report')
-
-
-@task('run all functional tests under current interpreter.')
-def ft():
-    run_cmd('py.test -k "functional" -v --strict')
 	
 @task('run all v12 functional tests under current interpreter.')
 def v12_ft():
     run_cmd('py.test v12tests/ -k "functional" -v --strict')
-	
 
 @task('run tests on all supported interpreters (check tox.ini)')
 @dependent_on(clean)

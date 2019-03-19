@@ -1,9 +1,9 @@
-try:
+﻿try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
-VERSION = '12.0.3.1'
+VERSION = '12.0.4'
 
 with open('README.rst', 'r') as f:
     readme = f.read()

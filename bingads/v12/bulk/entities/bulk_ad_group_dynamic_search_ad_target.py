@@ -78,7 +78,7 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.TrackingUrlTemplate),
+            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.TrackingUrlTemplate, c.biddable_ad_group_criterion.Id),
             csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'TrackingUrlTemplate', v if v else None)
         ),
         _SimpleBulkMapping(

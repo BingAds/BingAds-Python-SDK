@@ -198,21 +198,21 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.ad_group_criterion.FinalUrls)
+            field_to_csv=lambda c: field_to_csv_Urls(c.ad_group_criterion.FinalUrls, c.ad_group_criterion.Id)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None,
             csv_to_field=lambda c, v: csv_to_field_Urls(c.ad_group_criterion.FinalUrls, v)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.ad_group_criterion.FinalMobileUrls)
+            field_to_csv=lambda c: field_to_csv_Urls(c.ad_group_criterion.FinalMobileUrls, c.ad_group_criterion.Id)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None,
             csv_to_field=lambda c, v: csv_to_field_Urls(c.ad_group_criterion.FinalMobileUrls, v)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_optional_str(c.ad_group_criterion.TrackingUrlTemplate)
+            field_to_csv=lambda c: bulk_optional_str(c.ad_group_criterion.TrackingUrlTemplate, c.ad_group_criterion.Id)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None,
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'TrackingUrlTemplate', v if v else None)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None

@@ -39,6 +39,8 @@ class BulkActionAdExtension(_BulkAdExtensionBase):
             account_id=account_id,
             ad_extension=ad_extension
         )
+        self._action_text = None
+        
 
     @property
     def action_ad_extension(self):
@@ -52,6 +54,19 @@ class BulkActionAdExtension(_BulkAdExtensionBase):
     @action_ad_extension.setter
     def action_ad_extension(self, value):
         self._ad_extension = value
+        
+        
+    @property
+    def action_text(self):
+        """ The action text.
+
+        """
+
+        return self._action_text
+
+    @action_text.setter
+    def action_text(self, value):
+        self._action_text = value
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -61,29 +76,34 @@ class BulkActionAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.action_ad_extension.FinalUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.action_ad_extension.FinalUrls, c.action_ad_extension.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.action_ad_extension.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.action_ad_extension.FinalMobileUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.action_ad_extension.FinalMobileUrls, c.action_ad_extension.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.action_ad_extension.FinalMobileUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_optional_str(c.action_ad_extension.TrackingUrlTemplate),
+            field_to_csv=lambda c: bulk_optional_str(c.action_ad_extension.TrackingUrlTemplate, c.action_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.action_ad_extension, 'TrackingUrlTemplate', v if v else '')
         ),
         _SimpleBulkMapping(
             header=_StringTable.Language,
-            field_to_csv=lambda c: bulk_optional_str(c.action_ad_extension.Language),
+            field_to_csv=lambda c: bulk_optional_str(c.action_ad_extension.Language, c.action_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.action_ad_extension, 'Language', v if v else '')
         ),
         _SimpleBulkMapping(
             header=_StringTable.CustomParameter,
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.action_ad_extension),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.action_ad_extension, v)
-        )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.ActionText,
+            field_to_csv=lambda c: c.action_text,
+            csv_to_field=lambda c, v: setattr(c, 'action_text', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

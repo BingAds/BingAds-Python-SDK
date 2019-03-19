@@ -152,12 +152,12 @@ class _BulkAd(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.ad.FinalUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.ad.FinalUrls, c.ad.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.ad.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.ad.FinalMobileUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.ad.FinalMobileUrls, c.ad.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.ad.FinalMobileUrls, v)
         ),
         _SimpleBulkMapping(
@@ -231,7 +231,7 @@ class BulkProductAd(_BulkAd):
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.PromotionalText,
-            field_to_csv=lambda c: bulk_optional_str(c.product_ad.PromotionalText),
+            field_to_csv=lambda c: bulk_optional_str(c.product_ad.PromotionalText, c.product_ad.Id),
             csv_to_field=lambda c, v: setattr(c.product_ad, 'PromotionalText', v if v else '')
         ),
     ]
@@ -304,12 +304,12 @@ class BulkTextAd(_BulkAd):
         ),
         _SimpleBulkMapping(
             header=_StringTable.DisplayUrl,
-            field_to_csv=lambda c: bulk_optional_str(c.text_ad.DisplayUrl),
+            field_to_csv=lambda c: bulk_optional_str(c.text_ad.DisplayUrl, c.text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.text_ad, 'DisplayUrl', v if v else '')
         ),
         _SimpleBulkMapping(
             header=_StringTable.DestinationUrl,
-            field_to_csv=lambda c: bulk_optional_str(c.text_ad.DestinationUrl),
+            field_to_csv=lambda c: bulk_optional_str(c.text_ad.DestinationUrl, c.text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.text_ad, 'DestinationUrl', v if v else '')
         ),
     ]
@@ -455,7 +455,7 @@ class BulkExpandedTextAd(_BulkAd):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TextPart2,
-            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.TextPart2),
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.TextPart2, c.expanded_text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'TextPart2', v if v else '')
         ),
         _SimpleBulkMapping(
@@ -470,22 +470,22 @@ class BulkExpandedTextAd(_BulkAd):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TitlePart3,
-            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.TitlePart3),
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.TitlePart3, c.expanded_text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'TitlePart3', v if v else '')
         ),
         _SimpleBulkMapping(
             header=_StringTable.Path1,
-            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path1),
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path1, c.expanded_text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path1', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Path2,
-            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path2),
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Path2, c.expanded_text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Path2', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Domain,
-            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Domain),
+            field_to_csv=lambda c: bulk_optional_str(c.expanded_text_ad.Domain, c.expanded_text_ad.Id),
             csv_to_field=lambda c, v: setattr(c.expanded_text_ad, 'Domain', v)
         ),
     ]
@@ -728,17 +728,17 @@ class BulkResponsiveSearchAd(_BulkAd):
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Path1,
-            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path1),
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path1, c.responsive_search_ad.Id),
             csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Path1', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Path2,
-            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path2),
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Path2, c.responsive_search_ad.Id),
             csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Path2', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Domain,
-            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Domain),
+            field_to_csv=lambda c: bulk_optional_str(c.responsive_search_ad.Domain, c.responsive_search_ad.Id),
             csv_to_field=lambda c, v: setattr(c.responsive_search_ad, 'Domain', v)
         ),
         _SimpleBulkMapping(

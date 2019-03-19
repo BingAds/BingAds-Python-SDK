@@ -309,6 +309,7 @@ class _CsvHeaders:
 
         # Action ad extension
         _StringTable.ActionType,
+        _StringTable.ActionText,
 
         # Dynamic Search Ads
         _StringTable.DomainLanguage,

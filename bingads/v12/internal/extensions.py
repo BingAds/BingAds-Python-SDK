@@ -140,18 +140,18 @@ def biddingscheme_to_csv(bulk_campaign, row_values):
     row_values[_StringTable.BidStrategyType] = bid_strategy_type
 
     if  bid_strategy_type == 'MaxConversions':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
     elif bid_strategy_type == 'MaxClicks':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
     elif bid_strategy_type == 'TargetCpa':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
         row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
 
 
-def bulk_optional_str(value):
+def bulk_optional_str(value, id):
     if value is None:
         return None
-    if not value:
+    if not value and id is not None and id > 0:
         return DELETE_VALUE
     return value
 
@@ -255,7 +255,7 @@ def field_to_csv_UrlCustomParameters(entity):
     if entity is None or entity.UrlCustomParameters is None:
         return None
     if entity.UrlCustomParameters.Parameters is None or entity.UrlCustomParameters.Parameters.CustomParameter is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
     # The default case when entity created
     if len(entity.UrlCustomParameters.Parameters.CustomParameter) == 0:
         return None
@@ -296,7 +296,7 @@ def csv_to_field_Urls(entity, value):
     entity.string = splitter.split(value)
 
 
-def field_to_csv_Urls(entity):
+def field_to_csv_Urls(entity, id):
     """
     parse entity to csv content
     :param entity: FinalUrls / FinalMobileUrls
@@ -305,7 +305,7 @@ def field_to_csv_Urls(entity):
     if entity is None:
         return None
     if entity.string is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     if len(entity.string) == 0:
         return None
     return '; '.join(entity.string)
@@ -329,10 +329,8 @@ def field_to_csv_CampaignLanguages(entity):
     :param entity: Languages
     :return: csv content
     """
-    if entity is None:
+    if entity is None or entity.string is None:
         return None
-    if entity.string is None:
-        return DELETE_VALUE
     if len(entity.string) == 0:
         return None
     return ';'.join(entity.string)
@@ -472,11 +470,11 @@ def field_to_csv_Rsa_TextAssetLinks(entity):
     return None
 
 
-def ad_rotation_bulk_str(value):
+def ad_rotation_bulk_str(value, id):
     if value is None:
         return None
     elif value.Type is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     else:
         return bulk_str(value.Type)
 
@@ -503,9 +501,9 @@ def ad_group_bid_bulk_str(value):
     return bulk_str(value.Amount)
 
 
-def keyword_bid_bulk_str(value):
+def keyword_bid_bulk_str(value, id):
     if value is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     if value.Amount is None:
         return None
     return bulk_str(value.Amount)
@@ -520,9 +518,9 @@ def parse_keyword_bid(value):
     return bid
 
 
-def bid_bulk_str(value):
+def bid_bulk_str(value, id):
     if value is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     if value.Amount is None:
         return None
     return bulk_str(value.Amount)
@@ -609,7 +607,7 @@ def location_target_type_bulk_str(value):
         return value
 
 
-def field_to_csv_AdSchedule(entity):
+def field_to_csv_AdSchedule(entity, id):
     """
     get the bulk string for Scheduling DayTimeRanges
     :param entity: Scheduling entity
@@ -618,7 +616,7 @@ def field_to_csv_AdSchedule(entity):
     if entity is None:
         return None
     if entity.DayTimeRanges is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     return ';'.join('({0}[{1:02d}:{2:02d}-{3:02d}:{4:02d}])'
                     .format(d.Day, d.StartHour, int(minute_bulk_str(d.StartMinute)), d.EndHour, int(minute_bulk_str(d.EndMinute)))
                     for d in entity.DayTimeRanges.DayTime
@@ -647,7 +645,7 @@ def csv_to_field_AdSchedule(entity, value):
     entity.DayTimeRanges.DayTime = daytimes
 
 
-def field_to_csv_SchedulingStartDate(entity):
+def field_to_csv_SchedulingStartDate(entity, id):
     """
     write scheduling StartDate to bulk string
     :param entity: Scheduling entity
@@ -656,14 +654,14 @@ def field_to_csv_SchedulingStartDate(entity):
     if entity is None:
         return None
     elif entity.StartDate is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     # this case is what the suds creates by default. return None instead of a delete value
     elif entity.StartDate.Day is None and entity.StartDate.Month is None and entity.StartDate.Year is None:
         return None
     return '{0!s}/{1!s}/{2!s}'.format(entity.StartDate.Month, entity.StartDate.Day, entity.StartDate.Year)
 
 
-def field_to_csv_SchedulingEndDate(entity):
+def field_to_csv_SchedulingEndDate(entity, id):
     """
     write scheduling EndDate to bulk string
     :param entity: Scheduling entity
@@ -672,14 +670,14 @@ def field_to_csv_SchedulingEndDate(entity):
     if entity is None:
         return None
     elif entity.EndDate is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     # this case is what the suds creates by default. return None instead of a delete value
     elif entity.EndDate.Day is None and entity.EndDate.Month is None and entity.EndDate.Year is None:
         return None
     return '{0!s}/{1!s}/{2!s}'.format(entity.EndDate.Month, entity.EndDate.Day, entity.EndDate.Year)
 
 
-def field_to_csv_UseSearcherTimeZone(entity):
+def field_to_csv_UseSearcherTimeZone(entity, id):
     """
     get Scheduling UseSearcherTimeZone bulk str
     :param entity: Scheduling entity
@@ -689,7 +687,7 @@ def field_to_csv_UseSearcherTimeZone(entity):
         return None
     # this case is what suds creates by default, while set it to delete value since there's no other case for delete value
     elif entity.UseSearcherTimeZone is None:
-        return DELETE_VALUE
+        return DELETE_VALUE if id and id > 0 else None
     else:
         return str(entity.UseSearcherTimeZone)
 
@@ -710,7 +708,7 @@ def field_to_csv_WebpageParameter_CriterionName(entity):
     if entity.Criterion is None or entity.Criterion.Parameter is None or entity.Criterion.Parameter.CriterionName is None:
         return None
     if not entity.Criterion.Parameter.CriterionName:
-        return DELETE_VALUE
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
     return entity.Criterion.Parameter.CriterionName
 
 
@@ -806,8 +804,8 @@ def entity_to_csv_PriceTableRows(entity, row_values):
             row_values[currency_code_prefix + str(i + 1)] = price_table_rows[i].CurrencyCode
             row_values[price_description_prefix + str(i + 1)] = price_table_rows[i].Description
             row_values[header_prefix + str(i + 1)] = price_table_rows[i].Header
-            row_values[final_mobile_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalMobileUrls)
-            row_values[final_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalUrls)
+            row_values[final_mobile_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalMobileUrls, entity.Id)
+            row_values[final_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalUrls, entity.Id)
             row_values[price_prefix + str(i + 1)] = bulk_str(price_table_rows[i].Price)
             row_values[price_qualifier_prefix + str(i + 1)] = price_table_rows[i].PriceQualifier
             row_values[price_unit_prefix + str(i + 1)] = price_table_rows[i].PriceUnit
@@ -1194,7 +1192,7 @@ def target_setting_to_csv(entity):
         raise ValueError('Can only have 1 TargetSetting in Settings.')
     target_setting = settings[0]
     if not target_setting.Details.TargetSettingDetail:
-        return DELETE_VALUE
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
     return ";".join([s.CriterionTypeGroup for s in target_setting.Details.TargetSettingDetail])
     pass
 
@@ -1405,10 +1403,8 @@ def csv_to_field_SupportedCampaignTypes(entity, value):
 
 
 def field_to_csv_SupportedCampaignTypes(entity):
-    if entity is None:
+    if entity is None or entity.string is None:
         return None
-    if entity.string is None:
-        return DELETE_VALUE
     if len(entity.string) == 0:
         return None
     return ';'.join(entity.string)

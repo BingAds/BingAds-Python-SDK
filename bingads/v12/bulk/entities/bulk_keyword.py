@@ -205,7 +205,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.DestinationUrl,
-            field_to_csv=lambda c: bulk_optional_str(c.keyword.DestinationUrl),
+            field_to_csv=lambda c: bulk_optional_str(c.keyword.DestinationUrl, c.keyword.Id),
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'DestinationUrl',
@@ -214,7 +214,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Bid,
-            field_to_csv=lambda c: keyword_bid_bulk_str(c.keyword.Bid),
+            field_to_csv=lambda c: keyword_bid_bulk_str(c.keyword.Bid, c.keyword.Id),
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'Bid',
@@ -223,7 +223,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Param1,
-            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param1),
+            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param1, c.keyword.Id),
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'Param1',
@@ -232,7 +232,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Param2,
-            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param2),
+            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param2, c.keyword.Id),
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'Param2',
@@ -241,7 +241,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Param3,
-            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param3),
+            field_to_csv=lambda c: bulk_optional_str(c.keyword.Param3, c.keyword.Id),
             csv_to_field=lambda c, v: setattr(
                 c.keyword,
                 'Param3',
@@ -250,12 +250,12 @@ class BulkKeyword(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalUrls, c.keyword.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.keyword.FinalUrls, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,
-            field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalMobileUrls),
+            field_to_csv=lambda c: field_to_csv_Urls(c.keyword.FinalMobileUrls, c.keyword.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.keyword.FinalMobileUrls, v)
         ),
         _SimpleBulkMapping(

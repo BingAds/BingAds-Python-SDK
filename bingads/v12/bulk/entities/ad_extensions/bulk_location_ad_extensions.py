@@ -58,7 +58,7 @@ class BulkLocationAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.PhoneNumber,
-            field_to_csv=lambda c: bulk_optional_str(c.location_ad_extension.PhoneNumber),
+            field_to_csv=lambda c: bulk_optional_str(c.location_ad_extension.PhoneNumber, c.location_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.location_ad_extension, 'PhoneNumber', v if v else '')
         ),
         _SimpleBulkMapping(
@@ -81,7 +81,7 @@ class BulkLocationAdExtension(_BulkAdExtensionBase):
             header=_StringTable.AddressLine2,
             field_to_csv=lambda c: BulkLocationAdExtension.get_address_part(
                 c,
-                lambda x: bulk_optional_str(x.StreetAddress2)
+                lambda x: bulk_optional_str(x.StreetAddress2, c.location_ad_extension.Id)
             ),
             csv_to_field=lambda c, v: BulkLocationAdExtension.set_address_part(
                 c,

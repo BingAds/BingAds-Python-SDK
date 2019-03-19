@@ -45,7 +45,7 @@ class BulkOperation(object):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
                  **suds_options):
@@ -191,7 +191,7 @@ class BulkDownloadOperation(BulkOperation):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
                  **suds_options):
@@ -290,7 +290,7 @@ class BulkUploadOperation(BulkOperation):
     def __init__(self,
                  request_id,
                  authorization_data,
-                 poll_interval_in_milliseconds=15000,
+                 poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
                  **suds_options):

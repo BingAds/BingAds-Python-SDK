@@ -83,7 +83,6 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         self._campaign_name = campaign_name
         self._ad_group = ad_group
 
-        self._is_expired = None
         self._quality_score_data = None
         self._performance_data = None
 
@@ -132,15 +131,6 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         self._ad_group = ad_group
 
     @property
-    def is_expired(self):
-        """ Indicates whether the AdGroup is expired.
-
-        :rtype: bool
-        """
-
-        return self._is_expired
-
-    @property
     def quality_score_data(self):
         """ The quality score data for the ad group.
 
@@ -165,7 +155,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Status,
-            field_to_csv=lambda c: 'Expired' if c.is_expired else bulk_str(c.ad_group.Status),
+            field_to_csv=lambda c: bulk_str(c.ad_group.Status),
             csv_to_field=csv_to_status
         ),
         _SimpleBulkMapping(
@@ -200,7 +190,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.AdRotation,
-            field_to_csv=lambda c: ad_rotation_bulk_str(c.ad_group.AdRotation),
+            field_to_csv=lambda c: ad_rotation_bulk_str(c.ad_group.AdRotation, c.ad_group.Id),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'AdRotation', parse_ad_rotation(v))
         ),
         _SimpleBulkMapping(

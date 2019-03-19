@@ -2,6 +2,15 @@
 
 Release History
 -----------
+12.0.4(2019-03-15)
++++++++++++++++++++
+* Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Added a new Bulk property for Action Text i.e., added ActionText to the existing BulkActionAdExtension.
+* Removed the is_expired property from BulkAdGroup. Use the Status property of the BulkAdGroup instead. 
+* For optional fields, the Bulk file schema mapping is updated such that "delete_value" will only be written to the file for update operations. Update intent is assumed when the Bulk entity ID is greater than zero. 
+* Updated the Status mapping for BulkExperiment i.e., map the string value directly instead of via bulk_optional_str. 
+
+
 12.0.3.1(2019-02-01)
 +++++++++++++++++++
 * Fix import issue introduced by version 12.0.3, in which version python 3 users will see error "ImportError: No module named 'bulk_ad_group_negative_audience_association". See issue: https://github.com/BingAds/BingAds-Python-SDK/issues/110.

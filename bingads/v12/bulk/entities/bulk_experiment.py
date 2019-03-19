@@ -45,7 +45,7 @@ class BulkExperiment(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Status,
-            field_to_csv=lambda c: bulk_optional_str(c.experiment.ExperimentStatus),
+            field_to_csv=lambda c: c.experiment.ExperimentStatus,
             csv_to_field=lambda c, v: setattr(c.experiment, 'ExperimentStatus', v)
         ),
         _SimpleBulkMapping(

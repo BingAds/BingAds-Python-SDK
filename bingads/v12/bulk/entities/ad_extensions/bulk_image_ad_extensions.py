@@ -54,7 +54,7 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.DestinationUrl,
-            field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.DestinationUrl),
+            field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.DestinationUrl, c.image_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'DestinationUrl', v if v else '')
         ),
         _SimpleBulkMapping(
