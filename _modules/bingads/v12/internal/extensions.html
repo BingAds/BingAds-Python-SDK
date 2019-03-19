@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 12.0.3 documentation</title>
+    <title>bingads.v12.internal.extensions &#8212; Bing Ads SDK 12.0.4 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -178,18 +178,18 @@
     <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyType</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_strategy_type</span>
 
     <span class="k">if</span>  <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxConversions&#39;</span><span class="p">:</span>
-        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;MaxClicks&#39;</span><span class="p">:</span>
-        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">bid_strategy_type</span> <span class="o">==</span> <span class="s1">&#39;TargetCpa&#39;</span><span class="p">:</span>
-        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyMaxCpc</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">MaxCpc</span><span class="p">,</span> <span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
         <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidStrategyTargetCpa</span><span class="p">]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">bulk_campaign</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">BiddingScheme</span><span class="o">.</span><span class="n">TargetCpa</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="bulk_optional_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.bulk_optional_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_optional_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="bulk_optional_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.bulk_optional_str">[docs]</a><span class="k">def</span> <span class="nf">bulk_optional_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">value</span> <span class="ow">and</span> <span class="nb">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DELETE_VALUE</span>
     <span class="k">return</span> <span class="n">value</span></div>
 
@@ -293,7 +293,7 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">UrlCustomParameters</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">UrlCustomParameters</span><span class="o">.</span><span class="n">Parameters</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">UrlCustomParameters</span><span class="o">.</span><span class="n">Parameters</span><span class="o">.</span><span class="n">CustomParameter</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="c1"># The default case when entity created</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">UrlCustomParameters</span><span class="o">.</span><span class="n">Parameters</span><span class="o">.</span><span class="n">CustomParameter</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
@@ -334,7 +334,7 @@
     <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="field_to_csv_Urls"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_Urls">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_Urls</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+<div class="viewcode-block" id="field_to_csv_Urls"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_Urls">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_Urls</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    parse entity to csv content</span>
 <span class="sd">    :param entity: FinalUrls / FinalMobileUrls</span>
@@ -343,7 +343,7 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
@@ -367,10 +367,8 @@
 <span class="sd">    :param entity: Languages</span>
 <span class="sd">    :return: csv content</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
@@ -510,11 +508,11 @@
     <span class="k">return</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="ad_rotation_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.ad_rotation_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">ad_rotation_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="ad_rotation_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.ad_rotation_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">ad_rotation_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">Type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Type</span><span class="p">)</span></div>
 
@@ -541,9 +539,9 @@
     <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="keyword_bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.keyword_bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">keyword_bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="keyword_bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.keyword_bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">keyword_bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
@@ -558,9 +556,9 @@
     <span class="k">return</span> <span class="n">bid</span></div>
 
 
-<div class="viewcode-block" id="bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="bid_bulk_str"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.bid_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bid_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
@@ -647,7 +645,7 @@
         <span class="k">return</span> <span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="field_to_csv_AdSchedule"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_AdSchedule">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdSchedule</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+<div class="viewcode-block" id="field_to_csv_AdSchedule"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_AdSchedule">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_AdSchedule</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    get the bulk string for Scheduling DayTimeRanges</span>
 <span class="sd">    :param entity: Scheduling entity</span>
@@ -656,7 +654,7 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{0}</span><span class="s1">[</span><span class="si">{1:02d}</span><span class="s1">:</span><span class="si">{2:02d}</span><span class="s1">-</span><span class="si">{3:02d}</span><span class="s1">:</span><span class="si">{4:02d}</span><span class="s1">])&#39;</span>
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">StartHour</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute_bulk_str</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">StartMinute</span><span class="p">)),</span> <span class="n">d</span><span class="o">.</span><span class="n">EndHour</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">minute_bulk_str</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">EndMinute</span><span class="p">)))</span>
                     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span><span class="o">.</span><span class="n">DayTime</span>
@@ -685,7 +683,7 @@
     <span class="n">entity</span><span class="o">.</span><span class="n">DayTimeRanges</span><span class="o">.</span><span class="n">DayTime</span> <span class="o">=</span> <span class="n">daytimes</span></div>
 
 
-<div class="viewcode-block" id="field_to_csv_SchedulingStartDate"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_SchedulingStartDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingStartDate</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+<div class="viewcode-block" id="field_to_csv_SchedulingStartDate"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_SchedulingStartDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingStartDate</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    write scheduling StartDate to bulk string</span>
 <span class="sd">    :param entity: Scheduling entity</span>
@@ -694,14 +692,14 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="c1"># this case is what the suds creates by default. return None instead of a delete value</span>
     <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Day</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Month</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0!s}</span><span class="s1">/</span><span class="si">{1!s}</span><span class="s1">/</span><span class="si">{2!s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">StartDate</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="field_to_csv_SchedulingEndDate"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_SchedulingEndDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingEndDate</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+<div class="viewcode-block" id="field_to_csv_SchedulingEndDate"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_SchedulingEndDate">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SchedulingEndDate</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    write scheduling EndDate to bulk string</span>
 <span class="sd">    :param entity: Scheduling entity</span>
@@ -710,14 +708,14 @@
     <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="c1"># this case is what the suds creates by default. return None instead of a delete value</span>
     <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Day</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Month</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Year</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{0!s}</span><span class="s1">/</span><span class="si">{1!s}</span><span class="s1">/</span><span class="si">{2!s}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Month</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Day</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">EndDate</span><span class="o">.</span><span class="n">Year</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="field_to_csv_UseSearcherTimeZone"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_UseSearcherTimeZone">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_UseSearcherTimeZone</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
+<div class="viewcode-block" id="field_to_csv_UseSearcherTimeZone"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_UseSearcherTimeZone">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_UseSearcherTimeZone</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    get Scheduling UseSearcherTimeZone bulk str</span>
 <span class="sd">    :param entity: Scheduling entity</span>
@@ -727,7 +725,7 @@
         <span class="k">return</span> <span class="kc">None</span>
     <span class="c1"># this case is what suds creates by default, while set it to delete value since there&#39;s no other case for delete value</span>
     <span class="k">elif</span> <span class="n">entity</span><span class="o">.</span><span class="n">UseSearcherTimeZone</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="nb">id</span> <span class="ow">and</span> <span class="nb">id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">UseSearcherTimeZone</span><span class="p">)</span></div>
 
@@ -748,7 +746,7 @@
     <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">CriterionName</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">CriterionName</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">CriterionName</span></div>
 
 
@@ -844,8 +842,8 @@
             <span class="n">row_values</span><span class="p">[</span><span class="n">currency_code_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">CurrencyCode</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">price_description_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Description</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Header</span>
-            <span class="n">row_values</span><span class="p">[</span><span class="n">final_mobile_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">)</span>
-            <span class="n">row_values</span><span class="p">[</span><span class="n">final_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">)</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">final_mobile_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">final_url_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">,</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span><span class="p">)</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">price_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Price</span><span class="p">)</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">price_qualifier_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">PriceQualifier</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">price_unit_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">price_table_rows</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">PriceUnit</span></div>
@@ -1232,7 +1230,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Can only have 1 TargetSetting in Settings.&#39;</span><span class="p">)</span>
     <span class="n">target_setting</span> <span class="o">=</span> <span class="n">settings</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">target_setting</span><span class="o">.</span><span class="n">Details</span><span class="o">.</span><span class="n">TargetSettingDetail</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
+        <span class="k">return</span> <span class="n">DELETE_VALUE</span> <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="ow">and</span> <span class="n">entity</span><span class="o">.</span><span class="n">Id</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">s</span><span class="o">.</span><span class="n">CriterionTypeGroup</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">target_setting</span><span class="o">.</span><span class="n">Details</span><span class="o">.</span><span class="n">TargetSettingDetail</span><span class="p">])</span>
     <span class="k">pass</span></div>
 
@@ -1443,10 +1441,8 @@
 
 
 <div class="viewcode-block" id="field_to_csv_SupportedCampaignTypes"><a class="viewcode-back" href="../../../../bingads.v12.internal.html#bingads.v12.internal.extensions.field_to_csv_SupportedCampaignTypes">[docs]</a><span class="k">def</span> <span class="nf">field_to_csv_SupportedCampaignTypes</span><span class="p">(</span><span class="n">entity</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">entity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="k">if</span> <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">DELETE_VALUE</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="s1">&#39;;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">string</span><span class="p">)</span></div>
@@ -1482,7 +1478,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.0.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
