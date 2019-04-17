@@ -1,5 +1,5 @@
 suds-jurko==0.6.0
-requests
+requests>=2.0.0
 future
 six
 enum34

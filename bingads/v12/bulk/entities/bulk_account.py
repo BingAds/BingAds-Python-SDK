@@ -25,6 +25,7 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._sync_time = sync_time
         self._msclkid_auto_tagging_enabled = None
         self._tracking_url_template = None
+        self._final_url_suffix = None
 
     @property
     def id(self):
@@ -78,7 +79,20 @@ class BulkAccount(_SingleRecordBulkEntity):
         :return: The tracking template of the account
         :rtype: str
         """
-        return self._tracking_url_template    
+        return self._tracking_url_template
+    
+    @property
+    def final_url_suffix(self):
+        """ The final url suffix to use as a default for all URLs in your account.
+        
+        :return: The tracking template of the account
+        :rtype: str
+        """
+        return self._final_url_suffix
+    
+    @final_url_suffix.setter
+    def final_url_suffix(self, v):
+        self._final_url_suffix = v
     
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -105,6 +119,11 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.TrackingTemplate,
             field_to_csv=lambda c: bulk_str(c.tracking_url_template),
             csv_to_field=lambda c, v: setattr(c, '_tracking_url_template', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.final_url_suffix, c.id),
+            csv_to_field=lambda c, v: setattr(c, '_final_url_suffix', v)
         ),
     ]
 

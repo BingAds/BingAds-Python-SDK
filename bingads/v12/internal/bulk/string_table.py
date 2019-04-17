@@ -466,3 +466,5 @@ class _StringTable:
     CampaignCompanyNameCriterion = 'Campaign Company Name Criterion'
     CampaignJobFunctionCriterion = 'Campaign Job Function Criterion'
     CampaignIndustryCriterion = 'Campaign Industry Criterion'
+    
+    FinalUrlSuffix = "Final Url Suffix" 

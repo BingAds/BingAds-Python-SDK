@@ -2,6 +2,13 @@
 
 Release History
 -----------
+12.13.1(2019-04-15)
++++++++++++++++++++
+* Added support for Bing Ads API Version 13. For more information, see Migrating to Bing Ads API Version 13: https://docs.microsoft.com/en-us/bingads/guides/migration-guide?view=bingads-13. 
+* Updated version 12 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12.
+* For both version 12 and 13, added a new Bulk property for Final Url Suffix i.e., added FinalUrlSuffix to the existing BulkAccount, BulkAdGroup, BulkCampaign, and BulkKeyword. For details about Final Url Suffix in the Bulk file, see the Release Notes:https://docs.microsoft.com/en-us/bingads/guides/release-notes?view=bingads-12#finalurlsuffix-march2019.
+
+-----------
 12.0.4(2019-03-15)
 +++++++++++++++++++
 * Updated service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.

@@ -1,4 +1,4 @@
-﻿from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
+from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
 
 from .headerplugin import HeaderPlugin
 from .authorization import *
@@ -198,6 +198,8 @@ class ServiceClient:
         """
         if version == 'v12' or version == 12:
             return 12
+        if version == 'v13' or version == 13:
+            return 13
         raise ValueError(str.format('version error: [{0}] is not supported.', version))
 
 
@@ -297,6 +299,11 @@ _CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(
 _CAMPAIGN_OBJECT_FACTORY_V12 = _CAMPAIGN_MANAGEMENT_SERVICE_V12.factory
 _CAMPAIGN_OBJECT_FACTORY_V12.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V12.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V12.create
+_CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
+    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/campaign_management_service.xml'))
+_CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
+_CAMPAIGN_OBJECT_FACTORY_V13.object_cache = {}
+_CAMPAIGN_OBJECT_FACTORY_V13.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V13.create
 
 
 def _suds_objects_deepcopy(origin):

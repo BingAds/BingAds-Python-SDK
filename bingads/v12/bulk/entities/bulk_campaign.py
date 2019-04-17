@@ -423,6 +423,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: target_setting_to_csv(c.campaign),
             csv_to_field=lambda c, v: csv_to_target_setting(c.campaign, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.campaign.FinalUrlSuffix, c.campaign.Id),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'FinalUrlSuffix', v)
+        ),
     ]
 
     def read_additional_data(self, stream_reader):

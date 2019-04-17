@@ -236,6 +236,11 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         ),
 
         _ComplexBulkMapping(coop_setting_to_csv, csv_to_coop_setting),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.ad_group.FinalUrlSuffix, c.ad_group.Id),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'FinalUrlSuffix', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

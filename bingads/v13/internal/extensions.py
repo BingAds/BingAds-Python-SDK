@@ -1,0 +1,1410 @@
+﻿from datetime import datetime
+
+from bingads.v13.internal.bulk.string_table import _StringTable
+from six import PY2
+import re
+import json
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13, _CAMPAIGN_MANAGEMENT_SERVICE_V13
+
+target_setting_detail_pattern="^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$"
+
+DELETE_VALUE = "delete_value"
+_BULK_DATETIME_FORMAT = '%m/%d/%Y %H:%M:%S'
+_BULK_DATETIME_FORMAT_2 = '%m/%d/%Y %H:%M:%S.%f'
+_BULK_DATE_FORMAT = "%m/%d/%Y"
+
+url_splitter = ";\\s*(?=https?://)"
+custom_param_splitter = "(?<!\\\\);\\s*"
+custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
+
+BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V13.create('BudgetLimitType')
+DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting')
+Webpage = _CAMPAIGN_OBJECT_FACTORY_V13.create('Webpage')
+WebpageConditionOperand = _CAMPAIGN_OBJECT_FACTORY_V13.create('WebpageConditionOperand')
+
+RemarketingRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('RemarketingRule')
+PageVisitorsRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsRule')
+PageVisitorsWhoVisitedAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsWhoVisitedAnotherPageRule')
+PageVisitorsWhoDidNotVisitAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsWhoDidNotVisitAnotherPageRule')
+CustomEventsRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('CustomEventsRule')
+StringOperator = _CAMPAIGN_OBJECT_FACTORY_V13.create('StringOperator')
+NumberOperator = _CAMPAIGN_OBJECT_FACTORY_V13.create('NumberOperator')
+
+AudienceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AudienceCriterion')
+BidMultiplier = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
+
+AgeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AgeCriterion')
+DayTimeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DayTimeCriterion')
+DeviceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DeviceCriterion')
+GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenderCriterion')
+LocationCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationCriterion')
+LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationIntentCriterion')
+RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('RadiusCriterion')
+TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
+CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
+
+def bulk_str(value):
+    if value is None or (hasattr(value, 'value') and value.value is None):
+        return None
+    if isinstance(value, str):
+        return value
+    if PY2:
+        if isinstance(value, unicode):
+            return value
+    return str(value)
+
+
+def bulk_upper_str(value):
+    s = bulk_str(value)
+    if s is None:
+        return None
+    return s.upper()
+
+
+def bulk_date_str(value):
+    if value is None or (value.Day is None and value.Month is None and value.Year is None):
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(value.Month, value.Day, value.Year)
+
+
+def bulk_datetime_str(value):
+    if value is None:
+        return None
+    return value.strftime(_BULK_DATETIME_FORMAT)
+
+
+def csv_to_field_Date(entity, property_name, value):
+    date = parse_date(value)
+    if date is not None:
+        setattr(entity, property_name, date)
+
+def _is_daily_budget(budget_type):
+    if budget_type.lower() == 'DailyBudgetAccelerated'.lower() \
+            or budget_type.lower() == 'DailyBudgetStandard'.lower():
+        return True
+    else:
+        return False
+
+def csv_to_budget(row_values, bulk_campaign):
+    success, budget_type = row_values.try_get_value(_StringTable.BudgetType)
+    if not success or not budget_type:
+        return
+
+    success, budget_row_value = row_values.try_get_value(_StringTable.Budget)
+    if not success:
+        return
+    budget_value = float(budget_row_value) if budget_row_value else None
+
+    bulk_campaign.campaign.BudgetType = budget_type
+    bulk_campaign.campaign.DailyBudget = budget_value
+
+
+def budget_to_csv(bulk_campaign, row_values):
+    budget_type = bulk_campaign.campaign.BudgetType
+    if not budget_type:
+        return
+    row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
+
+
+def csv_to_biddingscheme(row_values, bulk_campaign):
+    success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
+    if not success or not bid_strategy_type:
+        return
+
+    csv_to_field_BidStrategyType(bulk_campaign.campaign, bid_strategy_type)
+
+    success, max_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyMaxCpc)
+    max_cpc_value = parse_bid(max_cpc_row_value) if max_cpc_row_value else None
+
+    success, target_cpa_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCpa)
+    target_cpa_value = float(target_cpa_row_value) if target_cpa_row_value else None
+
+    if  bid_strategy_type == 'MaxConversions':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "MaxConversions"
+    elif bid_strategy_type == 'MaxClicks':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "MaxClicks"
+    elif bid_strategy_type == 'TargetCpa':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "TargetCpa"
+        bulk_campaign.campaign.BiddingScheme.TargetCpa = target_cpa_value
+
+
+def biddingscheme_to_csv(bulk_campaign, row_values):
+    bid_strategy_type = field_to_csv_BidStrategyType(bulk_campaign.campaign)
+
+    if not bid_strategy_type:
+        return
+
+    row_values[_StringTable.BidStrategyType] = bid_strategy_type
+
+    if  bid_strategy_type == 'MaxConversions':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+    elif bid_strategy_type == 'MaxClicks':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+    elif bid_strategy_type == 'TargetCpa':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
+
+
+def bulk_optional_str(value, id):
+    if value is None:
+        return None
+    if not value and id is not None and id > 0:
+        return DELETE_VALUE
+    return value
+
+
+def csv_to_status(c, v):
+    if v == 'Expired':
+        c.ad_group.Status = 'Expired'
+        c._is_expired = True
+    else:
+        c.ad_group.Status = v if v else None
+
+
+def bulk_device_preference_str(value):
+    if value is None:
+        return None
+    elif value == 0:
+        return "All"
+    elif value == 30001:
+        return "Mobile"
+    else:
+        raise ValueError("Unknown device preference")
+
+
+def parse_datetime(dt_str):
+    """ Convert the datetime str to datetime object.
+
+    :param dt_str: The string representing a datetime object.
+    :type dt_str: str
+    :return: The datetime object parsed from the string.
+    :rtype: datetime | None
+    """
+
+    if not dt_str:
+        return None
+    try:
+        return datetime.strptime(dt_str, _BULK_DATETIME_FORMAT)
+    except Exception:
+        return datetime.strptime(dt_str, _BULK_DATETIME_FORMAT_2)
+
+
+def parse_date(d_str):
+    if not d_str:
+        return None
+    parsed_date = datetime.strptime(d_str, _BULK_DATE_FORMAT)
+    bing_ads_date = _CAMPAIGN_OBJECT_FACTORY_V13.create('Date')
+    bing_ads_date.Day = parsed_date.day
+    bing_ads_date.Month = parsed_date.month
+    bing_ads_date.Year = parsed_date.year
+
+    return bing_ads_date
+
+
+def parse_device_preference(value):
+    if not value:
+        return None
+
+    if value.lower() == 'all':
+        return 0
+    elif value.lower() == "mobile":
+        return 30001
+    else:
+        raise ValueError("Unknown device preference")
+
+def field_to_csv_MediaIds(entity):
+    """
+    MediaIds field to csv content
+    :param entity: entity which has MediaIds attribute
+    :return:
+    """
+    # media_ids? "ns4:ArrayOflong"
+    media_ids = entity.ImageMediaIds
+    if media_ids is None or len(media_ids) == 0:
+        return None
+    return ';'.join(str(media_id) for media_id in media_ids)
+
+
+def csv_to_field_MediaIds(entity, value):
+    """
+    MediaIds csv to entity
+    :param entity:
+    :return:
+    """
+    entity.ImageMediaIds = [None if i == 'None' else int(i) for i in value.split(';')]
+
+
+# None and empty string will set to empty string
+def escape_parameter_text(s):
+    return '' if not s else s.replace('\\', '\\\\').replace(';', '\\;')
+
+
+def unescape_parameter_text(s):
+    return '' if not s else s.replace('\\\\', '\\').replace('\\;', ';')
+
+
+def field_to_csv_UrlCustomParameters(entity):
+    """
+    transfer the CustomParameters of a entity to csv content (string)
+    :param entity: the entity which contains UrlCustomparameters attribute
+    :return: csv string content
+    """
+    if entity is None or entity.UrlCustomParameters is None:
+        return None
+    if entity.UrlCustomParameters.Parameters is None or entity.UrlCustomParameters.Parameters.CustomParameter is None:
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
+    # The default case when entity created
+    if len(entity.UrlCustomParameters.Parameters.CustomParameter) == 0:
+        return None
+    params = []
+    for parameter in entity.UrlCustomParameters.Parameters.CustomParameter:
+        params.append('{{_{0}}}={1}'.format(parameter.Key, escape_parameter_text(parameter.Value)))
+    return '; '.join(params)
+
+
+def csv_to_field_UrlCustomParameters(entity, value):
+    if value is None or value.strip() == '':
+        return
+    splitter = re.compile(custom_param_splitter)
+    pattern = re.compile(custom_param_pattern)
+    params = []
+    param_strs = splitter.split(value)
+    for param_str in param_strs:
+        match = pattern.match(param_str)
+        if match:
+            custom_parameter = _CAMPAIGN_OBJECT_FACTORY_V13.create("CustomParameter")
+            custom_parameter.Key = match.group(1)
+            custom_parameter.Value = unescape_parameter_text(match.group(2))
+            params.append(custom_parameter)
+    if len(params) > 0:
+        entity.UrlCustomParameters.Parameters.CustomParameter = params
+
+
+def csv_to_field_Urls(entity, value):
+    """
+    set FinalUrls / FinalMobileUrls string field
+    :param entity: FinalUrls / FinalMobileUrls
+    :param value: the content in csv
+    :return:set field values
+    """
+    if value is None or value == '':
+        return
+    splitter = re.compile(url_splitter)
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_Urls(entity, id):
+    """
+    parse entity to csv content
+    :param entity: FinalUrls / FinalMobileUrls
+    :return: csv content
+    """
+    if entity is None:
+        return None
+    if entity.string is None:
+        return DELETE_VALUE if id and id > 0 else None
+    if len(entity.string) == 0:
+        return None
+    return '; '.join(entity.string)
+
+def csv_to_field_CampaignLanguages(entity, value):
+    """
+    set Languages string field
+    :param entity: Languages
+    :param value: the content in csv
+    :return:set field values
+    """
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_CampaignLanguages(entity):
+    """
+    parse entity to csv content
+    :param entity: Languages
+    :return: csv content
+    """
+    if entity is None or entity.string is None:
+        return None
+    if len(entity.string) == 0:
+        return None
+    return ';'.join(entity.string)
+
+def field_to_csv_BidStrategyType(entity):
+    """
+    parse entity to csv content
+    :param entity: entity which has BiddingScheme attribute
+    :return: csv content
+    """
+    if entity.BiddingScheme is None or type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BiddingScheme')):
+        return None
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('EnhancedCpcBiddingScheme')):
+        return 'EnhancedCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('InheritFromParentBiddingScheme')):
+        return 'InheritFromParent'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionsBiddingScheme')):
+        return 'MaxConversions'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpcBiddingScheme')):
+        return 'ManualCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetCpaBiddingScheme')):
+        return 'TargetCpa'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')):
+        return 'MaxClicks'
+    else:
+        raise TypeError('Unsupported Bid Strategy Type')
+
+
+def csv_to_field_BidStrategyType(entity, value):
+    """
+    set BiddingScheme
+    :param entity: entity which has BiddingScheme attribute
+    :param value: the content in csv
+    :return:
+    """
+    if value is None or value == '':
+        return
+    elif value == 'EnhancedCpc':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('EnhancedCpcBiddingScheme')
+    elif value == 'InheritFromParent':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('InheritFromParentBiddingScheme')
+    elif value == 'MaxConversions':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionsBiddingScheme')
+    elif value == 'ManualCpc':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpcBiddingScheme')
+    elif value == 'TargetCpa':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetCpaBiddingScheme')
+    elif value == 'MaxClicks':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')
+    else:
+        raise ValueError('Unknown Bid Strategy Type')
+    entity.BiddingScheme.Type = value
+
+
+def csv_to_field_StructuredSnippetValues(entity, value):
+    if value is not None and value != '':
+        entity.Values.string = value.split(';')
+
+def field_to_csv_StructuredSnippetValues(entity):
+    if entity.Values is not None and entity.Values.string is not None and len(entity.Values.string) > 0:
+        return ';'.join(entity.Values.string)
+    return None
+
+
+def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
+    if value is None or value == '':
+        return
+    assetLinkContracts = json.loads(value)
+    
+    for assetLinkContract in assetLinkContracts:
+        asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
+        asset_link.Asset.Type = 'TextAsset'
+        asset_link.Asset.Id = assetLinkContract['id']
+        asset_link.Asset.Text = assetLinkContract['text']
+        asset_link.Asset.Name = assetLinkContract['name']
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
+        asset_link.PinnedField = assetLinkContract['pinnedField']
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        assetLinks.AssetLink.append(asset_link)
+
+def field_to_csv_ImageAssetLinks(entity):
+    if entity is None or entity.AssetLink is None:
+        return None
+    assetLinkContracts = []
+    for assetLink in entity.AssetLink:
+        if assetLink.Asset is not None and assetLink.Asset.Type == 'ImageAsset':
+            contract = {}
+            contract['cropHeight'] = assetLink.Asset.CropHeight
+            contract['cropWidth'] = assetLink.Asset.CropWidth
+            contract['cropX'] = assetLink.Asset.CropX
+            contract['cropY'] = assetLink.Asset.CropY
+            contract['id'] = assetLink.Asset.Id
+            contract['name'] = assetLink.Asset.Name
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
+            contract['editorialStatus'] = assetLink.EditorialStatus
+            contract['pinnedField'] = assetLink.PinnedField
+            assetLinkContracts.append(contract)
+    if len(assetLinkContracts) > 0:
+        return json.dumps(assetLinkContracts)
+    return None
+
+def csv_to_field_ImageAssetLinks(assetLinks, value):
+    if value is None or value == '':
+        return
+    assetLinkContracts = json.loads(value)
+    
+    for assetLinkContract in assetLinkContracts:
+        asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
+        asset_link.Asset.Type = 'ImageAsset'
+        asset_link.Asset.CropHeight = assetLinkContract['cropHeight']
+        asset_link.Asset.CropWidth = assetLinkContract['cropWidth']
+        asset_link.Asset.CropX = assetLinkContract['cropX']
+        asset_link.Asset.CropY = assetLinkContract['cropY']
+        asset_link.Asset.Id = assetLinkContract['id']
+        asset_link.Asset.Name = assetLinkContract['name']
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
+        asset_link.PinnedField = assetLinkContract['pinnedField']
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        assetLinks.AssetLink.append(asset_link)
+
+def field_to_csv_Rsa_TextAssetLinks(entity):
+    if entity is None or entity.AssetLink is None:
+        return None
+    assetLinkContracts = []
+    for assetLink in entity.AssetLink:
+        if assetLink.Asset is not None and assetLink.Asset.Type == 'TextAsset':
+            contract = {}
+            contract['id'] = assetLink.Asset.Id
+            contract['name'] = assetLink.Asset.Name
+            contract['text'] = assetLink.Asset.Text
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
+            contract['editorialStatus'] = assetLink.EditorialStatus
+            contract['pinnedField'] = assetLink.PinnedField
+            assetLinkContracts.append(contract)
+    if len(assetLinkContracts) > 0:
+        return json.dumps(assetLinkContracts)
+    return None
+
+
+def ad_rotation_bulk_str(value, id):
+    if value is None:
+        return None
+    elif value.Type is None:
+        return DELETE_VALUE if id and id > 0 else None
+    else:
+        return bulk_str(value.Type)
+
+
+def parse_ad_rotation(value):
+    if not value:
+        return None
+    ad_rotation = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdRotation')
+    ad_rotation.Type = None if value == DELETE_VALUE else value
+    return ad_rotation
+
+
+def parse_ad_group_bid(value):
+    if not value:
+        return None
+    bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('Bid')
+    bid.Amount = float(value)
+    return bid
+
+
+def ad_group_bid_bulk_str(value):
+    if value is None or value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+
+def keyword_bid_bulk_str(value, id):
+    if value is None:
+        return DELETE_VALUE if id and id > 0 else None
+    if value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+
+def parse_keyword_bid(value):
+    bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('Bid')
+    if not value or value == DELETE_VALUE:
+        bid.Amount = None
+    else:
+        bid.Amount = float(value)
+    return bid
+
+
+def bid_bulk_str(value, id):
+    if value is None:
+        return DELETE_VALUE if id and id > 0 else None
+    if value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+
+def parse_bid(value):
+    bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('Bid')
+    if not value:
+        bid.Amount = None
+    else:
+        bid.Amount = float(value)
+    return bid
+
+def minute_bulk_str(value):
+    if value == 'Zero':
+        return '0'
+    elif value == 'Fifteen':
+        return '15'
+    elif value == 'Thirty':
+        return '30'
+    elif value == 'FortyFive':
+        return '45'
+    else:
+        raise ValueError('Unknown minute')
+
+def parse_fixed_bid(value):
+    if not value:
+        return None
+    fixed_bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('FixedBid')
+    fixed_bid.Amount = float(value)
+    return fixed_bid
+
+def fixed_bid_bulk_str(value):
+    if value is None or not hasattr(value, 'Amount') or value.Amount is None:
+        return None
+    return bulk_str(value.Amount)
+
+def parse_minute(value):
+    minute_number = int(value)
+    if minute_number == 0:
+        return 'Zero'
+    elif minute_number == 15:
+        return 'Fifteen'
+    elif minute_number == 30:
+        return 'Thirty'
+    elif minute_number == 45:
+        return 'FortyFive'
+    raise ValueError('Unknown minute')
+
+
+def format_Day(value):
+    Day = _CAMPAIGN_OBJECT_FACTORY_V13.create('Day')
+    if value.lower() == 'monday':
+        return Day.Monday
+    elif value.lower() == 'tuesday':
+        return Day.Tuesday
+    elif value.lower() == 'wednesday':
+        return Day.Wednesday
+    elif value.lower() == 'thursday':
+        return Day.Thursday
+    elif value.lower() == 'friday':
+        return Day.Friday
+    elif value.lower() == 'saturday':
+        return Day.Saturday
+    elif value.lower() == 'sunday':
+        return Day.Sunday
+    raise ValueError('Unable to parse day: {0}'.format(value))
+
+def parse_location_target_type(value):
+    if value == 'Metro Area':
+        return 'MetroArea'
+    elif value == 'Postal Code':
+        return 'PostalCode'
+    else:
+        return value
+
+
+def location_target_type_bulk_str(value):
+    if value == 'MetroArea':
+        return 'Metro Area'
+    elif value == 'PostalCode':
+        return 'Postal Code'
+    else:
+        return value
+
+
+def field_to_csv_AdSchedule(entity, id):
+    """
+    get the bulk string for Scheduling DayTimeRanges
+    :param entity: Scheduling entity
+    :return: bulk str
+    """
+    if entity is None:
+        return None
+    if entity.DayTimeRanges is None:
+        return DELETE_VALUE if id and id > 0 else None
+    return ';'.join('({0}[{1:02d}:{2:02d}-{3:02d}:{4:02d}])'
+                    .format(d.Day, d.StartHour, int(minute_bulk_str(d.StartMinute)), d.EndHour, int(minute_bulk_str(d.EndMinute)))
+                    for d in entity.DayTimeRanges.DayTime
+                    )
+
+
+def csv_to_field_AdSchedule(entity, value):
+    if value is None or value.strip() == '':
+        return
+    daytime_strs = value.split(';')
+    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|ThursDay|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
+    daytimes = []
+    for daytime_str in daytime_strs:
+        match = pattern.match(daytime_str)
+        if match:
+            daytime = _CAMPAIGN_OBJECT_FACTORY_V13.create('DayTime')
+            daytime.Day = format_Day(match.group(1))
+            daytime.StartHour = int(match.group(2))
+            daytime.StartMinute = parse_minute(match.group(3))
+            daytime.EndHour = int(match.group(4))
+            daytime.EndMinute = parse_minute(match.group(5))
+            daytimes.append(daytime)
+        else:
+            raise ValueError('Unable to parse DayTime: {0}'.format(daytime_str))
+    entity.DayTimeRanges.DayTime = daytimes
+
+
+def field_to_csv_SchedulingStartDate(entity, id):
+    """
+    write scheduling StartDate to bulk string
+    :param entity: Scheduling entity
+    :return: date bulk string
+    """
+    if entity is None:
+        return None
+    elif entity.StartDate is None:
+        return DELETE_VALUE if id and id > 0 else None
+    # this case is what the suds creates by default. return None instead of a delete value
+    elif entity.StartDate.Day is None and entity.StartDate.Month is None and entity.StartDate.Year is None:
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(entity.StartDate.Month, entity.StartDate.Day, entity.StartDate.Year)
+
+
+def field_to_csv_SchedulingEndDate(entity, id):
+    """
+    write scheduling EndDate to bulk string
+    :param entity: Scheduling entity
+    :return: date bulk string
+    """
+    if entity is None:
+        return None
+    elif entity.EndDate is None:
+        return DELETE_VALUE if id and id > 0 else None
+    # this case is what the suds creates by default. return None instead of a delete value
+    elif entity.EndDate.Day is None and entity.EndDate.Month is None and entity.EndDate.Year is None:
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(entity.EndDate.Month, entity.EndDate.Day, entity.EndDate.Year)
+
+
+def field_to_csv_UseSearcherTimeZone(entity, id):
+    """
+    get Scheduling UseSearcherTimeZone bulk str
+    :param entity: Scheduling entity
+    :return: bulk str
+    """
+    if entity is None:
+        return None
+    # this case is what suds creates by default, while set it to delete value since there's no other case for delete value
+    elif entity.UseSearcherTimeZone is None:
+        return DELETE_VALUE if id and id > 0 else None
+    else:
+        return str(entity.UseSearcherTimeZone)
+
+
+def csv_to_field_BudgetType(entity, value, version=13):
+    if value is None or value == '':
+        entity.BudgetType = None
+    elif value == 'MonthlyBudgetSpendUntilDepleted' and version == 13:
+        entity.BudgetType = BudgetLimitType.MonthlyBudgetSpendUntilDepleted
+    elif value == 'DailyBudgetAccelerated':
+        entity.BudgetType = BudgetLimitType.DailyBudgetAccelerated
+    elif value == 'DailyBudgetStandard':
+        entity.BudgetType = BudgetLimitType.DailyBudgetStandard
+    else:
+        raise ValueError('Unable to parse BudgetType: {0}'.format(value))
+
+def field_to_csv_WebpageParameter_CriterionName(entity):
+    if entity.Criterion is None or entity.Criterion.Parameter is None or entity.Criterion.Parameter.CriterionName is None:
+        return None
+    if not entity.Criterion.Parameter.CriterionName:
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
+    return entity.Criterion.Parameter.CriterionName
+
+
+def csv_to_field_WebpageParameter_CriterionName(entity, value):
+    if value is None or value == '':
+        return
+    if entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)):
+        entity.Criterion.Parameter.CriterionName = value
+    else:
+        webpage = _CAMPAIGN_OBJECT_FACTORY_V13.create('Webpage')
+        webpage.Parameter.CriterionName = value
+        entity.Criterion = webpage
+
+
+def entity_to_csv_DSAWebpageParameter(entity, row_values):
+    """
+    Set Campaign/AdGroup Criterion (WebpagePage) Web page parameters from bulk values
+    :param entity: campaign/ad group criterion entity
+    :param row_values: bulk row values
+    """
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)) and \
+            entity.Criterion.Parameter is not None and entity.Criterion.Parameter.Conditions is not None and \
+            entity.Criterion.Parameter.Conditions.WebpageCondition is not None:
+        condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
+        value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+
+        conditions = entity.Criterion.Parameter.Conditions.WebpageCondition
+        for i in range(0, len(conditions)):
+            row_values[condition_prefix + str(i + 1)] = conditions[i].Operand
+            row_values[value_prefix + str(i + 1)] = conditions[i].Argument
+
+
+def csv_to_entity_DSAWebpageParameter(row_values, entity):
+    """
+    convert Campaign/Ad Group Criterion (WebpagePage) Web page parameters to bulk row values
+    :param row_values: bulk row values
+    :param entity: campaign/ad group criterion entity
+    """
+    MAX_NUMBER_OF_CONDITIONS = 3
+    condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
+    value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+
+    conditions = []
+    for i in range(0, MAX_NUMBER_OF_CONDITIONS):
+        condition_success, webpage_condition = row_values.try_get_value(condition_prefix + str(i + 1))
+        value_success, webpage_value = row_values.try_get_value(value_prefix + str(i + 1))
+        if condition_success and value_success and webpage_condition is not None and webpage_condition != '':
+            condition = _CAMPAIGN_OBJECT_FACTORY_V13.create('WebpageCondition')
+            if webpage_condition.lower() == 'url':
+                condition.Operand = WebpageConditionOperand.Url
+            elif webpage_condition.lower() == "category":
+                condition.Operand = WebpageConditionOperand.Category
+            elif webpage_condition.lower() == 'pagetitle':
+                condition.Operand = WebpageConditionOperand.PageTitle
+            elif webpage_condition.lower() == 'pagecontent':
+                condition.Operand = WebpageConditionOperand.PageContent
+            else:
+                # TODO wait bug 54825 to be fixed
+                if webpage_condition.lower() == 'none':
+                    continue
+                raise ValueError("Unknown WebpageConditionOperand value: {0}".format(webpage_condition))
+
+            condition.Argument = webpage_value
+            conditions.append(condition)
+
+    if len(conditions) > 0:
+        if entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)):
+            entity.Criterion.Parameter.Conditions.WebpageCondition = conditions
+        else:
+            webpage = _CAMPAIGN_OBJECT_FACTORY_V13.create('Webpage')
+            webpage.Parameter.Conditions.WebpageCondition = conditions
+            entity.Criterion = webpage
+
+def entity_to_csv_PriceTableRows(entity, row_values):
+    """
+    Set Price Ad Extension price table rows from bulk values
+    :param entity: price ad extension entity
+    :param row_values: bulk row values
+    """
+    if entity is not None and entity.TableRows is not None and \
+            entity.TableRows.PriceTableRow is not None:
+        currency_code_prefix = _StringTable.CurrencyCode1[:-1]
+        price_description_prefix = _StringTable.PriceDescription1[:-1]
+        header_prefix = _StringTable.Header1[:-1]
+        final_mobile_url_prefix = _StringTable.FinalMobileUrl1[:-1]
+        final_url_prefix = _StringTable.FinalUrl1[:-1]
+        price_prefix = _StringTable.Price1[:-1]
+        price_qualifier_prefix = _StringTable.PriceQualifier1[:-1]
+        price_unit_prefix = _StringTable.PriceUnit1[:-1]
+
+        price_table_rows = entity.TableRows.PriceTableRow
+        for i in range(0, len(price_table_rows)):
+            row_values[currency_code_prefix + str(i + 1)] = price_table_rows[i].CurrencyCode
+            row_values[price_description_prefix + str(i + 1)] = price_table_rows[i].Description
+            row_values[header_prefix + str(i + 1)] = price_table_rows[i].Header
+            row_values[final_mobile_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalMobileUrls, entity.Id)
+            row_values[final_url_prefix + str(i + 1)] = field_to_csv_Urls(price_table_rows[i].FinalUrls, entity.Id)
+            row_values[price_prefix + str(i + 1)] = bulk_str(price_table_rows[i].Price)
+            row_values[price_qualifier_prefix + str(i + 1)] = price_table_rows[i].PriceQualifier
+            row_values[price_unit_prefix + str(i + 1)] = price_table_rows[i].PriceUnit
+
+
+def csv_to_entity_PriceTableRows(row_values, entity):
+    """
+    convert Price Ad Extension price table rows to bulk row values
+    :param row_values: bulk row values
+    :param entity: price ad extension entity
+    """
+    MAX_NUMBER_OF_PRICE_TABLE_ROWS = 8
+    currency_code_prefix = _StringTable.CurrencyCode1[:-1]
+    price_description_prefix = _StringTable.PriceDescription1[:-1]
+    header_prefix = _StringTable.Header1[:-1]
+    final_mobile_url_prefix = _StringTable.FinalMobileUrl1[:-1]
+    final_url_prefix = _StringTable.FinalUrl1[:-1]
+    price_prefix = _StringTable.Price1[:-1]
+    price_qualifier_prefix = _StringTable.PriceQualifier1[:-1]
+    price_unit_prefix = _StringTable.PriceUnit1[:-1]
+
+    price_table_rows = []
+    for i in range(0, MAX_NUMBER_OF_PRICE_TABLE_ROWS):
+        currency_code_success, currency_code = row_values.try_get_value(currency_code_prefix + str(i + 1))
+        price_description_success, price_description = row_values.try_get_value(price_description_prefix + str(i + 1))
+        header_success, header = row_values.try_get_value(header_prefix + str(i + 1))
+        final_mobile_url_success, final_mobile_url = row_values.try_get_value(final_mobile_url_prefix + str(i + 1))
+        final_url_success, final_url = row_values.try_get_value(final_url_prefix + str(i + 1))
+        price_success, price = row_values.try_get_value(price_prefix + str(i + 1))
+        price_qualifier_success, price_qualifier = row_values.try_get_value(price_qualifier_prefix + str(i + 1))
+        price_unit_success, price_unit = row_values.try_get_value(price_unit_prefix + str(i + 1))
+
+        if currency_code_success \
+           or price_description_success \
+           or header_success \
+           or final_mobile_url_success \
+           or final_url_success \
+           or price_success \
+           or price_qualifier_success \
+           or price_unit_success:
+            price_table_row = _CAMPAIGN_OBJECT_FACTORY_V13.create('PriceTableRow')
+            price_table_row.CurrencyCode = currency_code
+            price_table_row.Description = price_description
+            price_table_row.Header = header
+            csv_to_field_Urls(price_table_row.FinalMobileUrls, final_mobile_url)
+            csv_to_field_Urls(price_table_row.FinalUrls, final_url)
+            price_table_row.Price = price
+            price_table_row.PriceQualifier = price_qualifier
+            price_table_row.PriceUnit = price_unit
+
+            price_table_rows.append(price_table_row)
+
+    if len(price_table_rows) > 0:
+        entity.TableRows.PriceTableRow = price_table_rows
+
+
+def parse_bool(value):
+    if value is None or value == '':
+        return None
+    elif value.lower() == 'true':
+        return True
+    elif value.lower() == 'false':
+        return False
+    else:
+        raise ValueError('Unable to parse bool value: {0}.'.format(value))
+
+
+def field_to_csv_RemarketingRule(entity):
+    """
+    convert remarketing rule to bulk string
+    :param entity: remarketing list entity
+    """
+    if entity.Rule == None:
+        return None
+
+    rule = entity.Rule
+    if (isinstance(rule, type(PageVisitorsRule))):
+        return 'PageVisitors{0}'.format(rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(PageVisitorsWhoVisitedAnotherPageRule))):
+        return 'PageVisitorsWhoVisitedAnotherPage({0}) and ({1})'.format(
+            rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup),
+            rule_item_groups_str(rule.AnotherRuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(PageVisitorsWhoDidNotVisitAnotherPageRule))):
+        return 'PageVisitorsWhoDidNotVisitAnotherPage({0}) and not ({1})'.format(
+            rule_item_groups_str(rule.IncludeRuleItemGroups.RuleItemGroup),
+            rule_item_groups_str(rule.ExcludeRuleItemGroups.RuleItemGroup))
+    elif (isinstance(rule, type(CustomEventsRule))):
+        return 'CustomEvents{0}'.format(custom_event_rule_str(rule))
+    elif (isinstance(rule, type(RemarketingRule))):
+        return None
+    else:
+        raise ValueError('Unsupported Remarketing Rule type: {0}'.format(type(entity.RemarketingRule)))
+
+
+def rule_item_groups_str(groups):
+    if groups is None or len(groups) == 0:
+        raise ValueError('Remarketing RuleItemGroups is None or empty.')
+
+    return ' or '.join(['({0})'.format(rule_items_str(group.Items.RuleItem)) for group in groups])
+
+
+def rule_items_str(items):
+    if items is None or len(items) == 0:
+        raise ValueError('Remarketing RuleItem list is None or empty.')
+
+    return ' and '.join(['({0} {1} {2})'.format(item.Operand, item.Operator, item.Value) for item in items])
+
+
+def custom_event_rule_str(rule):
+    rule_items = []
+    if rule.ActionOperator is not None and rule.Action is not None:
+        rule_items.append('Action {0} {1}'.format(rule.ActionOperator, rule.Action))
+    if rule.CategoryOperator is not None and rule.Category is not None:
+        rule_items.append('Category {0} {1}'.format(rule.CategoryOperator, rule.Category))
+    if rule.LabelOperator is not None and rule.Label is not None:
+        rule_items.append('Label {0} {1}'.format(rule.LabelOperator, rule.Label))
+    if rule.ValueOperator is not None and rule.Value is not None:
+        rule_items.append('Value {0} {1}'.format(rule.ValueOperator, rule.Value))
+
+    if len(rule_items) == 0:
+        raise ValueError('Remarketing CustomEvents RuleItem list is empty')
+
+    return ' and '.join('({0})'.format(item) for item in rule_items)
+
+
+def csv_to_field_RemarketingRule(entity, value):
+    """
+    parse remarketing rule string and set remarketing rule attribute value
+    :param entity: remarketing list entity
+    :param value: bulk string value
+    """
+    if value is None or value == '':
+        return
+
+    type_end_pos = value.index('(')
+    if type_end_pos <= 0:
+        raise ValueError('Invalid Remarketing Rule: {0}'.format(value))
+
+    rule_type = value[:type_end_pos]
+    rule = value[type_end_pos:]
+
+    if rule_type.lower() == 'pagevisitors':
+        entity.Rule = parse_rule_PageVisitors(rule)
+    elif rule_type.lower() == 'pagevisitorswhovisitedanotherpage':
+        entity.Rule = parse_rule_PageVisitorsWhoVisitedAnotherPage(rule)
+    elif rule_type.lower() == 'pagevisitorswhodidnotvisitanotherpage':
+        entity.Rule = parse_rule_PageVisitorsWhoDidNotVisitAnotherPage(rule)
+    elif rule_type.lower() == 'customevents':
+        entity.Rule = parse_rule_CustomEvents(rule)
+    else:
+        raise ValueError('Invalid Remarketing Rule Type: {0}'.format(rule_type))
+
+
+def field_to_csv_CriterionAudienceId(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.AudienceId is None:
+        return None
+    return bulk_str(entity.Criterion.AudienceId)
+
+
+def csv_to_field_CriterionAudienceId(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(AudienceCriterion)):
+        entity.Criterion.AudienceId = value
+
+
+def field_to_csv_BidAdjustment(entity):
+    if entity is None or entity.CriterionBid is None or entity.CriterionBid.Multiplier is None:
+        return None
+    return bulk_str(entity.CriterionBid.Multiplier)
+
+
+def csv_to_field_BidAdjustment(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.CriterionBid is not None and isinstance(entity.CriterionBid, type(BidMultiplier)):
+        entity.CriterionBid.Multiplier = value
+
+def field_to_csv_AgeTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.AgeRange is None:
+        return None
+    return entity.Criterion.AgeRange
+
+def csv_to_field_AgeTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(AgeCriterion)):
+        setattr(entity.Criterion, "AgeRange", value)
+
+def field_to_csv_DayTimeTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Day is None:
+        return None
+    return entity.Criterion.Day
+
+def csv_to_field_DayTimeTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "Day", value)
+
+def field_to_csv_FromHour(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.FromHour is None:
+        return None
+    return str(entity.Criterion.FromHour)
+
+def csv_to_field_FromHour(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "FromHour", value)
+
+def field_to_csv_FromMinute(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.FromMinute is None:
+        return None
+    return minute_bulk_str(entity.Criterion.FromMinute)
+
+def csv_to_field_FromMinute(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "FromMinute", parse_minute(value))
+
+def field_to_csv_ToHour(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.ToHour is None:
+        return None
+    return str(entity.Criterion.ToHour)
+
+def csv_to_field_ToHour(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "ToHour", value)
+
+def field_to_csv_ToMinute(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.ToMinute is None:
+        return None
+    return minute_bulk_str(entity.Criterion.ToMinute)
+
+def csv_to_field_ToMinute(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DayTimeCriterion)):
+        setattr(entity.Criterion, "ToMinute", parse_minute(value))
+
+def field_to_csv_DeviceTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.DeviceName is None:
+        return None
+    return entity.Criterion.DeviceName
+
+def csv_to_field_DeviceTarget(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DeviceCriterion)):
+        setattr(entity.Criterion, "DeviceName", value)
+
+def field_to_csv_OSName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.OSName is None:
+        return None
+    return entity.Criterion.OSName
+
+def csv_to_field_OSName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DeviceCriterion)):
+        setattr(entity.Criterion, "OSName", value)
+
+def field_to_csv_GenderTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.GenderType is None:
+        return None
+    return entity.Criterion.GenderType
+
+def csv_to_field_GenderTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(GenderCriterion)):
+        setattr(entity.Criterion, "GenderType", value)
+
+def field_to_csv_LocationTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LocationId is None:
+        return None
+    return str(entity.Criterion.LocationId)
+
+def csv_to_field_LocationTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "LocationId", value)
+
+def field_to_csv_LocationType(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LocationType is None:
+        return None
+    return entity.Criterion.LocationType
+
+def csv_to_field_LocationType(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "LocationType", value)
+
+def field_to_csv_LocationName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.DisplayName is None:
+        return None
+    return entity.Criterion.DisplayName
+
+def csv_to_field_LocationName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationCriterion)):
+        setattr(entity.Criterion, "DisplayName", value)
+
+def field_to_csv_LocationIntentTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.IntentOption is None:
+        return None
+    return entity.Criterion.IntentOption
+
+def csv_to_field_LocationIntentTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(LocationIntentCriterion)):
+        setattr(entity.Criterion, "IntentOption", value)
+
+def field_to_csv_RadiusName(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Name is None:
+        return None
+    return entity.Criterion.Name
+
+def csv_to_field_RadiusName(entity, value):
+    if value is None:
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "Name", value)
+
+def field_to_csv_Radius(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.Radius is None:
+        return None
+    return str(entity.Criterion.Radius)
+
+def csv_to_field_Radius(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "Radius", value)
+
+def field_to_csv_RadiusUnit(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.RadiusUnit is None:
+        return None
+    return entity.Criterion.RadiusUnit
+
+def csv_to_field_RadiusUnit(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "RadiusUnit", value)
+
+def field_to_csv_LatitudeDegrees(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LatitudeDegrees is None:
+        return None
+    return  str(entity.Criterion.LatitudeDegrees)
+
+def csv_to_field_LatitudeDegrees(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "LatitudeDegrees", value)
+
+def field_to_csv_LongitudeDegrees(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.LongitudeDegrees is None:
+        return None
+    return  str(entity.Criterion.LongitudeDegrees)
+
+def csv_to_field_LongitudeDegrees(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
+        setattr(entity.Criterion, "LongitudeDegrees", value)
+
+def target_setting_to_csv(entity):
+    if not entity.Settings or not entity.Settings.Setting:
+        return None
+    settings = [setting for setting in entity.Settings.Setting if isinstance(setting, TargetSetting_Type)]
+    if len(settings) == 0:
+        return None
+    if len(settings) != 1:
+        raise ValueError('Can only have 1 TargetSetting in Settings.')
+    target_setting = settings[0]
+    if not target_setting.Details.TargetSettingDetail:
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
+    return ";".join([s.CriterionTypeGroup for s in target_setting.Details.TargetSettingDetail])
+    pass
+
+
+def csv_to_target_setting(entity, value):
+    target_setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting')
+    target_setting.Type = 'TargetSetting'
+    if value is None:
+        entity.Settings.Setting.append(target_setting)
+        return
+    tokens = [t.strip() for t in value.split(';')]
+    target_setting_detail_list = []
+    for token in tokens:
+        m_token = match_target_setting(token)
+        if m_token:
+            target_setting_detail_list.append(create_target_setting_detail(m_token))
+    target_setting.Details.TargetSettingDetail.extend(target_setting_detail_list)
+    entity.Settings.Setting.append(target_setting)
+    pass
+
+def match_target_setting(token):
+    
+    pattern = re.compile(target_setting_detail_pattern)
+    m = pattern.match(token)
+    if m:
+        return m.group(1)
+    return None
+
+def create_target_setting_detail(token):
+    target_setting_detail = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSettingDetail')
+    target_setting_detail.TargetAndBid = True
+    target_setting_detail.CriterionTypeGroup = token
+    return target_setting_detail
+    pass
+
+def parse_rule_PageVisitors(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsRule')
+    rule.Type = 'PageVisitors'
+    rule.RuleItemGroups = parse_rule_groups(rule_str)
+    return rule
+
+
+def parse_rule_PageVisitorsWhoVisitedAnotherPage(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsWhoVisitedAnotherPageRule')
+    rule.Type = 'PageVisitorsWhoVisitedAnotherPage'
+
+    groups_split = '))) and ((('
+    groups_string_list = rule_str.split(groups_split)
+
+    rule.RuleItemGroups = parse_rule_groups(groups_string_list[0])
+    rule.AnotherRuleItemGroups = parse_rule_groups(groups_string_list[1])
+
+    return rule
+
+
+def parse_rule_PageVisitorsWhoDidNotVisitAnotherPage(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsWhoDidNotVisitAnotherPageRule')
+    rule.Type = 'PageVisitorsWhoDidNotVisitAnotherPage'
+
+    groups_split = '))) and not ((('
+    groups_string_list = rule_str.split(groups_split)
+
+    rule.IncludeRuleItemGroups = parse_rule_groups(groups_string_list[0])
+    rule.ExcludeRuleItemGroups = parse_rule_groups(groups_string_list[1])
+
+    return rule
+
+
+def parse_rule_CustomEvents(rule_str):
+    rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('CustomEventsRule')
+    rule.Type = 'CustomEvents'
+
+    item_split = ') and ('
+    pattern_for_operand_str = '^(Category|Action|Label|Value) ([^()]*)$'
+    pattern_for_operand = re.compile(pattern_for_operand_str)
+
+    pattern_number_item_str = '^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$'
+    pattern_number_item = re.compile(pattern_number_item_str)
+
+    pattern_string_item_str = '^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern_string_item = re.compile(pattern_string_item_str)
+
+    item_string_list = rule_str.split(item_split)
+    for item_string in item_string_list:
+        item_string = item_string.strip('(').strip(')')
+        match_for_operand = pattern_for_operand.match(item_string)
+
+        if not match_for_operand:
+            raise ValueError('Invalid Custom Event rule item: {0}'.format(item_string))
+
+        operand = match_for_operand.group(1)
+        operater_and_value_string = match_for_operand.group(2)
+
+        if operand.lower() == 'value':
+            match_number_item = pattern_number_item.match(operater_and_value_string)
+
+            if not match_number_item:
+                raise ValueError('Invalid Custom Event number rule item: {0}'.format(item_string))
+
+            rule.ValueOperator = parse_number_operator(match_number_item.group(1))
+            rule.Value = float(match_number_item.group(2))
+        else:
+            match_string_item = pattern_string_item.match(operater_and_value_string)
+
+            if not match_string_item:
+                raise ValueError('Invalid Custom Event string rule item: {0}'.format(item_string))
+
+            if operand.lower() == 'category':
+                rule.CategoryOperator = parse_string_operator(match_string_item.group(1))
+                rule.Category = match_string_item.group(2)
+            elif operand.lower() == 'label':
+                rule.LabelOperator = parse_string_operator(match_string_item.group(1))
+                rule.Label = match_string_item.group(2)
+            elif operand.lower() == 'action':
+                rule.ActionOperator = parse_string_operator(match_string_item.group(1))
+                rule.Action = match_string_item.group(2)
+            else:
+                raise ValueError('Invalid Custom Event string rule operator: {0}'.format(operand))
+
+    return rule
+
+
+def parse_rule_groups(groups_str):
+    group_split = ')) or (('
+    group_str_list = groups_str.split(group_split)
+
+    rule_item_groups = _CAMPAIGN_OBJECT_FACTORY_V13.create('ArrayOfRuleItemGroup')
+    for group_str in group_str_list:
+        item_group = parse_rule_items(group_str)
+        rule_item_groups.RuleItemGroup.append(item_group)
+
+    return rule_item_groups
+
+
+def parse_rule_items(items_str):
+    item_split = ') and ('
+    item_str_list = items_str.split(item_split)
+
+    rule_item_group = _CAMPAIGN_OBJECT_FACTORY_V13.create('RuleItemGroup')
+    for item_str in item_str_list:
+        item = parse_string_rule_item(item_str)
+        rule_item_group.Items.RuleItem.append(item)
+
+    return rule_item_group
+
+
+def parse_string_rule_item(item_str):
+    item_str = item_str.strip('(').strip(')')
+    pattern_str = '^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern = re.compile(pattern_str)
+
+    match = pattern.match(item_str)
+
+    if not match:
+        ValueError('Invalid Rule Item:{0}'.format(item_str))
+
+    item = _CAMPAIGN_OBJECT_FACTORY_V13.create('StringRuleItem')
+    item.Type = 'String'
+    item.Operand = match.group(1)
+    item.Operator = parse_string_operator(match.group(2))
+    item.Value = match.group(3)
+
+    return item
+
+
+def parse_number_operator(operator):
+    oper = operator.lower()
+    if oper == 'equals':
+        return NumberOperator.Equals
+    if oper == 'greaterthan':
+        return NumberOperator.GreaterThan
+    if oper == 'lessthan':
+        return NumberOperator.LessThan
+    if oper == 'greaterthanequalto':
+        return NumberOperator.GreaterThanEqualTo
+    if oper == 'lessthanequalto':
+        return NumberOperator.LessThanEqualTo
+    raise ValueError('Invalid Number Rule Item operator:{0}'.format(operator))
+
+
+def parse_string_operator(operator):
+    oper = operator.lower()
+    if oper == 'equals':
+        return StringOperator.Equals
+    if oper == 'contains':
+        return StringOperator.Contains
+    if oper == 'beginswith':
+        return StringOperator.BeginsWith
+    if oper == 'endswith':
+        return StringOperator.EndsWith
+    if oper == 'notequals':
+        return StringOperator.NotEquals
+    if oper == 'doesnotcontain':
+        return StringOperator.DoesNotContain
+    if oper == 'doesnotbeginwith':
+        return StringOperator.DoesNotBeginWith
+    if oper == 'doesnotendwith':
+        return StringOperator.DoesNotEndWith
+
+    raise ValueError('Invalid String Rule Item operator:{0}'.format(operator))
+
+
+def csv_to_field_SupportedCampaignTypes(entity, value):
+    if value is None or value == '':
+        return
+    splitter = re.compile(';')
+    entity.string = splitter.split(value)
+
+
+def field_to_csv_SupportedCampaignTypes(entity):
+    if entity is None or entity.string is None:
+        return None
+    if len(entity.string) == 0:
+        return None
+    return ';'.join(entity.string)

@@ -269,6 +269,11 @@ class BulkKeyword(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.keyword, v)
         ),
         _ComplexBulkMapping(bidding_scheme_to_csv, csv_to_bidding_scheme),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.keyword.FinalUrlSuffix, c.keyword.Id),
+            csv_to_field=lambda c, v: setattr(c.keyword, 'FinalUrlSuffix', v)
+        ),
     ]
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
