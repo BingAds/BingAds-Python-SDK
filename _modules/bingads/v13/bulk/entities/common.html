@@ -1,0 +1,246 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v13.bulk.entities.common &#8212; Bing Ads SDK 12.13.1 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.bulk.entities.common</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.bulk_object</span> <span class="k">import</span> <span class="n">_BulkObject</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
+
+
+<span class="k">class</span> <span class="nc">_ProductConditionHelper</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="n">MAX_NUMBER_OF_CONDITIONS</span> <span class="o">=</span> <span class="mi">8</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">add_conditions_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">conditions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param row_values:</span>
+<span class="sd">        :type row_values: _RowValues</span>
+<span class="sd">        :param conditions:</span>
+<span class="sd">        :type conditions: list[ProductCondition]</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">condition_header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">ProductCondition1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">value_header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">ProductValue1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">_ProductConditionHelper</span><span class="o">.</span><span class="n">MAX_NUMBER_OF_CONDITIONS</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">condition_success</span><span class="p">,</span> <span class="n">product_condition</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">condition_header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">value_success</span><span class="p">,</span> <span class="n">product_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">value_header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">product_condition</span> <span class="ow">and</span> <span class="n">product_value</span><span class="p">:</span>
+                <span class="n">condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductCondition&#39;</span><span class="p">)</span>
+                <span class="n">condition</span><span class="o">.</span><span class="n">Operand</span> <span class="o">=</span> <span class="n">product_condition</span>
+                <span class="n">condition</span><span class="o">.</span><span class="n">Attribute</span> <span class="o">=</span> <span class="n">product_value</span>
+                <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">add_row_values_from_conditions</span><span class="p">(</span><span class="n">conditions</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param conditions:</span>
+<span class="sd">        :type conditions: list[ProductCondition]</span>
+<span class="sd">        :param row_values:</span>
+<span class="sd">        :type row_values: _RowValues</span>
+<span class="sd">        :rtype: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">condition_header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">ProductCondition1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">value_header_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">ProductValue1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">condition_header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Operand</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">value_header_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">Attribute</span>
+
+
+
+<div class="viewcode-block" id="QualityScoreData"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData">[docs]</a><span class="k">class</span> <span class="nc">QualityScoreData</span><span class="p">(</span><span class="n">_BulkObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a subset of the fields available in bulk records that support quality score data.</span>
+
+<span class="sd">    For example :class:`.BulkKeyword`. For more information, see Bulk File Schema at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_relevance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_relevance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_user_experience</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">quality_score</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Quality Score&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quality_score</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">keyword_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Keyword Relevance&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_keyword_relevance</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">landing_page_relevance</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Landing Page Relevance&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_relevance</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">landing_page_user_experience</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Corresponds to the &#39;Landing Page User Experience&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_landing_page_user_experience</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">QualityScore</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">quality_score</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_quality_score&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">KeywordRelevance</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">keyword_relevance</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_keyword_relevance&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">LandingPageRelevance</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">landing_page_relevance</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_landing_page_relevance&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">LandingPageUserExperience</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">landing_page_user_experience</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_landing_page_user_experience&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="QualityScoreData.read_from_row_values_or_null"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.read_from_row_values_or_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_from_row_values_or_null</span><span class="p">(</span><span class="n">row_values</span><span class="p">):</span>
+        <span class="n">quality_score_data</span> <span class="o">=</span> <span class="n">QualityScoreData</span><span class="p">()</span>
+        <span class="n">quality_score_data</span><span class="o">.</span><span class="n">read_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">quality_score_data</span> <span class="k">if</span> <span class="n">quality_score_data</span><span class="o">.</span><span class="n">has_any_values</span> <span class="k">else</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="QualityScoreData.write_to_row_values_if_not_null"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.write_to_row_values_if_not_null">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">write_to_row_values_if_not_null</span><span class="p">(</span><span class="n">quality_score_data</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">quality_score_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">quality_score_data</span><span class="o">.</span><span class="n">write_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QualityScoreData.read_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.read_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">read_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QualityScoreData.write_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.write_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">QualityScoreData</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">has_any_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">quality_score</span> \
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">keyword_relevance</span> \
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">landing_page_relevance</span> \
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">landing_page_user_experience</span>
+
+<div class="viewcode-block" id="QualityScoreData.write_to_stream"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.write_to_stream">[docs]</a>    <span class="k">def</span> <span class="nf">write_to_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_writer</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="QualityScoreData.read_related_data_from_stream"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.read_related_data_from_stream">[docs]</a>    <span class="k">def</span> <span class="nf">read_related_data_from_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QualityScoreData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_related_data_from_stream</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QualityScoreData.enclose_in_multiline_entity"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.common.QualityScoreData.enclose_in_multiline_entity">[docs]</a>    <span class="k">def</span> <span class="nf">enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">can_enclose_in_multiline_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">QualityScoreData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">can_enclose_in_multiline_entity</span><span class="p">()</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>

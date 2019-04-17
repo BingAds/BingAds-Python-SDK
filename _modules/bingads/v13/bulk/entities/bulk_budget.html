@@ -1,0 +1,189 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v13.bulk.entities.bulk_budget &#8212; Bing Ads SDK 12.13.1 documentation</title>
+    <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.bulk.entities.bulk_budget</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="k">import</span> <span class="n">Decimal</span>
+
+
+<div class="viewcode-block" id="BulkBudget"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_budget.BulkBudget">[docs]</a><span class="k">class</span> <span class="nc">BulkBudget</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a budget that can be read or written in a bulk file.</span>
+
+<span class="sd">    Properties of this class and of classes that it is derived from, correspond to fields of the Budget record in a bulk file.</span>
+<span class="sd">    For more information, see Budget at https://go.microsoft.com/fwlink/?linkid=846127</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">budget</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkBudget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget</span> <span class="o">=</span> <span class="n">budget</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">account_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        the Budget object, see more detail at: https://go.microsoft.com/fwlink/?linkid=846127</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_budget</span>
+
+    <span class="nd">@budget</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">budget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; the status of bulk record</span>
+<span class="sd">        Corresponds to the &#39;Status&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; the id of the account which contains the budget</span>
+<span class="sd">        Corresponds to the &#39;Parent Id&#39; field in the bulk file.</span>
+
+<span class="sd">        :rtype: long</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span>
+
+    <span class="nd">@account_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_account_id</span> <span class="o">=</span> <span class="n">value</span>
+
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span> <span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">account_id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;account_id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetName</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="o">.</span><span class="n">Name</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="o">.</span><span class="n">BudgetType</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_BudgetType</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Budget</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="o">.</span><span class="n">Amount</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span> <span class="s1">&#39;Amount&#39;</span><span class="p">,</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkBudget.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_budget.BulkBudget.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_budget</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;Budget&#39;</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkBudget</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkBudget.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_budget.BulkBudget.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">budget</span><span class="p">,</span> <span class="s1">&#39;budget&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkBudget</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkBudget.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_budget.BulkBudget.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkBudget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>

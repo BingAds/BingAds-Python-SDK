@@ -1,0 +1,414 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v13.bulk.download_parameters &#8212; Bing Ads SDK 12.13.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.bulk.download_parameters</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+
+<div class="viewcode-block" id="DownloadParameters"><a class="viewcode-back" href="../../../../bingads.v13.bulk.html#bingads.v13.bulk.download_parameters.DownloadParameters">[docs]</a><span class="k">class</span> <span class="nc">DownloadParameters</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Describes the related parameters when downloading file from server.</span>
+
+<span class="sd">    such as the type of entities and data scope that you want to download.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">result_file_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">result_file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">overwrite_result_file</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">data_scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">download_entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;Csv&#39;</span><span class="p">,</span>
+                 <span class="n">campaign_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initialize an instance of this class.</span>
+
+<span class="sd">        :param result_file_directory: (optional) The directory where the file will be downloaded.</span>
+<span class="sd">        :type result_file_directory: str</span>
+<span class="sd">        :param result_file_name: (optional) The name of the download result file.</span>
+<span class="sd">        :type result_file_name: str</span>
+<span class="sd">        :param overwrite_result_file: (optional) Whether the local result file should be overwritten if it already exists, default is False.</span>
+<span class="sd">        :type overwrite_result_file: bool</span>
+<span class="sd">        :param data_scope: (optional) The scope or types of data to download.</span>
+<span class="sd">                            For possible values, see DataScope Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type data_scope: list[str]</span>
+<span class="sd">        :param download_entities: (optional) The type of entities to download.</span>
+<span class="sd">                            For possible values, see BulkDownloadEntity Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type download_entities: list[str]</span>
+<span class="sd">        :param file_type: (optional) The extension type of the downloaded file.</span>
+<span class="sd">                            For possible values, see DownloadFileType Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type file_type: str</span>
+<span class="sd">        :param campaign_ids: (optional) The campaigns to download.</span>
+<span class="sd">                            You can specify a maximum of 1,000 campaigns. The campaigns that you specify must belong to the same account.</span>
+<span class="sd">        :type campaign_ids: list[int]</span>
+<span class="sd">        :param last_sync_time_in_utc: (optional) The last time that you requested a download.</span>
+<span class="sd">                            The date and time is expressed in Coordinated Universal Time (UTC).</span>
+<span class="sd">                            Typically, you request a full download the first time you call the operation by setting this element to null.</span>
+<span class="sd">                            On all subsequent calls you set the last sync time to the time stamp of the previous download.</span>
+<span class="sd">                            The download file contains the time stamp of the download in the SyncTime column of the Account record.</span>
+<span class="sd">                            Use the time stamp to set LastSyncTimeInUTC the next time that you request a download.</span>
+<span class="sd">                            If you specify the last sync time, only those entities that have changed (been updated or deleted)</span>
+<span class="sd">                            since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
+<span class="sd">                            the operation performs a full download.</span>
+<span class="sd">        :type last_sync_time_in_utc: datetime</span>
+<span class="sd">        :param timeout_in_milliseconds: (optional) timeout for bulk download operations in milliseconds</span>
+<span class="sd">        :type timeout_in_milliseconds: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">result_file_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">result_file_name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="o">==</span> <span class="s1">&#39;.zip&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite_result_file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span> <span class="o">=</span> <span class="n">SubmitDownloadParameters</span><span class="p">(</span>
+            <span class="n">data_scope</span><span class="o">=</span><span class="n">data_scope</span><span class="p">,</span>
+            <span class="n">download_entities</span><span class="o">=</span><span class="n">download_entities</span><span class="p">,</span>
+            <span class="n">file_type</span><span class="o">=</span><span class="n">file_type</span><span class="p">,</span>
+            <span class="n">campaign_ids</span><span class="o">=</span><span class="n">campaign_ids</span><span class="p">,</span>
+            <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="n">last_sync_time_in_utc</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">timeout_in_milliseconds</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The directory where the file will be downloaded.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The name of the download result file.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Whether the local result file should be overwritten if it already exists.</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span>
+
+    <span class="nd">@result_file_directory</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">result_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_directory</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_directory</span> <span class="o">=</span> <span class="n">result_file_directory</span>
+
+    <span class="nd">@result_file_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">result_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result_file_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_file_name</span> <span class="o">=</span> <span class="n">result_file_name</span>
+
+    <span class="nd">@overwrite_result_file</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">overwrite_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_overwrite_result_file</span> <span class="o">=</span> <span class="n">overwrite</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">decompress_result_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; If need to decompress the result file after download.</span>
+
+<span class="sd">        This property is determined by the result_file_name, by default will do decompression.</span>
+<span class="sd">        if the result_file_name has the extension of &#39;.zip&#39; then do not do decompression.</span>
+
+<span class="sd">        :rtype: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_decompress_result_file</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The scope or types of data to download.</span>
+
+<span class="sd">        For possible values, see DataScope Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">data_scope</span>
+
+    <span class="nd">@data_scope</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">data_scope</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">download_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The type of entities to download.</span>
+
+<span class="sd">        For possible values, see BulkDownloadEntity Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">download_entities</span>
+
+    <span class="nd">@download_entities</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">download_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">download_entities</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The extension type of the downloaded file.</span>
+
+<span class="sd">        For possible values, see DownloadFileType Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">file_type</span>
+
+    <span class="nd">@file_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">file_type</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The campaigns to download.</span>
+
+<span class="sd">        You can specify a maximum of 1,000 campaigns. The campaigns that you specify must belong to the same account.</span>
+
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">campaign_ids</span>
+
+    <span class="nd">@campaign_ids</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">campaign_ids</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The last time that you requested a download.</span>
+
+<span class="sd">        The date and time is expressed in Coordinated Universal Time (UTC).</span>
+<span class="sd">        Typically, you request a full download the first time you call the operation by setting this element to null.</span>
+<span class="sd">        On all subsequent calls you set the last sync time to the time stamp of the previous download.</span>
+<span class="sd">        The download file contains the time stamp of the download in the SyncTime column of the Account record.</span>
+<span class="sd">        Use the time stamp to set LastSyncTimeInUTC the next time that you request a download.</span>
+<span class="sd">        If you specify the last sync time, only those entities that have changed (been updated or deleted)</span>
+<span class="sd">        since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
+<span class="sd">        the operation performs a full download.</span>
+
+<span class="sd">        :rtype: datetime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">last_sync_time_in_utc</span>
+
+    <span class="nd">@last_sync_time_in_utc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_submit_download_parameter</span><span class="o">.</span><span class="n">last_sync_time_in_utc</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span>
+
+    <span class="nd">@timeout_in_milliseconds</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">timeout_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_timeout_in_milliseconds</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="SubmitDownloadParameters"><a class="viewcode-back" href="../../../../bingads.v13.bulk.html#bingads.v13.bulk.download_parameters.SubmitDownloadParameters">[docs]</a><span class="k">class</span> <span class="nc">SubmitDownloadParameters</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Describes the service request parameters such as the type of entities and data scope that you want to download. &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">data_scope</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">download_entities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">file_type</span><span class="o">=</span><span class="s1">&#39;Csv&#39;</span><span class="p">,</span>
+                 <span class="n">campaign_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">last_sync_time_in_utc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initialize an object of this class.</span>
+
+<span class="sd">        :param data_scope: (optional) The scope or types of data to download.</span>
+<span class="sd">                            For possible values, see DataScope Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type data_scope: list[str]</span>
+<span class="sd">        :param download_entities: (optional) The type of entities to download.</span>
+<span class="sd">                            For possible values, see BulkDownloadEntity Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type download_entities: list[str]</span>
+<span class="sd">        :param file_type: (optional) The extension type of the downloaded file.</span>
+<span class="sd">                            For possible values, see DownloadFileType Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        :type file_type: str</span>
+<span class="sd">        :param campaign_ids: (optional) The campaigns to download.</span>
+<span class="sd">                            You can specify a maximum of 1,000 campaigns. The campaigns that you specify must belong to the same account.</span>
+<span class="sd">        :type campaign_ids: list[int]</span>
+<span class="sd">        :param last_sync_time_in_utc: (optional) The last time that you requested a download.</span>
+<span class="sd">                            The date and time is expressed in Coordinated Universal Time (UTC).</span>
+<span class="sd">                            Typically, you request a full download the first time you call the operation by setting this element to null.</span>
+<span class="sd">                            On all subsequent calls you set the last sync time to the time stamp of the previous download.</span>
+<span class="sd">                            The download file contains the time stamp of the download in the SyncTime column of the Account record.</span>
+<span class="sd">                            Use the time stamp to set LastSyncTimeInUTC the next time that you request a download.</span>
+<span class="sd">                            If you specify the last sync time, only those entities that have changed (been updated or deleted)</span>
+<span class="sd">                            since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
+<span class="sd">                            the operation performs a full download.</span>
+<span class="sd">        :type last_sync_time_in_utc: datetime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_scope</span> <span class="o">=</span> <span class="n">data_scope</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_download_entities</span> <span class="o">=</span> <span class="n">download_entities</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span> <span class="o">=</span> <span class="n">file_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_ids</span> <span class="o">=</span> <span class="n">campaign_ids</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_sync_time_in_utc</span> <span class="o">=</span> <span class="n">last_sync_time_in_utc</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The scope or types of data to download.</span>
+
+<span class="sd">        For possible values, see DataScope Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_scope</span>
+
+    <span class="nd">@data_scope</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_scope</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">download_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The type of entities to download.</span>
+
+<span class="sd">        For possible values, see BulkDownloadEntity Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: list[str]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_download_entities</span>
+
+    <span class="nd">@download_entities</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">download_entities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_download_entities</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The extension type of the downloaded file.</span>
+
+<span class="sd">        For possible values, see DownloadFileType Value Set at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span>
+
+    <span class="nd">@file_type</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">file_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_type</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The campaigns to download.</span>
+
+<span class="sd">        You can specify a maximum of 1,000 campaigns. The campaigns that you specify must belong to the same account.</span>
+
+<span class="sd">        :rtype: list[int]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_ids</span>
+
+    <span class="nd">@campaign_ids</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_ids</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The last time that you requested a download.</span>
+
+<span class="sd">        The date and time is expressed in Coordinated Universal Time (UTC).</span>
+<span class="sd">        Typically, you request a full download the first time you call the operation by setting this element to null.</span>
+<span class="sd">        On all subsequent calls you set the last sync time to the time stamp of the previous download.</span>
+<span class="sd">        The download file contains the time stamp of the download in the SyncTime column of the Account record.</span>
+<span class="sd">        Use the time stamp to set LastSyncTimeInUTC the next time that you request a download.</span>
+<span class="sd">        If you specify the last sync time, only those entities that have changed (been updated or deleted)</span>
+<span class="sd">        since the specified date and time will be downloaded. However, if the campaign data has not been previously downloaded,</span>
+<span class="sd">        the operation performs a full download.</span>
+
+<span class="sd">        :rtype: datetime</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_sync_time_in_utc</span>
+
+    <span class="nd">@last_sync_time_in_utc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">last_sync_time_in_utc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_last_sync_time_in_utc</span> <span class="o">=</span> <span class="n">value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>

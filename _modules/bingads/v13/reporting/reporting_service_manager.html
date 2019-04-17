@@ -1,0 +1,254 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v13.reporting.reporting_service_manager &#8212; Bing Ads SDK 12.13.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.reporting.reporting_service_manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="kn">from</span> <span class="nn">.reporting_operation</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.report_file_reader</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">...manifest</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">...service_client</span> <span class="k">import</span> <span class="n">ServiceClient</span>
+<span class="kn">from</span> <span class="nn">...exceptions</span> <span class="k">import</span> <span class="n">TimeoutException</span>
+<span class="kn">from</span> <span class="nn">...util</span> <span class="k">import</span> <span class="n">_TimeHelper</span>
+
+<div class="viewcode-block" id="ReportingServiceManager"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_service_manager.ReportingServiceManager">[docs]</a><span class="k">class</span> <span class="nc">ReportingServiceManager</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Provides high level methods for downloading reporting files using the Reporting API functionality.</span>
+
+<span class="sd">    Also provides methods for submitting download operations.</span>
+
+<span class="sd">    *Example:*</span>
+
+<span class="sd">    :func:`download_file` will submit the download request to the reporting service,</span>
+<span class="sd">    poll until the status is completed (or returns an error), and downloads the file locally.</span>
+<span class="sd">    If instead you want to manage the low level details you would first call :func:`submit_download`,</span>
+<span class="sd">    wait for the results file to be prepared using either :meth:`.ReportingDownloadOperation.get_status`</span>
+<span class="sd">    or :meth:`.ReportingDownloadOperation.track`, and then download the file with the</span>
+<span class="sd">    :meth:`.ReportingOperation.download_result_file` method.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">authorization_data</span><span class="p">,</span> <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">environment</span><span class="o">=</span><span class="s1">&#39;production&#39;</span><span class="p">,</span> <span class="n">working_directory</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
+
+<span class="sd">        :param authorization_data: Represents a user who intends to access the corresponding customer and account.</span>
+<span class="sd">        :type authorization_data: AuthorizationData</span>
+<span class="sd">        :param environment: (optional) Represents which API environment to use, default is `production`, you can also pass `sandbox` in</span>
+<span class="sd">        :type environment: str</span>
+<span class="sd">        :param poll_interval_in_milliseconds: (optional) The time interval in milliseconds between two status polling attempts.</span>
+<span class="sd">                                                         The default value is 15000 milliseconds.</span>
+<span class="sd">        :type poll_interval_in_milliseconds: int</span>
+<span class="sd">        :param working_directory: (optional)  Directory for storing temporary files needed for some operations</span>
+<span class="sd">                                    (for example :func:`upload_entities` creates a temporary upload file).</span>
+<span class="sd">        :param suds_options: The suds options need to pass to suds client</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span> <span class="o">=</span> <span class="n">environment</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_service_client</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="p">(</span><span class="s1">&#39;ReportingService&#39;</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="n">authorization_data</span><span class="p">,</span> <span class="n">environment</span><span class="p">,</span> <span class="o">**</span><span class="n">suds_options</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span> <span class="o">=</span> <span class="n">authorization_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span> <span class="o">=</span> <span class="n">poll_interval_in_milliseconds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="n">WORKING_NAME</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">working_directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span> <span class="o">=</span> <span class="n">working_directory</span>
+        <span class="c1"># make sure the working directory exists or create it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suds_options</span> <span class="o">=</span> <span class="n">suds_options</span>
+        
+<div class="viewcode-block" id="ReportingServiceManager.download_report"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_service_manager.ReportingServiceManager.download_report">[docs]</a>    <span class="k">def</span> <span class="nf">download_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download_parameters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Downloads the specified reporting to a local file and parse it with report_file_reader.</span>
+
+<span class="sd">        :param download_parameters: Determines various download parameters, for example where the file should be downloaded.</span>
+<span class="sd">        :type download_parameters: ReportingDownloadParameters</span>
+<span class="sd">        :return: Report object parsed from the downloaded local reporting file path.</span>
+<span class="sd">        :rtype: Report</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">report_file_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">download_file</span><span class="p">(</span><span class="n">download_parameters</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">report_file_path</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">ReportFileReader</span><span class="p">(</span><span class="n">report_file_path</span><span class="p">,</span> <span class="n">download_parameters</span><span class="o">.</span><span class="n">report_request</span><span class="o">.</span><span class="n">Format</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">reader</span><span class="o">.</span><span class="n">get_report</span><span class="p">()</span></div>
+        
+
+<div class="viewcode-block" id="ReportingServiceManager.download_file"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_service_manager.ReportingServiceManager.download_file">[docs]</a>    <span class="k">def</span> <span class="nf">download_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">download_parameters</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Downloads the specified reporting to a local file.</span>
+
+<span class="sd">        :param download_parameters: Determines various download parameters, for example where the file should be downloaded.</span>
+<span class="sd">        :type download_parameters: ReportingDownloadParameters</span>
+<span class="sd">        :return: The downloaded local reporting file path.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">start_timestamp</span> <span class="o">=</span> <span class="n">_TimeHelper</span><span class="o">.</span><span class="n">get_current_time_milliseconds</span><span class="p">()</span>
+        <span class="n">operation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">submit_download</span><span class="p">(</span><span class="n">download_parameters</span><span class="o">.</span><span class="n">report_request</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">operation</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">download_parameters</span><span class="o">.</span><span class="n">timeout_in_milliseconds</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ReportingDownloadException</span><span class="p">(</span><span class="s2">&quot;Reporting file download tracking status timeout.&quot;</span><span class="p">)</span>
+        <span class="n">result_file_directory</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">working_directory</span>
+        <span class="k">if</span> <span class="n">download_parameters</span><span class="o">.</span><span class="n">result_file_directory</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result_file_directory</span> <span class="o">=</span> <span class="n">download_parameters</span><span class="o">.</span><span class="n">result_file_directory</span>
+        <span class="n">download_result_file_timeout</span> <span class="o">=</span> <span class="n">_TimeHelper</span><span class="o">.</span><span class="n">get_remaining_time_milliseconds_with_min_value</span><span class="p">(</span><span class="n">start_timestamp</span><span class="p">,</span> <span class="n">download_parameters</span><span class="o">.</span><span class="n">timeout_in_milliseconds</span><span class="p">)</span>
+        <span class="n">result_file_path</span> <span class="o">=</span> <span class="n">operation</span><span class="o">.</span><span class="n">download_result_file</span><span class="p">(</span>
+            <span class="n">result_file_directory</span><span class="o">=</span><span class="n">result_file_directory</span><span class="p">,</span>
+            <span class="n">result_file_name</span><span class="o">=</span><span class="n">download_parameters</span><span class="o">.</span><span class="n">result_file_name</span><span class="p">,</span>
+            <span class="n">decompress</span><span class="o">=</span><span class="n">download_parameters</span><span class="o">.</span><span class="n">decompress_result_file</span><span class="p">,</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="n">download_parameters</span><span class="o">.</span><span class="n">overwrite_result_file</span><span class="p">,</span>
+            <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="n">download_result_file_timeout</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result_file_path</span></div>
+
+<div class="viewcode-block" id="ReportingServiceManager.submit_download"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_service_manager.ReportingServiceManager.submit_download">[docs]</a>    <span class="k">def</span> <span class="nf">submit_download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_request</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Submits a download request to the Bing Ads reporting service with the specified request.</span>
+
+<span class="sd">        :param report_request: Determines what kind of reporting file to download</span>
+<span class="sd">        :type report_request: ReportRequest</span>
+<span class="sd">        :return: The submitted download operation</span>
+<span class="sd">        :rtype: ReportingDownloadOperation</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normalize_request</span><span class="p">(</span><span class="n">report_request</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_client</span><span class="o">.</span><span class="n">SubmitGenerateReport</span><span class="p">(</span><span class="n">report_request</span><span class="p">)</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">service_client</span><span class="o">.</span><span class="n">get_response_header</span><span class="p">()</span>
+        <span class="n">operation</span> <span class="o">=</span> <span class="n">ReportingDownloadOperation</span><span class="p">(</span>
+            <span class="n">request_id</span><span class="o">=</span><span class="n">response</span><span class="p">,</span>
+            <span class="n">authorization_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_authorization_data</span><span class="p">,</span>
+            <span class="n">poll_interval_in_milliseconds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span><span class="p">,</span>
+            <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">,</span>
+            <span class="n">tracking_id</span> <span class="o">=</span> <span class="n">headers</span><span class="p">[</span><span class="s1">&#39;TrackingId&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;TrackingId&#39;</span> <span class="ow">in</span> <span class="n">headers</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">suds_options</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">operation</span></div>
+
+<div class="viewcode-block" id="ReportingServiceManager.normalize_request"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_service_manager.ReportingServiceManager.normalize_request">[docs]</a>    <span class="k">def</span> <span class="nf">normalize_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_request</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">report_request</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="p">,</span> <span class="s1">&#39;ReportTimeZone&#39;</span><span class="p">)</span> \
+        <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">ReportTimeZone</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span> \
+        <span class="ow">and</span> <span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">ReportTimeZone</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">ReportTimeZone</span><span class="o">=</span><span class="kc">None</span>
+            
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="p">,</span> <span class="s1">&#39;PredefinedTime&#39;</span><span class="p">)</span> \
+        <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">PredefinedTime</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span> \
+        <span class="ow">and</span> <span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">PredefinedTime</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">report_request</span><span class="o">.</span><span class="n">Time</span><span class="o">.</span><span class="n">PredefinedTime</span><span class="o">=</span><span class="kc">None</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">service_client</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The internal reporting service client.</span>
+
+<span class="sd">        :rtype: ServiceClient</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_service_client</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">poll_interval_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The time interval in milliseconds between two status polling attempts.</span>
+
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span>
+
+    <span class="nd">@poll_interval_in_milliseconds</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">poll_interval_in_milliseconds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poll_interval</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_poll_interval_in_milliseconds</span> <span class="o">=</span> <span class="n">poll_interval</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">working_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Directory for storing temporary files needed for some operations (for example :func:`upload_entities` creates a temporary upload file).</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span>
+
+    <span class="nd">@working_directory</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">working_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_working_directory</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">suds_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; suds option parameters</span>
+
+<span class="sd">        :return: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_suds_options</span>
+
+    <span class="nd">@suds_options</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">suds_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_suds_options</span> <span class="o">=</span> <span class="n">value</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>

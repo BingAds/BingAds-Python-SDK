@@ -1,0 +1,30 @@
+bingads.v13.internal package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    bingads.v13.internal.bulk
+    bingads.v13.internal.reporting
+
+Submodules
+----------
+
+bingads.v13.internal.extensions module
+--------------------------------------
+
+.. automodule:: bingads.v13.internal.extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.v13.internal
+    :members:
+    :undoc-members:
+    :show-inheritance:

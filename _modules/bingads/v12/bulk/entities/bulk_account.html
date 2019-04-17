@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.bulk.entities.bulk_account &#8212; Bing Ads SDK 12.0.4 documentation</title>
+    <title>bingads.v12.bulk.entities.bulk_account &#8212; Bing Ads SDK 12.13.1 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -63,6 +63,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_sync_time</span> <span class="o">=</span> <span class="n">sync_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_msclkid_auto_tagging_enabled</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tracking_url_template</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_final_url_suffix</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -116,7 +117,20 @@
 <span class="sd">        :return: The tracking template of the account</span>
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tracking_url_template</span>    
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tracking_url_template</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">final_url_suffix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The final url suffix to use as a default for all URLs in your account.</span>
+<span class="sd">        </span>
+<span class="sd">        :return: The tracking template of the account</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_url_suffix</span>
+    
+    <span class="nd">@final_url_suffix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">final_url_suffix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_final_url_suffix</span> <span class="o">=</span> <span class="n">v</span>
     
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -143,6 +157,11 @@
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TrackingTemplate</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">tracking_url_template</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_tracking_url_template&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrlSuffix</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">final_url_suffix</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_final_url_suffix&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -186,7 +205,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
