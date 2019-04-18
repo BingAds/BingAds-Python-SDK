@@ -537,6 +537,8 @@ def output_audience(data_object):
         return
     output_status_message("* * * Begin output_audience * * *")
     output_status_message("AudienceNetworkSize: {0}".format(data_object.AudienceNetworkSize))
+    output_status_message("CustomerShare:")
+    output_customershare(data_object.CustomerShare)
     output_status_message("Description: {0}".format(data_object.Description))
     output_status_message("ForwardCompatibilityMap:")
     output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
@@ -697,8 +699,12 @@ def output_biddingscheme(data_object):
         output_maxclicksbiddingscheme(data_object)
     if data_object.Type == 'MaxConversionsBiddingScheme':
         output_maxconversionsbiddingscheme(data_object)
+    if data_object.Type == 'MaxRoasBiddingScheme':
+        output_maxroasbiddingscheme(data_object)
     if data_object.Type == 'TargetCpaBiddingScheme':
         output_targetcpabiddingscheme(data_object)
+    if data_object.Type == 'TargetRoasBiddingScheme':
+        output_targetroasbiddingscheme(data_object)
     output_status_message("* * * End output_biddingscheme * * *")
 
 def output_array_of_biddingscheme(data_objects):
@@ -794,7 +800,6 @@ def output_campaign(data_object):
     output_biddingscheme(data_object.BiddingScheme)
     output_status_message("BudgetType: {0}".format(data_object.BudgetType))
     output_status_message("DailyBudget: {0}".format(data_object.DailyBudget))
-    output_status_message("Description: {0}".format(data_object.Description))
     output_status_message("ExperimentId: {0}".format(data_object.ExperimentId))
     output_status_message("FinalUrlSuffix: {0}".format(data_object.FinalUrlSuffix))
     output_status_message("ForwardCompatibilityMap:")
@@ -866,6 +871,7 @@ def output_conversiongoal(data_object):
     output_status_message("* * * Begin output_conversiongoal * * *")
     output_status_message("ConversionWindowInMinutes: {0}".format(data_object.ConversionWindowInMinutes))
     output_status_message("CountType: {0}".format(data_object.CountType))
+    output_status_message("ExcludeFromBidding: {0}".format(data_object.ExcludeFromBidding))
     output_status_message("Id: {0}".format(data_object.Id))
     output_status_message("Name: {0}".format(data_object.Name))
     output_status_message("Revenue:")
@@ -992,6 +998,51 @@ def output_array_of_customaudience(data_objects):
         return
     for data_object in data_objects['CustomAudience']:
         output_customaudience(data_object)
+
+def output_customeraccountshare(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_customeraccountshare * * *")
+    output_status_message("AccountId: {0}".format(data_object.AccountId))
+    output_status_message("Associations:")
+    output_array_of_customeraccountshareassociation(data_object.Associations)
+    output_status_message("CustomerId: {0}".format(data_object.CustomerId))
+    output_status_message("* * * End output_customeraccountshare * * *")
+
+def output_array_of_customeraccountshare(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CustomerAccountShare']:
+        output_customeraccountshare(data_object)
+
+def output_customeraccountshareassociation(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_customeraccountshareassociation * * *")
+    output_status_message("AssociationCount: {0}".format(data_object.AssociationCount))
+    output_status_message("UsageType: {0}".format(data_object.UsageType))
+    output_status_message("* * * End output_customeraccountshareassociation * * *")
+
+def output_array_of_customeraccountshareassociation(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CustomerAccountShareAssociation']:
+        output_customeraccountshareassociation(data_object)
+
+def output_customershare(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_customershare * * *")
+    output_status_message("CustomerAccountShares:")
+    output_array_of_customeraccountshare(data_object.CustomerAccountShares)
+    output_status_message("OwnerCustomerId: {0}".format(data_object.OwnerCustomerId))
+    output_status_message("* * * End output_customershare * * *")
+
+def output_array_of_customershare(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CustomerShare']:
+        output_customershare(data_object)
 
 def output_customeventsrule(data_object):
     if data_object is None:
@@ -1124,6 +1175,7 @@ def output_dynamicsearchad(data_object):
     output_status_message("Path1: {0}".format(data_object.Path1))
     output_status_message("Path2: {0}".format(data_object.Path2))
     output_status_message("Text: {0}".format(data_object.Text))
+    output_status_message("TextPart2: {0}".format(data_object.TextPart2))
     output_status_message("* * * End output_dynamicsearchad * * *")
 
 def output_array_of_dynamicsearchad(data_objects):
@@ -1672,6 +1724,20 @@ def output_array_of_maxconversionsbiddingscheme(data_objects):
     for data_object in data_objects['MaxConversionsBiddingScheme']:
         output_maxconversionsbiddingscheme(data_object)
 
+def output_maxroasbiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_maxroasbiddingscheme * * *")
+    output_status_message("MaxCpc:")
+    output_bid(data_object.MaxCpc)
+    output_status_message("* * * End output_maxroasbiddingscheme * * *")
+
+def output_array_of_maxroasbiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['MaxRoasBiddingScheme']:
+        output_maxroasbiddingscheme(data_object)
+
 def output_media(data_object):
     if data_object is None:
         return
@@ -2110,14 +2176,16 @@ def output_responsivead(data_object):
     output_status_message("* * * Begin output_responsivead * * *")
     output_status_message("BusinessName: {0}".format(data_object.BusinessName))
     output_status_message("CallToAction: {0}".format(data_object.CallToAction))
+    output_status_message("Descriptions:")
+    output_array_of_assetlink(data_object.Descriptions)
     output_status_message("Headline: {0}".format(data_object.Headline))
+    output_status_message("Headlines:")
+    output_array_of_assetlink(data_object.Headlines)
     output_status_message("Images:")
     output_array_of_assetlink(data_object.Images)
-    output_status_message("LandscapeImageMediaId: {0}".format(data_object.LandscapeImageMediaId))
-    output_status_message("LandscapeLogoMediaId: {0}".format(data_object.LandscapeLogoMediaId))
-    output_status_message("LongHeadline: {0}".format(data_object.LongHeadline))
-    output_status_message("SquareImageMediaId: {0}".format(data_object.SquareImageMediaId))
-    output_status_message("SquareLogoMediaId: {0}".format(data_object.SquareLogoMediaId))
+    output_status_message("LongHeadline:")
+    output_assetlink(data_object.LongHeadline)
+    output_status_message("LongHeadlineString: {0}".format(data_object.LongHeadlineString))
     output_status_message("Text: {0}".format(data_object.Text))
     output_status_message("* * * End output_responsivead * * *")
 
@@ -2399,6 +2467,21 @@ def output_array_of_targetcpabiddingscheme(data_objects):
     for data_object in data_objects['TargetCpaBiddingScheme']:
         output_targetcpabiddingscheme(data_object)
 
+def output_targetroasbiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_targetroasbiddingscheme * * *")
+    output_status_message("MaxCpc:")
+    output_bid(data_object.MaxCpc)
+    output_status_message("TargetRoas: {0}".format(data_object.TargetRoas))
+    output_status_message("* * * End output_targetroasbiddingscheme * * *")
+
+def output_array_of_targetroasbiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['TargetRoasBiddingScheme']:
+        output_targetroasbiddingscheme(data_object)
+
 def output_targetsetting(data_object):
     if data_object is None:
         return
@@ -2460,6 +2543,8 @@ def output_uettag(data_object):
     if data_object is None:
         return
     output_status_message("* * * Begin output_uettag * * *")
+    output_status_message("CustomerShare:")
+    output_customershare(data_object.CustomerShare)
     output_status_message("Description: {0}".format(data_object.Description))
     output_status_message("Id: {0}".format(data_object.Id))
     output_status_message("Name: {0}".format(data_object.Name))
@@ -2663,18 +2748,6 @@ def output_array_of_bidoption(value_sets):
     for value_set in value_sets['BidOption']:
         output_bidoption(value_set)
 
-def output_campaignadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_campaignadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of CampaignAdditionalField:\n")
-    for value_set in value_sets['CampaignAdditionalField']:
-        output_campaignadditionalfield(value_set)
-
 def output_adrotationtype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2723,30 +2796,6 @@ def output_array_of_adgroupstatus(value_sets):
     for value_set in value_sets['AdGroupStatus']:
         output_adgroupstatus(value_set)
 
-def output_adgroupadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_adgroupadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of AdGroupAdditionalField:\n")
-    for value_set in value_sets['AdGroupAdditionalField']:
-        output_adgroupadditionalfield(value_set)
-
-def output_adadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_adadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of AdAdditionalField:\n")
-    for value_set in value_sets['AdAdditionalField']:
-        output_adadditionalfield(value_set)
-
 def output_keywordeditorialstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2782,18 +2831,6 @@ def output_array_of_keywordstatus(value_sets):
     output_status_message("Array Of KeywordStatus:\n")
     for value_set in value_sets['KeywordStatus']:
         output_keywordstatus(value_set)
-
-def output_keywordadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_keywordadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of KeywordAdditionalField:\n")
-    for value_set in value_sets['KeywordAdditionalField']:
-        output_keywordadditionalfield(value_set)
 
 def output_entitytype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -2951,18 +2988,6 @@ def output_array_of_adextensionstypefilter(value_sets):
     for value_set in value_sets['AdExtensionsTypeFilter']:
         output_adextensionstypefilter(value_set)
 
-def output_adextensionadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_adextensionadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of AdExtensionAdditionalField:\n")
-    for value_set in value_sets['AdExtensionAdditionalField']:
-        output_adextensionadditionalfield(value_set)
-
 def output_associationtype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -3010,18 +3035,6 @@ def output_array_of_adgroupcriteriontype(value_sets):
     output_status_message("Array Of AdGroupCriterionType:\n")
     for value_set in value_sets['AdGroupCriterionType']:
         output_adgroupcriteriontype(value_set)
-
-def output_adgroupcriterionadditionalfield(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_adgroupcriterionadditionalfield(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of AdGroupCriterionAdditionalField:\n")
-    for value_set in value_sets['AdGroupCriterionAdditionalField']:
-        output_adgroupcriterionadditionalfield(value_set)
 
 def output_productpartitiontype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

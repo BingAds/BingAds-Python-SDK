@@ -37,7 +37,7 @@ def output_webfault_errors(ex):
             return
 
     # Handle serialization errors, for example: The formatter threw an exception while trying to deserialize the message: 
-    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v12:Entities.
+    # There was an error while trying to deserialize parameter https://bingads.microsoft.com/CampaignManagement/v13:Entities.
     if hasattr(ex.fault, 'detail') \
         and hasattr(ex.fault.detail, 'ExceptionDetail'):
         api_errors=ex.fault.detail.ExceptionDetail
