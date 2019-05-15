@@ -78,6 +78,11 @@ class BulkPriceAdExtension(_BulkAdExtensionBase):
             entity_to_csv=lambda c, v: entity_to_csv_PriceTableRows(c.price_ad_extension, v),
             csv_to_entity=lambda v, c: csv_to_entity_PriceTableRows(v, c.price_ad_extension)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.price_ad_extension.FinalUrlSuffix, c.price_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.price_ad_extension, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

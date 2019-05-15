@@ -232,6 +232,13 @@
                      <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="TextPart2" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
@@ -1195,6 +1202,7 @@
                      <xs:enumeration value="TextPart2" />
                      <xs:enumeration value="Images" />
                      <xs:enumeration value="FinalUrlSuffix" />
+                     <xs:enumeration value="TextPart2DSA" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>

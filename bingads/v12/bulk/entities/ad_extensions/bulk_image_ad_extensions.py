@@ -69,6 +69,11 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
             #csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'ImageMediaIds', int(v))
             csv_to_field=lambda c, v: csv_to_field_MediaIds(c.image_ad_extension, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.FinalUrlSuffix, c.image_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

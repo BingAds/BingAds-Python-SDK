@@ -160,6 +160,11 @@ class _BulkAd(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.ad),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.ad.FinalUrlSuffix, c.ad.Id),
+            csv_to_field=lambda c, v: setattr(c.ad, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):

@@ -223,6 +223,11 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.ad_group_criterion, v)
             if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.ad_group_criterion.FinalUrlSuffix, c.ad_group_criterion.Id) if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None ,
+            csv_to_field=lambda c, v: setattr(c.ad_group_criterion, 'FinalUrlSuffix', v) if isinstance(c.ad_group_criterion, _BiddableAdGroupCriterion) else None
+        )
     ]
 
     @property

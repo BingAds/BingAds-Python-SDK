@@ -104,6 +104,11 @@ class BulkActionAdExtension(_BulkAdExtensionBase):
             field_to_csv=lambda c: c.action_text,
             csv_to_field=lambda c, v: setattr(c, 'action_text', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.action_ad_extension.FinalUrlSuffix, c.action_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.action_ad_extension, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

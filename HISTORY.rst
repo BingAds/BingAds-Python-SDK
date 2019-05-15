@@ -2,6 +2,14 @@
 
 Release History
 -----------
+12.13.2(2019-05-15)
++++++++++++++++++++
+* IMPORTANT: The default OAuth endpoint is updated from "Live Connect": https://docs.microsoft.com/en-us/advertising/guides/authentication-oauth-live-connect endpoint to the "Microsoft Identity endpoint for developers": https://docs.microsoft.com/en-us/advertising/guides/authentication-oauth-identity-platform. The  "Microsoft Identity endpoint" supports both Microsoft Account (MSA) personal credentials and Azure Active Directory (AAD) work credentials. For more information, see "Upgrade to the Microsoft identity platform endpoint FAQ": https://docs.microsoft.com/en-us/advertising/guides/authentication-oauth#upgrade-identity-platform-faq. 
+* Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For details please see the "Bing Ads API Release Notes": https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* For Bing Ads API version 12 and 13, added a new Bulk property for Final Url Suffix phase 2 entities i.e., added FinalUrlSuffix to the existing BulkActionAdExtension, BulkAppAdExtension, BulkImageAdExtension, BulkPriceAdExtension, BulkSitelinkAdExtension, BulkAdGroupProductPartition, and BulkAd. For details see "Final Url Suffix": https://docs.microsoft.com/en-us/advertising/guides/url-tracking-upgraded-urls#finalurlsuffixvalidation. 
+
+
+-----------
 12.13.1(2019-04-15)
 +++++++++++++++++++
 * Added support for Bing Ads API Version 13. For more information, see Migrating to Bing Ads API Version 13: https://docs.microsoft.com/en-us/bingads/guides/migration-guide?view=bingads-13. 

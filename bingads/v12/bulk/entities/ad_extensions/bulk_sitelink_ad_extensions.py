@@ -93,6 +93,11 @@ class BulkSitelinkAdExtension(_BulkAdExtensionBase):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.sitelink_ad_extension),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.sitelink_ad_extension, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.sitelink_ad_extension.FinalUrlSuffix, c.sitelink_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.sitelink_ad_extension, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

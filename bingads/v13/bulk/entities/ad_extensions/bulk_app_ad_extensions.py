@@ -74,6 +74,11 @@ class BulkAppAdExtension(_BulkAdExtensionBase):
             field_to_csv=lambda c: c.app_ad_extension.DisplayText,
             csv_to_field=lambda c, v: setattr(c.app_ad_extension, 'DisplayText', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.app_ad_extension.FinalUrlSuffix, c.app_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.app_ad_extension, 'FinalUrlSuffix', v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):
