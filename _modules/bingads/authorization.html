@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.authorization &#8212; Bing Ads SDK 12.13.1 documentation</title>
+    <title>bingads.authorization &#8212; Bing Ads SDK 12.13.2 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -301,7 +301,7 @@
 <span class="sd">    * :class:`.OAuthWebAuthCodeGrant`</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the OAuthAuthorization class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -317,6 +317,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">oauth_tokens</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="o">=</span><span class="n">env</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="o">=</span><span class="n">require_live_connect</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">client_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -391,7 +392,7 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">,</span> <span class="n">redirection_uri</span><span class="p">,</span> <span class="n">token_refreshed_callback</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initialize a new instance of this class.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -408,7 +409,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthWithAuthorizationCode</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="n">require_live_connect</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_client_secret</span> <span class="o">=</span> <span class="n">client_secret</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span> <span class="o">=</span> <span class="n">redirection_uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_token_refreshed_callback</span> <span class="o">=</span> <span class="n">token_refreshed_callback</span>
@@ -420,7 +421,7 @@
 <span class="sd">        :rtype: str</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="p">)],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_client_id</span><span class="p">,</span>
             <span class="s1">&#39;code&#39;</span><span class="p">,</span>
             <span class="n">quote_plus</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_redirection_uri</span><span class="p">)</span>
@@ -455,6 +456,7 @@
             <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
             <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span>
             <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span>
+            <span class="n">requireliveconnect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c1"># invoke the callback when token refreshed.</span>
@@ -476,11 +478,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_tokens</span> <span class="o">=</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span>
             <span class="n">client_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="n">client_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">client_secret</span><span class="p">,</span>
-            <span class="n">redirect_uri</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">redirection_uri</span><span class="p">,</span>
             <span class="n">grant_type</span><span class="o">=</span><span class="s1">&#39;refresh_token&#39;</span><span class="p">,</span>
             <span class="n">refresh_token</span><span class="o">=</span><span class="n">refresh_token</span><span class="p">,</span>
             <span class="n">environment</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span>
-            <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;bingads.manage&#39;</span><span class="p">,</span>
+            <span class="n">scope</span><span class="o">=</span><span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">SCOPE</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="p">)],</span>
+            <span class="n">requireliveconnect</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">token_refreshed_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">oauth_tokens</span><span class="p">)</span>  <span class="c1"># invoke the callback when token refreshed.</span>
@@ -541,7 +543,7 @@
 <span class="sd">    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -553,9 +555,10 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileAuthCodeGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">client_id</span><span class="p">,</span>
             <span class="kc">None</span><span class="p">,</span>
-            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="n">env</span><span class="p">],</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[(</span><span class="n">env</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="p">)],</span>
             <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span>
-            <span class="n">env</span><span class="o">=</span><span class="n">env</span>
+            <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span>
+            <span class="n">require_live_connect</span><span class="o">=</span><span class="n">require_live_connect</span>
         <span class="p">)</span></div>
 
 
@@ -589,7 +592,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Initializes a new instance of the this class with the specified client id.</span>
 
 <span class="sd">        :param client_id: The client identifier corresponding to your registered application.</span>
@@ -598,7 +601,7 @@
 <span class="sd">        :type oauth_tokens: OAuthTokens</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">OAuthDesktopMobileImplicitGrant</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">client_id</span><span class="p">,</span> <span class="n">oauth_tokens</span><span class="o">=</span><span class="n">oauth_tokens</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">,</span> <span class="n">require_live_connect</span><span class="o">=</span><span class="n">require_live_connect</span><span class="p">)</span>
         
     
 
@@ -610,10 +613,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="n">endpoint</span> <span class="o">=</span> <span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTHORIZE_URI</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="p">)],</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">client_id</span><span class="p">,</span>
             <span class="s1">&#39;token&#39;</span><span class="p">,</span>
-            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">],</span>
+            <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="p">)],</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="s1">&#39;&amp;state=&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span></div>
 
@@ -642,7 +645,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">redirection_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">REDIRECTION_URI</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">environment</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_require_live_connect</span><span class="p">)]</span></div>
 
 
 <span class="k">class</span> <span class="nc">_UriOAuthService</span><span class="p">:</span>
@@ -651,12 +654,22 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
-    <span class="n">REDIRECTION_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span><span class="p">,</span>
-                      <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_desktop.srf&#39;</span><span class="p">}</span>
-    <span class="n">AUTH_TOKEN_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span>
-                    <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_token.srf&#39;</span><span class="p">}</span>
-    <span class="n">AUTHORIZE_URI</span><span class="o">=</span><span class="p">{</span><span class="n">PRODUCTION</span><span class="p">:</span><span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> 
-                   <span class="n">SANDBOX</span><span class="p">:</span><span class="s1">&#39;https://login.live-int.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&amp;prompt=login&#39;</span><span class="p">}</span>
+    <span class="n">REDIRECTION_URI</span><span class="o">=</span><span class="p">{(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span><span class="s1">&#39;https://login.live.com/oauth20_desktop.srf&#39;</span><span class="p">,</span>
+                      <span class="p">(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.microsoftonline.com/common/oauth2/nativeclient&#39;</span><span class="p">,</span>
+                      <span class="p">(</span><span class="n">SANDBOX</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.live-int.com/oauth20_desktop.srf&#39;</span>
+    <span class="p">}</span>
+    <span class="n">AUTH_TOKEN_URI</span><span class="o">=</span><span class="p">{(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span><span class="s1">&#39;https://login.live.com/oauth20_token.srf&#39;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.microsoftonline.com/common/oauth2/v2.0/token&#39;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">SANDBOX</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.live-int.com/oauth20_token.srf&#39;</span>
+    <span class="p">}</span>
+    <span class="n">AUTHORIZE_URI</span><span class="o">=</span><span class="p">{(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span><span class="s1">&#39;https://login.live.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                   <span class="p">(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=https%3A</span><span class="si">%2F%2F</span><span class="s1">ads.microsoft.com</span><span class="si">%2F</span><span class="s1">ads.manage</span><span class="si">%20o</span><span class="s1">ffline_access&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&#39;</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">SANDBOX</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://login.live-int.com/oauth20_authorize.srf?client_id=</span><span class="si">{0}</span><span class="s1">&amp;scope=bingads.manage&amp;response_type=</span><span class="si">{1}</span><span class="s1">&amp;redirect_uri=</span><span class="si">{2}</span><span class="s1">&amp;prompt=login&#39;</span>
+    <span class="p">}</span>
+    <span class="n">SCOPE</span><span class="o">=</span><span class="p">{(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span><span class="s1">&#39;bingads.manage&#39;</span><span class="p">,</span> 
+                   <span class="p">(</span><span class="n">PRODUCTION</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;https://ads.microsoft.com/ads.manage offline_access&#39;</span><span class="p">,</span>
+                   <span class="p">(</span><span class="n">SANDBOX</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span><span class="s1">&#39;bingads.manage&#39;</span>
+    <span class="p">}</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -671,7 +684,7 @@
         <span class="k">if</span> <span class="s1">&#39;client_secret&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">]</span>
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTH_TOKEN_URI</span><span class="p">[</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;environment&#39;</span><span class="p">]],</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">_UriOAuthService</span><span class="o">.</span><span class="n">AUTH_TOKEN_URI</span><span class="p">[(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;environment&#39;</span><span class="p">],</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;requireliveconnect&#39;</span><span class="p">])],</span> <span class="n">kwargs</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
@@ -712,7 +725,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.2 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
