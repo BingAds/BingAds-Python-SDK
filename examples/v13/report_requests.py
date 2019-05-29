@@ -219,12 +219,6 @@ def get_report_request(account_id):
     return_only_complete_data=False
 
     #BudgetSummaryReportRequest does not contain a definition for Aggregation.
-    #BudgetSummaryReportRequest requires BudgetSummaryReportTime instead of ReportTime.
-    budget_summary_report_time=reporting_service.factory.create('BudgetSummaryReportTime')
-    budget_summary_report_time.CustomDateRangeEnd=time.CustomDateRangeEnd
-    budget_summary_report_time.CustomDateRangeStart=time.CustomDateRangeStart
-    budget_summary_report_time.PredefinedTime=time.PredefinedTime
-    budget_summary_report_time.ReportTimeZone=time.ReportTimeZone
     budget_summary_report_request=get_budget_summary_report_request(
         account_id=account_id,
         exclude_column_headers=exclude_column_headers,
@@ -232,7 +226,7 @@ def get_report_request(account_id):
         exclude_report_header=exclude_report_header,
         report_file_format=REPORT_FILE_FORMAT,
         return_only_complete_data=return_only_complete_data,
-        time=budget_summary_report_time)
+        time=time)
 
     campaign_performance_report_request=get_campaign_performance_report_request(
         account_id=account_id,
