@@ -294,7 +294,7 @@ def get_budget_summary_report_request(
         'CurrencyCode',
         'MonthlyBudget',
         'DailySpend',
-        'MonthToDateSpend',
+        'MonthToDateSpend'
     ])
     report_request.Columns=report_columns
 
@@ -329,15 +329,12 @@ def get_campaign_performance_report_request(
     report_columns.CampaignPerformanceReportColumn.append([
         'TimePeriod',
         'CampaignId',
-        'ImpressionSharePercent'
-        # 'CampaignName',
-        # 'DeviceType',
-        # 'Network',
-        # 'Impressions',
-        # 'Clicks',  
-        # 'Spend',
-        # 'AveragePosition',
-        # 'Revenue'
+        'CampaignName',
+        'DeviceType',
+        'Network',
+        'Impressions',
+        'Clicks',  
+        'Spend'
     ])
     report_request.Columns=report_columns
     
