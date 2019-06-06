@@ -270,7 +270,6 @@ def get_budget_summary_report_request(
         time):
 
     report_request=reporting_service.factory.create('BudgetSummaryReportRequest')
-    report_request.Language='English'
     report_request.ExcludeColumnHeaders=exclude_column_headers
     report_request.ExcludeReportFooter=exclude_report_footer
     report_request.ExcludeReportHeader=exclude_report_header
@@ -311,7 +310,6 @@ def get_campaign_performance_report_request(
         time):
 
     report_request=reporting_service.factory.create('CampaignPerformanceReportRequest')
-    report_request.Language='English'
     report_request.Aggregation=aggregation
     report_request.ExcludeColumnHeaders=exclude_column_headers
     report_request.ExcludeReportFooter=exclude_report_footer
@@ -351,7 +349,6 @@ def get_keyword_performance_report_request(
         time):
 
     report_request=reporting_service.factory.create('KeywordPerformanceReportRequest')
-    report_request.Language='English'
     report_request.Aggregation=aggregation
     report_request.ExcludeColumnHeaders=exclude_column_headers
     report_request.ExcludeReportFooter=exclude_report_footer
@@ -398,7 +395,6 @@ def get_user_location_performance_report_request(
         time):
     
     report_request=reporting_service.factory.create('UserLocationPerformanceReportRequest')
-    report_request.Language='English'
     report_request.Aggregation=aggregation
     report_request.ExcludeColumnHeaders=exclude_column_headers
     report_request.ExcludeReportFooter=exclude_report_footer
