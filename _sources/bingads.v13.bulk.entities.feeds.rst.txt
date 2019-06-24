@@ -1,0 +1,30 @@
+bingads.v13.bulk.entities.feeds package
+=======================================
+
+Submodules
+----------
+
+bingads.v13.bulk.entities.feeds.bulk\_feed module
+-------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.feeds.bulk_feed
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v13.bulk.entities.feeds.bulk\_feed\_item module
+-------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.feeds.bulk_feed_item
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: bingads.v13.bulk.entities.feeds
+    :members:
+    :undoc-members:
+    :show-inheritance:

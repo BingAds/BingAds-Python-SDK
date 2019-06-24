@@ -1,0 +1,531 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>bingads.v13.bulk.entities.feeds package &#8212; Bing Ads SDK 12.13.3 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.13.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="bingads-v13-bulk-entities-feeds-package">
+<h1>bingads.v13.bulk.entities.feeds package<a class="headerlink" href="#bingads-v13-bulk-entities-feeds-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bingads.v13.bulk.entities.feeds.bulk_feed">
+<span id="bingads-v13-bulk-entities-feeds-bulk-feed-module"></span><h2>bingads.v13.bulk.entities.feeds.bulk_feed module<a class="headerlink" href="#module-bingads.v13.bulk.entities.feeds.bulk_feed" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed">
+<em class="property">class </em><code class="descclassname">bingads.v13.bulk.entities.feeds.bulk_feed.</code><code class="descname">BulkFeed</code><span class="sig-paren">(</span><em>id=None</em>, <em>status=None</em>, <em>account_id=None</em>, <em>sub_type=None</em>, <em>feed_name=None</em>, <em>custom_attr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed.html#BulkFeed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents a feed.</p>
+<p>Properties of this class and of classes that it is derived from, correspond to fields of the Feed record in a bulk file.
+For more information, see Feed at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a></p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v12.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.bulk_operation.BulkOperation" title="bingads.v12.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v13.bulk.html#bingads.v13.bulk.file_reader.BulkFileReader" title="bingads.v13.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v13.bulk.html#bingads.v13.bulk.file_writer.BulkFileWriter" title="bingads.v13.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.account_id">
+<code class="descname">account_id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.account_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Parent Id’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.custom_attributes">
+<code class="descname">custom_attributes</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.custom_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Custom Attributes’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.id">
+<code class="descname">id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Id’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.name">
+<code class="descname">name</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Feed Name’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed.html#BulkFeed.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process specific entity mappings from CSV values. Must be implemented by each entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row_values</strong> (<em>_RowValues</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed.html#BulkFeed.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process specific entity mappings to CSV values. Must be implemented by each entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row_values</strong> (<em>_RowValues</em>) – Row values.</li>
+<li><strong>exclude_readonly_data</strong> (<em>bool</em>) – excludeReadonlyData indicates whether readonly data should be written (such as errors, performance data etc.)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed.html#BulkFeed.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Status’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.sub_type">
+<code class="descname">sub_type</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed.BulkFeed.sub_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Sub Type’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v13.bulk.entities.feeds.bulk_feed_item">
+<span id="bingads-v13-bulk-entities-feeds-bulk-feed-item-module"></span><h2>bingads.v13.bulk.entities.feeds.bulk_feed_item module<a class="headerlink" href="#module-bingads.v13.bulk.entities.feeds.bulk_feed_item" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem">
+<em class="property">class </em><code class="descclassname">bingads.v13.bulk.entities.feeds.bulk_feed_item.</code><code class="descname">BulkFeedItem</code><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed_item.html#BulkFeedItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.internal.bulk.entities.single_record_bulk_entity._SingleRecordBulkEntity</span></code></p>
+<p>Represents a feed item.</p>
+<p>Properties of this class and of classes that it is derived from, correspond to fields of the Feed Item record in a bulk file.
+For more information, see Feed at <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a></p>
+<p><em>See also:</em></p>
+<ul class="simple">
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.bulk_service_manager.BulkServiceManager" title="bingads.v12.bulk.bulk_service_manager.BulkServiceManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkServiceManager</span></code></a></li>
+<li><a class="reference internal" href="bingads.v12.bulk.html#bingads.v12.bulk.bulk_operation.BulkOperation" title="bingads.v12.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkOperation</span></code></a></li>
+<li><a class="reference internal" href="bingads.v13.bulk.html#bingads.v13.bulk.file_reader.BulkFileReader" title="bingads.v13.bulk.file_reader.BulkFileReader"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkFileReader</span></code></a></li>
+<li><a class="reference internal" href="bingads.v13.bulk.html#bingads.v13.bulk.file_writer.BulkFileWriter" title="bingads.v13.bulk.file_writer.BulkFileWriter"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkFileWriter</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.ad_group">
+<code class="descname">ad_group</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.ad_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Ad Group’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.audience_id">
+<code class="descname">audience_id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.audience_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Audience Id’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.campaign">
+<code class="descname">campaign</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.campaign" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘campaign’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.custom_attributes">
+<code class="descname">custom_attributes</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.custom_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Custom Attributes’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.daytime_ranges">
+<code class="descname">daytime_ranges</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.daytime_ranges" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Ad Schedule’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.device_preference">
+<code class="descname">device_preference</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.device_preference" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Device Preference’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.end_date">
+<code class="descname">end_date</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.end_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘End Date’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.feed_id">
+<code class="descname">feed_id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.feed_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Parent Id’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.id">
+<code class="descname">id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Id’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.intent_option">
+<code class="descname">intent_option</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.intent_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Physical Intent’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.keyword">
+<code class="descname">keyword</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.keyword" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Keyword’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.location_id">
+<code class="descname">location_id</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.location_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>the id of the account which contains the feed
+Corresponds to the ‘Target’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">long</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.match_type">
+<code class="descname">match_type</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.match_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>the match type of bulk record
+Corresponds to the ‘Match Type’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.process_mappings_from_row_values">
+<code class="descname">process_mappings_from_row_values</code><span class="sig-paren">(</span><em>row_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed_item.html#BulkFeedItem.process_mappings_from_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.process_mappings_from_row_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process specific entity mappings from CSV values. Must be implemented by each entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>row_values</strong> (<em>_RowValues</em>) – </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.process_mappings_to_row_values">
+<code class="descname">process_mappings_to_row_values</code><span class="sig-paren">(</span><em>row_values</em>, <em>exclude_readonly_data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed_item.html#BulkFeedItem.process_mappings_to_row_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.process_mappings_to_row_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Process specific entity mappings to CSV values. Must be implemented by each entity.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row_values</strong> (<em>_RowValues</em>) – Row values.</li>
+<li><strong>exclude_readonly_data</strong> (<em>bool</em>) – excludeReadonlyData indicates whether readonly data should be written (such as errors, performance data etc.)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.read_additional_data">
+<code class="descname">read_additional_data</code><span class="sig-paren">(</span><em>stream_reader</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/entities/feeds/bulk_feed_item.html#BulkFeedItem.read_additional_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.read_additional_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.start_date">
+<code class="descname">start_date</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.start_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Start Date’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.status">
+<code class="descname">status</code><a class="headerlink" href="#bingads.v13.bulk.entities.feeds.bulk_feed_item.BulkFeedItem.status" title="Permalink to this definition">¶</a></dt>
+<dd><p>the status of bulk record
+Corresponds to the ‘Status’ field in the bulk file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bingads.v13.bulk.entities.feeds">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads.v13.bulk.entities.feeds" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">bingads.v13.bulk.entities.feeds package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-bingads.v13.bulk.entities.feeds.bulk_feed">bingads.v13.bulk.entities.feeds.bulk_feed module</a></li>
+<li><a class="reference internal" href="#module-bingads.v13.bulk.entities.feeds.bulk_feed_item">bingads.v13.bulk.entities.feeds.bulk_feed_item module</a></li>
+<li><a class="reference internal" href="#module-bingads.v13.bulk.entities.feeds">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/bingads.v13.bulk.entities.feeds.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 12.13.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>
