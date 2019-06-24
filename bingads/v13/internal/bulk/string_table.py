@@ -52,6 +52,11 @@ class _StringTable:
     TextPart2="Text Part 2"
     Website = "Website"
     Target = "Target"
+    Feed = "Feed"
+    FeedItem = "Feed Item"
+    FeedName = "Feed Name"
+    CustomAttributes = "Custom Attributes";
+    PageFeedIds = "Page Feed Ids";
     PhysicalIntent = "Physical Intent"
     Bid = "Bid"
     Profile = "Profile"

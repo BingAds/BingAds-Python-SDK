@@ -627,7 +627,7 @@ def csv_to_field_AdSchedule(entity, value):
     if value is None or value.strip() == '':
         return
     daytime_strs = value.split(';')
-    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|ThursDay|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
     pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
     daytimes = []
     for daytime_str in daytime_strs:

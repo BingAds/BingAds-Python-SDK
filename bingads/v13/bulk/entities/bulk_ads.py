@@ -553,6 +553,11 @@ class BulkDynamicSearchAd(_BulkAd):
             field_to_csv=lambda c: c.dynamic_search_ad.Path2,
             csv_to_field=lambda c, v: setattr(c.dynamic_search_ad, 'Path2', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.TextPart2,
+            field_to_csv=lambda c: c.dynamic_search_ad.TextPart2,
+            csv_to_field=lambda c, v: setattr(c.dynamic_search_ad, 'TextPart2', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

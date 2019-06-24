@@ -1,6 +1,12 @@
 .. :changelog:
 
 Release History
+12.13.3(2019-06-15)
++++++++++++++++++++++++++
+* Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For more information please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/advertising/guides/release-notes.
+* For Bing Ads API version 13, added BulkFeed and BulkFeedItem for ad customizer feeds and page feeds. For more information please see the Feed: https://docs.microsoft.com/en-us/advertising/bulk-service/feed?view=bingads-13 and Feed Item: https://docs.microsoft.com/en-us/advertising/bulk-service/feed-item?view=bingads-13 reference documentation.
+* For Bing Ads API version 13, added the mapping for PageFeedIds in BulkCampaign. For more information please see the Campaign: https://docs.microsoft.com/en-us/advertising/bulk-service/dynamic-search-ad?view=bingads-13#pagefeedids reference documentation.
+* For Bing Ads API version 13, added the mapping for TextPart2 in BulkDynamicSearchAd. For more information please see the Dynamic Search Ad: https://docs.microsoft.com/en-us/advertising/bulk-service/dynamic-search-ad?view=bingads-13#textpart2 reference documentation.
 
 12.13.2(2019-05-15)
 +++++++++++++++++++++++++

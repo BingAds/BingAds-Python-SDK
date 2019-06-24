@@ -142,6 +142,8 @@ class _BulkObjectFactory():
         _StringTable.AdGroupActionAdExtension: _EntityInfo(lambda: BulkAdGroupActionAdExtension()),
         _StringTable.CampaignActionAdExtension: _EntityInfo(lambda: BulkCampaignActionAdExtension()),
         _StringTable.Experiment: _EntityInfo(lambda: BulkExperiment()),
+        _StringTable.Feed: _EntityInfo(lambda: BulkFeed()),
+        _StringTable.FeedItem: _EntityInfo(lambda: BulkFeedItem())
     }
 
     ADDITIONAL_OBJECT_MAP = {

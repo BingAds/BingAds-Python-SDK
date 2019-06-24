@@ -263,6 +263,28 @@ class BulkCampaign(_SingleRecordBulkEntity):
             return bulk_str(dsa_setting.Language)
 
     @staticmethod
+    def _read_page_feed_ids(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            dsa_setting.PageFeedIds.long = csv_to_field_PageFeedIds(v)
+        
+    @staticmethod
+    def _write_page_feed_ids(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'dynamicsearchads' in campgaign_types:
+            dsa_setting = c._get_dsa_setting()
+            if not dsa_setting:
+                return None
+            return field_to_csv_Ids(dsa_setting.PageFeedIds, c.campaign.Id)        
+
+    @staticmethod
     def _read_website(c, v):
         if not c.campaign.CampaignType:
             return None
@@ -419,6 +441,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.campaign.FinalUrlSuffix, c.campaign.Id),
             csv_to_field=lambda c, v: setattr(c.campaign, 'FinalUrlSuffix', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.PageFeedIds,
+            field_to_csv=lambda c: BulkCampaign._write_page_feed_ids(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_page_feed_ids(c, v)
         ),
     ]
 

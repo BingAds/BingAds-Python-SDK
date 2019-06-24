@@ -624,10 +624,10 @@ def field_to_csv_AdSchedule(entity, id):
 
 
 def csv_to_field_AdSchedule(entity, value):
-    if value is None or value.strip() == '':
+    if value is None or value.strip() == '' or value == DELETE_VALUE:
         return
     daytime_strs = value.split(';')
-    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|ThursDay|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
     pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
     daytimes = []
     for daytime_str in daytime_strs:
@@ -643,6 +643,44 @@ def csv_to_field_AdSchedule(entity, value):
         else:
             raise ValueError('Unable to parse DayTime: {0}'.format(daytime_str))
     entity.DayTimeRanges.DayTime = daytimes
+
+
+def field_to_csv_FeedItemAdSchedule(entity, id):
+    """
+    get the bulk string for FeedItem DayTimeRanges
+    :param entity: Scheduling entity
+    :return: bulk str
+    """
+    if entity is None:
+        return None
+    if entity.daytime_ranges is None:
+        return DELETE_VALUE if id and id > 0 else None
+    return ';'.join('({0}[{1:02d}:{2:02d}-{3:02d}:{4:02d}])'
+                    .format(d.Day, d.StartHour, int(minute_bulk_str(d.StartMinute)), d.EndHour, int(minute_bulk_str(d.EndMinute)))
+                    for d in entity.daytime_ranges
+                    )
+
+
+def csv_to_field_FeedItemAdSchedule(entity, value):
+    if value is None or value.strip() == '' or value == DELETE_VALUE:
+        return
+    daytime_strs = value.split(';')
+    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
+    daytimes = []
+    for daytime_str in daytime_strs:
+        match = pattern.match(daytime_str)
+        if match:
+            daytime = _CAMPAIGN_OBJECT_FACTORY_V13.create('DayTime')
+            daytime.Day = format_Day(match.group(1))
+            daytime.StartHour = int(match.group(2))
+            daytime.StartMinute = parse_minute(match.group(3))
+            daytime.EndHour = int(match.group(4))
+            daytime.EndMinute = parse_minute(match.group(5))
+            daytimes.append(daytime)
+        else:
+            raise ValueError('Unable to parse DayTime: {0}'.format(daytime_str))
+    entity.daytime_ranges = daytimes
 
 
 def field_to_csv_SchedulingStartDate(entity, id):
@@ -1408,3 +1446,32 @@ def field_to_csv_SupportedCampaignTypes(entity):
     if len(entity.string) == 0:
         return None
     return ';'.join(entity.string)
+
+
+def field_to_csv_CustomAttributes(custom_attributes):
+    if custom_attributes is None:
+        return None
+    if len(custom_attributes) > 0:
+        return json.dumps(custom_attributes)
+    return None
+
+def csv_to_field_CustomAttributes(feed, value):
+    if value is None or value == '':
+        return
+    feed.custom_attributes = json.loads(value)
+    
+def field_to_csv_Ids(ids, entity_id):
+    if ids is None and entity_id is not None and entity_id > 0:
+        return DELETE_VALUE
+    
+    if ids is None or len(ids.long) == 0:
+        return None
+    return ';'.join(str(id) for id in ids.long)
+
+def csv_to_field_PageFeedIds(value):
+    if value is None or value == DELETE_VALUE:
+        return None
+    if len(value) == 0:
+        return []
+    return [int(i) for i in value.split(';')]    
+    

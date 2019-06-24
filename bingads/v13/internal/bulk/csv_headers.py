@@ -58,7 +58,6 @@ class _CsvHeaders:
 
         # Location Target
         _StringTable.Target,
-        _StringTable.PhysicalIntent,
         _StringTable.TargetAll,
         _StringTable.BidAdjustment,
         _StringTable.RadiusTargetId,
@@ -319,6 +318,7 @@ class _CsvHeaders:
         _StringTable.DynamicAdTargetValue2,
         _StringTable.DynamicAdTargetCondition3,
         _StringTable.DynamicAdTargetValue3,
+        _StringTable.PageFeedIds,
 
         # Labels
         _StringTable.ColorCode,
@@ -335,6 +335,11 @@ class _CsvHeaders:
         _StringTable.MSCLKIDAutoTaggingEnabled,
         
         _StringTable.FinalUrlSuffix,
+        
+        # Feeds
+        _StringTable.CustomAttributes,
+        _StringTable.FeedName,
+        _StringTable.PhysicalIntent,
 
     ]
 
