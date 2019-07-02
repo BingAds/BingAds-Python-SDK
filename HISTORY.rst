@@ -1,6 +1,10 @@
 .. :changelog:
 
 Release History
+12.13.3.1(2019-07-02)
++++++++++++++++++++++++++
+* Fix import issue introduced by version 12.13.3, where clients would observe error ModuleNotFoundError: No module named 'bingads.v13.bulk.entities.feeds'.
+
 12.13.3(2019-06-15)
 +++++++++++++++++++++++++
 * Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For more information please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/advertising/guides/release-notes.
