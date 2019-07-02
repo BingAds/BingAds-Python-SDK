@@ -57,7 +57,7 @@ def errorcode_of_exception(ex):
                 and hasattr(ex.fault.detail.AdApiFaultDetail.Errors, 'AdApiError'):
             ad_api_errors = ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
             if type(ad_api_errors) == list:
-                return ad_api_erros[0].Code
+                return ad_api_errors[0].Code
             else:
                 return ad_api_errors.Code
     return -1
