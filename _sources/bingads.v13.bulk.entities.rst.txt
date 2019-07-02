@@ -8,6 +8,7 @@ Subpackages
 
     bingads.v13.bulk.entities.ad_extensions
     bingads.v13.bulk.entities.audiences
+    bingads.v13.bulk.entities.feeds
     bingads.v13.bulk.entities.labels
     bingads.v13.bulk.entities.target_criterions
 
