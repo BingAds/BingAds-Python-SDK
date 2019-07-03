@@ -7,8 +7,6 @@ from output_helper import *
 
 def main(authorization_data):
 
-    errors=[]
-
     try:
         # The Bing Merchant Center Store Id cannot be retrieved via the Bulk service, 
         # so we'll use the Campaign Management service i.e., the GetBMCStoresByCustomerId service operation below.

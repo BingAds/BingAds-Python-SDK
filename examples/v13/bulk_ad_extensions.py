@@ -6,8 +6,6 @@ from output_helper import *
 
 def main(authorization_data):
 
-    errors=[]
-
     try:
 
         # Add a new campaign and associate it with ad extensions. 
