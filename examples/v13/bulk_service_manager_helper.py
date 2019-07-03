@@ -12,6 +12,7 @@ REVIEW_AD_EXTENSION_ID_KEY=-17
 SITELINK_AD_EXTENSION_ID_KEY=-18
 STRUCTURED_SNIPPET_AD_EXTENSION_ID_KEY=-19
 BUDGET_ID_KEY=-20
+FEED_ID_KEY=-21
 CAMPAIGN_ID_KEY=-123
 AD_GROUP_ID_KEY=-1234
 
@@ -48,9 +49,10 @@ def write_entities_and_upload_file(bulk_service_manager, upload_entities):
         result_file_name=RESULT_FILE_NAME,
         overwrite_result_file=True,
         upload_file_path=FILE_DIRECTORY+UPLOAD_FILE_NAME,
+        rename_upload_file_to_match_request_id=False,
         response_mode='ErrorsAndResults'
     )
-
+    
     bulk_file_path=bulk_service_manager.upload_file(file_upload_parameters, progress=output_percent_complete)
 
     download_entities=[]

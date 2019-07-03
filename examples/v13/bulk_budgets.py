@@ -6,8 +6,6 @@ from output_helper import *
 
 def main(authorization_data):
 
-    errors=[]
-
     try:
         # Add a budget that can be shared by campaigns in the same account.                
         # Map properties in the Bulk file to the BulkBudget.

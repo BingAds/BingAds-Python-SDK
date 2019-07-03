@@ -1,13 +1,15 @@
 from auth_helper import *
 from adinsight_example_helper import *
-from campaignmanagement_example_helper import *
+from bulk_service_manager_helper import *
+from output_helper import *
 
 # You must provide credentials in auth_helper.py.
 
 DOMAIN_NAME="contoso.com"
 LANGUAGE="EN"
 
-def get_ad_group_webpage_positive_page_content_example(ad_group_id):
+def get_ad_group_webpage_positive_custom_label_example(ad_group_id):
+    bulk_ad_group_dynamic_search_ad_target=BulkAdGroupDynamicSearchAdTarget()
     biddable_ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
     biddable_ad_group_criterion.Type='BiddableAdGroupCriterion'
     biddable_ad_group_criterion.AdGroupId=ad_group_id
@@ -16,20 +18,22 @@ def get_ad_group_webpage_positive_page_content_example(ad_group_id):
     biddable_ad_group_criterion.CriterionBid=fixed_bid
     conditions=campaign_service.factory.create('ArrayOfWebpageCondition')
     condition=set_elements_to_none(campaign_service.factory.create('WebpageCondition'))
-    condition.Operand='PageContent'
-    condition.Argument='flowers'
+    condition.Operand='CustomLabel'
+    condition.Argument='Label_1_3001'
     conditions.WebpageCondition.append(condition)
     webpage_parameter=set_elements_to_none(campaign_service.factory.create('WebpageParameter'))
     webpage_parameter.Conditions=conditions
-    webpage_parameter.CriterionName='Ad Group Webpage Positive Page Content Criterion'
+    webpage_parameter.CriterionName='Ad Group Webpage Positive Custom Label Criterion'
     webpage=set_elements_to_none(campaign_service.factory.create('Webpage'))
     webpage.Type='Webpage'
     webpage.Parameter=webpage_parameter
     biddable_ad_group_criterion.Criterion=webpage
+    bulk_ad_group_dynamic_search_ad_target.biddable_ad_group_criterion=biddable_ad_group_criterion
 
-    return biddable_ad_group_criterion
+    return bulk_ad_group_dynamic_search_ad_target
 
 def get_ad_group_webpage_positive_category_example(ad_group_id, category_name):
+    bulk_ad_group_dynamic_search_ad_target=BulkAdGroupDynamicSearchAdTarget()
     biddable_ad_group_criterion=set_elements_to_none(campaign_service.factory.create('BiddableAdGroupCriterion'))
     biddable_ad_group_criterion.Type='BiddableAdGroupCriterion'
     biddable_ad_group_criterion.AdGroupId=ad_group_id
@@ -48,10 +52,12 @@ def get_ad_group_webpage_positive_category_example(ad_group_id, category_name):
     webpage.Type='Webpage'
     webpage.Parameter=webpage_parameter
     biddable_ad_group_criterion.Criterion=webpage
+    bulk_ad_group_dynamic_search_ad_target.biddable_ad_group_criterion=biddable_ad_group_criterion
 
-    return biddable_ad_group_criterion
+    return bulk_ad_group_dynamic_search_ad_target
 
 def get_ad_group_webpage_negative_url_example(ad_group_id):
+    bulk_ad_group_negative_dynamic_search_ad_target=BulkAdGroupNegativeDynamicSearchAdTarget()
     negative_ad_group_criterion=set_elements_to_none(campaign_service.factory.create('NegativeAdGroupCriterion'))
     negative_ad_group_criterion.Type='NegativeAdGroupCriterion'
     negative_ad_group_criterion.AdGroupId=ad_group_id    
@@ -60,7 +66,7 @@ def get_ad_group_webpage_negative_url_example(ad_group_id):
     conditions=campaign_service.factory.create('ArrayOfWebpageCondition')
     condition=set_elements_to_none(campaign_service.factory.create('WebpageCondition'))
     condition.Operand='Url'
-    condition.Argument=DOMAIN_NAME
+    condition.Argument="https://{0}/3001".format(DOMAIN_NAME)
     conditions.WebpageCondition.append(condition)
     webpage_parameter=set_elements_to_none(campaign_service.factory.create('WebpageParameter'))
     webpage_parameter.Conditions=conditions
@@ -70,39 +76,51 @@ def get_ad_group_webpage_negative_url_example(ad_group_id):
     webpage.Type='Webpage'
     webpage.Parameter=webpage_parameter
     negative_ad_group_criterion.Criterion=webpage
+    bulk_ad_group_negative_dynamic_search_ad_target.negative_ad_group_criterion=negative_ad_group_criterion
 
-    return negative_ad_group_criterion
-
-def get_campaign_webpage_negative_url_example(campaign_id):
-    negative_campaign_criterion=set_elements_to_none(campaign_service.factory.create('NegativeCampaignCriterion'))
-    negative_campaign_criterion.Type='NegativeCampaignCriterion'
-    negative_campaign_criterion.CampaignId=campaign_id
-    
-    conditions=campaign_service.factory.create('ArrayOfWebpageCondition')
-    condition=set_elements_to_none(campaign_service.factory.create('WebpageCondition'))
-    condition.Argument=DOMAIN_NAME + "\\seattle"
-    condition.Operand='Url'
-    conditions.WebpageCondition.append(condition)
-
-    webpage_parameter=set_elements_to_none(campaign_service.factory.create('WebpageParameter'))
-    webpage_parameter.Conditions=conditions
-    webpage_parameter.CriterionName='Campaign Negative Webpage Url Criterion'
-
-    webpage=set_elements_to_none(campaign_service.factory.create('Webpage'))
-    webpage.Type='Webpage'
-    webpage.Parameter=webpage_parameter
-    negative_campaign_criterion.Criterion=webpage
-
-    return negative_campaign_criterion
+    return bulk_ad_group_negative_dynamic_search_ad_target
 
 def main(authorization_data):
 
     try:
+        
+        upload_entities=[]
+
+        # Setup a page feed that can be associated with one or more campaigns. 
+
+        bulk_feed=BulkFeed()        
+        bulk_feed.name="My PageFeed " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        bulk_feed.id=FEED_ID_KEY
+        bulk_feed.status='Active' 
+        bulk_feed.sub_type='PageFeed'
+        custom_attribute_0={}
+        custom_attribute_0['feedAttributeType']='Url'
+        custom_attribute_0['name']='Page Url'
+        custom_attribute_0['isPartOfKey']=True
+        custom_attribute_1={}
+        custom_attribute_1['feedAttributeType']='StringList'
+        custom_attribute_1['name']='Custom Label'
+        bulk_feed.custom_attributes=[]
+        bulk_feed.custom_attributes.append(custom_attribute_0)
+        bulk_feed.custom_attributes.append(custom_attribute_1)
+                
+        upload_entities.append(bulk_feed)
+
+        bulk_feed_item=BulkFeedItem()        
+        bulk_feed_item.feed_id=FEED_ID_KEY
+        feed_item_custom_attributes_string='{"Page Url":"https://' + DOMAIN_NAME + '/3001",' + \
+            '"Custom Label":["Label_1_3001","Label_2_3001"]}'
+        bulk_feed_item.custom_attributes=feed_item_custom_attributes_string
+        bulk_feed_item.status='Active'
+
+        upload_entities.append(bulk_feed_item)
+
         # To get started with dynamic search ads, first you'll need to add a new Campaign 
 	    # with its type set to DynamicSearchAds. When you create the campaign, you'll need to 
 	    # include a DynamicSearchAdsSetting that specifies the target web site domain and language.
+        # Page feeds can be associated at the campaign level via 'Source' and 'Page Feed Ids'.
 
-        campaigns=campaign_service.factory.create('ArrayOfCampaign')
+        bulk_campaign=BulkCampaign()
         campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.BudgetType='DailyBudgetStandard'
         campaign.CampaignType=['DynamicSearchAds']
@@ -110,65 +128,47 @@ def main(authorization_data):
         languages=campaign_service.factory.create('ns3:ArrayOfstring')
         languages.string.append('All')
         campaign.Languages=languages
-        campaign.Name="Women's Shoes " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
+        campaign.Name="Summer Sunglasses " + strftime("%a, %d %b %Y %H:%M:%S +0000", gmtime())
         settings=campaign_service.factory.create('ArrayOfSetting')
         setting=set_elements_to_none(campaign_service.factory.create('DynamicSearchAdsSetting'))
+        # Set the target website domain and language.
+        # Be sure to set the Source to AdvertiserSuppliedUrls or All, 
+        # otherwise the PageFeedIds will be ignored. 
         setting.DomainName=DOMAIN_NAME
         setting.Language=LANGUAGE
+        setting.Source='All'
+        page_feed_ids=campaign_service.factory.create('ns3:ArrayOflong')
+        page_feed_ids.long.append(FEED_ID_KEY)
+        setting.PageFeedIds=page_feed_ids
         settings.Setting.append(setting)
         campaign.Settings=settings
         campaign.TimeZone='PacificTimeUSCanadaTijuana'
-        campaigns.Campaign.append(campaign)
-
-        output_status_message("-----\nAddCampaigns:")
-        add_campaigns_response=campaign_service.AddCampaigns(
-            AccountId=authorization_data.account_id,
-            Campaigns=campaigns
-        )
-        campaign_ids={
-            'long': add_campaigns_response.CampaignIds['long'] if add_campaigns_response.CampaignIds['long'] else None
-        }
-        output_status_message("CampaignIds:")
-        output_array_of_long(campaign_ids)
-        output_status_message("PartialErrors:")
-        output_array_of_batcherror(add_campaigns_response.PartialErrors)
+        campaign.Id=CAMPAIGN_ID_KEY
+        bulk_campaign.campaign=campaign       
+        upload_entities.append(bulk_campaign)
 
         # Create a new ad group within the dynamic search ads campaign. 
-
-        ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
+        
+        bulk_ad_group=BulkAdGroup()
+        bulk_ad_group.campaign_id=CAMPAIGN_ID_KEY
         ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
-        ad_group.Name="Women's Red Shoe Sale"
+        ad_group.Id=AD_GROUP_ID_KEY
+        ad_group.Name="Sunglasses Sale"
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31
         end_date.Month=12
-        current_time=gmtime()
-        end_date.Year=current_time.tm_year + 1
+        end_date.Year=strftime("%Y", gmtime())
         ad_group.EndDate=end_date
         cpc_bid=campaign_service.factory.create('Bid')
         cpc_bid.Amount=0.09
         ad_group.CpcBid=cpc_bid
-        ad_groups.AdGroup.append(ad_group)
+        bulk_ad_group.ad_group=ad_group
+        upload_entities.append(bulk_ad_group)
 
-        output_status_message("-----\nAddAdGroups:")
-        add_ad_groups_response=campaign_service.AddAdGroups(
-            CampaignId=campaign_ids['long'][0],
-            AdGroups=ad_groups,
-            ReturnInheritedBidStrategyTypes=False
-        )
-        ad_group_ids={
-            'long': add_ad_groups_response.AdGroupIds['long'] if add_ad_groups_response.AdGroupIds['long'] else None
-        }
-        output_status_message("AdGroupIds:")
-        output_array_of_long(ad_group_ids)
-        output_status_message("PartialErrors:")
-        output_array_of_batcherror(add_ad_groups_response.PartialErrors)
-
-        # You can add one or more Webpage criterions to each ad group that helps determine 
-        # whether or not to serve dynamic search ads.
-
-        ad_group_criterions=campaign_service.factory.create('ArrayOfAdGroupCriterion')
-        ad_group_webpage_positive_page_content=get_ad_group_webpage_positive_page_content_example(ad_group_ids['long'][0])
-        ad_group_criterions.AdGroupCriterion.append(ad_group_webpage_positive_page_content)
+        # Create an auto target based on the custom label feed items created above e.g., "Label_1_3001".
+        
+        ad_group_webpage_positive_custom_label=get_ad_group_webpage_positive_custom_label_example(AD_GROUP_ID_KEY)
+        upload_entities.append(ad_group_webpage_positive_custom_label)
 
         # To discover the categories that you can use for Webpage criterion (positive or negative), 
         # use the GetDomainCategories operation with the Ad Insight service.
@@ -185,57 +185,22 @@ def main(authorization_data):
         # If any categories are available let's use one as a condition.
         if(categories is not None and len(categories) > 0):
             ad_group_webpage_positive_category=get_ad_group_webpage_positive_category_example(
-                ad_group_ids['long'][0], 
+                AD_GROUP_ID_KEY, 
                 categories['DomainCategory'][0].CategoryName
                 )
-            ad_group_criterions.AdGroupCriterion.append(ad_group_webpage_positive_category)
+            upload_entities.append(ad_group_webpage_positive_category)
 
         # If you want to exclude certain portions of your website, you can add negative Webpage 
         # criterion at the campaign and ad group level. 
 
-        ad_group_webpage_negative_url=get_ad_group_webpage_negative_url_example(ad_group_ids['long'][0])
-        ad_group_criterions.AdGroupCriterion.append(ad_group_webpage_negative_url)
-        
-        output_status_message("-----\nAddAdGroupCriterions:")
-        add_ad_group_criterions_response = campaign_service.AddAdGroupCriterions(
-            AdGroupCriterions=ad_group_criterions,
-            CriterionType='Webpage'
-        )
-        ad_group_criterion_ids={
-            'long': add_ad_group_criterions_response.AdGroupCriterionIds['long'] 
-            if add_ad_group_criterions_response.AdGroupCriterionIds['long'] else None
-        }
-        output_status_message("AdGroupCriterionIds:")
-        output_array_of_long(ad_group_criterion_ids)
-        output_status_message("NestedPartialErrors:")
-        output_array_of_batcherrorcollection(add_ad_group_criterions_response.NestedPartialErrors) 
-        
-        # The negative Webpage criterion at the campaign level applies to all ad groups 
-        # within the campaign; however, if you define ad group level negative Webpage criterion, 
-        # the campaign criterion is ignored for that ad group.
-
-        campaign_criterions=campaign_service.factory.create('ArrayOfCampaignCriterion')
-        campaign_webpage_negative_url = get_campaign_webpage_negative_url_example(campaign_ids['long'][0])
-        campaign_criterions.CampaignCriterion.append(campaign_webpage_negative_url)
-
-        output_status_message("-----\nAddCampaignCriterions:")
-        add_campaign_criterions_response = campaign_service.AddCampaignCriterions(
-            CampaignCriterions=campaign_criterions,
-            CriterionType='Webpage'
-        )
-        campaign_criterion_ids={
-            'long': add_campaign_criterions_response.CampaignCriterionIds['long'] 
-            if add_campaign_criterions_response.CampaignCriterionIds['long'] else None
-        }
-        output_status_message("CampaignCriterionIds:")
-        output_array_of_long(campaign_criterion_ids)
-        output_status_message("NestedPartialErrors:")
-        output_array_of_batcherrorcollection(add_campaign_criterions_response.NestedPartialErrors) 
+        ad_group_webpage_negative_url=get_ad_group_webpage_negative_url_example(AD_GROUP_ID_KEY)
+        upload_entities.append(ad_group_webpage_negative_url)
 
         # Finally you must add at least one DynamicSearchAd into the ad group. The ad title and display URL 
         # are generated automatically based on the website domain and language that you want to target.
 
-        ads=campaign_service.factory.create('ArrayOfAd')
+        bulk_dynamic_search_ad=BulkDynamicSearchAd()
+        bulk_dynamic_search_ad.ad_group_id=AD_GROUP_ID_KEY
         dynamic_search_ad=set_elements_to_none(campaign_service.factory.create('DynamicSearchAd'))
         dynamic_search_ad.Text='Find New Customers & Increase Sales!'
         dynamic_search_ad.TextPart2='Start Advertising on Contoso Today.'
@@ -246,29 +211,63 @@ def main(authorization_data):
         # The Final URL will be a dynamically selected landing page.
         # The final URL is distinct from the path that customers will see and click on in your ad.
         dynamic_search_ad.FinalUrls=None
-        ads.Ad.append(dynamic_search_ad)
-                
-        output_status_message("-----\nAddAds:")
-        add_ads_response=campaign_service.AddAds(
-            AdGroupId=ad_group_ids['long'][0],
-            Ads=ads
-        )
-        ad_ids={
-            'long': add_ads_response.AdIds['long'] if add_ads_response.AdIds['long'] else None
-        }
-        output_status_message("AdIds:")
-        output_array_of_long(ad_ids)
-        output_status_message("PartialErrors:")
-        output_array_of_batcherror(add_ads_response.PartialErrors)
+        bulk_dynamic_search_ad.ad=dynamic_search_ad
+        upload_entities.append(bulk_dynamic_search_ad)
+                 
+        # Upload and write the output
         
-        # Delete the campaign and everything it contains e.g., ad groups and ads.
+        output_status_message("-----\nAdding page feed, campaign, ad group, criterions, and ads...")
+        download_entities=write_entities_and_upload_file(
+            bulk_service_manager=bulk_service_manager, 
+            upload_entities=upload_entities)
 
-        output_status_message("-----\nDeleteCampaigns:")
-        campaign_service.DeleteCampaigns(
-            AccountId=authorization_data.account_id,
-            CampaignIds=campaign_ids
-        )
-        output_status_message("Deleted Campaign Id {0}".format(campaign_ids['long'][0]))
+        output_status_message("Upload results:")
+
+        feed_results=[]
+        campaign_results=[]
+
+        for entity in download_entities:
+            if isinstance(entity, BulkFeed):
+                feed_results.append(entity)
+                output_bulk_feeds([entity])
+            if isinstance(entity, BulkFeedItem):
+                output_bulk_feed_items([entity])
+            if isinstance(entity, BulkCampaign):
+                campaign_results.append(entity)
+                output_bulk_campaigns([entity])
+            if isinstance(entity, BulkAdGroup):
+                output_bulk_ad_groups([entity])
+            if isinstance(entity, BulkDynamicSearchAd):
+                output_bulk_dynamic_search_ads([entity])
+            if isinstance(entity, BulkAdGroupDynamicSearchAdTarget):
+                output_bulk_ad_group_dynamic_search_ad_targets([entity])
+            if isinstance(entity, BulkAdGroupNegativeDynamicSearchAdTarget):
+                output_bulk_ad_group_negative_dynamic_search_ad_targets([entity])
+
+        # Delete the feed and campaign and everything it contains e.g., ad groups and ads.
+                
+        upload_entities=[]
+
+        for feed_result in feed_results:
+            feed_result.status='Deleted'
+            upload_entities.append(feed_result)
+
+        for campaign_result in campaign_results:
+            campaign_result.campaign.Status='Deleted'
+            upload_entities.append(campaign_result)
+            
+        output_status_message("-----\nDeleting page feed, DSA campaign, and all contained entities...")
+        download_entities=write_entities_and_upload_file(
+            bulk_service_manager=bulk_service_manager, 
+            upload_entities=upload_entities)
+
+        output_status_message("Upload results:")
+
+        for entity in download_entities:
+            if isinstance(entity, BulkFeed):
+                output_bulk_feeds([entity])
+            if isinstance(entity, BulkCampaign):
+                output_bulk_campaigns([entity])
 
     except WebFault as ex:
         output_webfault_errors(ex)
@@ -276,16 +275,28 @@ def main(authorization_data):
         output_status_message(ex)
 
 # Main execution
-
 if __name__ == '__main__':
 
     print("Loading the web service client proxies...")
-
+    
     authorization_data=AuthorizationData(
         account_id=None,
         customer_id=None,
         developer_token=DEVELOPER_TOKEN,
         authentication=None,
+    )
+
+    adinsight_service=ServiceClient(
+        service='AdInsightService', 
+        version=13,
+        authorization_data=authorization_data, 
+        environment=ENVIRONMENT,
+    )     
+
+    bulk_service_manager=BulkServiceManager(
+        authorization_data=authorization_data, 
+        poll_interval_in_milliseconds=5000, 
+        environment=ENVIRONMENT,
     )
 
     campaign_service=ServiceClient(
@@ -294,14 +305,7 @@ if __name__ == '__main__':
         authorization_data=authorization_data, 
         environment=ENVIRONMENT,
     )
-    
-    adinsight_service=ServiceClient(
-        service='AdInsightService', 
-        version=13,
-        authorization_data=authorization_data, 
-        environment=ENVIRONMENT,
-    )     
 
-    authenticate(authorization_data)       
-
+    authenticate(authorization_data)
+        
     main(authorization_data)

@@ -7,8 +7,6 @@ from output_helper import *
 
 def main(authorization_data):
 
-    errors=[]
-
     try:
         # Download all campaigns, ad groups, and ads in the account.
         entities=['Campaigns', 'AdGroups', 'Ads']

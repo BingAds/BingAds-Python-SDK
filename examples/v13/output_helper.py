@@ -1,9 +1,7 @@
 from campaignmanagement_example_helper import *
+import json
 
 # Common
-
-def output_status_message(message):
-    print(message)
 
 def output_bing_ads_webfault_error(error):
     if hasattr(error, 'ErrorCode'):
@@ -93,19 +91,67 @@ def output_bulk_bid_suggestions(bid_suggestions):
         output_status_message("MainLine: {0}".format(bid_suggestions.main_line))
         output_status_message("FirstPage: {0}".format(bid_suggestions.first_page))
 
-def output_bulk_campaigns(bulk_entities):
+def output_bulk_feeds(bulk_entities):
     for entity in bulk_entities:
-        output_status_message("BulkCampaign:")
+        output_status_message("BulkFeed:")
         output_status_message("AccountId: {0}".format(entity.account_id))
         output_status_message("ClientId: {0}".format(entity.client_id))
+        output_status_message("CustomAttributes: {0}".format(json.dumps(entity.custom_attributes, sort_keys=True, indent=4, separators=(',', ': '))))
+        output_status_message("Id: {0}".format(entity.id))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+        output_status_message("Name: {0}".format(entity.name))
+        output_status_message("Status: {0}".format(entity.status))
+        output_status_message("SubType: {0}".format(entity.sub_type))
 
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_bulk_feed_items(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkFeedItem:")
+        output_status_message("AdGroupName: {0}".format(entity.ad_group))
+        output_status_message("AudienceId: {0}".format(entity.audience_id))
+        output_status_message("CampaignName: {0}".format(entity.campaign))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+        output_status_message("CustomAttributes: {0}".format(json.dumps(entity.custom_attributes, sort_keys=True, indent=4, separators=(',', ': '))))
+        if hasattr(entity, 'daytime_ranges') and entity.daytime_ranges is not None:
+            output_status_message("DayTimeRanges:")
+            for daytime_range in entity.daytime_ranges:
+                output_daytime(daytime_range)
+        output_status_message("DevicePreference: {0}".format(entity.device_preference))
+        output_status_message("EndDate: {0}".format(entity.end_date))
+        output_status_message("FeedId: {0}".format(entity.feed_id))
+        output_status_message("Id: {0}".format(entity.id))
+        output_status_message("IntentOption: {0}".format(entity.intent_option))
+        output_status_message("Keyword: {0}".format(entity.keyword))
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+        output_status_message("LocationId: {0}".format(entity.location_id))
+        output_status_message("MatchType: {0}".format(entity.match_type))
+        output_status_message("StartDate: {0}".format(entity.start_date))
+        output_status_message("Status: {0}".format(entity.status))
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_bulk_dynamic_search_ads(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkDynamicSearchAd:")
+        output_status_message("AdGroup Id: {0}".format(entity.ad_group_id))
+        output_status_message("AdGroup Name: {0}".format(entity.ad_group_name))
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+        
         if entity.last_modified_time is not None:
             output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
 
-        output_bulk_quality_score_data(entity.quality_score_data)
-
-        # Output the Campaign Management Campaign Object
-        output_campaign(entity.campaign)
+        # Output the Campaign Management DynamicSearchAd Object
+        output_ad(entity.dynamic_search_ad)
 
         if entity.has_errors:
             output_bulk_errors(entity.errors)
@@ -130,7 +176,6 @@ def output_bulk_expanded_text_ads(bulk_entities):
             output_bulk_errors(entity.errors)
 
         output_status_message('')
-
 
 def output_bulk_product_partitions(bulk_ad_group_product_partitions):
     """
@@ -606,6 +651,41 @@ def output_bulk_ad_group_remarketing_list_associations(bulk_entities):
 
         output_status_message('')
 
+def output_bulk_ad_group_dynamic_search_ad_targets(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkAdGroupDynamicSearchAdTarget:")
+        output_status_message("AdGroup Name: {0}".format(entity.ad_group_name))
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+        
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        # Output the Campaign Management BiddableAdGroupCriterion Object
+        output_biddableadgroupcriterion(entity.biddable_ad_group_criterion)
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
+
+def output_bulk_ad_group_negative_dynamic_search_ad_targets(bulk_entities):
+    for entity in bulk_entities:
+        output_status_message("BulkAdGroupNegativeDynamicSearchAdTarget:")
+        output_status_message("AdGroup Name: {0}".format(entity.ad_group_name))
+        output_status_message("Campaign Name: {0}".format(entity.campaign_name))
+        output_status_message("ClientId: {0}".format(entity.client_id))
+        
+        if entity.last_modified_time is not None:
+            output_status_message("LastModifiedTime: {0}".format(entity.last_modified_time))
+
+        # Output the Campaign Management NegativeAdGroupCriterion Object
+        output_negativeadgroupcriterion(entity.negative_ad_group_criterion)
+
+        if entity.has_errors:
+            output_bulk_errors(entity.errors)
+
+        output_status_message('')
 
 def output_bulk_budgets(bulk_entities):
     for entity in bulk_entities:

@@ -6,8 +6,6 @@ from output_helper import *
 
 def main(authorization_data):
 
-    errors=[]
-
     try:
         
         upload_entities=[]
