@@ -765,6 +765,10 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
                 condition.Operand = WebpageConditionOperand.PageTitle
             elif webpage_condition.lower() == 'pagecontent':
                 condition.Operand = WebpageConditionOperand.PageContent
+            elif webpage_condition.lower() == 'customlabel':
+                condition.Operand = WebpageConditionOperand.CustomLabel
+            elif webpage_condition.lower() == 'unknown':
+                condition.Operand = WebpageConditionOperand.Unknown
             else:
                 # TODO wait bug 54825 to be fixed
                 if webpage_condition.lower() == 'none':

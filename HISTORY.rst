@@ -1,6 +1,10 @@
 .. :changelog:
 
 Release History
+12.13.3.2(2019-07-04)
++++++++++++++++++++++++++
+* Add Bulk entity mapping for the CustomLabel dynamic ad target condition.
+
 12.13.3.1(2019-07-02)
 +++++++++++++++++++++++++
 * Fix import issue introduced by version 12.13.3, where clients would observe error ModuleNotFoundError: No module named 'bingads.v13.bulk.entities.feeds'.
