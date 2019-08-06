@@ -108,13 +108,13 @@ class ReportingDownloadOperation(object):
         headers = {
             'User-Agent': USER_AGENT,
         }
-        s = requests.Session()
-        s.mount('https://', TlsHttpAdapter())
-        timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
-        try:
-            r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
-        except requests.Timeout as ex:
-            raise FileDownloadException(ex)
+        with requests.Session() as s:
+            s.mount('https://', TlsHttpAdapter())
+            timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
+            try:
+                r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
+            except requests.Timeout as ex:
+                raise FileDownloadException(ex)
         r.raise_for_status()
         try:
             with open(zip_file_path, 'wb') as f:
