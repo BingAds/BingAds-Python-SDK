@@ -115,6 +115,10 @@ class ReportingServiceManager:
 
         if report_request is None:
             return
+        
+        if not hasattr(report_request, 'Time'):
+            return
+
 
         if hasattr(report_request.Time, 'ReportTimeZone') \
         and hasattr(report_request.Time.ReportTimeZone, 'value') \

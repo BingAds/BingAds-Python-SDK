@@ -1,6 +1,11 @@
 .. :changelog:
 
 Release History
+12.13.4(2019-08-09)
++++++++++++++++++++++++++
+* Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For more information please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/advertising/guides/release-notes.
+* Add a check for report_request time attribute to resolve issue 116: https://github.com/BingAds/BingAds-Python-SDK/issues/116.
+
 12.13.3.2(2019-07-04)
 +++++++++++++++++++++++++
 * Add Bulk entity mapping for the CustomLabel dynamic ad target condition.

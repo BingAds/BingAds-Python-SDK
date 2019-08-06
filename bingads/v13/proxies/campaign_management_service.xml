@@ -4675,6 +4675,36 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="SearchCompaniesRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="CompanyNameFilter" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="LanguageLocale" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SearchCompaniesResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Companies" nillable="true" type="tns:ArrayOfCompany" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfCompany">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Company" nillable="true" type="tns:Company" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCompany" nillable="true" type="tns:ArrayOfCompany" />
+         <xs:complexType name="Company">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="LogoUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element name="ProfileId" type="xs:long" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Company" nillable="true" type="tns:Company" />
       </xs:schema>
       <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
          <xs:complexType name="ArrayOfstring">
@@ -7247,6 +7277,9 @@
    <wsdl:message name="ICampaignManagementService_GetProfileDataFileUrl_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="SearchCompaniesRequest">
+      <wsdl:part name="parameters" element="tns:SearchCompaniesRequest" />
+   </wsdl:message>
    <wsdl:message name="SearchCompaniesRequest_Headers">
       <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
       <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
@@ -7256,8 +7289,17 @@
       <wsdl:part name="Password" element="tns:Password" />
       <wsdl:part name="UserName" element="tns:UserName" />
    </wsdl:message>
+   <wsdl:message name="SearchCompaniesResponse">
+      <wsdl:part name="parameters" element="tns:SearchCompaniesResponse" />
+   </wsdl:message>
    <wsdl:message name="SearchCompaniesResponse_Headers">
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_SearchCompanies_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q104="https://adapi.microsoft.com" name="detail" element="q104:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_SearchCompanies_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
       <wsdl:operation name="AddCampaigns">
@@ -7877,6 +7919,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetProfileDataFileUrlResponse" name="GetProfileDataFileUrlResponse" message="tns:GetProfileDataFileUrlResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetProfileDataFileUrlAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetProfileDataFileUrl_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetProfileDataFileUrlApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetProfileDataFileUrl_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="SearchCompanies">
+         <wsdl:input wsaw:Action="SearchCompanies" name="SearchCompaniesRequest" message="tns:SearchCompaniesRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/SearchCompaniesResponse" name="SearchCompaniesResponse" message="tns:SearchCompaniesResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/SearchCompaniesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_SearchCompanies_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/SearchCompaniesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_SearchCompanies_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -10242,6 +10290,29 @@
          </wsdl:input>
          <wsdl:output name="GetProfileDataFileUrlResponse">
             <soap:header message="tns:GetProfileDataFileUrlResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="SearchCompanies">
+         <soap:operation soapAction="SearchCompanies" style="document" />
+         <wsdl:input name="SearchCompaniesRequest">
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:SearchCompaniesRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="SearchCompaniesResponse">
+            <soap:header message="tns:SearchCompaniesResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
