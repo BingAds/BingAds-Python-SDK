@@ -646,7 +646,8 @@ class _UriOAuthService:
         if 'client_secret' in kwargs and kwargs['client_secret'] is None:
             del kwargs['client_secret']
 
-        r = requests.post(_UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['requireliveconnect'])], kwargs, verify=True)
+        # default timeout set to 300 secs
+        r = requests.post(_UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['requireliveconnect'])], kwargs, verify=True, timeout=300)
         try:
             r.raise_for_status()
         except Exception:
