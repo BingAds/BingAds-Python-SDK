@@ -42,6 +42,8 @@ LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('LocationIntentCri
 RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V12.create('RadiusCriterion')
 TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('TargetSetting'))
 CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('CoOpSetting'))
+TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('TextAsset'))
+ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V12.create('ImageAsset'))
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -402,13 +404,14 @@ def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
     
     for assetLinkContract in assetLinkContracts:
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V12.create('AssetLink')
+        asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V12.create('TextAsset')
         asset_link.Asset.Type = 'TextAsset'
-        asset_link.Asset.Id = assetLinkContract['id']
-        asset_link.Asset.Text = assetLinkContract['text']
-        asset_link.Asset.Name = assetLinkContract['name']
-        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
-        asset_link.PinnedField = assetLinkContract['pinnedField']
-        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        asset_link.Asset.Id = assetLinkContract['id'] if 'id' in assetLinkContract else None
+        asset_link.Asset.Text = assetLinkContract['text'] if 'text' in assetLinkContract else None
+        asset_link.Asset.Name = assetLinkContract['name'] if 'name' in assetLinkContract else None
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel'] if 'assetPerformanceLabel' in assetLinkContract else None
+        asset_link.PinnedField = assetLinkContract['pinnedField'] if 'pinnedField' in assetLinkContract else None
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus'] if 'editorialStatus' in assetLinkContract else None
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_ImageAssetLinks(entity):
@@ -416,17 +419,17 @@ def field_to_csv_ImageAssetLinks(entity):
         return None
     assetLinkContracts = []
     for assetLink in entity.AssetLink:
-        if assetLink.Asset is not None and assetLink.Asset.Type == 'ImageAsset':
+        if assetLink.Asset is not None and isinstance(assetLink.Asset, ImageAsset_Type):
             contract = {}
-            contract['cropHeight'] = assetLink.Asset.CropHeight
-            contract['cropWidth'] = assetLink.Asset.CropWidth
-            contract['cropX'] = assetLink.Asset.CropX
-            contract['cropY'] = assetLink.Asset.CropY
-            contract['id'] = assetLink.Asset.Id
-            contract['name'] = assetLink.Asset.Name
-            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
-            contract['editorialStatus'] = assetLink.EditorialStatus
-            contract['pinnedField'] = assetLink.PinnedField
+            contract['cropHeight'] = assetLink.Asset.CropHeight if hasattr(assetLink.Asset, 'CropHeight') else None
+            contract['cropWidth'] = assetLink.Asset.CropWidth if hasattr(assetLink.Asset, 'CropWidth') else None
+            contract['cropX'] = assetLink.Asset.CropX if hasattr(assetLink.Asset, 'CropX') else None
+            contract['cropY'] = assetLink.Asset.CropY if hasattr(assetLink.Asset, 'CropY') else None
+            contract['id'] = assetLink.Asset.Id if hasattr(assetLink.Asset, 'Id') else None
+            contract['name'] = assetLink.Asset.Name if hasattr(assetLink.Asset, 'Name') else None
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None
+            contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None
+            contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts)
@@ -439,16 +442,17 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
     
     for assetLinkContract in assetLinkContracts:
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V12.create('AssetLink')
+        asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V12.create('ImageAsset')
         asset_link.Asset.Type = 'ImageAsset'
-        asset_link.Asset.CropHeight = assetLinkContract['cropHeight']
-        asset_link.Asset.CropWidth = assetLinkContract['cropWidth']
-        asset_link.Asset.CropX = assetLinkContract['cropX']
-        asset_link.Asset.CropY = assetLinkContract['cropY']
-        asset_link.Asset.Id = assetLinkContract['id']
-        asset_link.Asset.Name = assetLinkContract['name']
-        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
-        asset_link.PinnedField = assetLinkContract['pinnedField']
-        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        asset_link.Asset.CropHeight = assetLinkContract['cropHeight'] if 'cropHeight' in assetLinkContract else None
+        asset_link.Asset.CropWidth = assetLinkContract['cropWidth'] if 'cropWidth' in assetLinkContract else None
+        asset_link.Asset.CropX = assetLinkContract['cropX'] if 'cropX' in assetLinkContract else None
+        asset_link.Asset.CropY = assetLinkContract['cropY'] if 'cropY' in assetLinkContract else None
+        asset_link.Asset.Id = assetLinkContract['id'] if 'id' in assetLinkContract else None
+        asset_link.Asset.Name = assetLinkContract['name'] if 'name' in assetLinkContract else None
+        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel'] if 'assetPerformanceLabel' in assetLinkContract else None
+        asset_link.PinnedField = assetLinkContract['pinnedField'] if 'pinnedField' in assetLinkContract else None
+        asset_link.EditorialStatus = assetLinkContract['editorialStatus'] if 'editorialStatus' in assetLinkContract else None
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_Rsa_TextAssetLinks(entity):
@@ -456,14 +460,14 @@ def field_to_csv_Rsa_TextAssetLinks(entity):
         return None
     assetLinkContracts = []
     for assetLink in entity.AssetLink:
-        if assetLink.Asset is not None and assetLink.Asset.Type == 'TextAsset':
+        if assetLink.Asset is not None and isinstance(assetLink.Asset, TextAsset_Type):
             contract = {}
-            contract['id'] = assetLink.Asset.Id
-            contract['name'] = assetLink.Asset.Name
-            contract['text'] = assetLink.Asset.Text
-            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel
-            contract['editorialStatus'] = assetLink.EditorialStatus
-            contract['pinnedField'] = assetLink.PinnedField
+            contract['id'] = assetLink.Asset.Id if hasattr(assetLink.Asset, 'Id') else None
+            contract['name'] = assetLink.Asset.Name if hasattr(assetLink.Asset, 'Name') else None
+            contract['text'] = assetLink.Asset.Text if hasattr(assetLink.Asset, 'Text') else None
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None
+            contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None
+            contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts)

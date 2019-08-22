@@ -1,6 +1,10 @@
 .. :changelog:
 
 Release History
+12.13.4.1(2019-08-23)
++++++++++++++++++++++++++
+* Write TextAsset and ImageAsset to the Bulk upload file without the Type explicitly set. 
+
 12.13.4(2019-08-09)
 +++++++++++++++++++++++++
 * Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For more information please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/advertising/guides/release-notes.
