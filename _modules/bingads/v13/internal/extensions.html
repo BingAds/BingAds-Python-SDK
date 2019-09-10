@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 12.13.4.1 documentation</title>
+    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 12.13.5 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.4.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -599,6 +599,11 @@
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;Amount&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">Amount</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Amount</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="bid_multiplier_bulk_str"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.bid_multiplier_bulk_str">[docs]</a><span class="k">def</span> <span class="nf">bid_multiplier_bulk_str</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">&#39;Multiplier&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">Multiplier</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">Multiplier</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="parse_minute"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.parse_minute">[docs]</a><span class="k">def</span> <span class="nf">parse_minute</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
     <span class="n">minute_number</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
@@ -1553,7 +1558,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.4.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v12.bulk.entities.bulk_ad_group_product_partition &#8212; Bing Ads SDK 12.13.4.1 documentation</title>
+    <title>bingads.v12.bulk.entities.bulk_ad_group_product_partition &#8212; Bing Ads SDK 12.13.5 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.4.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -39,7 +39,7 @@
 <span></span><span class="kn">from</span> <span class="nn">bingads.v12.bulk.entities</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span>
 <span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
-<span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_ComplexBulkMapping</span>
 <span class="kn">from</span> <span class="nn">bingads.v12.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">bingads.v12.bulk.entities.common</span> <span class="k">import</span> <span class="n">PerformanceData</span>
 <span class="c1"># from bingads.v12.internal.extensions import bulk_str</span>
@@ -47,7 +47,67 @@
 
 <span class="n">_BiddableAdGroupCriterion</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BiddableAdGroupCriterion&#39;</span><span class="p">))</span>
 <span class="n">_NegativeAdGroupCriterion</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NegativeAdGroupCriterion&#39;</span><span class="p">))</span>
+<span class="n">_FixedBid</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;FixedBid&#39;</span><span class="p">))</span>
 
+<div class="viewcode-block" id="csv_to_bidding"><a class="viewcode-back" href="../../../../../bingads.v12.bulk.entities.html#bingads.v12.bulk.entities.bulk_ad_group_product_partition.csv_to_bidding">[docs]</a><span class="k">def</span> <span class="nf">csv_to_bidding</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
+    <span class="n">success</span><span class="p">,</span> <span class="n">exclude</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">IsExcluded</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">exclude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">exclude</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="n">exclude</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">exclude</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span> <span class="ow">or</span> <span class="n">exclude</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
+        <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">elif</span> <span class="n">exclude</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">exclude</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
+        <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;IsExcluded can only be set to TRUE|FALSE in Ad Group Product Partition row&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">is_excluded</span><span class="p">:</span>
+        <span class="n">product_partition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductPartition&#39;</span><span class="p">)</span>
+        <span class="n">product_partition</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductCondition&#39;</span><span class="p">)</span>
+        <span class="n">product_partition</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ProductPartition&#39;</span>
+
+        <span class="n">negative_ad_group_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NegativeAdGroupCriterion&#39;</span><span class="p">)</span>
+        <span class="n">negative_ad_group_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">product_partition</span>
+        <span class="n">negative_ad_group_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;NegativeAdGroupCriterion&#39;</span>
+
+        <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span> <span class="o">=</span> <span class="n">negative_ad_group_criterion</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">product_partition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductPartition&#39;</span><span class="p">)</span>
+        <span class="n">product_partition</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductCondition&#39;</span><span class="p">)</span>
+        <span class="n">product_partition</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ProductPartition&#39;</span>
+
+        <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;FixedBid&#39;</span><span class="p">)</span>
+        <span class="n">bid</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;FixedBid&#39;</span>
+
+        <span class="n">biddable_ad_group_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BiddableAdGroupCriterion&#39;</span><span class="p">)</span>
+        <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">product_partition</span>
+        
+        <span class="n">success</span><span class="p">,</span> <span class="n">bid_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Bid</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">success</span> <span class="ow">and</span> <span class="n">bid_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bid_value</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">bid</span><span class="o">.</span><span class="n">Amount</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">bid_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">success</span><span class="p">,</span> <span class="n">bid_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">success</span> <span class="ow">and</span> <span class="n">bid_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">bid_value</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BidMultiplier&#39;</span><span class="p">)</span>
+                <span class="n">bid</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BidMultiplier&#39;</span>
+                <span class="n">bid</span><span class="o">.</span><span class="n">Multiplier</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">bid_value</span><span class="p">)</span>
+            
+        <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">bid</span>
+        <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BiddableAdGroupCriterion&#39;</span>
+
+        <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span> <span class="o">=</span> <span class="n">biddable_ad_group_criterion</span></div>
+
+<div class="viewcode-block" id="bidding_to_csv"><a class="viewcode-back" href="../../../../../bingads.v12.bulk.entities.html#bingads.v12.bulk.entities.bulk_ad_group_product_partition.bidding_to_csv">[docs]</a><span class="k">def</span> <span class="nf">bidding_to_csv</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="p">,</span> <span class="n">_NegativeAdGroupCriterion</span><span class="p">):</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">IsExcluded</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;True&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">IsExcluded</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+        <span class="n">bid</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span>
+        <span class="k">if</span> <span class="n">bid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bid</span><span class="p">,</span> <span class="n">_FixedBid</span><span class="p">):</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Bid</span><span class="p">]</span> <span class="o">=</span> <span class="n">fixed_bid_bulk_str</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">]</span> <span class="o">=</span> <span class="n">bid_multiplier_bulk_str</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BulkAdGroupProductPartition"><a class="viewcode-back" href="../../../../../bingads.v12.bulk.entities.html#bingads.v12.bulk.entities.bulk_ad_group_product_partition.BulkAdGroupProductPartition">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupProductPartition</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents an Ad Group Criterion that can be read or written in a bulk file.</span>
@@ -76,56 +136,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_read_is_excluded</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">row_value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">row_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">row_value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="n">row_value</span> <span class="o">=</span> <span class="n">row_value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">row_value</span> <span class="o">==</span> <span class="s1">&#39;yes&#39;</span> <span class="ow">or</span> <span class="n">row_value</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">:</span>
-            <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="n">row_value</span> <span class="o">==</span> <span class="s1">&#39;no&#39;</span> <span class="ow">or</span> <span class="n">row_value</span> <span class="o">==</span> <span class="s1">&#39;false&#39;</span><span class="p">:</span>
-            <span class="n">is_excluded</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;IsExcluded can only be set to TRUE|FALSE in Ad Group Product Partition row&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">is_excluded</span><span class="p">:</span>
-            <span class="n">product_partition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductPartition&#39;</span><span class="p">)</span>
-            <span class="n">product_partition</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductCondition&#39;</span><span class="p">)</span>
-            <span class="n">product_partition</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ProductPartition&#39;</span>
-
-            <span class="n">negative_ad_group_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NegativeAdGroupCriterion&#39;</span><span class="p">)</span>
-            <span class="n">negative_ad_group_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">product_partition</span>
-            <span class="n">negative_ad_group_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;NegativeAdGroupCriterion&#39;</span>
-
-            <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span> <span class="o">=</span> <span class="n">negative_ad_group_criterion</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">product_partition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductPartition&#39;</span><span class="p">)</span>
-            <span class="n">product_partition</span><span class="o">.</span><span class="n">Condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ProductCondition&#39;</span><span class="p">)</span>
-            <span class="n">product_partition</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;ProductPartition&#39;</span>
-
-            <span class="n">fixed_bid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;FixedBid&#39;</span><span class="p">)</span>
-            <span class="n">fixed_bid</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;FixedBid&#39;</span>
-
-            <span class="n">biddable_ad_group_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V12</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BiddableAdGroupCriterion&#39;</span><span class="p">)</span>
-            <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">product_partition</span>
-            <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">fixed_bid</span>
-            <span class="n">biddable_ad_group_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BiddableAdGroupCriterion&#39;</span>
-
-            <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span> <span class="o">=</span> <span class="n">biddable_ad_group_criterion</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_write_bid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
-        <span class="n">criterion</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">criterion</span><span class="p">,</span> <span class="n">_BiddableAdGroupCriterion</span><span class="p">)</span> <span class="ow">and</span> \
-                <span class="n">criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">fixed_bid_bulk_str</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="p">)</span>
-
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_read_bid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">,</span> <span class="n">row_value</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="p">,</span> <span class="n">_BiddableAdGroupCriterion</span><span class="p">):</span>
-            <span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">parse_fixed_bid</span><span class="p">(</span><span class="n">row_value</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">pass</span>
-
+				
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_write_destination_url</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">entity</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="p">,</span> <span class="n">_BiddableAdGroupCriterion</span><span class="p">):</span>
@@ -173,11 +184,9 @@
             <span class="k">pass</span>
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">IsExcluded</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="s1">&#39;True&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="p">,</span> <span class="n">_NegativeAdGroupCriterion</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkAdGroupProductPartition</span><span class="o">.</span><span class="n">_read_is_excluded</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="p">),</span>
+        
+        <span class="n">_ComplexBulkMapping</span><span class="p">(</span><span class="n">bidding_to_csv</span><span class="p">,</span> <span class="n">csv_to_bidding</span><span class="p">),</span>
+        
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
@@ -224,11 +233,7 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkAdGroupProductPartition</span><span class="o">.</span><span class="n">_get_condition_attribute</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group_criterion</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Condition</span><span class="p">,</span> <span class="s1">&#39;Attribute&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">Bid</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkAdGroupProductPartition</span><span class="o">.</span><span class="n">_write_bid</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkAdGroupProductPartition</span><span class="o">.</span><span class="n">_read_bid</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="p">),</span>
+        
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">DestinationUrl</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkAdGroupProductPartition</span><span class="o">.</span><span class="n">_write_destination_url</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
@@ -355,7 +360,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.4.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
