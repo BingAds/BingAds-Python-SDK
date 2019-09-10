@@ -1707,11 +1707,25 @@
                      <xs:element minOccurs="0" name="AlternativeText" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="DestinationUrl" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="DisplayText" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="FinalAppUrls" nillable="true" type="tns:ArrayOfAppUrl" />
                      <xs:element xmlns:q38="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q38:ArrayOfstring" />
                      <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string" />
                      <xs:element xmlns:q39="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q39:ArrayOfstring" />
                      <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ImageMediaIds" nillable="true" type="q40:ArrayOflong" />
+                     <xs:element minOccurs="0" name="Images" nillable="true" type="tns:ArrayOfAssetLink">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
                   </xs:sequence>
@@ -2017,6 +2031,7 @@
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
                   <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdExtensionIds" nillable="true" type="q51:ArrayOflong" />
                   <xs:element minOccurs="0" name="AdExtensionType" type="tns:AdExtensionsTypeFilter" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdExtensionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2039,6 +2054,17 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="AdExtensionsTypeFilter" nillable="true" type="tns:AdExtensionsTypeFilter" />
+         <xs:simpleType name="AdExtensionAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="Images" />
+                     <xs:enumeration value="DisplayText" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdExtensionAdditionalField" nillable="true" type="tns:AdExtensionAdditionalField" />
          <xs:element name="GetAdExtensionsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -2184,6 +2210,7 @@
                   <xs:element minOccurs="0" name="AdExtensionType" type="tns:AdExtensionsTypeFilter" />
                   <xs:element minOccurs="0" name="AssociationType" type="tns:AssociationType" />
                   <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntityIds" nillable="true" type="q54:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdExtensionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>

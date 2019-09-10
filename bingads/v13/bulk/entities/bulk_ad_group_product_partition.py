@@ -1,14 +1,74 @@
 from bingads.v13.bulk.entities import *
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
 from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
-from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
+from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.v13.internal.bulk.string_table import _StringTable
 # from bingads.v13.internal.extensions import bulk_str
 from bingads.v13.internal.extensions import *
 
 _BiddableAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion'))
 _NegativeAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('NegativeAdGroupCriterion'))
+_FixedBid = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('FixedBid'))
 
+def csv_to_bidding(row_values, entity):
+    success, exclude = row_values.try_get_value(_StringTable.IsExcluded)
+    if exclude is None:
+        exclude = ''
+    exclude = exclude.lower()
+    if exclude == 'yes' or exclude == 'true':
+        is_excluded = True
+    elif exclude == 'no' or exclude == 'false':
+        is_excluded = False
+    else:
+        raise ValueError('IsExcluded can only be set to TRUE|FALSE in Ad Group Product Partition row')
+    if is_excluded:
+        product_partition = _CAMPAIGN_OBJECT_FACTORY_V13.create('ProductPartition')
+        product_partition.Condition = _CAMPAIGN_OBJECT_FACTORY_V13.create('ProductCondition')
+        product_partition.Type = 'ProductPartition'
+
+        negative_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('NegativeAdGroupCriterion')
+        negative_ad_group_criterion.Criterion = product_partition
+        negative_ad_group_criterion.Type = 'NegativeAdGroupCriterion'
+
+        entity.ad_group_criterion = negative_ad_group_criterion
+    else:
+        product_partition = _CAMPAIGN_OBJECT_FACTORY_V13.create('ProductPartition')
+        product_partition.Condition = _CAMPAIGN_OBJECT_FACTORY_V13.create('ProductCondition')
+        product_partition.Type = 'ProductPartition'
+
+        bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('FixedBid')
+        bid.Type = 'FixedBid'
+
+        biddable_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion')
+        biddable_ad_group_criterion.Criterion = product_partition
+        
+        success, bid_value = row_values.try_get_value(_StringTable.Bid)
+        if success and bid_value is not None and bid_value != '':
+            bid.Amount = float(bid_value)
+        else:
+            success, bid_value = row_values.try_get_value(_StringTable.BidAdjustment)
+            if success and bid_value is not None and bid_value != '':
+                bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
+                bid.Type = 'BidMultiplier'
+                bid.Multiplier = float(bid_value)
+            
+        biddable_ad_group_criterion.CriterionBid = bid
+        biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
+
+        entity.ad_group_criterion = biddable_ad_group_criterion
+
+def bidding_to_csv(entity, row_values):
+    if isinstance(entity.ad_group_criterion, _NegativeAdGroupCriterion):
+        row_values[_StringTable.IsExcluded] = 'True'
+    else:
+        row_values[_StringTable.IsExcluded] = 'False'
+        bid = entity.ad_group_criterion.CriterionBid
+        if bid is None:
+            return
+        if isinstance(bid, _FixedBid):
+            row_values[_StringTable.Bid] = fixed_bid_bulk_str(bid)
+        else:
+            row_values[_StringTable.BidAdjustment] = bid_multiplier_bulk_str(bid)
 
 class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
     """ Represents an Ad Group Criterion that can be read or written in a bulk file.
@@ -134,11 +194,8 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
             pass
 
     _MAPPINGS = [
-        _SimpleBulkMapping(
-            _StringTable.IsExcluded,
-            field_to_csv=lambda c: 'True' if isinstance(c.ad_group_criterion, _NegativeAdGroupCriterion) else 'False',
-            csv_to_field=lambda c, v: BulkAdGroupProductPartition._read_is_excluded(c, v)
-        ),
+        _ComplexBulkMapping(bidding_to_csv, csv_to_bidding),
+
         _SimpleBulkMapping(
             _StringTable.Status,
             field_to_csv=lambda c: c.ad_group_criterion.Status,
@@ -184,11 +241,6 @@ class BulkAdGroupProductPartition(_SingleRecordBulkEntity):
             _StringTable.ProductValue1,
             field_to_csv=lambda c: BulkAdGroupProductPartition._get_condition_attribute(c),
             csv_to_field=lambda c, v: setattr(c.ad_group_criterion.Criterion.Condition, 'Attribute', v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Bid,
-            field_to_csv=lambda c: BulkAdGroupProductPartition._write_bid(c),
-            csv_to_field=lambda c, v: BulkAdGroupProductPartition._read_bid(c, v)
         ),
         _SimpleBulkMapping(
             _StringTable.DestinationUrl,

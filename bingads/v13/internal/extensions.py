@@ -562,6 +562,11 @@ def fixed_bid_bulk_str(value):
         return None
     return bulk_str(value.Amount)
 
+def bid_multiplier_bulk_str(value):
+    if value is None or not hasattr(value, 'Multiplier') or value.Multiplier is None:
+        return None
+    return bulk_str(value.Multiplier)
+
 def parse_minute(value):
     minute_number = int(value)
     if minute_number == 0:
