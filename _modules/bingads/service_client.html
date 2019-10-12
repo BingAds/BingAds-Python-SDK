@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.service_client &#8212; Bing Ads SDK 12.13.5 documentation</title>
+    <title>bingads.service_client &#8212; Bing Ads SDK 12.13.6 documentation</title>
     <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -142,8 +142,7 @@
         <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">)</span>
         <span class="n">service_info_dict</span> <span class="o">=</span> <span class="n">ServiceClient</span><span class="o">.</span><span class="n">_get_service_info_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">service_info_dict</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Cannot find version: [v</span><span class="si">{0}</span><span class="s1">] service: [</span><span class="si">{1}</span><span class="s1">] under environment: [</span><span class="si">{2}</span><span class="s1">]. </span><span class="se">\</span>
-<span class="s1">            Please notice that campaign management, bulk, ad intelligence and optimizer services were deprecated in v9&#39;</span><span class="p">,</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="nb">str</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;Cannot find version: [v</span><span class="si">{0}</span><span class="s1">] service: [</span><span class="si">{1}</span><span class="s1">] under environment: [</span><span class="si">{2}</span><span class="s1">].&#39;</span><span class="p">,</span>
                                         <span class="bp">self</span><span class="o">.</span><span class="n">_version</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_environment</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">service_info_dict</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">_service</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_environment</span><span class="p">)]</span><span class="o">.</span><span class="n">url</span>
 
@@ -404,7 +403,7 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.5 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Bing Ads SDK 12.13.6 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
