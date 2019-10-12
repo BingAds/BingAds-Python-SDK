@@ -104,8 +104,7 @@ class ServiceClient:
         key = (self._service, self._environment)
         service_info_dict = ServiceClient._get_service_info_dict(self._version)
         if key not in service_info_dict:
-            raise ValueError(str.format('Cannot find version: [v{0}] service: [{1}] under environment: [{2}]. \
-            Please notice that campaign management, bulk, ad intelligence and optimizer services were deprecated in v9',
+            raise ValueError(str.format('Cannot find version: [v{0}] service: [{1}] under environment: [{2}].',
                                         self._version, self._input_service, self._input_environment))
         return service_info_dict[(self._service, self._environment)].url
 

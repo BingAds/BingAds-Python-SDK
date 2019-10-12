@@ -1,6 +1,11 @@
 .. :changelog:
 
 Release History
+12.13.6(2019-10-12)
++++++++++++++++++++++++++
+* Mapped the Experiment Type column to ExperimentType via BulkExperiment. 
+* Updated Bing Ads API version 12 and 13 service proxies to reflect recent interface changes. For more information please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/advertising/guides/release-notes.
+
 12.13.5(2019-09-12)
 +++++++++++++++++++++++++
 * Map the Bid Adjustment column to a BidMultiplier via BulkAdGroupProductPartition. 

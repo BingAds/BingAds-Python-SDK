@@ -163,7 +163,7 @@ class _BulkAd(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.ad.FinalUrlSuffix, c.ad.Id),
-            csv_to_field=lambda c, v: setattr(c.ad, 'FinalUrlSuffix', v)
+            csv_to_field=lambda c, v: setattr(c.ad, 'FinalUrlSuffix', v if v else None)
         )
     ]
 

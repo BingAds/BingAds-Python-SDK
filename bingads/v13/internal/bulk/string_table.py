@@ -16,6 +16,7 @@ class _StringTable:
     BaseCampaignId = "Base Campaign Id"
     ExperimentCampaignId = "Experiment Campaign Id"
     ExperimentId = "Experiment Id"
+    ExperimentType = "Experiment Type"
     BudgetId = "Budget Id"
     AdGroup = "Ad Group"
     Keyword = "Keyword"

@@ -78,6 +78,11 @@ class BulkExperiment(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.experiment.ExperimentCampaignId),
             csv_to_field=lambda c, v: setattr(c.experiment, 'ExperimentCampaignId', int(v) if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.ExperimentType,
+            field_to_csv=lambda c: c.experiment.ExperimentType,
+            csv_to_field=lambda c, v: setattr(c.experiment, 'ExperimentType', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

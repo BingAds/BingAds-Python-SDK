@@ -262,7 +262,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.keyword.FinalUrlSuffix, c.keyword.Id),
-            csv_to_field=lambda c, v: setattr(c.keyword, 'FinalUrlSuffix', v)
+            csv_to_field=lambda c, v: setattr(c.keyword, 'FinalUrlSuffix', v if v else None)
         ),
     ]
 

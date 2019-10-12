@@ -172,6 +172,7 @@ class _CsvHeaders:
         _StringTable.BaseCampaignId,
         _StringTable.ExperimentCampaignId,
         _StringTable.ExperimentId,
+        _StringTable.ExperimentType,
 
         #CoOp
         _StringTable.BidOption,
