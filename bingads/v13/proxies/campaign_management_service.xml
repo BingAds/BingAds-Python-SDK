@@ -1531,6 +1531,20 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="IncludeViewThroughConversions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ProfileExpansionEnabled">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPropertyName" nillable="true" type="tns:AccountPropertyName" />
@@ -4200,6 +4214,7 @@
                <xs:sequence>
                   <xs:element xmlns:q91="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConversionGoalIds" nillable="true" type="q91:ArrayOflong" />
                   <xs:element minOccurs="0" name="ConversionGoalTypes" type="tns:ConversionGoalType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:ConversionGoalAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -4219,6 +4234,16 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="ConversionGoalType" nillable="true" type="tns:ConversionGoalType" />
+         <xs:simpleType name="ConversionGoalAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="ViewThroughConversionWindowInMinutes" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="ConversionGoalAdditionalField" nillable="true" type="tns:ConversionGoalAdditionalField" />
          <xs:element name="GetConversionGoalsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -4246,6 +4271,13 @@
                <xs:element minOccurs="0" name="TagId" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="TrackingStatus" nillable="true" type="tns:ConversionGoalTrackingStatus" />
                <xs:element minOccurs="0" name="Type" nillable="true" type="tns:ConversionGoalType" />
+               <xs:element minOccurs="0" name="ViewThroughConversionWindowInMinutes" nillable="true" type="xs:int">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ConversionGoal" nillable="true" type="tns:ConversionGoal" />
@@ -4386,6 +4418,7 @@
                <xs:sequence>
                   <xs:element xmlns:q92="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TagIds" nillable="true" type="q92:ArrayOflong" />
                   <xs:element minOccurs="0" name="ConversionGoalTypes" type="tns:ConversionGoalType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:ConversionGoalAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>

@@ -4,7 +4,7 @@ except ImportError:
     from urlparse import parse_qs, urlparse
     from urllib import quote_plus
 import json
-
+from datetime import datetime, timedelta
 import requests
 
 from .exceptions import OAuthTokenRequestException
@@ -212,6 +212,15 @@ class OAuthTokens:
         self._access_token_expires_in_seconds = access_token_expires_in_seconds
         self._refresh_token = refresh_token
         self._response_json = response_json
+        self._access_token_received_datetime=datetime.utcnow()
+        
+    @property
+    def access_token_received_datetime(self):
+        """ The datetime when access token was received
+        
+        :rtype: datetime
+        """
+        return self._access_token_received_datetime
 
     @property
     def access_token(self):
@@ -230,6 +239,19 @@ class OAuthTokens:
         """
 
         return self._access_token_expires_in_seconds
+
+
+    @property
+    def access_token_expired(self):
+        """ Whether the access token has been expired.
+
+        :rtype: bool
+        """
+
+        return self.access_token_expires_in_seconds is not None and \
+            self.access_token_expires_in_seconds > 0 and \
+            datetime.utcnow() > self.access_token_received_datetime + timedelta(seconds = self.access_token_expires_in_seconds)
+
 
     @property
     def refresh_token(self):

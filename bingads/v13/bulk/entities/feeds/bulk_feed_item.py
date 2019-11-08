@@ -60,6 +60,8 @@ class BulkFeedItem(_SingleRecordBulkEntity):
         self._location_id = None
         self._intent_option = None
         self._device_preference = None
+        self._adgroup_id = None
+        self._campaign_id = None
 
 
 
@@ -139,6 +141,16 @@ class BulkFeedItem(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_FeedItemAdSchedule(c, c.id),
             csv_to_field=lambda c, v: csv_to_field_FeedItemAdSchedule(c, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.TargetAdGroupId,
+            field_to_csv=lambda c: bulk_optional_str(c.adgroup_id, c.id),
+            csv_to_field=lambda c, v: setattr(c, 'adgroup_id', int(v) if v else '')
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TargetCampaignId,
+            field_to_csv=lambda c: bulk_optional_str(c.campaign_id, c.id),
+            csv_to_field=lambda c, v: setattr(c, 'campaign_id', int(v) if v else '')
+        ),
     ]
     
 
@@ -180,7 +192,33 @@ class BulkFeedItem(_SingleRecordBulkEntity):
     @location_id.setter
     def location_id(self, value):
         self._location_id = value
+        
+        
+    @property
+    def adgroup_id(self):
+        """ the id of the account which contains the feed
+        Corresponds to the 'Target Ad Group Id' field in the bulk file.
 
+        :rtype: long
+        """
+        return self._adgroup_id
+
+    @adgroup_id.setter
+    def adgroup_id(self, value):
+        self._adgroup_id = value
+
+    @property
+    def campaign_id(self):
+        """ the id of the account which contains the feed
+        Corresponds to the 'Target Campaign Id' field in the bulk file.
+
+        :rtype: long
+        """
+        return self._campaign_id
+
+    @campaign_id.setter
+    def campaign_id(self, value):
+        self._campaign_id = value
 
     @property
     def match_type(self):

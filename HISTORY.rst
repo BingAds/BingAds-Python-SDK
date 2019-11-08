@@ -1,6 +1,13 @@
 .. :changelog:
 
 Release History
+13.0.1(2019-11-08)
++++++++++++++++++++++++++
+* Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes.
+* Removed support for Bing Ads API Version 12 i.e., removed the service proxies and bulk entities.
+* Added mappings for the "Target Ad Group Id" and "Target Campaign Id" bulk columns in BulkFeedItem.
+* Added mappings for the "Include View Through Conversions" and "Profile Expansion Enabled" bulk columns in BulkAccount.
+
 12.13.6(2019-10-12)
 +++++++++++++++++++++++++
 * Mapped the Experiment Type column to ExperimentType via BulkExperiment. 

@@ -6,7 +6,7 @@ Bing Ads Python SDK
         :target: https://pypi.python.org/pypi/bingads
 
 
-The Bing Ads Python Software Development Kit (SDK) Version 12.13 enhances the experience of developing Bing Ads applications
+The Bing Ads Python Software Development Kit (SDK) Version 13.0 enhances the experience of developing Bing Ads applications
 with the Python programming language.
 The SDK includes proxy classes for all Bing Ads API web services and abstracts the low level details of authentication with OAuth.
 You can also read and write bulk files with the SDK BulkFileReader and BulkFileWriter,

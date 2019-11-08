@@ -56,6 +56,8 @@ class _StringTable:
     Feed = "Feed"
     FeedItem = "Feed Item"
     FeedName = "Feed Name"
+    TargetAdGroupId = 'Target Ad Group Id'
+    TargetCampaignId = 'Target Campaign Id'
     CustomAttributes = "Custom Attributes";
     PageFeedIds = "Page Feed Ids";
     PhysicalIntent = "Physical Intent"
@@ -78,6 +80,8 @@ class _StringTable:
     MSCLKIDAutoTaggingEnabled = "MSCLKID Auto Tagging Enabled"
     LastModifiedTime = "Modified Time"
     AdFormatPreference = "Ad Format Preference"
+    IncludeViewThroughConversions = "Include View Through Conversions"
+    ProfileExpansionEnabled = "Profile Expansion Enabled"
 
     # Entity Types
     SemanticVersion = "Format Version"

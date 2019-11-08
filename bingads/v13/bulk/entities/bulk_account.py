@@ -24,6 +24,8 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._customer_id = customer_id
         self._sync_time = sync_time
         self._msclkid_auto_tagging_enabled = None
+        self._include_view_through_conversions = None
+        self._profile_expansion_enabled = None
         self._tracking_url_template = None
         self._final_url_suffix = None
 
@@ -71,6 +73,22 @@ class BulkAccount(_SingleRecordBulkEntity):
         :rtype: bool
         """
         return self._msclkid_auto_tagging_enabled    
+    
+    @property
+    def include_view_through_conversions(self):
+        """
+        :return: The 'Include View Through Conversions' field of the account
+        :rtype: bool
+        """
+        return self._include_view_through_conversions    
+    
+    @property
+    def profile_expansion_enabled(self):
+        """
+        :return: The 'Profile Expansion Enabled' field of the account
+        :rtype: bool
+        """
+        return self._profile_expansion_enabled    
     
     @property
     def tracking_url_template(self):
@@ -124,6 +142,16 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.final_url_suffix, c.id),
             csv_to_field=lambda c, v: setattr(c, '_final_url_suffix', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.IncludeViewThroughConversions,
+            field_to_csv=lambda c: bulk_str(c.include_view_through_conversions),
+            csv_to_field=lambda c, v: setattr(c, '_include_view_through_conversions', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.ProfileExpansionEnabled,
+            field_to_csv=lambda c: bulk_str(c.profile_expansion_enabled),
+            csv_to_field=lambda c, v: setattr(c, '_profile_expansion_enabled', parse_bool(v))
         ),
     ]
 

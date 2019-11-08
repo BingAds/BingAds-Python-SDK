@@ -1,5 +1,5 @@
-from suds.client import Client, Factory, WebFault, ObjectCache  # noqa
-
+from suds.client import Client, Factory, WebFault
+from suds.cache import ObjectCache
 from .headerplugin import HeaderPlugin
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT
@@ -7,6 +7,7 @@ from .manifest import USER_AGENT
 from getpass import getuser
 from tempfile import gettempdir
 from os import path
+from datetime import datetime
 
 
 class ServiceClient:
@@ -195,8 +196,6 @@ class ServiceClient:
         :param version:
         :return: int version
         """
-        if version == 'v12' or version == 12:
-            return 12
         if version == 'v13' or version == 13:
             return 13
         raise ValueError(str.format('version error: [{0}] is not supported.', version))
@@ -245,7 +244,12 @@ class _ServiceCall:
         self._name = name
 
     def __call__(self, *args, **kwargs):
-        need_to_refresh_token = False
+        need_to_refresh_token = self.service_client.refresh_oauth_tokens_automatically \
+            and hasattr(self.service_client.authorization_data, 'authentication') \
+            and isinstance(self.service_client.authorization_data.authentication, OAuthAuthorization) \
+            and self.service_client.authorization_data.authentication.oauth_tokens is not None \
+            and self.service_client.authorization_data.authentication.oauth_tokens.access_token_expired
+
         while True:
             if need_to_refresh_token:
                 authentication = self.service_client.authorization_data.authentication
@@ -293,11 +297,6 @@ from suds.sudsobject import Property
 from suds.sax.text import Text
 
 
-_CAMPAIGN_MANAGEMENT_SERVICE_V12 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v12/proxies/campaign_management_service.xml'))
-_CAMPAIGN_OBJECT_FACTORY_V12 = _CAMPAIGN_MANAGEMENT_SERVICE_V12.factory
-_CAMPAIGN_OBJECT_FACTORY_V12.object_cache = {}
-_CAMPAIGN_OBJECT_FACTORY_V12.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V12.create
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
     'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/campaign_management_service.xml'))
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory

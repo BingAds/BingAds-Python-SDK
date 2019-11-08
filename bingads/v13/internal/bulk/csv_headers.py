@@ -334,6 +334,8 @@ class _CsvHeaders:
         
         # Account
         _StringTable.MSCLKIDAutoTaggingEnabled,
+        _StringTable.IncludeViewThroughConversions,
+        _StringTable.ProfileExpansionEnabled,
         
         _StringTable.FinalUrlSuffix,
         
@@ -341,7 +343,8 @@ class _CsvHeaders:
         _StringTable.CustomAttributes,
         _StringTable.FeedName,
         _StringTable.PhysicalIntent,
-
+        _StringTable.TargetAdGroupId,
+        _StringTable.TargetCampaignId
     ]
 
     @staticmethod
