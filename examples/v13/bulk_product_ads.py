@@ -47,7 +47,7 @@ def main(authorization_data):
         bulk_campaign.campaign=campaign
         upload_entities.append(bulk_campaign)
 
-        # Optionally, you can create a ProductScope criterion that will be associated with your Bing Shopping campaign. 
+        # Optionally, you can create a ProductScope criterion that will be associated with your Microsoft Shopping campaign. 
         # You'll also be able to add more specific product conditions for each ad group.
 
         bulk_campaign_product_scope=BulkCampaignProductScope()
@@ -199,7 +199,7 @@ def main(authorization_data):
         #The direct children of any node must have the same Operand. 
         #For this example we will use CategoryL1 nodes as children of the root. 
         #For a list of valid CategoryL1 through CategoryL5 values, see the Bing Category Taxonomy:
-        #http://go.microsoft.com/fwlink?LinkId=507666
+        #https://go.microsoft.com/fwlink?LinkId=507666
         
         animals_condition=campaign_service.factory.create('ProductCondition')
         animals_condition.Operand='CategoryL1'

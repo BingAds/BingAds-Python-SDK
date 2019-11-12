@@ -130,7 +130,7 @@ def main(authorization_data):
         responsive_search_ad.Path2='shoe sale'
         responsive_search_ad.Type='ResponsiveSearch'
         final_urls=campaign_service.factory.create('ns3:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        final_urls.string.append('https://www.contoso.com/womenshoesale')
         responsive_search_ad.FinalUrls=final_urls
         ads.Ad.append(responsive_search_ad)
         

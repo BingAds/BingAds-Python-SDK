@@ -1073,6 +1073,39 @@ def output_array_of_productmatchcountreportrequest(data_objects):
     for data_object in data_objects['ProductMatchCountReportRequest']:
         output_productmatchcountreportrequest(data_object)
 
+def output_productnegativekeywordconflictreportfilter(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_productnegativekeywordconflictreportfilter * * *")
+    output_status_message("AccountStatus: {0}".format(data_object.AccountStatus))
+    output_status_message("AdGroupStatus: {0}".format(data_object.AdGroupStatus))
+    output_status_message("CampaignStatus: {0}".format(data_object.CampaignStatus))
+    output_status_message("* * * End output_productnegativekeywordconflictreportfilter * * *")
+
+def output_array_of_productnegativekeywordconflictreportfilter(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ProductNegativeKeywordConflictReportFilter']:
+        output_productnegativekeywordconflictreportfilter(data_object)
+
+def output_productnegativekeywordconflictreportrequest(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_productnegativekeywordconflictreportrequest * * *")
+    output_status_message("Columns:")
+    output_array_of_productnegativekeywordconflictreportcolumn(data_object.Columns)
+    output_status_message("Filter:")
+    output_productnegativekeywordconflictreportfilter(data_object.Filter)
+    output_status_message("Scope:")
+    output_accountthroughadgroupreportscope(data_object.Scope)
+    output_status_message("* * * End output_productnegativekeywordconflictreportrequest * * *")
+
+def output_array_of_productnegativekeywordconflictreportrequest(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ProductNegativeKeywordConflictReportRequest']:
+        output_productnegativekeywordconflictreportrequest(data_object)
+
 def output_productpartitionperformancereportfilter(data_object):
     if data_object is None:
         return
@@ -1325,6 +1358,8 @@ def output_reportrequest(data_object):
         output_productdimensionperformancereportrequest(data_object)
     if data_object.Type == 'ProductMatchCountReportRequest':
         output_productmatchcountreportrequest(data_object)
+    if data_object.Type == 'ProductNegativeKeywordConflictReportRequest':
+        output_productnegativekeywordconflictreportrequest(data_object)
     if data_object.Type == 'ProductPartitionPerformanceReportRequest':
         output_productpartitionperformancereportrequest(data_object)
     if data_object.Type == 'ProductPartitionUnitPerformanceReportRequest':
@@ -2107,6 +2142,18 @@ def output_array_of_productmatchcountreportcolumn(value_sets):
     output_status_message("Array Of ProductMatchCountReportColumn:\n")
     for value_set in value_sets['ProductMatchCountReportColumn']:
         output_productmatchcountreportcolumn(value_set)
+
+def output_productnegativekeywordconflictreportcolumn(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_productnegativekeywordconflictreportcolumn(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ProductNegativeKeywordConflictReportColumn:\n")
+    for value_set in value_sets['ProductNegativeKeywordConflictReportColumn']:
+        output_productnegativekeywordconflictreportcolumn(value_set)
 
 def output_calldetailreportcolumn(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

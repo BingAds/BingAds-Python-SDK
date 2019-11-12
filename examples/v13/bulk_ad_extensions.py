@@ -25,7 +25,7 @@ def main(authorization_data):
 
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
         final_urls=campaign_service.factory.create('ns3:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        final_urls.string.append('https://www.contoso.com/womenshoesale')
 
         bulk_action_ad_extension=BulkActionAdExtension()
         bulk_action_ad_extension.account_id=authorization_data.account_id
@@ -232,7 +232,7 @@ def main(authorization_data):
         review_ad_extension.IsExact=True
         review_ad_extension.Source="Review Source Name"
         review_ad_extension.Text="Review Text"
-        review_ad_extension.Url="http://review.contoso.com" # The Url of the third-party review. This is not your business Url.
+        review_ad_extension.Url="https://review.contoso.com" # The Url of the third-party review. This is not your business Url.
         review_ad_extension.Status=None
         review_ad_extension.Id=REVIEW_AD_EXTENSION_ID_KEY
         bulk_review_ad_extension.review_ad_extension=review_ad_extension

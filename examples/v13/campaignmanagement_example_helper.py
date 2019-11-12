@@ -865,6 +865,22 @@ def output_array_of_campaignnegativesites(data_objects):
     for data_object in data_objects['CampaignNegativeSites']:
         output_campaignnegativesites(data_object)
 
+def output_company(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_company * * *")
+    output_status_message("LogoUrl: {0}".format(data_object.LogoUrl))
+    output_status_message("Name: {0}".format(data_object.Name))
+    output_status_message("ProfileId: {0}".format(data_object.ProfileId))
+    output_status_message("Status: {0}".format(data_object.Status))
+    output_status_message("* * * End output_company * * *")
+
+def output_array_of_company(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['Company']:
+        output_company(data_object)
+
 def output_conversiongoal(data_object):
     if data_object is None:
         return
@@ -881,6 +897,7 @@ def output_conversiongoal(data_object):
     output_status_message("TagId: {0}".format(data_object.TagId))
     output_status_message("TrackingStatus: {0}".format(data_object.TrackingStatus))
     output_status_message("Type: {0}".format(data_object.Type))
+    output_status_message("ViewThroughConversionWindowInMinutes: {0}".format(data_object.ViewThroughConversionWindowInMinutes))
     if data_object.Type == 'AppInstallGoal':
         output_appinstallgoal(data_object)
     if data_object.Type == 'DurationGoal':
@@ -1466,6 +1483,7 @@ def output_imageadextension(data_object):
     output_status_message("AlternativeText: {0}".format(data_object.AlternativeText))
     output_status_message("Description: {0}".format(data_object.Description))
     output_status_message("DestinationUrl: {0}".format(data_object.DestinationUrl))
+    output_status_message("DisplayText: {0}".format(data_object.DisplayText))
     output_status_message("FinalAppUrls:")
     output_array_of_appurl(data_object.FinalAppUrls)
     output_status_message("FinalMobileUrls:")
@@ -1475,6 +1493,8 @@ def output_imageadextension(data_object):
     output_array_of_string(data_object.FinalUrls)
     output_status_message("ImageMediaIds:")
     output_array_of_long(data_object.ImageMediaIds)
+    output_status_message("Images:")
+    output_array_of_assetlink(data_object.Images)
     output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
     output_status_message("UrlCustomParameters:")
     output_customparameters(data_object.UrlCustomParameters)
@@ -2988,6 +3008,18 @@ def output_array_of_adextensionstypefilter(value_sets):
     for value_set in value_sets['AdExtensionsTypeFilter']:
         output_adextensionstypefilter(value_set)
 
+def output_adextensionadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adextensionadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdExtensionAdditionalField:\n")
+    for value_set in value_sets['AdExtensionAdditionalField']:
+        output_adextensionadditionalfield(value_set)
+
 def output_associationtype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -3275,6 +3307,18 @@ def output_array_of_conversiongoaltype(value_sets):
     output_status_message("Array Of ConversionGoalType:\n")
     for value_set in value_sets['ConversionGoalType']:
         output_conversiongoaltype(value_set)
+
+def output_conversiongoaladditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_conversiongoaladditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ConversionGoalAdditionalField:\n")
+    for value_set in value_sets['ConversionGoalAdditionalField']:
+        output_conversiongoaladditionalfield(value_set)
 
 def output_conversiongoalcounttype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

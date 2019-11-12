@@ -44,7 +44,7 @@ def main(authorization_data):
 
         if uet_tags is None or len(uet_tags) < 1:
             output_status_message(
-                string.Format("You do not have any UET tags registered for CustomerId {0}.", authorizationData.CustomerId)
+                "You do not have any UET tags registered for CustomerId {0}.".format(authorization_data.customer_id)
             )
             sys.exit(0)
         
@@ -179,10 +179,13 @@ def main(authorization_data):
                               'PagesViewedPerVisit ' \
                               'Url'
         
+        return_additional_fields = 'ViewThroughConversionWindowInMinutes'
+
         output_status_message("-----\nGetConversionGoalsByIds:")
         get_conversion_goals_response = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
-            ConversionGoalTypes=conversion_goal_types
+            ConversionGoalTypes=conversion_goal_types,
+            ReturnAdditionalFields=return_additional_fields
         )
         output_status_message("ConversionGoals:")
         output_array_of_conversiongoal(get_conversion_goals_response.ConversionGoals)
@@ -266,7 +269,8 @@ def main(authorization_data):
         output_status_message("-----\nGetConversionGoalsByIds:")
         get_conversion_goals_response = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
-            ConversionGoalTypes=conversion_goal_types)
+            ConversionGoalTypes=conversion_goal_types,
+            ReturnAdditionalFields=return_additional_fields)
         output_status_message("ConversionGoals:")
         output_array_of_conversiongoal(get_conversion_goals_response.ConversionGoals)
         output_status_message("PartialErrors:")

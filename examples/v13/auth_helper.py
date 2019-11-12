@@ -15,7 +15,7 @@ ENVIRONMENT='sandbox' # If you use 'production' then you must also update the DE
 
 # The CLIENT_ID is required and CLIENT_STATE is recommended.
 # The REFRESH_TOKEN should always be in a secure location.
-CLIENT_ID='ClientIdGoesHere'
+CLIENT_ID='db41b09d-6e50-4f4a-90ac-5a99caefb52f'
 CLIENT_STATE='ClientStateGoesHere'
 REFRESH_TOKEN="refresh.txt"
 
