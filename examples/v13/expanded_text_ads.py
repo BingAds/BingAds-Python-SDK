@@ -98,7 +98,7 @@ def main(authorization_data):
         expanded_text_ad.Path2='shoe sale'
         expanded_text_ad.Type='ExpandedText'
         final_urls=campaign_service.factory.create('ns3:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        final_urls.string.append('https://www.contoso.com/womenshoesale')
         expanded_text_ad.FinalUrls=final_urls
         ads.Ad.append(expanded_text_ad)
         

@@ -104,7 +104,7 @@ def main(authorization_data):
         responsive_ad.BusinessName="Contoso"
         responsive_ad.CallToAction='AddToCart'
         final_urls=campaign_service.factory.create('ns3:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        final_urls.string.append('https://www.contoso.com/womenshoesale')
         responsive_ad.FinalUrls=final_urls
         responsive_ad.Headline="Fast & Easy Setup"
         # You are only required to provide a landscape image asset. 

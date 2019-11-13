@@ -52,10 +52,13 @@ def main(authorization_data):
         
         conversion_goal_types='OfflineConversion'
         
+        return_additional_fields = 'ViewThroughConversionWindowInMinutes'
+        
         output_status_message("-----\nGetConversionGoalsByIds:")
         get_conversion_goals_by_ids_response = campaign_service.GetConversionGoalsByIds(
             ConversionGoalIds={'long': conversion_goal_ids}, 
-            ConversionGoalTypes=conversion_goal_types
+            ConversionGoalTypes=conversion_goal_types,
+            ReturnAdditionalFields=return_additional_fields
         )
         output_status_message("ConversionGoals:")
         output_array_of_conversiongoal(get_conversion_goals_by_ids_response.ConversionGoals)

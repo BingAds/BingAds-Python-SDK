@@ -68,7 +68,7 @@ def main(authorization_data):
 
         ad_extensions=campaign_service.factory.create('ArrayOfAdExtension')
         final_urls=campaign_service.factory.create('ns3:ArrayOfstring')
-        final_urls.string.append('http://www.contoso.com/womenshoesale')
+        final_urls.string.append('https://www.contoso.com/womenshoesale')
 
         action_ad_extension=set_elements_to_none(campaign_service.factory.create('ActionAdExtension'))
         action_ad_extension.ActionType='ActNow'
@@ -213,7 +213,7 @@ def main(authorization_data):
         review_ad_extension.Source="Review Source Name"
         review_ad_extension.Text="Review Text"
         # The Url of the third-party review. This is not your business Url.
-        review_ad_extension.Url="http://review.contoso.com" 
+        review_ad_extension.Url="https://review.contoso.com" 
         ad_extensions.AdExtension.append(review_ad_extension)
 
         sitelink_ad_extension=set_elements_to_none(campaign_service.factory.create('SitelinkAdExtension'))
@@ -301,6 +301,8 @@ def main(authorization_data):
 
         ad_extensions_type_filter = 'LocationAdExtension'
 
+        return_additional_fields = 'DisplayText Images'
+
         # In this example partial errors will be returned for indices where the ad extensions 
         # are not location ad extensions.
         # This is an example, and ideally you would only send the required ad extension IDs.
@@ -309,7 +311,8 @@ def main(authorization_data):
         get_ad_extensions_by_ids_response=campaign_service.GetAdExtensionsByIds(
             AccountId=authorization_data.account_id,
             AdExtensionIds={'long': ad_extension_ids},
-            AdExtensionType=ad_extensions_type_filter
+            AdExtensionType=ad_extensions_type_filter,
+            ReturnAdditionalFields=return_additional_fields
         )
         ad_extensions={
             'AdExtension': get_ad_extensions_by_ids_response.AdExtensions['AdExtension'] 
@@ -353,7 +356,8 @@ def main(authorization_data):
         get_ad_extensions_by_ids_response=campaign_service.GetAdExtensionsByIds(
             AccountId=authorization_data.account_id,
             AdExtensionIds={'long': update_extension_ids},
-            AdExtensionType=ad_extensions_type_filter
+            AdExtensionType=ad_extensions_type_filter,
+            ReturnAdditionalFields=return_additional_fields
         )
         ad_extensions={
             'AdExtension': get_ad_extensions_by_ids_response.AdExtensions['AdExtension'] 
@@ -420,7 +424,7 @@ def get_image_media(
 def get_bmp_base64_string(image_file_name):
     image = open(image_file_name, 'rb') 
     image_bytes = image.read() 
-    base64_string = base64.encodestring(image_bytes)
+    base64_string = base64.b64encode(image_bytes).decode("utf-8")
     return base64_string
 
 # Main execution
