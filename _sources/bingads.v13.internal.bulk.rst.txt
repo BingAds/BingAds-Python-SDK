@@ -91,6 +91,14 @@ bingads.v13.internal.bulk.object\_writer module
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.internal.bulk.record\_reader module
+-----------------------------------------------
+
+.. automodule:: bingads.v13.internal.bulk.record_reader
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.internal.bulk.row\_values module
 --------------------------------------------
 
