@@ -3319,6 +3319,13 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfSharedListItem" nillable="true" type="tns:ArrayOfSharedListItem" />
+         <xs:simpleType name="EntityScope">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Account" />
+               <xs:enumeration value="Customer" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:element name="AddSharedEntityResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3902,13 +3909,6 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CustomerAccountShareAssociation" nillable="true" type="tns:CustomerAccountShareAssociation" />
-         <xs:simpleType name="EntityScope">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="Account" />
-               <xs:enumeration value="Customer" />
-            </xs:restriction>
-         </xs:simpleType>
-         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:complexType name="RemarketingList">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Audience">

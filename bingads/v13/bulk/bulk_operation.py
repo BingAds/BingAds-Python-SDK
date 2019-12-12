@@ -12,7 +12,7 @@ import shutil
 from .bulk_operation_status import *
 from .bulk_operation_progress_info import *
 from .exceptions import *
-from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration
+from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration, operation_errorcode_of_exception
 from bingads.exceptions import *
 
 from bingads.service_client import ServiceClient

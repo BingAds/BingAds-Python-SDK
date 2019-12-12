@@ -61,3 +61,17 @@ def errorcode_of_exception(ex):
             else:
                 return ad_api_errors.Code
     return -1
+
+
+def operation_errorcode_of_exception(ex):
+    if isinstance(ex, WebFault):
+        if hasattr(ex.fault, 'detail') \
+                and hasattr(ex.fault.detail, 'ApiFaultDetail') \
+                and hasattr(ex.fault.detail.ApiFaultDetail, 'OperationErrors') \
+                and hasattr(ex.fault.detail.ApiFaultDetail.OperationErrors, 'OperationError'):
+            operation_error = ex.fault.detail.ApiFaultDetail.OperationErrors.OperationError
+            if type(operation_error) == list:
+                return operation_error[0].ErrorCode
+            else:
+                return operation_error.ErrorCode
+    return ""

@@ -1,48 +1,36 @@
 from .enums import ResultFileType
 from .entities.bulk_entity import BulkEntity
 from bingads.v13.internal.bulk.stream_reader import _BulkStreamReader
+from bingads.v13.internal.bulk.record_reader import _BulkRecordReader
+from bingads.v13.internal.bulk.object_reader import _BulkRowsObjectReader
 from bingads.v13.internal.bulk.entities.multi_record_bulk_entity import _MultiRecordBulkEntity
 
-
-class BulkFileReader:
+class _BulkEntityReader(object):
     """ Provides a method to read bulk entities from a bulk file and make them accessible as an enumerable list.
 
     For more information about the Bulk File Schema, see https://go.microsoft.com/fwlink/?linkid=846127.
     """
 
-    def __init__(self,
-                 file_path,
-                 file_type='Csv',
-                 result_file_type=ResultFileType.full_download,
-                 encoding='utf-8-sig'):
+    def __init__(self, record_reader, is_for_full_download):
         """ Initializes a new instance of this class with the specified file details.
 
-        :param file_path: The path of the bulk file to read.
-        :type file_path: str
-        :param file_type: The bulk file type.
-        :type file_type: str
-        :param result_file_type: The result file type.
-        :type result_file_type: ResultFileType
-        :param encoding: The encoding of bulk file.
-        :type encoding: str
+        :param record_reader: The bulk record reader.
+        :type record_reader: _BulkRecordReader
+        :param is_for_full_download: si for full download or not.
+        :type encoding: boolean
         """
 
-        self._file_path = file_path
-        self._file_type = file_type
-        self._result_file_type = result_file_type
-        self._encoding = encoding
-
-        self._is_for_full_download = result_file_type is ResultFileType.full_download
+        self._is_for_full_download = is_for_full_download
         self._entities_iterator = None
-        self._bulk_stream_reader = _BulkStreamReader(file_path=self.file_path, file_type=self.file_type, encoding=self._encoding)
-        self._bulk_stream_reader.__enter__()
+        self._bulk_record_reader = record_reader
+        self._bulk_record_reader.__enter__()
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self._entities_iterator = None
-        self._bulk_stream_reader.__exit__(exc_type, exc_value, traceback)
+        self._bulk_record_reader.__exit__(exc_type, exc_value, traceback)
 
     def __iter__(self):
         return self
@@ -94,13 +82,13 @@ class BulkFileReader:
         :rtype: _SingleRecordBulkEntity or _MultiRecordBulkEntity
         """
 
-        next_object = self._bulk_stream_reader.read()
+        next_object = self._bulk_record_reader.read()
 
         if next_object is None:
             return None
         if next_object.can_enclose_in_multiline_entity:
             multi_record_entity = next_object.enclose_in_multiline_entity()
-            multi_record_entity.read_related_data_from_stream(self._bulk_stream_reader)
+            multi_record_entity.read_related_data_from_stream(self._bulk_record_reader)
             if self._is_for_full_download:
                 return [multi_record_entity]
             return self._extract_child_entities_if_needed(multi_record_entity)
@@ -120,6 +108,41 @@ class BulkFileReader:
                 for child in child_generator:
                     yield child
 
+
+class BulkRowsReader(_BulkEntityReader):
+    def __init__(self, csv_rows):
+        super(BulkRowsReader, self).__init__(_BulkRecordReader(_BulkRowsObjectReader(csv_rows)), False)
+
+class BulkFileReader(_BulkEntityReader):
+    """ Provides a method to read bulk entities from a bulk file and make them accessible as an enumerable list.
+
+    For more information about the Bulk File Schema, see https://go.microsoft.com/fwlink/?linkid=846127.
+    """
+
+    def __init__(self,
+                 file_path,
+                 file_type='Csv',
+                 result_file_type=ResultFileType.full_download,
+                 encoding='utf-8-sig'):
+        """ Initializes a new instance of this class with the specified file details.
+
+        :param file_path: The path of the bulk file to read.
+        :type file_path: str
+        :param file_type: The bulk file type.
+        :type file_type: str
+        :param result_file_type: The result file type.
+        :type result_file_type: ResultFileType
+        :param encoding: The encoding of bulk file.
+        :type encoding: str
+        """
+        super(BulkFileReader, self).__init__(_BulkStreamReader(file_path=file_path, file_type=file_type, encoding=encoding),  result_file_type is ResultFileType.full_download)
+        self._file_path = file_path
+        self._file_type = file_type
+        self._result_file_type = result_file_type
+        self._encoding = encoding
+
+        self._is_for_full_download = result_file_type is ResultFileType.full_download
+        
     @property
     def file_path(self):
         """ The path of the bulk file to read.

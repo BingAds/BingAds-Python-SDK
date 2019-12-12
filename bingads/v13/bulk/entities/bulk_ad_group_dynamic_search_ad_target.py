@@ -5,6 +5,7 @@ from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.extensions import *
 
 
+_BiddableAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion'))
 class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
     """ Represents a Ad Group Criterion that can be read or written in a bulk file.
 
@@ -85,6 +86,11 @@ class BulkAdGroupDynamicSearchAdTarget(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.biddable_ad_group_criterion),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.biddable_ad_group_criterion, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.FinalUrlSuffix, c.biddable_ad_group_criterion.Id) if isinstance(c.biddable_ad_group_criterion, _BiddableAdGroupCriterion) else None ,
+            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'FinalUrlSuffix', v) if isinstance(c.biddable_ad_group_criterion, _BiddableAdGroupCriterion) else None
+        )
     ]
 
     @property

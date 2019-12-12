@@ -1,6 +1,11 @@
 .. :changelog:
 
 Release History
+13.0.2(2019-12-08)
++++++++++++++++++++++++++
+* Attempt internal sync upload for up to 1,000 bulk entities via BulkServiceManager and upload_entities.  
+* Added the mapping for FinalUrlSuffix in BulkAdGroupDynamicSearchAdTarget. 
+
 13.0.1(2019-11-08)
 +++++++++++++++++++++++++
 * Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes.

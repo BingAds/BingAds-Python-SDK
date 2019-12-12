@@ -1,16 +1,14 @@
+import csv
+from six import PY2, PY3
 from .bulk_object_factory import _BulkObjectFactory
 from .row_values import _RowValues
 from .csv_reader import _CsvReader
 
-class _BulkObjectReader():
+class _BulkObjectReader(object):
     """ Provides a method to read one row from bulk file and return the corresponding :class:`._BulkObject` """
 
-    def __init__(self, file_path, delimiter, encoding='utf-8-sig'):
-        self._file_path = file_path
-        self._delimiter = delimiter
-        self._encoding = encoding
-
-        self._csv_reader = _CsvReader(self.file_path, delimiter=self.delimiter, encoding=self._encoding)
+    def __init__(self, _csv_reader):
+        self._csv_reader = _csv_reader
         self._csv_reader.__enter__()
         headers = self._read_headers()
         self._column_mapping = dict(zip(headers, range(0, len(headers))))
@@ -62,6 +60,16 @@ class _BulkObjectReader():
         headers = next(self._csv_reader)
         return [remove_bom(header) for header in headers]
 
+class _BulkFileObjectReader(_BulkObjectReader):
+    """ Provides a method to read one row from bulk file and return the corresponding :class:`._BulkObject` """
+
+    def __init__(self, file_path, delimiter, encoding='utf-8-sig'):
+        super(_BulkFileObjectReader, self).__init__(_CsvReader(filename=file_path, delimiter=delimiter, encoding=encoding))
+        self._file_path = file_path
+        self._delimiter = delimiter
+        self._encoding = encoding
+
+
     @property
     def file_path(self):
         return self._file_path
@@ -73,3 +81,32 @@ class _BulkObjectReader():
     @property
     def encoding(self):
         return self._encoding
+
+class _CsvRowsReader:
+    def __init__(self, csv_rows):
+        if PY3:
+            self._csv_reader = csv.reader(csv_rows, dialect=csv.excel)
+        elif PY2:
+            byte_lines = [line.encode('utf-8') for line in csv_rows]
+            self._csv_reader = csv.reader(byte_lines, dialect=csv.excel)
+        
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        pass
+    
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        return self.next()
+    
+    def next(self):
+        return next(self._csv_reader)
+
+class _BulkRowsObjectReader(_BulkObjectReader):
+    """ Provides a method to read one row from bulk file and return the corresponding :class:`._BulkObject` """
+
+    def __init__(self, csv_rows):
+        super(_BulkRowsObjectReader, self).__init__(_CsvRowsReader(csv_rows))

@@ -1,5 +1,8 @@
 ﻿import tempfile
 import uuid
+import codecs
+import csv
+import io
 
 from .bulk_operation import *
 from .upload_parameters import *
@@ -10,9 +13,13 @@ from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.util import _TimeHelper
 from bingads.exceptions import TimeoutException
+from six import PY2, PY3
+from json.tests import test_pass3
 
 
 class BulkServiceManager:
+    SYNC_THRESHOLD = 1000
+    BOMLEN = len(codecs.BOM_UTF8)
     """ Provides high level methods for uploading and downloading entities using the Bulk API functionality.
 
     Also provides methods for submitting upload or download operations.
@@ -118,9 +125,12 @@ class BulkServiceManager:
         :rtype: str
         """
 
-        start_timestamp = _TimeHelper.get_current_time_milliseconds()
         file_upload_parameters._submit_upload_parameters.timeout_in_milliseconds = file_upload_parameters.timeout_in_milliseconds
         operation = self.submit_upload(file_upload_parameters._submit_upload_parameters)
+        return self.download_upload_result(operation, file_upload_parameters, progress)
+    
+    def download_upload_result(self, operation, file_upload_parameters, progress=None):
+        start_timestamp = _TimeHelper.get_current_time_milliseconds()
         upload_operation_timeout = _TimeHelper.get_remaining_time_milliseconds_with_min_value(start_timestamp, file_upload_parameters.timeout_in_milliseconds)
         try:
             operation.track(progress, upload_operation_timeout)
@@ -138,22 +148,23 @@ class BulkServiceManager:
             timeout_in_milliseconds=download_result_file_timeout,
         )
         return result_file_path
+    
+    def need_to_try_upload_entity_records_sync_first(self, entity_upload_parameters):
+        return len(entity_upload_parameters.entities) <= BulkServiceManager.SYNC_THRESHOLD
 
-    def upload_entities(self, entity_upload_parameters, progress=None):
-        """ Uploads the specified Bulk entities.
+    def bulkupload_entities(self, entity_upload_parameters, tmp_file, progress=None):
+        """ Uploads the specified Bulk entities in async way.
 
         :param entity_upload_parameters: Determines various upload parameters, for example what entities to upload.
         :type entity_upload_parameters: EntityUploadParameters
+        :param tmp_file: The temp file path that contains the content to upload
+        :type tmp_file: string 
         :param progress: (optional) Tracking the percent complete progress information for the bulk operation.
         :type progress: BulkOperationProgressInfo -> None
         :return: Bulk entity generator.
         :rtype: generator[BulkEntity]
         """
 
-        tmp_file = path.join(self.working_directory, '{0}.csv'.format(uuid.uuid1()))
-        with BulkFileWriter(tmp_file) as writer:
-            for entity in entity_upload_parameters.entities:
-                writer.write_entity(entity)
         file_upload_parameters = FileUploadParameters(
             upload_file_path=tmp_file,
             result_file_directory=entity_upload_parameters.result_file_directory,
@@ -169,6 +180,86 @@ class BulkServiceManager:
         with BulkFileReader(result_file_path, result_file_type=ResultFileType.upload) as reader:
             for entity in reader:
                 yield entity
+    
+    def bulkupload_entitie_records(self, entity_upload_parameters, tmp_file, progress=None):
+        """ Uploads the specified Bulk entities in sync way by UploadEntityRecords.
+        """
+        records = self.service_client.factory.create("ns2:ArrayOfstring")
+        tmp_csv_file = io.open(tmp_file, encoding='utf-8-sig')
+
+        if PY3:
+            records.string = [x.strip() for x in tmp_csv_file.readlines()]
+        elif PY2:
+            records.string = [line.encode('utf-8').strip() for line in tmp_csv_file]
+        
+        try:
+            #print(self.service_client)
+            response = self.service_client.UploadEntityRecords(
+                AccountId=self._authorization_data.account_id,
+                EntityRecords=records,
+                ResponseMode=entity_upload_parameters.response_mode
+            )
+            if self.need_to_fall_back_to_async(response):
+                headers = self.service_client.get_response_header()
+                operation = BulkUploadOperation(
+                    request_id=response.RequestId,
+                    authorization_data=self._authorization_data,
+                    poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
+                    environment=self._environment,
+                    tracking_id=headers['TrackingId'] if 'TrackingId' in headers else None,
+                    **self.suds_options
+                    )
+                file_path = self.download_upload_result(operation, entity_upload_parameters, progress)
+                return self.read_result_from_bulk_file(file_path)
+            else:
+                return self.read_bulkupsert_response(response) 
+        except Exception as ex:
+            if 'OperationNotSupported' == operation_errorcode_of_exception(ex):
+                return self.bulkupload_entities(entity_upload_parameters, tmp_file, progress)
+            else:
+                raise ex
+            
+    def need_to_fall_back_to_async(self, response):
+        return response.RequestId is not None and \
+            len(response.RequestId) > 0 and \
+            response.RequestStatus == 'InProgress'
+            
+    def read_result_from_bulk_file(self, result_bulk_file):
+        with BulkFileReader(result_bulk_file, result_file_type=ResultFileType.upload) as reader:
+            for entity in reader:
+                yield entity
+            
+    def read_bulkupsert_response(self, response):        
+        with BulkRowsReader(response.EntityRecords.string) as reader:
+            for entity in reader:
+                yield entity
+    
+    def retry_with_BulkUpload(self, bulkupsert_response):
+        if bulkupsert_response.Errors is not None:
+            error_codes = [e.ErrorCode for e in bulkupsert_response.Errors]
+            return FailedBulkUpsertRetryBulkUploadInstead in error_codes
+        return False
+
+    def upload_entities(self, entity_upload_parameters, progress=None):
+        """ Uploads the specified Bulk entities.
+
+        :param entity_upload_parameters: Determines various upload parameters, for example what entities to upload.
+        :type entity_upload_parameters: EntityUploadParameters
+        :param progress: (optional) Tracking the percent complete progress information for the bulk operation.
+        :type progress: BulkOperationProgressInfo -> None
+        :return: Bulk entity generator.
+        :rtype: generator[BulkEntity]
+        """
+        
+        tmp_file = path.join(self.working_directory, '{0}.csv'.format(uuid.uuid1()))
+        with BulkFileWriter(tmp_file) as writer:
+            for entity in entity_upload_parameters.entities:
+                writer.write_entity(entity)
+
+        if (self.need_to_try_upload_entity_records_sync_first(entity_upload_parameters)):
+            return self.bulkupload_entitie_records(entity_upload_parameters, tmp_file, progress)
+        else:
+            return self.bulkupload_entities(entity_upload_parameters, tmp_file, progress)
 
     def submit_download(self, submit_download_parameters):
         """ Submits a download request to the Bing Ads bulk service with the specified parameters.
@@ -185,7 +276,7 @@ class BulkServiceManager:
         download_entities = self.service_client.factory.create('ArrayOfDownloadEntity')
         download_entities.DownloadEntity = submit_download_parameters.download_entities
 
-        #entities = None if submit_download_parameters.entities is None else ' '.join(
+        # entities = None if submit_download_parameters.entities is None else ' '.join(
         #    submit_download_parameters.entities)
 
         format_version = BULK_FORMAT_VERSION_6
