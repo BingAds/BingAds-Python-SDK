@@ -14,7 +14,6 @@ from bingads.authorization import *
 from bingads.util import _TimeHelper
 from bingads.exceptions import TimeoutException
 from six import PY2, PY3
-from json.tests import test_pass3
 
 
 class BulkServiceManager:
