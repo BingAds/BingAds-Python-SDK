@@ -430,6 +430,50 @@ def get_user_location_performance_report_request(
 
     return report_request
 
+def get_age_gender_performance_report(
+        account_id,
+        aggregation,
+        exclude_column_headers,
+        exclude_report_footer,
+        exclude_report_header,
+        report_file_format,
+        return_only_complete_data,
+        time):
+    report_request=reporting_service.factory.create('AgeGenderAudienceReportRequest')
+    report_request.Aggregation=aggregation
+    report_request.ExcludeColumnHeaders=exclude_column_headers
+    report_request.ExcludeReportFooter=exclude_report_footer
+    report_request.ExcludeReportHeader=exclude_report_header
+    report_request.Format=report_file_format
+    report_request.ReturnOnlyCompleteData=return_only_complete_data
+    report_request.Time=time
+    report_request.ReportName="User age gender performance report"
+    scope=reporting_service.factory.create('AccountThroughAdGroupReportScope')
+    scope.AccountIds={'long': [account_id] }
+    scope.Campaigns=None
+    scope.AdGroups=None
+    report_request.Scope=scope
+
+    report_columns = self.reporting_service.factory.create('ArrayOfAgeGenderAudienceReportColumn')
+    report_columns.AgeGenderAudienceReportColumn.append([
+            'AccountName',
+            'AccountNumber',
+            'AdGroupId',
+            'AdGroupName',
+            'AdGroupStatus',
+            'AgeGroup',
+            'Gender',
+            'Assists',
+            'CampaignName',
+            'Language',
+            'Spend',
+            'Impressions',
+            'Clicks'
+    ])
+    report_request.Columns = report_columns
+    
+    return report_request
+
 # Main execution
 if __name__ == '__main__':
 
