@@ -408,9 +408,9 @@ def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
         asset_link.Asset.Type = 'TextAsset'
         asset_link.Asset.Id = assetLinkContract['id']
         asset_link.Asset.Text = assetLinkContract['text']
-        asset_link.Asset.Name = assetLinkContract['name']
-        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
-        asset_link.PinnedField = assetLinkContract['pinnedField']
+        asset_link.Asset.Name = assetLinkContract.get('name')
+        asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
+        asset_link.PinnedField = assetLinkContract.get('pinnedField')
         asset_link.EditorialStatus = assetLinkContract['editorialStatus']
         assetLinks.AssetLink.append(asset_link)
 
