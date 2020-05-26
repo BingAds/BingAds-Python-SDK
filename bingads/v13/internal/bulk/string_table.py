@@ -142,6 +142,22 @@ class _StringTable:
     AdGroupActionAdExtension = "Ad Group Action Ad Extension"
     ActionType = "Action Type"
     ActionText = "Action Text"
+    
+    #Promotion AdExtension
+    PromotionAdExtension = "Promotion Ad Extension";
+    AccountPromotionAdExtension = "Account Promotion Ad Extension";
+    CampaignPromotionAdExtension = "Campaign Promotion Ad Extension";
+    AdGroupPromotionAdExtension = "Ad Group Promotion Ad Extension";
+    PromotionTarget = "Promotion Target";
+    DiscountModifier = "Discount Modifier";
+    PercentOff = "Percent Off";
+    MoneyAmountOff = "Money Amount Off";
+    PromotionCode = "Promotion Code";
+    OrdersOverAmount = "Orders Over Amount";
+    Occasion = "Occasion";
+    PromotionStart = "Promotion Start";
+    PromotionEnd = "Promotion End";
+    CurrencyCode = "Currency Code";
 
     # Structured Snippet Ad Extension
     StructuredSnippetAdExtension = "Structured Snippet Ad Extension"
@@ -241,6 +257,9 @@ class _StringTable:
     CampaignType = "Campaign Type"
     CampaignPriority = "Priority"
     LocalInventoryAdsEnabled = "LocalInventoryAdsEnabled"
+    
+    CampaignNegativeStoreCriterion = "Campaign Negative Store Criterion"
+
     
     # CoOp
     BidOption = "Bid Option"
@@ -347,6 +366,7 @@ class _StringTable:
     BidStrategyType = "Bid Strategy Type"
     BidStrategyMaxCpc = "Bid Strategy MaxCpc"
     BidStrategyTargetCpa = "Bid Strategy TargetCpa"
+    BidStrategyTargetRoas = "Bid Strategy TargetRoas"
     InheritedBidStrategyType = "Inherited Bid Strategy Type"
 
     # Remarketing
@@ -399,7 +419,10 @@ class _StringTable:
 
     # Ad Extension Scheduling
     AdSchedule = "Ad Schedule"
+    
+    #UseSearcherTimeZone
     UseSearcherTimeZone = "Use Searcher Time Zone"
+    AdScheduleUseSearcherTimeZone = "Ad Schedule Use Searcher Time Zone"
 
     # Dynamic Search Ads
     DomainLanguage = "Domain Language"

@@ -14,6 +14,7 @@ from .bulk_ad_group import *
 from .bulk_keyword import *
 from .bulk_campaign_product_scope import *
 from .bulk_ad_group_product_partition import *
+from .bulk_campaign_negative_store_criterion import *
 from .bulk_campaign_negative_dynamic_search_ad_target import *
 from .bulk_ad_group_dynamic_search_ad_target import *
 from .bulk_ad_group_negative_dynamic_search_ad_target import *

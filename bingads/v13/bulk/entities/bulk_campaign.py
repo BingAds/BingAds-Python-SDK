@@ -399,7 +399,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.BudgetType,
             field_to_csv=lambda c: bulk_str(c.campaign.BudgetType),
-            csv_to_field=lambda c, v: csv_to_field_BudgetType(c.campaign, v, version=13)
+            csv_to_field=lambda c, v: csv_to_field_BudgetType(c.campaign, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.BudgetName,
@@ -446,6 +446,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.PageFeedIds,
             field_to_csv=lambda c: BulkCampaign._write_page_feed_ids(c),
             csv_to_field=lambda c, v: BulkCampaign._read_page_feed_ids(c, v)
+        ),        
+        _SimpleBulkMapping(
+            header=_StringTable.AdScheduleUseSearcherTimeZone,
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.campaign.AdScheduleUseSearcherTimeZone, c.campaign.Id),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'AdScheduleUseSearcherTimeZone', parse_bool(v))
         ),
     ]
 

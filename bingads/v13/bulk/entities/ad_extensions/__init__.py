@@ -10,3 +10,4 @@ from .bulk_structured_snippet_ad_extensions import *
 from .bulk_sitelink_ad_extensions import *
 from .bulk_price_ad_extensions import *
 from .bulk_action_ad_extensions import *
+from .bulk_promotion_ad_extensions import *

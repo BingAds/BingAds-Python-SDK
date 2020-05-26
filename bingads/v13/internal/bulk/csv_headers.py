@@ -264,6 +264,7 @@ class _CsvHeaders:
         _StringTable.BidStrategyType,
         _StringTable.BidStrategyMaxCpc,
         _StringTable.BidStrategyTargetCpa,
+        _StringTable.BidStrategyTargetRoas,
         _StringTable.InheritedBidStrategyType,
 
         # Ad Format Preference
@@ -305,11 +306,26 @@ class _CsvHeaders:
 
         # Ad Scheduling
         _StringTable.AdSchedule,
+        
+        #UseSearcherTimeZone
         _StringTable.UseSearcherTimeZone,
+        _StringTable.AdScheduleUseSearcherTimeZone,
 
         # Action ad extension
         _StringTable.ActionType,
         _StringTable.ActionText,
+        
+        # Promotion Ad Extension
+        _StringTable.PromotionTarget,
+        _StringTable.DiscountModifier,
+        _StringTable.PercentOff,
+        _StringTable.MoneyAmountOff,
+        _StringTable.PromotionCode,
+        _StringTable.OrdersOverAmount,
+        _StringTable.Occasion,
+        _StringTable.PromotionStart,
+        _StringTable.PromotionEnd,
+        _StringTable.CurrencyCode,       
 
         # Dynamic Search Ads
         _StringTable.DomainLanguage,

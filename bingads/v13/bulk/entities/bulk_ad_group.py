@@ -232,8 +232,15 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_optional_str(c.ad_group.FinalUrlSuffix, c.ad_group.Id),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'FinalUrlSuffix', v)
         ),
+        
+        _SimpleBulkMapping(
+            header=_StringTable.AdScheduleUseSearcherTimeZone,
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.ad_group.AdScheduleUseSearcherTimeZone, c.ad_group.Id),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'AdScheduleUseSearcherTimeZone', parse_bool(v))
+        ),
     ]
-
+    
+    
     def process_mappings_from_row_values(self, row_values):
         self.ad_group = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdGroup')
 

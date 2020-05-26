@@ -61,12 +61,12 @@ class _BulkAdExtensionBase(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.StartDate,
-            field_to_csv=lambda c: field_to_csv_SchedulingStartDate(c._ad_extension.Scheduling, c._ad_extension.Id),
+            field_to_csv=lambda c: field_to_csv_SchedulingDate(c._ad_extension.Scheduling.StartDate, c._ad_extension.Id) if c._ad_extension.Scheduling else None,
             csv_to_field=lambda c, v: csv_to_field_Date(c._ad_extension.Scheduling, 'StartDate', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.EndDate,
-            field_to_csv=lambda c: field_to_csv_SchedulingEndDate(c._ad_extension.Scheduling, c._ad_extension.Id),
+            field_to_csv=lambda c: field_to_csv_SchedulingDate(c._ad_extension.Scheduling.EndDate, c._ad_extension.Id) if c._ad_extension.Scheduling else None,
             csv_to_field = lambda c, v: csv_to_field_Date(c._ad_extension.Scheduling, 'EndDate', v)
         ),
         _SimpleBulkMapping(
@@ -76,7 +76,7 @@ class _BulkAdExtensionBase(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.UseSearcherTimeZone,
-            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c._ad_extension.Scheduling, c._ad_extension.Id),
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c._ad_extension.Scheduling.UseSearcherTimeZone, c._ad_extension.Id) if c._ad_extension.Scheduling else None,
             csv_to_field=lambda c, v: setattr(c._ad_extension.Scheduling, 'UseSearcherTimeZone', parse_bool(v))
         ),
         _SimpleBulkMapping(

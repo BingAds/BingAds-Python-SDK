@@ -60,7 +60,7 @@ class BulkExperiment(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.EndDate,
-            field_to_csv=lambda c: bulk_date_str(c.experiment.EndDate),
+            field_to_csv=lambda c: field_to_csv_SchedulingDate(c.experiment.EndDate, c.experiment.Id),
             csv_to_field=lambda c, v: setattr(c.experiment, 'EndDate', parse_date(v))
         ),
         _SimpleBulkMapping(

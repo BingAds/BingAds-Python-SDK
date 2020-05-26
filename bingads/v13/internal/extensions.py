@@ -116,10 +116,14 @@ def csv_to_biddingscheme(row_values, bulk_campaign):
     csv_to_field_BidStrategyType(bulk_campaign.campaign, bid_strategy_type)
 
     success, max_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyMaxCpc)
-    max_cpc_value = parse_bid(max_cpc_row_value) if max_cpc_row_value else None
+    max_cpc_value = parse_bid(max_cpc_row_value)
 
     success, target_cpa_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCpa)
     target_cpa_value = float(target_cpa_row_value) if target_cpa_row_value else None
+    
+    
+    success, target_roas_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetRoas)
+    target_roas_value = float(target_roas_row_value) if target_roas_row_value else None
 
     if  bid_strategy_type == 'MaxConversions':
         bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
@@ -131,6 +135,13 @@ def csv_to_biddingscheme(row_values, bulk_campaign):
         bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
         bulk_campaign.campaign.BiddingScheme.Type = "TargetCpa"
         bulk_campaign.campaign.BiddingScheme.TargetCpa = target_cpa_value
+    elif bid_strategy_type == 'TargetRoas':
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
+        bulk_campaign.campaign.BiddingScheme.Type = "TargetRoas"
+        bulk_campaign.campaign.BiddingScheme.TargetRoas = target_roas_value
+    elif bid_strategy_type == 'MaxConversionValue':
+        bulk_campaign.campaign.BiddingScheme.Type = "MaxConversionValue"
+        bulk_campaign.campaign.BiddingScheme.TargetRoas = target_roas_value
 
 
 def biddingscheme_to_csv(bulk_campaign, row_values):
@@ -148,7 +159,12 @@ def biddingscheme_to_csv(bulk_campaign, row_values):
     elif bid_strategy_type == 'TargetCpa':
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
         row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
-
+    elif bid_strategy_type == 'MaxConversionValue':
+        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetRoas)
+    elif bid_strategy_type == 'TargetRoas':
+        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetRoas)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+                                
 
 def bulk_optional_str(value, id):
     if value is None:
@@ -357,6 +373,10 @@ def field_to_csv_BidStrategyType(entity):
         return 'TargetCpa'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')):
         return 'MaxClicks'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionValueBiddingScheme')):
+        return 'MaxConversionValue'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')):
+        return 'TargetRoas'
     else:
         raise TypeError('Unsupported Bid Strategy Type')
 
@@ -382,6 +402,10 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetCpaBiddingScheme')
     elif value == 'MaxClicks':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')
+    elif value == 'TargetRoas':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')
+    elif value == 'MaxConversionValue':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionValueBiddingScheme')
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value
@@ -406,12 +430,12 @@ def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
         asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset')
         asset_link.Asset.Type = 'TextAsset'
-        asset_link.Asset.Id = assetLinkContract['id']
-        asset_link.Asset.Text = assetLinkContract['text']
-        asset_link.Asset.Name = assetLinkContract['name']
-        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
-        asset_link.PinnedField = assetLinkContract['pinnedField']
-        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        asset_link.Asset.Id = assetLinkContract.get('id')
+        asset_link.Asset.Text = assetLinkContract.get('text')
+        asset_link.Asset.Name = assetLinkContract.get('name')
+        asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
+        asset_link.PinnedField = assetLinkContract.get('pinnedField')
+        asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_ImageAssetLinks(entity):
@@ -444,15 +468,15 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
         asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset')
         asset_link.Asset.Type = 'ImageAsset'
-        asset_link.Asset.CropHeight = assetLinkContract['cropHeight']
-        asset_link.Asset.CropWidth = assetLinkContract['cropWidth']
-        asset_link.Asset.CropX = assetLinkContract['cropX']
-        asset_link.Asset.CropY = assetLinkContract['cropY']
-        asset_link.Asset.Id = assetLinkContract['id']
-        asset_link.Asset.Name = assetLinkContract['name']
-        asset_link.AssetPerformanceLabel = assetLinkContract['assetPerformanceLabel']
-        asset_link.PinnedField = assetLinkContract['pinnedField']
-        asset_link.EditorialStatus = assetLinkContract['editorialStatus']
+        asset_link.Asset.CropHeight = assetLinkContract.get('cropHeight')
+        asset_link.Asset.CropWidth = assetLinkContract.get('cropWidth')
+        asset_link.Asset.CropX = assetLinkContract.get('cropX')
+        asset_link.Asset.CropY = assetLinkContract.get('cropY')
+        asset_link.Asset.Id = assetLinkContract.get('id')
+        asset_link.Asset.Name = assetLinkContract.get('name')
+        asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
+        asset_link.PinnedField = assetLinkContract.get('pinnedField')
+        asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_Rsa_TextAssetLinks(entity):
@@ -692,6 +716,19 @@ def csv_to_field_FeedItemAdSchedule(entity, value):
     entity.daytime_ranges = daytimes
 
 
+def field_to_csv_SchedulingDate(theDate, id):
+    """
+    write scheduling StartDate to bulk string
+    :param theDate: Date obj to convert
+    :return: date bulk string
+    """
+    if theDate is None or (theDate.Day == 0 and theDate.Month == 0 and theDate.Year == 0):
+        return DELETE_VALUE if id and id > 0 else None
+    # this case is what the suds creates by default. return None instead of a delete value
+    elif theDate.Day is None and theDate.Month is None and theDate.Year is None:
+        return None
+    return '{0!s}/{1!s}/{2!s}'.format(theDate.Month, theDate.Day, theDate.Year)
+
 def field_to_csv_SchedulingStartDate(entity, id):
     """
     write scheduling StartDate to bulk string
@@ -723,22 +760,12 @@ def field_to_csv_SchedulingEndDate(entity, id):
         return None
     return '{0!s}/{1!s}/{2!s}'.format(entity.EndDate.Month, entity.EndDate.Day, entity.EndDate.Year)
 
-
-def field_to_csv_UseSearcherTimeZone(entity, id):
-    """
-    get Scheduling UseSearcherTimeZone bulk str
-    :param entity: Scheduling entity
-    :return: bulk str
-    """
-    if entity is None:
-        return None
-    # this case is what suds creates by default, while set it to delete value since there's no other case for delete value
-    elif entity.UseSearcherTimeZone is None:
+def field_to_csv_UseSearcherTimeZone(bool_value, id):
+    if bool_value is None:
         return DELETE_VALUE if id and id > 0 else None
     else:
-        return str(entity.UseSearcherTimeZone)
-
-
+        return str(bool_value)
+    
 def csv_to_field_BudgetType(entity, value, version=13):
     if value is None or value == '':
         entity.BudgetType = None
@@ -914,7 +941,7 @@ def csv_to_entity_PriceTableRows(row_values, entity):
 
 
 def parse_bool(value):
-    if value is None or value == '':
+    if value is None or value == '' or value == DELETE_VALUE:
         return None
     elif value.lower() == 'true':
         return True

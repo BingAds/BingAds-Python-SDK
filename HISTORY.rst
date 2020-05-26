@@ -1,6 +1,16 @@
 .. :changelog:
 
 Release History
+13.0.3(2020-05-26)
++++++++++++++++++++++++++
+* Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Add mappings for MaxConversionValueBiddingScheme and TargetRoasBiddingScheme in BulkCampaign. 
+* Add mapping for the 'Use Searcher Time Zone' field in BulkCampaign and BulkAdGroup. 
+* Add bulk mappings for promotion ad extensions i.e., BulkPromotionAdExtension, BulkAccountPromotionAdExtension, BulkAdGroupPromotionAdExtension, and BulkCampaignPromotionAdExtension. 
+* Add support for delete_value of EndDate in the BulkExperiment. 
+* Add BulkCampaignNegativeStoreCriterion for future use. 
+
+
 13.0.2(2019-12-08)
 +++++++++++++++++++++++++
 * Attempt internal sync upload for up to 1,000 bulk entities via BulkServiceManager and upload_entities.  
