@@ -95,6 +95,14 @@ bingads.v13.bulk.entities.bulk\_campaign\_negative\_dynamic\_search\_ad\_target 
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_campaign\_negative\_store\_criterion module
+---------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_campaign_negative_store_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_campaign\_product\_scope module
 ---------------------------------------------------------------
 
