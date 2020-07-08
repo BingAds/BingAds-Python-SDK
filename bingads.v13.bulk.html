@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.bulk package &#8212; Bing Ads SDK 13.0.3 documentation</title>
+    <title>bingads.v13.bulk package &#8212; Bing Ads SDK 13.0.4 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="_static/documentation_options.js"></script>
@@ -33,7 +33,7 @@
         <li class="right" >
           <a href="bingads.v13.html" title="bingads.v13 package"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 13.0.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 13.0.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v13.html" accesskey="U">bingads.v13 package</a> &#187;</li> 
       </ul>
@@ -176,236 +176,8 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-bingads.v13.bulk.bulk_operation">
-<span id="bingads-v13-bulk-bulk-operation-module"></span><h2>bingads.v13.bulk.bulk_operation module<a class="headerlink" href="#module-bingads.v13.bulk.bulk_operation" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bingads.v13.bulk.bulk_operation.BulkDownloadOperation">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_operation.</code><code class="descname">BulkDownloadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkDownloadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkOperation" title="bingads.v13.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.bulk.bulk_operation.BulkOperation</span></code></a></p>
-<p>Represents a bulk download operation requested by a user.</p>
-<p>You can use this class to poll for the download status, and then download the file when available.</p>
-<p><em>Example:</em></p>
-<p>The <a class="reference internal" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BulkServiceManager.submit_download()</span></code></a> method returns an instance of this class.
-If for any reason you do not want to wait for the file to be prepared for download,
-for example if your application quits unexpectedly or you have other tasks to process, you can
-use an instance of <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkDownloadOperation</span></code></a> to download the file when it is available.</p>
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkDownloadOperation.get_status">
-<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkDownloadOperation.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation.get_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Track the detailed download status.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status of bulk download operation.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">BulkOperationStatus</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkDownloadOperation.track">
-<code class="descname">track</code><span class="sig-paren">(</span><em>progress=None</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkDownloadOperation.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation.track" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs until the bulk service has finished processing the download or upload request.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The final BulkOperationStatus.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">BulkOperationStatus</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_operation.</code><code class="descname">BulkOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>The base class that can be derived to represent a bulk operation requested by a user.</p>
-<p>You can use either the <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkDownloadOperation</span></code></a> or <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation" title="bingads.v13.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUploadOperation</span></code></a>
-derived class to poll for the operation status, and then download the results file when available.</p>
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.download_result_file">
-<code class="descname">download_result_file</code><span class="sig-paren">(</span><em>result_file_directory</em>, <em>result_file_name</em>, <em>decompress</em>, <em>overwrite</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkOperation.download_result_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.download_result_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Download file with specified URL and download parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>result_file_directory</strong> (<em>str</em>) – The download result local directory name.</li>
-<li><strong>result_file_name</strong> (<em>str | None</em>) – The download result local file name.</li>
-<li><strong>decompress</strong> (<em>bool</em>) – Determines whether to decompress the ZIP file.
-If set to true, the file will be decompressed after download.
-The default value is false, in which case the downloaded file is not decompressed.</li>
-<li><strong>overwrite</strong> (<em>bool</em>) – Indicates whether the result file should overwrite the existing file if any.</li>
-<li><strong>timeout_in_milliseconds</strong> (<em>int</em>) – (optional) timeout for download result file in milliseconds</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The download file path.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.final_status">
-<code class="descname">final_status</code><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.final_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the final status of the bulk operation or null if the operation is still running.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">BulkOperationStatus</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.get_status">
-<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkOperation.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.get_status" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.poll_interval_in_milliseconds">
-<code class="descname">poll_interval_in_milliseconds</code><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.poll_interval_in_milliseconds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The time interval in milliseconds between two status polling attempts.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.request_id">
-<code class="descname">request_id</code><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.request_id" title="Permalink to this definition">¶</a></dt>
-<dd><p>The request identifier corresponding to the bulk upload or download, depending on the derived type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.service_client">
-<code class="descname">service_client</code><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.service_client" title="Permalink to this definition">¶</a></dt>
-<dd><p>The internal bulk service client.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.html#bingads.service_client.ServiceClient" title="bingads.service_client.ServiceClient">ServiceClient</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkOperation.track">
-<code class="descname">track</code><span class="sig-paren">(</span><em>percent_complete=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkOperation.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkOperation.track" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="bingads.v13.bulk.bulk_operation.BulkUploadOperation">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_operation.</code><code class="descname">BulkUploadOperation</code><span class="sig-paren">(</span><em>request_id</em>, <em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>tracking_id=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkUploadOperation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkOperation" title="bingads.v13.bulk.bulk_operation.BulkOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.bulk.bulk_operation.BulkOperation</span></code></a></p>
-<p>Represents a bulk upload operation requested by a user.</p>
-<p>You can use this class to poll for the upload status, and then download the upload results file when available.</p>
-<p><em>Example:</em></p>
-<p>The <a class="reference internal" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_upload" title="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_upload"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BulkServiceManager.submit_upload()</span></code></a> method returns an instance of this class.
-If for any reason you do not want to wait for the file to finish uploading,
-for example if your application quits unexpectedly or you have other tasks to process, you can
-use an instance of <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation" title="bingads.v13.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUploadOperation</span></code></a> to download the upload results file when it is available.</p>
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkUploadOperation.get_status">
-<code class="descname">get_status</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkUploadOperation.get_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation.get_status" title="Permalink to this definition">¶</a></dt>
-<dd><p>Track the detailed upload status.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The status of bulk upload operation.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">BulkOperationStatus</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.BulkUploadOperation.track">
-<code class="descname">track</code><span class="sig-paren">(</span><em>progress=None</em>, <em>timeout_in_milliseconds=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#BulkUploadOperation.track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation.track" title="Permalink to this definition">¶</a></dt>
-<dd><p>Runs until the bulk service has finished processing the download or upload request.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The final BulkOperationStatus.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">BulkOperationStatus</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="bingads.v13.bulk.bulk_operation.TlsHttpAdapter">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_operation.</code><code class="descname">TlsHttpAdapter</code><span class="sig-paren">(</span><em>pool_connections=10</em>, <em>pool_maxsize=10</em>, <em>max_retries=0</em>, <em>pool_block=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#TlsHttpAdapter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.TlsHttpAdapter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">requests.adapters.HTTPAdapter</span></code></p>
-<p>” Transport adapter that chooses the TLS protocols based on python versions.</p>
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_operation.TlsHttpAdapter.init_poolmanager">
-<code class="descname">init_poolmanager</code><span class="sig-paren">(</span><em>connections</em>, <em>maxsize</em>, <em>block=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation.html#TlsHttpAdapter.init_poolmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation.TlsHttpAdapter.init_poolmanager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a urllib3 PoolManager.</p>
-<p>This method should not be called from user code, and is only
-exposed for use when subclassing the
-<code class="xref py py-class docutils literal notranslate"><span class="pre">HTTPAdapter</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>connections</strong> – The number of urllib3 connection pools to cache.</li>
-<li><strong>maxsize</strong> – The maximum number of connections to save in the pool.</li>
-<li><strong>block</strong> – Block when no free connections are available.</li>
-<li><strong>pool_kwargs</strong> – Extra keyword arguments used to initialize the Pool Manager.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="bingads-v13-bulk-bulk-operation-module">
+<h2>bingads.v13.bulk.bulk_operation module<a class="headerlink" href="#bingads-v13-bulk-bulk-operation-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-bingads.v13.bulk.bulk_operation_progress_info">
 <span id="bingads-v13-bulk-bulk-operation-progress-info-module"></span><h2>bingads.v13.bulk.bulk_operation_progress_info module<a class="headerlink" href="#module-bingads.v13.bulk.bulk_operation_progress_info" title="Permalink to this headline">¶</a></h2>
@@ -437,7 +209,7 @@ exposed for use when subclassing the
 <dt id="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus">
 <em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_operation_status.</code><code class="descname">BulkOperationStatus</code><span class="sig-paren">(</span><em>status=None</em>, <em>percent_complete=None</em>, <em>result_file_url=None</em>, <em>errors=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_operation_status.html#BulkOperationStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Contains tracking details about the results and status of the corresponding <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkDownloadOperation</span></code></a> or <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation" title="bingads.v13.bulk.bulk_operation.BulkUploadOperation"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUploadOperation</span></code></a>.</p>
+<p>Contains tracking details about the results and status of the corresponding <code class="xref py py-class docutils literal notranslate"><span class="pre">BulkDownloadOperation</span></code> or <code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUploadOperation</span></code>.</p>
 <dl class="attribute">
 <dt id="bingads.v13.bulk.bulk_operation_status.BulkOperationStatus.errors">
 <code class="descname">errors</code><a class="headerlink" href="#bingads.v13.bulk.bulk_operation_status.BulkOperationStatus.errors" title="Permalink to this definition">¶</a></dt>
@@ -497,282 +269,8 @@ exposed for use when subclassing the
 </dd></dl>
 
 </div>
-<div class="section" id="module-bingads.v13.bulk.bulk_service_manager">
-<span id="bingads-v13-bulk-bulk-service-manager-module"></span><h2>bingads.v13.bulk.bulk_service_manager module<a class="headerlink" href="#module-bingads.v13.bulk.bulk_service_manager" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.bulk_service_manager.</code><code class="descname">BulkServiceManager</code><span class="sig-paren">(</span><em>authorization_data</em>, <em>poll_interval_in_milliseconds=5000</em>, <em>environment='production'</em>, <em>working_directory=None</em>, <em>**suds_options</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.BOMLEN">
-<code class="descname">BOMLEN</code><em class="property"> = 3</em><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.BOMLEN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provides high level methods for uploading and downloading entities using the Bulk API functionality.</p>
-<p>Also provides methods for submitting upload or download operations.</p>
-<p><em>Example:</em></p>
-<p><a class="reference internal" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_file" title="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_file"><code class="xref py py-func docutils literal notranslate"><span class="pre">download_file()</span></code></a> will submit the download request to the bulk service,
-poll until the status is completed (or returns an error), and downloads the file locally.
-If instead you want to manage the low level details you would first call <a class="reference internal" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download"><code class="xref py py-func docutils literal notranslate"><span class="pre">submit_download()</span></code></a>,
-wait for the results file to be prepared using either <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation.get_status" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation.get_status"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BulkDownloadOperation.get_status()</span></code></a>
-or <a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation.track" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation.track"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BulkDownloadOperation.track()</span></code></a>, and then download the file with the
-<a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkOperation.download_result_file" title="bingads.v13.bulk.bulk_operation.BulkOperation.download_result_file"><code class="xref py py-meth docutils literal notranslate"><span class="pre">BulkOperation.download_result_file()</span></code></a> method.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.SYNC_THRESHOLD">
-<code class="descname">SYNC_THRESHOLD</code><em class="property"> = 1000</em><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.SYNC_THRESHOLD" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.bulkupload_entitie_records">
-<code class="descname">bulkupload_entitie_records</code><span class="sig-paren">(</span><em>entity_upload_parameters</em>, <em>tmp_file</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.bulkupload_entitie_records"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.bulkupload_entitie_records" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads the specified Bulk entities in sync way by UploadEntityRecords.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.bulkupload_entities">
-<code class="descname">bulkupload_entities</code><span class="sig-paren">(</span><em>entity_upload_parameters</em>, <em>tmp_file</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.bulkupload_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.bulkupload_entities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads the specified Bulk entities in async way.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entity_upload_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.upload_parameters.EntityUploadParameters" title="bingads.v13.bulk.upload_parameters.EntityUploadParameters"><em>EntityUploadParameters</em></a>) – Determines various upload parameters, for example what entities to upload.</li>
-<li><strong>tmp_file</strong> (<em>string</em>) – The temp file path that contains the content to upload</li>
-<li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Bulk entity generator.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">generator[<a class="reference internal" href="bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity" title="bingads.v13.bulk.entities.bulk_entity.BulkEntity">BulkEntity</a>]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_entities">
-<code class="descname">download_entities</code><span class="sig-paren">(</span><em>download_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.download_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_entities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Downloads the specified Bulk entities.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.download_parameters.DownloadParameters" title="bingads.v13.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) – Determines various download parameters, for example where the file should be downloaded.</li>
-<li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Bulk entity generator.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">generator[<a class="reference internal" href="bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity" title="bingads.v13.bulk.entities.bulk_entity.BulkEntity">BulkEntity</a>]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_file">
-<code class="descname">download_file</code><span class="sig-paren">(</span><em>download_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.download_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Downloads the specified Bulk entities to a local file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>download_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.download_parameters.DownloadParameters" title="bingads.v13.bulk.download_parameters.DownloadParameters"><em>DownloadParameters</em></a>) – Determines various download parameters, for example where the file should be downloaded.</li>
-<li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The downloaded local bulk file path.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_upload_result">
-<code class="descname">download_upload_result</code><span class="sig-paren">(</span><em>operation</em>, <em>file_upload_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.download_upload_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.download_upload_result" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.need_to_fall_back_to_async">
-<code class="descname">need_to_fall_back_to_async</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.need_to_fall_back_to_async"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.need_to_fall_back_to_async" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.need_to_try_upload_entity_records_sync_first">
-<code class="descname">need_to_try_upload_entity_records_sync_first</code><span class="sig-paren">(</span><em>entity_upload_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.need_to_try_upload_entity_records_sync_first"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.need_to_try_upload_entity_records_sync_first" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.poll_interval_in_milliseconds">
-<code class="descname">poll_interval_in_milliseconds</code><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.poll_interval_in_milliseconds" title="Permalink to this definition">¶</a></dt>
-<dd><p>The time interval in milliseconds between two status polling attempts.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">int</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.read_bulkupsert_response">
-<code class="descname">read_bulkupsert_response</code><span class="sig-paren">(</span><em>response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.read_bulkupsert_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.read_bulkupsert_response" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.read_result_from_bulk_file">
-<code class="descname">read_result_from_bulk_file</code><span class="sig-paren">(</span><em>result_bulk_file</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.read_result_from_bulk_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.read_result_from_bulk_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.retry_with_BulkUpload">
-<code class="descname">retry_with_BulkUpload</code><span class="sig-paren">(</span><em>bulkupsert_response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.retry_with_BulkUpload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.retry_with_BulkUpload" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.service_client">
-<code class="descname">service_client</code><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.service_client" title="Permalink to this definition">¶</a></dt>
-<dd><p>The internal bulk service client.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="bingads.html#bingads.service_client.ServiceClient" title="bingads.service_client.ServiceClient">ServiceClient</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download">
-<code class="descname">submit_download</code><span class="sig-paren">(</span><em>submit_download_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.submit_download"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_download" title="Permalink to this definition">¶</a></dt>
-<dd><p>Submits a download request to the Bing Ads bulk service with the specified parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_download_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.download_parameters.SubmitDownloadParameters" title="bingads.v13.bulk.download_parameters.SubmitDownloadParameters"><em>SubmitDownloadParameters</em></a>) – Determines various download parameters, for example what entities to download.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted download operation</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkDownloadOperation" title="bingads.v13.bulk.bulk_operation.BulkDownloadOperation">BulkDownloadOperation</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_upload">
-<code class="descname">submit_upload</code><span class="sig-paren">(</span><em>submit_upload_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.submit_upload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.submit_upload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Submits a request for a URL where a bulk upload file may be posted.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>submit_upload_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.upload_parameters.SubmitUploadParameters" title="bingads.v13.bulk.upload_parameters.SubmitUploadParameters"><em>SubmitUploadParameters</em></a>) – </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The submitted upload operation.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.bulk_operation.BulkUploadOperation" title="bingads.v13.bulk.bulk_operation.BulkUploadOperation">BulkUploadOperation</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.suds_options">
-<code class="descname">suds_options</code><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.suds_options" title="Permalink to this definition">¶</a></dt>
-<dd><p>suds option parameters</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_entities">
-<code class="descname">upload_entities</code><span class="sig-paren">(</span><em>entity_upload_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.upload_entities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_entities" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads the specified Bulk entities.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entity_upload_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.upload_parameters.EntityUploadParameters" title="bingads.v13.bulk.upload_parameters.EntityUploadParameters"><em>EntityUploadParameters</em></a>) – Determines various upload parameters, for example what entities to upload.</li>
-<li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Bulk entity generator.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">generator[<a class="reference internal" href="bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity" title="bingads.v13.bulk.entities.bulk_entity.BulkEntity">BulkEntity</a>]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_file">
-<code class="descname">upload_file</code><span class="sig-paren">(</span><em>file_upload_parameters</em>, <em>progress=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/bulk_service_manager.html#BulkServiceManager.upload_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uploads the specified Bulk file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>file_upload_parameters</strong> (<a class="reference internal" href="#bingads.v13.bulk.upload_parameters.FileUploadParameters" title="bingads.v13.bulk.upload_parameters.FileUploadParameters"><em>FileUploadParameters</em></a>) – Determines various upload parameters.</li>
-<li><strong>progress</strong> (<em>BulkOperationProgressInfo -&gt; None</em>) – (optional) Tracking the percent complete progress information for the bulk operation.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">The download local bulk file path.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.working_directory">
-<code class="descname">working_directory</code><a class="headerlink" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.working_directory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Directory for storing temporary files needed for some operations (for example <a class="reference internal" href="#bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_entities" title="bingads.v13.bulk.bulk_service_manager.BulkServiceManager.upload_entities"><code class="xref py py-func docutils literal notranslate"><span class="pre">upload_entities()</span></code></a> creates a temporary upload file).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="bingads-v13-bulk-bulk-service-manager-module">
+<h2>bingads.v13.bulk.bulk_service_manager module<a class="headerlink" href="#bingads-v13-bulk-bulk-service-manager-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-bingads.v13.bulk.download_parameters">
 <span id="bingads-v13-bulk-download-parameters-module"></span><h2>bingads.v13.bulk.download_parameters module<a class="headerlink" href="#module-bingads.v13.bulk.download_parameters" title="Permalink to this headline">¶</a></h2>
@@ -1172,158 +670,11 @@ the operation performs a full download.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-bingads.v13.bulk.file_reader">
-<span id="bingads-v13-bulk-file-reader-module"></span><h2>bingads.v13.bulk.file_reader module<a class="headerlink" href="#module-bingads.v13.bulk.file_reader" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bingads.v13.bulk.file_reader.BulkFileReader">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.file_reader.</code><code class="descname">BulkFileReader</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_type='Csv'</em>, <em>result_file_type=&lt;ResultFileType.full_download: 1&gt;</em>, <em>encoding='utf-8-sig'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/file_reader.html#BulkFileReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkFileReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.bulk.file_reader._BulkEntityReader</span></code></p>
-<p>Provides a method to read bulk entities from a bulk file and make them accessible as an enumerable list.</p>
-<p>For more information about the Bulk File Schema, see <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_reader.BulkFileReader.encoding">
-<code class="descname">encoding</code><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkFileReader.encoding" title="Permalink to this definition">¶</a></dt>
-<dd><p>The encoding of bulk file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_reader.BulkFileReader.file_path">
-<code class="descname">file_path</code><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkFileReader.file_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>The path of the bulk file to read.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_reader.BulkFileReader.file_type">
-<code class="descname">file_type</code><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkFileReader.file_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The bulk file type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_reader.BulkFileReader.result_file_type">
-<code class="descname">result_file_type</code><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkFileReader.result_file_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The result file type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#bingads.v13.bulk.enums.ResultFileType" title="bingads.v13.bulk.enums.ResultFileType">ResultFileType</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="bingads.v13.bulk.file_reader.BulkRowsReader">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.file_reader.</code><code class="descname">BulkRowsReader</code><span class="sig-paren">(</span><em>csv_rows</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/file_reader.html#BulkRowsReader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.file_reader.BulkRowsReader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">bingads.v13.bulk.file_reader._BulkEntityReader</span></code></p>
-</dd></dl>
-
+<div class="section" id="bingads-v13-bulk-file-reader-module">
+<h2>bingads.v13.bulk.file_reader module<a class="headerlink" href="#bingads-v13-bulk-file-reader-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-bingads.v13.bulk.file_writer">
-<span id="bingads-v13-bulk-file-writer-module"></span><h2>bingads.v13.bulk.file_writer module<a class="headerlink" href="#module-bingads.v13.bulk.file_writer" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="bingads.v13.bulk.file_writer.BulkFileWriter">
-<em class="property">class </em><code class="descclassname">bingads.v13.bulk.file_writer.</code><code class="descname">BulkFileWriter</code><span class="sig-paren">(</span><em>file_path</em>, <em>file_type='Csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/file_writer.html#BulkFileWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.file_writer.BulkFileWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Provides methods to write bulk entities to a file.</p>
-<p>For more information about the Bulk File Schema, see <a class="reference external" href="https://go.microsoft.com/fwlink/?linkid=846127">https://go.microsoft.com/fwlink/?linkid=846127</a>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>file_path</strong> (<em>str</em>) – The file path of the bulk file to write.</li>
-<li><strong>file_type</strong> (<em>str</em>) – The bulk file type.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="bingads.v13.bulk.file_writer.BulkFileWriter.close">
-<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/file_writer.html#BulkFileWriter.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.file_writer.BulkFileWriter.close" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_writer.BulkFileWriter.file_path">
-<code class="descname">file_path</code><a class="headerlink" href="#bingads.v13.bulk.file_writer.BulkFileWriter.file_path" title="Permalink to this definition">¶</a></dt>
-<dd><p>The file path of the bulk file to write.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="bingads.v13.bulk.file_writer.BulkFileWriter.file_type">
-<code class="descname">file_type</code><a class="headerlink" href="#bingads.v13.bulk.file_writer.BulkFileWriter.file_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The bulk file type.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="bingads.v13.bulk.file_writer.BulkFileWriter.write_entity">
-<code class="descname">write_entity</code><span class="sig-paren">(</span><em>entity</em>, <em>exclude_readonly_data=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/bingads/v13/bulk/file_writer.html#BulkFileWriter.write_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#bingads.v13.bulk.file_writer.BulkFileWriter.write_entity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes the specified <a class="reference internal" href="bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity" title="bingads.v13.bulk.entities.bulk_entity.BulkEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkEntity</span></code></a> to the file.</p>
-<p>Bulk entities that are derived from <code class="xref py py-class docutils literal notranslate"><span class="pre">_SingleRecordBulkEntity</span></code> will be written to a single row in the file.
-Bulk entities that are derived from <code class="xref py py-class docutils literal notranslate"><span class="pre">_MultiRecordBulkEntity</span></code> will be written to multiple rows in the file.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>entity</strong> (<a class="reference internal" href="bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity" title="bingads.v13.bulk.entities.bulk_entity.BulkEntity"><em>BulkEntity</em></a>) – The bulk entity to write to the file.</li>
-<li><strong>exclude_readonly_data</strong> (<em>bool</em>) – excludeReadonlyData indicates whether readonly data (such as errors, performance data etc.)
-should be excluded when writing to file</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
+<div class="section" id="bingads-v13-bulk-file-writer-module">
+<h2>bingads.v13.bulk.file_writer module<a class="headerlink" href="#bingads-v13-bulk-file-writer-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-bingads.v13.bulk.upload_parameters">
 <span id="bingads-v13-bulk-upload-parameters-module"></span><h2>bingads.v13.bulk.upload_parameters module<a class="headerlink" href="#module-bingads.v13.bulk.upload_parameters" title="Permalink to this headline">¶</a></h2>
@@ -1587,8 +938,8 @@ should be excluded when writing to file</li>
 </dd></dl>
 
 </div>
-<div class="section" id="module-bingads.v13.bulk">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bingads.v13.bulk" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -1603,17 +954,17 @@ should be excluded when writing to file</li>
 <li><a class="reference internal" href="#">bingads.v13.bulk package</a><ul>
 <li><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-bingads.v13.bulk.bulk_operation">bingads.v13.bulk.bulk_operation module</a></li>
+<li><a class="reference internal" href="#bingads-v13-bulk-bulk-operation-module">bingads.v13.bulk.bulk_operation module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.bulk_operation_progress_info">bingads.v13.bulk.bulk_operation_progress_info module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.bulk_operation_status">bingads.v13.bulk.bulk_operation_status module</a></li>
-<li><a class="reference internal" href="#module-bingads.v13.bulk.bulk_service_manager">bingads.v13.bulk.bulk_service_manager module</a></li>
+<li><a class="reference internal" href="#bingads-v13-bulk-bulk-service-manager-module">bingads.v13.bulk.bulk_service_manager module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.download_parameters">bingads.v13.bulk.download_parameters module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.enums">bingads.v13.bulk.enums module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.exceptions">bingads.v13.bulk.exceptions module</a></li>
-<li><a class="reference internal" href="#module-bingads.v13.bulk.file_reader">bingads.v13.bulk.file_reader module</a></li>
-<li><a class="reference internal" href="#module-bingads.v13.bulk.file_writer">bingads.v13.bulk.file_writer module</a></li>
+<li><a class="reference internal" href="#bingads-v13-bulk-file-reader-module">bingads.v13.bulk.file_reader module</a></li>
+<li><a class="reference internal" href="#bingads-v13-bulk-file-writer-module">bingads.v13.bulk.file_writer module</a></li>
 <li><a class="reference internal" href="#module-bingads.v13.bulk.upload_parameters">bingads.v13.bulk.upload_parameters module</a></li>
-<li><a class="reference internal" href="#module-bingads.v13.bulk">Module contents</a></li>
+<li><a class="reference internal" href="#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -1662,7 +1013,7 @@ should be excluded when writing to file</li>
         <li class="right" >
           <a href="bingads.v13.html" title="bingads.v13 package"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 13.0.3 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Bing Ads SDK 13.0.4 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="bingads.html" >bingads package</a> &#187;</li>
           <li class="nav-item nav-item-2"><a href="bingads.v13.html" >bingads.v13 package</a> &#187;</li> 
       </ul>
