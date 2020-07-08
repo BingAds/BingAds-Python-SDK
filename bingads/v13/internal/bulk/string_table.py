@@ -368,6 +368,8 @@ class _StringTable:
     BidStrategyTargetCpa = "Bid Strategy TargetCpa"
     BidStrategyTargetRoas = "Bid Strategy TargetRoas"
     InheritedBidStrategyType = "Inherited Bid Strategy Type"
+    BidStrategyTargetAdPosition = "Bid Strategy TargetAdPosition"
+    BidStrategyTargetImpressionShare = "Bid Strategy TargetImpressionShare"
 
     # Remarketing
     Audience = "Audience"
@@ -383,6 +385,7 @@ class _StringTable:
     AudienceNetworkSize = "Audience Network Size"
     SupportedCampaignTypes = "Supported Campaign Types"
     ProductAudienceType = "Product Audience Type"
+    CombinationRule = "Combination Rule"    
     SourceId = "Source Id"
     ProductAudienceType = "Product Audience Type"
     AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
@@ -409,6 +412,18 @@ class _StringTable:
     AdGroupNegativeInMarketAudienceAssociation = "Ad Group Negative In Market Audience Association"
     CampaignInMarketAudienceAssociation = "Campaign In Market Audience Association"
     CampaignNegativeInMarketAudienceAssociation = "Campaign Negative In Market Audience Association"
+    CombinedList = "Combined List"
+    AdGroupCombinedListAssociation = "Ad Group Combined List Association"
+    AdGroupNegativeCombinedListAssociation = "Ad Group Negative Combined List Association"
+    CampaignCombinedListAssociation = "Campaign Combined List Association"
+    CampaignNegativeCombinedListAssociation = "Campaign Negative Combined List Association"
+    CustomerList = "Customer List"
+    CustomerListItem = "Customer List Item"
+    AdGroupCustomerListAssociation = "Ad Group Customer List Association"
+    AdGroupNegativeCustomerListAssociation = "Ad Group Negative Customer List Association"
+    CampaignCustomerListAssociation = "Campaign Customer List Association"
+    CampaignNegativeCustomerListAssociation = "Campaign Negative Customer List Association"
+    
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"
     TitlePart2 = "Title Part 2"

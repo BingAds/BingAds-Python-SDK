@@ -1,6 +1,15 @@
 .. :changelog:
 
 Release History
+13.0.4(2020-07-10)
++++++++++++++++++++++++++
+* Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes:https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Add mappings for TargetImpressionShareBiddingScheme in BulkCampaign. 
+* Add bulk mappings for combined list i.e., BulkCombinedList, BulkAdGroupCombinedListAssociation, BulkAdGroupNegativeCombinedListAssociation, BulkCampaignCombinedListAssociation, and BulkCampaignNegativeCombinedListAssociation. 
+* Add bulk entities for customer list i.e., BulkCustomerList, BulkCustomerListItem, BulkAdGroupCustomerListAssociation, BulkAdGroupNegativeCustomerListAssociation, BulkCampaignCustomerListAssociation, and BulkCampaignNegativeCustomerListAssociation.
+* Add OAuth support for AAD tenant.  
+* Add OAuth support for PKCE e.g., code_verifier.
+
 13.0.3(2020-05-26)
 +++++++++++++++++++++++++
 * Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 

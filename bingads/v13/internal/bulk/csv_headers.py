@@ -266,6 +266,8 @@ class _CsvHeaders:
         _StringTable.BidStrategyTargetCpa,
         _StringTable.BidStrategyTargetRoas,
         _StringTable.InheritedBidStrategyType,
+        _StringTable.BidStrategyTargetAdPosition,
+        _StringTable.BidStrategyTargetImpressionShare,
 
         # Ad Format Preference
         _StringTable.AdFormatPreference,
@@ -284,6 +286,7 @@ class _CsvHeaders:
         _StringTable.SupportedCampaignTypes,
         _StringTable.ProductAudienceType,
         _StringTable.SourceId,
+        _StringTable.CombinationRule,
 
 
         # Expanded Text Ad

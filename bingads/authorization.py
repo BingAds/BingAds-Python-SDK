@@ -285,7 +285,7 @@ class OAuthAuthorization(Authentication):
     * :class:`.OAuthWebAuthCodeGrant`
     """
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False, tenant='common'):
         """ Initializes a new instance of the OAuthAuthorization class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -302,6 +302,14 @@ class OAuthAuthorization(Authentication):
         self._state = None
         self.environment=env
         self._require_live_connect=require_live_connect
+        self._tenant = tenant
+        
+    @property
+    def tenant(self):
+        """ tenant
+        :rtype: str
+        """
+        return self._tenant
 
     @property
     def client_id(self):
@@ -376,7 +384,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION, require_live_connect=False):
+    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION, require_live_connect=False, tenant="common"):
         """ Initialize a new instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -393,7 +401,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :return:
         """
 
-        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, require_live_connect=require_live_connect)
+        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, require_live_connect=require_live_connect, tenant=tenant)
         self._client_secret = client_secret
         self._redirection_uri = redirection_uri
         self._token_refreshed_callback = token_refreshed_callback
@@ -404,15 +412,20 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :return: The Microsoft Account authorization endpoint.
         :rtype: str
         """
+        endpoint_url = _UriOAuthService.AUTHORIZE_URI[(self.environment, self._require_live_connect)]
+        if self.environment == PRODUCTION and self._require_live_connect == False:
+            endpoint_url = endpoint_url.replace('common', self.tenant);
+            
         endpoint = str.format(
-            _UriOAuthService.AUTHORIZE_URI[(self.environment, self._require_live_connect)],
+            endpoint_url,
             self._client_id,
             'code',
             quote_plus(self._redirection_uri)
         )
+        
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
-    def request_oauth_tokens_by_response_uri(self, response_uri):
+    def request_oauth_tokens_by_response_uri(self, response_uri, **kwargs):
         """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.
 
         Using the specified authorization response redirection uri.
@@ -440,7 +453,9 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             grant_type='authorization_code',
             environment=self.environment,
             code=code,
-            requireliveconnect=self._require_live_connect
+            requireliveconnect=self._require_live_connect,
+            tenant=self.tenant,
+            **kwargs
         )
         if self.token_refreshed_callback is not None:
             self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
@@ -466,7 +481,8 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             refresh_token=refresh_token,
             environment=self.environment,
             scope=_UriOAuthService.SCOPE[(self.environment, self._require_live_connect)],
-            requireliveconnect=self._require_live_connect
+            requireliveconnect=self._require_live_connect,
+            tenant = self.tenant
         )
         if self.token_refreshed_callback is not None:
             self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
@@ -527,7 +543,7 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False, tenant='common'):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -542,7 +558,8 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
             _UriOAuthService.REDIRECTION_URI[(env, require_live_connect)],
             oauth_tokens=oauth_tokens,
             env=env,
-            require_live_connect=require_live_connect
+            require_live_connect=require_live_connect,
+            tenant=tenant
         )
 
 
@@ -576,7 +593,7 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
     """
     
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, require_live_connect=False, tenant='common'):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -585,7 +602,7 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         :type oauth_tokens: OAuthTokens
         """
 
-        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, require_live_connect=require_live_connect)
+        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, require_live_connect=require_live_connect, tenant=tenant)
         
     
 
@@ -596,12 +613,16 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         :rtype: str
         """
 
+        endpoint_url = _UriOAuthService.AUTHORIZE_URI[(self.environment, self._require_live_connect)]
+        if self.environment == PRODUCTION and self._require_live_connect == False:
+            endpoint_url = endpoint_url.replace('common', self.tenant);
         endpoint = str.format(
-            _UriOAuthService.AUTHORIZE_URI[(self.environment, self._require_live_connect)],
+            endpoint_url,
             self.client_id,
             'token',
             _UriOAuthService.REDIRECTION_URI[(self.environment, self._require_live_connect)],
         )
+        
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def extract_access_token_from_uri(self, redirection_uri):
@@ -667,9 +688,14 @@ class _UriOAuthService:
 
         if 'client_secret' in kwargs and kwargs['client_secret'] is None:
             del kwargs['client_secret']
+            
+        auth_token_url = _UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['requireliveconnect'])]
+        
+        if 'tenant' in kwargs and kwargs['tenant'] is not None:
+            auth_token_url = auth_token_url.replace('common', kwargs['tenant'])
 
         # default timeout set to 300 secs
-        r = requests.post(_UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['requireliveconnect'])], kwargs, verify=True, timeout=300)
+        r = requests.post(auth_token_url, kwargs, verify=True, timeout=300)
         try:
             r.raise_for_status()
         except Exception:

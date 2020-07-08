@@ -16,6 +16,7 @@ _BULK_DATE_FORMAT = "%m/%d/%Y"
 url_splitter = ";\\s*(?=https?://)"
 custom_param_splitter = "(?<!\\\\);\\s*"
 custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
+combine_rule_pattern = "^(And|Or|Not)\\(([\d|\s|,]*?)\\)$"
 
 BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V13.create('BudgetLimitType')
 DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting')
@@ -124,6 +125,13 @@ def csv_to_biddingscheme(row_values, bulk_campaign):
     
     success, target_roas_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetRoas)
     target_roas_value = float(target_roas_row_value) if target_roas_row_value else None
+    
+    
+    success, target_impression_share_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetImpressionShare)
+    target_impression_share_value = float(target_impression_share_row_value) if target_impression_share_row_value else None
+    
+    
+    success, target_ad_position_value = row_values.try_get_value(_StringTable.BidStrategyTargetAdPosition)
 
     if  bid_strategy_type == 'MaxConversions':
         bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
@@ -142,6 +150,12 @@ def csv_to_biddingscheme(row_values, bulk_campaign):
     elif bid_strategy_type == 'MaxConversionValue':
         bulk_campaign.campaign.BiddingScheme.Type = "MaxConversionValue"
         bulk_campaign.campaign.BiddingScheme.TargetRoas = target_roas_value
+    elif bid_strategy_type == 'TargetImpressionShare':
+        bulk_campaign.campaign.BiddingScheme.Type = "TargetImpressionShare"
+        bulk_campaign.campaign.BiddingScheme.MaxCpc = maxCpcValue
+        bulk_campaign.campaign.BiddingScheme.TargetImpressionShare = target_impression_share_value
+        bulk_campaign.campaign.BiddingScheme.TargetAdPosition = target_ad_position_value
+        
 
 
 def biddingscheme_to_csv(bulk_campaign, row_values):
@@ -164,6 +178,10 @@ def biddingscheme_to_csv(bulk_campaign, row_values):
     elif bid_strategy_type == 'TargetRoas':
         row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetRoas)
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+    elif bid_strategy_type == 'TargetImpressionShare':
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+        row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(bulk_campaign.campaign.BiddingScheme.TargetAdPosition, bulk_campaign.campaign.Id)
+        row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(bulk_campaign.campaign.BiddingScheme.TargetImpressionShare)
                                 
 
 def bulk_optional_str(value, id):
@@ -377,6 +395,8 @@ def field_to_csv_BidStrategyType(entity):
         return 'MaxConversionValue'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')):
         return 'TargetRoas'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShare')):
+        return 'TargetImpressionShare'
     else:
         raise TypeError('Unsupported Bid Strategy Type')
 
@@ -406,6 +426,8 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')
     elif value == 'MaxConversionValue':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionValueBiddingScheme')
+    elif value == 'TargetImpressionShare':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShareBiddingScheme')
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value
@@ -1515,3 +1537,24 @@ def csv_to_field_PageFeedIds(value):
         return []
     return [int(i) for i in value.split(';')]    
     
+def combination_rules_to_bulkstring(combination_rules):
+    if len(combination_rules.CombinationRule) == 0:
+        return None
+    
+    
+    return '&'.join([r.Operator + '(' + ','.join([str(id) for id in r.AudienceIds.long]) + ')' for r in combination_rules.CombinationRule])
+
+def parse_combination_rules(combination_list, value):
+    if value is None or len(value) == 0:
+        return None
+    
+    rules = value.split('&')
+    pattern = re.compile(combine_rule_pattern)
+    for rule in rules:
+        m = pattern.match(rule)
+        if m:
+            combination_rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('CombinationRule')
+            combination_rule.Operator = m.group(1)
+            combination_rule.AudienceIds.long.extend([int(id) for id in m.group(2).split(',') if len(id) > 0])
+            combination_list.CombinationRules.CombinationRule.append(combination_rule)
+      
