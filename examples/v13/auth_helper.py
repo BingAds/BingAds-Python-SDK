@@ -17,6 +17,7 @@ ENVIRONMENT='sandbox' # If you use 'production' then you must also update the DE
 # The REFRESH_TOKEN should always be in a secure location.
 CLIENT_ID='db41b09d-6e50-4f4a-90ac-5a99caefb52f'
 CLIENT_STATE='ClientStateGoesHere'
+CLIENT_SECRET="ClientSecretGoesHere"
 REFRESH_TOKEN="refresh.txt"
 
 ALL_CAMPAIGN_TYPES=['Audience DynamicSearchAds Search Shopping']
@@ -61,6 +62,7 @@ def authenticate_with_oauth(authorization_data):
         client_id=CLIENT_ID,
         env=ENVIRONMENT
     )
+    authentication.client_secret=CLIENT_SECRET
 
     # It is recommended that you specify a non guessable 'state' request parameter to help prevent
     # cross site request forgery (CSRF). 
