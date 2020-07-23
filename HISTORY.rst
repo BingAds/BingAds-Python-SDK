@@ -1,6 +1,10 @@
 .. :changelog:
 
 Release History
+13.0.4.1(2020-07-23)
++++++++++++++++++++++++++
+* Fix issue https://github.com/BingAds/BingAds-Python-SDK/issues/160. 
+
 13.0.4(2020-07-10)
 +++++++++++++++++++++++++
 * Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes:https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
