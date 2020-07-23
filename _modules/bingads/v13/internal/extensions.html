@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 13.0.4 documentation</title>
+    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 13.0.4.1 documentation</title>
     <link rel="stylesheet" href="../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.4.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -44,17 +44,17 @@
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="p">,</span> <span class="n">_CAMPAIGN_MANAGEMENT_SERVICE_V13</span>
 
-<span class="n">target_setting_detail_pattern</span><span class="o">=</span><span class="s2">&quot;^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$&quot;</span>
+<span class="n">target_setting_detail_pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$&#39;</span>
 
 <span class="n">DELETE_VALUE</span> <span class="o">=</span> <span class="s2">&quot;delete_value&quot;</span>
 <span class="n">_BULK_DATETIME_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M:%S&#39;</span>
 <span class="n">_BULK_DATETIME_FORMAT_2</span> <span class="o">=</span> <span class="s1">&#39;%m/</span><span class="si">%d</span><span class="s1">/%Y %H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span>
 <span class="n">_BULK_DATE_FORMAT</span> <span class="o">=</span> <span class="s2">&quot;%m/</span><span class="si">%d</span><span class="s2">/%Y&quot;</span>
 
-<span class="n">url_splitter</span> <span class="o">=</span> <span class="s2">&quot;;</span><span class="se">\\</span><span class="s2">s*(?=https?://)&quot;</span>
-<span class="n">custom_param_splitter</span> <span class="o">=</span> <span class="s2">&quot;(?&lt;!</span><span class="se">\\\\</span><span class="s2">);</span><span class="se">\\</span><span class="s2">s*&quot;</span>
-<span class="n">custom_param_pattern</span> <span class="o">=</span> <span class="s2">&quot;^</span><span class="se">\\</span><span class="s2">{_(.*?)</span><span class="se">\\</span><span class="s2">}=(.*$)&quot;</span>
-<span class="n">combine_rule_pattern</span> <span class="o">=</span> <span class="s2">&quot;^(And|Or|Not)</span><span class="se">\\</span><span class="s2">(([\d|\s|,]*?)</span><span class="se">\\</span><span class="s2">)$&quot;</span>
+<span class="n">url_splitter</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;;</span><span class="se">\\</span><span class="s1">s*(?=https?://)&#39;</span>
+<span class="n">custom_param_splitter</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?&lt;!</span><span class="se">\\\\</span><span class="s1">);</span><span class="se">\\</span><span class="s1">s*&#39;</span>
+<span class="n">custom_param_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^</span><span class="se">\\</span><span class="s1">{_(.*?)</span><span class="se">\\</span><span class="s1">}=(.*$)&#39;</span>
+<span class="n">combine_rule_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(And|Or|Not)</span><span class="se">\\</span><span class="s1">(([\d|\s|,]*?)</span><span class="se">\\</span><span class="s1">)$&#39;</span>
 
 <span class="n">BudgetLimitType</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BudgetLimitType&#39;</span><span class="p">)</span>
 <span class="n">DynamicSearchAdsSetting</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">)</span>
@@ -393,7 +393,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">splitter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">splitter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
     <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
@@ -720,7 +720,7 @@
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="n">DELETE_VALUE</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">daytime_strs</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-    <span class="n">ad_schedule_pattern</span> <span class="o">=</span> <span class="s1">&#39;\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)&#39;</span>
+    <span class="n">ad_schedule_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)&#39;</span>
     <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">ad_schedule_pattern</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
     <span class="n">daytimes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">daytime_str</span> <span class="ow">in</span> <span class="n">daytime_strs</span><span class="p">:</span>
@@ -758,7 +758,7 @@
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="n">DELETE_VALUE</span><span class="p">:</span>
         <span class="k">return</span>
     <span class="n">daytime_strs</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
-    <span class="n">ad_schedule_pattern</span> <span class="o">=</span> <span class="s1">&#39;\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)&#39;</span>
+    <span class="n">ad_schedule_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)&#39;</span>
     <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">ad_schedule_pattern</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">)</span>
     <span class="n">daytimes</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">daytime_str</span> <span class="ow">in</span> <span class="n">daytime_strs</span><span class="p">:</span>
@@ -1404,13 +1404,13 @@
     <span class="n">rule</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;CustomEvents&#39;</span>
 
     <span class="n">item_split</span> <span class="o">=</span> <span class="s1">&#39;) and (&#39;</span>
-    <span class="n">pattern_for_operand_str</span> <span class="o">=</span> <span class="s1">&#39;^(Category|Action|Label|Value) ([^()]*)$&#39;</span>
+    <span class="n">pattern_for_operand_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Category|Action|Label|Value) ([^()]*)$&#39;</span>
     <span class="n">pattern_for_operand</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_for_operand_str</span><span class="p">)</span>
 
-    <span class="n">pattern_number_item_str</span> <span class="o">=</span> <span class="s1">&#39;^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$&#39;</span>
+    <span class="n">pattern_number_item_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$&#39;</span>
     <span class="n">pattern_number_item</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_number_item_str</span><span class="p">)</span>
 
-    <span class="n">pattern_string_item_str</span> <span class="o">=</span> <span class="s1">&#39;^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
+    <span class="n">pattern_string_item_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
     <span class="n">pattern_string_item</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_string_item_str</span><span class="p">)</span>
 
     <span class="n">item_string_list</span> <span class="o">=</span> <span class="n">rule_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">item_split</span><span class="p">)</span>
@@ -1479,7 +1479,7 @@
 
 <div class="viewcode-block" id="parse_string_rule_item"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.parse_string_rule_item">[docs]</a><span class="k">def</span> <span class="nf">parse_string_rule_item</span><span class="p">(</span><span class="n">item_str</span><span class="p">):</span>
     <span class="n">item_str</span> <span class="o">=</span> <span class="n">item_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
-    <span class="n">pattern_str</span> <span class="o">=</span> <span class="s1">&#39;^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
+    <span class="n">pattern_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
     <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_str</span><span class="p">)</span>
 
     <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">item_str</span><span class="p">)</span>
@@ -1536,7 +1536,7 @@
 <div class="viewcode-block" id="csv_to_field_SupportedCampaignTypes"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.csv_to_field_SupportedCampaignTypes">[docs]</a><span class="k">def</span> <span class="nf">csv_to_field_SupportedCampaignTypes</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
         <span class="k">return</span>
-    <span class="n">splitter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+    <span class="n">splitter</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
     <span class="n">entity</span><span class="o">.</span><span class="n">string</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
 
 
@@ -1628,7 +1628,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.4 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.4.1 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
