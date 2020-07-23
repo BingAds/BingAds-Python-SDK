@@ -122,7 +122,7 @@ class _BulkObjectFactory():
         _StringTable.AdGroupCombinedListAssociation: _EntityInfo(lambda: BulkAdGroupCombinedListAssociation()),
         _StringTable.AdGroupCustomerListAssociation: _EntityInfo(lambda: BulkAdGroupCustomerListAssociation()),
         _StringTable.AdGroupNegativeCombinedListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeCombinedListAssociation()),
-        _StringTable.AdGroupNegativeCustomerListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeCustomeristAssociation()),
+        _StringTable.AdGroupNegativeCustomerListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeCustomerListAssociation()),
         _StringTable.CampaignProductAudienceAssociation: _EntityInfo(lambda: BulkCampaignProductAudienceAssociation()),
         _StringTable.CampaignNegativeProductAudienceAssociation: _EntityInfo(lambda: BulkCampaignNegativeProductAudienceAssociation()),
         _StringTable.CampaignCombinedListAssociation: _EntityInfo(lambda: BulkCampaignCombinedListAssociation()),
