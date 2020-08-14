@@ -76,7 +76,7 @@ class _XmlReportHeader:
         if context is not None:
             event, root = context.next()
             if event == 'start':
-                m = re.compile('^(.*)Report').match(root.tag)
+                m = re.compile(r'^(.*)Report').match(root.tag)
                 if not m:
                     raise InvalidReportContentException()
                 self.set_report_attribute(root.attrib.copy())

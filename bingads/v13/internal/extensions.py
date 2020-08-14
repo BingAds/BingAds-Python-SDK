@@ -6,17 +6,17 @@ import re
 import json
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13, _CAMPAIGN_MANAGEMENT_SERVICE_V13
 
-target_setting_detail_pattern="^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$"
+target_setting_detail_pattern=r'^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$'
 
 DELETE_VALUE = "delete_value"
 _BULK_DATETIME_FORMAT = '%m/%d/%Y %H:%M:%S'
 _BULK_DATETIME_FORMAT_2 = '%m/%d/%Y %H:%M:%S.%f'
 _BULK_DATE_FORMAT = "%m/%d/%Y"
 
-url_splitter = ";\\s*(?=https?://)"
-custom_param_splitter = "(?<!\\\\);\\s*"
-custom_param_pattern = "^\\{_(.*?)\\}=(.*$)"
-combine_rule_pattern = "^(And|Or|Not)\\(([\d|\s|,]*?)\\)$"
+url_splitter = r';\s*(?=https?://)'
+custom_param_splitter = r'(?<!\\);\s*'
+custom_param_pattern = r'^\{_(.*?)\}=(.*$)'
+combine_rule_pattern = r'^(And|Or|Not)\(([\d|\s|,]*?)\)$'
 
 BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V13.create('BudgetLimitType')
 DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting')
@@ -270,6 +270,8 @@ def csv_to_field_MediaIds(entity, value):
     :param entity:
     :return:
     """
+    if value is None or value.strip() == '':
+        return
     entity.ImageMediaIds = [None if i == 'None' else int(i) for i in value.split(';')]
 
 
@@ -355,7 +357,7 @@ def csv_to_field_CampaignLanguages(entity, value):
     """
     if value is None or value == '':
         return
-    splitter = re.compile(';')
+    splitter = re.compile(r';')
     entity.string = splitter.split(value)
 
 
@@ -433,13 +435,13 @@ def csv_to_field_BidStrategyType(entity, value):
     entity.BiddingScheme.Type = value
 
 
-def csv_to_field_StructuredSnippetValues(entity, value):
+def csv_to_field_delimited_strings(entity, value):
     if value is not None and value != '':
-        entity.Values.string = value.split(';')
+        entity.string = value.split(';')
 
-def field_to_csv_StructuredSnippetValues(entity):
-    if entity.Values is not None and entity.Values.string is not None and len(entity.Values.string) > 0:
-        return ';'.join(entity.Values.string)
+def field_to_csv_delimited_strings(entity):
+    if entity is not None and entity.string is not None and len(entity.string) > 0:
+        return ';'.join(entity.string)
     return None
 
 
@@ -682,7 +684,7 @@ def csv_to_field_AdSchedule(entity, value):
     if value is None or value.strip() == '' or value == DELETE_VALUE:
         return
     daytime_strs = value.split(';')
-    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    ad_schedule_pattern = r'\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
     pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
     daytimes = []
     for daytime_str in daytime_strs:
@@ -720,7 +722,7 @@ def csv_to_field_FeedItemAdSchedule(entity, value):
     if value is None or value.strip() == '' or value == DELETE_VALUE:
         return
     daytime_strs = value.split(';')
-    ad_schedule_pattern = '\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
+    ad_schedule_pattern = r'\((Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\[(\d\d?):(\d\d)-(\d\d?):(\d\d)\]\)'
     pattern = re.compile(ad_schedule_pattern, re.IGNORECASE)
     daytimes = []
     for daytime_str in daytime_strs:
@@ -1366,13 +1368,13 @@ def parse_rule_CustomEvents(rule_str):
     rule.Type = 'CustomEvents'
 
     item_split = ') and ('
-    pattern_for_operand_str = '^(Category|Action|Label|Value) ([^()]*)$'
+    pattern_for_operand_str = r'^(Category|Action|Label|Value) ([^()]*)$'
     pattern_for_operand = re.compile(pattern_for_operand_str)
 
-    pattern_number_item_str = '^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$'
+    pattern_number_item_str = r'^(Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo) ([^()]*)$'
     pattern_number_item = re.compile(pattern_number_item_str)
 
-    pattern_string_item_str = '^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern_string_item_str = r'^(Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
     pattern_string_item = re.compile(pattern_string_item_str)
 
     item_string_list = rule_str.split(item_split)
@@ -1441,7 +1443,7 @@ def parse_rule_items(items_str):
 
 def parse_string_rule_item(item_str):
     item_str = item_str.strip('(').strip(')')
-    pattern_str = '^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern_str = r'^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
     pattern = re.compile(pattern_str)
 
     match = pattern.match(item_str)
@@ -1498,7 +1500,7 @@ def parse_string_operator(operator):
 def csv_to_field_SupportedCampaignTypes(entity, value):
     if value is None or value == '':
         return
-    splitter = re.compile(';')
+    splitter = re.compile(r';')
     entity.string = splitter.split(value)
 
 

@@ -64,16 +64,49 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.MediaIds,
-            #field_to_csv=lambda c: bulk_str(c.image_ad_extension.ImageMediaIds),
             field_to_csv=lambda c: field_to_csv_MediaIds(c.image_ad_extension),
-            #csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'ImageMediaIds', int(v))
             csv_to_field=lambda c, v: csv_to_field_MediaIds(c.image_ad_extension, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.FinalUrlSuffix, c.image_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'FinalUrlSuffix', v)
-        )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TrackingTemplate,
+            field_to_csv=lambda c: bulk_str(c.image_ad_extension.TrackingUrlTemplate),
+            csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'TrackingUrlTemplate', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CustomParameter,
+            field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.image_ad_extension),
+            csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.image_ad_extension, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrl,
+            field_to_csv=lambda c: field_to_csv_Urls(c.image_ad_extension.FinalUrls, c.image_ad_extension.Id),
+            csv_to_field=lambda c, v: csv_to_field_Urls(c.image_ad_extension.FinalUrls, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalMobileUrl,
+            field_to_csv=lambda c: field_to_csv_Urls(c.image_ad_extension.FinalMobileUrls, c.image_ad_extension.Id),
+            csv_to_field=lambda c, v: csv_to_field_Urls(c.image_ad_extension.FinalMobileUrls, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.DisplayText,
+            field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.DisplayText, c.image_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'DisplayText', v if v else '')
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Layouts,
+            field_to_csv=lambda c: field_to_csv_delimited_strings(c.image_ad_extension.Layouts),
+            csv_to_field=lambda c, v: csv_to_field_delimited_strings(c.image_ad_extension.Layouts, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Images,
+            field_to_csv=lambda c: field_to_csv_ImageAssetLinks(c.image_ad_extension.Images),
+            csv_to_field=lambda c, v: csv_to_field_ImageAssetLinks(c.image_ad_extension.Images, v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):

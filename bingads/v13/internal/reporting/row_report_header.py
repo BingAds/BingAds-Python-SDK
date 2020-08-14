@@ -4,8 +4,8 @@ from bingads.v13.internal.extensions import *
 class _RowReportHeader:
 
     def __init__(self, stream_reader):
-        self._regex = re.compile("^(Report Name|Report Time|Report Aggregation|Report Filter|Time Zone|Rows|Last Completed Available Day|Last Completed Available Hour|Potential Incomplete Data): (.*)$")
-        self._value_regex = re.compile("^(([1-9]\d*\.?\d*)|(0\.\d*[1-9]))%?$")
+        self._regex = re.compile(r'^(Report Name|Report Time|Report Aggregation|Report Filter|Time Zone|Rows|Last Completed Available Day|Last Completed Available Hour|Potential Incomplete Data): (.*)$')
+        self._value_regex = re.compile(r'^(([1-9]\d*\.?\d*)|(0\.\d*[1-9]))%?$')
         self._stream_reader = stream_reader
         self._report_name = None
         self._report_time_start = None

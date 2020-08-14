@@ -60,8 +60,8 @@ class BulkStructuredSnippetAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.StructuredSnippetValues,
-            field_to_csv=lambda c: field_to_csv_StructuredSnippetValues(c.structured_snippet_ad_extension),
-            csv_to_field=lambda c, v: csv_to_field_StructuredSnippetValues(c.structured_snippet_ad_extension, v)
+            field_to_csv=lambda c: field_to_csv_delimited_strings(c.structured_snippet_ad_extension.Values),
+            csv_to_field=lambda c, v: csv_to_field_delimited_strings(c.structured_snippet_ad_extension.Values, v)
         ),
     ]
 

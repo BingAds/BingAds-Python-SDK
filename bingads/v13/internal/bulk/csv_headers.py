@@ -113,6 +113,16 @@ class _CsvHeaders:
         _StringTable.AltText,
         _StringTable.MediaIds,
         _StringTable.PublisherCountries,
+        _StringTable.Layouts,
+        _StringTable.DisplayText,
+        
+        # Filter link ad extension
+        _StringTable.AdExtensionHeaderType,
+        _StringTable.Texts,
+
+        # Image
+        _StringTable.Height,
+        _StringTable.Width,
 
         # Callout Ad Extension
         _StringTable.CalloutText,
@@ -350,6 +360,12 @@ class _CsvHeaders:
         _StringTable.ConversionTime,
         _StringTable.ConversionValue,
         _StringTable.MicrosoftClickId,
+        _StringTable.AdjustmentValue,
+        _StringTable.AdjustmentTime,
+        _StringTable.AdjustmentCurrencyCode,
+        _StringTable.AdjustmentType,
+        _StringTable.ExternalAttributionCredit,
+        _StringTable.ExternalAttributionModel,
         
         # Account
         _StringTable.MSCLKIDAutoTaggingEnabled,

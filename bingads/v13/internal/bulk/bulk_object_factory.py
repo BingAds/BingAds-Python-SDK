@@ -8,6 +8,7 @@ from bingads.v13.internal.bulk.format_version import _FormatVersion
 
 class _BulkObjectFactory():
     INDIVIDUAL_ENTITY_MAP = {
+        _StringTable.Image: _EntityInfo(lambda: BulkImage()),
         _StringTable.Account: _EntityInfo(lambda: BulkAccount()),
         _StringTable.Budget: _EntityInfo(lambda: BulkBudget()),
         _StringTable.Campaign: _EntityInfo(lambda: BulkCampaign()),
@@ -19,6 +20,10 @@ class _BulkObjectFactory():
         _StringTable.AccountImageAdExtension: _EntityInfo(lambda: BulkAccountImageAdExtension()),
         _StringTable.CampaignImageAdExtension: _EntityInfo(lambda: BulkCampaignImageAdExtension()),
         _StringTable.AdGroupImageAdExtension: _EntityInfo(lambda: BulkAdGroupImageAdExtension()),
+        _StringTable.FilterLinkAdExtension: _EntityInfo(lambda: BulkFilterLinkAdExtension()),
+        _StringTable.AccountFilterLinkAdExtension: _EntityInfo(lambda: BulkAccountFilterLinkAdExtension()),
+        _StringTable.CampaignFilterLinkAdExtension: _EntityInfo(lambda: BulkCampaignFilterLinkAdExtension()),
+        _StringTable.AdGroupFilterLinkAdExtension: _EntityInfo(lambda: BulkAdGroupFilterLinkAdExtension()),
         _StringTable.CalloutAdExtension: _EntityInfo(lambda: BulkCalloutAdExtension()),
         _StringTable.AccountCalloutAdExtension: _EntityInfo(lambda: BulkAccountCalloutAdExtension()),
         _StringTable.CampaignCalloutAdExtension: _EntityInfo(lambda: BulkCampaignCalloutAdExtension()),

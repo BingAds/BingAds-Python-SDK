@@ -108,8 +108,17 @@ class _StringTable:
     AccountImageAdExtension = "Account Image Ad Extension"
     CampaignImageAdExtension = "Campaign Image Ad Extension"
     AdGroupImageAdExtension = "Ad Group Image Ad Extension"
+    Layouts = "Layouts"
+    DisplayText = "Display Text"
+    
+    # Filter Link ad extension
+    FilterLinkAdExtension = "Filter Link Ad Extension"
+    AccountFilterLinkAdExtension = "Account Filter Link Ad Extension"
+    CampaignFilterLinkAdExtension = "Campaign Filter Link Ad Extension"
+    AdGroupFilterLinkAdExtension = "Ad Group Filter Link Ad Extension"
+    AdExtensionHeaderType = "AdExtension Header Type"
+    Texts = "Texts"
 
-    # SiteLink Ad Extensions
     SiteLinkExtensionOrder = "Sitelink Extension Order"
     SiteLinkDisplayText = "Sitelink Extension Link Text"
     SiteLinkDestinationUrl = "Sitelink Extension Destination Url"
@@ -476,6 +485,12 @@ class _StringTable:
     LongHeadline = "Long Headline"
     SquareImageMediaId = "Square Image Media Id"
     SquareLogoMediaId = "Square Logo Media Id"
+    
+    #Image
+    Image = "Image"
+    Height = "Height"
+    Width = "Width"
+    
 
     # Responsive Search Ad
     ResponsiveSearchAd = "Responsive Search Ad"
@@ -501,6 +516,13 @@ class _StringTable:
     ConversionTime = "Conversion Time"
     ConversionValue = "Conversion Value"
     MicrosoftClickId = "Microsoft Click Id"
+    AdjustmentValue = "Adjustment Value"
+    AdjustmentTime = "Adjustment Time"
+    AdjustmentCurrencyCode = "Adjustment Currency Code"
+    AdjustmentType = "Adjustment Type"
+    ExternalAttributionModel = "External Attribution Model"
+    ExternalAttributionCredit = "External Attribution Credit"
+
 
     # Campaign Criterion
     CampaignAgeCriterion = 'Campaign Age Criterion'

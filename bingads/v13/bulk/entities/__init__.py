@@ -28,4 +28,5 @@ from .target_criterions import *
 from .labels import *
 from .bulk_offline_conversion import *
 from .bulk_experiment import *
+from .bulk_image import *
 from .feeds import *

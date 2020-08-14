@@ -1,6 +1,14 @@
 .. :changelog:
 
 Release History
+13.0.5(2020-08-14)
++++++++++++++++++++++++++
+* Updated Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Add BulkImage for bulk image upload. 
+* Add Multi-Image field mappings for BulkImageAdExtension. 
+* Add offline conversion adjustment field mappings for BulkOfflineConversion. 
+* Add bulk mappings for filter link ad extensions i.e., BulkFilterLinkAdExtension, BulkAccountFilterLinkAdExtension, BulkAdGroupFilterLinkAdExtension, and BulkCampaignFilterLinkAdExtension. 
+
 13.0.4.1(2020-07-23)
 +++++++++++++++++++++++++
 * Fix issue https://github.com/BingAds/BingAds-Python-SDK/issues/160. 
