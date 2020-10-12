@@ -235,8 +235,13 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         
         _SimpleBulkMapping(
             header=_StringTable.AdScheduleUseSearcherTimeZone,
-            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.ad_group.AdScheduleUseSearcherTimeZone, c.ad_group.Id),
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.ad_group.AdScheduleUseSearcherTimeZone, None),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'AdScheduleUseSearcherTimeZone', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdGroupType,
+            field_to_csv=lambda c: c.ad_group.AdGroupType,
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'AdGroupType', v)
         ),
     ]
     

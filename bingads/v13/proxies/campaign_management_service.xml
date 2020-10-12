@@ -720,6 +720,7 @@
                      <xs:enumeration value="AdScheduleUseSearcherTimeZone" />
                      <xs:enumeration value="MaxConversionValueBiddingScheme" />
                      <xs:enumeration value="TargetImpressionShareBiddingScheme" />
+                     <xs:enumeration value="TargetSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -891,6 +892,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:element>
+               <xs:element minOccurs="0" name="AdGroupType" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AdGroup" nillable="true" type="tns:AdGroup" />
@@ -982,6 +990,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="AdScheduleUseSearcherTimeZone" />
+                     <xs:enumeration value="AdGroupType" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2139,6 +2148,7 @@
                   <xs:sequence>
                      <xs:element minOccurs="0" name="AdExtensionHeaderType" nillable="true" type="tns:AdExtensionHeaderType" />
                      <xs:element xmlns:q53="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q53:ArrayOfstring" />
+                     <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string" />
                      <xs:element xmlns:q54="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q54:ArrayOfstring" />
                      <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                      <xs:element xmlns:q55="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Texts" nillable="true" type="q55:ArrayOfstring" />
@@ -2187,6 +2197,7 @@
                <xs:enumeration value="What" />
                <xs:enumeration value="Who" />
                <xs:enumeration value="Why" />
+               <xs:enumeration value="Deals" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdExtensionHeaderType" nillable="true" type="tns:AdExtensionHeaderType" />
@@ -3349,9 +3360,21 @@
          </xs:element>
          <xs:element name="GetBMCStoresByCustomerIdRequest">
             <xs:complexType>
-               <xs:sequence />
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:BMCStoreAdditionalField" />
+               </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="BMCStoreAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="GlobalStore" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="BMCStoreAdditionalField" nillable="true" type="tns:BMCStoreAdditionalField" />
          <xs:element name="GetBMCStoresByCustomerIdResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3382,6 +3405,13 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="GlobalStore">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -4582,6 +4612,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="ViewThroughConversionWindowInMinutes" />
                      <xs:enumeration value="IsExternallyAttributed" />
+                     <xs:enumeration value="GoalCategory" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -4606,6 +4637,13 @@
                <xs:element minOccurs="0" name="ConversionWindowInMinutes" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="CountType" nillable="true" type="tns:ConversionGoalCountType" />
                <xs:element minOccurs="0" name="ExcludeFromBidding" nillable="true" type="xs:boolean" />
+               <xs:element minOccurs="0" name="GoalCategory" nillable="true" type="tns:ConversionGoalCategory">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Revenue" nillable="true" type="tns:ConversionGoalRevenue" />
@@ -4631,6 +4669,27 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ConversionGoalCountType" nillable="true" type="tns:ConversionGoalCountType" />
+         <xs:simpleType name="ConversionGoalCategory">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="None" />
+               <xs:enumeration value="Purchase" />
+               <xs:enumeration value="AddToCart" />
+               <xs:enumeration value="BeginCheckout" />
+               <xs:enumeration value="Subscribe" />
+               <xs:enumeration value="SubmitLeadForm" />
+               <xs:enumeration value="BookAppointment" />
+               <xs:enumeration value="Signup" />
+               <xs:enumeration value="RequestQuote" />
+               <xs:enumeration value="GetDirections" />
+               <xs:enumeration value="OutboundClick" />
+               <xs:enumeration value="Contact" />
+               <xs:enumeration value="PageView" />
+               <xs:enumeration value="Download" />
+               <xs:enumeration value="Other" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="ConversionGoalCategory" nillable="true" type="tns:ConversionGoalCategory" />
          <xs:complexType name="ConversionGoalRevenue">
             <xs:sequence>
                <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
@@ -5364,9 +5423,26 @@
                   <xs:element minOccurs="0" name="ImportType" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="PageInfo" nillable="true" type="tns:Paging" />
                   <xs:element xmlns:q112="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ImportJobIds" nillable="true" type="q112:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:ImportAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="ImportAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="None">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="ImportAdditionalField" nillable="true" type="tns:ImportAdditionalField" />
          <xs:element name="GetImportResultsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -5414,6 +5490,7 @@
                <xs:sequence>
                   <xs:element xmlns:q114="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ImportJobIds" nillable="true" type="q114:ArrayOflong" />
                   <xs:element minOccurs="0" name="ImportType" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:ImportAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>

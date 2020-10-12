@@ -31,6 +31,7 @@ class _CsvHeaders:
         _StringTable.CpcBid,
         _StringTable.Language,
         _StringTable.PrivacyStatus,
+        _StringTable.AdGroupType,
 
         # Ads
         _StringTable.Title,

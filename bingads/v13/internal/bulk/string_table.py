@@ -19,6 +19,7 @@ class _StringTable:
     ExperimentType = "Experiment Type"
     BudgetId = "Budget Id"
     AdGroup = "Ad Group"
+    AdGroupType = "Ad Group Type"
     Keyword = "Keyword"
     TextAd = "Text Ad"
     ProductAd = "Product Ad"

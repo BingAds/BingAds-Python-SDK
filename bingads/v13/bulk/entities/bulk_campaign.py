@@ -120,7 +120,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         
         if campaign_type.lower() == 'shopping' or campaign_type.lower() == 'audience':
             BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
-        elif campaign_type.lower() == 'dynamicsearchads':
+        elif campaign_type.lower() == 'dynamicsearchads' or campaign_type.lower() == 'search':
             BulkCampaign._create_campaign_setting(c.campaign, 'DynamicSearchAdsSetting')
 
     @staticmethod
@@ -449,7 +449,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         ),        
         _SimpleBulkMapping(
             header=_StringTable.AdScheduleUseSearcherTimeZone,
-            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.campaign.AdScheduleUseSearcherTimeZone, c.campaign.Id),
+            field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.campaign.AdScheduleUseSearcherTimeZone, None),
             csv_to_field=lambda c, v: setattr(c.campaign, 'AdScheduleUseSearcherTimeZone', parse_bool(v))
         ),
     ]

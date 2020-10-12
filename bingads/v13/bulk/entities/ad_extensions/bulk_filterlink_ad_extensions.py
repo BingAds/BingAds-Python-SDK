@@ -86,6 +86,11 @@ class BulkFilterLinkAdExtension(_BulkAdExtensionBase):
             header=_StringTable.FinalMobileUrl,
             field_to_csv=lambda c: field_to_csv_Urls(c.filter_link_ad_extension.FinalMobileUrls, c.filter_link_ad_extension.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.filter_link_ad_extension.FinalMobileUrls, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.filter_link_ad_extension.FinalUrlSuffix, c.filter_link_ad_extension.Id),
+            csv_to_field=lambda c, v: setattr(c.filter_link_ad_extension, 'FinalUrlSuffix', v)
         )
     ]
 
