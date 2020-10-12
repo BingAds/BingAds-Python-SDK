@@ -135,6 +135,14 @@ bingads.v13.bulk.entities.bulk\_experiment module
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_image module
+--------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_image
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_keyword module
 ----------------------------------------------
 
