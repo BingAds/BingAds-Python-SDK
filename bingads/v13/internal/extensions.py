@@ -518,7 +518,7 @@ def field_to_csv_Rsa_TextAssetLinks(entity):
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
-        return json.dumps(assetLinkContracts)
+        return json.dumps(assetLinkContracts, sort_keys = True)
     return None
 
 
@@ -1551,12 +1551,16 @@ def parse_combination_rules(combination_list, value):
         return None
     
     rules = value.split('&')
-    pattern = re.compile(combine_rule_pattern)
+    pattern = re.compile(combine_rule_pattern, re.IGNORECASE)
     for rule in rules:
         m = pattern.match(rule)
         if m:
             combination_rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('CombinationRule')
-            combination_rule.Operator = m.group(1)
+            combination_rule.Operator = to_operation(m.group(1))
             combination_rule.AudienceIds.long.extend([int(id) for id in m.group(2).split(',') if len(id) > 0])
             combination_list.CombinationRules.CombinationRule.append(combination_rule)
-      
+def to_operation(op):
+    if op.lower() == 'and': return 'And'
+    if op.lower() == 'or': return 'Or'
+    if op.lower() == 'not': return 'Not'
+    return none

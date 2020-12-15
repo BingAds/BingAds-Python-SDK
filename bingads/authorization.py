@@ -689,6 +689,9 @@ class _UriOAuthService:
         if 'client_secret' in kwargs and kwargs['client_secret'] is None:
             del kwargs['client_secret']
             
+        if 'requireliveconnect' in kwargs and kwargs['requireliveconnect'] == True:
+            del kwargs['tenant']
+            
         auth_token_url = _UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['requireliveconnect'])]
         
         if 'tenant' in kwargs and kwargs['tenant'] is not None:

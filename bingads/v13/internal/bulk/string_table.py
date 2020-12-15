@@ -182,6 +182,16 @@ class _StringTable:
     AdGroupSitelinkAdExtension = "Ad Group Sitelink Ad Extension"
     CampaignSitelinkAdExtension = "Campaign Sitelink Ad Extension"
     AccountSitelinkAdExtension = "Account Sitelink Ad Extension"
+    
+    
+    # Flyer Ad Extension
+    FlyerAdExtension = "Flyer Ad Extension"
+    AccountFlyerAdExtension = "Account Flyer Ad Extension"
+    CampaignFlyerAdExtension = "Campaign Flyer Ad Extension"
+    AdGroupFlyerAdExtension = "Ad Group Flyer Ad Extension"
+    FlyerName = "Flyer Name"
+    MediaUrls = "Media Urls"
+
 
     # Editorial Rejection Reasons
     PublisherCountries = "Publisher Countries"
@@ -208,8 +218,8 @@ class _StringTable:
     ProductValue7 = "Product Value 7"
     ProductValue8 = "Product Value 8"
 
-    BingMerchantCenterId = "Store Id"
-    BingMerchantCenterName = "Store Name"
+    MerchantCenterId = "Store Id"
+    MerchantCenterName = "Store Name"
 
     # App Ad Extension
     AppAdExtension = "App Ad Extension"
@@ -486,6 +496,7 @@ class _StringTable:
     LongHeadline = "Long Headline"
     SquareImageMediaId = "Square Image Media Id"
     SquareLogoMediaId = "Square Logo Media Id"
+    ImpressionTrackingUrls = "Impression Tracking Urls"
     
     #Image
     Image = "Image"

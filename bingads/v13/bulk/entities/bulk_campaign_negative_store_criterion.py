@@ -54,7 +54,7 @@ class BulkCampaignNegativeStoreCriterion(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'campaign_name', v)
         ),
         _SimpleBulkMapping(
-            header=_StringTable.BingMerchantCenterId,
+            header=_StringTable.MerchantCenterId,
             field_to_csv=lambda c: bulk_str(c.negative_campaign_criterion.Criterion.StoreId),
             csv_to_field=lambda c, v: setattr(c.negative_campaign_criterion.Criterion,'StoreId', int(v) if v else None)
         ),

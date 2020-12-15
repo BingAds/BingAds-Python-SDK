@@ -637,26 +637,6 @@ class BulkResponsiveAd(_BulkAd):
             csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LongHeadlineString', v)
         ),
         _SimpleBulkMapping(
-            header=_StringTable.LandscapeImageMediaId,
-            field_to_csv=lambda c: c.responsive_ad.LandscapeImageMediaId,
-            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LandscapeImageMediaId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.LandscapeLogoMediaId,
-            field_to_csv=lambda c: c.responsive_ad.LandscapeLogoMediaId,
-            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'LandscapeLogoMediaId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.SquareImageMediaId,
-            field_to_csv=lambda c: c.responsive_ad.SquareImageMediaId,
-            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'SquareImageMediaId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.SquareLogoMediaId,
-            field_to_csv=lambda c: c.responsive_ad.SquareLogoMediaId,
-            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'SquareLogoMediaId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
             header=_StringTable.Text,
             field_to_csv=lambda c: c.responsive_ad.Text,
             csv_to_field=lambda c, v: setattr(c.responsive_ad, 'Text', v)
@@ -666,6 +646,11 @@ class BulkResponsiveAd(_BulkAd):
             field_to_csv=lambda c: field_to_csv_ImageAssetLinks(c.responsive_ad.Images),
             csv_to_field=lambda c, v: csv_to_field_ImageAssetLinks(c.responsive_ad.Images, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.ImpressionTrackingUrls,            
+            field_to_csv=lambda c: field_to_csv_Urls(c.responsive_ad.ImpressionTrackingUrls, c.ad.Id),
+            csv_to_field=lambda c, v: csv_to_field_Urls(c.responsive_ad.ImpressionTrackingUrls, v)
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

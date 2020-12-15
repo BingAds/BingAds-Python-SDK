@@ -361,7 +361,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             )
         ),
         _SimpleBulkMapping(
-            header=_StringTable.BingMerchantCenterId,
+            header=_StringTable.MerchantCenterId,
             field_to_csv=lambda c: BulkCampaign._write_store_id(c),
             csv_to_field=lambda c, v: BulkCampaign._read_store_id(c, v)
         ),

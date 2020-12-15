@@ -1,6 +1,14 @@
 .. :changelog:
 
 Release History
+13.0.7(2020-12-16)
++++++++++++++++++++++++++
+
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Add bulk mappings for flyer ad extensions i.e., BulkFlyerAdExtension, BulkAccountFlyerAdExtension, BulkAdGroupFlyerAdExtension, and BulkCampaignFlyerAdExtension. 
+* Add ImpressionTrackingUrls mapping in the BulkResponsiveAd. 
+* Update the pattern matching to resolve EntityReadException with BulkCombinedList download.
+
 13.0.6(2020-10-14)
 +++++++++++++++++++++++++
 

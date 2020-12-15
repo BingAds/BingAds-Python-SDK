@@ -127,10 +127,18 @@ class _CsvHeaders:
 
         # Callout Ad Extension
         _StringTable.CalloutText,
+        
+        #Flyer Ad Extension        
+        _StringTable.FlyerAdExtension,
+        _StringTable.AccountFlyerAdExtension,
+        _StringTable.CampaignFlyerAdExtension,
+        _StringTable.AdGroupFlyerAdExtension,
+        _StringTable.FlyerName,
+        _StringTable.MediaUrls,
 
         # Product Target
-        _StringTable.BingMerchantCenterId,
-        _StringTable.BingMerchantCenterName,
+        _StringTable.MerchantCenterId,
+        _StringTable.MerchantCenterName,
         _StringTable.ProductCondition1,
         _StringTable.ProductValue1,
         _StringTable.ProductCondition2,
@@ -317,6 +325,7 @@ class _CsvHeaders:
         _StringTable.LongHeadline,
         _StringTable.SquareImageMediaId,
         _StringTable.SquareLogoMediaId,
+        _StringTable.ImpressionTrackingUrls,
 
         # Ad Scheduling
         _StringTable.AdSchedule,
