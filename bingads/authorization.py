@@ -576,7 +576,28 @@ class OAuthWebAuthCodeGrant(OAuthWithAuthorizationCode):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    pass
+    def __init__(self, client_id, client_secret, app_redirect_uri, oauth_tokens=None, env=PRODUCTION, require_live_connect=False, tenant='common'):
+        """ Initializes a new instance of the this class with the specified client id, client secret, and the app redirect URI.
+
+        :param client_id: The client identifier corresponding to your registered application.
+        :type client_id: str
+        :param client_secret: The client secret corresponding to your registered application.
+        :type client_secret: str
+        :param app_redirect_uri: The redirect uri corresponding to your registered application.
+        :type app_redirect_uri: str
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
+        """
+
+        super(OAuthWebAuthCodeGrant, self).__init__(
+            client_id,
+            client_secret,
+            app_redirect_uri,
+            oauth_tokens=oauth_tokens,
+            env=env,
+            require_live_connect=require_live_connect,
+            tenant=tenant
+        )
 
 
 class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
