@@ -71,6 +71,14 @@ bingads.v13.bulk.entities.bulk\_ads module
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_bid\_strategy module
+----------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_bid_strategy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_budget module
 ---------------------------------------------
 

@@ -44,6 +44,14 @@ bingads.v13.bulk.entities.ad\_extensions.bulk\_filterlink\_ad\_extensions module
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.ad\_extensions.bulk\_flyer\_ad\_extensions module
+---------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.ad_extensions.bulk_flyer_ad_extensions
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.ad\_extensions.bulk\_image\_ad\_extensions module
 ---------------------------------------------------------------------------
 

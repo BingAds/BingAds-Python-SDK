@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association &#8212; Bing Ads SDK 13.0.6 documentation</title>
+    <title>bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association &#8212; Bing Ads SDK 13.0.8 documentation</title>
     <link rel="stylesheet" href="../../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -38,13 +38,13 @@
   <h1>Source code for bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">bingads.v13.bulk.entities</span> <span class="k">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="k">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
-<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.entities.single_record_bulk_entity</span> <span class="k">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.bulk.entities.target_criterions.bulk_campaign_biddable_criterion</span> <span class="k">import</span> <span class="n">BulkCampaignBiddableCriterion</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="k">import</span> <span class="n">_SimpleBulkMapping</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="k">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.extensions</span> <span class="k">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="BulkCampaignAudienceAssociation"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignAudienceAssociation</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+<div class="viewcode-block" id="BulkCampaignAudienceAssociation"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignAudienceAssociation</span><span class="p">(</span><span class="n">BulkCampaignBiddableCriterion</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Base class for all Campaign Audience Association subclasses that can be read or written in a bulk file.</span>
 
 <span class="sd">    *See also:*</span>
@@ -60,34 +60,12 @@
                  <span class="n">biddable_campaign_criterion</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">campaign_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
                  <span class="n">audience_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignAudienceAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignAudienceAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">biddable_campaign_criterion</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span> <span class="o">=</span> <span class="n">biddable_campaign_criterion</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audience_name</span> <span class="o">=</span> <span class="n">audience_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="o">.</span><span class="n">Status</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="o">.</span><span class="n">CampaignId</span><span class="p">),</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;CampaignId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="p">),</span>
-        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
-            <span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
-            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
-            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-        <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">Audience</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">audience_name</span><span class="p">,</span>
@@ -106,29 +84,6 @@
     <span class="p">]</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">biddable_campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Defines a Biddable Campaign Criterion &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span>
-
-    <span class="nd">@biddable_campaign_criterion</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">biddable_campaign_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">biddable_campaign_criterion</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span> <span class="o">=</span> <span class="n">biddable_campaign_criterion</span>
-
-    <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Defines the name of the Campaign.</span>
-
-<span class="sd">        :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
-
-    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
-
-    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">audience_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Defines the name of the Audience</span>
 
@@ -140,18 +95,18 @@
     <span class="nd">@audience_name</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">audience_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audience_name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_audience_name</span> <span class="o">=</span> <span class="n">audience_name</span>
+        
+        
+<div class="viewcode-block" id="BulkCampaignAudienceAssociation.create_criterion"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation.create_criterion">[docs]</a>    <span class="k">def</span> <span class="nf">create_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AudienceCriterion&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;AudienceCriterion&#39;</span></div>
 
 <div class="viewcode-block" id="BulkCampaignAudienceAssociation.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BiddableCampaignCriterion&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BiddableCampaignCriterion&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AudienceCriterion&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;AudienceCriterion&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BidMultiplier&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_campaign_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BidMultiplier&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignAudienceAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkCampaignAudienceAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="BulkCampaignAudienceAssociation.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">biddable_campaign_criterion</span><span class="p">,</span> <span class="s1">&#39;biddable_campaign_criterion&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignAudienceAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkCampaignAudienceAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
     
 <div class="viewcode-block" id="BulkCampaignAudienceAssociation.read_additional_data"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.audiences.html#bingads.v13.bulk.entities.audiences.bulk_campaign_audience_association.BulkCampaignAudienceAssociation.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
@@ -188,7 +143,7 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.6 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.8 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>

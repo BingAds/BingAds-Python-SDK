@@ -12,6 +12,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_age\_criterion mod
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_biddable\_criterion module
+----------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_day\_time\_criterion module
 -----------------------------------------------------------------------------------------
 
@@ -56,6 +64,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_age\_cri
 ---------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_age_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_criterion module
+----------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_criterion
     :members:
     :undoc-members:
     :show-inheritance:
@@ -108,6 +124,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_age\_criterion modu
     :undoc-members:
     :show-inheritance:
 
+bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_biddable\_criterion module
+---------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_biddable_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_day\_time\_criterion module
 ----------------------------------------------------------------------------------------
 
@@ -144,6 +168,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_location\_intent\_c
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_negative\_criterion module
+---------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_negative_criterion
     :members:
     :undoc-members:
     :show-inheritance:
