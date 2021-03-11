@@ -18,6 +18,7 @@ from .bulk_campaign_negative_store_criterion import *
 from .bulk_campaign_negative_dynamic_search_ad_target import *
 from .bulk_ad_group_dynamic_search_ad_target import *
 from .bulk_ad_group_negative_dynamic_search_ad_target import *
+from .bulk_bid_strategy import *
 
 from .ad_extensions import *
 from .bulk_ads import *

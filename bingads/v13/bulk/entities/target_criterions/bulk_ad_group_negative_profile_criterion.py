@@ -1,13 +1,13 @@
 from bingads.v13.bulk.entities import *
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
-from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_criterion import BulkAdGroupNegativeCriterion
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.extensions import *
 from abc import ABCMeta, abstractmethod
 
 
-class BulkAdGroupNegativeProfileCriterion(_SingleRecordBulkEntity):
+class BulkAdGroupNegativeProfileCriterion(BulkAdGroupNegativeCriterion):
     """ Represents an Ad Group Negative Profile Criterion that can be read or written in a bulk file.
 
     This class exposes the :attr:`negative_ad_group_criterion` property that can be read and written as fields of the
@@ -27,38 +27,9 @@ class BulkAdGroupNegativeProfileCriterion(_SingleRecordBulkEntity):
                  negative_ad_group_criterion=None,
                  campaign_name=None,
                  ad_group_name=None, ):
-        super(BulkAdGroupNegativeProfileCriterion, self).__init__()
-
-        self._negative_ad_group_criterion = negative_ad_group_criterion
-        self._campaign_name = campaign_name
-        self._ad_group_name = ad_group_name
+        super(BulkAdGroupNegativeProfileCriterion, self).__init__(negative_ad_group_criterion, campaign_name, ad_group_name)
 
     _MAPPINGS = [
-        _SimpleBulkMapping(
-            _StringTable.Status,
-            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.Status),
-            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'Status', v if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'Id', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.negative_ad_group_criterion.AdGroupId),
-            csv_to_field=lambda c, v: setattr(c.negative_ad_group_criterion, 'AdGroupId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Campaign,
-            field_to_csv=lambda c: c.campaign_name,
-            csv_to_field=lambda c, v: setattr(c, 'campaign_name', v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.AdGroup,
-            field_to_csv=lambda c: c.ad_group_name,
-            csv_to_field=lambda c, v: setattr(c, 'ad_group_name', v)
-        ),
         _SimpleBulkMapping(
             _StringTable.Profile,
             field_to_csv=lambda c: c.profile_name,
@@ -71,53 +42,17 @@ class BulkAdGroupNegativeProfileCriterion(_SingleRecordBulkEntity):
         ),
     ]
 
-    @property
-    def negative_ad_group_criterion(self):
-        """ Defines a Ad Group Criterion """
-
-        return self._negative_ad_group_criterion
-
-    @negative_ad_group_criterion.setter
-    def negative_ad_group_criterion(self, negative_ad_group_criterion):
-        self._negative_ad_group_criterion = negative_ad_group_criterion
-
-    @property
-    def campaign_name(self):
-        """ The name of the Campaign
-
-        :rtype: str
-        """
-
-        return self._campaign_name
-
-    @campaign_name.setter
-    def campaign_name(self, campaign_name):
-        self._campaign_name = campaign_name
-
-    @property
-    def ad_group_name(self):
-        """ The name of the Ad Group
-
-        :rtype: str
-        """
-
-        return self._ad_group_name
-
-    @ad_group_name.setter
-    def ad_group_name(self, ad_group_name):
-        self._ad_group_name = ad_group_name
-
-
-    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.negative_ad_group_criterion, 'negative_ad_group_criterion')
-        self.convert_to_values(row_values, BulkAdGroupNegativeProfileCriterion._MAPPINGS)
-
-    def process_mappings_from_row_values(self, row_values):
-        self._negative_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('NegativeAdGroupCriterion')
-        self._negative_ad_group_criterion.Type = 'NegativeAdGroupCriterion'
+    def create_criterion(self):
         self._negative_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('ProfileCriterion')
         self._negative_ad_group_criterion.Criterion.Type = 'ProfileCriterion'
         self._negative_ad_group_criterion.Criterion.ProfileType = self.profile_type()
+
+    def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
+        super(BulkAdGroupNegativeProfileCriterion, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
+        self.convert_to_values(row_values, BulkAdGroupNegativeProfileCriterion._MAPPINGS)
+
+    def process_mappings_from_row_values(self, row_values):
+        super(BulkAdGroupNegativeProfileCriterion, self).process_mappings_from_row_values(row_values)
         row_values.convert_to_entity(self, BulkAdGroupNegativeProfileCriterion._MAPPINGS)
 
     def read_additional_data(self, stream_reader):

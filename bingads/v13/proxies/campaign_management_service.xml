@@ -583,6 +583,16 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ShoppingSetting" nillable="true" type="tns:ShoppingSetting" />
+         <xs:complexType name="DynamicFeedSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="FeedId" nillable="true" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="DynamicFeedSetting" nillable="true" type="tns:DynamicFeedSetting" />
          <xs:complexType name="DynamicSearchAdsSetting">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Setting">
@@ -753,6 +763,7 @@
                      <xs:enumeration value="TargetSetting" />
                      <xs:enumeration value="BidStrategyId" />
                      <xs:enumeration value="CpvCpmBiddingScheme" />
+                     <xs:enumeration value="DynamicFeedSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2775,6 +2786,7 @@
                   <xs:element xmlns:q71="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdGroupCriterionIds" nillable="true" type="q71:ArrayOflong" />
                   <xs:element minOccurs="0" name="AdGroupId" type="xs:long" />
                   <xs:element minOccurs="0" name="CriterionType" type="tns:AdGroupCriterionType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:CriterionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -2927,6 +2939,16 @@
             </xs:list>
          </xs:simpleType>
          <xs:element name="AdGroupCriterionType" nillable="true" type="tns:AdGroupCriterionType" />
+         <xs:simpleType name="CriterionAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="CriterionCashback" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="CriterionAdditionalField" nillable="true" type="tns:CriterionAdditionalField" />
          <xs:element name="GetAdGroupCriterionsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3275,6 +3297,13 @@
                      <xs:element xmlns:q74="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q74:ArrayOfstring" />
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
+                     <xs:element minOccurs="0" name="CriterionCashback" nillable="true" type="tns:CriterionCashback">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
@@ -3315,6 +3344,22 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdGroupCriterionEditorialStatus" nillable="true" type="tns:AdGroupCriterionEditorialStatus" />
+         <xs:complexType name="CriterionCashback">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CriterionCashback" nillable="true" type="tns:CriterionCashback" />
+         <xs:complexType name="CashbackAdjustment">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:CriterionCashback">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="CashbackPercent" nillable="true" type="xs:double" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CashbackAdjustment" nillable="true" type="tns:CashbackAdjustment" />
          <xs:complexType name="NegativeAdGroupCriterion">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:AdGroupCriterion">
@@ -3934,6 +3979,13 @@
                <xs:extension base="tns:CampaignCriterion">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="CriterionBid" nillable="true" type="tns:CriterionBid" />
+                     <xs:element minOccurs="0" name="CriterionCashback" nillable="true" type="tns:CriterionCashback">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
@@ -4134,6 +4186,7 @@
                   <xs:element xmlns:q91="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CampaignCriterionIds" nillable="true" type="q91:ArrayOflong" />
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
                   <xs:element minOccurs="0" name="CriterionType" type="tns:CampaignCriterionType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:CriterionAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -4249,6 +4302,7 @@
          <xs:element name="ArrayOfBidStrategy" nillable="true" type="tns:ArrayOfBidStrategy" />
          <xs:complexType name="BidStrategy">
             <xs:sequence>
+               <xs:element minOccurs="0" name="AssociatedCampaignType" nillable="true" type="tns:CampaignType" />
                <xs:element minOccurs="0" name="AssociationCount" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
@@ -4767,6 +4821,7 @@
                      <xs:enumeration value="ViewThroughConversionWindowInMinutes" />
                      <xs:enumeration value="IsExternallyAttributed" />
                      <xs:enumeration value="GoalCategory" />
+                     <xs:enumeration value="InactiveDueToTagUnavailable" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -4874,6 +4929,7 @@
                <xs:enumeration value="NoRecentConversions" />
                <xs:enumeration value="RecordingConversions" />
                <xs:enumeration value="TagInactive" />
+               <xs:enumeration value="InactiveDueToTagUnavailable" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ConversionGoalTrackingStatus" nillable="true" type="tns:ConversionGoalTrackingStatus" />
@@ -5561,6 +5617,13 @@
          <xs:element name="ArrayOfCampaignAdGroupIds" nillable="true" type="tns:ArrayOfCampaignAdGroupIds" />
          <xs:complexType name="CampaignAdGroupIds">
             <xs:sequence>
+               <xs:element minOccurs="0" name="ActiveAdGroupsOnly" nillable="true" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element xmlns:q119="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="AdGroupIds" nillable="true" type="q119:ArrayOflong" />
                <xs:element name="CampaignId" type="xs:long" />
             </xs:sequence>
@@ -5617,6 +5680,13 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="ActiveAdGroupsOnly">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -5719,6 +5789,86 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="EntityIdsMapping" nillable="true" type="q126:ArrayOfKeyValuePairOflonglong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddVideosRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfVideo" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfVideo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Video" nillable="true" type="tns:Video" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfVideo" nillable="true" type="tns:ArrayOfVideo" />
+         <xs:complexType name="Video">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AspectRatio" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="CreatedDateTimeInUTC" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="DurationInMilliseconds" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="FailureCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="ModifiedDateTimeInUTC" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="SourceUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ThumbnailUrl" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Video" nillable="true" type="tns:Video" />
+         <xs:element name="AddVideosResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q127="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="VideoIds" nillable="true" type="q127:ArrayOflong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteVideosRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q128="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="VideoIds" nillable="true" type="q128:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteVideosResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetVideosByIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q129="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="VideoIds" nillable="true" type="q129:ArrayOflong" />
+                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="tns:Paging" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetVideosByIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfVideo" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateVideosRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfVideo" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateVideosResponse">
+            <xs:complexType>
+               <xs:sequence>
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -8653,6 +8803,102 @@
    <wsdl:message name="ICampaignManagementService_GetImportEntityIdsMapping_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="AddVideosRequest">
+      <wsdl:part name="parameters" element="tns:AddVideosRequest" />
+   </wsdl:message>
+   <wsdl:message name="AddVideosRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="AddVideosResponse">
+      <wsdl:part name="parameters" element="tns:AddVideosResponse" />
+   </wsdl:message>
+   <wsdl:message name="AddVideosResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddVideos_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q118="https://adapi.microsoft.com" name="detail" element="q118:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddVideos_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DeleteVideosRequest">
+      <wsdl:part name="parameters" element="tns:DeleteVideosRequest" />
+   </wsdl:message>
+   <wsdl:message name="DeleteVideosRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DeleteVideosResponse">
+      <wsdl:part name="parameters" element="tns:DeleteVideosResponse" />
+   </wsdl:message>
+   <wsdl:message name="DeleteVideosResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteVideos_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q119="https://adapi.microsoft.com" name="detail" element="q119:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteVideos_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetVideosByIdsRequest">
+      <wsdl:part name="parameters" element="tns:GetVideosByIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetVideosByIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetVideosByIdsResponse">
+      <wsdl:part name="parameters" element="tns:GetVideosByIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetVideosByIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetVideosByIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q120="https://adapi.microsoft.com" name="detail" element="q120:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetVideosByIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="UpdateVideosRequest">
+      <wsdl:part name="parameters" element="tns:UpdateVideosRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateVideosRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateVideosResponse">
+      <wsdl:part name="parameters" element="tns:UpdateVideosResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateVideosResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateVideos_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q121="https://adapi.microsoft.com" name="detail" element="q121:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateVideos_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
       <wsdl:operation name="AddCampaigns">
          <wsdl:input wsaw:Action="AddCampaigns" name="AddCampaignsRequest" message="tns:AddCampaignsRequest" />
@@ -9355,6 +9601,30 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetImportEntityIdsMappingResponse" name="GetImportEntityIdsMappingResponse" message="tns:GetImportEntityIdsMappingResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetImportEntityIdsMappingAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetImportEntityIdsMapping_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetImportEntityIdsMappingApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetImportEntityIdsMapping_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="AddVideos">
+         <wsdl:input wsaw:Action="AddVideos" name="AddVideosRequest" message="tns:AddVideosRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddVideosResponse" name="AddVideosResponse" message="tns:AddVideosResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddVideosAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddVideos_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddVideosApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddVideos_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DeleteVideos">
+         <wsdl:input wsaw:Action="DeleteVideos" name="DeleteVideosRequest" message="tns:DeleteVideosRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteVideosResponse" name="DeleteVideosResponse" message="tns:DeleteVideosResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteVideosAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteVideos_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteVideosApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteVideos_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetVideosByIds">
+         <wsdl:input wsaw:Action="GetVideosByIds" name="GetVideosByIdsRequest" message="tns:GetVideosByIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetVideosByIdsResponse" name="GetVideosByIdsResponse" message="tns:GetVideosByIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetVideosByIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetVideosByIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetVideosByIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetVideosByIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateVideos">
+         <wsdl:input wsaw:Action="UpdateVideos" name="UpdateVideosRequest" message="tns:UpdateVideosRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosResponse" name="UpdateVideosResponse" message="tns:UpdateVideosResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateVideos_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateVideos_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -12051,10 +12321,102 @@
             <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
          </wsdl:fault>
       </wsdl:operation>
+      <wsdl:operation name="AddVideos">
+         <soap:operation soapAction="AddVideos" style="document" />
+         <wsdl:input name="AddVideosRequest">
+            <soap:header message="tns:AddVideosRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:AddVideosRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="AddVideosResponse">
+            <soap:header message="tns:AddVideosResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DeleteVideos">
+         <soap:operation soapAction="DeleteVideos" style="document" />
+         <wsdl:input name="DeleteVideosRequest">
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DeleteVideosRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DeleteVideosResponse">
+            <soap:header message="tns:DeleteVideosResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetVideosByIds">
+         <soap:operation soapAction="GetVideosByIds" style="document" />
+         <wsdl:input name="GetVideosByIdsRequest">
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetVideosByIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetVideosByIdsResponse">
+            <soap:header message="tns:GetVideosByIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateVideos">
+         <soap:operation soapAction="UpdateVideos" style="document" />
+         <wsdl:input name="UpdateVideosRequest">
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateVideosRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateVideosResponse">
+            <soap:header message="tns:UpdateVideosResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
    </wsdl:binding>
    <wsdl:service name="CampaignManagementService">
       <wsdl:port name="BasicHttpBinding_ICampaignManagementService" binding="tns:BasicHttpBinding_ICampaignManagementService">
-         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V13/CampaignManagementService.svc" />
+         <soap:address location="https://campaign.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/CampaignManagementService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

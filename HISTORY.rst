@@ -1,6 +1,16 @@
 .. :changelog:
 
 Release History
+
+13.0.8(2021-03-10)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Added BulkPromotionAdExtension to the object factory
+* Added BulkAdGroupBiddableCriterion, BulkAdGroupBiddableCriterion, BulkCampaignBiddableCriterion, and BulkCampaignNegativeCriterion base classes for criterion.
+* Added DynamicFeedSetting to BulkCampaign for an upcoming pilot feature. 
+* Added BulkBidStrategy for an upcoming pilot feature.
+* Added BidStrategyId to BulkCampaign for an upcoming pilot feature.
+
 13.0.7(2020-12-16)
 +++++++++++++++++++++++++
 

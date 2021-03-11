@@ -5,6 +5,8 @@ from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _Single
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.v13.internal.extensions import *
 
+_DynamicFeedSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicFeedSetting'))
+_TargetSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ShoppingSetting'))
 _DsaSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting'))
 
@@ -32,6 +34,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         self._quality_score_data = None
         self._performance_data = None
         self._budget_name = None
+        self._bid_strategy_name = None
 
     @property
     def account_id(self):
@@ -47,6 +50,20 @@ class BulkCampaign(_SingleRecordBulkEntity):
     @account_id.setter
     def account_id(self, account_id):
         self._account_id = account_id
+        
+    @property
+    def bid_strategy_name(self):
+        """
+        The budget name that the campaign associated, only for campaigns that use a shared budget
+
+        Corresponds to 'Budget Name' field in bulk file.
+        :rtype: str
+        """
+        return self._bid_strategy_name
+
+    @bid_strategy_name.setter
+    def bid_strategy_name(self, value):
+        self._bid_strategy_name = value
 
     @property
     def budget_name(self):
@@ -84,12 +101,14 @@ class BulkCampaign(_SingleRecordBulkEntity):
 
         return self._quality_score_data
 
+    def _get_dynamic_feed_setting(self):
+        return self._get_setting(_DynamicFeedSetting, 'DynamicFeedSetting')
 
     def _get_shopping_setting(self):
         return self._get_setting(_ShoppingSetting, 'ShoppingSetting')
     
     def _get_target_setting(self):
-        return self._get_setting(_ShoppingSetting, 'TargetSetting')
+        return self._get_setting(_TargetSetting, 'TargetSetting')
     
     def _get_dsa_setting(self):
         return self._get_setting(_DsaSetting, 'DynamicSearchAdsSetting')
@@ -118,17 +137,22 @@ class BulkCampaign(_SingleRecordBulkEntity):
         campaign_type = v
         c.campaign.CampaignType = [campaign_type]
         
-        if campaign_type.lower() == 'shopping' or campaign_type.lower() == 'audience':
+        if campaign_type.lower() == 'shopping':
             BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
-        elif campaign_type.lower() == 'dynamicsearchads' or campaign_type.lower() == 'search':
+        if campaign_type.lower() == 'audience':
+            BulkCampaign._create_campaign_setting(c.campaign, 'DynamicFeedSetting')
+            BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
+        if campaign_type.lower() == 'dynamicsearchads' or campaign_type.lower() == 'search':
             BulkCampaign._create_campaign_setting(c.campaign, 'DynamicSearchAdsSetting')
 
     @staticmethod
     def _create_campaign_setting(campaign, setting_type):
-        campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V13.create('ArrayOfSetting')
+        if not campaign.Settings:
+            campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V13.create('ArrayOfSetting')
+            
         setting = _CAMPAIGN_OBJECT_FACTORY_V13.create(setting_type)
         setting.Type = setting_type
-        campaign.Settings.Setting = [setting]
+        campaign.Settings.Setting.append(setting)
 
     @staticmethod
     def _write_store_id(c):
@@ -217,6 +241,28 @@ class BulkCampaign(_SingleRecordBulkEntity):
             if not shopping_setting:
                 return None
             shopping_setting.LocalInventoryAdsEnabled = v.lower() == 'true' if v else None
+    
+    @staticmethod
+    def _write_feed_id(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'audience' in campgaign_types:
+            dynamic_feed_setting = c._get_dynamic_feed_setting()
+            if not dynamic_feed_setting:
+                return None
+            return bulk_str(dynamic_feed_setting.FeedId)
+            
+    @staticmethod
+    def _read_feed_id(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'audience' in campgaign_types:
+            dynamic_feed_setting = c._get_dynamic_feed_setting()
+            if not dynamic_feed_setting:
+                return None
+            dynamic_feed_setting.FeedId = int(v) if v else None
             
     @staticmethod
     def _read_source(c, v):
@@ -390,7 +436,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.campaign),
             csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.campaign, v)
         ),
-        _ComplexBulkMapping(biddingscheme_to_csv, csv_to_biddingscheme),
+        _ComplexBulkMapping(campaign_biddingscheme_to_csv, csv_to_campaign_biddingscheme),
         _SimpleBulkMapping(
             header=_StringTable.BudgetId,
             field_to_csv=lambda c: bulk_str(c.campaign.BudgetId),
@@ -405,6 +451,16 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.BudgetName,
             field_to_csv=lambda c: bulk_str(c.budget_name),
             csv_to_field=lambda c, v: setattr(c, 'budget_name', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyName,
+            field_to_csv=lambda c: bulk_str(c.bid_strategy_name),
+            csv_to_field=lambda c, v: setattr(c, 'bid_strategy_name', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyId,
+            field_to_csv=lambda c: bulk_str(c.campaign.BidStrategyId),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'BidStrategyId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Website,
@@ -431,6 +487,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.ExperimentId,
             field_to_csv=lambda c: bulk_str(c.campaign.ExperimentId),
             csv_to_field=lambda c, v: setattr(c.campaign, 'ExperimentId', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FeedId,
+            field_to_csv=lambda c: BulkCampaign._write_feed_id(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_feed_id(c, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.TargetSetting,

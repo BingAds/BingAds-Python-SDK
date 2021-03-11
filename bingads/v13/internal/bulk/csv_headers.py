@@ -280,6 +280,8 @@ class _CsvHeaders:
         _StringTable.PriceQualifier8,
 
         # Bid Strategy
+        _StringTable.BidStrategyId,
+        _StringTable.BidStrategyName,
         _StringTable.BidStrategyType,
         _StringTable.BidStrategyMaxCpc,
         _StringTable.BidStrategyTargetCpa,
@@ -359,6 +361,7 @@ class _CsvHeaders:
         _StringTable.DynamicAdTargetCondition3,
         _StringTable.DynamicAdTargetValue3,
         _StringTable.PageFeedIds,
+        _StringTable.FeedId,
 
         # Labels
         _StringTable.ColorCode,

@@ -1,12 +1,13 @@
 from bingads.v13.bulk.entities import *
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
-from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
+#from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion import BulkAdGroupBiddableCriterion
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.extensions import *
 
 
-class BulkAdGroupAudienceAssociation(_SingleRecordBulkEntity):
+class BulkAdGroupAudienceAssociation(BulkAdGroupBiddableCriterion):
     """ Base class for all Ad Group Audience Association subclasses that can be read or written in a bulk file.
 
     *See also:*
@@ -23,49 +24,16 @@ class BulkAdGroupAudienceAssociation(_SingleRecordBulkEntity):
                  campaign_name=None,
                  ad_group_name=None,
                  audience_name=None):
-        super(BulkAdGroupAudienceAssociation, self).__init__()
+        super(BulkAdGroupAudienceAssociation, self).__init__(biddable_ad_group_criterion, campaign_name, ad_group_name)
 
-        self._biddable_ad_group_criterion = biddable_ad_group_criterion
-        self._campaign_name = campaign_name
-        self._ad_group_name = ad_group_name
         self._audience_name = audience_name
         self._performance_data = None
 
     _MAPPINGS = [
         _SimpleBulkMapping(
-            _StringTable.Status,
-            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.Status),
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'Status', v if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Id,
-            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'Id', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.ParentId,
-            field_to_csv=lambda c: bulk_str(c.biddable_ad_group_criterion.AdGroupId),
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'AdGroupId', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.Campaign,
-            field_to_csv=lambda c: c.campaign_name,
-            csv_to_field=lambda c, v: setattr(c, 'campaign_name', v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.AdGroup,
-            field_to_csv=lambda c: c.ad_group_name,
-            csv_to_field=lambda c, v: setattr(c, 'ad_group_name', v)
-        ),
-        _SimpleBulkMapping(
             _StringTable.Audience,
             field_to_csv=lambda c: c.audience_name,
             csv_to_field=lambda c, v: setattr(c, 'audience_name', v)
-        ),
-        _SimpleBulkMapping(
-            _StringTable.BidAdjustment,
-            field_to_csv=lambda c: field_to_csv_BidAdjustment(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_BidAdjustment(c.biddable_ad_group_criterion, float(v) if v else None)
         ),
         _SimpleBulkMapping(
             _StringTable.AudienceId,
@@ -73,42 +41,6 @@ class BulkAdGroupAudienceAssociation(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: csv_to_field_CriterionAudienceId(c.biddable_ad_group_criterion, int(v) if v else None)
         ),
     ]
-
-    @property
-    def biddable_ad_group_criterion(self):
-        """ Defines a Biddable Ad Group Criterion """
-
-        return self._biddable_ad_group_criterion
-
-    @biddable_ad_group_criterion.setter
-    def biddable_ad_group_criterion(self, biddable_ad_group_criterion):
-        self._biddable_ad_group_criterion = biddable_ad_group_criterion
-
-    @property
-    def campaign_name(self):
-        """ Defines the name of the Campaign.
-
-        :rtype: str
-        """
-
-        return self._campaign_name
-
-    @campaign_name.setter
-    def campaign_name(self, campaign_name):
-        self._campaign_name = campaign_name
-
-    @property
-    def ad_group_name(self):
-        """ Defines the name of the Ad Group
-
-        :rtype: str
-        """
-
-        return self._ad_group_name
-
-    @ad_group_name.setter
-    def ad_group_name(self, ad_group_name):
-        self._ad_group_name = ad_group_name
 
     @property
     def audience_name(self):
@@ -123,17 +55,16 @@ class BulkAdGroupAudienceAssociation(_SingleRecordBulkEntity):
     def audience_name(self, audience_name):
         self._audience_name = audience_name
 
-    def process_mappings_from_row_values(self, row_values):
-        self._biddable_ad_group_criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion')
-        self._biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
+    def create_criterion(self):
         self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AudienceCriterion')
         self._biddable_ad_group_criterion.Criterion.Type = 'AudienceCriterion'
-        self._biddable_ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
-        self._biddable_ad_group_criterion.CriterionBid.Type = 'BidMultiplier'
+
+    def process_mappings_from_row_values(self, row_values):
+        super(BulkAdGroupAudienceAssociation, self).process_mappings_from_row_values(row_values)        
         row_values.convert_to_entity(self, BulkAdGroupAudienceAssociation._MAPPINGS)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
-        self._validate_property_not_null(self.biddable_ad_group_criterion, 'biddable_ad_group_criterion')
+        super(BulkAdGroupAudienceAssociation, self).process_mappings_to_row_values(row_values, exclude_readonly_data)
         self.convert_to_values(row_values, BulkAdGroupAudienceAssociation._MAPPINGS)
     
     def read_additional_data(self, stream_reader):

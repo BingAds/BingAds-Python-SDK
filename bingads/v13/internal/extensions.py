@@ -108,13 +108,19 @@ def budget_to_csv(bulk_campaign, row_values):
         return
     row_values[_StringTable.Budget] = bulk_str(bulk_campaign.campaign.DailyBudget)
 
+def csv_to_bid_strategy_biddingscheme(row_values, bulk_bid_strategy):
+    entity_csv_to_biddingscheme(row_values, bulk_bid_strategy.bid_strategy)
 
-def csv_to_biddingscheme(row_values, bulk_campaign):
+def csv_to_campaign_biddingscheme(row_values, bulk_campaign):
+    entity_csv_to_biddingscheme(row_values, bulk_campaign.campaign)
+    
+def entity_csv_to_biddingscheme(row_values, entity):
+    
     success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
     if not success or not bid_strategy_type:
         return
 
-    csv_to_field_BidStrategyType(bulk_campaign.campaign, bid_strategy_type)
+    csv_to_field_BidStrategyType(entity, bid_strategy_type)
 
     success, max_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyMaxCpc)
     max_cpc_value = parse_bid(max_cpc_row_value)
@@ -134,32 +140,39 @@ def csv_to_biddingscheme(row_values, bulk_campaign):
     success, target_ad_position_value = row_values.try_get_value(_StringTable.BidStrategyTargetAdPosition)
 
     if  bid_strategy_type == 'MaxConversions':
-        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
-        bulk_campaign.campaign.BiddingScheme.Type = "MaxConversions"
+        entity.BiddingScheme.MaxCpc = max_cpc_value
+        entity.BiddingScheme.Type = "MaxConversions"
     elif bid_strategy_type == 'MaxClicks':
-        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
-        bulk_campaign.campaign.BiddingScheme.Type = "MaxClicks"
+        entity.BiddingScheme.MaxCpc = max_cpc_value
+        entity.BiddingScheme.Type = "MaxClicks"
     elif bid_strategy_type == 'TargetCpa':
-        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
-        bulk_campaign.campaign.BiddingScheme.Type = "TargetCpa"
-        bulk_campaign.campaign.BiddingScheme.TargetCpa = target_cpa_value
+        entity.BiddingScheme.MaxCpc = max_cpc_value
+        entity.BiddingScheme.Type = "TargetCpa"
+        entity.BiddingScheme.TargetCpa = target_cpa_value
     elif bid_strategy_type == 'TargetRoas':
-        bulk_campaign.campaign.BiddingScheme.MaxCpc = max_cpc_value
-        bulk_campaign.campaign.BiddingScheme.Type = "TargetRoas"
-        bulk_campaign.campaign.BiddingScheme.TargetRoas = target_roas_value
+        entity.BiddingScheme.MaxCpc = max_cpc_value
+        entity.BiddingScheme.Type = "TargetRoas"
+        entity.BiddingScheme.TargetRoas = target_roas_value
     elif bid_strategy_type == 'MaxConversionValue':
-        bulk_campaign.campaign.BiddingScheme.Type = "MaxConversionValue"
-        bulk_campaign.campaign.BiddingScheme.TargetRoas = target_roas_value
+        entity.BiddingScheme.Type = "MaxConversionValue"
+        entity.BiddingScheme.TargetRoas = target_roas_value
     elif bid_strategy_type == 'TargetImpressionShare':
-        bulk_campaign.campaign.BiddingScheme.Type = "TargetImpressionShare"
-        bulk_campaign.campaign.BiddingScheme.MaxCpc = maxCpcValue
-        bulk_campaign.campaign.BiddingScheme.TargetImpressionShare = target_impression_share_value
-        bulk_campaign.campaign.BiddingScheme.TargetAdPosition = target_ad_position_value
-        
+        entity.BiddingScheme.Type = "TargetImpressionShare"
+        entity.BiddingScheme.MaxCpc = maxCpcValue
+        entity.BiddingScheme.TargetImpressionShare = target_impression_share_value
+        entity.BiddingScheme.TargetAdPosition = target_ad_position_value
+  
+def bid_strategy_biddingscheme_to_csv(bulk_bid_strategy, row_values):
+    entity_biddingscheme_to_csv(bulk_bid_strategy.bid_strategy, row_values)  
 
-
-def biddingscheme_to_csv(bulk_campaign, row_values):
-    bid_strategy_type = field_to_csv_BidStrategyType(bulk_campaign.campaign)
+def campaign_biddingscheme_to_csv(bulk_campaign, row_values):
+    entity_biddingscheme_to_csv(bulk_campaign.campaign, row_values)
+    
+def entity_biddingscheme_to_csv(entity, row_values):
+    if not entity:
+        return
+    
+    bid_strategy_type = field_to_csv_BidStrategyType(entity)
 
     if not bid_strategy_type:
         return
@@ -167,21 +180,21 @@ def biddingscheme_to_csv(bulk_campaign, row_values):
     row_values[_StringTable.BidStrategyType] = bid_strategy_type
 
     if  bid_strategy_type == 'MaxConversions':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
     elif bid_strategy_type == 'MaxClicks':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
     elif bid_strategy_type == 'TargetCpa':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
-        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetCpa)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
+        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(entity.BiddingScheme.TargetCpa)
     elif bid_strategy_type == 'MaxConversionValue':
-        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetRoas)
+        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(entity.BiddingScheme.TargetRoas)
     elif bid_strategy_type == 'TargetRoas':
-        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(bulk_campaign.campaign.BiddingScheme.TargetRoas)
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
+        row_values[_StringTable.BidStrategyTargetRoas] = bulk_str(entity.BiddingScheme.TargetRoas)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
     elif bid_strategy_type == 'TargetImpressionShare':
-        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(bulk_campaign.campaign.BiddingScheme.MaxCpc, bulk_campaign.campaign.Id)
-        row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(bulk_campaign.campaign.BiddingScheme.TargetAdPosition, bulk_campaign.campaign.Id)
-        row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(bulk_campaign.campaign.BiddingScheme.TargetImpressionShare)
+        row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
+        row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(entity.BiddingScheme.TargetAdPosition, entity.Id)
+        row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
                                 
 
 def bulk_optional_str(value, id):
@@ -430,6 +443,10 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionValueBiddingScheme')
     elif value == 'TargetImpressionShare':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShareBiddingScheme')
+    elif value == 'ManualCpv':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpvBiddingScheme')
+    elif value == 'ManualCpm':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpmBiddingScheme')
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value

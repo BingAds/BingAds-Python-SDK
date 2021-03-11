@@ -16,6 +16,7 @@ class _StringTable:
     BaseCampaignId = "Base Campaign Id"
     ExperimentCampaignId = "Experiment Campaign Id"
     ExperimentId = "Experiment Id"
+    FeedId = "Feed Id"
     ExperimentType = "Experiment Type"
     BudgetId = "Budget Id"
     AdGroup = "Ad Group"
@@ -383,6 +384,9 @@ class _StringTable:
     CalloutText = "Callout Text"
 
     # Bid Strategy
+    BidStrategy = "Bid Strategy"
+    BidStrategyId = "Bid Strategy Id"
+    BidStrategyName = "Bid Strategy Name"
     BidStrategyType = "Bid Strategy Type"
     BidStrategyMaxCpc = "Bid Strategy MaxCpc"
     BidStrategyTargetCpa = "Bid Strategy TargetCpa"
