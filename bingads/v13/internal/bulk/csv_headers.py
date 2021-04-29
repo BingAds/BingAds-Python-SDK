@@ -61,6 +61,7 @@ class _CsvHeaders:
         _StringTable.Target,
         _StringTable.TargetAll,
         _StringTable.BidAdjustment,
+        _StringTable.CashbackAdjustment,
         _StringTable.RadiusTargetId,
         _StringTable.Name,
         _StringTable.OsNames,
@@ -135,6 +136,11 @@ class _CsvHeaders:
         _StringTable.AdGroupFlyerAdExtension,
         _StringTable.FlyerName,
         _StringTable.MediaUrls,
+        
+        #Video Ad Extension
+        _StringTable.ThumbnailUrl,
+        _StringTable.ThumbnailId,
+        _StringTable.VideoId,
 
         # Product Target
         _StringTable.MerchantCenterId,

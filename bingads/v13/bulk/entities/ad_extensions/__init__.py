@@ -13,3 +13,4 @@ from .bulk_action_ad_extensions import *
 from .bulk_promotion_ad_extensions import *
 from .bulk_filterlink_ad_extensions import *
 from .bulk_flyer_ad_extensions import *
+from .bulk_video_ad_extensions import *

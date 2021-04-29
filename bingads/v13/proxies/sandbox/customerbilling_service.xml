@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="CustomerBillingService" targetNamespace="https://bingads.microsoft.com/Billing/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="https://bingads.microsoft.com/Billing/v13" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <wsp:Policy wsu:Id="BasicHttpBinding_ICustomerBillingService_policy">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:TransportToken>
+                     <wsp:Policy>
+                        <sp:HttpsToken RequireClientCertificate="false" />
+                     </wsp:Policy>
+                  </sp:TransportToken>
+                  <sp:AlgorithmSuite>
+                     <wsp:Policy>
+                        <sp:Basic256 />
+                     </wsp:Policy>
+                  </sp:AlgorithmSuite>
+                  <sp:Layout>
+                     <wsp:Policy>
+                        <sp:Strict />
+                     </wsp:Policy>
+                  </sp:Layout>
+               </wsp:Policy>
+            </sp:TransportBinding>
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+   <wsdl:types>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Billing/v13" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+         <xs:import namespace="https://bingads.microsoft.com/Customer/v13/Entities" />
+         <xs:import namespace="https://bingads.microsoft.com/Customer/v13/Exception" />
+         <xs:element name="GetBillingDocumentsInfoRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
+                  <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
+         <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
+         <xs:element name="DeveloperToken" nillable="true" type="xs:string" />
+         <xs:element name="Password" nillable="true" type="xs:string" />
+         <xs:element name="UserName" nillable="true" type="xs:string" />
+         <xs:element name="GetBillingDocumentsInfoResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q2:ArrayOfBillingDocumentInfo" xmlns:q2="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="TrackingId" nillable="true" type="xs:string" />
+         <xs:element name="ApiBatchFault" nillable="true" type="q3:ApiBatchFault" xmlns:q3="https://bingads.microsoft.com/Customer/v13/Exception" />
+         <xs:element name="ApiFault" nillable="true" type="q4:ApiFault" xmlns:q4="https://bingads.microsoft.com/Customer/v13/Exception" />
+         <xs:element name="GetBillingDocumentsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q5:ArrayOfBillingDocumentInfo" xmlns:q5="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Type" type="q6:DataType" xmlns:q6="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBillingDocumentsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="BillingDocuments" nillable="true" type="q7:ArrayOfBillingDocument" xmlns:q7="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddInsertionOrderRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="InsertionOrder" nillable="true" type="q8:InsertionOrder" xmlns:q8="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddInsertionOrderResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="InsertionOrderId" type="xs:long" />
+                  <xs:element minOccurs="0" name="CreateTime" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateInsertionOrderRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="InsertionOrder" nillable="true" type="q9:InsertionOrder" xmlns:q9="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateInsertionOrderResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="LastModifiedTime" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SearchInsertionOrdersRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q10:ArrayOfPredicate" xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q11:ArrayOfOrderBy" xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q12:Paging" xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SearchInsertionOrdersResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="InsertionOrders" nillable="true" type="q13:ArrayOfInsertionOrder" xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetAccountMonthlySpendRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="MonthYear" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetAccountMonthlySpendResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Amount" type="xs:double" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DispatchCouponsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="SendToEmails" nillable="true" type="q14:ArrayOfstring" xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
+                  <xs:element minOccurs="0" name="CouponClassName" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DispatchCouponsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q15:ArrayOfBatchError" xmlns:q15="https://bingads.microsoft.com/Customer/v13/Exception" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="RedeemCouponRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="CouponCode" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="RedeemCouponResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RedemptionDate" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SearchCouponsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q16:ArrayOfPredicate" xmlns:q16="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q17:ArrayOfOrderBy" xmlns:q17="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q18:Paging" xmlns:q18="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SearchCouponsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Coupons" nillable="true" type="q19:ArrayOfCoupon" xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+         <xs:element name="anyType" nillable="true" type="xs:anyType" />
+         <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+         <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+         <xs:element name="boolean" nillable="true" type="xs:boolean" />
+         <xs:element name="byte" nillable="true" type="xs:byte" />
+         <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+         <xs:element name="decimal" nillable="true" type="xs:decimal" />
+         <xs:element name="double" nillable="true" type="xs:double" />
+         <xs:element name="float" nillable="true" type="xs:float" />
+         <xs:element name="int" nillable="true" type="xs:int" />
+         <xs:element name="long" nillable="true" type="xs:long" />
+         <xs:element name="QName" nillable="true" type="xs:QName" />
+         <xs:element name="short" nillable="true" type="xs:short" />
+         <xs:element name="string" nillable="true" type="xs:string" />
+         <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+         <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+         <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+         <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+         <xs:element name="char" nillable="true" type="tns:char" />
+         <xs:simpleType name="char">
+            <xs:restriction base="xs:int" />
+         </xs:simpleType>
+         <xs:element name="duration" nillable="true" type="tns:duration" />
+         <xs:simpleType name="duration">
+            <xs:restriction base="xs:duration">
+               <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+               <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+               <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="guid" nillable="true" type="tns:guid" />
+         <xs:simpleType name="guid">
+            <xs:restriction base="xs:string">
+               <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:attribute name="FactoryType" type="xs:QName" />
+         <xs:attribute name="Id" type="xs:ID" />
+         <xs:attribute name="Ref" type="xs:IDREF" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+         <xs:complexType name="ArrayOflong">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
+         <xs:complexType name="ArrayOfstring">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities">
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+         <xs:complexType name="ArrayOfBillingDocumentInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BillingDocumentInfo" nillable="true" type="tns:BillingDocumentInfo" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBillingDocumentInfo" nillable="true" type="tns:ArrayOfBillingDocumentInfo" />
+         <xs:complexType name="BillingDocumentInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AccountName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Amount" type="xs:double" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="DocumentDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="DocumentId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BillingDocumentInfo" nillable="true" type="tns:BillingDocumentInfo" />
+         <xs:simpleType name="DataType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Xml">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Pdf">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="DataType" nillable="true" type="tns:DataType" />
+         <xs:complexType name="ArrayOfBillingDocument">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BillingDocument" nillable="true" type="tns:BillingDocument" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBillingDocument" nillable="true" type="tns:ArrayOfBillingDocument" />
+         <xs:complexType name="BillingDocument">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Data" nillable="true" type="xs:base64Binary" />
+               <xs:element minOccurs="0" name="Id" type="xs:long" />
+               <xs:element minOccurs="0" name="Type" type="tns:DataType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BillingDocument" nillable="true" type="tns:BillingDocument" />
+         <xs:complexType name="InsertionOrder">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="BookingCountryCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="LastModifiedByUserId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="LastModifiedTime" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="NotificationThreshold" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="ReferenceId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="SpendCapAmount" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="tns:InsertionOrderStatus" />
+               <xs:element minOccurs="0" name="PurchaseOrder" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PendingChanges" nillable="true" type="tns:InsertionOrderPendingChanges" />
+               <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="BudgetRemaining" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="BudgetSpent" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="BudgetRemainingPercent" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="BudgetSpentPercent" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="SeriesName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="IsInSeries" nillable="true" type="xs:boolean" />
+               <xs:element minOccurs="0" name="SeriesFrequencyType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="InsertionOrder" nillable="true" type="tns:InsertionOrder" />
+         <xs:simpleType name="InsertionOrderStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="PendingUserReview">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Active">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Declined">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Expired">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Canceled">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NotStarted">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Exhausted">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Queued">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="InsertionOrderStatus" nillable="true" type="tns:InsertionOrderStatus" />
+         <xs:complexType name="InsertionOrderPendingChanges">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="RequestedByUserId" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="ModifiedDateTime" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="NotificationThreshold" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="ReferenceId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="SpendCapAmount" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PurchaseOrder" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ChangeStatus" nillable="true" type="tns:InsertionOrderPendingChangesStatus" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="InsertionOrderPendingChanges" nillable="true" type="tns:InsertionOrderPendingChanges" />
+         <xs:simpleType name="InsertionOrderPendingChangesStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="PendingUserReview">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ApproveChanges">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="DeclineChanges">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CancelChanges">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="InsertionOrderPendingChangesStatus" nillable="true" type="tns:InsertionOrderPendingChangesStatus" />
+         <xs:complexType name="ArrayOfPredicate">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Predicate" nillable="true" type="tns:Predicate" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfPredicate" nillable="true" type="tns:ArrayOfPredicate" />
+         <xs:complexType name="Predicate">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Field" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Operator" type="tns:PredicateOperator" />
+               <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Predicate" nillable="true" type="tns:Predicate" />
+         <xs:simpleType name="PredicateOperator">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Equals" />
+               <xs:enumeration value="NotEquals" />
+               <xs:enumeration value="Contains" />
+               <xs:enumeration value="In" />
+               <xs:enumeration value="GreaterThanEquals" />
+               <xs:enumeration value="LessThanEquals" />
+               <xs:enumeration value="StartsWith" />
+               <xs:enumeration value="NotContains" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="PredicateOperator" nillable="true" type="tns:PredicateOperator" />
+         <xs:complexType name="ArrayOfOrderBy">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="OrderBy" nillable="true" type="tns:OrderBy" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfOrderBy" nillable="true" type="tns:ArrayOfOrderBy" />
+         <xs:complexType name="OrderBy">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Field" type="tns:OrderByField" />
+               <xs:element minOccurs="0" name="Order" type="tns:SortOrder" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="OrderBy" nillable="true" type="tns:OrderBy" />
+         <xs:simpleType name="OrderByField">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Id" />
+               <xs:enumeration value="Name" />
+               <xs:enumeration value="Number" />
+               <xs:enumeration value="LifeCycleStatus" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="OrderByField" nillable="true" type="tns:OrderByField" />
+         <xs:simpleType name="SortOrder">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Ascending" />
+               <xs:enumeration value="Descending" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="SortOrder" nillable="true" type="tns:SortOrder" />
+         <xs:complexType name="Paging">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Index" type="xs:int" />
+               <xs:element minOccurs="0" name="Size" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Paging" nillable="true" type="tns:Paging" />
+         <xs:complexType name="ArrayOfInsertionOrder">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="InsertionOrder" nillable="true" type="tns:InsertionOrder" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfInsertionOrder" nillable="true" type="tns:ArrayOfInsertionOrder" />
+         <xs:complexType name="ArrayOfCoupon">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Coupon" nillable="true" type="tns:Coupon" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCoupon" nillable="true" type="tns:ArrayOfCoupon" />
+         <xs:complexType name="Coupon">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CouponCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ClassName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="CouponType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Amount" type="xs:double" />
+               <xs:element minOccurs="0" name="SpendThreshold" type="xs:double" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PercentOff" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="ActiveDuration" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="ExpirationDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="SendToEmail" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="SendToDate" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="IsRedeemed" type="xs:boolean" />
+               <xs:element minOccurs="0" name="RedemptionInfo" nillable="true" type="tns:CouponRedemption" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Coupon" nillable="true" type="tns:Coupon" />
+         <xs:complexType name="CouponRedemption">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="SpendToThreshold" type="xs:double" />
+               <xs:element minOccurs="0" name="Balance" type="xs:double" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RedemptionDate" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="ActivationDate" type="xs:dateTime" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CouponRedemption" nillable="true" type="tns:CouponRedemption" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://adapi.microsoft.com">
+         <xs:complexType name="AdApiFaultDetail">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ApplicationFault">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfAdApiError" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AdApiFaultDetail" nillable="true" type="tns:AdApiFaultDetail" />
+         <xs:complexType name="ApplicationFault">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="TrackingId" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ApplicationFault" nillable="true" type="tns:ApplicationFault" />
+         <xs:complexType name="ArrayOfAdApiError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdApiError" nillable="true" type="tns:AdApiError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdApiError" nillable="true" type="tns:ArrayOfAdApiError" />
+         <xs:complexType name="AdApiError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Detail" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdApiError" nillable="true" type="tns:AdApiError" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Exception" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Exception">
+         <xs:import namespace="https://adapi.microsoft.com" />
+         <xs:complexType name="ApiBatchFault">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ApiFault">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ApiBatchFault" nillable="true" type="tns:ApiBatchFault" />
+         <xs:complexType name="ApiFault">
+            <xs:complexContent mixed="false">
+               <xs:extension base="q1:ApplicationFault" xmlns:q1="https://adapi.microsoft.com">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ApiFault" nillable="true" type="tns:ApiFault" />
+         <xs:complexType name="ArrayOfOperationError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationError" nillable="true" type="tns:OperationError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfOperationError" nillable="true" type="tns:ArrayOfOperationError" />
+         <xs:complexType name="OperationError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Details" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="OperationError" nillable="true" type="tns:OperationError" />
+         <xs:complexType name="ArrayOfBatchError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BatchError" nillable="true" type="tns:BatchError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBatchError" nillable="true" type="tns:ArrayOfBatchError" />
+         <xs:complexType name="BatchError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Details" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Index" type="xs:int" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BatchError" nillable="true" type="tns:BatchError" />
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="GetBillingDocumentsInfoRequest">
+      <wsdl:part name="parameters" element="tns:GetBillingDocumentsInfoRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsInfoRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsInfoResponse">
+      <wsdl:part name="parameters" element="tns:GetBillingDocumentsInfoResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsInfoResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocumentsInfo_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q1:AdApiFaultDetail" xmlns:q1="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocumentsInfo_ApiBatchFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiBatchFault" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocumentsInfo_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsRequest">
+      <wsdl:part name="parameters" element="tns:GetBillingDocumentsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsResponse">
+      <wsdl:part name="parameters" element="tns:GetBillingDocumentsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingDocumentsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocuments_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q2:AdApiFaultDetail" xmlns:q2="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocuments_ApiBatchFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiBatchFault" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingDocuments_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="AddInsertionOrderRequest">
+      <wsdl:part name="parameters" element="tns:AddInsertionOrderRequest" />
+   </wsdl:message>
+   <wsdl:message name="AddInsertionOrderRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="AddInsertionOrderResponse">
+      <wsdl:part name="parameters" element="tns:AddInsertionOrderResponse" />
+   </wsdl:message>
+   <wsdl:message name="AddInsertionOrderResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_AddInsertionOrder_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q3:AdApiFaultDetail" xmlns:q3="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_AddInsertionOrder_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="UpdateInsertionOrderRequest">
+      <wsdl:part name="parameters" element="tns:UpdateInsertionOrderRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateInsertionOrderRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateInsertionOrderResponse">
+      <wsdl:part name="parameters" element="tns:UpdateInsertionOrderResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateInsertionOrderResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_UpdateInsertionOrder_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q4:AdApiFaultDetail" xmlns:q4="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_UpdateInsertionOrder_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="SearchInsertionOrdersRequest">
+      <wsdl:part name="parameters" element="tns:SearchInsertionOrdersRequest" />
+   </wsdl:message>
+   <wsdl:message name="SearchInsertionOrdersRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="SearchInsertionOrdersResponse">
+      <wsdl:part name="parameters" element="tns:SearchInsertionOrdersResponse" />
+   </wsdl:message>
+   <wsdl:message name="SearchInsertionOrdersResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_SearchInsertionOrders_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q5:AdApiFaultDetail" xmlns:q5="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_SearchInsertionOrders_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="GetAccountMonthlySpendRequest">
+      <wsdl:part name="parameters" element="tns:GetAccountMonthlySpendRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetAccountMonthlySpendRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetAccountMonthlySpendResponse">
+      <wsdl:part name="parameters" element="tns:GetAccountMonthlySpendResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetAccountMonthlySpendResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetAccountMonthlySpend_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q6:AdApiFaultDetail" xmlns:q6="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetAccountMonthlySpend_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="DispatchCouponsRequest">
+      <wsdl:part name="parameters" element="tns:DispatchCouponsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DispatchCouponsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DispatchCouponsResponse">
+      <wsdl:part name="parameters" element="tns:DispatchCouponsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DispatchCouponsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_DispatchCoupons_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q7:AdApiFaultDetail" xmlns:q7="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_DispatchCoupons_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="RedeemCouponRequest">
+      <wsdl:part name="parameters" element="tns:RedeemCouponRequest" />
+   </wsdl:message>
+   <wsdl:message name="RedeemCouponRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="RedeemCouponResponse">
+      <wsdl:part name="parameters" element="tns:RedeemCouponResponse" />
+   </wsdl:message>
+   <wsdl:message name="RedeemCouponResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_RedeemCoupon_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q8:AdApiFaultDetail" xmlns:q8="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_RedeemCoupon_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="SearchCouponsRequest">
+      <wsdl:part name="parameters" element="tns:SearchCouponsRequest" />
+   </wsdl:message>
+   <wsdl:message name="SearchCouponsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="SearchCouponsResponse">
+      <wsdl:part name="parameters" element="tns:SearchCouponsResponse" />
+   </wsdl:message>
+   <wsdl:message name="SearchCouponsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_SearchCoupons_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q9:AdApiFaultDetail" xmlns:q9="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_SearchCoupons_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:portType msc:usingSession="false" name="ICustomerBillingService">
+      <wsdl:operation name="GetBillingDocumentsInfo">
+         <wsdl:input wsaw:Action="GetBillingDocumentsInfo" name="GetBillingDocumentsInfoRequest" message="tns:GetBillingDocumentsInfoRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsInfoResponse" name="GetBillingDocumentsInfoResponse" message="tns:GetBillingDocumentsInfoResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsInfoAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetBillingDocumentsInfo_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsInfoApiBatchFault" name="ApiBatchFault" message="tns:ICustomerBillingService_GetBillingDocumentsInfo_ApiBatchFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsInfoApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetBillingDocumentsInfo_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBillingDocuments">
+         <wsdl:input wsaw:Action="GetBillingDocuments" name="GetBillingDocumentsRequest" message="tns:GetBillingDocumentsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsResponse" name="GetBillingDocumentsResponse" message="tns:GetBillingDocumentsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetBillingDocuments_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsApiBatchFault" name="ApiBatchFault" message="tns:ICustomerBillingService_GetBillingDocuments_ApiBatchFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingDocumentsApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetBillingDocuments_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="AddInsertionOrder">
+         <wsdl:input wsaw:Action="AddInsertionOrder" name="AddInsertionOrderRequest" message="tns:AddInsertionOrderRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/AddInsertionOrderResponse" name="AddInsertionOrderResponse" message="tns:AddInsertionOrderResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/AddInsertionOrderAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_AddInsertionOrder_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/AddInsertionOrderApiFault" name="ApiFault" message="tns:ICustomerBillingService_AddInsertionOrder_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateInsertionOrder">
+         <wsdl:input wsaw:Action="UpdateInsertionOrder" name="UpdateInsertionOrderRequest" message="tns:UpdateInsertionOrderRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateInsertionOrderResponse" name="UpdateInsertionOrderResponse" message="tns:UpdateInsertionOrderResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateInsertionOrderAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_UpdateInsertionOrder_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateInsertionOrderApiFault" name="ApiFault" message="tns:ICustomerBillingService_UpdateInsertionOrder_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="SearchInsertionOrders">
+         <wsdl:input wsaw:Action="SearchInsertionOrders" name="SearchInsertionOrdersRequest" message="tns:SearchInsertionOrdersRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchInsertionOrdersResponse" name="SearchInsertionOrdersResponse" message="tns:SearchInsertionOrdersResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchInsertionOrdersAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_SearchInsertionOrders_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchInsertionOrdersApiFault" name="ApiFault" message="tns:ICustomerBillingService_SearchInsertionOrders_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetAccountMonthlySpend">
+         <wsdl:input wsaw:Action="GetAccountMonthlySpend" name="GetAccountMonthlySpendRequest" message="tns:GetAccountMonthlySpendRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetAccountMonthlySpendResponse" name="GetAccountMonthlySpendResponse" message="tns:GetAccountMonthlySpendResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetAccountMonthlySpendAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetAccountMonthlySpend_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetAccountMonthlySpendApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetAccountMonthlySpend_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DispatchCoupons">
+         <wsdl:input wsaw:Action="DispatchCoupons" name="DispatchCouponsRequest" message="tns:DispatchCouponsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DispatchCouponsResponse" name="DispatchCouponsResponse" message="tns:DispatchCouponsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DispatchCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_DispatchCoupons_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DispatchCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_DispatchCoupons_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="RedeemCoupon">
+         <wsdl:input wsaw:Action="RedeemCoupon" name="RedeemCouponRequest" message="tns:RedeemCouponRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/RedeemCouponResponse" name="RedeemCouponResponse" message="tns:RedeemCouponResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/RedeemCouponAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_RedeemCoupon_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/RedeemCouponApiFault" name="ApiFault" message="tns:ICustomerBillingService_RedeemCoupon_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="SearchCoupons">
+         <wsdl:input wsaw:Action="SearchCoupons" name="SearchCouponsRequest" message="tns:SearchCouponsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsResponse" name="SearchCouponsResponse" message="tns:SearchCouponsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_SearchCoupons_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_SearchCoupons_ApiFault_FaultMessage" />
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="BasicHttpBinding_ICustomerBillingService" type="tns:ICustomerBillingService">
+      <wsp:PolicyReference URI="#BasicHttpBinding_ICustomerBillingService_policy" />
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+      <wsdl:operation name="GetBillingDocumentsInfo">
+         <soap:operation soapAction="GetBillingDocumentsInfo" style="document" />
+         <wsdl:input name="GetBillingDocumentsInfoRequest">
+            <soap:header message="tns:GetBillingDocumentsInfoRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsInfoRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsInfoRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsInfoRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsInfoRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBillingDocumentsInfoResponse">
+            <soap:header message="tns:GetBillingDocumentsInfoResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiBatchFault">
+            <soap:fault use="literal" name="ApiBatchFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBillingDocuments">
+         <soap:operation soapAction="GetBillingDocuments" style="document" />
+         <wsdl:input name="GetBillingDocumentsRequest">
+            <soap:header message="tns:GetBillingDocumentsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBillingDocumentsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBillingDocumentsResponse">
+            <soap:header message="tns:GetBillingDocumentsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiBatchFault">
+            <soap:fault use="literal" name="ApiBatchFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="AddInsertionOrder">
+         <soap:operation soapAction="AddInsertionOrder" style="document" />
+         <wsdl:input name="AddInsertionOrderRequest">
+            <soap:header message="tns:AddInsertionOrderRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:AddInsertionOrderRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:AddInsertionOrderRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:AddInsertionOrderRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:AddInsertionOrderRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="AddInsertionOrderResponse">
+            <soap:header message="tns:AddInsertionOrderResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateInsertionOrder">
+         <soap:operation soapAction="UpdateInsertionOrder" style="document" />
+         <wsdl:input name="UpdateInsertionOrderRequest">
+            <soap:header message="tns:UpdateInsertionOrderRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateInsertionOrderRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateInsertionOrderRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateInsertionOrderRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateInsertionOrderRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateInsertionOrderResponse">
+            <soap:header message="tns:UpdateInsertionOrderResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="SearchInsertionOrders">
+         <soap:operation soapAction="SearchInsertionOrders" style="document" />
+         <wsdl:input name="SearchInsertionOrdersRequest">
+            <soap:header message="tns:SearchInsertionOrdersRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:SearchInsertionOrdersRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:SearchInsertionOrdersRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:SearchInsertionOrdersRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:SearchInsertionOrdersRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="SearchInsertionOrdersResponse">
+            <soap:header message="tns:SearchInsertionOrdersResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetAccountMonthlySpend">
+         <soap:operation soapAction="GetAccountMonthlySpend" style="document" />
+         <wsdl:input name="GetAccountMonthlySpendRequest">
+            <soap:header message="tns:GetAccountMonthlySpendRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetAccountMonthlySpendRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetAccountMonthlySpendRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetAccountMonthlySpendRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetAccountMonthlySpendRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetAccountMonthlySpendResponse">
+            <soap:header message="tns:GetAccountMonthlySpendResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DispatchCoupons">
+         <soap:operation soapAction="DispatchCoupons" style="document" />
+         <wsdl:input name="DispatchCouponsRequest">
+            <soap:header message="tns:DispatchCouponsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DispatchCouponsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DispatchCouponsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DispatchCouponsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DispatchCouponsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DispatchCouponsResponse">
+            <soap:header message="tns:DispatchCouponsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="RedeemCoupon">
+         <soap:operation soapAction="RedeemCoupon" style="document" />
+         <wsdl:input name="RedeemCouponRequest">
+            <soap:header message="tns:RedeemCouponRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:RedeemCouponRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:RedeemCouponRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:RedeemCouponRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:RedeemCouponRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="RedeemCouponResponse">
+            <soap:header message="tns:RedeemCouponResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="SearchCoupons">
+         <soap:operation soapAction="SearchCoupons" style="document" />
+         <wsdl:input name="SearchCouponsRequest">
+            <soap:header message="tns:SearchCouponsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:SearchCouponsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:SearchCouponsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:SearchCouponsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:SearchCouponsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="SearchCouponsResponse">
+            <soap:header message="tns:SearchCouponsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="CustomerBillingService">
+      <wsdl:port name="BasicHttpBinding_ICustomerBillingService" binding="tns:BasicHttpBinding_ICustomerBillingService">
+         <soap:address location="https://clientcenter.api.sandbox.bingads.microsoft.com/Api/Billing/v13/CustomerBillingService.svc" />
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

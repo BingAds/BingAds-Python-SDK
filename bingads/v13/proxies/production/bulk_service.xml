@@ -1,0 +1,1683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="BulkService" targetNamespace="https://bingads.microsoft.com/CampaignManagement/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="https://bingads.microsoft.com/CampaignManagement/v13" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <wsp:Policy wsu:Id="BasicHttpBinding_IBulkService_policy">
+      <wsp:ExactlyOne>
+         <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+               <wsp:Policy>
+                  <sp:TransportToken>
+                     <wsp:Policy>
+                        <sp:HttpsToken RequireClientCertificate="false" />
+                     </wsp:Policy>
+                  </sp:TransportToken>
+                  <sp:AlgorithmSuite>
+                     <wsp:Policy>
+                        <sp:Basic256 />
+                     </wsp:Policy>
+                  </sp:AlgorithmSuite>
+                  <sp:Layout>
+                     <wsp:Policy>
+                        <sp:Strict />
+                     </wsp:Policy>
+                  </sp:Layout>
+               </wsp:Policy>
+            </sp:TransportBinding>
+         </wsp:All>
+      </wsp:ExactlyOne>
+   </wsp:Policy>
+   <wsdl:types>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/CampaignManagement/v13" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+         <xs:import namespace="https://adapi.microsoft.com" />
+         <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+         <xs:element name="DownloadCampaignsByAccountIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element minOccurs="0" name="CompressionType" nillable="true" type="tns:CompressionType" />
+                  <xs:element minOccurs="0" name="DataScope" type="tns:DataScope" />
+                  <xs:element minOccurs="0" name="DownloadEntities" nillable="true" type="tns:ArrayOfDownloadEntity" />
+                  <xs:element minOccurs="0" name="DownloadFileType" nillable="true" type="tns:DownloadFileType" />
+                  <xs:element minOccurs="0" name="FormatVersion" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="LastSyncTimeInUTC" nillable="true" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:simpleType name="CompressionType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Zip" />
+               <xs:enumeration value="GZip" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CompressionType" nillable="true" type="tns:CompressionType" />
+         <xs:simpleType name="DataScope">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="EntityData" />
+                     <xs:enumeration value="QualityScoreData" />
+                     <xs:enumeration value="BidSuggestionsData" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="DataScope" nillable="true" type="tns:DataScope" />
+         <xs:complexType name="ArrayOfDownloadEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DownloadEntity" type="tns:DownloadEntity" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDownloadEntity" nillable="true" type="tns:ArrayOfDownloadEntity" />
+         <xs:simpleType name="DownloadEntity">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Campaigns">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroups">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Ads">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Keywords">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeKeywords">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeKeywords">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignTargetCriterions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupTargetCriterions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeSites">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeSites">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignLocationAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignCallAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="LocationAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CallAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NegativeKeywordLists">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SharedNegativeKeywords">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeKeywordListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ImageAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignImageAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupImageAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AppAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupAppAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignAppAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="PriceAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ReviewAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeDynamicSearchAdTargets">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">26</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupProductPartitions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">27</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignProductScopes">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">28</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignReviewAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">29</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupReviewAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CalloutAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">31</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignCalloutAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupCalloutAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SitelinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">34</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignSitelinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">35</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupSitelinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">36</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="StructuredSnippetAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">37</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignStructuredSnippetAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupStructuredSnippetAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RemarketingLists">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">41</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Budgets">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">42</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TextAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">43</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ProductAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">44</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AppInstallAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">45</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ExpandedTextAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">46</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="DynamicSearchAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">47</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupDynamicSearchAdTargets">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">48</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeDynamicSearchAdTargets">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">49</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignPriceAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">50</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupPriceAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">51</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Labels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">52</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">53</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">54</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TextAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">55</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="KeywordLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">56</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">57</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CustomAudiences">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">58</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupCustomAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">59</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeCustomAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">60</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="InMarketAudiences">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">61</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupInMarketAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">62</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeInMarketAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">63</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Audiences">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">66</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ProductAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">67</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AppInstallAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">68</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ExpandedTextAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">69</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="DynamicSearchAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">70</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountLocationAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">71</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountImageAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">72</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountAppAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">73</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountPriceAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">74</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountReviewAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">75</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountCalloutAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">76</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountSitelinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">77</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountStructuredSnippetAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">78</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">79</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">80</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ProductAudiences">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">81</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupProductAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">82</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeProductAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">83</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SimilarRemarketingLists">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">84</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupSimilarRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">85</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeSimilarRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">86</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Experiments">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">87</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">88</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignActionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">89</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupActionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">90</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountActionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">91</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveSearchAds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">92</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveSearchAdLabels">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">93</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">94</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">95</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignCustomAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">96</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeCustomAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">97</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignInMarketAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">98</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeInMarketAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">99</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignProductAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">100</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeProductAudienceAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">101</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">102</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">103</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignSimilarRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">104</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeSimilarRemarketingListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">105</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Feeds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">106</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FeedItems">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">107</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeStoreCriterions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">108</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="PromotionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">109</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountPromotionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">110</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignPromotionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">111</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupPromotionAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">112</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CombinedLists">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">113</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupCombinedListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">114</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeCombinedListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">115</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignCombinedListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">116</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeCombinedListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">117</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Images">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">118</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CustomerLists">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">119</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupCustomerListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">120</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupNegativeCustomerListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">121</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignCustomerListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">122</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignNegativeCustomerListAssociations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">123</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FilterLinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">124</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountFilterLinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">125</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignFilterLinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">126</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupFilterLinkAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">127</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FlyerAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">128</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountFlyerAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">129</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignFlyerAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">130</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupFlyerAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="BidStrategies">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">132</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="VideoAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">133</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountVideoAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">134</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CampaignVideoAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">135</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroupVideoAdExtensions">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">136</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="DownloadEntity" nillable="true" type="tns:DownloadEntity" />
+         <xs:simpleType name="DownloadFileType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Csv" />
+               <xs:enumeration value="Tsv" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="DownloadFileType" nillable="true" type="tns:DownloadFileType" />
+         <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
+         <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
+         <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
+         <xs:element name="CustomerId" nillable="true" type="xs:string" />
+         <xs:element name="DeveloperToken" nillable="true" type="xs:string" />
+         <xs:element name="Password" nillable="true" type="xs:string" />
+         <xs:element name="UserName" nillable="true" type="xs:string" />
+         <xs:element name="DownloadCampaignsByAccountIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="DownloadRequestId" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="TrackingId" nillable="true" type="xs:string" />
+         <xs:complexType name="ApiFaultDetail">
+            <xs:complexContent mixed="false">
+               <xs:extension base="q2:ApplicationFault" xmlns:q2="https://adapi.microsoft.com">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
+                     <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ApiFaultDetail" nillable="true" type="tns:ApiFaultDetail" />
+         <xs:complexType name="ArrayOfBatchError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BatchError" nillable="true" type="tns:BatchError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBatchError" nillable="true" type="tns:ArrayOfBatchError" />
+         <xs:complexType name="BatchError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Details" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="FieldPath" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q3:ArrayOfKeyValuePairOfstringstring" xmlns:q3="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element minOccurs="0" name="Index" type="xs:int" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BatchError" nillable="true" type="tns:BatchError" />
+         <xs:complexType name="EditorialError">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:BatchError">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Appealable" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="DisapprovedText" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Location" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="PublisherCountry" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="ReasonCode" type="xs:int" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="EditorialError" nillable="true" type="tns:EditorialError" />
+         <xs:complexType name="ArrayOfOperationError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationError" nillable="true" type="tns:OperationError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfOperationError" nillable="true" type="tns:ArrayOfOperationError" />
+         <xs:complexType name="OperationError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Details" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="OperationError" nillable="true" type="tns:OperationError" />
+         <xs:element name="DownloadCampaignsByCampaignIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaignScope" />
+                  <xs:element minOccurs="0" name="CompressionType" nillable="true" type="tns:CompressionType" />
+                  <xs:element minOccurs="0" name="DataScope" type="tns:DataScope" />
+                  <xs:element minOccurs="0" name="DownloadEntities" nillable="true" type="tns:ArrayOfDownloadEntity" />
+                  <xs:element minOccurs="0" name="DownloadFileType" nillable="true" type="tns:DownloadFileType" />
+                  <xs:element minOccurs="0" name="FormatVersion" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="LastSyncTimeInUTC" nillable="true" type="xs:dateTime" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfCampaignScope">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignScope" nillable="true" type="tns:CampaignScope" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCampaignScope" nillable="true" type="tns:ArrayOfCampaignScope" />
+         <xs:complexType name="CampaignScope">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
+               <xs:element minOccurs="0" name="ParentAccountId" type="xs:long" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CampaignScope" nillable="true" type="tns:CampaignScope" />
+         <xs:element name="DownloadCampaignsByCampaignIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="DownloadRequestId" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBulkDownloadStatusRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBulkDownloadStatusResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q4:ArrayOfKeyValuePairOfstringstring" xmlns:q4="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+                  <xs:element minOccurs="0" name="PercentComplete" type="xs:int" />
+                  <xs:element minOccurs="0" name="RequestStatus" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="ResultFileUrl" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBulkUploadUrlRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ResponseMode" type="tns:ResponseMode" />
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:simpleType name="ResponseMode">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="ErrorsOnly" />
+               <xs:enumeration value="ErrorsAndResults" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="ResponseMode" nillable="true" type="tns:ResponseMode" />
+         <xs:element name="GetBulkUploadUrlResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="UploadUrl" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBulkUploadStatusRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBulkUploadStatusResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q5:ArrayOfKeyValuePairOfstringstring" xmlns:q5="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+                  <xs:element minOccurs="0" name="PercentComplete" type="xs:int" />
+                  <xs:element minOccurs="0" name="RequestStatus" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="ResultFileUrl" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UploadEntityRecordsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="EntityRecords" nillable="true" type="q6:ArrayOfstring" xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element minOccurs="0" name="ResponseMode" type="tns:ResponseMode" />
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UploadEntityRecordsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="EntityRecords" nillable="true" type="q7:ArrayOfstring" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="RequestId" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="RequestStatus" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+      </xs:schema>
+      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+         <xs:element name="anyType" nillable="true" type="xs:anyType" />
+         <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+         <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+         <xs:element name="boolean" nillable="true" type="xs:boolean" />
+         <xs:element name="byte" nillable="true" type="xs:byte" />
+         <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+         <xs:element name="decimal" nillable="true" type="xs:decimal" />
+         <xs:element name="double" nillable="true" type="xs:double" />
+         <xs:element name="float" nillable="true" type="xs:float" />
+         <xs:element name="int" nillable="true" type="xs:int" />
+         <xs:element name="long" nillable="true" type="xs:long" />
+         <xs:element name="QName" nillable="true" type="xs:QName" />
+         <xs:element name="short" nillable="true" type="xs:short" />
+         <xs:element name="string" nillable="true" type="xs:string" />
+         <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+         <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+         <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+         <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+         <xs:element name="char" nillable="true" type="tns:char" />
+         <xs:simpleType name="char">
+            <xs:restriction base="xs:int" />
+         </xs:simpleType>
+         <xs:element name="duration" nillable="true" type="tns:duration" />
+         <xs:simpleType name="duration">
+            <xs:restriction base="xs:duration">
+               <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+               <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+               <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="guid" nillable="true" type="tns:guid" />
+         <xs:simpleType name="guid">
+            <xs:restriction base="xs:string">
+               <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:attribute name="FactoryType" type="xs:QName" />
+         <xs:attribute name="Id" type="xs:ID" />
+         <xs:attribute name="Ref" type="xs:IDREF" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+         <xs:complexType name="ArrayOflong">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOflong" nillable="true" type="tns:ArrayOflong" />
+         <xs:complexType name="ArrayOfKeyValueOfstringstring">
+            <xs:annotation>
+               <xs:appinfo>
+                  <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfstringstring">
+                  <xs:complexType>
+                     <xs:sequence>
+                        <xs:element name="Key" nillable="true" type="xs:string" />
+                        <xs:element name="Value" nillable="true" type="xs:string" />
+                     </xs:sequence>
+                  </xs:complexType>
+               </xs:element>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValueOfstringstring" nillable="true" type="tns:ArrayOfKeyValueOfstringstring" />
+         <xs:complexType name="ArrayOfstring">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://adapi.microsoft.com">
+         <xs:complexType name="AdApiFaultDetail">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ApplicationFault">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfAdApiError" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AdApiFaultDetail" nillable="true" type="tns:AdApiFaultDetail" />
+         <xs:complexType name="ApplicationFault">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="TrackingId" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ApplicationFault" nillable="true" type="tns:ApplicationFault" />
+         <xs:complexType name="ArrayOfAdApiError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdApiError" nillable="true" type="tns:AdApiError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdApiError" nillable="true" type="tns:ArrayOfAdApiError" />
+         <xs:complexType name="AdApiError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Code" type="xs:int" />
+               <xs:element minOccurs="0" name="Detail" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ErrorCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdApiError" nillable="true" type="tns:AdApiError" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+         <xs:complexType name="ArrayOfKeyValuePairOfstringstring">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValuePairOfstringstring" type="tns:KeyValuePairOfstringstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValuePairOfstringstring" nillable="true" type="tns:ArrayOfKeyValuePairOfstringstring" />
+         <xs:complexType name="KeyValuePairOfstringstring">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="KeyValuePairOf{0}{1}{#}" Namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+                     <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+                  <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element name="key" nillable="true" type="xs:string" />
+               <xs:element name="value" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="KeyValuePairOfstringstring" nillable="true" type="tns:KeyValuePairOfstringstring" />
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="DownloadCampaignsByAccountIdsRequest">
+      <wsdl:part name="parameters" element="tns:DownloadCampaignsByAccountIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByAccountIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByAccountIdsResponse">
+      <wsdl:part name="parameters" element="tns:DownloadCampaignsByAccountIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByAccountIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_DownloadCampaignsByAccountIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q1:AdApiFaultDetail" xmlns:q1="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_DownloadCampaignsByAccountIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByCampaignIdsRequest">
+      <wsdl:part name="parameters" element="tns:DownloadCampaignsByCampaignIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByCampaignIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByCampaignIdsResponse">
+      <wsdl:part name="parameters" element="tns:DownloadCampaignsByCampaignIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DownloadCampaignsByCampaignIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_DownloadCampaignsByCampaignIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q2:AdApiFaultDetail" xmlns:q2="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_DownloadCampaignsByCampaignIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkDownloadStatusRequest">
+      <wsdl:part name="parameters" element="tns:GetBulkDownloadStatusRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkDownloadStatusRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkDownloadStatusResponse">
+      <wsdl:part name="parameters" element="tns:GetBulkDownloadStatusResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkDownloadStatusResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkDownloadStatus_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q3:AdApiFaultDetail" xmlns:q3="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkDownloadStatus_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadUrlRequest">
+      <wsdl:part name="parameters" element="tns:GetBulkUploadUrlRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadUrlRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadUrlResponse">
+      <wsdl:part name="parameters" element="tns:GetBulkUploadUrlResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadUrlResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkUploadUrl_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q4:AdApiFaultDetail" xmlns:q4="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkUploadUrl_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadStatusRequest">
+      <wsdl:part name="parameters" element="tns:GetBulkUploadStatusRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadStatusRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadStatusResponse">
+      <wsdl:part name="parameters" element="tns:GetBulkUploadStatusResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBulkUploadStatusResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkUploadStatus_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q5:AdApiFaultDetail" xmlns:q5="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_GetBulkUploadStatus_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="UploadEntityRecordsRequest">
+      <wsdl:part name="parameters" element="tns:UploadEntityRecordsRequest" />
+   </wsdl:message>
+   <wsdl:message name="UploadEntityRecordsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UploadEntityRecordsResponse">
+      <wsdl:part name="parameters" element="tns:UploadEntityRecordsResponse" />
+   </wsdl:message>
+   <wsdl:message name="UploadEntityRecordsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_UploadEntityRecords_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q6:AdApiFaultDetail" xmlns:q6="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IBulkService_UploadEntityRecords_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:portType msc:usingSession="false" name="IBulkService">
+      <wsdl:operation name="DownloadCampaignsByAccountIds">
+         <wsdl:input wsaw:Action="DownloadCampaignsByAccountIds" name="DownloadCampaignsByAccountIdsRequest" message="tns:DownloadCampaignsByAccountIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByAccountIdsResponse" name="DownloadCampaignsByAccountIdsResponse" message="tns:DownloadCampaignsByAccountIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByAccountIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_DownloadCampaignsByAccountIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByAccountIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_DownloadCampaignsByAccountIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DownloadCampaignsByCampaignIds">
+         <wsdl:input wsaw:Action="DownloadCampaignsByCampaignIds" name="DownloadCampaignsByCampaignIdsRequest" message="tns:DownloadCampaignsByCampaignIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByCampaignIdsResponse" name="DownloadCampaignsByCampaignIdsResponse" message="tns:DownloadCampaignsByCampaignIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByCampaignIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_DownloadCampaignsByCampaignIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/DownloadCampaignsByCampaignIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_DownloadCampaignsByCampaignIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkDownloadStatus">
+         <wsdl:input wsaw:Action="GetBulkDownloadStatus" name="GetBulkDownloadStatusRequest" message="tns:GetBulkDownloadStatusRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkDownloadStatusResponse" name="GetBulkDownloadStatusResponse" message="tns:GetBulkDownloadStatusResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkDownloadStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_GetBulkDownloadStatus_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkDownloadStatusApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_GetBulkDownloadStatus_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkUploadUrl">
+         <wsdl:input wsaw:Action="GetBulkUploadUrl" name="GetBulkUploadUrlRequest" message="tns:GetBulkUploadUrlRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadUrlResponse" name="GetBulkUploadUrlResponse" message="tns:GetBulkUploadUrlResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadUrlAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_GetBulkUploadUrl_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadUrlApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_GetBulkUploadUrl_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkUploadStatus">
+         <wsdl:input wsaw:Action="GetBulkUploadStatus" name="GetBulkUploadStatusRequest" message="tns:GetBulkUploadStatusRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadStatusResponse" name="GetBulkUploadStatusResponse" message="tns:GetBulkUploadStatusResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_GetBulkUploadStatus_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/GetBulkUploadStatusApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_GetBulkUploadStatus_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UploadEntityRecords">
+         <wsdl:input wsaw:Action="UploadEntityRecords" name="UploadEntityRecordsRequest" message="tns:UploadEntityRecordsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/UploadEntityRecordsResponse" name="UploadEntityRecordsResponse" message="tns:UploadEntityRecordsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/UploadEntityRecordsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IBulkService_UploadEntityRecords_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/IBulkService/UploadEntityRecordsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:IBulkService_UploadEntityRecords_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="BasicHttpBinding_IBulkService" type="tns:IBulkService">
+      <wsp:PolicyReference URI="#BasicHttpBinding_IBulkService_policy" />
+      <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+      <wsdl:operation name="DownloadCampaignsByAccountIds">
+         <soap:operation soapAction="DownloadCampaignsByAccountIds" style="document" />
+         <wsdl:input name="DownloadCampaignsByAccountIdsRequest">
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByAccountIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DownloadCampaignsByAccountIdsResponse">
+            <soap:header message="tns:DownloadCampaignsByAccountIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DownloadCampaignsByCampaignIds">
+         <soap:operation soapAction="DownloadCampaignsByCampaignIds" style="document" />
+         <wsdl:input name="DownloadCampaignsByCampaignIdsRequest">
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DownloadCampaignsByCampaignIdsResponse">
+            <soap:header message="tns:DownloadCampaignsByCampaignIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkDownloadStatus">
+         <soap:operation soapAction="GetBulkDownloadStatus" style="document" />
+         <wsdl:input name="GetBulkDownloadStatusRequest">
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBulkDownloadStatusRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBulkDownloadStatusResponse">
+            <soap:header message="tns:GetBulkDownloadStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkUploadUrl">
+         <soap:operation soapAction="GetBulkUploadUrl" style="document" />
+         <wsdl:input name="GetBulkUploadUrlRequest">
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBulkUploadUrlRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBulkUploadUrlResponse">
+            <soap:header message="tns:GetBulkUploadUrlResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBulkUploadStatus">
+         <soap:operation soapAction="GetBulkUploadStatus" style="document" />
+         <wsdl:input name="GetBulkUploadStatusRequest">
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBulkUploadStatusRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBulkUploadStatusResponse">
+            <soap:header message="tns:GetBulkUploadStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UploadEntityRecords">
+         <soap:operation soapAction="UploadEntityRecords" style="document" />
+         <wsdl:input name="UploadEntityRecordsRequest">
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UploadEntityRecordsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UploadEntityRecordsResponse">
+            <soap:header message="tns:UploadEntityRecordsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="BulkService">
+      <wsdl:port name="BasicHttpBinding_IBulkService" binding="tns:BasicHttpBinding_IBulkService">
+         <soap:address location="https://bulk.api.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V13/BulkService.svc" />
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

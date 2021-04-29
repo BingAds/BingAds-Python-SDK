@@ -67,6 +67,7 @@ class _StringTable:
     Profile = "Profile"
     ProfileId = "Profile Id"
     BidAdjustment = "Bid Adjustment"
+    CashbackAdjustment = "Cashback Percent"
     SubType = "Sub Type"
     OsNames = "OS Names"
     StartDate = "Start Date"
@@ -153,6 +154,15 @@ class _StringTable:
     AdGroupActionAdExtension = "Ad Group Action Ad Extension"
     ActionType = "Action Type"
     ActionText = "Action Text"
+    
+    #Video Ad Extension
+    VideoAdExtension = "Video Ad Extension"
+    ThumbnailUrl = "Thumbnail Url"
+    ThumbnailId = "Thumbnail Id"
+    VideoId = "Video Id"
+    AccountVideoAdExtension = "Account Video Ad Extension"
+    CampaignVideoAdExtension = "Campaign Video Ad Extension"
+    AdGroupVideoAdExtension = "Ad Group Video Ad Extension"
     
     #Promotion AdExtension
     PromotionAdExtension = "Promotion Ad Extension";
