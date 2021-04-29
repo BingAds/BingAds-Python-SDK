@@ -1,4 +1,4 @@
 include *.rst *.py *.txt
 include LICENSE
 
-include bingads/v13/proxies/*xml
+include bingads/v13/proxies/*/*.xml
