@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion &#8212; Bing Ads SDK 13.0.8 documentation</title>
+    <title>bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion &#8212; Bing Ads SDK 13.0.9 documentation</title>
     <link rel="stylesheet" href="../../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.9 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -97,6 +97,11 @@
             <span class="n">_StringTable</span><span class="o">.</span><span class="n">BidAdjustment</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_BidAdjustment</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_ad_group_criterion</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_BidAdjustment</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_ad_group_criterion</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">_StringTable</span><span class="o">.</span><span class="n">CashbackAdjustment</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_CashbackAdjustment</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_ad_group_criterion</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_CashbackAdjustment</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">biddable_ad_group_criterion</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">]</span>
 
@@ -148,6 +153,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">create_criterion</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;BidMultiplier&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionBid</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;BidMultiplier&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionCashback</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;CashbackAdjustment&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_biddable_ad_group_criterion</span><span class="o">.</span><span class="n">CriterionCashback</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;CashbackAdjustment&#39;</span>
         <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAdGroupBiddableCriterion</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
         
 <div class="viewcode-block" id="BulkAdGroupBiddableCriterion.create_criterion"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.target_criterions.html#bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion.BulkAdGroupBiddableCriterion.create_criterion">[docs]</a>    <span class="k">def</span> <span class="nf">create_criterion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -187,7 +194,7 @@
         <li class="right" >
           <a href="../../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.8 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.9 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
