@@ -33,6 +33,7 @@ NumberOperator = _CAMPAIGN_OBJECT_FACTORY_V13.create('NumberOperator')
 
 AudienceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AudienceCriterion')
 BidMultiplier = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
+CashbackAdjustment = _CAMPAIGN_OBJECT_FACTORY_V13.create('CashbackAdjustment')
 
 AgeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AgeCriterion')
 DayTimeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DayTimeCriterion')
@@ -233,7 +234,7 @@ def parse_datetime(dt_str):
     :rtype: datetime | None
     """
 
-    if not dt_str:
+    if not dt_str or dt_str == DELETE_VALUE:
         return None
     try:
         return datetime.strptime(dt_str, _BULK_DATETIME_FORMAT)
@@ -242,7 +243,7 @@ def parse_datetime(dt_str):
 
 
 def parse_date(d_str):
-    if not d_str:
+    if not d_str or d_str == DELETE_VALUE:
         return None
     parsed_date = datetime.strptime(d_str, _BULK_DATE_FORMAT)
     bing_ads_date = _CAMPAIGN_OBJECT_FACTORY_V13.create('Date')
@@ -1090,6 +1091,17 @@ def csv_to_field_CriterionAudienceId(entity, value):
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(AudienceCriterion)):
         entity.Criterion.AudienceId = value
 
+def field_to_csv_CashbackAdjustment(entity):
+    if entity is None or entity.CriterionCashback is None or entity.CriterionCashback.CashbackPercent is None:
+        return None
+    return bulk_str(entity.CriterionCashback.CashbackPercent)
+
+
+def csv_to_field_CashbackAdjustment(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.CriterionCashback is not None and isinstance(entity.CriterionCashback, type(CashbackAdjustment)):
+        entity.CriterionCashback.CashbackPercent = value
 
 def field_to_csv_BidAdjustment(entity):
     if entity is None or entity.CriterionBid is None or entity.CriterionBid.Multiplier is None:

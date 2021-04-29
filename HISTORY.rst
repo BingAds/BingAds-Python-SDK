@@ -1,6 +1,12 @@
 .. :changelog:
 
 Release History
+13.0.9(2021-04-29)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes. 
+* Add bulk mappings for video ad extensions i.e., BulkVideoAdExtension, BulkAccountVideoAdExtension, BulkAdGroupVideoAdExtension, and BulkCampaignVideoAdExtension. 
+* Add CashbackAdjustment mapping in the BulkAdGroupBiddableCriterion and BulkCampaignBiddableCriterion. 
+* Cache SDK snapshot of the singleWsdl proxies for all Bing Ads API Version 13 services. 
 
 13.0.8(2021-03-10)
 +++++++++++++++++++++++++

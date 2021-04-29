@@ -31,6 +31,7 @@ class ServiceClient:
         self._authorization_data = authorization_data
         self._refresh_oauth_tokens_automatically = True
         self._version = ServiceClient._format_version(version)
+        
 
         # TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.
         if 'cache' not in suds_options:
@@ -94,7 +95,7 @@ class ServiceClient:
         """
 
         return self.soap_client.factory
-
+    
     @property
     def service_url(self):
         """ The wsdl url of service based on the specific service and environment.
@@ -105,9 +106,8 @@ class ServiceClient:
         key = (self._service, self._environment)
         service_info_dict = ServiceClient._get_service_info_dict(self._version)
         if key not in service_info_dict:
-            raise ValueError(str.format('Cannot find version: [v{0}] service: [{1}] under environment: [{2}].',
-                                        self._version, self._input_service, self._input_environment))
-        return service_info_dict[(self._service, self._environment)].url
+            return service_info_dict[(self._service, 'sandbox')]
+        return service_info_dict[(self._service, self._environment)]
 
 
     @property
@@ -199,7 +199,6 @@ class ServiceClient:
         if version == 'v13' or version == 13:
             return 13
         raise ValueError(str.format('version error: [{0}] is not supported.', version))
-
 
     @staticmethod
     def _get_service_info_dict(version):
@@ -296,9 +295,9 @@ import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
 
-
+# this is used to create entity only. Given the sandbox should have the same contract, we are good to use sandbox wsdl.
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/campaign_management_service.xml'))
+    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'))
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
 _CAMPAIGN_OBJECT_FACTORY_V13.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V13.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V13.create
