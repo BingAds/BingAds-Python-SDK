@@ -20,7 +20,7 @@ class _RowReportHeader:
 
     def read_header(self):
         self._stream_reader.read_report_header(self)
-    
+
     def parse_header(self, fields):
         valid_values = list(filter(lambda x: x is not None and len(x) > 0, [s.strip() for s in fields]))
         if len(valid_values) == 1 and ':' in fields[0]:
@@ -32,7 +32,7 @@ class _RowReportHeader:
                     return False
             self._report_columns = fields
             return True
-    
+
     def parse_meta(self, header):
         res = self._regex.match(header)
         if res:
@@ -64,7 +64,7 @@ class _RowReportHeader:
             self._report_time_end = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[0] else None
         elif len(time_array) == 2:
             self._report_time_start = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[0] else None
-            self._report_time_end = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[1] else None
+            self._report_time_end = datetime.strptime(time_array[1], '%m/%d/%Y') if time_array[1] else None
 
     @property
     def last_completed_available_date(self):
@@ -80,32 +80,32 @@ class _RowReportHeader:
                 if len(dt_tokens) > 1:
                     return datetime.strptime(' '.join(dt_tokens[:2]), '%m/%d/%Y %H:%M:%S')
         return None
-    
+
     @property
     def record_count(self):
         return int(self._row_number) if self._row_number else None
-    
-    
+
+
     @property
     def time_zone(self):
         return self._time_zone
-    
+
     @property
     def potential_incomplete_data(self):
         return self._potential_incomplete_data
-    
+
 #    @property
 #    def report_filter(self):
 #        return self._report_filter
-    
+
     @property
     def report_aggregation(self):
         return self._report_aggregation
-    
+
     @property
     def report_name(self):
         return self._report_name
-    
+
     @property
     def report_time_start(self):
         return self._report_time_start
