@@ -190,6 +190,16 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c.ad_group, 'CpcBid', parse_ad_group_bid(v))
         ),
         _SimpleBulkMapping(
+            header=_StringTable.CpvBid,
+            field_to_csv=lambda c: ad_group_bid_bulk_str(c.ad_group.CpvBid),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'CpvBid', parse_ad_group_bid(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CpmBid,
+            field_to_csv=lambda c: ad_group_bid_bulk_str(c.ad_group.CpmBid),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'CpmBid', parse_ad_group_bid(v))
+        ),
+        _SimpleBulkMapping(
             header=_StringTable.Language,
             field_to_csv=lambda c: bulk_str(c.ad_group.Language),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'Language', v if v else None)
@@ -242,6 +252,15 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             header=_StringTable.AdGroupType,
             field_to_csv=lambda c: c.ad_group.AdGroupType,
             csv_to_field=lambda c, v: setattr(c.ad_group, 'AdGroupType', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.MultiMediaAdBidAdjustment,
+            field_to_csv=lambda c: bulk_str(c.ad_group.MultimediaAdsBidAdjustment),
+            csv_to_field=lambda c, v: setattr(
+                c.ad_group,
+                'MultimediaAdsBidAdjustment',
+                int(v) if v else None
+            )
         ),
     ]
     

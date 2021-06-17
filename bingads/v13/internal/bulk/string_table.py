@@ -75,6 +75,8 @@ class _StringTable:
     NetworkDistribution = "Network Distribution"
     Language = "Language"
     CpcBid = "Cpc Bid"
+    CpvBid = "Cpv Bid"
+    CpmBid = "Cpm Bid"
     AdRotation = "Ad Rotation"
     PrivacyStatus = "Privacy Status"
     Account = "Account"
@@ -85,6 +87,10 @@ class _StringTable:
     AdFormatPreference = "Ad Format Preference"
     IncludeViewThroughConversions = "Include View Through Conversions"
     ProfileExpansionEnabled = "Profile Expansion Enabled"
+    AdClickParallelTracking = "Ad Click Parallel Tracking"
+    AutoApplyRecommendations = "Auto Apply Recommendations"
+    AllowImageAutoRetrieve = "Allow Image Auto Retrieve"
+    MultiMediaAdBidAdjustment = "Multi Media Ad Bid Adjustment"
 
     # Entity Types
     SemanticVersion = "Format Version"
@@ -508,15 +514,25 @@ class _StringTable:
     LandscapeImageMediaId = "Landscape Image Media Id"
     LandscapeLogoMediaId = "Landscape Logo Media Id"
     LongHeadline = "Long Headline"
+    LongHeadlines = "Long Headlines"
     SquareImageMediaId = "Square Image Media Id"
     SquareLogoMediaId = "Square Logo Media Id"
     ImpressionTrackingUrls = "Impression Tracking Urls"
+    CallToActionLanguage = "Call To Action Language"
+    Descriptions = "Descriptions"
+    Headlines = "Headlines"
+    Videos = "Videos"
     
     #Image
     Image = "Image"
     Height = "Height"
     Width = "Width"
     
+    # Video
+    Video = "Video"
+    SourceUrl = "Source Url"
+    AspectRatio = "Aspect Ratio"
+    DurationInMillionSeconds = "Duration In Milliseconds"
 
     # Responsive Search Ad
     ResponsiveSearchAd = "Responsive Search Ad"

@@ -30,6 +30,7 @@ PageVisitorsWhoDidNotVisitAnotherPageRule = _CAMPAIGN_OBJECT_FACTORY_V13.create(
 CustomEventsRule = _CAMPAIGN_OBJECT_FACTORY_V13.create('CustomEventsRule')
 StringOperator = _CAMPAIGN_OBJECT_FACTORY_V13.create('StringOperator')
 NumberOperator = _CAMPAIGN_OBJECT_FACTORY_V13.create('NumberOperator')
+NormalForm = _CAMPAIGN_OBJECT_FACTORY_V13.create('NormalForm')
 
 AudienceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AudienceCriterion')
 BidMultiplier = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
@@ -46,6 +47,7 @@ TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
 CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
 TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset'))
 ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset'))
+VideoAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VideoAsset'))
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -316,6 +318,18 @@ def field_to_csv_UrlCustomParameters(entity):
         params.append('{{_{0}}}={1}'.format(parameter.Key, escape_parameter_text(parameter.Value)))
     return '; '.join(params)
 
+def dict_bulk_str(parameters, separator):
+    if parameters is None or len(parameters) == 0:
+        return None
+    return separator.join(["{0}={1}".format(key, parameters[key]) for key in parameters])
+    
+def parse_dict(value):
+    if value is None or value.strip() == '':
+        return
+    
+    return dict([s.split('=') for s in value.split(';') if len(s) > 0])
+    pass 
+
 
 def csv_to_field_UrlCustomParameters(entity, value):
     if value is None or value.strip() == '':
@@ -403,6 +417,10 @@ def field_to_csv_BidStrategyType(entity):
         return 'MaxConversions'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpcBiddingScheme')):
         return 'ManualCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpmBiddingScheme')):
+        return 'ManualCpcm'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpvBiddingScheme')):
+        return 'ManualCpv'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetCpaBiddingScheme')):
         return 'TargetCpa'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')):
@@ -411,8 +429,10 @@ def field_to_csv_BidStrategyType(entity):
         return 'MaxConversionValue'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')):
         return 'TargetRoas'
-    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShare')):
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShareBiddingScheme')):
         return 'TargetImpressionShare'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxRoasBiddingScheme')):
+        return 'MaxRoas'
     else:
         raise TypeError('Unsupported Bid Strategy Type')
 
@@ -434,20 +454,22 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionsBiddingScheme')
     elif value == 'ManualCpc':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpcBiddingScheme')
+    elif value == 'ManualCpm':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpmBiddingScheme')
+    elif value == 'ManualCpv':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpvBiddingScheme')
     elif value == 'TargetCpa':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetCpaBiddingScheme')
     elif value == 'MaxClicks':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxClicksBiddingScheme')
-    elif value == 'TargetRoas':
-        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')
     elif value == 'MaxConversionValue':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxConversionValueBiddingScheme')
+    elif value == 'TargetRoas':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetRoasBiddingScheme')
     elif value == 'TargetImpressionShare':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShareBiddingScheme')
-    elif value == 'ManualCpv':
-        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpvBiddingScheme')
-    elif value == 'ManualCpm':
-        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpmBiddingScheme')
+    elif value == 'MaxRoas':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxRoasBiddingScheme')
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value
@@ -462,8 +484,69 @@ def field_to_csv_delimited_strings(entity):
         return ';'.join(entity.string)
     return None
 
+def field_to_csv_VideoAssetLinks(assetLinks):
+    if assetLinks is None or assetLinks.AssetLink is None:
+        return None
+    assetLinkContracts = []
+    for assetLink in assetLinks.AssetLink:
+        if assetLink.Asset is not None and isinstance(assetLink.Asset, VideoAsset_Type):
+            contract = {}     
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None     
+            contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None  
+            contract['id'] = assetLink.Asset.Id if hasattr(assetLink.Asset, 'Id') else None
+            contract['name'] = assetLink.Asset.Name if hasattr(assetLink.Asset, 'Name') else None
+            contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
+            contract['subType'] = assetLink.Asset.SubType if hasattr(assetLink.Asset, 'SubType') else None
+            thumbnailImage = assetLink.Asset.ThumbnailImage if hasattr(assetLink.Asset, 'ThumbnailImage') else None
+            if thumbnailImage != None:
+                contract['thumbnailImage'] = {}
+                contract['thumbnailImage']['id'] = thumbnailImage.Id
+                contract['thumbnailImage']['name'] = thumbnailImage.Name
+                contract['thumbnailImage']['type'] = thumbnailImage.Type
+                contract['thumbnailImage']['subType'] = thumbnailImage.SubType
+                contract['thumbnailImage']['cropX'] = thumbnailImage.CropX
+                contract['thumbnailImage']['cropY'] = thumbnailImage.CropY
+                contract['thumbnailImage']['cropWidth'] = thumbnailImage.CropWidth
+                contract['thumbnailImage']['cropHeight'] = thumbnailImage.CropHeight
+            assetLinkContracts.append(contract)
+    if len(assetLinkContracts) > 0:
+        return json.dumps(assetLinkContracts, sort_keys = True)
+    return None
+    
+    pass
+    
+def csv_to_field_VideoAssetLinks(assetLinks, value):
+    if value is None or value == '':
+        return
+    assetLinkContracts = json.loads(value)
+    for assetLinkContract in assetLinkContracts:
+        asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
+        asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('VideoAsset')
+        asset_link.Asset.Type = 'VideoAsset'
+        asset_link.Asset.Id = assetLinkContract.get('id')
+        asset_link.Asset.Name = assetLinkContract.get('name')
+        asset_link.Asset.SubType = assetLinkContract.get('subType')
+        asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
+        asset_link.PinnedField = assetLinkContract.get('pinnedField')
+        asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
+        thumbnailImageContract = assetLinkContract.get('thumbnailImage')
 
-def csv_to_field_Rsa_TextAssetLinks(assetLinks, value):
+        if thumbnailImageContract != None :
+            asset_link.Asset.ThumbnailImage = _CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset')
+            asset_link.Asset.ThumbnailImage.Type = 'ImageAsset'       
+            asset_link.Asset.ThumbnailImage.Id = thumbnailImageContract.get('id')
+            asset_link.Asset.ThumbnailImage.Name = thumbnailImageContract.get('name')
+            asset_link.Asset.ThumbnailImage.SubType = thumbnailImageContract.get('subType')
+            asset_link.Asset.ThumbnailImage.CropX = thumbnailImageContract.get('cropX')
+            asset_link.Asset.ThumbnailImage.CropY = thumbnailImageContract.get('cropY')
+            asset_link.Asset.ThumbnailImage.CropWidth = thumbnailImageContract.get('cropWidth')
+            asset_link.Asset.ThumbnailImage.CropHeight = thumbnailImageContract.get('cropHeight')
+
+        assetLinks.AssetLink.append(asset_link)
+    
+
+
+def csv_to_field_TextAssetLinks(assetLinks, value):
     if value is None or value == '':
         return
     assetLinkContracts = json.loads(value)
@@ -521,7 +604,7 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
         assetLinks.AssetLink.append(asset_link)
 
-def field_to_csv_Rsa_TextAssetLinks(entity):
+def field_to_csv_TextAssetLinks(entity):
     if entity is None or entity.AssetLink is None:
         return None
     assetLinkContracts = []
@@ -1003,7 +1086,7 @@ def field_to_csv_RemarketingRule(entity):
 
     rule = entity.Rule
     if (isinstance(rule, type(PageVisitorsRule))):
-        return 'PageVisitors{0}'.format(rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup))
+        return 'PageVisitors{0}'.format(rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup, rule.NormalForm))
     elif (isinstance(rule, type(PageVisitorsWhoVisitedAnotherPageRule))):
         return 'PageVisitorsWhoVisitedAnotherPage({0}) and ({1})'.format(
             rule_item_groups_str(rule.RuleItemGroups.RuleItemGroup),
@@ -1020,18 +1103,23 @@ def field_to_csv_RemarketingRule(entity):
         raise ValueError('Unsupported Remarketing Rule type: {0}'.format(type(entity.RemarketingRule)))
 
 
-def rule_item_groups_str(groups):
+def rule_item_groups_str(groups, nf = NormalForm.Disjunctive):
+    outerOperator = ' or '
+    innerOperator = ' and '
+    if nf == NormalForm.Conjunctive:
+        outerOperator = ' and '
+        innerOperator = ' or '
     if groups is None or len(groups) == 0:
         raise ValueError('Remarketing RuleItemGroups is None or empty.')
 
-    return ' or '.join(['({0})'.format(rule_items_str(group.Items.RuleItem)) for group in groups])
+    return outerOperator.join(['({0})'.format(rule_items_str(group.Items.RuleItem, innerOperator)) for group in groups])
 
 
-def rule_items_str(items):
+def rule_items_str(items, innerOperator = ' and '):
     if items is None or len(items) == 0:
         raise ValueError('Remarketing RuleItem list is None or empty.')
 
-    return ' and '.join(['({0} {1} {2})'.format(item.Operand, item.Operator, item.Value) for item in items])
+    return innerOperator.join(['({0} {1} {2})'.format(item.Operand, item.Operator, item.Value) for item in items])
 
 
 def custom_event_rule_str(rule):
@@ -1092,7 +1180,7 @@ def csv_to_field_CriterionAudienceId(entity, value):
         entity.Criterion.AudienceId = value
 
 def field_to_csv_CashbackAdjustment(entity):
-    if entity is None or entity.CriterionCashback is None or entity.CriterionCashback.CashbackPercent is None:
+    if entity is None or entity.CriterionCashback is None or  hasattr(entity.CriterionCashback, "CashbackPercent") == False or entity.CriterionCashback.CashbackPercent is None:
         return None
     return bulk_str(entity.CriterionCashback.CashbackPercent)
 
@@ -1100,7 +1188,9 @@ def field_to_csv_CashbackAdjustment(entity):
 def csv_to_field_CashbackAdjustment(entity, value):
     if value is None or value == '':
         return
-    if entity is not None and entity.CriterionCashback is not None and isinstance(entity.CriterionCashback, type(CashbackAdjustment)):
+    if entity is not None:
+        entity.CriterionCashback = _CAMPAIGN_OBJECT_FACTORY_V13.create('CashbackAdjustment')
+        entity.CriterionCashback.Type = 'CashbackAdjustment'
         entity.CriterionCashback.CashbackPercent = value
 
 def field_to_csv_BidAdjustment(entity):
@@ -1360,9 +1450,51 @@ def create_target_setting_detail(token):
     pass
 
 def parse_rule_PageVisitors(rule_str):
+    patternDNF = ')) or (('
+    patternCNF = ')) and (('
+    patternAnd = ') and ('
+    patternOr = ') or ('
+
     rule = _CAMPAIGN_OBJECT_FACTORY_V13.create('PageVisitorsRule')
     rule.Type = 'PageVisitors'
-    rule.RuleItemGroups = parse_rule_groups(rule_str)
+    rule.NormalForm = NormalForm.Disjunctive
+    rule.RuleItemGroups = _CAMPAIGN_OBJECT_FACTORY_V13.create('ArrayOfRuleItemGroup')
+
+    expressionGroups = rule_str.split(patternDNF)
+    if len(expressionGroups) == 1:
+        expressionGroups = rule_str.split(patternCNF)
+        if len(expressionGroups) == 1:
+            expressions = rule_str.split(patternOr)
+            if len(expressions) == 1:
+                expressions = rule_str.split(patternAnd)
+                if len(expressions) == 1:
+                    parse_rule_items(rule_str)
+                else: 
+                    rule.NormalForm = NormalForm.Disjunctive
+            else:
+                rule.NormalForm = NormalForm.Conjunctive
+        else:
+            rule.NormalForm = NormalForm.Conjunctive
+    
+    pattern = patternAnd
+    if rule.NormalForm == NormalForm.Conjunctive:
+        pattern = patternOr
+
+    for expressionGroup in expressionGroups:
+        expressionGroup = expressionGroup.strip()
+        if expressionGroup[0] == '(':
+            expressionGroup = expressionGroup[1:]
+        if expressionGroup[-1] == ')':
+            expressionGroup = expressionGroup[:-1]
+
+        expressions = expressionGroup.split(pattern)
+        rule_item_group = _CAMPAIGN_OBJECT_FACTORY_V13.create('RuleItemGroup')
+        for expression in expressions:
+            item = parse_string_rule_item(expression)
+            rule_item_group.Items.RuleItem.append(item)            
+
+        rule.RuleItemGroups.RuleItemGroup.append(rule_item_group)
+
     return rule
 
 
@@ -1571,7 +1703,6 @@ def csv_to_field_PageFeedIds(value):
 def combination_rules_to_bulkstring(combination_rules):
     if len(combination_rules.CombinationRule) == 0:
         return None
-    
     
     return '&'.join([r.Operator + '(' + ','.join([str(id) for id in r.AudienceIds.long]) + ')' for r in combination_rules.CombinationRule])
 

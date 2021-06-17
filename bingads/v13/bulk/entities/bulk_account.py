@@ -28,6 +28,9 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._profile_expansion_enabled = None
         self._tracking_url_template = None
         self._final_url_suffix = None
+        self._ad_click_parallel_tracking=None
+        self._auto_apply_recommendations = None
+        self._allow_image_auto_retrieve = None
 
     @property
     def id(self):
@@ -111,6 +114,45 @@ class BulkAccount(_SingleRecordBulkEntity):
     @final_url_suffix.setter
     def final_url_suffix(self, v):
         self._final_url_suffix = v
+        
+    @property
+    def ad_click_parallel_tracking(self):
+        """ The setting of parallel tracking in the account.
+        
+        :return: The setting of parallel tracking of the account
+        :rtype: bool
+        """
+        return self._ad_click_parallel_tracking
+    
+    @ad_click_parallel_tracking.setter
+    def ad_click_parallel_tracking(self, v):
+        self._ad_click_parallel_tracking = v
+        
+    @property
+    def allow_image_auto_retrieve(self):
+        """ The setting of allowing image auto retrieve in the account.
+        
+        :return: The setting of allowing image auto retrieve of the account
+        :rtype: bool
+        """
+        return self._allow_image_auto_retrieve
+    
+    @allow_image_auto_retrieve.setter
+    def allow_image_auto_retrieve(self, v):
+        self._allow_image_auto_retrieve = v        
+        
+    @property
+    def auto_apply_recommendations(self):
+        """ The setting of allowing image auto retrieve in the account.
+        
+        :return: The setting of allowing image auto retrieve of the account
+        :rtype: dict
+        """
+        return self._auto_apply_recommendations
+    
+    @auto_apply_recommendations.setter
+    def auto_apply_recommendations(self, v):
+        self._auto_apply_recommendations = v        
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -153,6 +195,21 @@ class BulkAccount(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.profile_expansion_enabled),
             csv_to_field=lambda c, v: setattr(c, '_profile_expansion_enabled', parse_bool(v))
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdClickParallelTracking,
+            field_to_csv=lambda c: bulk_str(c.ad_click_parallel_tracking),
+            csv_to_field=lambda c, v: setattr(c, 'ad_click_parallel_tracking', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AllowImageAutoRetrieve,
+            field_to_csv=lambda c: bulk_str(c.allow_image_auto_retrieve),
+            csv_to_field=lambda c, v: setattr(c, 'allow_image_auto_retrieve', parse_bool(v))
+        ),        
+        _SimpleBulkMapping(
+            header=_StringTable.AutoApplyRecommendations,
+            field_to_csv=lambda c: dict_bulk_str(c.auto_apply_recommendations, ';'),
+            csv_to_field=lambda c, v: setattr(c, 'auto_apply_recommendations', parse_dict(v))
+        )
     ]
 
     def process_mappings_from_row_values(self, row_values):

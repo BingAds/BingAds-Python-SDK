@@ -30,4 +30,5 @@ from .labels import *
 from .bulk_offline_conversion import *
 from .bulk_experiment import *
 from .bulk_image import *
+from .bulk_video import *
 from .feeds import *

@@ -118,8 +118,10 @@ class BulkCampaign(_SingleRecordBulkEntity):
             return None
         settings = [setting for setting in self.campaign.Settings.Setting if
                              isinstance(setting, setting_type)]
-        if len(settings) != 1:
-            raise ValueError('Can only have 1 ' + setting_name +  ' in Campaign Settings.')
+        if len(settings) > 1:
+            raise ValueError('Can only have 1 ' + setting_name +  ' at most in Campaign Settings.')
+        elif len(settings) == 0:
+            return None
         return settings[0]
 
     @staticmethod
@@ -269,88 +271,80 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            dsa_setting.Source = v
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        dsa_setting.Source = v
 
     @staticmethod
     def _write_source(c):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            return bulk_str(dsa_setting.Source)
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        return bulk_str(dsa_setting.Source)
 
     @staticmethod
     def _read_domain_language(c, v):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            dsa_setting.Language = v
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        dsa_setting.Language = v
 
     @staticmethod
     def _write_domain_language(c):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            return bulk_str(dsa_setting.Language)
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        return bulk_str(dsa_setting.Language)
 
     @staticmethod
     def _read_page_feed_ids(c, v):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            dsa_setting.PageFeedIds.long = csv_to_field_PageFeedIds(v)
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        dsa_setting.PageFeedIds.long = csv_to_field_PageFeedIds(v)
         
     @staticmethod
     def _write_page_feed_ids(c):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            return field_to_csv_Ids(dsa_setting.PageFeedIds, c.campaign.Id)        
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        return field_to_csv_Ids(dsa_setting.PageFeedIds, c.campaign.Id)        
 
     @staticmethod
     def _read_website(c, v):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            dsa_setting.DomainName = v
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        dsa_setting.DomainName = v
 
     @staticmethod
     def _write_website(c):
         if not c.campaign.CampaignType:
             return None
         campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
-        if 'dynamicsearchads' in campgaign_types:
-            dsa_setting = c._get_dsa_setting()
-            if not dsa_setting:
-                return None
-            return bulk_str(dsa_setting.DomainName)
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        return bulk_str(dsa_setting.DomainName)
         
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -512,6 +506,15 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.AdScheduleUseSearcherTimeZone,
             field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.campaign.AdScheduleUseSearcherTimeZone, None),
             csv_to_field=lambda c, v: setattr(c.campaign, 'AdScheduleUseSearcherTimeZone', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.MultiMediaAdBidAdjustment,
+            field_to_csv=lambda c: bulk_str(c.campaign.MultimediaAdsBidAdjustment),
+            csv_to_field=lambda c, v: setattr(
+                c.campaign,
+                'MultimediaAdsBidAdjustment',
+                int(v) if v else None
+            )
         ),
     ]
 

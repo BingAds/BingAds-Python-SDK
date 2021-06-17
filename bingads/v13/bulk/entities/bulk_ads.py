@@ -650,7 +650,32 @@ class BulkResponsiveAd(_BulkAd):
             header=_StringTable.ImpressionTrackingUrls,            
             field_to_csv=lambda c: field_to_csv_Urls(c.responsive_ad.ImpressionTrackingUrls, c.ad.Id),
             csv_to_field=lambda c, v: csv_to_field_Urls(c.responsive_ad.ImpressionTrackingUrls, v)
-        )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Descriptions,
+            field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_ad.Descriptions),
+            csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_ad.Descriptions ,v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Headlines,
+            field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_ad.Headlines),
+            csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_ad.Headlines, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Videos,
+            field_to_csv=lambda c: field_to_csv_VideoAssetLinks(c.responsive_ad.Videos),
+            csv_to_field=lambda c, v: csv_to_field_VideoAssetLinks(c.responsive_ad.Videos, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CallToActionLanguage,
+            field_to_csv=lambda c: c.responsive_ad.CallToActionLanguage,
+            csv_to_field=lambda c, v: setattr(c.responsive_ad, 'CallToActionLanguage', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.LongHeadlines,
+            field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_ad.LongHeadlines),
+            csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_ad.LongHeadlines ,v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
@@ -725,13 +750,13 @@ class BulkResponsiveSearchAd(_BulkAd):
         ),
         _SimpleBulkMapping(
             header=_StringTable.Headline,
-            field_to_csv=lambda c: field_to_csv_Rsa_TextAssetLinks(c.responsive_search_ad.Headlines),
-            csv_to_field=lambda c, v: csv_to_field_Rsa_TextAssetLinks(c.responsive_search_ad.Headlines, v)
+            field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_search_ad.Headlines),
+            csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_search_ad.Headlines, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Description,
-            field_to_csv=lambda c: field_to_csv_Rsa_TextAssetLinks(c.responsive_search_ad.Descriptions),
-            csv_to_field=lambda c, v: csv_to_field_Rsa_TextAssetLinks(c.responsive_search_ad.Descriptions ,v)
+            field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_search_ad.Descriptions),
+            csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_search_ad.Descriptions ,v)
         )
     ]
 

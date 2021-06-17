@@ -15,6 +15,7 @@ class _CsvHeaders:
         _StringTable.SyncTime,
         _StringTable.ClientId,
         _StringTable.LastModifiedTime,
+        _StringTable.MultiMediaAdBidAdjustment,
 
         # Campaign
         _StringTable.TimeZone,
@@ -29,6 +30,8 @@ class _CsvHeaders:
         _StringTable.NetworkDistribution,
         _StringTable.AdRotation,
         _StringTable.CpcBid,
+        _StringTable.CpvBid,
+        _StringTable.CpmBid,
         _StringTable.Language,
         _StringTable.PrivacyStatus,
         _StringTable.AdGroupType,
@@ -125,6 +128,11 @@ class _CsvHeaders:
         # Image
         _StringTable.Height,
         _StringTable.Width,
+        
+        # Video
+        _StringTable.SourceUrl,
+        _StringTable.AspectRatio,
+        _StringTable.DurationInMillionSeconds,
 
         # Callout Ad Extension
         _StringTable.CalloutText,
@@ -331,9 +339,14 @@ class _CsvHeaders:
         _StringTable.LandscapeImageMediaId,
         _StringTable.LandscapeLogoMediaId,
         _StringTable.LongHeadline,
+        _StringTable.LongHeadlines,
         _StringTable.SquareImageMediaId,
         _StringTable.SquareLogoMediaId,
         _StringTable.ImpressionTrackingUrls,
+        _StringTable.Headlines,
+        _StringTable.Descriptions,
+        _StringTable.CallToActionLanguage,
+        _StringTable.Videos,
 
         # Ad Scheduling
         _StringTable.AdSchedule,
@@ -390,7 +403,9 @@ class _CsvHeaders:
         _StringTable.MSCLKIDAutoTaggingEnabled,
         _StringTable.IncludeViewThroughConversions,
         _StringTable.ProfileExpansionEnabled,
-        
+        _StringTable.AdClickParallelTracking,
+        _StringTable.AutoApplyRecommendations,
+        _StringTable.AllowImageAutoRetrieve,
         _StringTable.FinalUrlSuffix,
         
         # Feeds
