@@ -70,9 +70,9 @@
       <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/CampaignManagement/v13" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
          <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:import namespace="http://schemas.datacontract.org/2004/07/System" />
          <xs:import namespace="https://adapi.microsoft.com" />
-         <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:complexType name="TextAd">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
@@ -226,6 +226,7 @@
                   <xs:sequence>
                      <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
+                     <xs:element minOccurs="0" name="CallToActionLanguage" nillable="true" type="tns:LanguageName" />
                      <xs:element minOccurs="0" name="Descriptions" nillable="true" type="tns:ArrayOfAssetLink" />
                      <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Headlines" nillable="true" type="tns:ArrayOfAssetLink" />
@@ -239,6 +240,13 @@
                      </xs:element>
                      <xs:element minOccurs="0" name="LongHeadline" nillable="true" type="tns:AssetLink" />
                      <xs:element minOccurs="0" name="LongHeadlineString" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="LongHeadlines" nillable="true" type="tns:ArrayOfAssetLink">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfAssetLink">
                         <xs:annotation>
@@ -254,30 +262,340 @@
          <xs:element name="ResponsiveAd" nillable="true" type="tns:ResponsiveAd" />
          <xs:simpleType name="CallToAction">
             <xs:restriction base="xs:string">
-               <xs:enumeration value="AddToCart" />
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="ActNow" />
                <xs:enumeration value="ApplyNow" />
+               <xs:enumeration value="BetNow" />
+               <xs:enumeration value="BidNow" />
+               <xs:enumeration value="BookACar" />
+               <xs:enumeration value="BookHotel" />
                <xs:enumeration value="BookNow" />
+               <xs:enumeration value="Browse" />
+               <xs:enumeration value="BuyNow" />
+               <xs:enumeration value="ChatNow" />
+               <xs:enumeration value="Compare" />
+               <xs:enumeration value="ContactUs" />
+               <xs:enumeration value="Coupon" />
+               <xs:enumeration value="Donate" />
+               <xs:enumeration value="Download" />
+               <xs:enumeration value="EmailNow" />
+               <xs:enumeration value="EnrollNow" />
+               <xs:enumeration value="Explore" />
+               <xs:enumeration value="FileNow" />
+               <xs:enumeration value="FindJob" />
+               <xs:enumeration value="FreePlay" />
+               <xs:enumeration value="FreeQuote" />
+               <xs:enumeration value="FreeTrial" />
+               <xs:enumeration value="GetDeals" />
+               <xs:enumeration value="GetOffer" />
+               <xs:enumeration value="GetQuote" />
+               <xs:enumeration value="JoinNow" />
+               <xs:enumeration value="LearnMore" />
+               <xs:enumeration value="ListenNow" />
+               <xs:enumeration value="LogIn" />
+               <xs:enumeration value="Message" />
+               <xs:enumeration value="NewCars" />
+               <xs:enumeration value="OrderNow" />
+               <xs:enumeration value="PlayGame" />
+               <xs:enumeration value="PlayNow" />
+               <xs:enumeration value="PostJob" />
+               <xs:enumeration value="Register" />
+               <xs:enumeration value="RentACar" />
+               <xs:enumeration value="RentNow" />
+               <xs:enumeration value="Reserve" />
+               <xs:enumeration value="Sale" />
+               <xs:enumeration value="SaveNow" />
+               <xs:enumeration value="Schedule" />
+               <xs:enumeration value="SeeMenu" />
+               <xs:enumeration value="SeeMore" />
+               <xs:enumeration value="SeeOffer" />
+               <xs:enumeration value="SellNow" />
+               <xs:enumeration value="ShopNow" />
+               <xs:enumeration value="Showtimes" />
+               <xs:enumeration value="SignIn" />
+               <xs:enumeration value="SignUp" />
+               <xs:enumeration value="StartFree" />
+               <xs:enumeration value="StartNow" />
+               <xs:enumeration value="Subscribe" />
+               <xs:enumeration value="TestDrive" />
+               <xs:enumeration value="TryNow" />
+               <xs:enumeration value="UsedCars" />
+               <xs:enumeration value="ViewCars" />
+               <xs:enumeration value="ViewNow" />
+               <xs:enumeration value="ViewPlans" />
+               <xs:enumeration value="VisitSite" />
+               <xs:enumeration value="VoteNow" />
+               <xs:enumeration value="Watch" />
+               <xs:enumeration value="WatchMore" />
+               <xs:enumeration value="WatchNow" />
+               <xs:enumeration value="Directions" />
+               <xs:enumeration value="FindStore" />
+               <xs:enumeration value="SwitchNow" />
+               <xs:enumeration value="VisitStore" />
+               <xs:enumeration value="RenewNow" />
+               <xs:enumeration value="Reorder" />
+               <xs:enumeration value="Default" />
+               <xs:enumeration value="NoButton" />
+               <xs:enumeration value="Install" />
+               <xs:enumeration value="AddToCart" />
                <xs:enumeration value="BookTravel" />
                <xs:enumeration value="Buy" />
-               <xs:enumeration value="BuyNow" />
-               <xs:enumeration value="ContactUs" />
-               <xs:enumeration value="Download" />
-               <xs:enumeration value="GetQuote" />
-               <xs:enumeration value="Install" />
-               <xs:enumeration value="LearnMore" />
-               <xs:enumeration value="NoButton" />
                <xs:enumeration value="OpenLink" />
-               <xs:enumeration value="OrderNow" />
                <xs:enumeration value="RegisterNow" />
-               <xs:enumeration value="SeeMore" />
-               <xs:enumeration value="ShopNow" />
-               <xs:enumeration value="SignUp" />
-               <xs:enumeration value="Subscribe" />
-               <xs:enumeration value="Unknown" />
-               <xs:enumeration value="VisitSite" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CallToAction" nillable="true" type="tns:CallToAction" />
+         <xs:simpleType name="LanguageName">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="None" />
+               <xs:enumeration value="Arabic">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Danish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">28</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Dutch">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">29</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="German">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="English">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Finnish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">35</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="French">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">36</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Italian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">55</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Norwegian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">82</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Portuguese">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">88</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Spanish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">109</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Swedish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">112</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TraditionalChinese">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SimplifiedChinese">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">137</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Greek">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">41</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Polish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">87</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Bulgarian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Czech">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">27</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Estonian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Croatian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">26</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Hungarian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">48</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Lithuanian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">70</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Latvian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">68</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Maltese">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">75</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Romanian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">92</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Slovak">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">106</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Slovenian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">107</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Turkish">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">123</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Serbian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">98</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Bosnian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">138</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Albanian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Macedonian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">71</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Icelandic">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">49</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Japanese">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">56</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="All">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1000</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="LanguageName" nillable="true" type="tns:LanguageName" />
          <xs:complexType name="ArrayOfAssetLink">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetLink" nillable="true" type="tns:AssetLink" />
@@ -384,6 +702,13 @@
                <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q5:ArrayOfKeyValuePairOfstringstring" xmlns:q5="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="MultimediaAdsBidAdjustment" nillable="true" type="xs:int">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Status" nillable="true" type="tns:CampaignStatus" />
                <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
@@ -616,6 +941,13 @@
                <xs:extension base="tns:Setting">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="DynamicDescriptionEnabled" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="PageFeedIds" nillable="true" type="q7:ArrayOflong" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                      <xs:element minOccurs="0" name="Source" nillable="true" type="tns:DynamicSearchAdsSource" />
@@ -782,6 +1114,9 @@
                      <xs:enumeration value="BidStrategyId" />
                      <xs:enumeration value="CpvCpmBiddingScheme" />
                      <xs:enumeration value="DynamicFeedSetting" />
+                     <xs:enumeration value="MultimediaAdsBidAdjustment" />
+                     <xs:enumeration value="VerifiedTrackingSetting" />
+                     <xs:enumeration value="DynamicDescriptionSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -938,6 +1273,13 @@
                <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q16:ArrayOfKeyValuePairOfstringstring" xmlns:q16="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="MultimediaAdsBidAdjustment" nillable="true" type="xs:int">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Network" nillable="true" type="tns:Network" />
                <xs:element minOccurs="0" name="PrivacyStatus" nillable="true" type="tns:AdGroupPrivacyStatus" />
@@ -1068,6 +1410,7 @@
                      <xs:enumeration value="AdGroupType" />
                      <xs:enumeration value="CpvBid" />
                      <xs:enumeration value="CpmBid" />
+                     <xs:enumeration value="MultimediaAdsBidAdjustment" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -1252,6 +1595,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="ImpressionTrackingUrls" />
                      <xs:enumeration value="Videos" />
+                     <xs:enumeration value="LongHeadlines" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -1707,10 +2051,17 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
-               <xs:enumeration value="AllowCrawlImagesFromLandingPage">
+               <xs:enumeration value="AllowImageAutoRetrieve">
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AutoApplyRecommendations">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">128</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -2074,6 +2425,15 @@
                <xs:enumeration value="VisitStore" />
                <xs:enumeration value="RenewNow" />
                <xs:enumeration value="Reorder" />
+               <xs:enumeration value="BuildNow" />
+               <xs:enumeration value="Dealers" />
+               <xs:enumeration value="GetDemo" />
+               <xs:enumeration value="GetNow" />
+               <xs:enumeration value="GoToDemo" />
+               <xs:enumeration value="SeeDemo" />
+               <xs:enumeration value="SeeModels" />
+               <xs:enumeration value="SeeOffers" />
+               <xs:enumeration value="ViewDemo" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ActionAdExtensionActionType" nillable="true" type="tns:ActionAdExtensionActionType" />
@@ -2437,6 +2797,7 @@
                      <xs:enumeration value="DisplayText" />
                      <xs:enumeration value="Layouts" />
                      <xs:enumeration value="ActionTypesPhase3" />
+                     <xs:enumeration value="ActionTypesPhase4" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -4526,12 +4887,38 @@
             <xs:complexContent mixed="false">
                <xs:extension base="tns:RemarketingRule">
                   <xs:sequence>
+                     <xs:element minOccurs="0" name="NormalForm" nillable="true" type="tns:NormalForm">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="RuleItemGroups" nillable="true" type="tns:ArrayOfRuleItemGroup" />
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="PageVisitorsRule" nillable="true" type="tns:PageVisitorsRule" />
+         <xs:simpleType name="NormalForm">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Conjunctive">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Disjunctive">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="NormalForm" nillable="true" type="tns:NormalForm" />
          <xs:complexType name="ArrayOfRuleItemGroup">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="RuleItemGroup" nillable="true" type="tns:RuleItemGroup" />
@@ -4773,9 +5160,20 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AudienceIds" nillable="true" type="q107:ArrayOflong" xmlns:q107="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                   <xs:element minOccurs="0" name="Type" type="tns:AudienceType" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AudienceAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="AudienceAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="NormalForm" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AudienceAdditionalField" nillable="true" type="tns:AudienceAdditionalField" />
          <xs:element name="GetAudiencesByIdsResponse">
             <xs:complexType>
                <xs:sequence>

@@ -9,6 +9,7 @@ from bingads.v13.internal.bulk.format_version import _FormatVersion
 class _BulkObjectFactory():
     INDIVIDUAL_ENTITY_MAP = {
         _StringTable.Image: _EntityInfo(lambda: BulkImage()),
+        _StringTable.Video: _EntityInfo(lambda: BulkVideo()),
         _StringTable.Account: _EntityInfo(lambda: BulkAccount()),
         _StringTable.Budget: _EntityInfo(lambda: BulkBudget()),
         _StringTable.BidStrategy: _EntityInfo(lambda: BulkBidStrategy()),

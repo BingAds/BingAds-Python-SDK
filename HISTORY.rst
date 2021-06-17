@@ -1,6 +1,22 @@
 .. :changelog:
 
 Release History
+13.0.10(2021-06-20)
++++++++++++++++++++++++++
+
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes
+* Add new msads.manage scope for multi-factor authentication requirement. Eventually msads.manage will be required. Learn more here: https://go.microsoft.com/fwlink/?linkid=2155062
+* Default OAuth scope is set to the new msads.manage scope. Can be overridden temporarily with new oAuthScope parameter (replaces requireLiveConnect). 
+* Sandbox auth support via login.live-int.com is replaced with login.windows-ppe.net. 
+* Add BulkVideo for video ads support
+* Add mappings for new fields in BulkResponsiveAd: CallToActionLanguage, Videos, Headlines, Descriptions
+* Add mappings for new fields in BulkAdGroup: CpvBid, CpmBid
+* Update  ToBiddingSchemeBulkString(this BiddingScheme biddingScheme) to support MaxRoas, ManualCpv and ManualCpm
+* Add mappings for new fields in BulkAccount: AdClickParallelTracking, AutoApplyRecommendations, AllowImageAutoRetrieve
+* Conjunctive normal form (CNF) support is added to PageVisitorsRule and mapped in the BulkRemarketingList remarketing rule. Previously Microsoft Advertising only supported disjunctive normal form (DNF). You must ensure that your application can appropriately read and distinguish between CNF and DNF. Your application should no longer assume that the rule is disjunctive.
+* Add mapping for new MultimediaAdsBidAdjustment field in BulkCampaign and BulkAdGroup 
+* Fix issue of DSA setting not being exported for Search Campaign
+
 13.0.9.1(2021-04-29)
 +++++++++++++++++++++++++
 * Fix issue of missing proxies.

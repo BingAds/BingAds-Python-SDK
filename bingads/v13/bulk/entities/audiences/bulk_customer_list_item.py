@@ -31,6 +31,8 @@ class BulkCustomerListItem(_SingleRecordBulkEntity):
     def audience(self):
         """
         the audience, see more detail at: https://go.microsoft.com/fwlink/?linkid=846127
+        
+        :rtype: str
         """
         return self._audience
 
@@ -87,7 +89,7 @@ class BulkCustomerListItem(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Audience,
             field_to_csv=lambda c: bulk_str(c.audience),
-            csv_to_field=lambda c, v: setattr(c, 'audience', ve)
+            csv_to_field=lambda c, v: setattr(c, 'audience', v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.SubType,

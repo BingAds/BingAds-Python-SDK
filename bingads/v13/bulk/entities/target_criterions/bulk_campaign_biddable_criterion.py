@@ -93,8 +93,6 @@ class BulkCampaignBiddableCriterion(_SingleRecordBulkEntity):
         self.create_criterion()
         self._biddable_campaign_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier')
         self._biddable_campaign_criterion.CriterionBid.Type = 'BidMultiplier'
-        self._biddable_campaign_criterion.CriterionCashback = _CAMPAIGN_OBJECT_FACTORY_V13.create('CashbackAdjustment')
-        self._biddable_campaign_criterion.CriterionCashback.Type = 'CashbackAdjustment'
         row_values.convert_to_entity(self, BulkCampaignBiddableCriterion._MAPPINGS)
 
     def create_criterion(self):

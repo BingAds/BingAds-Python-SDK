@@ -4,7 +4,6 @@ from bingads.v13.bulk.entities.target_criterions.bulk_campaign_negative_criterio
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.extensions import *
-from docutils.nodes import row
 
 
 class BulkCampaignNegativeAudienceAssociation(BulkCampaignNegativeCriterion):

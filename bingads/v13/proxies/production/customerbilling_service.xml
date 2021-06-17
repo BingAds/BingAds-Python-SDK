@@ -470,6 +470,8 @@
                <xs:enumeration value="Name" />
                <xs:enumeration value="Number" />
                <xs:enumeration value="LifeCycleStatus" />
+               <xs:enumeration value="CouponClassName" />
+               <xs:enumeration value="CouponStartDate" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="OrderByField" nillable="true" type="tns:OrderByField" />
@@ -513,7 +515,7 @@
                <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="SendToEmail" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="SendToDate" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="SendToDate" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="IsRedeemed" type="xs:boolean" />
                <xs:element minOccurs="0" name="RedemptionInfo" nillable="true" type="tns:CouponRedemption" />
             </xs:sequence>
@@ -528,7 +530,7 @@
                <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="RedemptionDate" type="xs:dateTime" />
                <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
-               <xs:element minOccurs="0" name="ActivationDate" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="ActivationDate" nillable="true" type="xs:dateTime" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CouponRedemption" nillable="true" type="tns:CouponRedemption" />
