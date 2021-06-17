@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.bulk.entities.bulk_ad_group &#8212; Bing Ads SDK 13.0.9.1 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_ad_group &#8212; Bing Ads SDK 13.0.10 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.9.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.10 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -228,6 +228,16 @@
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;CpcBid&#39;</span><span class="p">,</span> <span class="n">parse_ad_group_bid</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
         <span class="p">),</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CpvBid</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">ad_group_bid_bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">CpvBid</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;CpvBid&#39;</span><span class="p">,</span> <span class="n">parse_ad_group_bid</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CpmBid</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">ad_group_bid_bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">CpmBid</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;CpmBid&#39;</span><span class="p">,</span> <span class="n">parse_ad_group_bid</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Language</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">Language</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;Language&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
@@ -281,6 +291,15 @@
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">AdGroupType</span><span class="p">,</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span> <span class="s1">&#39;AdGroupType&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">MultiMediaAdBidAdjustment</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="o">.</span><span class="n">MultimediaAdsBidAdjustment</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">ad_group</span><span class="p">,</span>
+                <span class="s1">&#39;MultimediaAdsBidAdjustment&#39;</span><span class="p">,</span>
+                <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
     <span class="p">]</span>
     
     
@@ -331,7 +350,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.9.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.10 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
