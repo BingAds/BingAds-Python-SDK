@@ -155,6 +155,7 @@ def output_auctioninsightkpi(data_object):
     output_status_message("AboveRate: {0}".format(data_object.AboveRate))
     output_status_message("TopOfPageRate: {0}".format(data_object.TopOfPageRate))
     output_status_message("OutrankingShare: {0}".format(data_object.OutrankingShare))
+    output_status_message("AbsoluteTopOfPageRate: {0}".format(data_object.AbsoluteTopOfPageRate))
     output_status_message("* * * End output_auctioninsightkpi * * *")
 
 def output_array_of_auctioninsightkpi(data_objects):
@@ -1395,6 +1396,18 @@ def output_array_of_auctionsegment(value_sets):
     output_status_message("Array Of AuctionSegment:\n")
     for value_set in value_sets['AuctionSegment']:
         output_auctionsegment(value_set)
+
+def output_auctioninsightkpiadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_auctioninsightkpiadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AuctionInsightKpiAdditionalField:\n")
+    for value_set in value_sets['AuctionInsightKpiAdditionalField']:
+        output_auctioninsightkpiadditionalfield(value_set)
 
 def output_keywordideaattribute(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

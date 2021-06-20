@@ -98,9 +98,8 @@ def get_campaign_webpage_negative_url_example(campaign_id):
 def main(authorization_data):
 
     try:
-        # To get started with dynamic search ads, first you'll need to add a new Campaign 
-	    # with its type set to DynamicSearchAds. When you create the campaign, you'll need to 
-	    # include a DynamicSearchAdsSetting that specifies the target web site domain and language.
+        # To get started with dynamic search ads, first you'll need to add a new Search campaign 
+        # Include a DynamicSearchAdsSetting that specifies the target website domain and language.
 
         campaigns=campaign_service.factory.create('ArrayOfCampaign')
         campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
@@ -133,10 +132,11 @@ def main(authorization_data):
         output_status_message("PartialErrors:")
         output_array_of_batcherror(add_campaigns_response.PartialErrors)
 
-        # Create a new ad group within the dynamic search ads campaign. 
+        # Create a new ad group with type set to "SearchDynamic"
 
         ad_groups=campaign_service.factory.create('ArrayOfAdGroup')
         ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
+        ad_group.AdGroupType='SearchDynamic'
         ad_group.Name="Women's Red Shoe Sale"
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31

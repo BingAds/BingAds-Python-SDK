@@ -115,15 +115,14 @@ def main(authorization_data):
 
         upload_entities.append(bulk_feed_item)
 
-        # To get started with dynamic search ads, first you'll need to add a new Campaign 
-	    # with its type set to DynamicSearchAds. When you create the campaign, you'll need to 
-	    # include a DynamicSearchAdsSetting that specifies the target web site domain and language.
+        # To get started with dynamic search ads, first you'll need to add a new Search campaign 
+        # Include a DynamicSearchAdsSetting that specifies the target website domain and language.
         # Page feeds can be associated at the campaign level via 'Source' and 'Page Feed Ids'.
 
         bulk_campaign=BulkCampaign()
         campaign=set_elements_to_none(campaign_service.factory.create('Campaign'))
         campaign.BudgetType='DailyBudgetStandard'
-        campaign.CampaignType=['DynamicSearchAds']
+        campaign.CampaignType=['Search']
         campaign.DailyBudget=50
         languages=campaign_service.factory.create('ns3:ArrayOfstring')
         languages.string.append('All')
@@ -147,12 +146,13 @@ def main(authorization_data):
         bulk_campaign.campaign=campaign       
         upload_entities.append(bulk_campaign)
 
-        # Create a new ad group within the dynamic search ads campaign. 
+        # Create a new ad group with type set to "SearchDynamic"
         
         bulk_ad_group=BulkAdGroup()
         bulk_ad_group.campaign_id=CAMPAIGN_ID_KEY
         ad_group=set_elements_to_none(campaign_service.factory.create('AdGroup'))
         ad_group.Id=AD_GROUP_ID_KEY
+        ad_group.AdGroupType='SearchDynamic'
         ad_group.Name="Sunglasses Sale"
         end_date=campaign_service.factory.create('Date')
         end_date.Day=31

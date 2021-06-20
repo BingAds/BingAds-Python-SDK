@@ -15,11 +15,11 @@ ENVIRONMENT='sandbox' # If you use 'production' then you must also update the DE
 
 # The CLIENT_ID is required and CLIENT_STATE is recommended.
 # The REFRESH_TOKEN should always be in a secure location.
-CLIENT_ID='db41b09d-6e50-4f4a-90ac-5a99caefb52f'
+CLIENT_ID='4c0b021c-00c3-4508-838f-d3127e8167ff'
 CLIENT_STATE='ClientStateGoesHere'
 REFRESH_TOKEN="refresh.txt"
 
-ALL_CAMPAIGN_TYPES=['Audience DynamicSearchAds Search Shopping']
+ALL_CAMPAIGN_TYPES=['Audience Search Shopping']
 ALL_TARGET_CAMPAIGN_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 ALL_TARGET_AD_GROUP_CRITERION_TYPES=['Age DayTime Device Gender Location LocationIntent Radius']
 

@@ -126,6 +126,54 @@ def output_array_of_billingdocumentinfo(data_objects):
     for data_object in data_objects['BillingDocumentInfo']:
         output_billingdocumentinfo(data_object)
 
+def output_coupon(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_coupon * * *")
+    output_status_message("CouponCode: {0}".format(data_object.CouponCode))
+    output_status_message("ClassName: {0}".format(data_object.ClassName))
+    output_status_message("CouponType: {0}".format(data_object.CouponType))
+    output_status_message("Amount: {0}".format(data_object.Amount))
+    output_status_message("SpendThreshold: {0}".format(data_object.SpendThreshold))
+    output_status_message("CurrencyCode: {0}".format(data_object.CurrencyCode))
+    output_status_message("PercentOff: {0}".format(data_object.PercentOff))
+    output_status_message("ActiveDuration: {0}".format(data_object.ActiveDuration))
+    output_status_message("ExpirationDate: {0}".format(data_object.ExpirationDate))
+    output_status_message("StartDate: {0}".format(data_object.StartDate))
+    output_status_message("EndDate: {0}".format(data_object.EndDate))
+    output_status_message("SendToEmail: {0}".format(data_object.SendToEmail))
+    output_status_message("SendToDate: {0}".format(data_object.SendToDate))
+    output_status_message("IsRedeemed: {0}".format(data_object.IsRedeemed))
+    output_status_message("RedemptionInfo:")
+    output_couponredemption(data_object.RedemptionInfo)
+    output_status_message("* * * End output_coupon * * *")
+
+def output_array_of_coupon(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['Coupon']:
+        output_coupon(data_object)
+
+def output_couponredemption(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_couponredemption * * *")
+    output_status_message("AccountId: {0}".format(data_object.AccountId))
+    output_status_message("AccountNumber: {0}".format(data_object.AccountNumber))
+    output_status_message("SpendToThreshold: {0}".format(data_object.SpendToThreshold))
+    output_status_message("Balance: {0}".format(data_object.Balance))
+    output_status_message("CurrencyCode: {0}".format(data_object.CurrencyCode))
+    output_status_message("RedemptionDate: {0}".format(data_object.RedemptionDate))
+    output_status_message("ExpirationDate: {0}".format(data_object.ExpirationDate))
+    output_status_message("ActivationDate: {0}".format(data_object.ActivationDate))
+    output_status_message("* * * End output_couponredemption * * *")
+
+def output_array_of_couponredemption(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CouponRedemption']:
+        output_couponredemption(data_object)
+
 def output_insertionorder(data_object):
     if data_object is None:
         return
