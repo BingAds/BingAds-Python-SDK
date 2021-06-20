@@ -26,6 +26,7 @@ def output_accountinfowithcustomerdata(data_object):
     output_status_message("AccountNumber: {0}".format(data_object.AccountNumber))
     output_status_message("AccountLifeCycleStatus: {0}".format(data_object.AccountLifeCycleStatus))
     output_status_message("PauseReason: {0}".format(data_object.PauseReason))
+    output_status_message("AccountMode: {0}".format(data_object.AccountMode))
     output_status_message("* * * End output_accountinfowithcustomerdata * * *")
 
 def output_array_of_accountinfowithcustomerdata(data_objects):
@@ -33,6 +34,22 @@ def output_array_of_accountinfowithcustomerdata(data_objects):
         return
     for data_object in data_objects['AccountInfoWithCustomerData']:
         output_accountinfowithcustomerdata(data_object)
+
+def output_accounttaxcertificate(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_accounttaxcertificate * * *")
+    output_status_message("TaxCertificateBlobContainerName: {0}".format(data_object.TaxCertificateBlobContainerName))
+    output_status_message("TaxCertificates:")
+    output_array_of_keyvaluepairofstringbase64binary(data_object.TaxCertificates)
+    output_status_message("Status: {0}".format(data_object.Status))
+    output_status_message("* * * End output_accounttaxcertificate * * *")
+
+def output_array_of_accounttaxcertificate(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['AccountTaxCertificate']:
+        output_accounttaxcertificate(data_object)
 
 def output_adapierror(data_object):
     if data_object is None:
@@ -121,6 +138,9 @@ def output_advertiseraccount(data_object):
     output_address(data_object.BusinessAddress)
     output_status_message("AutoTagType: {0}".format(data_object.AutoTagType))
     output_status_message("SoldToPaymentInstrumentId: {0}".format(data_object.SoldToPaymentInstrumentId))
+    output_status_message("TaxCertificate:")
+    output_accounttaxcertificate(data_object.TaxCertificate)
+    output_status_message("AccountMode: {0}".format(data_object.AccountMode))
     output_status_message("* * * End output_advertiseraccount * * *")
 
 def output_array_of_advertiseraccount(data_objects):
@@ -292,6 +312,20 @@ def output_array_of_daterange(data_objects):
         return
     for data_object in data_objects['DateRange']:
         output_daterange(data_object)
+
+def output_keyvaluepairofstringbase64binary(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_keyvaluepairofstringbase64binary * * *")
+    output_status_message("key: {0}".format(data_object.key))
+    output_status_message("value: {0}".format(data_object.value))
+    output_status_message("* * * End output_keyvaluepairofstringbase64binary * * *")
+
+def output_array_of_keyvaluepairofstringbase64binary(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['KeyValuePairOfstringbase64Binary']:
+        output_keyvaluepairofstringbase64binary(data_object)
 
 def output_keyvaluepairofstringstring(data_object):
     if data_object is None:
@@ -530,6 +564,18 @@ def output_array_of_autotagtype(value_sets):
     for value_set in value_sets['AutoTagType']:
         output_autotagtype(value_set)
 
+def output_taxcertificatestatus(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_taxcertificatestatus(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of TaxCertificateStatus:\n")
+    for value_set in value_sets['TaxCertificateStatus']:
+        output_taxcertificatestatus(value_set)
+
 def output_customerfinancialstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -578,18 +624,6 @@ def output_array_of_customerlifecyclestatus(value_sets):
     for value_set in value_sets['CustomerLifeCycleStatus']:
         output_customerlifecyclestatus(value_set)
 
-def output_emailformat(value_set):
-    output_status_message("Values in {0}".format(value_set.Type))
-    for value in value_set['string']:
-        output_status_message(value)
-
-def output_array_of_emailformat(value_sets):
-    if value_sets is None or len(value_sets) == 0:
-        return
-    output_status_message("Array Of EmailFormat:\n")
-    for value_set in value_sets['EmailFormat']:
-        output_emailformat(value_set)
-
 def output_lcid(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -601,6 +635,30 @@ def output_array_of_lcid(value_sets):
     output_status_message("Array Of LCID:\n")
     for value_set in value_sets['LCID']:
         output_lcid(value_set)
+
+def output_accountadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_accountadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AccountAdditionalField:\n")
+    for value_set in value_sets['AccountAdditionalField']:
+        output_accountadditionalfield(value_set)
+
+def output_emailformat(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_emailformat(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of EmailFormat:\n")
+    for value_set in value_sets['EmailFormat']:
+        output_emailformat(value_set)
 
 def output_secretquestion(value_set):
     output_status_message("Values in {0}".format(value_set.Type))

@@ -163,18 +163,26 @@ def output_adextension(data_object):
         output_calladextension(data_object)
     if data_object.Type == 'CalloutAdExtension':
         output_calloutadextension(data_object)
+    if data_object.Type == 'FilterLinkAdExtension':
+        output_filterlinkadextension(data_object)
+    if data_object.Type == 'FlyerAdExtension':
+        output_flyeradextension(data_object)
     if data_object.Type == 'ImageAdExtension':
         output_imageadextension(data_object)
     if data_object.Type == 'LocationAdExtension':
         output_locationadextension(data_object)
     if data_object.Type == 'PriceAdExtension':
         output_priceadextension(data_object)
+    if data_object.Type == 'PromotionAdExtension':
+        output_promotionadextension(data_object)
     if data_object.Type == 'ReviewAdExtension':
         output_reviewadextension(data_object)
     if data_object.Type == 'SitelinkAdExtension':
         output_sitelinkadextension(data_object)
     if data_object.Type == 'StructuredSnippetAdExtension':
         output_structuredsnippetadextension(data_object)
+    if data_object.Type == 'VideoAdExtension':
+        output_videoadextension(data_object)
     output_status_message("* * * End output_adextension * * *")
 
 def output_array_of_adextension(data_objects):
@@ -292,6 +300,7 @@ def output_adgroup(data_object):
     output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
     output_status_message("Id: {0}".format(data_object.Id))
     output_status_message("Language: {0}".format(data_object.Language))
+    output_status_message("MultimediaAdsBidAdjustment: {0}".format(data_object.MultimediaAdsBidAdjustment))
     output_status_message("Name: {0}".format(data_object.Name))
     output_status_message("Network: {0}".format(data_object.Network))
     output_status_message("PrivacyStatus: {0}".format(data_object.PrivacyStatus))
@@ -303,6 +312,12 @@ def output_adgroup(data_object):
     output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
     output_status_message("UrlCustomParameters:")
     output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("AdScheduleUseSearcherTimeZone: {0}".format(data_object.AdScheduleUseSearcherTimeZone))
+    output_status_message("AdGroupType: {0}".format(data_object.AdGroupType))
+    output_status_message("CpvBid:")
+    output_bid(data_object.CpvBid)
+    output_status_message("CpmBid:")
+    output_bid(data_object.CpmBid)
     output_status_message("* * * End output_adgroup * * *")
 
 def output_array_of_adgroup(data_objects):
@@ -507,6 +522,8 @@ def output_asset(data_object):
         output_imageasset(data_object)
     if data_object.Type == 'TextAsset':
         output_textasset(data_object)
+    if data_object.Type == 'VideoAsset':
+        output_videoasset(data_object)
     output_status_message("* * * End output_asset * * *")
 
 def output_array_of_asset(data_objects):
@@ -551,6 +568,8 @@ def output_audience(data_object):
     output_status_message("SupportedCampaignTypes:")
     output_array_of_string(data_object.SupportedCampaignTypes)
     output_status_message("Type: {0}".format(data_object.Type))
+    if data_object.Type == 'CombinedList':
+        output_combinedlist(data_object)
     if data_object.Type == 'Custom':
         output_customaudience(data_object)
     if data_object.Type == 'InMarket':
@@ -662,6 +681,8 @@ def output_biddableadgroupcriterion(data_object):
     output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
     output_status_message("UrlCustomParameters:")
     output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("CriterionCashback:")
+    output_criterioncashback(data_object.CriterionCashback)
     output_status_message("* * * End output_biddableadgroupcriterion * * *")
 
 def output_array_of_biddableadgroupcriterion(data_objects):
@@ -676,6 +697,8 @@ def output_biddablecampaigncriterion(data_object):
     output_status_message("* * * Begin output_biddablecampaigncriterion * * *")
     output_status_message("CriterionBid:")
     output_criterionbid(data_object.CriterionBid)
+    output_status_message("CriterionCashback:")
+    output_criterioncashback(data_object.CriterionCashback)
     output_status_message("* * * End output_biddablecampaigncriterion * * *")
 
 def output_array_of_biddablecampaigncriterion(data_objects):
@@ -695,14 +718,22 @@ def output_biddingscheme(data_object):
         output_inheritfromparentbiddingscheme(data_object)
     if data_object.Type == 'ManualCpcBiddingScheme':
         output_manualcpcbiddingscheme(data_object)
+    if data_object.Type == 'ManualCpmBiddingScheme':
+        output_manualcpmbiddingscheme(data_object)
+    if data_object.Type == 'ManualCpvBiddingScheme':
+        output_manualcpvbiddingscheme(data_object)
     if data_object.Type == 'MaxClicksBiddingScheme':
         output_maxclicksbiddingscheme(data_object)
     if data_object.Type == 'MaxConversionsBiddingScheme':
         output_maxconversionsbiddingscheme(data_object)
+    if data_object.Type == 'MaxConversionValueBiddingScheme':
+        output_maxconversionvaluebiddingscheme(data_object)
     if data_object.Type == 'MaxRoasBiddingScheme':
         output_maxroasbiddingscheme(data_object)
     if data_object.Type == 'TargetCpaBiddingScheme':
         output_targetcpabiddingscheme(data_object)
+    if data_object.Type == 'TargetImpressionShareBiddingScheme':
+        output_targetimpressionsharebiddingscheme(data_object)
     if data_object.Type == 'TargetRoasBiddingScheme':
         output_targetroasbiddingscheme(data_object)
     output_status_message("* * * End output_biddingscheme * * *")
@@ -725,6 +756,24 @@ def output_array_of_bidmultiplier(data_objects):
         return
     for data_object in data_objects['BidMultiplier']:
         output_bidmultiplier(data_object)
+
+def output_bidstrategy(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_bidstrategy * * *")
+    output_status_message("AssociatedCampaignType: {0}".format(data_object.AssociatedCampaignType))
+    output_status_message("AssociationCount: {0}".format(data_object.AssociationCount))
+    output_status_message("BiddingScheme:")
+    output_biddingscheme(data_object.BiddingScheme)
+    output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("Name: {0}".format(data_object.Name))
+    output_status_message("* * * End output_bidstrategy * * *")
+
+def output_array_of_bidstrategy(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['BidStrategy']:
+        output_bidstrategy(data_object)
 
 def output_bmcstore(data_object):
     if data_object is None:
@@ -805,6 +854,7 @@ def output_campaign(data_object):
     output_status_message("ForwardCompatibilityMap:")
     output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
     output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("MultimediaAdsBidAdjustment: {0}".format(data_object.MultimediaAdsBidAdjustment))
     output_status_message("Name: {0}".format(data_object.Name))
     output_status_message("Status: {0}".format(data_object.Status))
     output_status_message("SubType: {0}".format(data_object.SubType))
@@ -818,6 +868,8 @@ def output_campaign(data_object):
     output_status_message("BudgetId: {0}".format(data_object.BudgetId))
     output_status_message("Languages:")
     output_array_of_string(data_object.Languages)
+    output_status_message("AdScheduleUseSearcherTimeZone: {0}".format(data_object.AdScheduleUseSearcherTimeZone))
+    output_status_message("BidStrategyId: {0}".format(data_object.BidStrategyId))
     output_status_message("* * * End output_campaign * * *")
 
 def output_array_of_campaign(data_objects):
@@ -825,6 +877,22 @@ def output_array_of_campaign(data_objects):
         return
     for data_object in data_objects['Campaign']:
         output_campaign(data_object)
+
+def output_campaignadgroupids(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_campaignadgroupids * * *")
+    output_status_message("ActiveAdGroupsOnly: {0}".format(data_object.ActiveAdGroupsOnly))
+    output_status_message("AdGroupIds:")
+    output_array_of_long(data_object.AdGroupIds)
+    output_status_message("CampaignId: {0}".format(data_object.CampaignId))
+    output_status_message("* * * End output_campaignadgroupids * * *")
+
+def output_array_of_campaignadgroupids(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CampaignAdGroupIds']:
+        output_campaignadgroupids(data_object)
 
 def output_campaigncriterion(data_object):
     if data_object is None:
@@ -865,6 +933,48 @@ def output_array_of_campaignnegativesites(data_objects):
     for data_object in data_objects['CampaignNegativeSites']:
         output_campaignnegativesites(data_object)
 
+def output_cashbackadjustment(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_cashbackadjustment * * *")
+    output_status_message("CashbackPercent: {0}".format(data_object.CashbackPercent))
+    output_status_message("* * * End output_cashbackadjustment * * *")
+
+def output_array_of_cashbackadjustment(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CashbackAdjustment']:
+        output_cashbackadjustment(data_object)
+
+def output_combinationrule(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_combinationrule * * *")
+    output_status_message("AudienceIds:")
+    output_array_of_long(data_object.AudienceIds)
+    output_status_message("Operator: {0}".format(data_object.Operator))
+    output_status_message("* * * End output_combinationrule * * *")
+
+def output_array_of_combinationrule(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CombinationRule']:
+        output_combinationrule(data_object)
+
+def output_combinedlist(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_combinedlist * * *")
+    output_status_message("CombinationRules:")
+    output_array_of_combinationrule(data_object.CombinationRules)
+    output_status_message("* * * End output_combinedlist * * *")
+
+def output_array_of_combinedlist(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CombinedList']:
+        output_combinedlist(data_object)
+
 def output_company(data_object):
     if data_object is None:
         return
@@ -888,6 +998,7 @@ def output_conversiongoal(data_object):
     output_status_message("ConversionWindowInMinutes: {0}".format(data_object.ConversionWindowInMinutes))
     output_status_message("CountType: {0}".format(data_object.CountType))
     output_status_message("ExcludeFromBidding: {0}".format(data_object.ExcludeFromBidding))
+    output_status_message("GoalCategory: {0}".format(data_object.GoalCategory))
     output_status_message("Id: {0}".format(data_object.Id))
     output_status_message("Name: {0}".format(data_object.Name))
     output_status_message("Revenue:")
@@ -977,6 +1088,8 @@ def output_criterion(data_object):
         output_profilecriterion(data_object)
     if data_object.Type == 'RadiusCriterion':
         output_radiuscriterion(data_object)
+    if data_object.Type == 'StoreCriterion':
+        output_storecriterion(data_object)
     if data_object.Type == 'Webpage':
         output_webpage(data_object)
     output_status_message("* * * End output_criterion * * *")
@@ -1003,6 +1116,21 @@ def output_array_of_criterionbid(data_objects):
         return
     for data_object in data_objects['CriterionBid']:
         output_criterionbid(data_object)
+
+def output_criterioncashback(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_criterioncashback * * *")
+    output_status_message("Type: {0}".format(data_object.Type))
+    if data_object.Type == 'CashbackAdjustment':
+        output_cashbackadjustment(data_object)
+    output_status_message("* * * End output_criterioncashback * * *")
+
+def output_array_of_criterioncashback(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['CriterionCashback']:
+        output_criterioncashback(data_object)
 
 def output_customaudience(data_object):
     if data_object is None:
@@ -1185,6 +1313,19 @@ def output_array_of_durationgoal(data_objects):
     for data_object in data_objects['DurationGoal']:
         output_durationgoal(data_object)
 
+def output_dynamicfeedsetting(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_dynamicfeedsetting * * *")
+    output_status_message("FeedId: {0}".format(data_object.FeedId))
+    output_status_message("* * * End output_dynamicfeedsetting * * *")
+
+def output_array_of_dynamicfeedsetting(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['DynamicFeedSetting']:
+        output_dynamicfeedsetting(data_object)
+
 def output_dynamicsearchad(data_object):
     if data_object is None:
         return
@@ -1206,6 +1347,7 @@ def output_dynamicsearchadssetting(data_object):
         return
     output_status_message("* * * Begin output_dynamicsearchadssetting * * *")
     output_status_message("DomainName: {0}".format(data_object.DomainName))
+    output_status_message("DynamicDescriptionEnabled: {0}".format(data_object.DynamicDescriptionEnabled))
     output_status_message("Language: {0}".format(data_object.Language))
     output_status_message("PageFeedIds:")
     output_array_of_long(data_object.PageFeedIds)
@@ -1409,6 +1551,56 @@ def output_array_of_experiment(data_objects):
     for data_object in data_objects['Experiment']:
         output_experiment(data_object)
 
+def output_fileimportjob(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_fileimportjob * * *")
+    output_status_message("FileSource: {0}".format(data_object.FileSource))
+    output_status_message("FileUrl: {0}".format(data_object.FileUrl))
+    output_status_message("* * * End output_fileimportjob * * *")
+
+def output_array_of_fileimportjob(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['FileImportJob']:
+        output_fileimportjob(data_object)
+
+def output_fileimportoption(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_fileimportoption * * *")
+    output_status_message("* * * End output_fileimportoption * * *")
+
+def output_array_of_fileimportoption(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['FileImportOption']:
+        output_fileimportoption(data_object)
+
+def output_filterlinkadextension(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_filterlinkadextension * * *")
+    output_status_message("AdExtensionHeaderType: {0}".format(data_object.AdExtensionHeaderType))
+    output_status_message("FinalMobileUrls:")
+    output_array_of_string(data_object.FinalMobileUrls)
+    output_status_message("FinalUrlSuffix: {0}".format(data_object.FinalUrlSuffix))
+    output_status_message("FinalUrls:")
+    output_array_of_string(data_object.FinalUrls)
+    output_status_message("Language: {0}".format(data_object.Language))
+    output_status_message("Texts:")
+    output_array_of_string(data_object.Texts)
+    output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
+    output_status_message("UrlCustomParameters:")
+    output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("* * * End output_filterlinkadextension * * *")
+
+def output_array_of_filterlinkadextension(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['FilterLinkAdExtension']:
+        output_filterlinkadextension(data_object)
+
 def output_fixedbid(data_object):
     if data_object is None:
         return
@@ -1421,6 +1613,50 @@ def output_array_of_fixedbid(data_objects):
         return
     for data_object in data_objects['FixedBid']:
         output_fixedbid(data_object)
+
+def output_flyeradextension(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_flyeradextension * * *")
+    output_status_message("Description: {0}".format(data_object.Description))
+    output_status_message("FinalAppUrls:")
+    output_array_of_appurl(data_object.FinalAppUrls)
+    output_status_message("FinalMobileUrls:")
+    output_array_of_string(data_object.FinalMobileUrls)
+    output_status_message("FinalUrlSuffix: {0}".format(data_object.FinalUrlSuffix))
+    output_status_message("FinalUrls:")
+    output_array_of_string(data_object.FinalUrls)
+    output_status_message("FlyerName: {0}".format(data_object.FlyerName))
+    output_status_message("ImageMediaIds:")
+    output_array_of_long(data_object.ImageMediaIds)
+    output_status_message("ImageMediaUrls:")
+    output_array_of_string(data_object.ImageMediaUrls)
+    output_status_message("StoreId: {0}".format(data_object.StoreId))
+    output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
+    output_status_message("UrlCustomParameters:")
+    output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("* * * End output_flyeradextension * * *")
+
+def output_array_of_flyeradextension(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['FlyerAdExtension']:
+        output_flyeradextension(data_object)
+
+def output_frequency(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_frequency * * *")
+    output_status_message("Cron: {0}".format(data_object.Cron))
+    output_status_message("TimeZone: {0}".format(data_object.TimeZone))
+    output_status_message("Type: {0}".format(data_object.Type))
+    output_status_message("* * * End output_frequency * * *")
+
+def output_array_of_frequency(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['Frequency']:
+        output_frequency(data_object)
 
 def output_gendercriterion(data_object):
     if data_object is None:
@@ -1448,6 +1684,124 @@ def output_array_of_geopoint(data_objects):
         return
     for data_object in data_objects['GeoPoint']:
         output_geopoint(data_object)
+
+def output_googleimportjob(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_googleimportjob * * *")
+    output_status_message("CampaignAdGroupIds:")
+    output_array_of_campaignadgroupids(data_object.CampaignAdGroupIds)
+    output_status_message("CredentialId: {0}".format(data_object.CredentialId))
+    output_status_message("GoogleAccountId: {0}".format(data_object.GoogleAccountId))
+    output_status_message("GoogleUserName: {0}".format(data_object.GoogleUserName))
+    output_status_message("* * * End output_googleimportjob * * *")
+
+def output_array_of_googleimportjob(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['GoogleImportJob']:
+        output_googleimportjob(data_object)
+
+def output_googleimportoption(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_googleimportoption * * *")
+    output_status_message("AccountUrlOptions: {0}".format(data_object.AccountUrlOptions))
+    output_status_message("AdjustmentForBids: {0}".format(data_object.AdjustmentForBids))
+    output_status_message("AdjustmentForCampaignBudgets: {0}".format(data_object.AdjustmentForCampaignBudgets))
+    output_status_message("AssociatedStoreId: {0}".format(data_object.AssociatedStoreId))
+    output_status_message("AssociatedUetTagId: {0}".format(data_object.AssociatedUetTagId))
+    output_status_message("AutoDeviceBidOptimization: {0}".format(data_object.AutoDeviceBidOptimization))
+    output_status_message("DeleteRemovedEntities: {0}".format(data_object.DeleteRemovedEntities))
+    output_status_message("EnableAutoCurrencyConversion: {0}".format(data_object.EnableAutoCurrencyConversion))
+    output_status_message("EnableParentLocationMapping: {0}".format(data_object.EnableParentLocationMapping))
+    output_status_message("NewActiveAdsForExistingAdGroups: {0}".format(data_object.NewActiveAdsForExistingAdGroups))
+    output_status_message("NewActiveCampaignsAndChildEntities: {0}".format(data_object.NewActiveCampaignsAndChildEntities))
+    output_status_message("NewAdCustomizerFeeds: {0}".format(data_object.NewAdCustomizerFeeds))
+    output_status_message("NewAdGroupsAndChildEntitiesForExistingCampaigns: {0}".format(data_object.NewAdGroupsAndChildEntitiesForExistingCampaigns))
+    output_status_message("NewAdSchedules: {0}".format(data_object.NewAdSchedules))
+    output_status_message("NewAppAdExtensions: {0}".format(data_object.NewAppAdExtensions))
+    output_status_message("NewAudienceTargets: {0}".format(data_object.NewAudienceTargets))
+    output_status_message("NewCallAdExtensions: {0}".format(data_object.NewCallAdExtensions))
+    output_status_message("NewCalloutAdExtensions: {0}".format(data_object.NewCalloutAdExtensions))
+    output_status_message("NewDemographicTargets: {0}".format(data_object.NewDemographicTargets))
+    output_status_message("NewDeviceTargets: {0}".format(data_object.NewDeviceTargets))
+    output_status_message("NewEntities: {0}".format(data_object.NewEntities))
+    output_status_message("NewKeywordUrls: {0}".format(data_object.NewKeywordUrls))
+    output_status_message("NewKeywordsForExistingAdGroups: {0}".format(data_object.NewKeywordsForExistingAdGroups))
+    output_status_message("NewLabels: {0}".format(data_object.NewLabels))
+    output_status_message("NewLocationAdExtensions: {0}".format(data_object.NewLocationAdExtensions))
+    output_status_message("NewLocationTargets: {0}".format(data_object.NewLocationTargets))
+    output_status_message("NewNegativeKeywordLists: {0}".format(data_object.NewNegativeKeywordLists))
+    output_status_message("NewNegativeKeywordsForExistingParents: {0}".format(data_object.NewNegativeKeywordsForExistingParents))
+    output_status_message("NewNegativeSites: {0}".format(data_object.NewNegativeSites))
+    output_status_message("NewPageFeeds: {0}".format(data_object.NewPageFeeds))
+    output_status_message("NewPausedAdsForExistingAdGroups: {0}".format(data_object.NewPausedAdsForExistingAdGroups))
+    output_status_message("NewPausedCampaignsAndChildEntities: {0}".format(data_object.NewPausedCampaignsAndChildEntities))
+    output_status_message("NewPriceAdExtensions: {0}".format(data_object.NewPriceAdExtensions))
+    output_status_message("NewProductFilters: {0}".format(data_object.NewProductFilters))
+    output_status_message("NewPromotionAdExtensions: {0}".format(data_object.NewPromotionAdExtensions))
+    output_status_message("NewReviewAdExtensions: {0}".format(data_object.NewReviewAdExtensions))
+    output_status_message("NewSitelinkAdExtensions: {0}".format(data_object.NewSitelinkAdExtensions))
+    output_status_message("NewStructuredSnippetAdExtensions: {0}".format(data_object.NewStructuredSnippetAdExtensions))
+    output_status_message("NewUrlOptions: {0}".format(data_object.NewUrlOptions))
+    output_status_message("PauseCampaignsWithoutSupportedLocations: {0}".format(data_object.PauseCampaignsWithoutSupportedLocations))
+    output_status_message("PauseNewCampaigns: {0}".format(data_object.PauseNewCampaigns))
+    output_status_message("RaiseBidsToMinimum: {0}".format(data_object.RaiseBidsToMinimum))
+    output_status_message("RaiseCampaignBudgetsToMinimum: {0}".format(data_object.RaiseCampaignBudgetsToMinimum))
+    output_status_message("RaiseProductGroupBidsToMinimum: {0}".format(data_object.RaiseProductGroupBidsToMinimum))
+    output_status_message("SearchAndDsaMixedCampaignAsSearchCampaign: {0}".format(data_object.SearchAndDsaMixedCampaignAsSearchCampaign))
+    output_status_message("SearchAndReplaceForCampaignNames:")
+    output_importsearchandreplaceforstringproperty(data_object.SearchAndReplaceForCampaignNames)
+    output_status_message("SearchAndReplaceForCustomParameters:")
+    output_importsearchandreplaceforstringproperty(data_object.SearchAndReplaceForCustomParameters)
+    output_status_message("SearchAndReplaceForTrackingTemplates:")
+    output_importsearchandreplaceforstringproperty(data_object.SearchAndReplaceForTrackingTemplates)
+    output_status_message("SearchAndReplaceForUrls:")
+    output_importsearchandreplaceforstringproperty(data_object.SearchAndReplaceForUrls)
+    output_status_message("SuffixForCampaignNames: {0}".format(data_object.SuffixForCampaignNames))
+    output_status_message("SuffixForTrackingTemplates: {0}".format(data_object.SuffixForTrackingTemplates))
+    output_status_message("SuffixForUrls: {0}".format(data_object.SuffixForUrls))
+    output_status_message("UpdateAdCustomizerFeeds: {0}".format(data_object.UpdateAdCustomizerFeeds))
+    output_status_message("UpdateAdGroupNetwork: {0}".format(data_object.UpdateAdGroupNetwork))
+    output_status_message("UpdateAdSchedules: {0}".format(data_object.UpdateAdSchedules))
+    output_status_message("UpdateAppAdExtensions: {0}".format(data_object.UpdateAppAdExtensions))
+    output_status_message("UpdateAudienceTargets: {0}".format(data_object.UpdateAudienceTargets))
+    output_status_message("UpdateBiddingStrategies: {0}".format(data_object.UpdateBiddingStrategies))
+    output_status_message("UpdateBids: {0}".format(data_object.UpdateBids))
+    output_status_message("UpdateCallAdExtensions: {0}".format(data_object.UpdateCallAdExtensions))
+    output_status_message("UpdateCalloutAdExtensions: {0}".format(data_object.UpdateCalloutAdExtensions))
+    output_status_message("UpdateCampaignAdGroupLanguages: {0}".format(data_object.UpdateCampaignAdGroupLanguages))
+    output_status_message("UpdateCampaignBudgets: {0}".format(data_object.UpdateCampaignBudgets))
+    output_status_message("UpdateCampaignNames: {0}".format(data_object.UpdateCampaignNames))
+    output_status_message("UpdateDemographicTargets: {0}".format(data_object.UpdateDemographicTargets))
+    output_status_message("UpdateDeviceTargets: {0}".format(data_object.UpdateDeviceTargets))
+    output_status_message("UpdateEntities: {0}".format(data_object.UpdateEntities))
+    output_status_message("UpdateKeywordUrls: {0}".format(data_object.UpdateKeywordUrls))
+    output_status_message("UpdateLabels: {0}".format(data_object.UpdateLabels))
+    output_status_message("UpdateLocationAdExtensions: {0}".format(data_object.UpdateLocationAdExtensions))
+    output_status_message("UpdateLocationTargets: {0}".format(data_object.UpdateLocationTargets))
+    output_status_message("UpdateNegativeKeywordLists: {0}".format(data_object.UpdateNegativeKeywordLists))
+    output_status_message("UpdateNegativeSites: {0}".format(data_object.UpdateNegativeSites))
+    output_status_message("UpdatePageFeeds: {0}".format(data_object.UpdatePageFeeds))
+    output_status_message("UpdatePriceAdExtensions: {0}".format(data_object.UpdatePriceAdExtensions))
+    output_status_message("UpdateProductFilters: {0}".format(data_object.UpdateProductFilters))
+    output_status_message("UpdatePromotionAdExtensions: {0}".format(data_object.UpdatePromotionAdExtensions))
+    output_status_message("UpdateReviewAdExtensions: {0}".format(data_object.UpdateReviewAdExtensions))
+    output_status_message("UpdateSitelinkAdExtensions: {0}".format(data_object.UpdateSitelinkAdExtensions))
+    output_status_message("UpdateStatusForAdGroups: {0}".format(data_object.UpdateStatusForAdGroups))
+    output_status_message("UpdateStatusForAds: {0}".format(data_object.UpdateStatusForAds))
+    output_status_message("UpdateStatusForCampaigns: {0}".format(data_object.UpdateStatusForCampaigns))
+    output_status_message("UpdateStatusForKeywords: {0}".format(data_object.UpdateStatusForKeywords))
+    output_status_message("UpdateStructuredSnippetAdExtensions: {0}".format(data_object.UpdateStructuredSnippetAdExtensions))
+    output_status_message("UpdateUrlOptions: {0}".format(data_object.UpdateUrlOptions))
+    output_status_message("* * * End output_googleimportoption * * *")
+
+def output_array_of_googleimportoption(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['GoogleImportOption']:
+        output_googleimportoption(data_object)
 
 def output_idcollection(data_object):
     if data_object is None:
@@ -1495,6 +1849,8 @@ def output_imageadextension(data_object):
     output_array_of_long(data_object.ImageMediaIds)
     output_status_message("Images:")
     output_array_of_assetlink(data_object.Images)
+    output_status_message("Layouts:")
+    output_array_of_string(data_object.Layouts)
     output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
     output_status_message("UrlCustomParameters:")
     output_customparameters(data_object.UrlCustomParameters)
@@ -1537,6 +1893,109 @@ def output_array_of_imagemediarepresentation(data_objects):
     for data_object in data_objects['ImageMediaRepresentation']:
         output_imagemediarepresentation(data_object)
 
+def output_importentitystatistics(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_importentitystatistics * * *")
+    output_status_message("Additions: {0}".format(data_object.Additions))
+    output_status_message("Changes: {0}".format(data_object.Changes))
+    output_status_message("Deletions: {0}".format(data_object.Deletions))
+    output_status_message("EntityType: {0}".format(data_object.EntityType))
+    output_status_message("Errors: {0}".format(data_object.Errors))
+    output_status_message("Total: {0}".format(data_object.Total))
+    output_status_message("* * * End output_importentitystatistics * * *")
+
+def output_array_of_importentitystatistics(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ImportEntityStatistics']:
+        output_importentitystatistics(data_object)
+
+def output_importjob(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_importjob * * *")
+    output_status_message("CreatedByUserId: {0}".format(data_object.CreatedByUserId))
+    output_status_message("CreatedByUserName: {0}".format(data_object.CreatedByUserName))
+    output_status_message("CreatedDateTimeInUTC: {0}".format(data_object.CreatedDateTimeInUTC))
+    output_status_message("Frequency:")
+    output_frequency(data_object.Frequency)
+    output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("ImportOption:")
+    output_importoption(data_object.ImportOption)
+    output_status_message("LastRunTimeInUTC: {0}".format(data_object.LastRunTimeInUTC))
+    output_status_message("Name: {0}".format(data_object.Name))
+    output_status_message("NotificationEmail: {0}".format(data_object.NotificationEmail))
+    output_status_message("NotificationType: {0}".format(data_object.NotificationType))
+    output_status_message("Status: {0}".format(data_object.Status))
+    output_status_message("Type: {0}".format(data_object.Type))
+    if data_object.Type == 'FileImportJob':
+        output_fileimportjob(data_object)
+    if data_object.Type == 'GoogleImportJob':
+        output_googleimportjob(data_object)
+    output_status_message("* * * End output_importjob * * *")
+
+def output_array_of_importjob(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ImportJob']:
+        output_importjob(data_object)
+
+def output_importoption(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_importoption * * *")
+    output_status_message("ForwardCompatibilityMap:")
+    output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
+    output_status_message("Type: {0}".format(data_object.Type))
+    if data_object.Type == 'FileImportOption':
+        output_fileimportoption(data_object)
+    if data_object.Type == 'GoogleImportOption':
+        output_googleimportoption(data_object)
+    output_status_message("* * * End output_importoption * * *")
+
+def output_array_of_importoption(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ImportOption']:
+        output_importoption(data_object)
+
+def output_importresult(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_importresult * * *")
+    output_status_message("EntityStatistics:")
+    output_array_of_importentitystatistics(data_object.EntityStatistics)
+    output_status_message("ErrorLogUrl: {0}".format(data_object.ErrorLogUrl))
+    output_status_message("ForwardCompatibilityMap:")
+    output_array_of_keyvaluepairofstringstring(data_object.ForwardCompatibilityMap)
+    output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("ImportJob:")
+    output_importjob(data_object.ImportJob)
+    output_status_message("StartTimeInUTC: {0}".format(data_object.StartTimeInUTC))
+    output_status_message("Status: {0}".format(data_object.Status))
+    output_status_message("* * * End output_importresult * * *")
+
+def output_array_of_importresult(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ImportResult']:
+        output_importresult(data_object)
+
+def output_importsearchandreplaceforstringproperty(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_importsearchandreplaceforstringproperty * * *")
+    output_status_message("ReplaceString: {0}".format(data_object.ReplaceString))
+    output_status_message("SearchString: {0}".format(data_object.SearchString))
+    output_status_message("* * * End output_importsearchandreplaceforstringproperty * * *")
+
+def output_array_of_importsearchandreplaceforstringproperty(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ImportSearchAndReplaceForStringProperty']:
+        output_importsearchandreplaceforstringproperty(data_object)
+
 def output_inheritfromparentbiddingscheme(data_object):
     if data_object is None:
         return
@@ -1573,6 +2032,20 @@ def output_array_of_instoretransactiongoal(data_objects):
         return
     for data_object in data_objects['InStoreTransactionGoal']:
         output_instoretransactiongoal(data_object)
+
+def output_keyvaluepairoflonglong(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_keyvaluepairoflonglong * * *")
+    output_status_message("key: {0}".format(data_object.key))
+    output_status_message("value: {0}".format(data_object.value))
+    output_status_message("* * * End output_keyvaluepairoflonglong * * *")
+
+def output_array_of_keyvaluepairoflonglong(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['KeyValuePairOflonglong']:
+        output_keyvaluepairoflonglong(data_object)
 
 def output_keyvaluepairofstringstring(data_object):
     if data_object is None:
@@ -1716,6 +2189,30 @@ def output_array_of_manualcpcbiddingscheme(data_objects):
     for data_object in data_objects['ManualCpcBiddingScheme']:
         output_manualcpcbiddingscheme(data_object)
 
+def output_manualcpmbiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_manualcpmbiddingscheme * * *")
+    output_status_message("* * * End output_manualcpmbiddingscheme * * *")
+
+def output_array_of_manualcpmbiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ManualCpmBiddingScheme']:
+        output_manualcpmbiddingscheme(data_object)
+
+def output_manualcpvbiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_manualcpvbiddingscheme * * *")
+    output_status_message("* * * End output_manualcpvbiddingscheme * * *")
+
+def output_array_of_manualcpvbiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['ManualCpvBiddingScheme']:
+        output_manualcpvbiddingscheme(data_object)
+
 def output_maxclicksbiddingscheme(data_object):
     if data_object is None:
         return
@@ -1743,6 +2240,19 @@ def output_array_of_maxconversionsbiddingscheme(data_objects):
         return
     for data_object in data_objects['MaxConversionsBiddingScheme']:
         output_maxconversionsbiddingscheme(data_object)
+
+def output_maxconversionvaluebiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_maxconversionvaluebiddingscheme * * *")
+    output_status_message("TargetRoas: {0}".format(data_object.TargetRoas))
+    output_status_message("* * * End output_maxconversionvaluebiddingscheme * * *")
+
+def output_array_of_maxconversionvaluebiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['MaxConversionValueBiddingScheme']:
+        output_maxconversionvaluebiddingscheme(data_object)
 
 def output_maxroasbiddingscheme(data_object):
     if data_object is None:
@@ -1890,6 +2400,20 @@ def output_array_of_negativekeywordlist(data_objects):
     for data_object in data_objects['NegativeKeywordList']:
         output_negativekeywordlist(data_object)
 
+def output_negativesite(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_negativesite * * *")
+    output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("Url: {0}".format(data_object.Url))
+    output_status_message("* * * End output_negativesite * * *")
+
+def output_array_of_negativesite(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['NegativeSite']:
+        output_negativesite(data_object)
+
 def output_offlineconversion(data_object):
     if data_object is None:
         return
@@ -1898,6 +2422,8 @@ def output_offlineconversion(data_object):
     output_status_message("ConversionName: {0}".format(data_object.ConversionName))
     output_status_message("ConversionTime: {0}".format(data_object.ConversionTime))
     output_status_message("ConversionValue: {0}".format(data_object.ConversionValue))
+    output_status_message("ExternalAttributionCredit: {0}".format(data_object.ExternalAttributionCredit))
+    output_status_message("ExternalAttributionModel: {0}".format(data_object.ExternalAttributionModel))
     output_status_message("MicrosoftClickId: {0}".format(data_object.MicrosoftClickId))
     output_status_message("* * * End output_offlineconversion * * *")
 
@@ -1907,10 +2433,30 @@ def output_array_of_offlineconversion(data_objects):
     for data_object in data_objects['OfflineConversion']:
         output_offlineconversion(data_object)
 
+def output_offlineconversionadjustment(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_offlineconversionadjustment * * *")
+    output_status_message("AdjustmentCurrencyCode: {0}".format(data_object.AdjustmentCurrencyCode))
+    output_status_message("AdjustmentTime: {0}".format(data_object.AdjustmentTime))
+    output_status_message("AdjustmentType: {0}".format(data_object.AdjustmentType))
+    output_status_message("AdjustmentValue: {0}".format(data_object.AdjustmentValue))
+    output_status_message("ConversionName: {0}".format(data_object.ConversionName))
+    output_status_message("ConversionTime: {0}".format(data_object.ConversionTime))
+    output_status_message("MicrosoftClickId: {0}".format(data_object.MicrosoftClickId))
+    output_status_message("* * * End output_offlineconversionadjustment * * *")
+
+def output_array_of_offlineconversionadjustment(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['OfflineConversionAdjustment']:
+        output_offlineconversionadjustment(data_object)
+
 def output_offlineconversiongoal(data_object):
     if data_object is None:
         return
     output_status_message("* * * Begin output_offlineconversiongoal * * *")
+    output_status_message("IsExternallyAttributed: {0}".format(data_object.IsExternallyAttributed))
     output_status_message("* * * End output_offlineconversiongoal * * *")
 
 def output_array_of_offlineconversiongoal(data_objects):
@@ -1952,6 +2498,7 @@ def output_pagevisitorsrule(data_object):
     if data_object is None:
         return
     output_status_message("* * * Begin output_pagevisitorsrule * * *")
+    output_status_message("NormalForm: {0}".format(data_object.NormalForm))
     output_status_message("RuleItemGroups:")
     output_array_of_ruleitemgroup(data_object.RuleItemGroups)
     output_status_message("* * * End output_pagevisitorsrule * * *")
@@ -2007,6 +2554,18 @@ def output_array_of_paging(data_objects):
         return
     for data_object in data_objects['Paging']:
         output_paging(data_object)
+
+def output_placementexclusionlist(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_placementexclusionlist * * *")
+    output_status_message("* * * End output_placementexclusionlist * * *")
+
+def output_array_of_placementexclusionlist(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['PlacementExclusionList']:
+        output_placementexclusionlist(data_object)
 
 def output_priceadextension(data_object):
     if data_object is None:
@@ -2137,6 +2696,41 @@ def output_array_of_profilecriterion(data_objects):
     for data_object in data_objects['ProfileCriterion']:
         output_profilecriterion(data_object)
 
+def output_promotionadextension(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_promotionadextension * * *")
+    output_status_message("CurrencyCode: {0}".format(data_object.CurrencyCode))
+    output_status_message("DiscountModifier: {0}".format(data_object.DiscountModifier))
+    output_status_message("FinalAppUrls:")
+    output_array_of_appurl(data_object.FinalAppUrls)
+    output_status_message("FinalMobileUrls:")
+    output_array_of_string(data_object.FinalMobileUrls)
+    output_status_message("FinalUrlSuffix: {0}".format(data_object.FinalUrlSuffix))
+    output_status_message("FinalUrls:")
+    output_array_of_string(data_object.FinalUrls)
+    output_status_message("Language: {0}".format(data_object.Language))
+    output_status_message("MoneyAmountOff: {0}".format(data_object.MoneyAmountOff))
+    output_status_message("OrdersOverAmount: {0}".format(data_object.OrdersOverAmount))
+    output_status_message("PercentOff: {0}".format(data_object.PercentOff))
+    output_status_message("PromotionCode: {0}".format(data_object.PromotionCode))
+    output_status_message("PromotionEndDate:")
+    output_date(data_object.PromotionEndDate)
+    output_status_message("PromotionItem: {0}".format(data_object.PromotionItem))
+    output_status_message("PromotionOccasion: {0}".format(data_object.PromotionOccasion))
+    output_status_message("PromotionStartDate:")
+    output_date(data_object.PromotionStartDate)
+    output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
+    output_status_message("UrlCustomParameters:")
+    output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("* * * End output_promotionadextension * * *")
+
+def output_array_of_promotionadextension(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['PromotionAdExtension']:
+        output_promotionadextension(data_object)
+
 def output_radiuscriterion(data_object):
     if data_object is None:
         return
@@ -2196,6 +2790,7 @@ def output_responsivead(data_object):
     output_status_message("* * * Begin output_responsivead * * *")
     output_status_message("BusinessName: {0}".format(data_object.BusinessName))
     output_status_message("CallToAction: {0}".format(data_object.CallToAction))
+    output_status_message("CallToActionLanguage: {0}".format(data_object.CallToActionLanguage))
     output_status_message("Descriptions:")
     output_array_of_assetlink(data_object.Descriptions)
     output_status_message("Headline: {0}".format(data_object.Headline))
@@ -2203,10 +2798,16 @@ def output_responsivead(data_object):
     output_array_of_assetlink(data_object.Headlines)
     output_status_message("Images:")
     output_array_of_assetlink(data_object.Images)
+    output_status_message("ImpressionTrackingUrls:")
+    output_array_of_string(data_object.ImpressionTrackingUrls)
     output_status_message("LongHeadline:")
     output_assetlink(data_object.LongHeadline)
     output_status_message("LongHeadlineString: {0}".format(data_object.LongHeadlineString))
+    output_status_message("LongHeadlines:")
+    output_array_of_assetlink(data_object.LongHeadlines)
     output_status_message("Text: {0}".format(data_object.Text))
+    output_status_message("Videos:")
+    output_array_of_assetlink(data_object.Videos)
     output_status_message("* * * End output_responsivead * * *")
 
 def output_array_of_responsivead(data_objects):
@@ -2305,6 +2906,8 @@ def output_setting(data_object):
     output_status_message("Type: {0}".format(data_object.Type))
     if data_object.Type == 'CoOpSetting':
         output_coopsetting(data_object)
+    if data_object.Type == 'DynamicFeedSetting':
+        output_dynamicfeedsetting(data_object)
     if data_object.Type == 'DynamicSearchAdsSetting':
         output_dynamicsearchadssetting(data_object)
     if data_object.Type == 'ShoppingSetting':
@@ -2345,6 +2948,7 @@ def output_sharedentityassociation(data_object):
     output_status_message("* * * Begin output_sharedentityassociation * * *")
     output_status_message("EntityId: {0}".format(data_object.EntityId))
     output_status_message("EntityType: {0}".format(data_object.EntityType))
+    output_status_message("SharedEntityCustomerId: {0}".format(data_object.SharedEntityCustomerId))
     output_status_message("SharedEntityId: {0}".format(data_object.SharedEntityId))
     output_status_message("SharedEntityType: {0}".format(data_object.SharedEntityType))
     output_status_message("* * * End output_sharedentityassociation * * *")
@@ -2362,6 +2966,8 @@ def output_sharedlist(data_object):
     output_status_message("ItemCount: {0}".format(data_object.ItemCount))
     if data_object.Type == 'NegativeKeywordList':
         output_negativekeywordlist(data_object)
+    if data_object.Type == 'PlacementExclusionList':
+        output_placementexclusionlist(data_object)
     output_status_message("* * * End output_sharedlist * * *")
 
 def output_array_of_sharedlist(data_objects):
@@ -2379,6 +2985,8 @@ def output_sharedlistitem(data_object):
     output_status_message("Type: {0}".format(data_object.Type))
     if data_object.Type == 'NegativeKeyword':
         output_negativekeyword(data_object)
+    if data_object.Type == 'NegativeSite':
+        output_negativesite(data_object)
     output_status_message("* * * End output_sharedlistitem * * *")
 
 def output_array_of_sharedlistitem(data_objects):
@@ -2442,6 +3050,19 @@ def output_array_of_sitelinkadextension(data_objects):
     for data_object in data_objects['SitelinkAdExtension']:
         output_sitelinkadextension(data_object)
 
+def output_storecriterion(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_storecriterion * * *")
+    output_status_message("StoreId: {0}".format(data_object.StoreId))
+    output_status_message("* * * End output_storecriterion * * *")
+
+def output_array_of_storecriterion(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['StoreCriterion']:
+        output_storecriterion(data_object)
+
 def output_stringruleitem(data_object):
     if data_object is None:
         return
@@ -2486,6 +3107,22 @@ def output_array_of_targetcpabiddingscheme(data_objects):
         return
     for data_object in data_objects['TargetCpaBiddingScheme']:
         output_targetcpabiddingscheme(data_object)
+
+def output_targetimpressionsharebiddingscheme(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_targetimpressionsharebiddingscheme * * *")
+    output_status_message("MaxCpc:")
+    output_bid(data_object.MaxCpc)
+    output_status_message("TargetAdPosition: {0}".format(data_object.TargetAdPosition))
+    output_status_message("TargetImpressionShare: {0}".format(data_object.TargetImpressionShare))
+    output_status_message("* * * End output_targetimpressionsharebiddingscheme * * *")
+
+def output_array_of_targetimpressionsharebiddingscheme(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['TargetImpressionShareBiddingScheme']:
+        output_targetimpressionsharebiddingscheme(data_object)
 
 def output_targetroasbiddingscheme(data_object):
     if data_object is None:
@@ -2593,6 +3230,73 @@ def output_array_of_urlgoal(data_objects):
     for data_object in data_objects['UrlGoal']:
         output_urlgoal(data_object)
 
+def output_video(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_video * * *")
+    output_status_message("AspectRatio: {0}".format(data_object.AspectRatio))
+    output_status_message("CreatedDateTimeInUTC: {0}".format(data_object.CreatedDateTimeInUTC))
+    output_status_message("Description: {0}".format(data_object.Description))
+    output_status_message("DurationInMilliseconds: {0}".format(data_object.DurationInMilliseconds))
+    output_status_message("FailureCode: {0}".format(data_object.FailureCode))
+    output_status_message("Id: {0}".format(data_object.Id))
+    output_status_message("ModifiedDateTimeInUTC: {0}".format(data_object.ModifiedDateTimeInUTC))
+    output_status_message("SourceUrl: {0}".format(data_object.SourceUrl))
+    output_status_message("Status: {0}".format(data_object.Status))
+    output_status_message("ThumbnailUrl: {0}".format(data_object.ThumbnailUrl))
+    output_status_message("Url: {0}".format(data_object.Url))
+    output_status_message("* * * End output_video * * *")
+
+def output_array_of_video(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['Video']:
+        output_video(data_object)
+
+def output_videoadextension(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_videoadextension * * *")
+    output_status_message("ActionText: {0}".format(data_object.ActionText))
+    output_status_message("AlternativeText: {0}".format(data_object.AlternativeText))
+    output_status_message("DisplayText: {0}".format(data_object.DisplayText))
+    output_status_message("FinalAppUrls:")
+    output_array_of_appurl(data_object.FinalAppUrls)
+    output_status_message("FinalMobileUrls:")
+    output_array_of_string(data_object.FinalMobileUrls)
+    output_status_message("FinalUrlSuffix: {0}".format(data_object.FinalUrlSuffix))
+    output_status_message("FinalUrls:")
+    output_array_of_string(data_object.FinalUrls)
+    output_status_message("Name: {0}".format(data_object.Name))
+    output_status_message("ThumbnailId: {0}".format(data_object.ThumbnailId))
+    output_status_message("ThumbnailUrl: {0}".format(data_object.ThumbnailUrl))
+    output_status_message("TrackingUrlTemplate: {0}".format(data_object.TrackingUrlTemplate))
+    output_status_message("UrlCustomParameters:")
+    output_customparameters(data_object.UrlCustomParameters)
+    output_status_message("VideoId: {0}".format(data_object.VideoId))
+    output_status_message("* * * End output_videoadextension * * *")
+
+def output_array_of_videoadextension(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['VideoAdExtension']:
+        output_videoadextension(data_object)
+
+def output_videoasset(data_object):
+    if data_object is None:
+        return
+    output_status_message("* * * Begin output_videoasset * * *")
+    output_status_message("SubType: {0}".format(data_object.SubType))
+    output_status_message("ThumbnailImage:")
+    output_imageasset(data_object.ThumbnailImage)
+    output_status_message("* * * End output_videoasset * * *")
+
+def output_array_of_videoasset(data_objects):
+    if data_objects is None or len(data_objects) == 0:
+        return
+    for data_object in data_objects['VideoAsset']:
+        output_videoasset(data_object)
+
 def output_webpage(data_object):
     if data_object is None:
         return
@@ -2684,6 +3388,18 @@ def output_array_of_calltoaction(value_sets):
     for value_set in value_sets['CallToAction']:
         output_calltoaction(value_set)
 
+def output_languagename(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_languagename(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of LanguageName:\n")
+    for value_set in value_sets['LanguageName']:
+        output_languagename(value_set)
+
 def output_assetlinkeditorialstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2768,6 +3484,18 @@ def output_array_of_bidoption(value_sets):
     for value_set in value_sets['BidOption']:
         output_bidoption(value_set)
 
+def output_campaignadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_campaignadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of CampaignAdditionalField:\n")
+    for value_set in value_sets['CampaignAdditionalField']:
+        output_campaignadditionalfield(value_set)
+
 def output_adrotationtype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -2815,6 +3543,30 @@ def output_array_of_adgroupstatus(value_sets):
     output_status_message("Array Of AdGroupStatus:\n")
     for value_set in value_sets['AdGroupStatus']:
         output_adgroupstatus(value_set)
+
+def output_adgroupadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adgroupadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdGroupAdditionalField:\n")
+    for value_set in value_sets['AdGroupAdditionalField']:
+        output_adgroupadditionalfield(value_set)
+
+def output_adadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdAdditionalField:\n")
+    for value_set in value_sets['AdAdditionalField']:
+        output_adadditionalfield(value_set)
 
 def output_keywordeditorialstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -2996,6 +3748,42 @@ def output_array_of_priceunit(value_sets):
     for value_set in value_sets['PriceUnit']:
         output_priceunit(value_set)
 
+def output_promotiondiscountmodifier(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_promotiondiscountmodifier(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of PromotionDiscountModifier:\n")
+    for value_set in value_sets['PromotionDiscountModifier']:
+        output_promotiondiscountmodifier(value_set)
+
+def output_promotionoccasion(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_promotionoccasion(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of PromotionOccasion:\n")
+    for value_set in value_sets['PromotionOccasion']:
+        output_promotionoccasion(value_set)
+
+def output_adextensionheadertype(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_adextensionheadertype(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AdExtensionHeaderType:\n")
+    for value_set in value_sets['AdExtensionHeaderType']:
+        output_adextensionheadertype(value_set)
+
 def output_adextensionstypefilter(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -3067,6 +3855,18 @@ def output_array_of_adgroupcriteriontype(value_sets):
     output_status_message("Array Of AdGroupCriterionType:\n")
     for value_set in value_sets['AdGroupCriterionType']:
         output_adgroupcriteriontype(value_set)
+
+def output_criterionadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_criterionadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of CriterionAdditionalField:\n")
+    for value_set in value_sets['CriterionAdditionalField']:
+        output_criterionadditionalfield(value_set)
 
 def output_productpartitiontype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -3200,6 +4000,18 @@ def output_array_of_itemaction(value_sets):
     for value_set in value_sets['ItemAction']:
         output_itemaction(value_set)
 
+def output_bmcstoreadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_bmcstoreadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of BMCStoreAdditionalField:\n")
+    for value_set in value_sets['BMCStoreAdditionalField']:
+        output_bmcstoreadditionalfield(value_set)
+
 def output_bmcstoresubtype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
@@ -3211,6 +4023,18 @@ def output_array_of_bmcstoresubtype(value_sets):
     output_status_message("Array Of BMCStoreSubType:\n")
     for value_set in value_sets['BMCStoreSubType']:
         output_bmcstoresubtype(value_set)
+
+def output_entityscope(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_entityscope(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of EntityScope:\n")
+    for value_set in value_sets['EntityScope']:
+        output_entityscope(value_set)
 
 def output_campaigncriterionstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -3236,17 +4060,17 @@ def output_array_of_campaigncriteriontype(value_sets):
     for value_set in value_sets['CampaignCriterionType']:
         output_campaigncriteriontype(value_set)
 
-def output_entityscope(value_set):
+def output_normalform(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
     for value in value_set['string']:
         output_status_message(value)
 
-def output_array_of_entityscope(value_sets):
+def output_array_of_normalform(value_sets):
     if value_sets is None or len(value_sets) == 0:
         return
-    output_status_message("Array Of EntityScope:\n")
-    for value_set in value_sets['EntityScope']:
-        output_entityscope(value_set)
+    output_status_message("Array Of NormalForm:\n")
+    for value_set in value_sets['NormalForm']:
+        output_normalform(value_set)
 
 def output_stringoperator(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -3283,6 +4107,30 @@ def output_array_of_productaudiencetype(value_sets):
     output_status_message("Array Of ProductAudienceType:\n")
     for value_set in value_sets['ProductAudienceType']:
         output_productaudiencetype(value_set)
+
+def output_logicaloperator(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_logicaloperator(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of LogicalOperator:\n")
+    for value_set in value_sets['LogicalOperator']:
+        output_logicaloperator(value_set)
+
+def output_audienceadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_audienceadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of AudienceAdditionalField:\n")
+    for value_set in value_sets['AudienceAdditionalField']:
+        output_audienceadditionalfield(value_set)
 
 def output_uettagtrackingstatus(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -3331,6 +4179,18 @@ def output_array_of_conversiongoalcounttype(value_sets):
     output_status_message("Array Of ConversionGoalCountType:\n")
     for value_set in value_sets['ConversionGoalCountType']:
         output_conversiongoalcounttype(value_set)
+
+def output_conversiongoalcategory(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_conversiongoalcategory(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ConversionGoalCategory:\n")
+    for value_set in value_sets['ConversionGoalCategory']:
+        output_conversiongoalcategory(value_set)
 
 def output_conversiongoalrevenuetype(value_set):
     output_status_message("Values in {0}".format(value_set.Type))
@@ -3391,6 +4251,30 @@ def output_array_of_valueoperator(value_sets):
     output_status_message("Array Of ValueOperator:\n")
     for value_set in value_sets['ValueOperator']:
         output_valueoperator(value_set)
+
+def output_importadditionalfield(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_importadditionalfield(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ImportAdditionalField:\n")
+    for value_set in value_sets['ImportAdditionalField']:
+        output_importadditionalfield(value_set)
+
+def output_importentitytype(value_set):
+    output_status_message("Values in {0}".format(value_set.Type))
+    for value in value_set['string']:
+        output_status_message(value)
+
+def output_array_of_importentitytype(value_sets):
+    if value_sets is None or len(value_sets) == 0:
+        return
+    output_status_message("Array Of ImportEntityType:\n")
+    for value_set in value_sets['ImportEntityType']:
+        output_importentitytype(value_set)
 
 def output_array_of_long(items):
     if items is None or items['long'] is None:

@@ -1310,6 +1310,7 @@ def output_reportrequest(data_object):
     output_status_message("ExcludeReportFooter: {0}".format(data_object.ExcludeReportFooter))
     output_status_message("ExcludeReportHeader: {0}".format(data_object.ExcludeReportHeader))
     output_status_message("Format: {0}".format(data_object.Format))
+    output_status_message("FormatVersion: {0}".format(data_object.FormatVersion))
     output_status_message("ReportName: {0}".format(data_object.ReportName))
     output_status_message("ReturnOnlyCompleteData: {0}".format(data_object.ReturnOnlyCompleteData))
     if data_object.Type == 'AccountPerformanceReportRequest':
