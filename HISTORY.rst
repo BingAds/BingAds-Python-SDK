@@ -1,6 +1,13 @@
 .. :changelog:
 
 Release History
+
+13.0.11(2021-08-20)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Add mapping for new DynamicDescriptionEnabled and DisclaimerSetting fields in BulkCampaign.
+* Add BulkDisclaimerAdExtension and BulkCampaignDisclaimerAdExtension mapping for disclaimer ads support.
+
 13.0.10(2021-06-20)
 +++++++++++++++++++++++++
 

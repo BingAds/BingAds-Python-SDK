@@ -9,6 +9,7 @@ _DynamicFeedSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicFeedSetti
 _TargetSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ShoppingSetting'))
 _DsaSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting'))
+_DisclaimerSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DisclaimerSetting'))
 
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
@@ -109,10 +110,13 @@ class BulkCampaign(_SingleRecordBulkEntity):
     
     def _get_target_setting(self):
         return self._get_setting(_TargetSetting, 'TargetSetting')
-    
+
     def _get_dsa_setting(self):
         return self._get_setting(_DsaSetting, 'DynamicSearchAdsSetting')
-    
+
+    def _get_disclaimer_setting(self):
+        return self._get_setting(_DisclaimerSetting, 'DisclaimerSetting')
+
     def _get_setting(self, setting_type, setting_name):
         if not self.campaign.Settings.Setting:
             return None
@@ -144,8 +148,10 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if campaign_type.lower() == 'audience':
             BulkCampaign._create_campaign_setting(c.campaign, 'DynamicFeedSetting')
             BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
+            BulkCampaign._create_campaign_setting(c.campaign, 'VerifiedTrackingSetting')
         if campaign_type.lower() == 'dynamicsearchads' or campaign_type.lower() == 'search':
             BulkCampaign._create_campaign_setting(c.campaign, 'DynamicSearchAdsSetting')
+            BulkCampaign._create_campaign_setting(c.campaign, 'DisclaimerSetting')
 
     @staticmethod
     def _create_campaign_setting(campaign, setting_type):
@@ -305,6 +311,42 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if not dsa_setting:
             return None
         return bulk_str(dsa_setting.Language)
+
+    @staticmethod
+    def _read_DisclaimerAdsEnabled(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        disclaimer_setting = c._get_disclaimer_setting()
+        if not disclaimer_setting:
+            return None
+        disclaimer_setting.DisclaimerAdsEnabled = parse_bool(v)
+
+    @staticmethod
+    def _write_DisclaimerAdsEnabled(c):
+        if not c.campaign.CampaignType:
+            return None
+        disclaimer_setting = c._get_disclaimer_setting()
+        if not disclaimer_setting:
+            return None
+        return bulk_str(disclaimer_setting.DisclaimerAdsEnabled)
+
+    @staticmethod
+    def _read_DynamicDescriptionEnabled(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        dsa_setting.DynamicDescriptionEnabled = parse_bool(v)
+
+    @staticmethod
+    def _write_DynamicDescriptionEnabled(c):
+        if not c.campaign.CampaignType:
+            return None
+        dsa_setting = c._get_dsa_setting()
+        if not dsa_setting:
+            return None
+        return bulk_str(dsa_setting.DynamicDescriptionEnabled)
 
     @staticmethod
     def _read_page_feed_ids(c, v):
@@ -516,6 +558,16 @@ class BulkCampaign(_SingleRecordBulkEntity):
                 int(v) if v else None
             )
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.DisclaimerAdsEnabled,
+            field_to_csv=lambda c: BulkCampaign._write_DisclaimerAdsEnabled(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_DisclaimerAdsEnabled(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.DynamicDescriptionEnabled,
+            field_to_csv=lambda c: BulkCampaign._write_DynamicDescriptionEnabled(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_DynamicDescriptionEnabled(c, v)
+        )
     ]
 
     def read_additional_data(self, stream_reader):

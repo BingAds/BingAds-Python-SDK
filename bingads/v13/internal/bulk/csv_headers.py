@@ -16,6 +16,8 @@ class _CsvHeaders:
         _StringTable.ClientId,
         _StringTable.LastModifiedTime,
         _StringTable.MultiMediaAdBidAdjustment,
+        _StringTable.DynamicDescriptionEnabled,
+
 
         # Campaign
         _StringTable.TimeZone,
@@ -84,6 +86,14 @@ class _CsvHeaders:
 
         # AdExtensions common
         _StringTable.Version,
+        
+        #Disclaimer Ad Extension
+        _StringTable.DisclaimerAdsEnabled,
+        _StringTable.DisclaimerName,
+        _StringTable.DisclaimerTitle,
+        _StringTable.DisclaimerLayout,
+        _StringTable.DisclaimerPopupText,
+        _StringTable.DisclaimerLineText,
 
         # SiteLink Ad Extensions
         _StringTable.SiteLinkExtensionOrder,
