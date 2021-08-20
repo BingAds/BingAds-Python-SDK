@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>bingads.v13.bulk.entities.bulk_campaign &#8212; Bing Ads SDK 13.0.10 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_campaign &#8212; Bing Ads SDK 13.0.11 documentation</title>
     <link rel="stylesheet" href="../../../../../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" src="../../../../../_static/documentation_options.js"></script>
@@ -25,7 +25,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.10 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.11 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li> 
       </ul>
     </div>  
@@ -47,6 +47,7 @@
 <span class="n">_TargetSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;TargetSetting&#39;</span><span class="p">))</span>
 <span class="n">_ShoppingSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">))</span>
 <span class="n">_DsaSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">))</span>
+<span class="n">_DisclaimerSetting</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;DisclaimerSetting&#39;</span><span class="p">))</span>
 
 <div class="viewcode-block" id="BulkCampaign"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_campaign.BulkCampaign">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaign</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a campaign that can be read or written in a bulk file.</span>
@@ -147,10 +148,13 @@
     
     <span class="k">def</span> <span class="nf">_get_target_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setting</span><span class="p">(</span><span class="n">_TargetSetting</span><span class="p">,</span> <span class="s1">&#39;TargetSetting&#39;</span><span class="p">)</span>
-    
+
     <span class="k">def</span> <span class="nf">_get_dsa_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setting</span><span class="p">(</span><span class="n">_DsaSetting</span><span class="p">,</span> <span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">)</span>
-    
+
+    <span class="k">def</span> <span class="nf">_get_disclaimer_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_setting</span><span class="p">(</span><span class="n">_DisclaimerSetting</span><span class="p">,</span> <span class="s1">&#39;DisclaimerSetting&#39;</span><span class="p">)</span>
+
     <span class="k">def</span> <span class="nf">_get_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setting_type</span><span class="p">,</span> <span class="n">setting_name</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">Settings</span><span class="o">.</span><span class="n">Setting</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
@@ -182,8 +186,10 @@
         <span class="k">if</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;audience&#39;</span><span class="p">:</span>
             <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;DynamicFeedSetting&#39;</span><span class="p">)</span>
             <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;ShoppingSetting&#39;</span><span class="p">)</span>
+            <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;VerifiedTrackingSetting&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;dynamicsearchads&#39;</span> <span class="ow">or</span> <span class="n">campaign_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;search&#39;</span><span class="p">:</span>
             <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;DynamicSearchAdsSetting&#39;</span><span class="p">)</span>
+            <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_create_campaign_setting</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="p">,</span> <span class="s1">&#39;DisclaimerSetting&#39;</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_create_campaign_setting</span><span class="p">(</span><span class="n">campaign</span><span class="p">,</span> <span class="n">setting_type</span><span class="p">):</span>
@@ -343,6 +349,42 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">dsa_setting</span><span class="o">.</span><span class="n">Language</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_DisclaimerAdsEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">disclaimer_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_disclaimer_setting</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">disclaimer_setting</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">disclaimer_setting</span><span class="o">.</span><span class="n">DisclaimerAdsEnabled</span> <span class="o">=</span> <span class="n">parse_bool</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_write_DisclaimerAdsEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">disclaimer_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_disclaimer_setting</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">disclaimer_setting</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">disclaimer_setting</span><span class="o">.</span><span class="n">DisclaimerAdsEnabled</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_read_DynamicDescriptionEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">dsa_setting</span><span class="o">.</span><span class="n">DynamicDescriptionEnabled</span> <span class="o">=</span> <span class="n">parse_bool</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_write_DynamicDescriptionEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign</span><span class="o">.</span><span class="n">CampaignType</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">dsa_setting</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">_get_dsa_setting</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dsa_setting</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">dsa_setting</span><span class="o">.</span><span class="n">DynamicDescriptionEnabled</span><span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_read_page_feed_ids</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
@@ -554,6 +596,16 @@
                 <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DisclaimerAdsEnabled</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_write_DisclaimerAdsEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_DisclaimerAdsEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicDescriptionEnabled</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_write_DynamicDescriptionEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">BulkCampaign</span><span class="o">.</span><span class="n">_read_DynamicDescriptionEnabled</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
     <span class="p">]</span>
 
 <div class="viewcode-block" id="BulkCampaign.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_campaign.BulkCampaign.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
@@ -601,7 +653,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.10 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.11 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li> 
       </ul>
     </div>
