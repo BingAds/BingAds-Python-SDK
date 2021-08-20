@@ -14,6 +14,7 @@ function Format-XML([xml]$xml, $indent=3)
     $StringWriter.Flush()
     Write-Output $StringWriter.ToString()
 }
-
-wget $svcWsdl -OutFile $path
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$WebClient = New-Object System.Net.WebClient
+$WebClient.DownloadFile($svcWsdl,$path)
 Format-XML ([xml](cat $path)) | Set-Content -Path $path

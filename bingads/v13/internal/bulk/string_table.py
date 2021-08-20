@@ -46,6 +46,7 @@ class _StringTable:
     Param2 = "Param2"
     Param3 = "Param3"
     DevicePreference = "Device Preference"
+    VerifiedTrackingData = "Verified Tracking Setting"
     CampaignNegativeKeyword = "Campaign Negative Keyword"
     CampaignNegativeSite = "Campaign Negative Site"
     AdGroupNegativeKeyword = "Ad Group Negative Keyword"
@@ -91,6 +92,7 @@ class _StringTable:
     AutoApplyRecommendations = "Auto Apply Recommendations"
     AllowImageAutoRetrieve = "Allow Image Auto Retrieve"
     MultiMediaAdBidAdjustment = "Multi Media Ad Bid Adjustment"
+    BusinessAttributes = "Business Attributes"
 
     # Entity Types
     SemanticVersion = "Format Version"
@@ -110,6 +112,17 @@ class _StringTable:
     ImageAdExtension = "Image Ad Extension"
     SocialNetworkAdExtension = "Social Network Ad Extension"
     Version = "Version"
+
+    # Disclaimer Ads  
+    DisclaimerAdsEnabled = "Disclaimer Ads Enabled"
+    DisclaimerName = "Disclaimer Name"
+    DisclaimerTitle = "Disclaimer Title"
+    DisclaimerLayout = "Disclaimer Layout"
+    DisclaimerPopupText = "Disclaimer Popup Text"
+    DisclaimerLineText = "Disclaimer Line Text"
+
+    DisclaimerAdExtension = "Disclaimer Ad Extension"
+    CampaignDisclaimerAdExtension = "Campaign Disclaimer Ad Extension"
 
     # Image Ad Extension
     AltText = "Alternative Text"
@@ -294,6 +307,7 @@ class _StringTable:
     CampaignType = "Campaign Type"
     CampaignPriority = "Priority"
     LocalInventoryAdsEnabled = "LocalInventoryAdsEnabled"
+    DynamicDescriptionEnabled = "Dynamic Description Enabled"
     
     CampaignNegativeStoreCriterion = "Campaign Negative Store Criterion"
 

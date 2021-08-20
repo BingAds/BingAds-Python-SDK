@@ -26,6 +26,8 @@ class _BulkObjectFactory():
         _StringTable.AccountFlyerAdExtension: _EntityInfo(lambda: BulkAccountFlyerAdExtension()),
         _StringTable.CampaignFlyerAdExtension: _EntityInfo(lambda: BulkCampaignFlyerAdExtension()),
         _StringTable.AdGroupFlyerAdExtension: _EntityInfo(lambda: BulkAdGroupFlyerAdExtension()),
+        _StringTable.DisclaimerAdExtension: _EntityInfo(lambda: BulkDisclaimerAdExtension()),
+        _StringTable.CampaignDisclaimerAdExtension: _EntityInfo(lambda: BulkCampaignDisclaimerAdExtension()),
         _StringTable.ImageAdExtension: _EntityInfo(lambda: BulkImageAdExtension()),
         _StringTable.AccountImageAdExtension: _EntityInfo(lambda: BulkAccountImageAdExtension()),
         _StringTable.CampaignImageAdExtension: _EntityInfo(lambda: BulkCampaignImageAdExtension()),
