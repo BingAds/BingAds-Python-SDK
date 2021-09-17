@@ -11,7 +11,7 @@ with open('HISTORY.rst', 'r') as f:
     history = f.read().replace('.. :changelog:', '')
 
 requirements = [
-    'suds-community~=0.8.5',
+    'suds-community>=1.0.0b1',
     'future',
     'six',
     'requests',
