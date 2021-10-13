@@ -1,4 +1,4 @@
-from suds.client import Client, Factory, WebFault
+from suds.client import Client, Factory, WebFault, Builder
 from suds.cache import ObjectCache
 from .headerplugin import HeaderPlugin
 from .authorization import *
@@ -8,6 +8,56 @@ from getpass import getuser
 from tempfile import gettempdir
 from os import path
 from datetime import datetime
+from suds.sudsobject import Factory as SFactory
+
+class BingAdsBuilder (Builder):
+    # copy from https://github.com/suds-community/suds/blob/master/suds/builder.py. Change line 
+    # setattr(data, type.name, value if not type.optional() or type.multi_occurrence() else None)
+    # to 
+    # setattr(data, type.name, value)
+    # to not breaking our customer and bulk mapping.
+    
+    def __init__(self, resolver):
+        """
+        @param resolver: A schema object name resolver.
+        @type resolver: L{resolver.Resolver}
+        """
+        self.resolver = resolver
+
+    
+    def process(self, data, type, history):
+        """ process the specified type then process its children """
+        if type in history:
+            return
+        if type.enum():
+            return
+        history.append(type)
+        resolved = type.resolve()
+        value = None
+
+        if type.multi_occurrence():
+            value = []
+        else:
+            if len(resolved) > 0:
+                if resolved.mixed():
+                    value = SFactory.property(resolved.name)
+                    md = value.__metadata__
+                    md.sxtype = resolved
+                else:
+                    value = SFactory.object(resolved.name)
+                    md = value.__metadata__
+                    md.sxtype = resolved
+                    md.ordering = self.ordering(resolved)
+
+        setattr(data, type.name, value)
+        if value is not None:
+            data = value
+        if not isinstance(data, list):
+            self.add_attributes(data, resolved)
+            for child, ancestry in resolved.children():
+                if self.skip_child(child, ancestry):
+                    continue
+                self.process(data, child, history[:])
 
 
 class ServiceClient:
@@ -48,6 +98,7 @@ class ServiceClient:
         self.hp=HeaderPlugin()
         suds_options['plugins'] = [self.hp]
         self._soap_client = Client(self.service_url, **suds_options)
+        self._soap_client.factory.builder = BingAdsBuilder(self._soap_client.factory.builder.resolver)
 
     def __getattr__(self, name):
         # Set authorization data and options before every service call.
@@ -299,8 +350,11 @@ from suds.sax.text import Text
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
     'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'))
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
+_CAMPAIGN_OBJECT_FACTORY_V13.builder = BingAdsBuilder(_CAMPAIGN_OBJECT_FACTORY_V13.builder.resolver)
+
 _CAMPAIGN_OBJECT_FACTORY_V13.object_cache = {}
 _CAMPAIGN_OBJECT_FACTORY_V13.create_without_cache = _CAMPAIGN_OBJECT_FACTORY_V13.create
+
 
 
 def _suds_objects_deepcopy(origin):

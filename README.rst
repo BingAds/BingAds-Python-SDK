@@ -23,7 +23,7 @@ For more information, see `Getting Started Using Python with Bing Ads Services`_
 External Dependencies
 ---------------------
 
-    - `suds-jurko`_
+    - `suds-community`_
     - `requests`_
     - `future`_
     - `six`_
@@ -33,7 +33,7 @@ External Dependencies
 .. _examples: https://github.com/BingAds/BingAds-Python-SDK/tree/master/examples
 .. _Getting Started Using Python with Bing Ads Services: https://docs.microsoft.com/en-us/bingads/guides/get-started-python
 
-.. _suds-jurko: http://pypi.python.org/pypi/suds-jurko
+.. _suds-community: https://pypi.org/pypi/suds-community/
 .. _requests: http://pypi.python.org/pypi/requests
 .. _chardet: http://pypi.python.org/pypi/chardet
 .. _future: http://pypi.python.org/pypi/future

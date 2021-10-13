@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.11'
+VERSION = '13.0.11.1'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -11,7 +11,7 @@ with open('HISTORY.rst', 'r') as f:
     history = f.read().replace('.. :changelog:', '')
 
 requirements = [
-    'suds-jurko==0.6.0',
+    'suds-community>=1.0.0b1',
     'future',
     'six',
     'requests',

@@ -3440,6 +3440,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="CriterionCashback" />
+                     <xs:enumeration value="Operator" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -6020,6 +6021,13 @@
                <xs:extension base="tns:ImportOption">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="AccountUrlOptions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="AdScheduleUseSearcherTimezone" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="AdjustmentForBids" nillable="true" type="xs:double" />
                      <xs:element minOccurs="0" name="AdjustmentForCampaignBudgets" nillable="true" type="xs:double" />
                      <xs:element minOccurs="0" name="AssociatedStoreId" nillable="true" type="xs:long" />
@@ -6064,6 +6072,7 @@
                      <xs:element minOccurs="0" name="NewSitelinkAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewUrlOptions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="PauseAIMAdGroupIfAllAudienceCriterionNotImported" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="PauseCampaignsWithoutSupportedLocations" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="PauseNewCampaigns" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="RaiseBidsToMinimum" nillable="true" type="xs:boolean" />

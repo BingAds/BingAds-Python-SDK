@@ -61,8 +61,8 @@ class _StringTable:
     FeedName = "Feed Name"
     TargetAdGroupId = 'Target Ad Group Id'
     TargetCampaignId = 'Target Campaign Id'
-    CustomAttributes = "Custom Attributes";
-    PageFeedIds = "Page Feed Ids";
+    CustomAttributes = "Custom Attributes"
+    PageFeedIds = "Page Feed Ids"
     PhysicalIntent = "Physical Intent"
     Bid = "Bid"
     Profile = "Profile"
@@ -184,20 +184,20 @@ class _StringTable:
     AdGroupVideoAdExtension = "Ad Group Video Ad Extension"
     
     #Promotion AdExtension
-    PromotionAdExtension = "Promotion Ad Extension";
-    AccountPromotionAdExtension = "Account Promotion Ad Extension";
-    CampaignPromotionAdExtension = "Campaign Promotion Ad Extension";
-    AdGroupPromotionAdExtension = "Ad Group Promotion Ad Extension";
-    PromotionTarget = "Promotion Target";
-    DiscountModifier = "Discount Modifier";
-    PercentOff = "Percent Off";
-    MoneyAmountOff = "Money Amount Off";
-    PromotionCode = "Promotion Code";
-    OrdersOverAmount = "Orders Over Amount";
-    Occasion = "Occasion";
-    PromotionStart = "Promotion Start";
-    PromotionEnd = "Promotion End";
-    CurrencyCode = "Currency Code";
+    PromotionAdExtension = "Promotion Ad Extension"
+    AccountPromotionAdExtension = "Account Promotion Ad Extension"
+    CampaignPromotionAdExtension = "Campaign Promotion Ad Extension"
+    AdGroupPromotionAdExtension = "Ad Group Promotion Ad Extension"
+    PromotionTarget = "Promotion Target"
+    DiscountModifier = "Discount Modifier"
+    PercentOff = "Percent Off"
+    MoneyAmountOff = "Money Amount Off"
+    PromotionCode = "Promotion Code"
+    OrdersOverAmount = "Orders Over Amount"
+    Occasion = "Occasion"
+    PromotionStart = "Promotion Start"
+    PromotionEnd = "Promotion End"
+    CurrencyCode = "Currency Code"
 
     # Structured Snippet Ad Extension
     StructuredSnippetAdExtension = "Structured Snippet Ad Extension"
@@ -456,7 +456,7 @@ class _StringTable:
     AdGroupNegativeRemarketingListAssociation = 'Ad Group Negative Remarketing List Association'
     CampaignRemarketingListAssociation = 'Campaign Remarketing List Association'
     CampaignNegativeRemarketingListAssociation = 'Campaign Negative Remarketing List Association'
-    CustomAudience = "Custom Audience";
+    CustomAudience = "Custom Audience"
     AdGroupCustomAudienceAssociation = "Ad Group Custom Audience Association"
     AdGroupNegativeCustomAudienceAssociation = "Ad Group Negative Custom Audience Association"
     CampaignCustomAudienceAssociation = "Campaign Custom Audience Association"

@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.11.1(2021-10-13)
++++++++++++++++++++++++++
+* Update suds lib from suds-jurko to suds-community to support latest setuptools.
+
 13.0.11(2021-08-20)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
