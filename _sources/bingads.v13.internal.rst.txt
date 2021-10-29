@@ -5,9 +5,10 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
-    bingads.v13.internal.bulk
-    bingads.v13.internal.reporting
+   bingads.v13.internal.bulk
+   bingads.v13.internal.reporting
 
 Submodules
 ----------
@@ -16,15 +17,14 @@ bingads.v13.internal.extensions module
 --------------------------------------
 
 .. automodule:: bingads.v13.internal.extensions
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: bingads.v13.internal
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
