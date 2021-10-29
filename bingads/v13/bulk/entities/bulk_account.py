@@ -31,6 +31,7 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._ad_click_parallel_tracking=None
         self._auto_apply_recommendations = None
         self._allow_image_auto_retrieve = None
+        self._business_attributes = None
 
     @property
     def id(self):
@@ -75,84 +76,97 @@ class BulkAccount(_SingleRecordBulkEntity):
         :return: The msclkid autotag setting of the account
         :rtype: bool
         """
-        return self._msclkid_auto_tagging_enabled    
-    
+        return self._msclkid_auto_tagging_enabled
+
     @property
     def include_view_through_conversions(self):
         """
         :return: The 'Include View Through Conversions' field of the account
         :rtype: bool
         """
-        return self._include_view_through_conversions    
-    
+        return self._include_view_through_conversions
+
     @property
     def profile_expansion_enabled(self):
         """
         :return: The 'Profile Expansion Enabled' field of the account
         :rtype: bool
         """
-        return self._profile_expansion_enabled    
-    
+        return self._profile_expansion_enabled
+
     @property
     def tracking_url_template(self):
         """ The tracking template to use as a default for all URLs in your account.
-        
+
         :return: The tracking template of the account
         :rtype: str
         """
-        return self._tracking_url_template    
-    
+        return self._tracking_url_template
+
     @property
     def final_url_suffix(self):
         """ The final url suffix to use as a default for all URLs in your account.
-        
+
         :return: The tracking template of the account
         :rtype: str
         """
         return self._final_url_suffix
-    
+
     @final_url_suffix.setter
     def final_url_suffix(self, v):
         self._final_url_suffix = v
-        
+
     @property
     def ad_click_parallel_tracking(self):
         """ The setting of parallel tracking in the account.
-        
+
         :return: The setting of parallel tracking of the account
         :rtype: bool
         """
         return self._ad_click_parallel_tracking
-    
+
     @ad_click_parallel_tracking.setter
     def ad_click_parallel_tracking(self, v):
         self._ad_click_parallel_tracking = v
-        
+
     @property
     def allow_image_auto_retrieve(self):
         """ The setting of allowing image auto retrieve in the account.
-        
+
         :return: The setting of allowing image auto retrieve of the account
         :rtype: bool
         """
         return self._allow_image_auto_retrieve
-    
+
     @allow_image_auto_retrieve.setter
     def allow_image_auto_retrieve(self, v):
-        self._allow_image_auto_retrieve = v        
-        
+        self._allow_image_auto_retrieve = v
+
     @property
     def auto_apply_recommendations(self):
         """ The setting of allowing image auto retrieve in the account.
-        
+
         :return: The setting of allowing image auto retrieve of the account
         :rtype: dict
         """
         return self._auto_apply_recommendations
-    
+
     @auto_apply_recommendations.setter
     def auto_apply_recommendations(self, v):
-        self._auto_apply_recommendations = v        
+        self._auto_apply_recommendations = v
+
+    @property
+    def business_attributes(self):
+        """ The setting of business attributes in the account.
+
+        :return: The setting of business attributes of the account
+        :rtype: dict
+        """
+        return self._business_attributes
+
+    @business_attributes.setter
+    def business_attributes(self, v):
+        self._business_attributes = v
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -204,11 +218,16 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.AllowImageAutoRetrieve,
             field_to_csv=lambda c: bulk_str(c.allow_image_auto_retrieve),
             csv_to_field=lambda c, v: setattr(c, 'allow_image_auto_retrieve', parse_bool(v))
-        ),        
+        ),
         _SimpleBulkMapping(
             header=_StringTable.AutoApplyRecommendations,
             field_to_csv=lambda c: dict_bulk_str(c.auto_apply_recommendations, ';'),
             csv_to_field=lambda c, v: setattr(c, 'auto_apply_recommendations', parse_dict(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BusinessAttributes,
+            field_to_csv=lambda c: multi_bulk_str(c.business_attributes, ';'),
+            csv_to_field=lambda c, v: setattr(c, 'business_attributes', parse_multi(v))
         )
     ]
 

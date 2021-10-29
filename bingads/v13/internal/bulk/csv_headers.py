@@ -17,6 +17,7 @@ class _CsvHeaders:
         _StringTable.LastModifiedTime,
         _StringTable.MultiMediaAdBidAdjustment,
         _StringTable.DynamicDescriptionEnabled,
+        _StringTable.Details,
 
 
         # Campaign
@@ -79,14 +80,14 @@ class _CsvHeaders:
         _StringTable.FromMinute,
         _StringTable.ToHour,
         _StringTable.ToMinute,
-        
+
         # Profile Criterion
         _StringTable.Profile,
         _StringTable.ProfileId,
 
         # AdExtensions common
         _StringTable.Version,
-        
+
         #Disclaimer Ad Extension
         _StringTable.DisclaimerAdsEnabled,
         _StringTable.DisclaimerName,
@@ -130,7 +131,7 @@ class _CsvHeaders:
         _StringTable.PublisherCountries,
         _StringTable.Layouts,
         _StringTable.DisplayText,
-        
+
         # Filter link ad extension
         _StringTable.AdExtensionHeaderType,
         _StringTable.Texts,
@@ -138,7 +139,7 @@ class _CsvHeaders:
         # Image
         _StringTable.Height,
         _StringTable.Width,
-        
+
         # Video
         _StringTable.SourceUrl,
         _StringTable.AspectRatio,
@@ -146,15 +147,15 @@ class _CsvHeaders:
 
         # Callout Ad Extension
         _StringTable.CalloutText,
-        
-        #Flyer Ad Extension        
+
+        #Flyer Ad Extension
         _StringTable.FlyerAdExtension,
         _StringTable.AccountFlyerAdExtension,
         _StringTable.CampaignFlyerAdExtension,
         _StringTable.AdGroupFlyerAdExtension,
         _StringTable.FlyerName,
         _StringTable.MediaUrls,
-        
+
         #Video Ad Extension
         _StringTable.ThumbnailUrl,
         _StringTable.ThumbnailId,
@@ -341,7 +342,7 @@ class _CsvHeaders:
         _StringTable.Path1,
         _StringTable.Path2,
         _StringTable.Domain,
-        
+
         # Responsive Ad
         _StringTable.CallToAction,
         _StringTable.Headline,
@@ -360,7 +361,7 @@ class _CsvHeaders:
 
         # Ad Scheduling
         _StringTable.AdSchedule,
-        
+
         #UseSearcherTimeZone
         _StringTable.UseSearcherTimeZone,
         _StringTable.AdScheduleUseSearcherTimeZone,
@@ -368,7 +369,7 @@ class _CsvHeaders:
         # Action ad extension
         _StringTable.ActionType,
         _StringTable.ActionText,
-        
+
         # Promotion Ad Extension
         _StringTable.PromotionTarget,
         _StringTable.DiscountModifier,
@@ -379,7 +380,7 @@ class _CsvHeaders:
         _StringTable.Occasion,
         _StringTable.PromotionStart,
         _StringTable.PromotionEnd,
-        _StringTable.CurrencyCode,       
+        _StringTable.CurrencyCode,
 
         # Dynamic Search Ads
         _StringTable.DomainLanguage,
@@ -408,7 +409,7 @@ class _CsvHeaders:
         _StringTable.AdjustmentType,
         _StringTable.ExternalAttributionCredit,
         _StringTable.ExternalAttributionModel,
-        
+
         # Account
         _StringTable.MSCLKIDAutoTaggingEnabled,
         _StringTable.IncludeViewThroughConversions,
@@ -416,8 +417,9 @@ class _CsvHeaders:
         _StringTable.AdClickParallelTracking,
         _StringTable.AutoApplyRecommendations,
         _StringTable.AllowImageAutoRetrieve,
+        _StringTable.BusinessAttributes,
         _StringTable.FinalUrlSuffix,
-        
+
         # Feeds
         _StringTable.CustomAttributes,
         _StringTable.FeedName,

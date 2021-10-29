@@ -48,6 +48,9 @@ CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
 TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset'))
 ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset'))
 VideoAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VideoAsset'))
+KeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:KeyValuePairOfstringstring'))
+ArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfKeyValuePairOfstringstring'))
+ArrayOfArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfArrayOfKeyValuePairOfstringstring'))
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -66,6 +69,40 @@ def bulk_upper_str(value):
         return None
     return s.upper()
 
+def to_verified_tracking_setting_string(value):
+    if value is None:
+        return None
+
+    result = []
+    for s in value:
+        contracts = []
+        for setting in s:
+            if setting is not None and setting.__contains__('key') and setting.__contains__('value'):
+                contract = {}
+                contract['key'] = setting['key']
+                contract['value'] = setting['value']
+            contracts.append(contract)
+        result.append(contracts)
+
+    return json.dumps(result)
+
+def parse_verified_tracking_setting(str):
+    if str is None or str == '':
+        return
+
+    two_dims_array = []
+    results = json.loads(str)
+    for result in results:
+        array = []
+        for res in result:
+            if res is not None and res.__contains__('key') and res.__contains__('value'):
+                kv = KeyValuePairOfstringstring()
+                kv['key'] = res['key']
+                kv['value'] = res['value']
+                array.append(kv)
+        two_dims_array.append(array)
+
+    return two_dims_array
 
 def bulk_date_str(value):
     if value is None or (value.Day is None and value.Month is None and value.Year is None):
@@ -116,9 +153,9 @@ def csv_to_bid_strategy_biddingscheme(row_values, bulk_bid_strategy):
 
 def csv_to_campaign_biddingscheme(row_values, bulk_campaign):
     entity_csv_to_biddingscheme(row_values, bulk_campaign.campaign)
-    
+
 def entity_csv_to_biddingscheme(row_values, entity):
-    
+
     success, bid_strategy_type = row_values.try_get_value(_StringTable.BidStrategyType)
     if not success or not bid_strategy_type:
         return
@@ -130,16 +167,16 @@ def entity_csv_to_biddingscheme(row_values, entity):
 
     success, target_cpa_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCpa)
     target_cpa_value = float(target_cpa_row_value) if target_cpa_row_value else None
-    
-    
+
+
     success, target_roas_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetRoas)
     target_roas_value = float(target_roas_row_value) if target_roas_row_value else None
-    
-    
+
+
     success, target_impression_share_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetImpressionShare)
     target_impression_share_value = float(target_impression_share_row_value) if target_impression_share_row_value else None
-    
-    
+
+
     success, target_ad_position_value = row_values.try_get_value(_StringTable.BidStrategyTargetAdPosition)
 
     if  bid_strategy_type == 'MaxConversions':
@@ -164,17 +201,17 @@ def entity_csv_to_biddingscheme(row_values, entity):
         entity.BiddingScheme.MaxCpc = maxCpcValue
         entity.BiddingScheme.TargetImpressionShare = target_impression_share_value
         entity.BiddingScheme.TargetAdPosition = target_ad_position_value
-  
+
 def bid_strategy_biddingscheme_to_csv(bulk_bid_strategy, row_values):
-    entity_biddingscheme_to_csv(bulk_bid_strategy.bid_strategy, row_values)  
+    entity_biddingscheme_to_csv(bulk_bid_strategy.bid_strategy, row_values)
 
 def campaign_biddingscheme_to_csv(bulk_campaign, row_values):
     entity_biddingscheme_to_csv(bulk_campaign.campaign, row_values)
-    
+
 def entity_biddingscheme_to_csv(entity, row_values):
     if not entity:
         return
-    
+
     bid_strategy_type = field_to_csv_BidStrategyType(entity)
 
     if not bid_strategy_type:
@@ -198,7 +235,7 @@ def entity_biddingscheme_to_csv(entity, row_values):
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
         row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(entity.BiddingScheme.TargetAdPosition, entity.Id)
         row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
-                                
+
 
 def bulk_optional_str(value, id):
     if value is None:
@@ -322,14 +359,24 @@ def dict_bulk_str(parameters, separator):
     if parameters is None or len(parameters) == 0:
         return None
     return separator.join(["{0}={1}".format(key, parameters[key]) for key in parameters])
-    
+
 def parse_dict(value):
     if value is None or value.strip() == '':
         return
-    
-    return dict([s.split('=') for s in value.split(';') if len(s) > 0])
-    pass 
 
+    return dict([s.split('=') for s in value.split(';') if len(s) > 0])
+    pass
+
+def multi_bulk_str(parameters, separator):
+    if parameters is None or len(parameters) == 0:
+        return None
+    return separator.join(parameters)
+
+def parse_multi(value):
+    if value is None or value.strip() == '':
+        return
+
+    return value.split(';')
 
 def csv_to_field_UrlCustomParameters(entity, value):
     if value is None or value.strip() == '':
@@ -490,9 +537,9 @@ def field_to_csv_VideoAssetLinks(assetLinks):
     assetLinkContracts = []
     for assetLink in assetLinks.AssetLink:
         if assetLink.Asset is not None and isinstance(assetLink.Asset, VideoAsset_Type):
-            contract = {}     
-            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None     
-            contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None  
+            contract = {}
+            contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None
+            contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None
             contract['id'] = assetLink.Asset.Id if hasattr(assetLink.Asset, 'Id') else None
             contract['name'] = assetLink.Asset.Name if hasattr(assetLink.Asset, 'Name') else None
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
@@ -512,9 +559,9 @@ def field_to_csv_VideoAssetLinks(assetLinks):
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts, sort_keys = True)
     return None
-    
+
     pass
-    
+
 def csv_to_field_VideoAssetLinks(assetLinks, value):
     if value is None or value == '':
         return
@@ -533,7 +580,7 @@ def csv_to_field_VideoAssetLinks(assetLinks, value):
 
         if thumbnailImageContract != None :
             asset_link.Asset.ThumbnailImage = _CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset')
-            asset_link.Asset.ThumbnailImage.Type = 'ImageAsset'       
+            asset_link.Asset.ThumbnailImage.Type = 'ImageAsset'
             asset_link.Asset.ThumbnailImage.Id = thumbnailImageContract.get('id')
             asset_link.Asset.ThumbnailImage.Name = thumbnailImageContract.get('name')
             asset_link.Asset.ThumbnailImage.SubType = thumbnailImageContract.get('subType')
@@ -543,14 +590,14 @@ def csv_to_field_VideoAssetLinks(assetLinks, value):
             asset_link.Asset.ThumbnailImage.CropHeight = thumbnailImageContract.get('cropHeight')
 
         assetLinks.AssetLink.append(asset_link)
-    
+
 
 
 def csv_to_field_TextAssetLinks(assetLinks, value):
     if value is None or value == '':
         return
     assetLinkContracts = json.loads(value)
-    
+
     for assetLinkContract in assetLinkContracts:
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
         asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset')
@@ -569,7 +616,7 @@ def field_to_csv_ImageAssetLinks(entity):
     assetLinkContracts = []
     for assetLink in entity.AssetLink:
         if assetLink.Asset is not None and isinstance(assetLink.Asset, ImageAsset_Type):
-            contract = {}            
+            contract = {}
             contract['cropHeight'] = assetLink.Asset.CropHeight if hasattr(assetLink.Asset, 'CropHeight') else None
             contract['cropWidth'] = assetLink.Asset.CropWidth if hasattr(assetLink.Asset, 'CropWidth') else None
             contract['cropX'] = assetLink.Asset.CropX if hasattr(assetLink.Asset, 'CropX') else None
@@ -588,7 +635,7 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
     if value is None or value == '':
         return
     assetLinkContracts = json.loads(value)
-    
+
     for assetLinkContract in assetLinkContracts:
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
         asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset')
@@ -890,7 +937,7 @@ def field_to_csv_UseSearcherTimeZone(bool_value, id):
         return DELETE_VALUE if id and id > 0 else None
     else:
         return str(bool_value)
-    
+
 def csv_to_field_BudgetType(entity, value, version=13):
     if value is None or value == '':
         entity.BudgetType = None
@@ -1435,7 +1482,7 @@ def csv_to_target_setting(entity, value):
     pass
 
 def match_target_setting(token):
-    
+
     pattern = re.compile(target_setting_detail_pattern)
     m = pattern.match(token)
     if m:
@@ -1469,13 +1516,13 @@ def parse_rule_PageVisitors(rule_str):
                 expressions = rule_str.split(patternAnd)
                 if len(expressions) == 1:
                     parse_rule_items(rule_str)
-                else: 
+                else:
                     rule.NormalForm = NormalForm.Disjunctive
             else:
                 rule.NormalForm = NormalForm.Conjunctive
         else:
             rule.NormalForm = NormalForm.Conjunctive
-    
+
     pattern = patternAnd
     if rule.NormalForm == NormalForm.Conjunctive:
         pattern = patternOr
@@ -1491,7 +1538,7 @@ def parse_rule_PageVisitors(rule_str):
         rule_item_group = _CAMPAIGN_OBJECT_FACTORY_V13.create('RuleItemGroup')
         for expression in expressions:
             item = parse_string_rule_item(expression)
-            rule_item_group.Items.RuleItem.append(item)            
+            rule_item_group.Items.RuleItem.append(item)
 
         rule.RuleItemGroups.RuleItemGroup.append(rule_item_group)
 
@@ -1684,11 +1731,11 @@ def csv_to_field_CustomAttributes(feed, value):
     if value is None or value == '':
         return
     feed.custom_attributes = json.loads(value)
-    
+
 def field_to_csv_Ids(ids, entity_id):
     if ids is None and entity_id is not None and entity_id > 0:
         return DELETE_VALUE
-    
+
     if ids is None or len(ids.long) == 0:
         return None
     return ';'.join(str(id) for id in ids.long)
@@ -1698,18 +1745,18 @@ def csv_to_field_PageFeedIds(value):
         return None
     if len(value) == 0:
         return []
-    return [int(i) for i in value.split(';')]    
-    
+    return [int(i) for i in value.split(';')]
+
 def combination_rules_to_bulkstring(combination_rules):
     if len(combination_rules.CombinationRule) == 0:
         return None
-    
+
     return '&'.join([r.Operator + '(' + ','.join([str(id) for id in r.AudienceIds.long]) + ')' for r in combination_rules.CombinationRule])
 
 def parse_combination_rules(combination_list, value):
     if value is None or len(value) == 0:
         return None
-    
+
     rules = value.split('&')
     pattern = re.compile(combine_rule_pattern, re.IGNORECASE)
     for rule in rules:

@@ -10,6 +10,7 @@ _TargetSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
 _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ShoppingSetting'))
 _DsaSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting'))
 _DisclaimerSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DisclaimerSetting'))
+_VerifiedTrackingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VerifiedTrackingSetting'))
 
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
@@ -36,6 +37,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         self._performance_data = None
         self._budget_name = None
         self._bid_strategy_name = None
+        self._verified_tracking_data = None
 
     @property
     def account_id(self):
@@ -51,7 +53,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
     @account_id.setter
     def account_id(self, account_id):
         self._account_id = account_id
-        
+
     @property
     def bid_strategy_name(self):
         """
@@ -65,6 +67,20 @@ class BulkCampaign(_SingleRecordBulkEntity):
     @bid_strategy_name.setter
     def bid_strategy_name(self, value):
         self._bid_strategy_name = value
+
+    @property
+    def verified_tracking_data(self):
+        """
+        The verified tracking data that the campaign associated, only for audience campaigns
+
+        Corresponds to 'Verified Tracking Setting' field in bulk file.
+        :rtype: ArrayOfArrayOfKeyValuePairOfstringstring
+        """
+        return self._verified_tracking_data
+
+    @verified_tracking_data.setter
+    def verified_tracking_data(self, value):
+        self._verified_tracking_data = value
 
     @property
     def budget_name(self):
@@ -107,7 +123,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
 
     def _get_shopping_setting(self):
         return self._get_setting(_ShoppingSetting, 'ShoppingSetting')
-    
+
     def _get_target_setting(self):
         return self._get_setting(_TargetSetting, 'TargetSetting')
 
@@ -116,6 +132,9 @@ class BulkCampaign(_SingleRecordBulkEntity):
 
     def _get_disclaimer_setting(self):
         return self._get_setting(_DisclaimerSetting, 'DisclaimerSetting')
+
+    def _get_verified_tracking_setting(self):
+        return self._get_setting(_VerifiedTrackingSetting, 'VerifiedTrackingSetting')
 
     def _get_setting(self, setting_type, setting_name):
         if not self.campaign.Settings.Setting:
@@ -142,7 +161,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             return []
         campaign_type = v
         c.campaign.CampaignType = [campaign_type]
-        
+
         if campaign_type.lower() == 'shopping':
             BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
         if campaign_type.lower() == 'audience':
@@ -157,7 +176,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _create_campaign_setting(campaign, setting_type):
         if not campaign.Settings:
             campaign.Settings = _CAMPAIGN_OBJECT_FACTORY_V13.create('ArrayOfSetting')
-            
+
         setting = _CAMPAIGN_OBJECT_FACTORY_V13.create(setting_type)
         setting.Type = setting_type
         campaign.Settings.Setting.append(setting)
@@ -249,7 +268,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             if not shopping_setting:
                 return None
             shopping_setting.LocalInventoryAdsEnabled = v.lower() == 'true' if v else None
-    
+
     @staticmethod
     def _write_feed_id(c):
         if not c.campaign.CampaignType:
@@ -260,7 +279,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             if not dynamic_feed_setting:
                 return None
             return bulk_str(dynamic_feed_setting.FeedId)
-            
+
     @staticmethod
     def _read_feed_id(c, v):
         if not c.campaign.CampaignType:
@@ -271,7 +290,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             if not dynamic_feed_setting:
                 return None
             dynamic_feed_setting.FeedId = int(v) if v else None
-            
+
     @staticmethod
     def _read_source(c, v):
         if not c.campaign.CampaignType:
@@ -357,7 +376,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if not dsa_setting:
             return None
         dsa_setting.PageFeedIds.long = csv_to_field_PageFeedIds(v)
-        
+
     @staticmethod
     def _write_page_feed_ids(c):
         if not c.campaign.CampaignType:
@@ -366,7 +385,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         dsa_setting = c._get_dsa_setting()
         if not dsa_setting:
             return None
-        return field_to_csv_Ids(dsa_setting.PageFeedIds, c.campaign.Id)        
+        return field_to_csv_Ids(dsa_setting.PageFeedIds, c.campaign.Id)
 
     @staticmethod
     def _read_website(c, v):
@@ -387,7 +406,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if not dsa_setting:
             return None
         return bulk_str(dsa_setting.DomainName)
-        
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.CampaignType,
@@ -502,7 +521,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.Website,
             field_to_csv=lambda c: BulkCampaign._write_website(c),
             csv_to_field=lambda c, v: BulkCampaign._read_website(c, v)
-            
+
         ),
         _SimpleBulkMapping(
             header=_StringTable.DomainLanguage,
@@ -543,7 +562,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.PageFeedIds,
             field_to_csv=lambda c: BulkCampaign._write_page_feed_ids(c),
             csv_to_field=lambda c, v: BulkCampaign._read_page_feed_ids(c, v)
-        ),        
+        ),
         _SimpleBulkMapping(
             header=_StringTable.AdScheduleUseSearcherTimeZone,
             field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.campaign.AdScheduleUseSearcherTimeZone, None),
@@ -567,6 +586,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.DynamicDescriptionEnabled,
             field_to_csv=lambda c: BulkCampaign._write_DynamicDescriptionEnabled(c),
             csv_to_field=lambda c, v: BulkCampaign._read_DynamicDescriptionEnabled(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Details,
+            field_to_csv=lambda c: to_verified_tracking_setting_string(c.verified_tracking_data),
+            csv_to_field=lambda c, v: setattr(c, 'verified_tracking_data', parse_verified_tracking_setting(v) if v else None)
         )
     ]
 

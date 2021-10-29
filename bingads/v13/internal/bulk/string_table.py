@@ -46,7 +46,7 @@ class _StringTable:
     Param2 = "Param2"
     Param3 = "Param3"
     DevicePreference = "Device Preference"
-    VerifiedTrackingData = "Verified Tracking Setting"
+    Details = "Verified Tracking Setting"
     CampaignNegativeKeyword = "Campaign Negative Keyword"
     CampaignNegativeSite = "Campaign Negative Site"
     AdGroupNegativeKeyword = "Ad Group Negative Keyword"
@@ -113,7 +113,7 @@ class _StringTable:
     SocialNetworkAdExtension = "Social Network Ad Extension"
     Version = "Version"
 
-    # Disclaimer Ads  
+    # Disclaimer Ads
     DisclaimerAdsEnabled = "Disclaimer Ads Enabled"
     DisclaimerName = "Disclaimer Name"
     DisclaimerTitle = "Disclaimer Title"
@@ -132,7 +132,7 @@ class _StringTable:
     AdGroupImageAdExtension = "Ad Group Image Ad Extension"
     Layouts = "Layouts"
     DisplayText = "Display Text"
-    
+
     # Filter Link ad extension
     FilterLinkAdExtension = "Filter Link Ad Extension"
     AccountFilterLinkAdExtension = "Account Filter Link Ad Extension"
@@ -165,7 +165,7 @@ class _StringTable:
     CampaignCallAdExtension = "Campaign Call Ad Extension"
     IsCallTrackingEnabled = "Call Tracking Enabled"
     RequireTollFreeTrackingNumber = "Toll Free"
-    
+
     #Action Ad Extension
     ActionAdExtension = "Action Ad Extension"
     AccountActionAdExtension = "Account Action Ad Extension"
@@ -173,7 +173,7 @@ class _StringTable:
     AdGroupActionAdExtension = "Ad Group Action Ad Extension"
     ActionType = "Action Type"
     ActionText = "Action Text"
-    
+
     #Video Ad Extension
     VideoAdExtension = "Video Ad Extension"
     ThumbnailUrl = "Thumbnail Url"
@@ -182,7 +182,7 @@ class _StringTable:
     AccountVideoAdExtension = "Account Video Ad Extension"
     CampaignVideoAdExtension = "Campaign Video Ad Extension"
     AdGroupVideoAdExtension = "Ad Group Video Ad Extension"
-    
+
     #Promotion AdExtension
     PromotionAdExtension = "Promotion Ad Extension"
     AccountPromotionAdExtension = "Account Promotion Ad Extension"
@@ -212,8 +212,8 @@ class _StringTable:
     AdGroupSitelinkAdExtension = "Ad Group Sitelink Ad Extension"
     CampaignSitelinkAdExtension = "Campaign Sitelink Ad Extension"
     AccountSitelinkAdExtension = "Account Sitelink Ad Extension"
-    
-    
+
+
     # Flyer Ad Extension
     FlyerAdExtension = "Flyer Ad Extension"
     AccountFlyerAdExtension = "Account Flyer Ad Extension"
@@ -308,10 +308,10 @@ class _StringTable:
     CampaignPriority = "Priority"
     LocalInventoryAdsEnabled = "LocalInventoryAdsEnabled"
     DynamicDescriptionEnabled = "Dynamic Description Enabled"
-    
+
     CampaignNegativeStoreCriterion = "Campaign Negative Store Criterion"
 
-    
+
     # CoOp
     BidOption = "Bid Option"
     BidBoostValue = "Bid Boost Value"
@@ -342,7 +342,7 @@ class _StringTable:
     AdGroupPriceAdExtension = "Ad Group Price Ad Extension"
     PriceExtensionType = "Price Extension Type"
     Header1 = "Header 1"
-    Header2 = "Header 2"  
+    Header2 = "Header 2"
     Header3 = "Header 3"
     Header4 = "Header 4"
     Header5 = "Header 5"
@@ -373,7 +373,7 @@ class _StringTable:
     FinalMobileUrl6 = "Final Mobile Url 6"
     FinalMobileUrl7 = "Final Mobile Url 7"
     FinalMobileUrl8 = "Final Mobile Url 8"
-    Price1 = "Price 1" 
+    Price1 = "Price 1"
     Price2 = "Price 2"
     Price3 = "Price 3"
     Price4 = "Price 4"
@@ -439,7 +439,7 @@ class _StringTable:
     AudienceNetworkSize = "Audience Network Size"
     SupportedCampaignTypes = "Supported Campaign Types"
     ProductAudienceType = "Product Audience Type"
-    CombinationRule = "Combination Rule"    
+    CombinationRule = "Combination Rule"
     SourceId = "Source Id"
     ProductAudienceType = "Product Audience Type"
     AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
@@ -477,7 +477,7 @@ class _StringTable:
     AdGroupNegativeCustomerListAssociation = "Ad Group Negative Customer List Association"
     CampaignCustomerListAssociation = "Campaign Customer List Association"
     CampaignNegativeCustomerListAssociation = "Campaign Negative Customer List Association"
-    
+
     # Expanded Text Ad
     TitlePart1 = "Title Part 1"
     TitlePart2 = "Title Part 2"
@@ -488,7 +488,7 @@ class _StringTable:
 
     # Ad Extension Scheduling
     AdSchedule = "Ad Schedule"
-    
+
     #UseSearcherTimeZone
     UseSearcherTimeZone = "Use Searcher Time Zone"
     AdScheduleUseSearcherTimeZone = "Ad Schedule Use Searcher Time Zone"
@@ -501,7 +501,7 @@ class _StringTable:
     DynamicAdTargetValue2 = "Dynamic Ad Target Value 2"
     DynamicAdTargetCondition3 = "Dynamic Ad Target Condition 3"
     DynamicAdTargetValue3 = "Dynamic Ad Target Value 3"
-    
+
     AdGroupAgeCriterion = "Ad Group Age Criterion"
     AdGroupDayTimeCriterion = "Ad Group DayTime Criterion"
     AdGroupDeviceCriterion = "Ad Group DeviceOS Criterion"
@@ -536,12 +536,12 @@ class _StringTable:
     Descriptions = "Descriptions"
     Headlines = "Headlines"
     Videos = "Videos"
-    
+
     #Image
     Image = "Image"
     Height = "Height"
     Width = "Width"
-    
+
     # Video
     Video = "Video"
     SourceUrl = "Source Url"
