@@ -91,7 +91,7 @@ def get_image_media(
 def get_bmp_base64_string(image_file_name):
     image = open(image_file_name, 'rb') 
     image_bytes = image.read() 
-    base64_string = base64.encodestring(image_bytes)
+    base64_string = base64.b64encode(image_bytes)
     return base64_string
 
 # Main execution
