@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 13.0.12 documentation</title>
+    <title>bingads.v13.internal.extensions &#8212; Bing Ads SDK 13.0.13 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.12 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.13 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.internal.extensions</a></li> 
       </ul>
@@ -1020,11 +1020,13 @@
             <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">Conditions</span><span class="o">.</span><span class="n">WebpageCondition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">condition_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetCondition1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">value_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetValue1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">condition_operator_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetConditionOperator1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
         <span class="n">conditions</span> <span class="o">=</span> <span class="n">entity</span><span class="o">.</span><span class="n">Criterion</span><span class="o">.</span><span class="n">Parameter</span><span class="o">.</span><span class="n">Conditions</span><span class="o">.</span><span class="n">WebpageCondition</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">)):</span>
             <span class="n">row_values</span><span class="p">[</span><span class="n">condition_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Operand</span>
-            <span class="n">row_values</span><span class="p">[</span><span class="n">value_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Argument</span></div>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">value_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Argument</span>
+            <span class="n">row_values</span><span class="p">[</span><span class="n">condition_operator_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">conditions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">Operator</span></div>
 
 
 <div class="viewcode-block" id="csv_to_entity_DSAWebpageParameter"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.csv_to_entity_DSAWebpageParameter">[docs]</a><span class="k">def</span> <span class="nf">csv_to_entity_DSAWebpageParameter</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">entity</span><span class="p">):</span>
@@ -1036,11 +1038,13 @@
     <span class="n">MAX_NUMBER_OF_CONDITIONS</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">condition_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetCondition1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">value_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetValue1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">condition_operator_prefix</span> <span class="o">=</span> <span class="n">_StringTable</span><span class="o">.</span><span class="n">DynamicAdTargetConditionOperator1</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="n">conditions</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">MAX_NUMBER_OF_CONDITIONS</span><span class="p">):</span>
         <span class="n">condition_success</span><span class="p">,</span> <span class="n">webpage_condition</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">condition_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">value_success</span><span class="p">,</span> <span class="n">webpage_value</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">value_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">condition_operator_success</span><span class="p">,</span> <span class="n">webpage_condition_operator</span> <span class="o">=</span> <span class="n">row_values</span><span class="o">.</span><span class="n">try_get_value</span><span class="p">(</span><span class="n">condition_operator_prefix</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">condition_success</span> <span class="ow">and</span> <span class="n">value_success</span> <span class="ow">and</span> <span class="n">webpage_condition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">webpage_condition</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
             <span class="n">condition</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;WebpageCondition&#39;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">webpage_condition</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;url&#39;</span><span class="p">:</span>
@@ -1060,6 +1064,8 @@
                 <span class="k">if</span> <span class="n">webpage_condition</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
                     <span class="k">continue</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unknown WebpageConditionOperand value: </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">webpage_condition</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">condition_operator_success</span><span class="p">:</span>
+                <span class="n">condition</span><span class="o">.</span><span class="n">Operator</span> <span class="o">=</span> <span class="n">webpage_condition_operator</span>
 
             <span class="n">condition</span><span class="o">.</span><span class="n">Argument</span> <span class="o">=</span> <span class="n">webpage_value</span>
             <span class="n">conditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
@@ -1691,19 +1697,28 @@
 
 <div class="viewcode-block" id="parse_string_rule_item"><a class="viewcode-back" href="../../../../bingads.v13.internal.html#bingads.v13.internal.extensions.parse_string_rule_item">[docs]</a><span class="k">def</span> <span class="nf">parse_string_rule_item</span><span class="p">(</span><span class="n">item_str</span><span class="p">):</span>
     <span class="n">item_str</span> <span class="o">=</span> <span class="n">item_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">)</span>
-    <span class="n">pattern_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
+    <span class="n">pattern_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(Url|ReferrerUrl|EcommPageType|EcommCategory|EcommProdId|Action|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$&#39;</span>
+    <span class="n">number_pattern_str</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^(EcommTotalValue) (Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo|NotEquals) ([^()]*)$&#39;</span>
     <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">pattern_str</span><span class="p">)</span>
+    <span class="n">number_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">number_pattern_str</span><span class="p">)</span>
 
     <span class="n">match</span> <span class="o">=</span> <span class="n">pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">item_str</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid Rule Item:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_str</span><span class="p">))</span>
-
-    <span class="n">item</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;StringRuleItem&#39;</span><span class="p">)</span>
-    <span class="n">item</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
-    <span class="n">item</span><span class="o">.</span><span class="n">Operand</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">item</span><span class="o">.</span><span class="n">Operator</span> <span class="o">=</span> <span class="n">parse_string_operator</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">item</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;StringRuleItem&#39;</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;String&#39;</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">Operand</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">Operator</span> <span class="o">=</span> <span class="n">parse_string_operator</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">match</span> <span class="o">=</span> <span class="n">number_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">item_str</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;NumberRuleItem&#39;</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Number&#39;</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">Operand</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">Operator</span> <span class="o">=</span> <span class="n">parse_number_operator</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="n">item</span><span class="o">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid Rule Item:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_str</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">item</span></div>
 
@@ -1720,6 +1735,8 @@
         <span class="k">return</span> <span class="n">NumberOperator</span><span class="o">.</span><span class="n">GreaterThanEqualTo</span>
     <span class="k">if</span> <span class="n">oper</span> <span class="o">==</span> <span class="s1">&#39;lessthanequalto&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">NumberOperator</span><span class="o">.</span><span class="n">LessThanEqualTo</span>
+    <span class="k">if</span> <span class="n">oper</span> <span class="o">==</span> <span class="s1">&#39;notequals&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">NumberOperator</span><span class="o">.</span><span class="n">NotEquals</span>
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Invalid Number Rule Item operator:</span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">operator</span><span class="p">))</span></div>
 
 
@@ -1842,7 +1859,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.12 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.13 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.internal.extensions</a></li> 
       </ul>
