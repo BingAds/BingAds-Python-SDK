@@ -3049,7 +3049,7 @@
    </wsdl:binding>
    <wsdl:service name="AdInsightService">
       <wsdl:port name="BasicHttpBinding_IAdInsightService" binding="tns:BasicHttpBinding_IAdInsightService">
-         <soap:address location="https://adinsight.api.sandbox.bingads.microsoft.com/Api/Advertiser/AdInsight/v13/AdInsightService.svc" />
+         <soap:address location="https://adinsight.api.sandbox.bingads.microsoft.com/Api/Advertiser/AdInsight/V13/AdInsightService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

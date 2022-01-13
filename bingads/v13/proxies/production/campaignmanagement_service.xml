@@ -342,6 +342,13 @@
                <xs:enumeration value="Buy" />
                <xs:enumeration value="OpenLink" />
                <xs:enumeration value="RegisterNow" />
+               <xs:enumeration value="Automated">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">100</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CallToAction" nillable="true" type="tns:CallToAction" />
@@ -1527,9 +1534,17 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="Version" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="LanguageLocale" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="CompressionType" nillable="true" type="tns:CompressionType" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="CompressionType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Zip" />
+               <xs:enumeration value="GZip" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CompressionType" nillable="true" type="tns:CompressionType" />
          <xs:element name="GetGeoLocationsFileUrlResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3556,6 +3571,13 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="Argument" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Operand" type="tns:WebpageConditionOperand" />
+               <xs:element minOccurs="0" name="Operator" nillable="true" type="tns:WebpageConditionOperator">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="WebpageCondition" nillable="true" type="tns:WebpageCondition" />
@@ -3570,6 +3592,14 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="WebpageConditionOperand" nillable="true" type="tns:WebpageConditionOperand" />
+         <xs:simpleType name="WebpageConditionOperator">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="Equals" />
+               <xs:enumeration value="Contains" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="WebpageConditionOperator" nillable="true" type="tns:WebpageConditionOperator" />
          <xs:complexType name="AgeCriterion">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Criterion">
@@ -5040,6 +5070,30 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="StringOperator" nillable="true" type="tns:StringOperator" />
+         <xs:complexType name="NumberRuleItem">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RuleItem">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Operand" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Operator" type="tns:NumberOperator" />
+                     <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="NumberRuleItem" nillable="true" type="tns:NumberRuleItem" />
+         <xs:simpleType name="NumberOperator">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="None" />
+               <xs:enumeration value="Equals" />
+               <xs:enumeration value="GreaterThan" />
+               <xs:enumeration value="LessThan" />
+               <xs:enumeration value="GreaterThanEqualTo" />
+               <xs:enumeration value="LessThanEqualTo" />
+               <xs:enumeration value="NotEquals" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="NumberOperator" nillable="true" type="tns:NumberOperator" />
          <xs:complexType name="PageVisitorsWhoVisitedAnotherPageRule">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:RemarketingRule">
@@ -5079,17 +5133,6 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="CustomEventsRule" nillable="true" type="tns:CustomEventsRule" />
-         <xs:simpleType name="NumberOperator">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="None" />
-               <xs:enumeration value="Equals" />
-               <xs:enumeration value="GreaterThan" />
-               <xs:enumeration value="LessThan" />
-               <xs:enumeration value="GreaterThanEqualTo" />
-               <xs:enumeration value="LessThanEqualTo" />
-            </xs:restriction>
-         </xs:simpleType>
-         <xs:element name="NumberOperator" nillable="true" type="tns:NumberOperator" />
          <xs:complexType name="CustomAudience">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Audience">
@@ -5240,6 +5283,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="NormalForm" />
+                     <xs:enumeration value="NumberRuleItem" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -6054,6 +6098,13 @@
                      <xs:element minOccurs="0" name="NewDemographicTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewDeviceTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewEntities" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewImageAdExtensions" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewKeywordUrls" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewKeywordsForExistingAdGroups" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewLabels" nillable="true" type="xs:boolean" />
@@ -6072,7 +6123,13 @@
                      <xs:element minOccurs="0" name="NewSitelinkAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewUrlOptions" nillable="true" type="xs:boolean" />
-                     <xs:element minOccurs="0" name="PauseAIMAdGroupIfAllAudienceCriterionNotImported" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="PauseAIMAdGroupIfAllAudienceCriterionNotImported" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="PauseCampaignsWithoutSupportedLocations" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="PauseNewCampaigns" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="RaiseBidsToMinimum" nillable="true" type="xs:boolean" />
@@ -6107,6 +6164,13 @@
                      <xs:element minOccurs="0" name="UpdateDemographicTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateDeviceTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateEntities" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="UpdateImageAdExtensions" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="UpdateKeywordUrls" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateLabels" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateLocationAdExtensions" nillable="true" type="xs:boolean" />
@@ -6243,6 +6307,27 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="AdScheduleUseSearcherTimezone">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewImageAdExtensions">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="UpdateImageAdExtensions">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>

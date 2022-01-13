@@ -2027,6 +2027,8 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="Neighborhood" />
+               <xs:enumeration value="QueryIntentNeighborhood" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="UserLocationPerformanceReportColumn" nillable="true" type="tns:UserLocationPerformanceReportColumn" />
@@ -3577,6 +3579,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="Neighborhood" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="GeographicPerformanceReportColumn" nillable="true" type="tns:GeographicPerformanceReportColumn" />
