@@ -1,6 +1,13 @@
 .. :changelog:
 
 Release History
+
+13.0.13(2022-01-14)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Add new fields Operator mapping in WebCondition for BulkAdGroupDynamicSearchAdTarget, BulkAdGroupNegativeDynamicSearchAdTarget and BulkCampaignNegativeDynamicSearchAdTarget.
+* Add NumberRuleItem mapping to BulkRemarketingList.
+
 13.0.12(2021-10-29)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.

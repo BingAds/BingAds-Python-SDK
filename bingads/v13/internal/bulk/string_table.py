@@ -501,6 +501,9 @@ class _StringTable:
     DynamicAdTargetValue2 = "Dynamic Ad Target Value 2"
     DynamicAdTargetCondition3 = "Dynamic Ad Target Condition 3"
     DynamicAdTargetValue3 = "Dynamic Ad Target Value 3"
+    DynamicAdTargetConditionOperator1 = "Dynamic Ad Target Condition Operator 1"
+    DynamicAdTargetConditionOperator2 = "Dynamic Ad Target Condition Operator 2"
+    DynamicAdTargetConditionOperator3 = "Dynamic Ad Target Condition Operator 3"
 
     AdGroupAgeCriterion = "Ad Group Age Criterion"
     AdGroupDayTimeCriterion = "Ad Group DayTime Criterion"

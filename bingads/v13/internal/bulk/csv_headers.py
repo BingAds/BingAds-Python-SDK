@@ -390,6 +390,9 @@ class _CsvHeaders:
         _StringTable.DynamicAdTargetValue2,
         _StringTable.DynamicAdTargetCondition3,
         _StringTable.DynamicAdTargetValue3,
+        _StringTable.DynamicAdTargetConditionOperator1,
+        _StringTable.DynamicAdTargetConditionOperator2,
+        _StringTable.DynamicAdTargetConditionOperator3,
         _StringTable.PageFeedIds,
         _StringTable.FeedId,
 

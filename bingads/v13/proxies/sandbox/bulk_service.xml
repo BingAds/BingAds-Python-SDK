@@ -1698,7 +1698,7 @@
    </wsdl:binding>
    <wsdl:service name="BulkService">
       <wsdl:port name="BasicHttpBinding_IBulkService" binding="tns:BasicHttpBinding_IBulkService">
-         <soap:address location="https://bulk.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/V13/BulkService.svc" />
+         <soap:address location="https://bulk.api.sandbox.bingads.microsoft.com/Api/Advertiser/CampaignManagement/v13/BulkService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>

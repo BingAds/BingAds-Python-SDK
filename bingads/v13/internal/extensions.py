@@ -980,11 +980,13 @@ def entity_to_csv_DSAWebpageParameter(entity, row_values):
             entity.Criterion.Parameter.Conditions.WebpageCondition is not None:
         condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
         value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+        condition_operator_prefix = _StringTable.DynamicAdTargetConditionOperator1[:-1]
 
         conditions = entity.Criterion.Parameter.Conditions.WebpageCondition
         for i in range(0, len(conditions)):
             row_values[condition_prefix + str(i + 1)] = conditions[i].Operand
             row_values[value_prefix + str(i + 1)] = conditions[i].Argument
+            row_values[condition_operator_prefix + str(i + 1)] = conditions[i].Operator
 
 
 def csv_to_entity_DSAWebpageParameter(row_values, entity):
@@ -996,11 +998,13 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
     MAX_NUMBER_OF_CONDITIONS = 3
     condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
     value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
+    condition_operator_prefix = _StringTable.DynamicAdTargetConditionOperator1[:-1]
 
     conditions = []
     for i in range(0, MAX_NUMBER_OF_CONDITIONS):
         condition_success, webpage_condition = row_values.try_get_value(condition_prefix + str(i + 1))
         value_success, webpage_value = row_values.try_get_value(value_prefix + str(i + 1))
+        condition_operator_success, webpage_condition_operator = row_values.try_get_value(condition_operator_prefix + str(i + 1))
         if condition_success and value_success and webpage_condition is not None and webpage_condition != '':
             condition = _CAMPAIGN_OBJECT_FACTORY_V13.create('WebpageCondition')
             if webpage_condition.lower() == 'url':
@@ -1020,6 +1024,8 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
                 if webpage_condition.lower() == 'none':
                     continue
                 raise ValueError("Unknown WebpageConditionOperand value: {0}".format(webpage_condition))
+            if condition_operator_success:
+                condition.Operator = webpage_condition_operator
 
             condition.Argument = webpage_value
             conditions.append(condition)
@@ -1651,19 +1657,28 @@ def parse_rule_items(items_str):
 
 def parse_string_rule_item(item_str):
     item_str = item_str.strip('(').strip(')')
-    pattern_str = r'^(Url|ReferrerUrl|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    pattern_str = r'^(Url|ReferrerUrl|EcommPageType|EcommCategory|EcommProdId|Action|None) (Equals|Contains|BeginsWith|EndsWith|NotEquals|DoesNotContain|DoesNotBeginWith|DoesNotEndWith) ([^()]*)$'
+    number_pattern_str = r'^(EcommTotalValue) (Equals|GreaterThan|LessThan|GreaterThanEqualTo|LessThanEqualTo|NotEquals) ([^()]*)$'
     pattern = re.compile(pattern_str)
+    number_pattern = re.compile(number_pattern_str)
 
     match = pattern.match(item_str)
-
-    if not match:
-        ValueError('Invalid Rule Item:{0}'.format(item_str))
-
-    item = _CAMPAIGN_OBJECT_FACTORY_V13.create('StringRuleItem')
-    item.Type = 'String'
-    item.Operand = match.group(1)
-    item.Operator = parse_string_operator(match.group(2))
-    item.Value = match.group(3)
+    if match:
+        item = _CAMPAIGN_OBJECT_FACTORY_V13.create('StringRuleItem')
+        item.Type = 'String'
+        item.Operand = match.group(1)
+        item.Operator = parse_string_operator(match.group(2))
+        item.Value = match.group(3)
+    else:
+        match = number_pattern.match(item_str)
+        if match:
+            item = _CAMPAIGN_OBJECT_FACTORY_V13.create('NumberRuleItem')
+            item.Type = 'Number'
+            item.Operand = match.group(1)
+            item.Operator = parse_number_operator(match.group(2))
+            item.Value = match.group(3)
+        else:
+            ValueError('Invalid Rule Item:{0}'.format(item_str))
 
     return item
 
@@ -1680,6 +1695,8 @@ def parse_number_operator(operator):
         return NumberOperator.GreaterThanEqualTo
     if oper == 'lessthanequalto':
         return NumberOperator.LessThanEqualTo
+    if oper == 'notequals':
+        return NumberOperator.NotEquals
     raise ValueError('Invalid Number Rule Item operator:{0}'.format(operator))
 
 
