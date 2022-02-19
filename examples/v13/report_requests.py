@@ -216,6 +216,8 @@ def get_report_request(account_id):
     # You can either use a custom date range or predefined time.
     time.PredefinedTime='Yesterday'
     time.ReportTimeZone='PacificTimeUSCanadaTijuana'
+    time.CustomDateRangeStart = None
+    time.CustomDateRangeEnd = None
     return_only_complete_data=False
 
     #BudgetSummaryReportRequest does not contain a definition for Aggregation.
