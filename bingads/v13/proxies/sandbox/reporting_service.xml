@@ -164,6 +164,7 @@
                <xs:enumeration value="LowQualityConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPerformanceReportColumn" nillable="true" type="tns:AccountPerformanceReportColumn" />
@@ -921,6 +922,7 @@
                <xs:enumeration value="LowQualityConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CampaignPerformanceReportColumn" nillable="true" type="tns:CampaignPerformanceReportColumn" />
@@ -1068,6 +1070,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdDynamicTextPerformanceReportColumn" nillable="true" type="tns:AdDynamicTextPerformanceReportColumn" />
@@ -1356,6 +1359,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdGroupPerformanceReportColumn" nillable="true" type="tns:AdGroupPerformanceReportColumn" />
@@ -1470,6 +1474,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdPerformanceReportColumn" nillable="true" type="tns:AdPerformanceReportColumn" />
@@ -1588,6 +1593,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="KeywordPerformanceReportColumn" nillable="true" type="tns:KeywordPerformanceReportColumn" />
@@ -1758,6 +1764,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DestinationUrlPerformanceReportColumn" nillable="true" type="tns:DestinationUrlPerformanceReportColumn" />
@@ -1861,6 +1868,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AgeGenderAudienceReportColumn" nillable="true" type="tns:AgeGenderAudienceReportColumn" />
@@ -1929,6 +1937,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProfessionalDemographicsAudienceReportColumn" nillable="true" type="tns:ProfessionalDemographicsAudienceReportColumn" />
@@ -2029,6 +2038,7 @@
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="Neighborhood" />
                <xs:enumeration value="QueryIntentNeighborhood" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="UserLocationPerformanceReportColumn" nillable="true" type="tns:UserLocationPerformanceReportColumn" />
@@ -2113,6 +2123,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="PublisherUsagePerformanceReportColumn" nillable="true" type="tns:PublisherUsagePerformanceReportColumn" />
@@ -2286,6 +2297,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ConversionPerformanceReportColumn" nillable="true" type="tns:ConversionPerformanceReportColumn" />
@@ -2348,6 +2360,7 @@
                <xs:enumeration value="ViewThroughConversions" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="GoalsAndFunnelsReportColumn" nillable="true" type="tns:GoalsAndFunnelsReportColumn" />
@@ -2740,6 +2753,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AudiencePerformanceReportColumn" nillable="true" type="tns:AudiencePerformanceReportColumn" />
@@ -2918,6 +2932,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ShareOfVoiceReportColumn" nillable="true" type="tns:ShareOfVoiceReportColumn" />
@@ -3047,6 +3062,7 @@
                <xs:enumeration value="ProductBoughtTitle" />
                <xs:enumeration value="GTIN" />
                <xs:enumeration value="MPN" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductDimensionPerformanceReportColumn" nillable="true" type="tns:ProductDimensionPerformanceReportColumn" />
@@ -3157,6 +3173,7 @@
                <xs:enumeration value="AssistedConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductPartitionPerformanceReportColumn" nillable="true" type="tns:ProductPartitionPerformanceReportColumn" />
@@ -3253,6 +3270,7 @@
                <xs:enumeration value="AssistedConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductPartitionUnitPerformanceReportColumn" nillable="true" type="tns:ProductPartitionUnitPerformanceReportColumn" />
@@ -3580,6 +3598,7 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="Neighborhood" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="GeographicPerformanceReportColumn" nillable="true" type="tns:GeographicPerformanceReportColumn" />
@@ -3673,6 +3692,7 @@
                <xs:enumeration value="AverageCpm" />
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
+               <xs:enumeration value="Description" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DSASearchQueryPerformanceReportColumn" nillable="true" type="tns:DSASearchQueryPerformanceReportColumn" />
@@ -3765,6 +3785,8 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="AdId" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DSAAutoTargetPerformanceReportColumn" nillable="true" type="tns:DSAAutoTargetPerformanceReportColumn" />
@@ -3865,6 +3887,7 @@
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DSACategoryPerformanceReportColumn" nillable="true" type="tns:DSACategoryPerformanceReportColumn" />

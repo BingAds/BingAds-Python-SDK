@@ -176,7 +176,12 @@ class _BulkObjectFactory():
         _StringTable.CampaignActionAdExtension: _EntityInfo(lambda: BulkCampaignActionAdExtension()),
         _StringTable.Experiment: _EntityInfo(lambda: BulkExperiment()),
         _StringTable.Feed: _EntityInfo(lambda: BulkFeed()),
-        _StringTable.FeedItem: _EntityInfo(lambda: BulkFeedItem())
+        _StringTable.FeedItem: _EntityInfo(lambda: BulkFeedItem()),
+        _StringTable.CampaignConversionGoal: _EntityInfo(lambda: BulkCampaignConversionGoal()),
+        _StringTable.AdCustomizerAttribute: _EntityInfo(lambda: BulkAdCustomizerAttribute()),
+        _StringTable.AdCustomizerCampaign: _EntityInfo(lambda: BulkCampaignAdCustomizerAttribute()),
+        _StringTable.AdCustomizerAdGroup: _EntityInfo(lambda: BulkAdGroupAdCustomizerAttribute()),
+        _StringTable.AdCustomizerKeyword: _EntityInfo(lambda: BulkKeywordAdCustomizerAttribute()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

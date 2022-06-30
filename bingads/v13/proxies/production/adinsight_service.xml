@@ -1785,6 +1785,1180 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="TrafficEstimate" nillable="true" type="tns:TrafficEstimate" />
+         <xs:element name="GetAutoApplyOptInStatusRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RecommendationTypesInputs" nillable="true" type="q25:ArrayOfstring" xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetAutoApplyOptInStatusResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AutoApplyRecommendationsStatus" nillable="true" type="tns:ArrayOfAutoApplyRecommendationsInfo" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfAutoApplyRecommendationsInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AutoApplyRecommendationsInfo" nillable="true" type="tns:AutoApplyRecommendationsInfo" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAutoApplyRecommendationsInfo" nillable="true" type="tns:ArrayOfAutoApplyRecommendationsInfo" />
+         <xs:complexType name="AutoApplyRecommendationsInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AAROptInStatus" type="xs:boolean" />
+               <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AutoApplyRecommendationsInfo" nillable="true" type="tns:AutoApplyRecommendationsInfo" />
+         <xs:element name="SetAutoApplyOptInStatusRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AutoApplyOptInStatusInputs" nillable="true" type="q26:ArrayOfstring" xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="SetAutoApplyOptInStatusResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetPerformanceInsightsDetailDataByAccountIdRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="EntityType" type="tns:EntityType" />
+                  <xs:element minOccurs="0" name="StartDate" nillable="true" type="tns:DayMonthAndYear" />
+                  <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:DayMonthAndYear" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetPerformanceInsightsDetailDataByAccountIdResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfPerformanceInsightsDetail" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfPerformanceInsightsDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="PerformanceInsightsDetail" nillable="true" type="tns:PerformanceInsightsDetail" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfPerformanceInsightsDetail" nillable="true" type="tns:ArrayOfPerformanceInsightsDetail" />
+         <xs:complexType name="PerformanceInsightsDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="EntityId" type="xs:long" />
+               <xs:element minOccurs="0" name="EntityType" type="tns:EntityType" />
+               <xs:element minOccurs="0" name="KPIType" type="tns:KPIType" />
+               <xs:element minOccurs="0" name="Date" nillable="true" type="tns:DayMonthAndYear" />
+               <xs:element minOccurs="0" name="Description" nillable="true" type="tns:PerformanceInsightsMessage" />
+               <xs:element minOccurs="0" name="RootCauses" nillable="true" type="tns:ArrayOfPerformanceInsightsMessage" />
+               <xs:element minOccurs="0" name="Actions" nillable="true" type="tns:ArrayOfPerformanceInsightsMessage" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="PerformanceInsightsDetail" nillable="true" type="tns:PerformanceInsightsDetail" />
+         <xs:simpleType name="KPIType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Impression">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Click">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Spend">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Conversion">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="KPIType" nillable="true" type="tns:KPIType" />
+         <xs:complexType name="PerformanceInsightsMessage">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="TemplateId" type="tns:PerformanceInsightsMessageTemplateId" />
+               <xs:element minOccurs="0" name="Parameters" nillable="true" type="tns:ArrayOfPerformanceInsightsMessageParameter" />
+               <xs:element minOccurs="0" name="IndentationLevel" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="PerformanceInsightsMessage" nillable="true" type="tns:PerformanceInsightsMessage" />
+         <xs:simpleType name="PerformanceInsightsMessageTemplateId">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="FluxImprIncreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprDecreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseInfinityAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprDecreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseInfinityAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickDecreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseInfinityAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickDecreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseInfinityAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostDecreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseInfinityAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostDecreaseAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseInfinityAcctPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">19</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprDecreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseInfinityCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">22</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprDecreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxImprIncreaseInfinityCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickDecreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">26</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseInfinityCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">27</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">28</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickDecreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">29</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxClickIncreaseInfinityCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">31</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostDecreaseCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseInfinityCampaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">34</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostDecreaseCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">35</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxCostIncreaseInfinityCampaignPrevDay">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">36</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxConversionDecreaseAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">37</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FluxConversionZeroAcct">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">38</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCAudienceIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">39</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCAudienceDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">40</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCBidIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">41</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCBidDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">42</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCBudgetIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">43</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCBudgetDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">44</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCClickIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">45</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCClickDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">46</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCConversionGoalIssue">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">47</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCDeviceTargetingBidChange">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">48</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEditorialApproval">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">49</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEditorialDisapproval">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">50</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEntityAdditionWithCount">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">51</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEntityDeletionWithCount">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">52</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEntityPauseWithCount">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">53</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCEntityUnpauseWithCount">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">54</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCMoreCompetitive">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">55</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCNetworkLessRestrict">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">56</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCNetworkMoreRestrict">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">57</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCPaymentIssueInvoiceAccountPaused">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">58</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCPaymentIssueInvoiceAccountOnHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">59</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCPaymentIssuePrepayAccountPaused">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">60</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCPaymentIssueThresholdAccountOnHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">61</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCPaymentIssueYesterday">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">62</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">63</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermIncreaseClick">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermDecreaseClick">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">66</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermCompetitionIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">67</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermCompetitionIncreaseClick">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">68</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermCompetitionDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">69</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSearchTermCompetitionDecreaseClick">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">70</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignAddition">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">71</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignPause">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">72</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignUnpause">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">73</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignBudgetIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">74</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignBudgetDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">75</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSingleCampaignDeviceTargetingBidChange">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">76</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCStrongerCompetitorAdQuality">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">77</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCStrongerCompetitorBid">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">78</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSyndTrafficIncrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">79</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RCSyndTrafficDecrease">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">80</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActAdsOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">81</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActAllAvailableOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">82</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActBMAdoptionOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">83</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActBMMKeywordOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">84</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCampaignContextKeywordOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">85</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCheckPublisherWebsite">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">86</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCompetitionAuctionInsight">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">87</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCompetitiveBudgetOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">88</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCompetitiveKeywordOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">89</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCompetitiveLocationTargetOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">90</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActCTRQualityBundle">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">91</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActEditorialReviewProcess">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">92</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActFixConversionGoalSettingOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">93</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActFixConversionTrackingOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">94</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActGeneralBudgetOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">95</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActNewConversionGoalOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">96</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActInvoiceAccountPaused">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">97</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActInvoiceAccountOnHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">98</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActPrepayAccountPaused">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">99</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActReallocateBudgetOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">100</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActRepairKeywordsOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">101</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActRSAOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">102</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActSearchTerm">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">103</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActSetupConversionTrackingOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">104</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActSiteLinkOppr">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">105</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActThresholdAccountOnHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">106</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ActWebsiteExclusion">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">107</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="PerformanceInsightsMessageTemplateId" nillable="true" type="tns:PerformanceInsightsMessageTemplateId" />
+         <xs:complexType name="ArrayOfPerformanceInsightsMessageParameter">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="PerformanceInsightsMessageParameter" nillable="true" type="tns:PerformanceInsightsMessageParameter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfPerformanceInsightsMessageParameter" nillable="true" type="tns:ArrayOfPerformanceInsightsMessageParameter" />
+         <xs:complexType name="PerformanceInsightsMessageParameter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Type" type="tns:ParameterType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="PerformanceInsightsMessageParameter" nillable="true" type="tns:PerformanceInsightsMessageParameter" />
+         <xs:simpleType name="ParameterType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Text">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Url">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Entities">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="ParameterType" nillable="true" type="tns:ParameterType" />
+         <xs:complexType name="TextParameter">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:PerformanceInsightsMessageParameter">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="SuggestedText" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="TextParameter" nillable="true" type="tns:TextParameter" />
+         <xs:complexType name="UrlParameter">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:PerformanceInsightsMessageParameter">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="SuggestedText" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="SuggestedUrl" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="UrlCategory" type="tns:PerformanceInsightsUrlCategory" />
+                     <xs:element minOccurs="0" name="UrlId" type="tns:PerformanceInsightsUrlId" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="UrlParameter" nillable="true" type="tns:UrlParameter" />
+         <xs:simpleType name="PerformanceInsightsUrlCategory">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Recommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Setting">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Report">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDoc">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="PerformanceInsightsUrlCategory" nillable="true" type="tns:PerformanceInsightsUrlCategory" />
+         <xs:simpleType name="PerformanceInsightsUrlId">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="RecRecommendationPage">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RecCompetitionPage">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SettingCreateOrder">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SettingRemoveHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SettingAddFunds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ReportSearchTerm">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ReportPublisherWebsite">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ReportAuctionInsights">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocNetworkSetting">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocEditorial">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocWebsiteReport">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocWebsiteExclusion">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocCreateOrder">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocRemoveHold">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">14</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocAddFunds">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HelpDocAudienceNetwork">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="PerformanceInsightsUrlId" nillable="true" type="tns:PerformanceInsightsUrlId" />
+         <xs:complexType name="EntityParameter">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:PerformanceInsightsMessageParameter">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="EntityCount" type="xs:int" />
+                     <xs:element minOccurs="0" name="EntityDetails" nillable="true" type="tns:ArrayOfEntityDetail" />
+                     <xs:element minOccurs="0" name="EntityType" type="tns:PerformanceInsightsEntityType" />
+                     <xs:element minOccurs="0" name="SuggestedText" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="EntityParameter" nillable="true" type="tns:EntityParameter" />
+         <xs:complexType name="ArrayOfEntityDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="EntityDetail" nillable="true" type="tns:EntityDetail" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfEntityDetail" nillable="true" type="tns:ArrayOfEntityDetail" />
+         <xs:complexType name="EntityDetail">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="EntityId" type="xs:long" />
+               <xs:element minOccurs="0" name="EntityName" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="EntityDetail" nillable="true" type="tns:EntityDetail" />
+         <xs:simpleType name="PerformanceInsightsEntityType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Account">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Campaign">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AdGroup">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Keyword">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ProductGroup">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SearchTerm">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Website">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="PerformanceInsightsEntityType" nillable="true" type="tns:PerformanceInsightsEntityType" />
+         <xs:complexType name="ArrayOfPerformanceInsightsMessage">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="PerformanceInsightsMessage" nillable="true" type="tns:PerformanceInsightsMessage" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfPerformanceInsightsMessage" nillable="true" type="tns:ArrayOfPerformanceInsightsMessage" />
       </xs:schema>
       <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -2403,6 +3577,78 @@
    <wsdl:message name="IAdInsightService_GetKeywordTrafficEstimates_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetAutoApplyOptInStatusRequest">
+      <wsdl:part name="parameters" element="tns:GetAutoApplyOptInStatusRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetAutoApplyOptInStatusRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetAutoApplyOptInStatusResponse">
+      <wsdl:part name="parameters" element="tns:GetAutoApplyOptInStatusResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetAutoApplyOptInStatusResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q23:AdApiFaultDetail" xmlns:q23="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="SetAutoApplyOptInStatusRequest">
+      <wsdl:part name="parameters" element="tns:SetAutoApplyOptInStatusRequest" />
+   </wsdl:message>
+   <wsdl:message name="SetAutoApplyOptInStatusRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="SetAutoApplyOptInStatusResponse">
+      <wsdl:part name="parameters" element="tns:SetAutoApplyOptInStatusResponse" />
+   </wsdl:message>
+   <wsdl:message name="SetAutoApplyOptInStatusResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_SetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q24:AdApiFaultDetail" xmlns:q24="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_SetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetPerformanceInsightsDetailDataByAccountIdRequest">
+      <wsdl:part name="parameters" element="tns:GetPerformanceInsightsDetailDataByAccountIdRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetPerformanceInsightsDetailDataByAccountIdRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetPerformanceInsightsDetailDataByAccountIdResponse">
+      <wsdl:part name="parameters" element="tns:GetPerformanceInsightsDetailDataByAccountIdResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetPerformanceInsightsDetailDataByAccountIdResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q25:AdApiFaultDetail" xmlns:q25="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="IAdInsightService">
       <wsdl:operation name="GetBidOpportunities">
          <wsdl:input wsaw:Action="GetBidOpportunities" name="GetBidOpportunitiesRequest" message="tns:GetBidOpportunitiesRequest" />
@@ -2535,6 +3781,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetKeywordTrafficEstimatesResponse" name="GetKeywordTrafficEstimatesResponse" message="tns:GetKeywordTrafficEstimatesResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetKeywordTrafficEstimatesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetKeywordTrafficEstimates_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetKeywordTrafficEstimatesApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetKeywordTrafficEstimates_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetAutoApplyOptInStatus">
+         <wsdl:input wsaw:Action="GetAutoApplyOptInStatus" name="GetAutoApplyOptInStatusRequest" message="tns:GetAutoApplyOptInStatusRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAutoApplyOptInStatusResponse" name="GetAutoApplyOptInStatusResponse" message="tns:GetAutoApplyOptInStatusResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAutoApplyOptInStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAutoApplyOptInStatusApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="SetAutoApplyOptInStatus">
+         <wsdl:input wsaw:Action="SetAutoApplyOptInStatus" name="SetAutoApplyOptInStatusRequest" message="tns:SetAutoApplyOptInStatusRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/SetAutoApplyOptInStatusResponse" name="SetAutoApplyOptInStatusResponse" message="tns:SetAutoApplyOptInStatusResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/SetAutoApplyOptInStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_SetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/SetAutoApplyOptInStatusApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_SetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetPerformanceInsightsDetailDataByAccountId">
+         <wsdl:input wsaw:Action="GetPerformanceInsightsDetailDataByAccountId" name="GetPerformanceInsightsDetailDataByAccountIdRequest" message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdResponse" name="GetPerformanceInsightsDetailDataByAccountIdResponse" message="tns:GetPerformanceInsightsDetailDataByAccountIdResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_IAdInsightService" type="tns:IAdInsightService">
@@ -3037,6 +4301,75 @@
          </wsdl:input>
          <wsdl:output name="GetKeywordTrafficEstimatesResponse">
             <soap:header message="tns:GetKeywordTrafficEstimatesResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetAutoApplyOptInStatus">
+         <soap:operation soapAction="GetAutoApplyOptInStatus" style="document" />
+         <wsdl:input name="GetAutoApplyOptInStatusRequest">
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetAutoApplyOptInStatusRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetAutoApplyOptInStatusResponse">
+            <soap:header message="tns:GetAutoApplyOptInStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="SetAutoApplyOptInStatus">
+         <soap:operation soapAction="SetAutoApplyOptInStatus" style="document" />
+         <wsdl:input name="SetAutoApplyOptInStatusRequest">
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:SetAutoApplyOptInStatusRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="SetAutoApplyOptInStatusResponse">
+            <soap:header message="tns:SetAutoApplyOptInStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetPerformanceInsightsDetailDataByAccountId">
+         <soap:operation soapAction="GetPerformanceInsightsDetailDataByAccountId" style="document" />
+         <wsdl:input name="GetPerformanceInsightsDetailDataByAccountIdRequest">
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetPerformanceInsightsDetailDataByAccountIdResponse">
+            <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

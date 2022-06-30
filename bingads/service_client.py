@@ -1,9 +1,9 @@
 from suds.client import Client, Factory, WebFault, Builder
-from suds.cache import ObjectCache
 from .headerplugin import HeaderPlugin
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT
 from .manifest import USER_AGENT
+from .util import DictCache
 from getpass import getuser
 from tempfile import gettempdir
 from os import path
@@ -11,53 +11,17 @@ from datetime import datetime
 from suds.sudsobject import Factory as SFactory
 
 class BingAdsBuilder (Builder):
-    # copy from https://github.com/suds-community/suds/blob/master/suds/builder.py. Change line 
-    # setattr(data, type.name, value if not type.optional() or type.multi_occurrence() else None)
-    # to 
-    # setattr(data, type.name, value)
-    # to not breaking our customer and bulk mapping.
-    
+    # See https://github.com/suds-community/suds/issues/67 and https://github.com/suds-community/suds/commit/366f7f1616595b9e4163a3f90fc6e84ac0ae23f5
     def __init__(self, resolver):
         """
         @param resolver: A schema object name resolver.
         @type resolver: L{resolver.Resolver}
         """
         self.resolver = resolver
-
     
-    def process(self, data, type, history):
-        """ process the specified type then process its children """
-        if type in history:
-            return
-        if type.enum():
-            return
-        history.append(type)
-        resolved = type.resolve()
-        value = None
-
-        if type.multi_occurrence():
-            value = []
-        else:
-            if len(resolved) > 0:
-                if resolved.mixed():
-                    value = SFactory.property(resolved.name)
-                    md = value.__metadata__
-                    md.sxtype = resolved
-                else:
-                    value = SFactory.object(resolved.name)
-                    md = value.__metadata__
-                    md.sxtype = resolved
-                    md.ordering = self.ordering(resolved)
-
-        setattr(data, type.name, value)
-        if value is not None:
-            data = value
-        if not isinstance(data, list):
-            self.add_attributes(data, resolved)
-            for child, ancestry in resolved.children():
-                if self.skip_child(child, ancestry):
-                    continue
-                self.process(data, child, history[:])
+    def skip_value(self, type):
+        """ whether or not to skip setting the value """
+        return False
 
 
 class ServiceClient:
@@ -83,10 +47,9 @@ class ServiceClient:
         self._version = ServiceClient._format_version(version)
         
 
-        # TODO This is a temp fix for set default suds temp folder with user info, suds development branch has already fixed it.
+        # Use in-memory cache by default.
         if 'cache' not in suds_options:
-            location = path.join(gettempdir(), 'suds', getuser())
-            suds_options['cache'] = ObjectCache(location, days=1)
+            suds_options['cache'] = DictCache()
         # set cachingpolicy to 1 to reuse WSDL cache files, otherwise will only reuse XML files
         if 'cachingpolicy' not in suds_options:
             suds_options['cachingpolicy'] = 1
@@ -348,7 +311,7 @@ from suds.sax.text import Text
 
 # this is used to create entity only. Given the sandbox should have the same contract, we are good to use sandbox wsdl.
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'))
+    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'), cache=DictCache())
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
 _CAMPAIGN_OBJECT_FACTORY_V13.builder = BingAdsBuilder(_CAMPAIGN_OBJECT_FACTORY_V13.builder.resolver)
 

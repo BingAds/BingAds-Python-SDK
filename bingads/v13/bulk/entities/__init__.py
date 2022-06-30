@@ -32,3 +32,9 @@ from .bulk_experiment import *
 from .bulk_image import *
 from .bulk_video import *
 from .feeds import *
+from .bulk_campaign_conversion_goal import *
+from .bulk_ad_customizer_attribute import *
+from .bulk_ad_customizer_attribute_entity_base import *
+from .bulk_ad_customizer_attribute_campaign import *
+from .bulk_ad_customizer_attribute_ad_group import *
+from .bulk_ad_customizer_attribute_keyword import *

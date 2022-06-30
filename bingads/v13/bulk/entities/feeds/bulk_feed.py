@@ -19,7 +19,7 @@ class BulkFeed(_SingleRecordBulkEntity):
     * :class:`.BulkFileWriter`
     """
 
-    def __init__(self, id = None, status=None, account_id=None, sub_type=None, feed_name = None, custom_attr=None):
+    def __init__(self, id = None, status=None, account_id=None, sub_type=None, feed_name = None, custom_attr=None, schedule=None):
         super(BulkFeed, self).__init__()
         self._status = status
         self._account_id = account_id
@@ -27,6 +27,7 @@ class BulkFeed(_SingleRecordBulkEntity):
         self._sub_type = sub_type
         self._name = feed_name
         self._custom_attributes = custom_attr
+        self._schedule = schedule
 
 
     @property
@@ -102,11 +103,24 @@ class BulkFeed(_SingleRecordBulkEntity):
         :rtype: long
         """
         return self._custom_attributes
-
+    
     @custom_attributes.setter
     def custom_attributes(self, value):
         self._custom_attributes = value
 
+    @property
+    def schedule(self):
+        """ the schedule of the feed
+        Corresponds to the 'Schedule' field in the bulk file.
+
+        :rtype: string
+        """
+        return self._schedule
+
+    @schedule.setter
+    def schedule(self, value):
+        self._schedule = value
+ 
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -137,6 +151,11 @@ class BulkFeed(_SingleRecordBulkEntity):
             header=_StringTable.CustomAttributes,
             field_to_csv=lambda c: field_to_csv_CustomAttributes(c.custom_attributes),
             csv_to_field=lambda c, v: csv_to_field_CustomAttributes(c, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Schedule,
+            field_to_csv=lambda c: c.schedule,
+            csv_to_field=lambda c, v: setattr(c, 'schedule', v)
         ),
     ]
 
