@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.13'
+VERSION = '13.0.14'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -11,11 +11,11 @@ with open('HISTORY.rst', 'r') as f:
     history = f.read().replace('.. :changelog:', '')
 
 requirements = [
-    'suds-community>=1.0.0b1',
+    'suds-community>=1.1.0',
     'future',
     'six',
     'requests',
-    'enum34;python_version<"3.4"',
+    'enum34;python_version<"3.9"',
 ]
 
 setup(
@@ -61,5 +61,10 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9'
     ],
 )

@@ -428,7 +428,15 @@ class _CsvHeaders:
         _StringTable.FeedName,
         _StringTable.PhysicalIntent,
         _StringTable.TargetAdGroupId,
-        _StringTable.TargetCampaignId
+        _StringTable.TargetCampaignId,
+        _StringTable.Schedule,
+            
+        # Campaign Conversion Goal
+        _StringTable.GoalId,
+  
+        # RSA AdCustomizer
+        _StringTable.AdCustomizerDataType,
+        _StringTable.AdCustomizerAttributeValue,
     ]
 
     @staticmethod

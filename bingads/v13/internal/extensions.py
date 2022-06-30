@@ -198,7 +198,7 @@ def entity_csv_to_biddingscheme(row_values, entity):
         entity.BiddingScheme.TargetRoas = target_roas_value
     elif bid_strategy_type == 'TargetImpressionShare':
         entity.BiddingScheme.Type = "TargetImpressionShare"
-        entity.BiddingScheme.MaxCpc = maxCpcValue
+        entity.BiddingScheme.MaxCpc = max_cpc_value
         entity.BiddingScheme.TargetImpressionShare = target_impression_share_value
         entity.BiddingScheme.TargetAdPosition = target_ad_position_value
 

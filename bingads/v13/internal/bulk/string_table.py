@@ -93,6 +93,7 @@ class _StringTable:
     AllowImageAutoRetrieve = "Allow Image Auto Retrieve"
     MultiMediaAdBidAdjustment = "Multi Media Ad Bid Adjustment"
     BusinessAttributes = "Business Attributes"
+    Schedule = "Schedule";
 
     # Entity Types
     SemanticVersion = "Format Version"
@@ -597,3 +598,15 @@ class _StringTable:
     CampaignIndustryCriterion = 'Campaign Industry Criterion'
 
     FinalUrlSuffix = "Final Url Suffix"
+    
+    # AdCustomizerAttribute
+    AdCustomizerAttribute = "Adcustomizer Attribute"
+    AdCustomizerCampaign = "Campaign Adcustomizer Attribute"
+    AdCustomizerAdGroup = "Adgroup Adcustomizer Attribute"
+    AdCustomizerKeyword = "Keyword Adcustomizer Attribute"
+    AdCustomizerDataType = "AdCustomizer DataType"
+    AdCustomizerAttributeValue = "AdCustomizer AttributeValue"
+    
+    # Campaign Conversion Goal
+    CampaignConversionGoal = "Campaign Conversion Goal"
+    GoalId = "Goal Id"

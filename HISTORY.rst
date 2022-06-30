@@ -2,6 +2,16 @@
 
 Release History
 
+13.0.14(2022-06-30)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Get rid of the default ObjectCache,and use a in memory cache for ServiceClient. https://github.com/BingAds/BingAds-Python-SDK/pull/108.
+* Add bulk mappings for BulkCampaignConversionGoal.
+* Add bulk mappings for ad customer attribute i.e., BulkAdCustomizerAttribute, BulkCampaignAdCustomizerAttribute, BulkAdGroupAdCustomizerAttribute, BulkKeywordAdCustomizerAttribute.
+* Add mappings for new fields in BulkFeed: Schedule.
+* Fix issue of invalid variable: maxCpcValue. https://github.com/BingAds/BingAds-Python-SDK/pull/200#issuecomment-1085432417.
+* Update suds-community version to 1.1.0.
+
 13.0.13(2022-01-14)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
