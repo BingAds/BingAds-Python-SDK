@@ -8,206 +8,207 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_age\_criterion mod
 -----------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_age_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_biddable\_criterion module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_biddable_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_day\_time\_criterion module
 -----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_day_time_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_device\_criterion module
 --------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_device_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_gender\_criterion module
 --------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_gender_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_location\_criterion module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_location_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_location\_intent\_criterion module
 ------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_location_intent_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_age\_criterion module
 ---------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_age_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_criterion module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_gender\_criterion module
 ------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_gender_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_location\_criterion module
 --------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_location_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_negative\_profile\_criterion module
 -------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_negative_profile_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_profile\_criterion module
 ---------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_profile_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_radius\_criterion module
 --------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_radius_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_age\_criterion module
 ----------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_age_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_biddable\_criterion module
 ---------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_biddable_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_day\_time\_criterion module
 ----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_day_time_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_device\_criterion module
 -------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_device_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_gender\_criterion module
 -------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_gender_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_location\_criterion module
 ---------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_location_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_location\_intent\_criterion module
 -----------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_location_intent_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_negative\_criterion module
 ---------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_negative_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_negative\_location\_criterion module
 -------------------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_negative_location_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_profile\_criterion module
 --------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_profile_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_radius\_criterion module
 -------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_radius_criterion
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:

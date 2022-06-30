@@ -8,14 +8,15 @@ bingads.internal.error\_messages module
 ---------------------------------------
 
 .. automodule:: bingads.internal.error_messages
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
 
 .. automodule:: bingads.internal
-   :members:
-   :undoc-members:
-   :show-inheritance:
+    :members:
+    :undoc-members:
+    :show-inheritance:
