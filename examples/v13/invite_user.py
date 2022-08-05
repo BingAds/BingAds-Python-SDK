@@ -101,8 +101,7 @@ def main(authorization_data):
         for info in users_info['UserInfo']:            
             output_status_message("-----\nGetUser:")
             get_user_response=customer_service.GetUser(
-                UserId=info.Id,
-                IncludeLinkedAccountIds=True)
+                UserId=info.Id)
             user = get_user_response.User
             customer_roles=get_user_response.CustomerRoles
             output_status_message("User:")
