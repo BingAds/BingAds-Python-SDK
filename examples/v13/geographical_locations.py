@@ -1,4 +1,6 @@
-import urllib2
+import urllib3 as urllib
+from urllib.error import URLError
+from urllib.request import urlopen, Request
 
 from auth_helper import *
 from campaignmanagement_example_helper import *
@@ -29,14 +31,14 @@ def main(authorization_data):
         output_status_message("FileUrlExpiryTimeUtc: {0}".format(get_geo_locations_file_url_response.FileUrlExpiryTimeUtc))
         output_status_message("LastModifiedTimeUtc: {0}".format(get_geo_locations_file_url_response.LastModifiedTimeUtc))
 
-        request=urllib2.Request(get_geo_locations_file_url_response.FileUrl)
-        response=urllib2.urlopen(request)
+        request=Request(get_geo_locations_file_url_response.FileUrl)
+        response=urlopen(request)
                 
         if response.getcode() == 200:
             download_file(response)
             output_status_message("Downloaded the geographical locations to {0}.".format(LOCAL_FILE))
 
-    except urllib2.URLError as ex:
+    except URLError as ex:
         if hasattr(ex, 'code'):
             output_status_message("Error code: {0}".format(ex.code))
         elif hasattr(ex, 'reason'):
