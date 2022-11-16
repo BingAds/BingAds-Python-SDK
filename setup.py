@@ -15,7 +15,7 @@ requirements = [
     'future',
     'six',
     'requests',
-    'enum34;python_version<"3.9"',
+    'enum34;python_version<"3.4"',
 ]
 
 setup(
