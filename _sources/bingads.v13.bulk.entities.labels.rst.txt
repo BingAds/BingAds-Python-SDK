@@ -8,23 +8,22 @@ bingads.v13.bulk.entities.labels.bulk\_label module
 ---------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.labels.bulk_label
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 bingads.v13.bulk.entities.labels.bulk\_label\_associations module
 -----------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.labels.bulk_label_associations
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: bingads.v13.bulk.entities.labels
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

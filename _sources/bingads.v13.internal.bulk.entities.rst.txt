@@ -8,31 +8,30 @@ bingads.v13.internal.bulk.entities.bulk\_entity\_identifier module
 ------------------------------------------------------------------
 
 .. automodule:: bingads.v13.internal.bulk.entities.bulk_entity_identifier
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 bingads.v13.internal.bulk.entities.multi\_record\_bulk\_entity module
 ---------------------------------------------------------------------
 
 .. automodule:: bingads.v13.internal.bulk.entities.multi_record_bulk_entity
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 bingads.v13.internal.bulk.entities.single\_record\_bulk\_entity module
 ----------------------------------------------------------------------
 
 .. automodule:: bingads.v13.internal.bulk.entities.single_record_bulk_entity
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------
 
 .. automodule:: bingads.v13.internal.bulk.entities
-    :members:
-    :undoc-members:
-    :show-inheritance:
+   :members:
+   :undoc-members:
+   :show-inheritance:

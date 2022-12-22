@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/classic.css" />
+    
+    <script data-url_root="../../../../../../" id="documentation_options" src="../../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../../_static/jquery.js"></script>
+    <script src="../../../../../../_static/underscore.js"></script>
+    <script src="../../../../../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
+
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdExtensionBase</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkCampaignAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAdGroupAdExtensionAssociation</span>
+<span class="kn">from</span> <span class="nn">.common</span> <span class="kn">import</span> <span class="n">_BulkAccountAdExtensionAssociation</span>
+
+<span class="n">_VideoAdExtension</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;VideoAdExtension&#39;</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="BulkVideoAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkVideoAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkVideoAdExtension</span><span class="p">(</span><span class="n">_BulkAdExtensionBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a video ad extension.</span>
+
+<span class="sd">    This class exposes the :attr:`video_ad_extension` property that can be read and written</span>
+<span class="sd">    as fields of the Video Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Video Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ad_extension</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ad_extension</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">,</span> <span class="n">_VideoAdExtension</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The type of ad_extension is: </span><span class="si">{0}</span><span class="s1">, should be: </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="nb">type</span><span class="p">(</span><span class="n">ad_extension</span><span class="p">),</span>
+                <span class="s1">&#39;VideoAdExtension&#39;</span>
+            <span class="p">))</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkVideoAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">account_id</span><span class="o">=</span><span class="n">account_id</span><span class="p">,</span>
+            <span class="n">ad_extension</span><span class="o">=</span><span class="n">ad_extension</span>
+        <span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">video_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The video ad extension.</span>
+
+<span class="sd">        see Video Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span>
+
+    <span class="nd">@video_ad_extension</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">video_ad_extension</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad_extension</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Name</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">DisplayText</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">DisplayText</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;DisplayText&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AltText</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">AlternativeText</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;AlternativeText&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ActionText</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">ActionText</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;ActionText&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ThumbnailUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">ThumbnailUrl</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;ThumbnailUrl&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ThumbnailId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">ThumbnailId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;ThumbnailId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">VideoId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">VideoId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;VideoId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>        
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrlSuffix</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">FinalUrlSuffix</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;FinalUrlSuffix&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">TrackingTemplate</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">TrackingUrlTemplate</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;TrackingUrlTemplate&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">CustomParameter</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_UrlCustomParameters</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_UrlCustomParameters</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">FinalUrls</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalMobileUrl</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_Urls</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">FinalMobileUrls</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+
+<div class="viewcode-block" id="BulkVideoAdExtension.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkVideoAdExtension.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_ad_extension</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;VideoAdExtension&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="o">.</span><span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;VideoAdExtension&#39;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkVideoAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_from_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">)</span>
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkVideoAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkVideoAdExtension.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkVideoAdExtension.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_ad_extension</span><span class="p">,</span> <span class="s1">&#39;video_ad_extension&#39;</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkVideoAdExtension</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process_mappings_to_row_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkVideoAdExtension</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="BulkAccountVideoAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkAccountVideoAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAccountVideoAdExtension</span><span class="p">(</span><span class="n">_BulkAccountAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an account level video ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Account Video Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Account Video Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="BulkCampaignVideoAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkCampaignVideoAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkCampaignVideoAdExtension</span><span class="p">(</span><span class="n">_BulkCampaignAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents a campaign level video ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Campaign Video Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Campaign Video Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="BulkAdGroupVideoAdExtension"><a class="viewcode-back" href="../../../../../../bingads.v13.bulk.entities.ad_extensions.html#bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions.BulkAdGroupVideoAdExtension">[docs]</a><span class="k">class</span> <span class="nc">BulkAdGroupVideoAdExtension</span><span class="p">(</span><span class="n">_BulkAdGroupAdExtensionAssociation</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an ad group level video ad extension.</span>
+
+<span class="sd">    This class exposes properties that can be read and written</span>
+<span class="sd">    as fields of the Ad Group Video Ad Extension record in a bulk file.</span>
+
+<span class="sd">    For more information, see Ad Group Video Ad Extension at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.ad_extensions.bulk_video_ad_extensions</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>
