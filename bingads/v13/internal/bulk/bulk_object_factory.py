@@ -1,4 +1,16 @@
 from bingads.v13.bulk.entities import *
+from bingads.v13.bulk.entities.bulk_ad_group_hotel_listing_group import BulkAdGroupHotelListingGroup
+from bingads.v13.bulk.entities.bulk_online_conversion_adjustment import BulkOnlineConversionAdjustment
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_hotel_advance_booking_window_criterion import \
+    BulkAdGroupHotelAdvanceBookingWindowCriterion
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_hotel_check_in_date_criterion import \
+    BulkAdGroupHotelCheckInDateCriterion
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_hotel_check_in_day_criterion import \
+    BulkAdGroupHotelCheckInDayCriterion
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_hotel_date_selection_type_criterion import \
+    BulkAdGroupHotelDateSelectionTypeCriterion
+from bingads.v13.bulk.entities.target_criterions.bulk_ad_group_hotel_length_of_stay_criterion import \
+    BulkAdGroupHotelLengthOfStayCriterion
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.bulk.entity_info import _EntityInfo
 from bingads.v13.bulk.entities.bulk_negative_sites import _BulkAdGroupNegativeSitesIdentifier, \
@@ -19,7 +31,7 @@ class _BulkObjectFactory():
         _StringTable.VideoAdExtension: _EntityInfo(lambda: BulkVideoAdExtension()),
         _StringTable.AccountVideoAdExtension: _EntityInfo(lambda: BulkAccountVideoAdExtension()),
         _StringTable.CampaignVideoAdExtension: _EntityInfo(lambda: BulkCampaignVideoAdExtension()),
-        _StringTable.AdGroupVideoAdExtension: _EntityInfo(lambda: BulkAdGroupVideoAdExtension()),        
+        _StringTable.AdGroupVideoAdExtension: _EntityInfo(lambda: BulkAdGroupVideoAdExtension()),
         _StringTable.CallAdExtension: _EntityInfo(lambda: BulkCallAdExtension()),
         _StringTable.CampaignCallAdExtension: _EntityInfo(lambda: BulkCampaignCallAdExtension()),
         _StringTable.FlyerAdExtension: _EntityInfo(lambda: BulkFlyerAdExtension()),
@@ -92,6 +104,7 @@ class _BulkObjectFactory():
         _StringTable.AdGroupNegativeKeyword: _EntityInfo(lambda: BulkAdGroupNegativeKeyword()),
         'Campaign Product Scope': _EntityInfo(lambda : BulkCampaignProductScope()),
         'Ad Group Product Partition': _EntityInfo(lambda : BulkAdGroupProductPartition()),
+        'Ad Group Hotel Listing Group': _EntityInfo(lambda : BulkAdGroupHotelListingGroup()),
         _StringTable.RemarketingList: _EntityInfo(lambda : BulkRemarketingList()),
         _StringTable.AdGroupRemarketingListAssociation: _EntityInfo(lambda : BulkAdGroupRemarketingListAssociation()),
         _StringTable.AdGroupNegativeRemarketingListAssociation: _EntityInfo(lambda : BulkAdGroupNegativeRemarketingListAssociation()),
@@ -119,6 +132,12 @@ class _BulkObjectFactory():
         'Ad Group Location Intent Criterion': _EntityInfo(lambda: BulkAdGroupLocationIntentCriterion()),
         'Ad Group Negative Location Criterion': _EntityInfo(lambda: BulkAdGroupNegativeLocationCriterion()),
         'Ad Group Radius Criterion': _EntityInfo(lambda: BulkAdGroupRadiusCriterion()),
+
+        _StringTable.AdGroupAdvanceBookingWindowCriterion: _EntityInfo(lambda: BulkAdGroupHotelAdvanceBookingWindowCriterion()),
+        _StringTable.AdGroupCheckInDateCriterion: _EntityInfo(lambda: BulkAdGroupHotelCheckInDateCriterion()),
+        _StringTable.AdGroupCheckInDayCriterion: _EntityInfo(lambda: BulkAdGroupHotelCheckInDayCriterion()),
+        _StringTable.AdGroupHotelDateSelectionTypeCriterion: _EntityInfo(lambda: BulkAdGroupHotelDateSelectionTypeCriterion()),
+        _StringTable.AdGroupLengthOfStayCriterion: _EntityInfo(lambda: BulkAdGroupHotelLengthOfStayCriterion()),
         _StringTable.CampaignAgeCriterion: _EntityInfo(lambda: BulkCampaignAgeCriterion()),
         _StringTable.CampaignDayTimeCriterion: _EntityInfo(lambda: BulkCampaignDayTimeCriterion()),
         _StringTable.CampaignDeviceOSCriterion: _EntityInfo(lambda: BulkCampaignDeviceCriterion()),
@@ -129,9 +148,9 @@ class _BulkObjectFactory():
         _StringTable.CampaignRadiusCriterion: _EntityInfo(lambda: BulkCampaignRadiusCriterion()),
         _StringTable.CampaignCompanyNameCriterion: _EntityInfo(lambda: BulkCampaignCompanyNameCriterion()),
         _StringTable.CampaignJobFunctionCriterion: _EntityInfo(lambda: BulkCampaignJobFunctionCriterion()),
-        _StringTable.CampaignIndustryCriterion: _EntityInfo(lambda: BulkCampaignIndustryCriterion()),        
-        _StringTable.CombinedList: _EntityInfo(lambda: BulkCombinedList()),    
-        _StringTable.CustomerList: _EntityInfo(lambda: BulkCustomerList()),  
+        _StringTable.CampaignIndustryCriterion: _EntityInfo(lambda: BulkCampaignIndustryCriterion()),
+        _StringTable.CombinedList: _EntityInfo(lambda: BulkCombinedList()),
+        _StringTable.CustomerList: _EntityInfo(lambda: BulkCustomerList()),
         _StringTable.CustomerListItem: _EntityInfo(lambda: BulkCustomerListItem()),
         _StringTable.ProductAudience: _EntityInfo(lambda: BulkProductAudience()),
         _StringTable.AdGroupProductAudienceAssociation: _EntityInfo(lambda: BulkAdGroupProductAudienceAssociation()),
@@ -165,6 +184,7 @@ class _BulkObjectFactory():
         _StringTable.ResponsiveAdLabel: _EntityInfo(lambda: BulkResponsiveAdLabel()),
         _StringTable.ResponsiveSearchAdLabel: _EntityInfo(lambda: BulkResponsiveSearchAdLabel()),
         _StringTable.OfflineConversion: _EntityInfo(lambda: BulkOfflineConversion()),
+        _StringTable.OnlineConversionAdjustment: _EntityInfo(lambda: BulkOnlineConversionAdjustment()),
         _StringTable.SimilarRemarketingList: _EntityInfo(lambda: BulkSimilarRemarketingList()),
         _StringTable.AdGroupSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupSimilarRemarketingListAssociation()),
         _StringTable.AdGroupNegativeSimilarRemarketingListAssociation: _EntityInfo(lambda: BulkAdGroupNegativeSimilarRemarketingListAssociation()),

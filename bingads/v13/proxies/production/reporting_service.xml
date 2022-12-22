@@ -165,6 +165,17 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="VideoViews" />
+               <xs:enumeration value="ViewThroughRate" />
+               <xs:enumeration value="AverageCPV" />
+               <xs:enumeration value="VideoViewsAt25Percent" />
+               <xs:enumeration value="VideoViewsAt50Percent" />
+               <xs:enumeration value="VideoViewsAt75Percent" />
+               <xs:enumeration value="CompletedVideoViews" />
+               <xs:enumeration value="VideoCompletionRate" />
+               <xs:enumeration value="TotalWatchTimeInMS" />
+               <xs:enumeration value="AverageWatchTimePerVideoView" />
+               <xs:enumeration value="AverageWatchTimePerImpression" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPerformanceReportColumn" nillable="true" type="tns:AccountPerformanceReportColumn" />
@@ -923,6 +934,17 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="VideoViews" />
+               <xs:enumeration value="ViewThroughRate" />
+               <xs:enumeration value="AverageCPV" />
+               <xs:enumeration value="VideoViewsAt25Percent" />
+               <xs:enumeration value="VideoViewsAt50Percent" />
+               <xs:enumeration value="VideoViewsAt75Percent" />
+               <xs:enumeration value="CompletedVideoViews" />
+               <xs:enumeration value="VideoCompletionRate" />
+               <xs:enumeration value="TotalWatchTimeInMS" />
+               <xs:enumeration value="AverageWatchTimePerVideoView" />
+               <xs:enumeration value="AverageWatchTimePerImpression" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CampaignPerformanceReportColumn" nillable="true" type="tns:CampaignPerformanceReportColumn" />
@@ -1360,6 +1382,17 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="VideoViews" />
+               <xs:enumeration value="ViewThroughRate" />
+               <xs:enumeration value="AverageCPV" />
+               <xs:enumeration value="VideoViewsAt25Percent" />
+               <xs:enumeration value="VideoViewsAt50Percent" />
+               <xs:enumeration value="VideoViewsAt75Percent" />
+               <xs:enumeration value="CompletedVideoViews" />
+               <xs:enumeration value="VideoCompletionRate" />
+               <xs:enumeration value="TotalWatchTimeInMS" />
+               <xs:enumeration value="AverageWatchTimePerVideoView" />
+               <xs:enumeration value="AverageWatchTimePerImpression" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdGroupPerformanceReportColumn" nillable="true" type="tns:AdGroupPerformanceReportColumn" />
@@ -1475,6 +1508,17 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="VideoViews" />
+               <xs:enumeration value="ViewThroughRate" />
+               <xs:enumeration value="AverageCPV" />
+               <xs:enumeration value="VideoViewsAt25Percent" />
+               <xs:enumeration value="VideoViewsAt50Percent" />
+               <xs:enumeration value="VideoViewsAt75Percent" />
+               <xs:enumeration value="CompletedVideoViews" />
+               <xs:enumeration value="VideoCompletionRate" />
+               <xs:enumeration value="TotalWatchTimeInMS" />
+               <xs:enumeration value="AverageWatchTimePerVideoView" />
+               <xs:enumeration value="AverageWatchTimePerImpression" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdPerformanceReportColumn" nillable="true" type="tns:AdPerformanceReportColumn" />
@@ -2298,6 +2342,7 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ConversionPerformanceReportColumn" nillable="true" type="tns:ConversionPerformanceReportColumn" />
@@ -3063,6 +3108,7 @@
                <xs:enumeration value="GTIN" />
                <xs:enumeration value="MPN" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductDimensionPerformanceReportColumn" nillable="true" type="tns:ProductDimensionPerformanceReportColumn" />
@@ -3901,6 +3947,183 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="DSACategoryPerformanceReportFilter" nillable="true" type="tns:DSACategoryPerformanceReportFilter" />
+         <xs:complexType name="HotelDimensionPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfHotelDimensionPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:HotelDimensionPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAdGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="HotelDimensionPerformanceReportRequest" nillable="true" type="tns:HotelDimensionPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfHotelDimensionPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelDimensionPerformanceReportColumn" type="tns:HotelDimensionPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHotelDimensionPerformanceReportColumn" nillable="true" type="tns:ArrayOfHotelDimensionPerformanceReportColumn" />
+         <xs:simpleType name="HotelDimensionPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="CustomerId" />
+               <xs:enumeration value="CustomerName" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="AdGroupId" />
+               <xs:enumeration value="AdGroupName" />
+               <xs:enumeration value="AdId" />
+               <xs:enumeration value="AccountStatus" />
+               <xs:enumeration value="CampaignStatus" />
+               <xs:enumeration value="AdGroupStatus" />
+               <xs:enumeration value="SourceHotelId" />
+               <xs:enumeration value="CampaignHotelId" />
+               <xs:enumeration value="AdvertiserHotelId" />
+               <xs:enumeration value="HotelName" />
+               <xs:enumeration value="CountryName" />
+               <xs:enumeration value="State" />
+               <xs:enumeration value="City" />
+               <xs:enumeration value="Brand" />
+               <xs:enumeration value="Category" />
+               <xs:enumeration value="StarRating" />
+               <xs:enumeration value="CustomLabel0" />
+               <xs:enumeration value="CustomLabel1" />
+               <xs:enumeration value="CustomLabel2" />
+               <xs:enumeration value="CustomLabel3" />
+               <xs:enumeration value="CustomLabel4" />
+               <xs:enumeration value="BidStrategyType" />
+               <xs:enumeration value="DeviceType" />
+               <xs:enumeration value="CurrencyCode" />
+               <xs:enumeration value="CustomParameters" />
+               <xs:enumeration value="FinalUrlSuffix" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="AverageCpc" />
+               <xs:enumeration value="AverageCpm" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="NetRevenue" />
+               <xs:enumeration value="GrossReturnOnAdSpend" />
+               <xs:enumeration value="NetReturnOnAdSpend" />
+               <xs:enumeration value="CostPerAssist" />
+               <xs:enumeration value="BookedLengthOfStay" />
+               <xs:enumeration value="AvgBookedABW" />
+               <xs:enumeration value="AvgBookedNights" />
+               <xs:enumeration value="BookedABW" />
+               <xs:enumeration value="CheckInDate" />
+               <xs:enumeration value="DateType" />
+               <xs:enumeration value="PartnerImpressions" />
+               <xs:enumeration value="EligibleImpressions" />
+               <xs:enumeration value="MissedImpressions" />
+               <xs:enumeration value="ImpressionShare" />
+               <xs:enumeration value="MissedImpressionsNoBid" />
+               <xs:enumeration value="MissedImpressionsSpendingCapReached" />
+               <xs:enumeration value="MissedImpressionsNoTax" />
+               <xs:enumeration value="MissedImpressionsOther" />
+               <xs:enumeration value="CheckInDateDayOfWeek" />
+               <xs:enumeration value="LengthOfStay" />
+               <xs:enumeration value="AdvancedBookingWindow" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="HotelDimensionPerformanceReportColumn" nillable="true" type="tns:HotelDimensionPerformanceReportColumn" />
+         <xs:complexType name="HotelDimensionPerformanceReportFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
+               <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+               <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HotelDimensionPerformanceReportFilter" nillable="true" type="tns:HotelDimensionPerformanceReportFilter" />
+         <xs:complexType name="HotelGroupPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfHotelGroupPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:HotelGroupPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAdGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="HotelGroupPerformanceReportRequest" nillable="true" type="tns:HotelGroupPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfHotelGroupPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HotelGroupPerformanceReportColumn" type="tns:HotelGroupPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHotelGroupPerformanceReportColumn" nillable="true" type="tns:ArrayOfHotelGroupPerformanceReportColumn" />
+         <xs:simpleType name="HotelGroupPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="CustomerId" />
+               <xs:enumeration value="CustomerName" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="AdGroupId" />
+               <xs:enumeration value="AdGroupName" />
+               <xs:enumeration value="AdId" />
+               <xs:enumeration value="AccountStatus" />
+               <xs:enumeration value="CampaignStatus" />
+               <xs:enumeration value="AdGroupStatus" />
+               <xs:enumeration value="HotelGroup" />
+               <xs:enumeration value="HotelGroupNodeId" />
+               <xs:enumeration value="PartitionType" />
+               <xs:enumeration value="BidStrategyType" />
+               <xs:enumeration value="DeviceType" />
+               <xs:enumeration value="CurrencyCode" />
+               <xs:enumeration value="CustomParameters" />
+               <xs:enumeration value="FinalUrlSuffix" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="AverageCpc" />
+               <xs:enumeration value="AverageCpm" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="NetRevenue" />
+               <xs:enumeration value="GrossReturnOnAdSpend" />
+               <xs:enumeration value="NetReturnOnAdSpend" />
+               <xs:enumeration value="CostPerAssist" />
+               <xs:enumeration value="BookedLengthOfStay" />
+               <xs:enumeration value="AvgBookedABW" />
+               <xs:enumeration value="AvgBookedNights" />
+               <xs:enumeration value="BookedABW" />
+               <xs:enumeration value="CheckInDate" />
+               <xs:enumeration value="DateType" />
+               <xs:enumeration value="PartnerImpressions" />
+               <xs:enumeration value="EligibleImpressions" />
+               <xs:enumeration value="MissedImpressions" />
+               <xs:enumeration value="ImpressionShare" />
+               <xs:enumeration value="MissedImpressionsNoBid" />
+               <xs:enumeration value="MissedImpressionsSpendingCapReached" />
+               <xs:enumeration value="MissedImpressionsNoTax" />
+               <xs:enumeration value="MissedImpressionsOther" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="HotelGroupPerformanceReportColumn" nillable="true" type="tns:HotelGroupPerformanceReportColumn" />
+         <xs:complexType name="HotelGroupPerformanceReportFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
+               <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+               <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HotelGroupPerformanceReportFilter" nillable="true" type="tns:HotelGroupPerformanceReportFilter" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />

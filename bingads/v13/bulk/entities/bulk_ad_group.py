@@ -14,7 +14,7 @@ def coop_setting_to_csv(bulk_ad_group, row_values):
         return
     if len(settings) != 1:
         raise ValueError('Can only have 1 CoOpSetting in AdGroup Settings.')
-    
+
     row_values[_StringTable.MaximumBid] = settings[0].BidMaxValue
     row_values[_StringTable.BidBoostValue] = settings[0].BidBoostValue
     row_values[_StringTable.BidOption] = settings[0].BidOption
@@ -24,7 +24,7 @@ def csv_to_coop_setting(row_values, bulk_ad_group):
     maximum_bid_success, maximum_bid = row_values.try_get_value(_StringTable.MaximumBid)
     bid_boost_value_success, bid_boost_value = row_values.try_get_value(_StringTable.BidBoostValue)
     bid_option_success, bid_option = row_values.try_get_value(_StringTable.BidOption)
-    
+
     if maximum_bid_success or bid_boost_value_success or bid_option_success:
         coop_setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting')
         coop_setting.Type = 'CoOpSetting'
@@ -242,7 +242,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_optional_str(c.ad_group.FinalUrlSuffix, c.ad_group.Id),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'FinalUrlSuffix', v)
         ),
-        
+
         _SimpleBulkMapping(
             header=_StringTable.AdScheduleUseSearcherTimeZone,
             field_to_csv=lambda c: field_to_csv_UseSearcherTimeZone(c.ad_group.AdScheduleUseSearcherTimeZone, None),
@@ -262,9 +262,29 @@ class BulkAdGroup(_SingleRecordBulkEntity):
                 int(v) if v else None
             )
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.UseOptimizedTargeting,
+            field_to_csv=lambda c: field_to_csv_bool(c.ad_group.UseOptimizedTargeting),
+            csv_to_field=lambda c, v: setattr(c.ad_group, 'UseOptimizedTargeting', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.HotelAdGroupType,
+            field_to_csv=lambda c: hotel_setting_to_csv(c.ad_group),
+            csv_to_field=lambda c, v: csv_to_hotel_setting(c.ad_group, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CommissionRate,
+            field_to_csv=lambda c: bulk_str(c.ad_group.CommissionRate.RateAmount.Amount),
+            csv_to_field=lambda c, v: csv_to_commission_rate(c.ad_group, v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.PercentCpcBid,
+            field_to_csv=lambda c: bulk_str(c.ad_group.PercentCpcBid.RateAmount.Amount),
+            csv_to_field=lambda c, v: csv_to_percent_cpc_bid(c.ad_group, v)
+        )
     ]
-    
-    
+
+
     def process_mappings_from_row_values(self, row_values):
         self.ad_group = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdGroup')
 

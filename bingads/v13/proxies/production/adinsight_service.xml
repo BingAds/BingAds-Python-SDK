@@ -2959,6 +2959,124 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfPerformanceInsightsMessage" nillable="true" type="tns:ArrayOfPerformanceInsightsMessage" />
+         <xs:element name="GetRecommendationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="CampaignId" nillable="true" type="xs:long" />
+                  <xs:element minOccurs="0" name="AdGroupId" nillable="true" type="xs:long" />
+                  <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetRecommendationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Recommendations" nillable="true" type="tns:ArrayOfRecommendation" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfRecommendation">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Recommendation" nillable="true" type="tns:Recommendation" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfRecommendation" nillable="true" type="tns:ArrayOfRecommendation" />
+         <xs:complexType name="Recommendation">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AdGroupId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CampaignId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentClicks" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentConversions" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentCost" type="xs:double" />
+               <xs:element minOccurs="0" name="CurrentImpressions" type="xs:long" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInClicks" type="xs:long" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInConversions" type="xs:long" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInCost" type="xs:double" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInImpressions" type="xs:long" />
+               <xs:element minOccurs="0" name="RecommendationHash" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationId" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Recommendation" nillable="true" type="tns:Recommendation" />
+         <xs:complexType name="ResponsiveSearchAdsRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Recommendation">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="SuggestedAd" nillable="true" type="tns:SuggestedResponsiveSearchAd" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ResponsiveSearchAdsRecommendation" nillable="true" type="tns:ResponsiveSearchAdsRecommendation" />
+         <xs:complexType name="SuggestedResponsiveSearchAd">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Descriptions" nillable="true" type="q27:ArrayOfstring" xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element minOccurs="0" name="FinalUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Headlines" nillable="true" type="q28:ArrayOfstring" xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SuggestedResponsiveSearchAd" nillable="true" type="tns:SuggestedResponsiveSearchAd" />
+         <xs:element name="TagRecommendationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="RecommendationsInfo" nillable="true" type="tns:ArrayOfRecommendationInfo" />
+                  <xs:element minOccurs="0" name="Lable" nillable="true" type="xs:string" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfRecommendationInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="RecommendationInfo" nillable="true" type="tns:RecommendationInfo" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfRecommendationInfo" nillable="true" type="tns:ArrayOfRecommendationInfo" />
+         <xs:complexType name="RecommendationInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="RecommendationHash" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationId" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="RecommendationInfo" nillable="true" type="tns:RecommendationInfo" />
+         <xs:element name="TagRecommendationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetTextAssetSuggestionsByFinalUrlsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="FinalUrls" nillable="true" type="q29:ArrayOfstring" xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetTextAssetSuggestionsByFinalUrlsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="TextAssetSuggestions" nillable="true" type="tns:ArrayOfTextAssetSuggestions" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfTextAssetSuggestions">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="TextAssetSuggestions" nillable="true" type="tns:TextAssetSuggestions" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfTextAssetSuggestions" nillable="true" type="tns:ArrayOfTextAssetSuggestions" />
+         <xs:complexType name="TextAssetSuggestions">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="FinalUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TextAssets" nillable="true" type="q30:ArrayOfstring" xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="TextAssetSuggestions" nillable="true" type="tns:TextAssetSuggestions" />
       </xs:schema>
       <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -3047,6 +3165,19 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+      </xs:schema>
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.BingAds.Advertiser.AdInsight.Api.DataContract.V13.Entity" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.BingAds.Advertiser.AdInsight.Api.DataContract.V13.Entity">
+         <xs:import namespace="https://bingads.microsoft.com/AdInsight/v13" />
+         <xs:complexType name="RSARecommendationInfo">
+            <xs:complexContent mixed="false">
+               <xs:extension base="q1:RecommendationInfo" xmlns:q1="https://bingads.microsoft.com/AdInsight/v13">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AdId" nillable="true" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="RSARecommendationInfo" nillable="true" type="tns:RSARecommendationInfo" />
       </xs:schema>
    </wsdl:types>
    <wsdl:message name="GetBidOpportunitiesRequest">
@@ -3649,6 +3780,78 @@
    <wsdl:message name="IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetRecommendationsRequest">
+      <wsdl:part name="parameters" element="tns:GetRecommendationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetRecommendationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetRecommendationsResponse">
+      <wsdl:part name="parameters" element="tns:GetRecommendationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetRecommendationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetRecommendations_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q26:AdApiFaultDetail" xmlns:q26="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetRecommendations_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="TagRecommendationsRequest">
+      <wsdl:part name="parameters" element="tns:TagRecommendationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="TagRecommendationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="TagRecommendationsResponse">
+      <wsdl:part name="parameters" element="tns:TagRecommendationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="TagRecommendationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_TagRecommendations_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q27:AdApiFaultDetail" xmlns:q27="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_TagRecommendations_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetTextAssetSuggestionsByFinalUrlsRequest">
+      <wsdl:part name="parameters" element="tns:GetTextAssetSuggestionsByFinalUrlsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetTextAssetSuggestionsByFinalUrlsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetTextAssetSuggestionsByFinalUrlsResponse">
+      <wsdl:part name="parameters" element="tns:GetTextAssetSuggestionsByFinalUrlsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetTextAssetSuggestionsByFinalUrlsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetTextAssetSuggestionsByFinalUrls_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="q28:AdApiFaultDetail" xmlns:q28="https://adapi.microsoft.com" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetTextAssetSuggestionsByFinalUrls_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="IAdInsightService">
       <wsdl:operation name="GetBidOpportunities">
          <wsdl:input wsaw:Action="GetBidOpportunities" name="GetBidOpportunitiesRequest" message="tns:GetBidOpportunitiesRequest" />
@@ -3799,6 +4002,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdResponse" name="GetPerformanceInsightsDetailDataByAccountIdResponse" message="tns:GetPerformanceInsightsDetailDataByAccountIdResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetPerformanceInsightsDetailDataByAccountIdApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetRecommendations">
+         <wsdl:input wsaw:Action="GetRecommendations" name="GetRecommendationsRequest" message="tns:GetRecommendationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetRecommendationsResponse" name="GetRecommendationsResponse" message="tns:GetRecommendationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetRecommendations_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetRecommendations_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="TagRecommendations">
+         <wsdl:input wsaw:Action="TagRecommendations" name="TagRecommendationsRequest" message="tns:TagRecommendationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/TagRecommendationsResponse" name="TagRecommendationsResponse" message="tns:TagRecommendationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/TagRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_TagRecommendations_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/TagRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_TagRecommendations_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetTextAssetSuggestionsByFinalUrls">
+         <wsdl:input wsaw:Action="GetTextAssetSuggestionsByFinalUrls" name="GetTextAssetSuggestionsByFinalUrlsRequest" message="tns:GetTextAssetSuggestionsByFinalUrlsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsResponse" name="GetTextAssetSuggestionsByFinalUrlsResponse" message="tns:GetTextAssetSuggestionsByFinalUrlsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetTextAssetSuggestionsByFinalUrls_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetTextAssetSuggestionsByFinalUrls_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_IAdInsightService" type="tns:IAdInsightService">
@@ -4370,6 +4591,75 @@
          </wsdl:input>
          <wsdl:output name="GetPerformanceInsightsDetailDataByAccountIdResponse">
             <soap:header message="tns:GetPerformanceInsightsDetailDataByAccountIdResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetRecommendations">
+         <soap:operation soapAction="GetRecommendations" style="document" />
+         <wsdl:input name="GetRecommendationsRequest">
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetRecommendationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetRecommendationsResponse">
+            <soap:header message="tns:GetRecommendationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="TagRecommendations">
+         <soap:operation soapAction="TagRecommendations" style="document" />
+         <wsdl:input name="TagRecommendationsRequest">
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:TagRecommendationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="TagRecommendationsResponse">
+            <soap:header message="tns:TagRecommendationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetTextAssetSuggestionsByFinalUrls">
+         <soap:operation soapAction="GetTextAssetSuggestionsByFinalUrls" style="document" />
+         <wsdl:input name="GetTextAssetSuggestionsByFinalUrlsRequest">
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetTextAssetSuggestionsByFinalUrlsResponse">
+            <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
