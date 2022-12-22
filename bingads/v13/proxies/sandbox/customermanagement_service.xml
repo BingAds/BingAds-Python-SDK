@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions name="CustomerManagementService" targetNamespace="https://bingads.microsoft.com/Customer/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="https://bingads.microsoft.com/Customer/v13" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://bingads.microsoft.com/Customer/v13" xmlns:i0="http://tempuri.org/" name="CustomerManagementService" targetNamespace="https://bingads.microsoft.com/Customer/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
    <wsp:Policy wsu:Id="BasicHttpBinding_ICustomerManagementService_policy">
       <wsp:ExactlyOne>
          <wsp:All>
@@ -46,12 +46,12 @@
          <xs:element name="GetAccountsInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="AccountsInfo" nillable="true" type="q1:ArrayOfAccountInfo" xmlns:q1="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q1="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountsInfo" nillable="true" type="q1:ArrayOfAccountInfo" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
-         <xs:element name="ApiFault" nillable="true" type="q2:ApiFault" xmlns:q2="https://bingads.microsoft.com/Customer/v13/Exception" />
+         <xs:element xmlns:q2="https://bingads.microsoft.com/Customer/v13/Exception" name="ApiFault" nillable="true" type="q2:ApiFault" />
          <xs:element name="FindAccountsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -64,14 +64,14 @@
          <xs:element name="FindAccountsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="AccountsInfo" nillable="true" type="q3:ArrayOfAccountInfo" xmlns:q3="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q3="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountsInfo" nillable="true" type="q3:ArrayOfAccountInfo" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="AddAccountRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q4:AdvertiserAccount" xmlns:q4="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q4="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q4:AdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -87,7 +87,7 @@
          <xs:element name="UpdateAccountRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q5:AdvertiserAccount" xmlns:q5="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q5="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q5:AdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -108,14 +108,14 @@
          <xs:element name="GetCustomerResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Customer" nillable="true" type="q6:Customer" xmlns:q6="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q6="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Customer" nillable="true" type="q6:Customer" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="UpdateCustomerRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Customer" nillable="true" type="q7:Customer" xmlns:q7="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q7="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Customer" nillable="true" type="q7:Customer" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -129,11 +129,12 @@
          <xs:element name="SignupCustomerRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Customer" nillable="true" type="q8:Customer" xmlns:q8="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q9:AdvertiserAccount" xmlns:q9="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q8="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Customer" nillable="true" type="q8:Customer" />
+                  <xs:element xmlns:q9="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q9:AdvertiserAccount" />
                   <xs:element minOccurs="0" name="ParentCustomerId" nillable="true" type="xs:long" />
-                  <xs:element minOccurs="0" name="UserInvitation" nillable="true" type="q10:UserInvitation" xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UserInvitation" nillable="true" type="q10:UserInvitation" />
                   <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:long" />
+                  <xs:element xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="User" nillable="true" type="q11:User" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -152,14 +153,14 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q11:AccountAdditionalField" xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q12:AccountAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="GetAccountResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q12:AdvertiserAccount" xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q13:AdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -174,7 +175,7 @@
          <xs:element name="GetCustomersInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="CustomersInfo" nillable="true" type="q13:ArrayOfCustomerInfo" xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q14="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="CustomersInfo" nillable="true" type="q14:ArrayOfCustomerInfo" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -207,7 +208,7 @@
          <xs:element name="UpdateUserRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="User" nillable="true" type="q14:User" xmlns:q14="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q15="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="User" nillable="true" type="q15:User" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -224,11 +225,11 @@
                   <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
                   <xs:element minOccurs="0" name="UserId" type="xs:long" />
                   <xs:element minOccurs="0" name="NewRoleId" nillable="true" type="xs:int" />
-                  <xs:element minOccurs="0" name="NewAccountIds" nillable="true" type="q15:ArrayOflong" xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-                  <xs:element minOccurs="0" name="NewCustomerIds" nillable="true" type="q16:ArrayOflong" xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="NewAccountIds" nillable="true" type="q16:ArrayOflong" />
+                  <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="NewCustomerIds" nillable="true" type="q17:ArrayOflong" />
                   <xs:element minOccurs="0" name="DeleteRoleId" nillable="true" type="xs:int" />
-                  <xs:element minOccurs="0" name="DeleteAccountIds" nillable="true" type="q17:ArrayOflong" xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-                  <xs:element minOccurs="0" name="DeleteCustomerIds" nillable="true" type="q18:ArrayOflong" xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DeleteAccountIds" nillable="true" type="q18:ArrayOflong" />
+                  <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DeleteCustomerIds" nillable="true" type="q19:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -249,8 +250,8 @@
          <xs:element name="GetUserResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="User" nillable="true" type="q19:User" xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="CustomerRoles" nillable="true" type="q20:ArrayOfCustomerRole" xmlns:q20="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q20="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="User" nillable="true" type="q20:User" />
+                  <xs:element xmlns:q21="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="CustomerRoles" nillable="true" type="q21:ArrayOfCustomerRole" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -262,7 +263,7 @@
          <xs:element name="GetCurrentUserResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="User" nillable="true" type="q21:User" xmlns:q21="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q22="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="User" nillable="true" type="q22:User" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -283,14 +284,14 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
-                  <xs:element minOccurs="0" name="StatusFilter" nillable="true" type="q22:UserLifeCycleStatus" xmlns:q22="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q23="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="StatusFilter" nillable="true" type="q23:UserLifeCycleStatus" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="GetUsersInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="UsersInfo" nillable="true" type="q23:ArrayOfUserInfo" xmlns:q23="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q24="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UsersInfo" nillable="true" type="q24:ArrayOfUserInfo" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -304,7 +305,7 @@
          <xs:element name="GetCustomerPilotFeaturesResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="FeaturePilotFlags" nillable="true" type="q24:ArrayOfint" xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FeaturePilotFlags" nillable="true" type="q25:ArrayOfint" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -318,7 +319,7 @@
          <xs:element name="GetAccountPilotFeaturesResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="FeaturePilotFlags" nillable="true" type="q25:ArrayOfint" xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FeaturePilotFlags" nillable="true" type="q26:ArrayOfint" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -330,7 +331,7 @@
          <xs:element name="GetPilotFeaturesCountriesResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="PilotFeatures" nillable="true" type="q26:ArrayOfPilotFeature" xmlns:q26="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q27="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PilotFeatures" nillable="true" type="q27:ArrayOfPilotFeature" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -344,7 +345,7 @@
          <xs:element name="GetAccessibleCustomerResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="AccessibleCustomer" nillable="true" type="q27:Customer" xmlns:q27="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q28="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccessibleCustomer" nillable="true" type="q28:Customer" />
                   <xs:element minOccurs="0" name="ValidFields" type="xs:int" />
                </xs:sequence>
             </xs:complexType>
@@ -354,14 +355,14 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="Filter" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TopN" type="xs:int" />
-                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q28:AccountAdditionalField" xmlns:q28="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q29="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q29:AccountAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="FindAccountsOrCustomersInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="AccountInfoWithCustomerData" nillable="true" type="q29:ArrayOfAccountInfoWithCustomerData" xmlns:q29="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q30="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountInfoWithCustomerData" nillable="true" type="q30:ArrayOfAccountInfoWithCustomerData" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -380,7 +381,7 @@
          <xs:element name="AddPrepayAccountRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q30:AdvertiserAccount" xmlns:q30="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q31="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q31:AdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -396,7 +397,7 @@
          <xs:element name="UpdatePrepayAccountRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Account" nillable="true" type="q31:AdvertiserAccount" xmlns:q31="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q32="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Account" nillable="true" type="q32:AdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -424,7 +425,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element minOccurs="0" name="ExternalAccountIds" nillable="true" type="q32:ArrayOfstring" xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+                  <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ExternalAccountIds" nillable="true" type="q33:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -436,87 +437,87 @@
          <xs:element name="SearchCustomersRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q33:ArrayOfPredicate" xmlns:q33="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="DateRange" nillable="true" type="q34:DateRange" xmlns:q34="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q35:ArrayOfOrderBy" xmlns:q35="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q36:Paging" xmlns:q36="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q34="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q34:ArrayOfPredicate" />
+                  <xs:element xmlns:q35="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="DateRange" nillable="true" type="q35:DateRange" />
+                  <xs:element xmlns:q36="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q36:ArrayOfOrderBy" />
+                  <xs:element xmlns:q37="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q37:Paging" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchCustomersResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Customers" nillable="true" type="q37:ArrayOfCustomer" xmlns:q37="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q38="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Customers" nillable="true" type="q38:ArrayOfCustomer" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="AddClientLinksRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="ClientLinks" nillable="true" type="q38:ArrayOfClientLink" xmlns:q38="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q39="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClientLinks" nillable="true" type="q39:ArrayOfClientLink" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="AddClientLinksResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="q39:ArrayOfOperationError" xmlns:q39="https://bingads.microsoft.com/Customer/v13/Exception" />
-                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q40:ArrayOfArrayOfOperationError" xmlns:q40="https://bingads.microsoft.com/Customer/v13/Exception" />
+                  <xs:element xmlns:q40="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q40:ArrayOfOperationError" />
+                  <xs:element xmlns:q41="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q41:ArrayOfArrayOfOperationError" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="UpdateClientLinksRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="ClientLinks" nillable="true" type="q41:ArrayOfClientLink" xmlns:q41="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q42="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClientLinks" nillable="true" type="q42:ArrayOfClientLink" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="UpdateClientLinksResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="q42:ArrayOfOperationError" xmlns:q42="https://bingads.microsoft.com/Customer/v13/Exception" />
-                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q43:ArrayOfArrayOfOperationError" xmlns:q43="https://bingads.microsoft.com/Customer/v13/Exception" />
+                  <xs:element xmlns:q43="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q43:ArrayOfOperationError" />
+                  <xs:element xmlns:q44="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q44:ArrayOfArrayOfOperationError" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchClientLinksRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q44:ArrayOfPredicate" xmlns:q44="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q45:ArrayOfOrderBy" xmlns:q45="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q46:Paging" xmlns:q46="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q45="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q45:ArrayOfPredicate" />
+                  <xs:element xmlns:q46="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q46:ArrayOfOrderBy" />
+                  <xs:element xmlns:q47="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q47:Paging" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchClientLinksResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="ClientLinks" nillable="true" type="q47:ArrayOfClientLink" xmlns:q47="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q48="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClientLinks" nillable="true" type="q48:ArrayOfClientLink" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchAccountsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q48:ArrayOfPredicate" xmlns:q48="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q49:ArrayOfOrderBy" xmlns:q49="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q50:Paging" xmlns:q50="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q51:AccountAdditionalField" xmlns:q51="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q49="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q49:ArrayOfPredicate" />
+                  <xs:element xmlns:q50="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q50:ArrayOfOrderBy" />
+                  <xs:element xmlns:q51="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q51:Paging" />
+                  <xs:element xmlns:q52="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q52:AccountAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchAccountsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Accounts" nillable="true" type="q52:ArrayOfAdvertiserAccount" xmlns:q52="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q53="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Accounts" nillable="true" type="q53:ArrayOfAdvertiserAccount" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SendUserInvitationRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="UserInvitation" nillable="true" type="q53:UserInvitation" xmlns:q53="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q54="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UserInvitation" nillable="true" type="q54:UserInvitation" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -530,30 +531,30 @@
          <xs:element name="SearchUserInvitationsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q54:ArrayOfPredicate" xmlns:q54="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q55="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q55:ArrayOfPredicate" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchUserInvitationsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="UserInvitations" nillable="true" type="q55:ArrayOfUserInvitation" xmlns:q55="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q56="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UserInvitations" nillable="true" type="q56:ArrayOfUserInvitation" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ValidateAddressRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Address" nillable="true" type="q56:Address" xmlns:q56="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q57="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Address" nillable="true" type="q57:Address" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ValidateAddressResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="OriginalAddress" nillable="true" type="q57:Address" xmlns:q57="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q58="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="OriginalAddress" nillable="true" type="q58:Address" />
                   <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-                  <xs:element minOccurs="0" name="SuggestedAddresses" nillable="true" type="q58:ArrayOfAddress" xmlns:q58="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q59="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="SuggestedAddresses" nillable="true" type="q59:ArrayOfAddress" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -568,8 +569,8 @@
          <xs:element name="GetLinkedAccountsAndCustomersInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="AccountsInfo" nillable="true" type="q59:ArrayOfAccountInfo" xmlns:q59="https://bingads.microsoft.com/Customer/v13/Entities" />
-                  <xs:element minOccurs="0" name="CustomersInfo" nillable="true" type="q60:ArrayOfCustomerInfo" xmlns:q60="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element xmlns:q60="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountsInfo" nillable="true" type="q60:ArrayOfAccountInfo" />
+                  <xs:element xmlns:q61="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="CustomersInfo" nillable="true" type="q61:ArrayOfCustomerInfo" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -586,7 +587,7 @@
             </xs:complexType>
          </xs:element>
       </xs:schema>
-      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
          <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
          <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
@@ -627,7 +628,7 @@
          <xs:attribute name="Id" type="xs:ID" />
          <xs:attribute name="Ref" type="xs:IDREF" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities">
+      <xs:schema xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities" elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:import namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
@@ -677,10 +678,10 @@
                <xs:element minOccurs="0" name="TimeStamp" nillable="true" type="xs:base64Binary" />
                <xs:element minOccurs="0" name="TimeZone" nillable="true" type="tns:TimeZoneType" />
                <xs:element minOccurs="0" name="PauseReason" nillable="true" type="xs:unsignedByte" />
-               <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q1:ArrayOfKeyValuePairOfstringstring" xmlns:q1="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q1:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="LinkedAgencies" nillable="true" type="tns:ArrayOfCustomerInfo" />
                <xs:element minOccurs="0" name="SalesHouseCustomerId" nillable="true" type="xs:long" />
-               <xs:element minOccurs="0" name="TaxInformation" nillable="true" type="q2:ArrayOfKeyValuePairOfstringstring" xmlns:q2="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="TaxInformation" nillable="true" type="q2:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="BackUpPaymentInstrumentId" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="BillingThresholdAmount" nillable="true" type="xs:decimal" />
                <xs:element minOccurs="0" name="BusinessAddress" nillable="true" type="tns:Address" />
@@ -797,6 +798,7 @@
                <xs:enumeration value="YUN" />
                <xs:enumeration value="ZAR" />
                <xs:enumeration value="ZWD" />
+               <xs:enumeration value="NGN" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CurrencyCode" nillable="true" type="tns:CurrencyCode" />
@@ -1469,7 +1471,7 @@
          <xs:complexType name="AccountTaxCertificate">
             <xs:sequence>
                <xs:element minOccurs="0" name="TaxCertificateBlobContainerName" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="TaxCertificates" nillable="true" type="q3:ArrayOfKeyValuePairOfstringbase64Binary" xmlns:q3="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="TaxCertificates" nillable="true" type="q3:ArrayOfKeyValuePairOfstringbase64Binary" />
                <xs:element minOccurs="0" name="Status" nillable="true" type="tns:TaxCertificateStatus" />
             </xs:sequence>
          </xs:complexType>
@@ -1508,7 +1510,7 @@
                <xs:element minOccurs="0" name="LastModifiedByUserId" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="LastModifiedTime" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="MarketCountry" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q4:ArrayOfKeyValuePairOfstringstring" xmlns:q4="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q4:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="MarketLanguage" nillable="true" type="tns:LanguageType" />
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="ServiceLevel" nillable="true" type="tns:ServiceLevel" />
@@ -1581,7 +1583,7 @@
                <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
                <xs:element minOccurs="0" name="RoleId" type="xs:int" />
-               <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q5:ArrayOflong" xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q5:ArrayOflong" />
                <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime" />
                <xs:element minOccurs="0" name="Lcid" type="tns:LCID" />
             </xs:sequence>
@@ -1754,6 +1756,13 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1040</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="JapaneseJapan">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1041</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -1956,17 +1965,6 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="LCID" nillable="true" type="tns:LCID" />
-         <xs:simpleType name="AccountAdditionalField">
-            <xs:list>
-               <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                     <xs:enumeration value="TaxCertificate" />
-                     <xs:enumeration value="AccountMode" />
-                  </xs:restriction>
-               </xs:simpleType>
-            </xs:list>
-         </xs:simpleType>
-         <xs:element name="AccountAdditionalField" nillable="true" type="tns:AccountAdditionalField" />
          <xs:complexType name="User">
             <xs:sequence>
                <xs:element minOccurs="0" name="ContactInfo" nillable="true" type="tns:ContactInfo" />
@@ -1983,7 +1981,14 @@
                <xs:element minOccurs="0" name="UserLifeCycleStatus" nillable="true" type="tns:UserLifeCycleStatus" />
                <xs:element minOccurs="0" name="TimeStamp" nillable="true" type="xs:base64Binary" />
                <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q6:ArrayOfKeyValuePairOfstringstring" xmlns:q6="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q6:ArrayOfKeyValuePairOfstringstring" />
+               <xs:element minOccurs="0" name="AuthenticationToken" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="User" nillable="true" type="tns:User" />
@@ -2054,6 +2059,17 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="UserLifeCycleStatus" nillable="true" type="tns:UserLifeCycleStatus" />
+         <xs:simpleType name="AccountAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="TaxCertificate" />
+                     <xs:enumeration value="AccountMode" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AccountAdditionalField" nillable="true" type="tns:AccountAdditionalField" />
          <xs:complexType name="ArrayOfCustomerRole">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomerRole" nillable="true" type="tns:CustomerRole" />
@@ -2064,8 +2080,8 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="RoleId" type="xs:int" />
                <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
-               <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q7:ArrayOflong" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-               <xs:element minOccurs="0" name="LinkedAccountIds" nillable="true" type="q8:ArrayOflong" xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q7:ArrayOflong" />
+               <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LinkedAccountIds" nillable="true" type="q8:ArrayOflong" />
                <xs:element minOccurs="0" name="CustomerLinkPermission" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -2097,7 +2113,7 @@
             </xs:annotation>
             <xs:sequence>
                <xs:element minOccurs="0" name="Id" type="xs:int" />
-               <xs:element minOccurs="0" name="Countries" nillable="true" type="q9:ArrayOfstring" xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Countries" nillable="true" type="q9:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="PilotFeature" nillable="true" type="tns:PilotFeature" />
@@ -2231,7 +2247,7 @@
                <xs:element minOccurs="0" name="LastModifiedDateTime" type="xs:dateTime" />
                <xs:element minOccurs="0" name="LastModifiedByUserId" type="xs:long" />
                <xs:element minOccurs="0" name="Timestamp" nillable="true" type="xs:base64Binary" />
-               <xs:element minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q10:ArrayOfKeyValuePairOfstringstring" xmlns:q10="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+               <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q10:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="CustomerLinkPermission" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -2279,7 +2295,7 @@
          </xs:complexType>
          <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://adapi.microsoft.com">
+      <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ApplicationFault">
@@ -2312,11 +2328,11 @@
          </xs:complexType>
          <xs:element name="AdApiError" nillable="true" type="tns:AdApiError" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Exception" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Exception">
+      <xs:schema xmlns:tns="https://bingads.microsoft.com/Customer/v13/Exception" elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Exception" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:import namespace="https://adapi.microsoft.com" />
          <xs:complexType name="ApiFault">
             <xs:complexContent mixed="false">
-               <xs:extension base="q1:ApplicationFault" xmlns:q1="https://adapi.microsoft.com">
+               <xs:extension xmlns:q1="https://adapi.microsoft.com" base="q1:ApplicationFault">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
                   </xs:sequence>
@@ -2345,7 +2361,7 @@
          </xs:complexType>
          <xs:element name="ArrayOfArrayOfOperationError" nillable="true" type="tns:ArrayOfArrayOfOperationError" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.datacontract.org/2004/07/System.Collections.Generic">
+      <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/System.Collections.Generic" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:complexType name="ArrayOfKeyValuePairOfstringstring">
             <xs:sequence>
@@ -2392,7 +2408,7 @@
          </xs:complexType>
          <xs:element name="KeyValuePairOfstringbase64Binary" nillable="true" type="tns:KeyValuePairOfstringbase64Binary" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="ArrayOflong">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
@@ -2430,7 +2446,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccountsInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q1:AdApiFaultDetail" xmlns:q1="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q1="https://adapi.microsoft.com" name="detail" element="q1:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccountsInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2452,7 +2468,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_FindAccounts_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q2:AdApiFaultDetail" xmlns:q2="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q2="https://adapi.microsoft.com" name="detail" element="q2:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_FindAccounts_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2474,7 +2490,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q3:AdApiFaultDetail" xmlns:q3="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q3="https://adapi.microsoft.com" name="detail" element="q3:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2496,7 +2512,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q4:AdApiFaultDetail" xmlns:q4="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q4="https://adapi.microsoft.com" name="detail" element="q4:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2518,7 +2534,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomer_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q5:AdApiFaultDetail" xmlns:q5="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q5="https://adapi.microsoft.com" name="detail" element="q5:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomer_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2540,7 +2556,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateCustomer_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q6:AdApiFaultDetail" xmlns:q6="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q6="https://adapi.microsoft.com" name="detail" element="q6:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateCustomer_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2562,7 +2578,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SignupCustomer_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q7:AdApiFaultDetail" xmlns:q7="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q7="https://adapi.microsoft.com" name="detail" element="q7:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SignupCustomer_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2584,7 +2600,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q8:AdApiFaultDetail" xmlns:q8="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q8="https://adapi.microsoft.com" name="detail" element="q8:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2606,7 +2622,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomersInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q9:AdApiFaultDetail" xmlns:q9="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q9="https://adapi.microsoft.com" name="detail" element="q9:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomersInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2628,7 +2644,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q10:AdApiFaultDetail" xmlns:q10="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q10="https://adapi.microsoft.com" name="detail" element="q10:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2650,7 +2666,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteCustomer_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q11:AdApiFaultDetail" xmlns:q11="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q11="https://adapi.microsoft.com" name="detail" element="q11:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteCustomer_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2672,7 +2688,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateUser_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q12:AdApiFaultDetail" xmlns:q12="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q12="https://adapi.microsoft.com" name="detail" element="q12:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateUser_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2694,7 +2710,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateUserRoles_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q13:AdApiFaultDetail" xmlns:q13="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q13="https://adapi.microsoft.com" name="detail" element="q13:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateUserRoles_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2716,7 +2732,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUser_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q14:AdApiFaultDetail" xmlns:q14="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q14="https://adapi.microsoft.com" name="detail" element="q14:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUser_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2738,7 +2754,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCurrentUser_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q15:AdApiFaultDetail" xmlns:q15="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q15="https://adapi.microsoft.com" name="detail" element="q15:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCurrentUser_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2760,7 +2776,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteUser_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q16:AdApiFaultDetail" xmlns:q16="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q16="https://adapi.microsoft.com" name="detail" element="q16:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_DeleteUser_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2782,7 +2798,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUsersInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q17:AdApiFaultDetail" xmlns:q17="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q17="https://adapi.microsoft.com" name="detail" element="q17:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUsersInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2804,7 +2820,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomerPilotFeatures_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q18:AdApiFaultDetail" xmlns:q18="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q18="https://adapi.microsoft.com" name="detail" element="q18:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetCustomerPilotFeatures_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2826,7 +2842,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccountPilotFeatures_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q19:AdApiFaultDetail" xmlns:q19="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q19="https://adapi.microsoft.com" name="detail" element="q19:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccountPilotFeatures_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2848,7 +2864,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetPilotFeaturesCountries_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q20:AdApiFaultDetail" xmlns:q20="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q20="https://adapi.microsoft.com" name="detail" element="q20:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetPilotFeaturesCountries_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2870,7 +2886,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccessibleCustomer_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q21:AdApiFaultDetail" xmlns:q21="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q21="https://adapi.microsoft.com" name="detail" element="q21:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetAccessibleCustomer_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2892,7 +2908,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_FindAccountsOrCustomersInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q22:AdApiFaultDetail" xmlns:q22="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q22="https://adapi.microsoft.com" name="detail" element="q22:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_FindAccountsOrCustomersInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2914,7 +2930,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpgradeCustomerToAgency_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q23:AdApiFaultDetail" xmlns:q23="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q23="https://adapi.microsoft.com" name="detail" element="q23:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpgradeCustomerToAgency_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2936,7 +2952,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddPrepayAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q24:AdApiFaultDetail" xmlns:q24="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q24="https://adapi.microsoft.com" name="detail" element="q24:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddPrepayAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2958,7 +2974,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdatePrepayAccount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q25:AdApiFaultDetail" xmlns:q25="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q25="https://adapi.microsoft.com" name="detail" element="q25:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdatePrepayAccount_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -2980,7 +2996,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_MapCustomerIdToExternalCustomerId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q26:AdApiFaultDetail" xmlns:q26="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q26="https://adapi.microsoft.com" name="detail" element="q26:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_MapCustomerIdToExternalCustomerId_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3002,7 +3018,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_MapAccountIdToExternalAccountIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q27:AdApiFaultDetail" xmlns:q27="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q27="https://adapi.microsoft.com" name="detail" element="q27:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_MapAccountIdToExternalAccountIds_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3024,7 +3040,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchCustomers_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q28:AdApiFaultDetail" xmlns:q28="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q28="https://adapi.microsoft.com" name="detail" element="q28:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchCustomers_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3046,7 +3062,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddClientLinks_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q29:AdApiFaultDetail" xmlns:q29="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q29="https://adapi.microsoft.com" name="detail" element="q29:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_AddClientLinks_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3068,7 +3084,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateClientLinks_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q30:AdApiFaultDetail" xmlns:q30="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q30="https://adapi.microsoft.com" name="detail" element="q30:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_UpdateClientLinks_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3090,7 +3106,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchClientLinks_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q31:AdApiFaultDetail" xmlns:q31="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q31="https://adapi.microsoft.com" name="detail" element="q31:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchClientLinks_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3112,7 +3128,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchAccounts_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q32:AdApiFaultDetail" xmlns:q32="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q32="https://adapi.microsoft.com" name="detail" element="q32:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchAccounts_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3134,7 +3150,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SendUserInvitation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q33:AdApiFaultDetail" xmlns:q33="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SendUserInvitation_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3156,7 +3172,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchUserInvitations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q34:AdApiFaultDetail" xmlns:q34="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q34="https://adapi.microsoft.com" name="detail" element="q34:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_SearchUserInvitations_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3178,7 +3194,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_ValidateAddress_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q35:AdApiFaultDetail" xmlns:q35="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q35="https://adapi.microsoft.com" name="detail" element="q35:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_ValidateAddress_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3200,7 +3216,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetLinkedAccountsAndCustomersInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q36:AdApiFaultDetail" xmlns:q36="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q36="https://adapi.microsoft.com" name="detail" element="q36:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetLinkedAccountsAndCustomersInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -3222,7 +3238,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUserMFAStatus_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q37:AdApiFaultDetail" xmlns:q37="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q37="https://adapi.microsoft.com" name="detail" element="q37:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICustomerManagementService_GetUserMFAStatus_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />

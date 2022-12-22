@@ -19,6 +19,8 @@ from .bulk_campaign_negative_dynamic_search_ad_target import *
 from .bulk_ad_group_dynamic_search_ad_target import *
 from .bulk_ad_group_negative_dynamic_search_ad_target import *
 from .bulk_bid_strategy import *
+from .bulk_ad_group_criterion import *
+from .bulk_ad_group_hotel_listing_group import *
 
 from .ad_extensions import *
 from .bulk_ads import *
@@ -28,6 +30,7 @@ from .audiences import *
 from .target_criterions import *
 from .labels import *
 from .bulk_offline_conversion import *
+from .bulk_online_conversion_adjustment import *
 from .bulk_experiment import *
 from .bulk_image import *
 from .bulk_video import *

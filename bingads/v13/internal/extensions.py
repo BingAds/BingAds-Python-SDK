@@ -40,10 +40,16 @@ AgeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('AgeCriterion')
 DayTimeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DayTimeCriterion')
 DeviceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DeviceCriterion')
 GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenderCriterion')
+HotelAdvanceBookingWindowCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelAdvanceBookingWindowCriterion')
+HotelCheckInDateCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDateCriterion')
+HotelCheckInDayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDayCriterion')
+HotelDateSelectionTypeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelDateSelectionTypeCriterion')
+HotelLengthOfStayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelLengthOfStayCriterion')
 LocationCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationCriterion')
 LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationIntentCriterion')
 RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('RadiusCriterion')
 TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
+HotelSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('HotelSetting'))
 CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
 TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset'))
 ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset'))
@@ -176,11 +182,17 @@ def entity_csv_to_biddingscheme(row_values, entity):
     success, target_impression_share_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetImpressionShare)
     target_impression_share_value = float(target_impression_share_row_value) if target_impression_share_row_value else None
 
+    success, commission_rate_row_value = row_values.try_get_value(_StringTable.BidStrategyCommissionRate)
+    commission_rate_value = float(commission_rate_row_value) if commission_rate_row_value else None
+
+    success, max_percent_cpc_row_value = row_values.try_get_value(_StringTable.BidStrategyPercentMaxCpc)
+    max_percent_cpc_value = float(max_percent_cpc_row_value) if max_percent_cpc_row_value else None
 
     success, target_ad_position_value = row_values.try_get_value(_StringTable.BidStrategyTargetAdPosition)
 
     if  bid_strategy_type == 'MaxConversions':
         entity.BiddingScheme.MaxCpc = max_cpc_value
+        entity.BiddingScheme.TargetCpa = target_cpa_value
         entity.BiddingScheme.Type = "MaxConversions"
     elif bid_strategy_type == 'MaxClicks':
         entity.BiddingScheme.MaxCpc = max_cpc_value
@@ -201,6 +213,12 @@ def entity_csv_to_biddingscheme(row_values, entity):
         entity.BiddingScheme.MaxCpc = max_cpc_value
         entity.BiddingScheme.TargetImpressionShare = target_impression_share_value
         entity.BiddingScheme.TargetAdPosition = target_ad_position_value
+    elif bid_strategy_type == "PercentCpc":
+        entity.BiddingScheme.MaxPercentCpc = max_percent_cpc_value
+        entity.BiddingScheme.Type = "PercentCpc"
+    elif bid_strategy_type == "Commission":
+        entity.BiddingScheme.MaxPercentCpc = commission_rate_value
+        entity.BiddingScheme.Type = "Commission"
 
 def bid_strategy_biddingscheme_to_csv(bulk_bid_strategy, row_values):
     entity_biddingscheme_to_csv(bulk_bid_strategy.bid_strategy, row_values)
@@ -221,6 +239,7 @@ def entity_biddingscheme_to_csv(entity, row_values):
 
     if  bid_strategy_type == 'MaxConversions':
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
+        row_values[_StringTable.BidStrategyTargetCpa] = bulk_str(entity.BiddingScheme.TargetCpa)
     elif bid_strategy_type == 'MaxClicks':
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
     elif bid_strategy_type == 'TargetCpa':
@@ -235,6 +254,10 @@ def entity_biddingscheme_to_csv(entity, row_values):
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
         row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(entity.BiddingScheme.TargetAdPosition, entity.Id)
         row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
+    elif bid_strategy_type == 'PercentCpc':
+        row_values[_StringTable.BidStrategyPercentMaxCpc] = bulk_str(entity.BiddingScheme.MaxPercentCpc)
+    elif bid_strategy_type == 'Commission':
+        row_values[_StringTable.BidStrategyCommissionRate] = bulk_str(entity.BiddingScheme.CommissionRate)
 
 
 def bulk_optional_str(value, id):
@@ -480,6 +503,10 @@ def field_to_csv_BidStrategyType(entity):
         return 'TargetImpressionShare'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('MaxRoasBiddingScheme')):
         return 'MaxRoas'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('PercentCpcBiddingScheme')):
+        return 'PercentCpc'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CommissionBiddingScheme')):
+        return 'Commission'
     else:
         raise TypeError('Unsupported Bid Strategy Type')
 
@@ -517,6 +544,10 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetImpressionShareBiddingScheme')
     elif value == 'MaxRoas':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('MaxRoasBiddingScheme')
+    elif value == 'PercentCpc':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('PercentCpcBiddingScheme')
+    elif value == 'Commission':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('CommissionBiddingScheme')
     else:
         raise ValueError('Unknown Bid Strategy Type')
     entity.BiddingScheme.Type = value
@@ -935,6 +966,12 @@ def field_to_csv_SchedulingEndDate(entity, id):
 def field_to_csv_UseSearcherTimeZone(bool_value, id):
     if bool_value is None:
         return DELETE_VALUE if id and id > 0 else None
+    else:
+        return str(bool_value)
+
+def field_to_csv_bool(bool_value):
+    if bool_value is None:
+        return None
     else:
         return str(bool_value)
 
@@ -1357,6 +1394,94 @@ def csv_to_field_GenderTarget(entity, value):
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(GenderCriterion)):
         setattr(entity.Criterion, "GenderType", value)
 
+def field_to_csv_MaxDays(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.MaxDays is None:
+        return None
+    return bulk_str(entity.Criterion.MaxDays)
+
+def csv_to_field_MaxDays(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelAdvanceBookingWindowCriterion)):
+        setattr(entity.Criterion, "MaxDays", int(value))
+
+def field_to_csv_MinDays(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.MinDays is None:
+        return None
+    return bulk_str(entity.Criterion.MinDays)
+
+def csv_to_field_MinDays(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelAdvanceBookingWindowCriterion)):
+        setattr(entity.Criterion, "MinDays", int(value))
+
+def field_to_csv_StartDate(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.StartDate is None:
+        return None
+    return bulk_datetime_str(entity.Criterion.StartDate)
+
+def csv_to_field_StartDate(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelCheckInDateCriterion)):
+        setattr(entity.Criterion, "StartDate", parse_datetime(value))
+
+def field_to_csv_EndDate(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.EndDate is None:
+        return None
+    return bulk_datetime_str(entity.Criterion.EndDate)
+
+def csv_to_field_EndDate(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelCheckInDateCriterion)):
+        setattr(entity.Criterion, "EndDate", parse_datetime(value))
+
+def field_to_csv_CheckInDay(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.CheckInDay is None:
+        return None
+    return entity.Criterion.CheckInDay
+
+def csv_to_field_CheckInDay(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelCheckInDayCriterion)):
+        setattr(entity.Criterion, "CheckInDay", value)
+
+def field_to_csv_HotelDateSelectionType(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.HotelDateSelectionType is None:
+        return None
+    return entity.Criterion.HotelDateSelectionType
+
+def csv_to_field_HotelDateSelectionType(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelDateSelectionTypeCriterion)):
+        setattr(entity.Criterion, "HotelDateSelectionType", value)
+
+def field_to_csv_MaxNights(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.MaxNights is None:
+        return None
+    return bulk_str(entity.Criterion.MaxNights)
+
+def csv_to_field_MaxNights(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelLengthOfStayCriterion)):
+        setattr(entity.Criterion, "MaxNights", int(value))
+
+def field_to_csv_MinNights(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.MinNights is None:
+        return None
+    return bulk_str(entity.Criterion.MinNights)
+
+def csv_to_field_MinNights(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelLengthOfStayCriterion)):
+        setattr(entity.Criterion, "MinNights", int(value))
+
 def field_to_csv_LocationTarget(entity):
     if entity is None or entity.Criterion is None or entity.Criterion.LocationId is None:
         return None
@@ -1470,6 +1595,19 @@ def target_setting_to_csv(entity):
     return ";".join([s.CriterionTypeGroup for s in target_setting.Details.TargetSettingDetail])
     pass
 
+def hotel_setting_to_csv(entity):
+    if not entity.Settings or not entity.Settings.Setting:
+        return None
+    settings = [setting for setting in entity.Settings.Setting if isinstance(setting, HotelSetting_Type)]
+    if len(settings) == 0:
+        return None
+    if len(settings) != 1:
+        raise ValueError('Can only have 1 HotelSetting in Settings.')
+    hotel_setting = settings[0]
+    if not hotel_setting.HotelAdGroupType:
+        return DELETE_VALUE if entity.Id and entity.Id > 0 else None
+    else:
+        return bulk_str(hotel_setting.HotelAdGroupType).replace('|', ',')
 
 def csv_to_target_setting(entity, value):
     target_setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting')
@@ -1485,6 +1623,37 @@ def csv_to_target_setting(entity, value):
             target_setting_detail_list.append(create_target_setting_detail(m_token))
     target_setting.Details.TargetSettingDetail.extend(target_setting_detail_list)
     entity.Settings.Setting.append(target_setting)
+    pass
+
+def csv_to_hotel_setting(entity, value):
+    hotel_setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelSetting')
+    hotel_setting.Type = 'HotelSetting'
+    if value is None:
+        hotel_adgroup_type = None
+    else:
+        hotel_adgroup_type = value
+    hotel_setting.HotelAdGroupType = hotel_adgroup_type
+    entity.Settings.Setting.append(hotel_setting)
+    pass
+
+def csv_to_commission_rate(entity, value):
+    if value is None:
+        return
+    rate_amount = _CAMPAIGN_OBJECT_FACTORY_V13.create('RateAmount')
+    rate_bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('RateBid')
+    rate_amount.Amount = float(value) if value else None
+    rate_bid.RateAmount = rate_amount
+    entity.CommissionRate = rate_bid
+    pass
+
+def csv_to_percent_cpc_bid(entity, value):
+    if value is None:
+        return
+    rate_amount = _CAMPAIGN_OBJECT_FACTORY_V13.create('RateAmount')
+    rate_bid = _CAMPAIGN_OBJECT_FACTORY_V13.create('RateBid')
+    rate_amount.Amount = float(value) if value else None
+    rate_bid.RateAmount = rate_amount
+    entity.PercentCpcBid = rate_bid
     pass
 
 def match_target_setting(token):

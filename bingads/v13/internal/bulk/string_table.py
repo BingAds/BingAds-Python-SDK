@@ -21,6 +21,12 @@ class _StringTable:
     BudgetId = "Budget Id"
     AdGroup = "Ad Group"
     AdGroupType = "Ad Group Type"
+    HotelAdGroupType = "Hotel Ad Group Type"
+    CommissionRate = "Commission Rate"
+    PercentCpcBid = "Percent Cpc Bid"
+    HotelListingGroupType = "Ad Group Hotel Listing Group"
+    HotelAttribute = "Hotel Attribute"
+    HotelAttributeValue = "Hotel Attribute Value"
     Keyword = "Keyword"
     TextAd = "Text Ad"
     ProductAd = "Product Ad"
@@ -92,6 +98,7 @@ class _StringTable:
     AutoApplyRecommendations = "Auto Apply Recommendations"
     AllowImageAutoRetrieve = "Allow Image Auto Retrieve"
     MultiMediaAdBidAdjustment = "Multi Media Ad Bid Adjustment"
+    UseOptimizedTargeting = "Use Optimized Targeting"
     BusinessAttributes = "Business Attributes"
     Schedule = "Schedule";
 
@@ -425,6 +432,8 @@ class _StringTable:
     InheritedBidStrategyType = "Inherited Bid Strategy Type"
     BidStrategyTargetAdPosition = "Bid Strategy TargetAdPosition"
     BidStrategyTargetImpressionShare = "Bid Strategy TargetImpressionShare"
+    BidStrategyPercentMaxCpc = "Bid Strategy PercentMaxCpc"
+    BidStrategyCommissionRate = "Bid Strategy CommissionRate"
 
     # Remarketing
     Audience = "Audience"
@@ -597,8 +606,21 @@ class _StringTable:
     CampaignJobFunctionCriterion = 'Campaign Job Function Criterion'
     CampaignIndustryCriterion = 'Campaign Industry Criterion'
 
+    # Online Conversion
+    OnlineConversionAdjustment = "Online Conversion Adjustment"
+    TransactionId = "Transaction Id"
+
+    # Hotel Ad
+    AdGroupAdvanceBookingWindowCriterion = "Ad Group Advance Booking Window Criterion"
+    AdGroupCheckInDayCriterion = "Ad Group Check In Day Criterion"
+    AdGroupLengthOfStayCriterion = "Ad Group Length of Stay Criterion"
+    AdGroupHotelDateSelectionTypeCriterion = "Ad Group Hotel Date Selection Type Criterion"
+    AdGroupCheckInDateCriterion = "Ad Group Check In Date Criterion"
+    MinTargetValue = "Min Target Value"
+    MaxTargetValue = "Max Target Value"
+
     FinalUrlSuffix = "Final Url Suffix"
-    
+
     # AdCustomizerAttribute
     AdCustomizerAttribute = "Adcustomizer Attribute"
     AdCustomizerCampaign = "Campaign Adcustomizer Attribute"
@@ -606,7 +628,7 @@ class _StringTable:
     AdCustomizerKeyword = "Keyword Adcustomizer Attribute"
     AdCustomizerDataType = "AdCustomizer DataType"
     AdCustomizerAttributeValue = "AdCustomizer AttributeValue"
-    
+
     # Campaign Conversion Goal
     CampaignConversionGoal = "Campaign Conversion Goal"
     GoalId = "Goal Id"

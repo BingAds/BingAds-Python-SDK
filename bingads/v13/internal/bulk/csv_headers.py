@@ -16,6 +16,7 @@ class _CsvHeaders:
         _StringTable.ClientId,
         _StringTable.LastModifiedTime,
         _StringTable.MultiMediaAdBidAdjustment,
+        _StringTable.UseOptimizedTargeting,
         _StringTable.DynamicDescriptionEnabled,
         _StringTable.Details,
 
@@ -38,7 +39,15 @@ class _CsvHeaders:
         _StringTable.Language,
         _StringTable.PrivacyStatus,
         _StringTable.AdGroupType,
+        _StringTable.HotelAdGroupType,
+        _StringTable.CommissionRate,
+        _StringTable.PercentCpcBid,
+        _StringTable.HotelListingGroupType,
+        _StringTable.HotelAttribute,
+        _StringTable.HotelAttributeValue,
 
+        # OnlineConversionAdjustment
+        _StringTable.TransactionId,
         # Ads
         _StringTable.Title,
         _StringTable.Text,
@@ -314,6 +323,8 @@ class _CsvHeaders:
         _StringTable.InheritedBidStrategyType,
         _StringTable.BidStrategyTargetAdPosition,
         _StringTable.BidStrategyTargetImpressionShare,
+        _StringTable.BidStrategyCommissionRate,
+        _StringTable.BidStrategyPercentMaxCpc,
 
         # Ad Format Preference
         _StringTable.AdFormatPreference,
@@ -430,13 +441,17 @@ class _CsvHeaders:
         _StringTable.TargetAdGroupId,
         _StringTable.TargetCampaignId,
         _StringTable.Schedule,
-            
+
         # Campaign Conversion Goal
         _StringTable.GoalId,
-  
+
         # RSA AdCustomizer
         _StringTable.AdCustomizerDataType,
         _StringTable.AdCustomizerAttributeValue,
+
+        # Hotel Ad
+        _StringTable.MinTargetValue,
+        _StringTable.MaxTargetValue,
     ]
 
     @staticmethod
