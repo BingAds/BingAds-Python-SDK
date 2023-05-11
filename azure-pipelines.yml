@@ -22,3 +22,8 @@ steps:
 - script: |
     python setup.py sdist
   displayName: 'Package'
+  
+- task: PublishBuildArtifacts@1
+  inputs:
+    TargetPath: dist
+    ArtifactName: 'pypi_artifacts'
