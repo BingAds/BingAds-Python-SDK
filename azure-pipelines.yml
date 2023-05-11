@@ -24,6 +24,6 @@ steps:
   displayName: 'Package'
   
 - task: PublishBuildArtifacts@1
-  inputs:
-    TargetPath: dist
+  inputs:  
+    PathtoPublish: dist
     ArtifactName: 'pypi_artifacts'
