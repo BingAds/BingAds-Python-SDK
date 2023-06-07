@@ -1,13 +1,10 @@
-from __future__ import absolute_import, division, print_function
 from abc import ABCMeta, abstractproperty, abstractmethod
-
-from future.utils import with_metaclass
 
 from bingads.v13.bulk.entities import BulkError
 from bingads.v13.internal.bulk.bulk_object import _BulkObject
 
 
-class _BulkEntityIdentifier(with_metaclass(ABCMeta, _BulkObject)):
+class _BulkEntityIdentifier(_BulkObject, metaclass=ABCMeta):
 
     @abstractproperty
     def is_delete_row(self):

@@ -1,12 +1,11 @@
 from abc import ABCMeta, abstractproperty
 
-from future.utils import with_metaclass
 
 from bingads.internal.error_messages import _ErrorMessages
 from bingads.v13.internal.bulk.bulk_object import _BulkObject
 
 
-class BulkEntity(with_metaclass(ABCMeta, _BulkObject)):
+class BulkEntity(_BulkObject, metaclass=ABCMeta):
     """ The abstract base class for all bulk entities that can be read or written in a bulk file.
 
     For more information, see Bulk File Schema at https://go.microsoft.com/fwlink/?linkid=846127.

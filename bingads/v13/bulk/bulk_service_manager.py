@@ -13,8 +13,6 @@ from bingads.service_client import ServiceClient
 from bingads.authorization import *
 from bingads.util import _TimeHelper
 from bingads.exceptions import TimeoutException
-from six import PY2, PY3
-
 
 class BulkServiceManager:
     SYNC_THRESHOLD = 1000
@@ -186,10 +184,7 @@ class BulkServiceManager:
         records = self.service_client.factory.create("ns2:ArrayOfstring")
         tmp_csv_file = io.open(tmp_file, encoding='utf-8-sig')
 
-        if PY3:
-            records.string = [x.strip() for x in tmp_csv_file.readlines()]
-        elif PY2:
-            records.string = [line.encode('utf-8').strip() for line in tmp_csv_file]
+        records.string = [x.strip() for x in tmp_csv_file.readlines()]
         
         try:
             #print(self.service_client)

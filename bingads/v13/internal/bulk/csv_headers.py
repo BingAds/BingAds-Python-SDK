@@ -42,6 +42,7 @@ class _CsvHeaders:
         _StringTable.HotelAdGroupType,
         _StringTable.CommissionRate,
         _StringTable.PercentCpcBid,
+        _StringTable.FinalUrlExpansionOptOut,
         _StringTable.HotelListingGroupType,
         _StringTable.HotelAttribute,
         _StringTable.HotelAttributeValue,
@@ -452,6 +453,18 @@ class _CsvHeaders:
         # Hotel Ad
         _StringTable.MinTargetValue,
         _StringTable.MaxTargetValue,
+        
+        # PMax
+        _StringTable.Audiences,
+        _StringTable.AssetGroup,
+        _StringTable.AudienceGroup,
+        _StringTable.AgeRanges,
+        _StringTable.GenderTypes,
+        _StringTable.ParentListingGroupId,
+        _StringTable.AudienceGroupName,
+        _StringTable.CampaignNegativeWebpage,
+        _StringTable.AssetGroupListingGroup,
+        _StringTable.AudienceGroupAssetGroupAssociation,
     ]
 
     @staticmethod

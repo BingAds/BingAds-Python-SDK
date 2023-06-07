@@ -1,7 +1,5 @@
 from abc import ABCMeta, abstractmethod
 
-from future.utils import with_metaclass
-
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v13.bulk.entities.bulk_entity import BulkEntity
@@ -9,7 +7,7 @@ from bingads.v13.bulk.entities.bulk_error import BulkError
 from bingads.v13.internal.extensions import *
 
 
-class _SingleRecordBulkEntity(with_metaclass(ABCMeta, BulkEntity)):
+class _SingleRecordBulkEntity(BulkEntity,metaclass=ABCMeta):
     def __init__(self):
         self._client_id = None
         self._last_modified_time = None

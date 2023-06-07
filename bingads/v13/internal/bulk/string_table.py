@@ -24,6 +24,7 @@ class _StringTable:
     HotelAdGroupType = "Hotel Ad Group Type"
     CommissionRate = "Commission Rate"
     PercentCpcBid = "Percent Cpc Bid"
+    FinalUrlExpansionOptOut = "Url Expansion Opt Out"
     HotelListingGroupType = "Ad Group Hotel Listing Group"
     HotelAttribute = "Hotel Attribute"
     HotelAttributeValue = "Hotel Attribute Value"
@@ -632,3 +633,15 @@ class _StringTable:
     # Campaign Conversion Goal
     CampaignConversionGoal = "Campaign Conversion Goal"
     GoalId = "Goal Id"
+    
+    # PMax
+    AssetGroup = "Asset Group"
+    AudienceGroup = "Audience Group"
+    CampaignNegativeWebpage = "Campaign Negative Webpage"
+    AssetGroupListingGroup = "Asset Group Listing Group"
+    AudienceGroupAssetGroupAssociation = "Audience Group Asset Group Association"
+    Audiences = "Audiences"
+    AudienceGroupName = "Audience Group Name"
+    AgeRanges = "Age Ranges"
+    GenderTypes = "Gender Types"
+    ParentListingGroupId = "Parent Listing Group Id"

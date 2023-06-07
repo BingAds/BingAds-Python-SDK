@@ -4,7 +4,6 @@ import ssl
 import requests
 import zipfile
 import os
-import six
 import sys
 import shutil
 
@@ -101,10 +100,7 @@ class ReportingDownloadOperation(object):
             zip_file_path = result_file_path
 
         if os.path.exists(result_file_path) and overwrite is False:
-            if six.PY3:
-                raise FileExistsError('Result file: {0} exists'.format(result_file_path))
-            else:
-                raise OSError('Result file: {0} exists'.format(result_file_path))
+            raise FileExistsError('Result file: {0} exists'.format(result_file_path))
         headers = {
             'User-Agent': USER_AGENT,
         }

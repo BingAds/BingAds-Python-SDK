@@ -1,8 +1,7 @@
-from future.utils import with_metaclass
 from abc import ABCMeta, abstractmethod
 
 
-class _BulkMapping(with_metaclass(ABCMeta)):
+class _BulkMapping(metaclass=ABCMeta):
     @abstractmethod
     def convert_to_csv(self, entity, row_values):
         raise NotImplementedError()
@@ -12,7 +11,7 @@ class _BulkMapping(with_metaclass(ABCMeta)):
         raise NotImplementedError()
 
 
-class _SingleFieldBulkMapping(with_metaclass(ABCMeta, _BulkMapping)):
+class _SingleFieldBulkMapping(_BulkMapping, metaclass=ABCMeta):
     def __init__(self, csv_to_field, filed_to_csv):
         self._csv_to_field = csv_to_field
         self._field_to_csv = filed_to_csv

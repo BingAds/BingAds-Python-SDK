@@ -11,6 +11,7 @@ _ShoppingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ShoppingSetting'))
 _DsaSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting'))
 _DisclaimerSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DisclaimerSetting'))
 _VerifiedTrackingSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VerifiedTrackingSetting'))
+_PerformanceMaxSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('PerformanceMaxSetting'))
 
 class BulkCampaign(_SingleRecordBulkEntity):
     """ Represents a campaign that can be read or written in a bulk file.
@@ -136,6 +137,9 @@ class BulkCampaign(_SingleRecordBulkEntity):
     def _get_verified_tracking_setting(self):
         return self._get_setting(_VerifiedTrackingSetting, 'VerifiedTrackingSetting')
 
+    def _get_performance_max_setting(self):
+        return self._get_setting(_PerformanceMaxSetting, 'PerformanceMaxSetting')
+
     def _get_setting(self, setting_type, setting_name):
         if not self.campaign.Settings.Setting:
             return None
@@ -171,6 +175,9 @@ class BulkCampaign(_SingleRecordBulkEntity):
         if campaign_type.lower() == 'dynamicsearchads' or campaign_type.lower() == 'search':
             BulkCampaign._create_campaign_setting(c.campaign, 'DynamicSearchAdsSetting')
             BulkCampaign._create_campaign_setting(c.campaign, 'DisclaimerSetting')
+        if campaign_type.lower() == 'performancemax':
+            BulkCampaign._create_campaign_setting(c.campaign, 'PerformanceMaxSetting')
+            BulkCampaign._create_campaign_setting(c.campaign, 'ShoppingSetting')
 
     @staticmethod
     def _create_campaign_setting(campaign, setting_type):
@@ -180,6 +187,28 @@ class BulkCampaign(_SingleRecordBulkEntity):
         setting = _CAMPAIGN_OBJECT_FACTORY_V13.create(setting_type)
         setting.Type = setting_type
         campaign.Settings.Setting.append(setting)
+
+    @staticmethod
+    def _write_final_url_expansion_opt_out(c):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'performancemax' in campgaign_types:
+            performance_max_setting = c._get_performance_max_setting()
+            if not performance_max_setting:
+                return None
+            return bulk_str(performance_max_setting.FinalUrlExpansionOptOut)
+
+    @staticmethod
+    def _read_final_url_expansion_opt_out(c, v):
+        if not c.campaign.CampaignType:
+            return None
+        campgaign_types = [campaign_type.lower() for campaign_type in c.campaign.CampaignType]
+        if 'performancemax' in campgaign_types:
+            performance_max_setting = c._get_performance_max_setting()
+            if not performance_max_setting:
+                return None
+            performance_max_setting.FinalUrlExpansionOptOut = parse_bool(v)
 
     @staticmethod
     def _write_store_id(c):
@@ -460,6 +489,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
                 'AudienceAdsBidAdjustment',
                 int(v) if v else None
             )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlExpansionOptOut,
+            field_to_csv=lambda c: BulkCampaign._write_final_url_expansion_opt_out(c),
+            csv_to_field=lambda c, v: BulkCampaign._read_final_url_expansion_opt_out(c, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.MerchantCenterId,

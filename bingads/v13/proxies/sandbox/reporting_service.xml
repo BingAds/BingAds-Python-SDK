@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions name="ReportingService" targetNamespace="https://bingads.microsoft.com/Reporting/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="https://bingads.microsoft.com/Reporting/v13" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://bingads.microsoft.com/Reporting/v13" xmlns:i0="http://tempuri.org/" name="ReportingService" targetNamespace="https://bingads.microsoft.com/Reporting/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
    <wsp:Policy wsu:Id="BasicHttpBinding_IReportingService_policy">
       <wsp:ExactlyOne>
          <wsp:All>
@@ -246,7 +246,7 @@
          <xs:element name="DeviceTypeReportFilter" nillable="true" type="tns:DeviceTypeReportFilter" />
          <xs:complexType name="AccountReportScope">
             <xs:sequence>
-               <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AccountReportScope" nillable="true" type="tns:AccountReportScope" />
@@ -998,7 +998,7 @@
          <xs:element name="CampaignStatusReportFilter" nillable="true" type="tns:CampaignStatusReportFilter" />
          <xs:complexType name="AccountThroughCampaignReportScope">
             <xs:sequence>
-               <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q2:ArrayOflong" xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q2:ArrayOflong" />
                <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaignReportScope" />
             </xs:sequence>
          </xs:complexType>
@@ -1254,7 +1254,7 @@
          <xs:element name="LanguageReportFilter" nillable="true" type="tns:LanguageReportFilter" />
          <xs:complexType name="AccountThroughAdGroupReportScope">
             <xs:sequence>
-               <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q3:ArrayOflong" xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q3:ArrayOflong" />
                <xs:element minOccurs="0" name="AdGroups" nillable="true" type="tns:ArrayOfAdGroupReportScope" />
                <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaignReportScope" />
             </xs:sequence>
@@ -1646,19 +1646,19 @@
                <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
                <xs:element minOccurs="0" name="AdDistribution" nillable="true" type="tns:AdDistributionReportFilter" />
                <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
-               <xs:element minOccurs="0" name="AdRelevance" nillable="true" type="q4:ArrayOfint" xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AdRelevance" nillable="true" type="q4:ArrayOfint" />
                <xs:element minOccurs="0" name="AdType" nillable="true" type="tns:AdTypeReportFilter" />
                <xs:element minOccurs="0" name="BidMatchType" nillable="true" type="tns:BidMatchTypeReportFilter" />
                <xs:element minOccurs="0" name="BidStrategyType" nillable="true" type="tns:BidStrategyTypeReportFilter" />
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
                <xs:element minOccurs="0" name="DeliveredMatchType" nillable="true" type="tns:DeliveredMatchTypeReportFilter" />
                <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
-               <xs:element minOccurs="0" name="ExpectedCtr" nillable="true" type="q5:ArrayOfint" xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ExpectedCtr" nillable="true" type="q5:ArrayOfint" />
                <xs:element minOccurs="0" name="KeywordStatus" nillable="true" type="tns:KeywordStatusReportFilter" />
-               <xs:element minOccurs="0" name="Keywords" nillable="true" type="q6:ArrayOfstring" xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-               <xs:element minOccurs="0" name="LandingPageExperience" nillable="true" type="q7:ArrayOfint" xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q6:ArrayOfstring" />
+               <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LandingPageExperience" nillable="true" type="q7:ArrayOfint" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
-               <xs:element minOccurs="0" name="QualityScore" nillable="true" type="q8:ArrayOfint" xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="QualityScore" nillable="true" type="q8:ArrayOfint" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="KeywordPerformanceReportFilter" nillable="true" type="tns:KeywordPerformanceReportFilter" />
@@ -2089,7 +2089,7 @@
          <xs:complexType name="UserLocationPerformanceReportFilter">
             <xs:sequence>
                <xs:element minOccurs="0" name="AdDistribution" nillable="true" type="tns:AdDistributionReportFilter" />
-               <xs:element minOccurs="0" name="CountryCode" nillable="true" type="q9:ArrayOfstring" xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryCode" nillable="true" type="q9:ArrayOfstring" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
             </xs:sequence>
          </xs:complexType>
@@ -2275,7 +2275,7 @@
                <xs:element minOccurs="0" name="ExcludeZeroClicks" type="xs:boolean" />
                <xs:element minOccurs="0" name="KeywordStatus" nillable="true" type="tns:KeywordStatusReportFilter" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
-               <xs:element minOccurs="0" name="SearchQueries" nillable="true" type="q10:ArrayOfstring" xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SearchQueries" nillable="true" type="q10:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="SearchQueryPerformanceReportFilter" nillable="true" type="tns:SearchQueryPerformanceReportFilter" />
@@ -2354,7 +2354,7 @@
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
                <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
                <xs:element minOccurs="0" name="KeywordStatus" nillable="true" type="tns:KeywordStatusReportFilter" />
-               <xs:element minOccurs="0" name="Keywords" nillable="true" type="q11:ArrayOfstring" xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q11:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ConversionPerformanceReportFilter" nillable="true" type="tns:ConversionPerformanceReportFilter" />
@@ -2417,7 +2417,7 @@
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
                <xs:element minOccurs="0" name="DeviceOS" nillable="true" type="tns:DeviceOSReportFilter" />
                <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
-               <xs:element minOccurs="0" name="GoalIds" nillable="true" type="q12:ArrayOflong" xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GoalIds" nillable="true" type="q12:ArrayOflong" />
                <xs:element minOccurs="0" name="KeywordStatus" nillable="true" type="tns:KeywordStatusReportFilter" />
             </xs:sequence>
          </xs:complexType>
@@ -2992,7 +2992,7 @@
                <xs:element minOccurs="0" name="DeliveredMatchType" nillable="true" type="tns:DeliveredMatchTypeReportFilter" />
                <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
                <xs:element minOccurs="0" name="KeywordStatus" nillable="true" type="tns:KeywordStatusReportFilter" />
-               <xs:element minOccurs="0" name="Keywords" nillable="true" type="q13:ArrayOfstring" xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q13:ArrayOfstring" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
             </xs:sequence>
          </xs:complexType>
@@ -3418,7 +3418,7 @@
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
                <xs:element minOccurs="0" name="ExcludeZeroClicks" type="xs:boolean" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
-               <xs:element minOccurs="0" name="SearchQueries" nillable="true" type="q14:ArrayOfstring" xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SearchQueries" nillable="true" type="q14:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ProductSearchQueryPerformanceReportFilter" nillable="true" type="tns:ProductSearchQueryPerformanceReportFilter" />
@@ -3654,7 +3654,7 @@
                <xs:element minOccurs="0" name="AdDistribution" nillable="true" type="tns:AdDistributionReportFilter" />
                <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
-               <xs:element minOccurs="0" name="CountryCode" nillable="true" type="q15:ArrayOfstring" xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryCode" nillable="true" type="q15:ArrayOfstring" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
             </xs:sequence>
          </xs:complexType>
@@ -3751,7 +3751,7 @@
                <xs:element minOccurs="0" name="ExcludeZeroClicks" type="xs:boolean" />
                <xs:element minOccurs="0" name="FeedUrl" nillable="true" type="xs:boolean" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
-               <xs:element minOccurs="0" name="SearchQueries" nillable="true" type="q16:ArrayOfstring" xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+               <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SearchQueries" nillable="true" type="q16:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="DSASearchQueryPerformanceReportFilter" nillable="true" type="tns:DSASearchQueryPerformanceReportFilter" />
@@ -4141,7 +4141,7 @@
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
          <xs:complexType name="ApiFaultDetail">
             <xs:complexContent mixed="false">
-               <xs:extension base="q17:ApplicationFault" xmlns:q17="https://adapi.microsoft.com">
+               <xs:extension xmlns:q17="https://adapi.microsoft.com" base="q17:ApplicationFault">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
@@ -4211,7 +4211,7 @@
          </xs:simpleType>
          <xs:element name="ReportRequestStatusType" nillable="true" type="tns:ReportRequestStatusType" />
       </xs:schema>
-      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
+      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
          <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
          <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
@@ -4252,7 +4252,7 @@
          <xs:attribute name="Id" type="xs:ID" />
          <xs:attribute name="Ref" type="xs:IDREF" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="ArrayOflong">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
@@ -4272,7 +4272,7 @@
          </xs:complexType>
          <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
       </xs:schema>
-      <xs:schema elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://adapi.microsoft.com">
+      <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ApplicationFault">
@@ -4325,7 +4325,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IReportingService_SubmitGenerateReport_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q1:AdApiFaultDetail" xmlns:q1="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q1="https://adapi.microsoft.com" name="detail" element="q1:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IReportingService_SubmitGenerateReport_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4349,7 +4349,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IReportingService_PollGenerateReport_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part name="detail" element="q2:AdApiFaultDetail" xmlns:q2="https://adapi.microsoft.com" />
+      <wsdl:part xmlns:q2="https://adapi.microsoft.com" name="detail" element="q2:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IReportingService_PollGenerateReport_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4420,7 +4420,7 @@
    </wsdl:binding>
    <wsdl:service name="ReportingService">
       <wsdl:port name="BasicHttpBinding_IReportingService" binding="tns:BasicHttpBinding_IReportingService">
-         <soap:address location="https://reporting.api.sandbox.bingads.microsoft.com/Api/Advertiser/Reporting/V13/ReportingService.svc" />
+         <soap:address location="https://reporting.api.sandbox.bingads.microsoft.com/Api/Advertiser/Reporting/v13/ReportingService.svc" />
       </wsdl:port>
    </wsdl:service>
 </wsdl:definitions>
