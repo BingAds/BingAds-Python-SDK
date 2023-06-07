@@ -1,5 +1,4 @@
 import csv
-from six import PY2, PY3
 from .bulk_object_factory import _BulkObjectFactory
 from .row_values import _RowValues
 from .csv_reader import _CsvReader
@@ -84,11 +83,7 @@ class _BulkFileObjectReader(_BulkObjectReader):
 
 class _CsvRowsReader:
     def __init__(self, csv_rows):
-        if PY3:
-            self._csv_reader = csv.reader(csv_rows, dialect=csv.excel)
-        elif PY2:
-            byte_lines = [line.encode('utf-8') for line in csv_rows]
-            self._csv_reader = csv.reader(byte_lines, dialect=csv.excel)
+        self._csv_reader = csv.reader(csv_rows, dialect=csv.excel)
         
     def __enter__(self):
         return self

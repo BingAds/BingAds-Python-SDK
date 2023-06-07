@@ -1,4 +1,3 @@
-from __future__ import print_function
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity

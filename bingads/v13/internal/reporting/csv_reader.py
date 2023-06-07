@@ -1,6 +1,5 @@
 import csv
 import io
-from six import PY2, PY3
 
 class _CsvReader:
 
@@ -17,11 +16,7 @@ class _CsvReader:
 
         self._csv_file = io.open(self.filename, encoding=encoding)
 
-        if PY3:
-            self._csv_reader = csv.reader(self._csv_file, dialect=self._dialect)
-        elif PY2:
-            byte_lines = [line.encode('utf-8') for line in self._csv_file]
-            self._csv_reader = csv.reader(byte_lines, dialect=self._dialect)
+        self._csv_reader = csv.reader(self._csv_file, dialect=self._dialect)
 
     def __enter__(self):
         return self
@@ -39,11 +34,7 @@ class _CsvReader:
         self.__exit__(None, None, None)
 
     def next(self):
-        if PY3:
-            return next(self._csv_reader)
-        elif PY2:
-            row = next(self._csv_reader)
-            return [unicode(cell, encoding='utf-8') for cell in row]
+        return next(self._csv_reader)
 
     @property
     def filename(self):

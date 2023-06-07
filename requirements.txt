@@ -1,11 +1,8 @@
 suds-community>=1.1.0
 requests>=2.0.0
-future
-six
 enum34
 pytest
 mock
-parameterizedtestcase
 coverage
 flake8
 setuptools

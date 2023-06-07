@@ -1,6 +1,13 @@
 .. :changelog:
 
 Release History
+13.0.16(2023-06-02)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.
+* Add bulk mappings for performance max campaign i.e., BulkAssetGroup, BulkAssetGroupListingGroup, BulkAudienceGroup, BulkAudienceGroupAssetGroupAssociation, BulkCampaignNegativeWebPage.
+* Add mappings for new fields in BulkCampaign: UrlExpansionOptOut.
+* Support new bidding scheme: ManualCpaScheme and CostPerSaleBiddingScheme.
+
 13.0.15(2022-12-23)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://docs.microsoft.com/en-us/bingads/guides/release-notes.

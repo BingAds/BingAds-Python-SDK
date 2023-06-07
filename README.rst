@@ -25,8 +25,6 @@ External Dependencies
 
     - `suds-community`_
     - `requests`_
-    - `future`_
-    - `six`_
     - `enum34`_
 
 .. _Bing Ads Client Libraries: https://docs.microsoft.com/en-us/bingads/guides/client-libraries
@@ -35,7 +33,4 @@ External Dependencies
 
 .. _suds-community: https://pypi.org/pypi/suds-community/
 .. _requests: http://pypi.python.org/pypi/requests
-.. _chardet: http://pypi.python.org/pypi/chardet
-.. _future: http://pypi.python.org/pypi/future
-.. _six: http://pypi.python.org/pypi/six
 .. _enum34: http://pypi.python.org/pypi/enum34

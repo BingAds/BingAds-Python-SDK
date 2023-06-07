@@ -202,6 +202,11 @@ class _BulkObjectFactory():
         _StringTable.AdCustomizerCampaign: _EntityInfo(lambda: BulkCampaignAdCustomizerAttribute()),
         _StringTable.AdCustomizerAdGroup: _EntityInfo(lambda: BulkAdGroupAdCustomizerAttribute()),
         _StringTable.AdCustomizerKeyword: _EntityInfo(lambda: BulkKeywordAdCustomizerAttribute()),
+        _StringTable.AssetGroup: _EntityInfo(lambda: BulkAssetGroup()),
+        _StringTable.AudienceGroup: _EntityInfo(lambda: BulkAudienceGroup()),
+        _StringTable.CampaignNegativeWebpage: _EntityInfo(lambda: BulkCampaignNegativeWebpage()),
+        _StringTable.AssetGroupListingGroup: _EntityInfo(lambda: BulkAssetGroupListingGroup()),
+        _StringTable.AudienceGroupAssetGroupAssociation: _EntityInfo(lambda: BulkAudienceGroupAssetGroupAssociation()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

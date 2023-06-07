@@ -1,9 +1,8 @@
 from abc import ABCMeta, abstractproperty
-from future.utils import with_metaclass
 from bingads.v13.bulk.entities.bulk_entity import BulkEntity
 
 
-class _MultiRecordBulkEntity(with_metaclass(ABCMeta, BulkEntity)):
+class _MultiRecordBulkEntity(BulkEntity, metaclass=ABCMeta):
     """ Bulk entity that has its data in multiple records within the bulk file.
 
     For more information, see Bulk File Schema at https://go.microsoft.com/fwlink/?linkid=846127.

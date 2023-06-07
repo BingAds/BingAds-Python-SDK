@@ -1,11 +1,10 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
-from future.utils import with_metaclass
 
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping
 from bingads.v13.bulk import EntityWriteException
 
 
-class _BulkObject(with_metaclass(ABCMeta)):
+class _BulkObject(metaclass=ABCMeta):
     """ The abstract base class for all bulk objects that can be read and written in a file that conforms to the Bing Ad Bulk File Schema.
 
     For more information about the Bulk File Schema, see https://go.microsoft.com/fwlink/?linkid=846127.

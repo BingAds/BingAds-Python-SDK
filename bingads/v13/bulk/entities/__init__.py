@@ -41,3 +41,9 @@ from .bulk_ad_customizer_attribute_entity_base import *
 from .bulk_ad_customizer_attribute_campaign import *
 from .bulk_ad_customizer_attribute_ad_group import *
 from .bulk_ad_customizer_attribute_keyword import *
+
+from .bulk_asset_group import *
+from .bulk_audience_group import *
+from .bulk_asset_group_listing_group import *
+from .bulk_audience_group_asset_group_association import *
+from .bulk_campaign_negative_webpage import *

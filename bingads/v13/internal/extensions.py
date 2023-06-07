@@ -1,7 +1,6 @@
 ﻿from datetime import datetime
 
 from bingads.v13.internal.bulk.string_table import _StringTable
-from six import PY2
 import re
 import json
 from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13, _CAMPAIGN_MANAGEMENT_SERVICE_V13
@@ -63,9 +62,6 @@ def bulk_str(value):
         return None
     if isinstance(value, str):
         return value
-    if PY2:
-        if isinstance(value, unicode):
-            return value
     return str(value)
 
 
@@ -325,7 +321,40 @@ def parse_device_preference(value):
     elif value.lower() == "mobile":
         return 30001
     else:
-        raise ValueError("Unknown device preference")
+        return None
+
+def field_to_csv_AudienceIds(entity):
+    audience_ids = entity.audience_ids
+    if audience_ids is None or len(audience_ids) == 0:
+        return None
+    return ';'.join(str(audience_id) for audience_id in audience_ids)
+
+def csv_to_field_AudienceIds(entity, value):
+    if value is None or value.strip() == '':
+        return
+    entity.audience_ids = [None if i == 'None' else int(i) for i in value.split(';')]
+
+def field_to_csv_AgeRanges(entity):
+    age_ranges = entity.age_ranges
+    if age_ranges is None or len(age_ranges) == 0:
+        return None
+    return ';'.join(age_range for age_range in age_ranges)
+
+def csv_to_field_AgeRanges(entity, value):
+    if value is None or value.strip() == '':
+        return
+    entity.age_ranges = [None if i == 'None' else i for i in value.split(';')]
+
+def field_to_csv_GenderTypes(entity):
+    gender_types = entity.gender_types
+    if gender_types is None or len(gender_types) == 0:
+        return None
+    return ';'.join(gender_type for gender_type in gender_types)
+
+def csv_to_field_GenderTypes(entity, value):
+    if value is None or value.strip() == '':
+        return
+    entity.gender_types = [None if i == 'None' else i for i in value.split(';')]
 
 def field_to_csv_MediaIds(entity):
     """
@@ -507,6 +536,10 @@ def field_to_csv_BidStrategyType(entity):
         return 'PercentCpc'
     elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CommissionBiddingScheme')):
         return 'Commission'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpaBiddingScheme')):
+        return 'ManualCpa'
+    elif type(entity.BiddingScheme) == type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CostPerSaleBiddingScheme')):
+        return 'CostPerSale'
     else:
         raise TypeError('Unsupported Bid Strategy Type')
 
@@ -548,8 +581,12 @@ def csv_to_field_BidStrategyType(entity, value):
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('PercentCpcBiddingScheme')
     elif value == 'Commission':
         entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('CommissionBiddingScheme')
+    elif value == 'ManualCpa':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('ManualCpaBiddingScheme')
+    elif value == 'CostPerSale':
+        entity.BiddingScheme = _CAMPAIGN_OBJECT_FACTORY_V13.create('CostPerSaleBiddingScheme')
     else:
-        raise ValueError('Unknown Bid Strategy Type')
+        return None
     entity.BiddingScheme.Type = value
 
 
@@ -985,7 +1022,7 @@ def csv_to_field_BudgetType(entity, value, version=13):
     elif value == 'DailyBudgetStandard':
         entity.BudgetType = BudgetLimitType.DailyBudgetStandard
     else:
-        raise ValueError('Unable to parse BudgetType: {0}'.format(value))
+        entity.BudgetType = None
 
 def field_to_csv_WebpageParameter_CriterionName(entity):
     if entity.Criterion is None or entity.Criterion.Parameter is None or entity.Criterion.Parameter.CriterionName is None:
@@ -1060,7 +1097,7 @@ def csv_to_entity_DSAWebpageParameter(row_values, entity):
                 # TODO wait bug 54825 to be fixed
                 if webpage_condition.lower() == 'none':
                     continue
-                raise ValueError("Unknown WebpageConditionOperand value: {0}".format(webpage_condition))
+                return None
             if condition_operator_success:
                 condition.Operator = webpage_condition_operator
 
@@ -1254,7 +1291,7 @@ def csv_to_field_RemarketingRule(entity, value):
     elif rule_type.lower() == 'customevents':
         entity.Rule = parse_rule_CustomEvents(rule)
     else:
-        raise ValueError('Invalid Remarketing Rule Type: {0}'.format(rule_type))
+        entity.Rule = None
 
 
 def field_to_csv_CriterionAudienceId(entity):
@@ -1866,7 +1903,8 @@ def parse_number_operator(operator):
         return NumberOperator.LessThanEqualTo
     if oper == 'notequals':
         return NumberOperator.NotEquals
-    raise ValueError('Invalid Number Rule Item operator:{0}'.format(operator))
+
+    return None
 
 
 def parse_string_operator(operator):
@@ -1888,7 +1926,7 @@ def parse_string_operator(operator):
     if oper == 'doesnotendwith':
         return StringOperator.DoesNotEndWith
 
-    raise ValueError('Invalid String Rule Item operator:{0}'.format(operator))
+    return None
 
 
 def csv_to_field_SupportedCampaignTypes(entity, value):
