@@ -16,6 +16,7 @@ Release History
 * Add bulk mappings for AdGroupHotelListingGroup.
 * Add mappings for new fields in BulkAdgroup: UseOptimizedTargeting, HotelSetting, CommissionRate and PercentCpcBid.
 * Support new bidding scheme: percentCpcBiddingScheme and commissionBiddingScheme.
+* get rid of six/future as we support python3 only. Refer to https://github.com/BingAds/BingAds-Python-SDK/issues/233.
 
 13.0.14(2022-06-30)
 +++++++++++++++++++++++++
