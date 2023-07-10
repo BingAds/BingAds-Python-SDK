@@ -8,8 +8,7 @@ def main(authorization_data):
     try:
         output_status_message("-----\nGetUser:")
         get_user_response=customer_service.GetUser(
-            UserId=None,
-            IncludeLinkedAccountIds=True
+            UserId=None
         )
         user = get_user_response.User
         customer_roles=get_user_response.CustomerRoles
