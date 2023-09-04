@@ -64,7 +64,7 @@ class _RowReportHeader:
             self._report_time_end = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[0] else None
         elif len(time_array) == 2:
             self._report_time_start = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[0] else None
-            self._report_time_end = datetime.strptime(time_array[0], '%m/%d/%Y') if time_array[1] else None
+            self._report_time_end = datetime.strptime(time_array[1], '%m/%d/%Y') if time_array[1] else None
 
     @property
     def last_completed_available_date(self):

@@ -39,6 +39,8 @@ class BulkCampaign(_SingleRecordBulkEntity):
         self._budget_name = None
         self._bid_strategy_name = None
         self._verified_tracking_data = None
+        self._destination_channel = None
+        self._is_multi_channel_campaign = None
 
     @property
     def account_id(self):
@@ -118,6 +120,22 @@ class BulkCampaign(_SingleRecordBulkEntity):
         """
 
         return self._quality_score_data
+
+    @property
+    def destination_channel(self):
+        return self._destination_channel
+
+    @destination_channel.setter
+    def destination_channel(self, value):
+        self._destination_channel = value
+
+    @property
+    def is_multi_channel_campaign(self):
+        return self._is_multi_channel_campaign
+
+    @is_multi_channel_campaign.setter
+    def is_multi_channel_campaign(self, value):
+        self._is_multi_channel_campaign = value
 
     def _get_dynamic_feed_setting(self):
         return self._get_setting(_DynamicFeedSetting, 'DynamicFeedSetting')
@@ -625,7 +643,17 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.Details,
             field_to_csv=lambda c: to_verified_tracking_setting_string(c.verified_tracking_data),
             csv_to_field=lambda c, v: setattr(c, 'verified_tracking_data', parse_verified_tracking_setting(v) if v else None)
-        )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.DestinationChannel,
+            field_to_csv=lambda c: c.destination_channel,
+            csv_to_field=lambda c, v: setattr(c, 'destination_channel', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.IsMultiChannelCampaign,
+            field_to_csv=lambda c: field_to_csv_bool(c.is_multi_channel_campaign),
+            csv_to_field=lambda c, v: setattr(c, 'is_multi_channel_campaign', parse_bool(v))
+        ),
     ]
 
     def read_additional_data(self, stream_reader):

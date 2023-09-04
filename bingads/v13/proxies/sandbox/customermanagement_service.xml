@@ -1829,6 +1829,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="ChineseChina">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2052</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
                <xs:enumeration value="GermanSwitzerland">
                   <xs:annotation>
                      <xs:appinfo>

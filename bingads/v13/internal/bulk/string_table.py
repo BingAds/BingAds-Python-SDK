@@ -532,7 +532,7 @@ class _StringTable:
     AdGroupNegativeGenderCriterion = "Ad Group Negative Gender Criterion"
     AdGroupNegativeIndustryCriterion = "Ad Group Negative Industry Criterion"
     AdGroupNegativeJobFunctionCriterion = "Ad Group Negative Job Function Criterion"
-
+    AdGroupGenreCriterion = "Ad Group Genre Criterion"
 
     # Responsive Ad
     ResponsiveAd = "Responsive Ad"
@@ -606,6 +606,7 @@ class _StringTable:
     CampaignCompanyNameCriterion = 'Campaign Company Name Criterion'
     CampaignJobFunctionCriterion = 'Campaign Job Function Criterion'
     CampaignIndustryCriterion = 'Campaign Industry Criterion'
+    CampaignDealCriterion = 'Campaign Deal Criterion'
 
     # Online Conversion
     OnlineConversionAdjustment = "Online Conversion Adjustment"
@@ -633,7 +634,7 @@ class _StringTable:
     # Campaign Conversion Goal
     CampaignConversionGoal = "Campaign Conversion Goal"
     GoalId = "Goal Id"
-    
+
     # PMax
     AssetGroup = "Asset Group"
     AudienceGroup = "Audience Group"
@@ -645,3 +646,8 @@ class _StringTable:
     AgeRanges = "Age Ranges"
     GenderTypes = "Gender Types"
     ParentListingGroupId = "Parent Listing Group Id"
+
+    # MultiChannel Campaign
+    DestinationChannel = "Destination Channel"
+    IsMultiChannelCampaign = "Is Multi Channel Campaign"
+

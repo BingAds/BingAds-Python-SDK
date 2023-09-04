@@ -41,12 +41,14 @@ DeviceCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DeviceCriterion')
 GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenderCriterion')
 HotelAdvanceBookingWindowCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelAdvanceBookingWindowCriterion')
 HotelCheckInDateCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDateCriterion')
+GenreCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenreCriterion')
 HotelCheckInDayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDayCriterion')
 HotelDateSelectionTypeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelDateSelectionTypeCriterion')
 HotelLengthOfStayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelLengthOfStayCriterion')
 LocationCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationCriterion')
 LocationIntentCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('LocationIntentCriterion')
 RadiusCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('RadiusCriterion')
+DealCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('DealCriterion')
 TargetSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TargetSetting'))
 HotelSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('HotelSetting'))
 CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
@@ -249,7 +251,7 @@ def entity_biddingscheme_to_csv(entity, row_values):
     elif bid_strategy_type == 'TargetImpressionShare':
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
         row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(entity.BiddingScheme.TargetAdPosition, entity.Id)
-        row_values[_StringTable.TargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
+        row_values[_StringTable.BidStrategyTargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
     elif bid_strategy_type == 'PercentCpc':
         row_values[_StringTable.BidStrategyPercentMaxCpc] = bulk_str(entity.BiddingScheme.MaxPercentCpc)
     elif bid_strategy_type == 'Commission':
@@ -623,6 +625,8 @@ def field_to_csv_VideoAssetLinks(assetLinks):
                 contract['thumbnailImage']['cropY'] = thumbnailImage.CropY
                 contract['thumbnailImage']['cropWidth'] = thumbnailImage.CropWidth
                 contract['thumbnailImage']['cropHeight'] = thumbnailImage.CropHeight
+                contract['thumbnailImage']['targetWidth'] = thumbnailImage.TargetWidth
+                contract['thumbnailImage']['targetHeight'] = thumbnailImage.TargetHeight
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts, sort_keys = True)
@@ -656,6 +660,8 @@ def csv_to_field_VideoAssetLinks(assetLinks, value):
             asset_link.Asset.ThumbnailImage.CropY = thumbnailImageContract.get('cropY')
             asset_link.Asset.ThumbnailImage.CropWidth = thumbnailImageContract.get('cropWidth')
             asset_link.Asset.ThumbnailImage.CropHeight = thumbnailImageContract.get('cropHeight')
+            asset_link.Asset.ThumbnailImage.TargetWidth = thumbnailImageContract.get('targetWidth')
+            asset_link.Asset.ThumbnailImage.TargetHeight = thumbnailImageContract.get('targetHeight')
 
         assetLinks.AssetLink.append(asset_link)
 
@@ -694,6 +700,8 @@ def field_to_csv_ImageAssetLinks(entity):
             contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None
             contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
+            contract['targetWidth'] = assetLink.TargetWidth if hasattr(assetLink, 'TargetWidth') else None
+            contract['targetHeight'] = assetLink.TargetHeight if hasattr(assetLink, 'TargetHeight') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts)
@@ -717,6 +725,8 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
         asset_link.PinnedField = assetLinkContract.get('pinnedField')
         asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
+        asset_link.TargetWidth = assetLinkContract.get('targetWidth')
+        asset_link.TargetHeight = assetLinkContract.get('targetHeight')
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_TextAssetLinks(entity):
@@ -1464,6 +1474,17 @@ def csv_to_field_StartDate(entity, value):
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(HotelCheckInDateCriterion)):
         setattr(entity.Criterion, "StartDate", parse_datetime(value))
 
+def field_to_csv_GenreId(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.GenreId is None:
+        return None
+    return bulk_str(entity.Criterion.GenreId)
+
+def csv_to_field_GenreId(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(GenreCriterion)):
+        setattr(entity.Criterion, "GenreId", int(value) if value else None)
+
 def field_to_csv_EndDate(entity):
     if entity is None or entity.Criterion is None or entity.Criterion.EndDate is None:
         return None
@@ -1584,6 +1605,17 @@ def csv_to_field_Radius(entity, value):
         return
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(RadiusCriterion)):
         setattr(entity.Criterion, "Radius", value)
+
+def field_to_csv_DealTarget(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.DealId is None:
+        return None
+    return str(entity.Criterion.DealId)
+
+def csv_to_field_DealTarget(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(DealCriterion)):
+        setattr(entity.Criterion, "DealId", int(value))
 
 def field_to_csv_RadiusUnit(entity):
     if entity is None or entity.Criterion is None or entity.Criterion.RadiusUnit is None:

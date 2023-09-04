@@ -104,30 +104,31 @@ class ReportingDownloadOperation(object):
         headers = {
             'User-Agent': USER_AGENT,
         }
-        s = requests.Session()
-        s.mount('https://', TlsHttpAdapter())
-        timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
-        try:
-            r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
-        except requests.Timeout as ex:
-            raise FileDownloadException(ex)
-        r.raise_for_status()
-        try:
-            with open(zip_file_path, 'wb') as f:
-                for chunk in r.iter_content(chunk_size=4096):
-                    if chunk:
-                        f.write(chunk)
-                        f.flush()
-            if decompress:
-                with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
-                    first = compressed.namelist()[0]
-                    with open(result_file_path, 'wb') as f, compressed.open(first, 'r') as cc:
-                        shutil.copyfileobj(cc, f)
-        except Exception as ex:
-            raise ex
-        finally:
-            if decompress and os.path.exists(zip_file_path):
-                os.remove(zip_file_path)
+        
+        with requests.Session() as s:
+            s.mount('https://', TlsHttpAdapter())
+            timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
+            try:
+                r = s.get(url, headers=headers, stream=True, verify=True, timeout=timeout_seconds)
+            except requests.Timeout as ex:
+                raise FileDownloadException(ex)
+            r.raise_for_status()
+            try:
+                with open(zip_file_path, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=4096):
+                        if chunk:
+                            f.write(chunk)
+                            f.flush()
+                if decompress:
+                    with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
+                        first = compressed.namelist()[0]
+                        with open(result_file_path, 'wb') as f, compressed.open(first, 'r') as cc:
+                            shutil.copyfileobj(cc, f)
+            except Exception as ex:
+                raise ex
+            finally:
+                if decompress and os.path.exists(zip_file_path):
+                    os.remove(zip_file_path)
         return result_file_path
 
     def track(self, timeout_in_milliseconds=None):
