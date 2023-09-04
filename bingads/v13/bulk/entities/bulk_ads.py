@@ -13,7 +13,6 @@ DynamicSearchAd = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAd'))
 ResponsiveSearchAd = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ResponsiveSearchAd'))
 ResponsiveAd = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ResponsiveAd'))
 
-
 class _BulkAd(_SingleRecordBulkEntity):
     """ This abstract base class provides properties that are shared by all bulk ad classes.
 
@@ -40,7 +39,21 @@ class _BulkAd(_SingleRecordBulkEntity):
         self._ad_group_name = ad_group_name
         self._ad = ad
         self._performance_data = None
+        self._editorial_appeal_status = None
 
+    @property
+    def editorial_appeal_status(self):
+        """ The editorial appeal status of the ad.
+
+        :rtype: str
+        """
+
+        return self._editorial_appeal_status
+
+    @editorial_appeal_status.setter
+    def editorial_appeal_status(self, editorial_appeal_status):
+        self._editorial_appeal_status = editorial_appeal_status
+        
     @property
     def ad_group_id(self):
         """ The identifier of the ad group that contains the ad.
@@ -164,6 +177,11 @@ class _BulkAd(_SingleRecordBulkEntity):
             header=_StringTable.FinalUrlSuffix,
             field_to_csv=lambda c: bulk_optional_str(c.ad.FinalUrlSuffix, c.ad.Id),
             csv_to_field=lambda c, v: setattr(c.ad, 'FinalUrlSuffix', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.EditorialAppealStatus,
+            field_to_csv=lambda c: c.editorial_appeal_status,
+            csv_to_field=lambda c, v: setattr(c, '_editorial_appeal_status', v)
         )
     ]
 
@@ -599,6 +617,7 @@ class BulkResponsiveAd(_BulkAd):
             ad,
         )
         self._ad = ad
+        self._verified_tracking_data = None
 
     @property
     def responsive_ad(self):
@@ -613,7 +632,21 @@ class BulkResponsiveAd(_BulkAd):
     def responsive_ad(self, responsive_ad):
         if responsive_ad is not None and not isinstance(responsive_ad, ResponsiveAd):
             raise ValueError('Not an instance of ResponsiveAd')
-        self._ad = responsive_ad
+        self._ad = responsive_ad    
+    
+    @property
+    def verified_tracking_data(self):
+        """
+        The verified tracking data that the ad associated
+
+        Corresponds to 'Verified Tracking Setting' field in bulk file.
+        :rtype: ArrayOfArrayOfKeyValuePairOfstringstring
+        """
+        return self._verified_tracking_data
+
+    @verified_tracking_data.setter
+    def verified_tracking_data(self, value):
+        self._verified_tracking_data = value
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -675,6 +708,11 @@ class BulkResponsiveAd(_BulkAd):
             header=_StringTable.LongHeadlines,
             field_to_csv=lambda c: field_to_csv_TextAssetLinks(c.responsive_ad.LongHeadlines),
             csv_to_field=lambda c, v: csv_to_field_TextAssetLinks(c.responsive_ad.LongHeadlines ,v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Details,
+            field_to_csv=lambda c: to_verified_tracking_setting_string(c.verified_tracking_data),
+            csv_to_field=lambda c, v: setattr(c, 'verified_tracking_data', parse_verified_tracking_setting(v) if v else None)
         ),
     ]
 

@@ -27,6 +27,8 @@ class _CsvHeaders:
         _StringTable.BudgetType,
         _StringTable.BudgetName,
         _StringTable.BudgetId,
+        _StringTable.DestinationChannel,
+        _StringTable.IsMultiChannelCampaign,
 
         # AdGroup
         _StringTable.StartDate,

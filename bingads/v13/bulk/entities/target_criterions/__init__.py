@@ -18,6 +18,7 @@ from .bulk_ad_group_negative_profile_criterion import *
 from .bulk_campaign_age_criterion import *
 from .bulk_campaign_biddable_criterion import *
 from .bulk_campaign_day_time_criterion import *
+from .bulk_campaign_deal_criterion import *
 from .bulk_campaign_device_criterion import *
 from .bulk_campaign_gender_criterion import *
 from .bulk_campaign_location_criterion import *
@@ -31,3 +32,4 @@ from .bulk_ad_group_hotel_check_in_date_criterion import *
 from .bulk_ad_group_hotel_check_in_day_criterion import *
 from .bulk_ad_group_hotel_date_selection_type_criterion import *
 from .bulk_ad_group_hotel_length_of_stay_criterion import *
+from .bulk_ad_group_genre_criterion import *

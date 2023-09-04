@@ -3042,6 +3042,16 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="RecommendationInfo" nillable="true" type="tns:RecommendationInfo" />
+         <xs:complexType name="RSARecommendationInfo">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationInfo">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AdId" nillable="true" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="RSARecommendationInfo" nillable="true" type="tns:RSARecommendationInfo" />
          <xs:element name="TagRecommendationsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3165,19 +3175,6 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
-      </xs:schema>
-      <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.BingAds.Advertiser.AdInsight.Api.DataContract.V13.Entity" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.BingAds.Advertiser.AdInsight.Api.DataContract.V13.Entity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-         <xs:import namespace="https://bingads.microsoft.com/AdInsight/v13" />
-         <xs:complexType name="RSARecommendationInfo">
-            <xs:complexContent mixed="false">
-               <xs:extension xmlns:q1="https://bingads.microsoft.com/AdInsight/v13" base="q1:RecommendationInfo">
-                  <xs:sequence>
-                     <xs:element minOccurs="0" name="AdId" nillable="true" type="xs:long" />
-                  </xs:sequence>
-               </xs:extension>
-            </xs:complexContent>
-         </xs:complexType>
-         <xs:element name="RSARecommendationInfo" nillable="true" type="tns:RSARecommendationInfo" />
       </xs:schema>
    </wsdl:types>
    <wsdl:message name="GetBidOpportunitiesRequest">

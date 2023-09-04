@@ -176,6 +176,37 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="CheckFeatureAdoptionCouponEligibilityRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="FeatureId" type="xs:int" />
+                  <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q20:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="CheckFeatureAdoptionCouponEligibilityResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EligibleAccountIds" nillable="true" type="q21:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="ClaimFeatureAdoptionCouponsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q22="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountCouponPairs" nillable="true" type="q22:ArrayOfKeyValueEntityOflongstring" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="ClaimFeatureAdoptionCouponsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q23="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClaimedDateByAccountId" nillable="true" type="q23:ArrayOfKeyValueEntityOflongdateTime" />
+                  <xs:element xmlns:q24="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q24:ArrayOfOperationError" />
+                  <xs:element xmlns:q25="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q25:ArrayOfArrayOfOperationError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -518,6 +549,7 @@
                <xs:element minOccurs="0" name="SendToDate" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="IsRedeemed" type="xs:boolean" />
                <xs:element minOccurs="0" name="RedemptionInfo" nillable="true" type="tns:CouponRedemption" />
+               <xs:element minOccurs="0" name="ClaimInfo" nillable="true" type="tns:CouponClaimInfo" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Coupon" nillable="true" type="tns:Coupon" />
@@ -534,6 +566,56 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CouponRedemption" nillable="true" type="tns:CouponRedemption" />
+         <xs:complexType name="CouponClaimInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ClaimDate" type="xs:dateTime" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CouponClaimInfo" nillable="true" type="tns:CouponClaimInfo" />
+         <xs:complexType name="ArrayOfKeyValueEntityOflongstring">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueEntityOflongstring" nillable="true" type="tns:KeyValueEntityOflongstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValueEntityOflongstring" nillable="true" type="tns:ArrayOfKeyValueEntityOflongstring" />
+         <xs:complexType name="KeyValueEntityOflongstring">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="KeyValueEntityOf{0}{1}{#}" Namespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="long" Namespace="http://www.w3.org/2001/XMLSchema" />
+                     <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" type="xs:long" />
+               <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="KeyValueEntityOflongstring" nillable="true" type="tns:KeyValueEntityOflongstring" />
+         <xs:complexType name="ArrayOfKeyValueEntityOflongdateTime">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueEntityOflongdateTime" nillable="true" type="tns:KeyValueEntityOflongdateTime" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValueEntityOflongdateTime" nillable="true" type="tns:ArrayOfKeyValueEntityOflongdateTime" />
+         <xs:complexType name="KeyValueEntityOflongdateTime">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="KeyValueEntityOf{0}{1}{#}" Namespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="long" Namespace="http://www.w3.org/2001/XMLSchema" />
+                     <GenericParameter Name="dateTime" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" type="xs:long" />
+               <xs:element minOccurs="0" name="Value" type="xs:dateTime" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="KeyValueEntityOflongdateTime" nillable="true" type="tns:KeyValueEntityOflongdateTime" />
       </xs:schema>
       <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
@@ -619,6 +701,12 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BatchError" nillable="true" type="tns:BatchError" />
+         <xs:complexType name="ArrayOfArrayOfOperationError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfOperationError" nillable="true" type="tns:ArrayOfOperationError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfArrayOfOperationError" nillable="true" type="tns:ArrayOfArrayOfOperationError" />
       </xs:schema>
    </wsdl:types>
    <wsdl:message name="GetBillingDocumentsInfoRequest">
@@ -825,6 +913,50 @@
    <wsdl:message name="ICustomerBillingService_SearchCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
    </wsdl:message>
+   <wsdl:message name="CheckFeatureAdoptionCouponEligibilityRequest">
+      <wsdl:part name="parameters" element="tns:CheckFeatureAdoptionCouponEligibilityRequest" />
+   </wsdl:message>
+   <wsdl:message name="CheckFeatureAdoptionCouponEligibilityRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="CheckFeatureAdoptionCouponEligibilityResponse">
+      <wsdl:part name="parameters" element="tns:CheckFeatureAdoptionCouponEligibilityResponse" />
+   </wsdl:message>
+   <wsdl:message name="CheckFeatureAdoptionCouponEligibilityResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q10="https://adapi.microsoft.com" name="detail" element="q10:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="ClaimFeatureAdoptionCouponsRequest">
+      <wsdl:part name="parameters" element="tns:ClaimFeatureAdoptionCouponsRequest" />
+   </wsdl:message>
+   <wsdl:message name="ClaimFeatureAdoptionCouponsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="ClaimFeatureAdoptionCouponsResponse">
+      <wsdl:part name="parameters" element="tns:ClaimFeatureAdoptionCouponsResponse" />
+   </wsdl:message>
+   <wsdl:message name="ClaimFeatureAdoptionCouponsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_ClaimFeatureAdoptionCoupons_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q11="https://adapi.microsoft.com" name="detail" element="q11:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_ClaimFeatureAdoptionCoupons_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICustomerBillingService">
       <wsdl:operation name="GetBillingDocumentsInfo">
          <wsdl:input wsaw:Action="GetBillingDocumentsInfo" name="GetBillingDocumentsInfoRequest" message="tns:GetBillingDocumentsInfoRequest" />
@@ -881,6 +1013,18 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsResponse" name="SearchCouponsResponse" message="tns:SearchCouponsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_SearchCoupons_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/SearchCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_SearchCoupons_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="CheckFeatureAdoptionCouponEligibility">
+         <wsdl:input wsaw:Action="CheckFeatureAdoptionCouponEligibility" name="CheckFeatureAdoptionCouponEligibilityRequest" message="tns:CheckFeatureAdoptionCouponEligibilityRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/CheckFeatureAdoptionCouponEligibilityResponse" name="CheckFeatureAdoptionCouponEligibilityResponse" message="tns:CheckFeatureAdoptionCouponEligibilityResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/CheckFeatureAdoptionCouponEligibilityAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/CheckFeatureAdoptionCouponEligibilityApiFault" name="ApiFault" message="tns:ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="ClaimFeatureAdoptionCoupons">
+         <wsdl:input wsaw:Action="ClaimFeatureAdoptionCoupons" name="ClaimFeatureAdoptionCouponsRequest" message="tns:ClaimFeatureAdoptionCouponsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/ClaimFeatureAdoptionCouponsResponse" name="ClaimFeatureAdoptionCouponsResponse" message="tns:ClaimFeatureAdoptionCouponsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/ClaimFeatureAdoptionCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_ClaimFeatureAdoptionCoupons_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/ClaimFeatureAdoptionCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_ClaimFeatureAdoptionCoupons_ApiFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICustomerBillingService" type="tns:ICustomerBillingService">
@@ -1072,6 +1216,48 @@
          </wsdl:input>
          <wsdl:output name="SearchCouponsResponse">
             <soap:header message="tns:SearchCouponsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="CheckFeatureAdoptionCouponEligibility">
+         <soap:operation soapAction="CheckFeatureAdoptionCouponEligibility" style="document" />
+         <wsdl:input name="CheckFeatureAdoptionCouponEligibilityRequest">
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="CheckFeatureAdoptionCouponEligibilityResponse">
+            <soap:header message="tns:CheckFeatureAdoptionCouponEligibilityResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="ClaimFeatureAdoptionCoupons">
+         <soap:operation soapAction="ClaimFeatureAdoptionCoupons" style="document" />
+         <wsdl:input name="ClaimFeatureAdoptionCouponsRequest">
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="ClaimFeatureAdoptionCouponsResponse">
+            <soap:header message="tns:ClaimFeatureAdoptionCouponsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
