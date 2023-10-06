@@ -141,12 +141,45 @@ class BulkKeywordBidSuggestion(_BulkObject):
 
 
 class BulkKeywordBestPositionBid(BulkKeywordBidSuggestion):
-    pass
+    def read_related_data_from_stream(self, stream_reader):
+        return super(BulkKeywordBestPositionBid, self).read_related_data_from_stream(stream_reader)
+
+    def write_to_stream(self, row_writer, exclude_readonly_data):
+        return super(BulkKeywordBestPositionBid, self).write_to_stream(row_writer, exclude_readonly_data)
+
+    @property
+    def can_enclose_in_multiline_entity(self):
+        return super(BulkKeywordBestPositionBid, self).can_enclose_in_multiline_entity
+
+    def enclose_in_multiline_entity(self):
+        return super(BulkKeywordBestPositionBid, self).enclose_in_multiline_entity()
 
 
 class BulkKeywordFirstPageBid(BulkKeywordBidSuggestion):
-    pass
+    def read_related_data_from_stream(self, stream_reader):
+        return super(BulkKeywordFirstPageBid, self).read_related_data_from_stream(stream_reader)
+
+    def write_to_stream(self, row_writer, exclude_readonly_data):
+        return super(BulkKeywordFirstPageBid, self).write_to_stream(row_writer, exclude_readonly_data)
+
+    @property
+    def can_enclose_in_multiline_entity(self):
+        return super(BulkKeywordFirstPageBid, self).can_enclose_in_multiline_entity
+
+    def enclose_in_multiline_entity(self):
+        return super(BulkKeywordFirstPageBid, self).enclose_in_multiline_entity()
 
 
 class BulkKeywordMainLineBid(BulkKeywordBidSuggestion):
-    pass
+    def read_related_data_from_stream(self, stream_reader):
+        return super(BulkKeywordMainLineBid, self).read_related_data_from_stream(stream_reader)
+
+    def write_to_stream(self, row_writer, exclude_readonly_data):
+        return super(BulkKeywordMainLineBid, self).write_to_stream(row_writer, exclude_readonly_data)
+
+    @property
+    def can_enclose_in_multiline_entity(self):
+        return super(BulkKeywordMainLineBid, self).can_enclose_in_multiline_entity
+
+    def enclose_in_multiline_entity(self):
+        return super(BulkKeywordMainLineBid, self).enclose_in_multiline_entity()
