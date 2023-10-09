@@ -271,12 +271,12 @@ class BulkKeywordBestPositionBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Impressions,
             field_to_csv=lambda c: bulk_str(c.impressions),
-            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_impressions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Clicks,
             field_to_csv=lambda c: bulk_str(c.clicks),
-            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_clicks', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CTR,
@@ -301,7 +301,7 @@ class BulkKeywordBestPositionBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Conversions,
             field_to_csv=lambda c: bulk_str(c.conversions),
-            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_conversions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CPA,
@@ -456,12 +456,12 @@ class BulkKeywordFirstPageBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Impressions,
             field_to_csv=lambda c: bulk_str(c.impressions),
-            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_impressions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Clicks,
             field_to_csv=lambda c: bulk_str(c.clicks),
-            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_clicks', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CTR,
@@ -486,7 +486,7 @@ class BulkKeywordFirstPageBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Conversions,
             field_to_csv=lambda c: bulk_str(c.conversions),
-            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_conversions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CPA,
@@ -641,12 +641,12 @@ class BulkKeywordMainLineBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Impressions,
             field_to_csv=lambda c: bulk_str(c.impressions),
-            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_impressions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Clicks,
             field_to_csv=lambda c: bulk_str(c.clicks),
-            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_clicks', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CTR,
@@ -671,7 +671,7 @@ class BulkKeywordMainLineBid(BulkKeywordBidSuggestion):
         _SimpleBulkMapping(
             header=_StringTable.Conversions,
             field_to_csv=lambda c: bulk_str(c.conversions),
-            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+            csv_to_field=lambda c, v: setattr(c, '_conversions', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CPA,
