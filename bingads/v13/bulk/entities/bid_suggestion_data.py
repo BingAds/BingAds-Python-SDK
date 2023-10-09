@@ -141,6 +141,176 @@ class BulkKeywordBidSuggestion(_BulkObject):
 
 
 class BulkKeywordBestPositionBid(BulkKeywordBidSuggestion):
+    def __init__(self):
+        super().__init__()
+        self._spend = None
+        self._impressions = None
+        self._clicks = None
+        self._ctr = None
+        self._avgcpc = None
+        self._avgcpm = None
+        self._avgposition = None
+        self._conversions = None
+        self._cpa = None
+
+    @property
+    def keyword_text(self):
+        """ The keyword corresponding to the suggested bid.
+
+        Corresponds to the 'Keyword' field in the bulk file.
+        :rtype: str
+        """
+
+        return self._keyword_text
+
+    @property
+    def bid(self):
+        """ The suggested bid value for the best position in search results.
+
+        :rtype: float
+        """
+
+        return self._bid
+
+    @property
+    def spend(self):
+        """ The estimated average cost per week.
+
+        :rtype: float
+        """
+        return self._spend
+
+    @property
+    def impressions(self):
+        """ The estimated average number of impressions per week.
+
+        :rtype: int
+        """
+        return self._impressions
+
+    @property
+    def clicks(self):
+        """ The estimated average number of clicks per week.
+
+        :rtype: int
+        """
+        return self._clicks
+
+    @property
+    def ctr(self):
+        """ The estimated CTR.
+            The formula used to calculate the CTR is (maximum number of clicks / maximum number of impressions) * 100.
+
+        :rtype: float
+        """
+        return self._ctr
+
+    @property
+    def avgcpc(self):
+        """ The estimated average CPC.
+            The formula used to calculate the average CPC is (maximum total cost / maximum number of clicks).
+
+        :rtype: float
+        """
+        return self._avgcpc
+
+    @property
+    def avgcpm(self):
+        """ The average of the cost per thousand impressions (CPM) of the ad.
+            The value will be 0 (zero) if the ad group to which the ad belongs does not specify the
+            Content ad distribution medium or if the user does not belong to the CPM pilot program.
+
+        :rtype: float
+        """
+        return self._avgcpm
+
+    @property
+    def avgposition(self):
+        """ The position in the search results given the specified bid.
+
+        :rtype: float
+        """
+        return self._avgposition
+
+    @property
+    def conversions(self):
+        """ The estimated number of conversions per week.
+
+        :rtype: float
+        """
+        return self._conversions
+
+    @property
+    def cpa(self):
+        """ The estimated cost per conversion.
+            The formula for calculating the cost per conversion is (spend / conversions).
+
+        :rtype: float
+        """
+        return self._cpa
+
+    def read_from_row_values(self, row_values):
+        row_values.convert_to_entity(self, BulkKeywordBestPositionBid._MAPPINGS)
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Keyword,
+            field_to_csv=lambda c: bulk_str(c.keyword_text),
+            csv_to_field=lambda c, v: setattr(c, '_keyword_text', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Bid,
+            field_to_csv=lambda c: bulk_str(c.bid),
+            csv_to_field=lambda c, v: setattr(c, '_bid', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Spend,
+            field_to_csv=lambda c: bulk_str(c.spend),
+            csv_to_field=lambda c, v: setattr(c, '_spend', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Impressions,
+            field_to_csv=lambda c: bulk_str(c.impressions),
+            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Clicks,
+            field_to_csv=lambda c: bulk_str(c.clicks),
+            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CTR,
+            field_to_csv=lambda c: bulk_str(c.ctr),
+            csv_to_field=lambda c, v: setattr(c, '_ctr', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPC,
+            field_to_csv=lambda c: bulk_str(c.avgcpc),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpc', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPM,
+            field_to_csv=lambda c: bulk_str(c.avgcpm),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpm', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgPosition,
+            field_to_csv=lambda c: bulk_str(c.avgposition),
+            csv_to_field=lambda c, v: setattr(c, '_avgposition', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Conversions,
+            field_to_csv=lambda c: bulk_str(c.conversions),
+            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CPA,
+            field_to_csv=lambda c: bulk_str(c.cpa),
+            csv_to_field=lambda c, v: setattr(c, '_cpa', float(v) if v else None)
+        ),
+
+    ]
+
     def read_related_data_from_stream(self, stream_reader):
         return super(BulkKeywordBestPositionBid, self).read_related_data_from_stream(stream_reader)
 
@@ -156,6 +326,176 @@ class BulkKeywordBestPositionBid(BulkKeywordBidSuggestion):
 
 
 class BulkKeywordFirstPageBid(BulkKeywordBidSuggestion):
+    def __init__(self):
+        super().__init__()
+        self._spend = None
+        self._impressions = None
+        self._clicks = None
+        self._ctr = None
+        self._avgcpc = None
+        self._avgcpm = None
+        self._avgposition = None
+        self._conversions = None
+        self._cpa = None
+
+    @property
+    def keyword_text(self):
+        """ The keyword corresponding to the suggested bid.
+
+        Corresponds to the 'Keyword' field in the bulk file.
+        :rtype: str
+        """
+
+        return self._keyword_text
+
+    @property
+    def bid(self):
+        """ The suggested bid value for first page side bar positioning in search results.
+
+        :rtype: float
+        """
+
+        return self._bid
+
+    @property
+    def spend(self):
+        """ The estimated average cost per week.
+
+        :rtype: float
+        """
+        return self._spend
+
+    @property
+    def impressions(self):
+        """ The estimated average number of impressions per week.
+
+        :rtype: int
+        """
+        return self._impressions
+
+    @property
+    def clicks(self):
+        """ The estimated average number of clicks per week.
+
+        :rtype: int
+        """
+        return self._clicks
+
+    @property
+    def ctr(self):
+        """ The estimated CTR.
+            The formula used to calculate the CTR is (maximum number of clicks / maximum number of impressions) * 100.
+
+        :rtype: float
+        """
+        return self._ctr
+
+    @property
+    def avgcpc(self):
+        """ The estimated average CPC.
+            The formula used to calculate the average CPC is (maximum total cost / maximum number of clicks).
+
+        :rtype: float
+        """
+        return self._avgcpc
+
+    @property
+    def avgcpm(self):
+        """ The average of the cost per thousand impressions (CPM) of the ad.
+            The value will be 0 (zero) if the ad group to which the ad belongs does not specify the
+            Content ad distribution medium or if the user does not belong to the CPM pilot program.
+
+        :rtype: float
+        """
+        return self._avgcpm
+
+    @property
+    def avgposition(self):
+        """ The position in the search results given the specified bid.
+
+        :rtype: float
+        """
+        return self._avgposition
+
+    @property
+    def conversions(self):
+        """ The estimated number of conversions per week.
+
+        :rtype: float
+        """
+        return self._conversions
+
+    @property
+    def cpa(self):
+        """ The estimated cost per conversion.
+            The formula for calculating the cost per conversion is (spend / conversions).
+
+        :rtype: float
+        """
+        return self._cpa
+
+    def read_from_row_values(self, row_values):
+        row_values.convert_to_entity(self, BulkKeywordFirstPageBid._MAPPINGS)
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Keyword,
+            field_to_csv=lambda c: bulk_str(c.keyword_text),
+            csv_to_field=lambda c, v: setattr(c, '_keyword_text', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Bid,
+            field_to_csv=lambda c: bulk_str(c.bid),
+            csv_to_field=lambda c, v: setattr(c, '_bid', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Spend,
+            field_to_csv=lambda c: bulk_str(c.spend),
+            csv_to_field=lambda c, v: setattr(c, '_spend', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Impressions,
+            field_to_csv=lambda c: bulk_str(c.impressions),
+            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Clicks,
+            field_to_csv=lambda c: bulk_str(c.clicks),
+            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CTR,
+            field_to_csv=lambda c: bulk_str(c.ctr),
+            csv_to_field=lambda c, v: setattr(c, '_ctr', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPC,
+            field_to_csv=lambda c: bulk_str(c.avgcpc),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpc', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPM,
+            field_to_csv=lambda c: bulk_str(c.avgcpm),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpm', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgPosition,
+            field_to_csv=lambda c: bulk_str(c.avgposition),
+            csv_to_field=lambda c, v: setattr(c, '_avgposition', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Conversions,
+            field_to_csv=lambda c: bulk_str(c.conversions),
+            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CPA,
+            field_to_csv=lambda c: bulk_str(c.cpa),
+            csv_to_field=lambda c, v: setattr(c, '_cpa', float(v) if v else None)
+        ),
+
+    ]
+
     def read_related_data_from_stream(self, stream_reader):
         return super(BulkKeywordFirstPageBid, self).read_related_data_from_stream(stream_reader)
 
@@ -171,6 +511,176 @@ class BulkKeywordFirstPageBid(BulkKeywordBidSuggestion):
 
 
 class BulkKeywordMainLineBid(BulkKeywordBidSuggestion):
+    def __init__(self):
+        super().__init__()
+        self._spend = None
+        self._impressions = None
+        self._clicks = None
+        self._ctr = None
+        self._avgcpc = None
+        self._avgcpm = None
+        self._avgposition = None
+        self._conversions = None
+        self._cpa = None
+
+    @property
+    def keyword_text(self):
+        """ The keyword corresponding to the suggested bid.
+
+        Corresponds to the 'Keyword' field in the bulk file.
+        :rtype: str
+        """
+
+        return self._keyword_text
+
+    @property
+    def bid(self):
+        """ The suggested bid value for main line positioning in search results.
+
+        :rtype: float
+        """
+
+        return self._bid
+
+    @property
+    def spend(self):
+        """ The estimated average cost per week.
+
+        :rtype: float
+        """
+        return self._spend
+
+    @property
+    def impressions(self):
+        """ The estimated average number of impressions per week.
+
+        :rtype: int
+        """
+        return self._impressions
+
+    @property
+    def clicks(self):
+        """ The estimated average number of clicks per week.
+
+        :rtype: int
+        """
+        return self._clicks
+
+    @property
+    def ctr(self):
+        """ The estimated CTR.
+            The formula used to calculate the CTR is (maximum number of clicks / maximum number of impressions) * 100.
+
+        :rtype: float
+        """
+        return self._ctr
+
+    @property
+    def avgcpc(self):
+        """ The estimated average CPC.
+            The formula used to calculate the average CPC is (maximum total cost / maximum number of clicks).
+
+        :rtype: float
+        """
+        return self._avgcpc
+
+    @property
+    def avgcpm(self):
+        """ The average of the cost per thousand impressions (CPM) of the ad.
+            The value will be 0 (zero) if the ad group to which the ad belongs does not specify the
+            Content ad distribution medium or if the user does not belong to the CPM pilot program.
+
+        :rtype: float
+        """
+        return self._avgcpm
+
+    @property
+    def avgposition(self):
+        """ The position in the search results given the specified bid.
+
+        :rtype: float
+        """
+        return self._avgposition
+
+    @property
+    def conversions(self):
+        """ The estimated number of conversions per week.
+
+        :rtype: float
+        """
+        return self._conversions
+
+    @property
+    def cpa(self):
+        """ The estimated cost per conversion.
+            The formula for calculating the cost per conversion is (spend / conversions).
+
+        :rtype: float
+        """
+        return self._cpa
+
+    def read_from_row_values(self, row_values):
+        row_values.convert_to_entity(self, BulkKeywordMainLineBid._MAPPINGS)
+
+    _MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.Keyword,
+            field_to_csv=lambda c: bulk_str(c.keyword_text),
+            csv_to_field=lambda c, v: setattr(c, '_keyword_text', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Bid,
+            field_to_csv=lambda c: bulk_str(c.bid),
+            csv_to_field=lambda c, v: setattr(c, '_bid', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Spend,
+            field_to_csv=lambda c: bulk_str(c.spend),
+            csv_to_field=lambda c, v: setattr(c, '_spend', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Impressions,
+            field_to_csv=lambda c: bulk_str(c.impressions),
+            csv_to_field=lambda c, v: setattr(c, '_impressions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Clicks,
+            field_to_csv=lambda c: bulk_str(c.clicks),
+            csv_to_field=lambda c, v: setattr(c, '_clicks', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CTR,
+            field_to_csv=lambda c: bulk_str(c.ctr),
+            csv_to_field=lambda c, v: setattr(c, '_ctr', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPC,
+            field_to_csv=lambda c: bulk_str(c.avgcpc),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpc', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgCPM,
+            field_to_csv=lambda c: bulk_str(c.avgcpm),
+            csv_to_field=lambda c, v: setattr(c, '_avgcpm', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AvgPosition,
+            field_to_csv=lambda c: bulk_str(c.avgposition),
+            csv_to_field=lambda c, v: setattr(c, '_avgposition', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.Conversions,
+            field_to_csv=lambda c: bulk_str(c.conversions),
+            csv_to_field=lambda c, v: setattr(c, '_conversions', float(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CPA,
+            field_to_csv=lambda c: bulk_str(c.cpa),
+            csv_to_field=lambda c, v: setattr(c, '_cpa', float(v) if v else None)
+        ),
+
+    ]
+
     def read_related_data_from_stream(self, stream_reader):
         return super(BulkKeywordMainLineBid, self).read_related_data_from_stream(stream_reader)
 
