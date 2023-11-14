@@ -21,6 +21,7 @@ setup(
     version=VERSION,
     description='A library to make working with the Bing Ads APIs and bulk services easy',
     long_description=readme + '\n\n' + history,
+    long_description_content_type ='text/x-rst',
     author='Bing Ads SDK Team',
     author_email='bing_ads_sdk@microsoft.com',
     url='https://github.com/BingAds/BingAds-Python-SDK',
