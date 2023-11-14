@@ -426,6 +426,8 @@ class _CsvHeaders:
         _StringTable.AdjustmentType,
         _StringTable.ExternalAttributionCredit,
         _StringTable.ExternalAttributionModel,
+        _StringTable.HashedEmailAddress,
+        _StringTable.HashedPhoneNumber,
 
         # Account
         _StringTable.MSCLKIDAutoTaggingEnabled,
@@ -455,7 +457,7 @@ class _CsvHeaders:
         # Hotel Ad
         _StringTable.MinTargetValue,
         _StringTable.MaxTargetValue,
-        
+
         # PMax
         _StringTable.Audiences,
         _StringTable.AssetGroup,
