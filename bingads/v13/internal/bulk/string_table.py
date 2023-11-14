@@ -592,7 +592,8 @@ class _StringTable:
     AdjustmentType = "Adjustment Type"
     ExternalAttributionModel = "External Attribution Model"
     ExternalAttributionCredit = "External Attribution Credit"
-
+    HashedEmailAddress = "Hashed Email Address"
+    HashedPhoneNumber = "Hashed Phone Number"
 
     # Campaign Criterion
     CampaignAgeCriterion = 'Campaign Age Criterion'

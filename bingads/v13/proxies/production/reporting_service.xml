@@ -1537,6 +1537,8 @@
                <xs:enumeration value="TotalWatchTimeInMS" />
                <xs:enumeration value="AverageWatchTimePerVideoView" />
                <xs:enumeration value="AverageWatchTimePerImpression" />
+               <xs:enumeration value="AdStrength" />
+               <xs:enumeration value="AdStrengthActionItems" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdPerformanceReportColumn" nillable="true" type="tns:AdPerformanceReportColumn" />

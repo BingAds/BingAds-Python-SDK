@@ -29,55 +29,55 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
         self._adjustment_currency_code = None
         self._external_attribution_model = None
         self._external_attribution_credit = None
-        
+
     @property
     def adjustment_value(self):
         return self._adjustment_value;
-    
+
     @adjustment_value.setter
     def adjustment_value(self, value):
         self._adjustment_value = value
-        
+
     @property
     def adjustment_time(self):
         return self._adjustment_time;
-    
+
     @adjustment_time.setter
     def adjustment_time(self, value):
         self._adjustment_time = value
- 
+
     @property
     def adjustment_type(self):
         return self._adjustment_type;
-    
+
     @adjustment_type.setter
     def adjustment_type(self, value):
         self._adjustment_type = value
-        
+
     @property
     def adjustment_currency_code(self):
         return self._adjustment_currency_code;
-    
+
     @adjustment_currency_code.setter
     def adjustment_currency_code(self, value):
         self._adjustment_currency_code = value
-      
+
     @property
     def external_attribution_model(self):
         return self._external_attribution_model;
-    
+
     @external_attribution_model.setter
     def external_attribution_model(self, value):
         self._external_attribution_model = value
-        
+
     @property
     def external_attribution_credit(self):
         return self._external_attribution_credit;
-    
+
     @external_attribution_credit.setter
     def external_attribution_credit(self, value):
-        self._external_attribution_credit = value                     
-        
+        self._external_attribution_credit = value
+
     @property
     def offline_conversion(self):
         """ The offline conversion Data Object of the Campaign Management Service.
@@ -145,7 +145,7 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
                 float(v) if v else None
             )
         ),
-        
+
         _SimpleBulkMapping(
             header=_StringTable.AdjustmentType,
             field_to_csv=lambda c: c.adjustment_type,
@@ -155,7 +155,7 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
                 v
             )
         ),
-        
+
         _SimpleBulkMapping(
             header=_StringTable.AdjustmentCurrencyCode,
             field_to_csv=lambda c: c.adjustment_currency_code,
@@ -165,7 +165,7 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
                 v
             )
         ),
-        
+
         _SimpleBulkMapping(
             header=_StringTable.ExternalAttributionModel,
             field_to_csv=lambda c: c.external_attribution_model,
@@ -184,8 +184,6 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
                 float(v) if v else None
             )
         ),
-        
-        
         _SimpleBulkMapping(
             header=_StringTable.AdjustmentTime,
             field_to_csv=lambda c: bulk_datetime_str(c.adjustment_time),
@@ -193,6 +191,24 @@ class BulkOfflineConversion(_SingleRecordBulkEntity):
                 c,
                 'adjustment_time',
                 parse_datetime(v) if v else None
+            )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.HashedEmailAddress,
+            field_to_csv=lambda c: c.offline_conversion.HashedEmailAddress,
+            csv_to_field=lambda c, v: setattr(
+                c.offline_conversion,
+                'HashedEmailAddress',
+                v
+            )
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.HashedPhoneNumber,
+            field_to_csv=lambda c: c.offline_conversion.HashedPhoneNumber,
+            csv_to_field=lambda c, v: setattr(
+                c.offline_conversion,
+                'HashedPhoneNumber',
+                v
             )
         ),
     ]

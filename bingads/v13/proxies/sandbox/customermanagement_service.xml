@@ -586,6 +586,22 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="GetNotificationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Locale" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int" />
+                  <xs:element xmlns:q62="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TypeIds" nillable="true" type="q62:ArrayOfint" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetNotificationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q63="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Notifications" nillable="true" type="q63:ArrayOfNotification" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -2301,6 +2317,44 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
+         <xs:complexType name="ArrayOfNotification">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="Notification" nillable="true" type="tns:Notification" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfNotification" nillable="true" type="tns:ArrayOfNotification" />
+         <xs:complexType name="Notification">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="TypeId" type="xs:int" />
+               <xs:element minOccurs="0" name="Id" type="xs:long" />
+               <xs:element minOccurs="0" name="Severity" type="xs:unsignedByte" />
+               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="tns:ArrayOfKeyValueEntityOfstringstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Notification" nillable="true" type="tns:Notification" />
+         <xs:complexType name="ArrayOfKeyValueEntityOfstringstring">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueEntityOfstringstring" nillable="true" type="tns:KeyValueEntityOfstringstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValueEntityOfstringstring" nillable="true" type="tns:ArrayOfKeyValueEntityOfstringstring" />
+         <xs:complexType name="KeyValueEntityOfstringstring">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="KeyValueEntityOf{0}{1}{#}" Namespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+                     <GenericParameter Name="string" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Value" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="KeyValueEntityOfstringstring" nillable="true" type="tns:KeyValueEntityOfstringstring" />
       </xs:schema>
       <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
@@ -3250,6 +3304,28 @@
    <wsdl:message name="ICustomerManagementService_GetUserMFAStatus_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
    </wsdl:message>
+   <wsdl:message name="GetNotificationsRequest">
+      <wsdl:part name="parameters" element="tns:GetNotificationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetNotificationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetNotificationsResponse">
+      <wsdl:part name="parameters" element="tns:GetNotificationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetNotificationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerManagementService_GetNotifications_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q38="https://adapi.microsoft.com" name="detail" element="q38:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerManagementService_GetNotifications_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICustomerManagementService">
       <wsdl:operation name="GetAccountsInfo">
          <wsdl:input wsaw:Action="GetAccountsInfo" name="GetAccountsInfoRequest" message="tns:GetAccountsInfoRequest" />
@@ -3472,6 +3548,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetUserMFAStatusResponse" name="GetUserMFAStatusResponse" message="tns:GetUserMFAStatusResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetUserMFAStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerManagementService_GetUserMFAStatus_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetUserMFAStatusApiFault" name="ApiFault" message="tns:ICustomerManagementService_GetUserMFAStatus_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetNotifications">
+         <wsdl:input wsaw:Action="GetNotifications" name="GetNotificationsRequest" message="tns:GetNotificationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsResponse" name="GetNotificationsResponse" message="tns:GetNotificationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerManagementService_GetNotifications_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsApiFault" name="ApiFault" message="tns:ICustomerManagementService_GetNotifications_ApiFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICustomerManagementService" type="tns:ICustomerManagementService">
@@ -4245,6 +4327,27 @@
          </wsdl:input>
          <wsdl:output name="GetUserMFAStatusResponse">
             <soap:header message="tns:GetUserMFAStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetNotifications">
+         <soap:operation soapAction="GetNotifications" style="document" />
+         <wsdl:input name="GetNotificationsRequest">
+            <soap:header message="tns:GetNotificationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetNotificationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetNotificationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetNotificationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetNotificationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetNotificationsResponse">
+            <soap:header message="tns:GetNotificationsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
