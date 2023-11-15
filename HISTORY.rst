@@ -1,12 +1,12 @@
 .. :changelog:
 
 Release History
+
 13.0.18(2023-11-13)
 +++++++++++++++++++++++++
-* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
 * Added mappings for new fields in BulkOfflineConversion: HashedEmailAddress and HashedPhoneNumber.
 
-Release History
 13.0.17(2023-08-18)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
