@@ -1,6 +1,7 @@
 .. :changelog:
 
 Release History
+
 13.0.18(2023-11-13)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
