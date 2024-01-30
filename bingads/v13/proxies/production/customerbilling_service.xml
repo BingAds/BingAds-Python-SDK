@@ -104,13 +104,14 @@
                   <xs:element xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q10:ArrayOfPredicate" />
                   <xs:element xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q11:ArrayOfOrderBy" />
                   <xs:element xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q12:Paging" />
+                  <xs:element xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q13:InsertionOrderAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchInsertionOrdersResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="InsertionOrders" nillable="true" type="q13:ArrayOfInsertionOrder" />
+                  <xs:element xmlns:q14="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="InsertionOrders" nillable="true" type="q14:ArrayOfInsertionOrder" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -132,7 +133,7 @@
          <xs:element name="DispatchCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SendToEmails" nillable="true" type="q14:ArrayOfstring" />
+                  <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SendToEmails" nillable="true" type="q15:ArrayOfstring" />
                   <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
                   <xs:element minOccurs="0" name="CouponClassName" nillable="true" type="xs:string" />
                </xs:sequence>
@@ -141,7 +142,7 @@
          <xs:element name="DispatchCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q15="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q15:ArrayOfBatchError" />
+                  <xs:element xmlns:q16="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q16:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -163,16 +164,17 @@
          <xs:element name="SearchCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q16="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q16:ArrayOfPredicate" />
-                  <xs:element xmlns:q17="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q17:ArrayOfOrderBy" />
-                  <xs:element xmlns:q18="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q18:Paging" />
+                  <xs:element xmlns:q17="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q17:ArrayOfPredicate" />
+                  <xs:element xmlns:q18="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q18:ArrayOfOrderBy" />
+                  <xs:element xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q19:Paging" />
+                  <xs:element xmlns:q20="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q20:AccountAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Coupons" nillable="true" type="q19:ArrayOfCoupon" />
+                  <xs:element xmlns:q21="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Coupons" nillable="true" type="q21:ArrayOfCoupon" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -180,30 +182,30 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="FeatureId" type="xs:int" />
-                  <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q20:ArrayOflong" />
+                  <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q22:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="CheckFeatureAdoptionCouponEligibilityResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EligibleAccountIds" nillable="true" type="q21:ArrayOflong" />
+                  <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EligibleAccountIds" nillable="true" type="q23:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ClaimFeatureAdoptionCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q22="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountCouponPairs" nillable="true" type="q22:ArrayOfKeyValueEntityOflongstring" />
+                  <xs:element xmlns:q24="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountCouponPairs" nillable="true" type="q24:ArrayOfKeyValueEntityOflongstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ClaimFeatureAdoptionCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q23="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClaimedDateByAccountId" nillable="true" type="q23:ArrayOfKeyValueEntityOflongdateTime" />
-                  <xs:element xmlns:q24="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q24:ArrayOfOperationError" />
-                  <xs:element xmlns:q25="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q25:ArrayOfArrayOfOperationError" />
+                  <xs:element xmlns:q25="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClaimedDateByAccountId" nillable="true" type="q25:ArrayOfKeyValueEntityOflongdateTime" />
+                  <xs:element xmlns:q26="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q26:ArrayOfOperationError" />
+                  <xs:element xmlns:q27="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q27:ArrayOfArrayOfOperationError" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -349,6 +351,20 @@
                <xs:element minOccurs="0" name="SeriesName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="IsInSeries" nillable="true" type="xs:boolean" />
                <xs:element minOccurs="0" name="SeriesFrequencyType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="IsUnlimited" nillable="true" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="IsEndless" nillable="true" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="InsertionOrder" nillable="true" type="tns:InsertionOrder" />
@@ -527,12 +543,47 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Paging" nillable="true" type="tns:Paging" />
+         <xs:simpleType name="InsertionOrderAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="None">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="UnlimitedAndEndlessFlags">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="InsertionOrderAdditionalField" nillable="true" type="tns:InsertionOrderAdditionalField" />
          <xs:complexType name="ArrayOfInsertionOrder">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="InsertionOrder" nillable="true" type="tns:InsertionOrder" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfInsertionOrder" nillable="true" type="tns:ArrayOfInsertionOrder" />
+         <xs:simpleType name="AccountAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="TaxCertificate" />
+                     <xs:enumeration value="AccountMode" />
+                     <xs:enumeration value="CouponClaimInfo" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AccountAdditionalField" nillable="true" type="tns:AccountAdditionalField" />
          <xs:complexType name="ArrayOfCoupon">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="Coupon" nillable="true" type="tns:Coupon" />
@@ -556,7 +607,13 @@
                <xs:element minOccurs="0" name="SendToDate" nillable="true" type="xs:dateTime" />
                <xs:element minOccurs="0" name="IsRedeemed" type="xs:boolean" />
                <xs:element minOccurs="0" name="RedemptionInfo" nillable="true" type="tns:CouponRedemption" />
-               <xs:element minOccurs="0" name="ClaimInfo" nillable="true" type="tns:CouponClaimInfo" />
+               <xs:element minOccurs="0" name="ClaimInfo" nillable="true" type="tns:CouponClaimInfo">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Coupon" nillable="true" type="tns:Coupon" />

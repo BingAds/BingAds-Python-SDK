@@ -602,6 +602,19 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="DismissNotificationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int" />
+                  <xs:element xmlns:q64="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="NotificationTypePairs" nillable="true" type="q64:ArrayOfKeyValueEntityOflongint" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DismissNotificationsResponse">
+            <xs:complexType>
+               <xs:sequence />
+            </xs:complexType>
+         </xs:element>
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -2088,6 +2101,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="TaxCertificate" />
                      <xs:enumeration value="AccountMode" />
+                     <xs:enumeration value="CouponClaimInfo" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2355,6 +2369,27 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="KeyValueEntityOfstringstring" nillable="true" type="tns:KeyValueEntityOfstringstring" />
+         <xs:complexType name="ArrayOfKeyValueEntityOflongint">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueEntityOflongint" nillable="true" type="tns:KeyValueEntityOflongint" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfKeyValueEntityOflongint" nillable="true" type="tns:ArrayOfKeyValueEntityOflongint" />
+         <xs:complexType name="KeyValueEntityOflongint">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="KeyValueEntityOf{0}{1}{#}" Namespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="long" Namespace="http://www.w3.org/2001/XMLSchema" />
+                     <GenericParameter Name="int" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" type="xs:long" />
+               <xs:element minOccurs="0" name="Value" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="KeyValueEntityOflongint" nillable="true" type="tns:KeyValueEntityOflongint" />
       </xs:schema>
       <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
@@ -3326,6 +3361,28 @@
    <wsdl:message name="ICustomerManagementService_GetNotifications_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
    </wsdl:message>
+   <wsdl:message name="DismissNotificationsRequest">
+      <wsdl:part name="parameters" element="tns:DismissNotificationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DismissNotificationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DismissNotificationsResponse">
+      <wsdl:part name="parameters" element="tns:DismissNotificationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DismissNotificationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerManagementService_DismissNotifications_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q39="https://adapi.microsoft.com" name="detail" element="q39:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerManagementService_DismissNotifications_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICustomerManagementService">
       <wsdl:operation name="GetAccountsInfo">
          <wsdl:input wsaw:Action="GetAccountsInfo" name="GetAccountsInfoRequest" message="tns:GetAccountsInfoRequest" />
@@ -3554,6 +3611,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsResponse" name="GetNotificationsResponse" message="tns:GetNotificationsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerManagementService_GetNotifications_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/GetNotificationsApiFault" name="ApiFault" message="tns:ICustomerManagementService_GetNotifications_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DismissNotifications">
+         <wsdl:input wsaw:Action="DismissNotifications" name="DismissNotificationsRequest" message="tns:DismissNotificationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/DismissNotificationsResponse" name="DismissNotificationsResponse" message="tns:DismissNotificationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/DismissNotificationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerManagementService_DismissNotifications_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Customer/v13/ICustomerManagementService/DismissNotificationsApiFault" name="ApiFault" message="tns:ICustomerManagementService_DismissNotifications_ApiFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICustomerManagementService" type="tns:ICustomerManagementService">
@@ -4348,6 +4411,27 @@
          </wsdl:input>
          <wsdl:output name="GetNotificationsResponse">
             <soap:header message="tns:GetNotificationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DismissNotifications">
+         <soap:operation soapAction="DismissNotifications" style="document" />
+         <wsdl:input name="DismissNotificationsRequest">
+            <soap:header message="tns:DismissNotificationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DismissNotificationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DismissNotificationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DismissNotificationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DismissNotificationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DismissNotificationsResponse">
+            <soap:header message="tns:DismissNotificationsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

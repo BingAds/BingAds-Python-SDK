@@ -3159,6 +3159,7 @@
                <xs:enumeration value="AssetGroupId" />
                <xs:enumeration value="AssetGroupName" />
                <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="CollectionId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductDimensionPerformanceReportColumn" nillable="true" type="tns:ProductDimensionPerformanceReportColumn" />

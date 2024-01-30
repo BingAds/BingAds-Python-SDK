@@ -1170,6 +1170,27 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="AccountNegativeKeywordList">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">158</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountNegativeKeywordListAssociation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">159</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AccountNegativeKeyword">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">160</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DownloadEntity" nillable="true" type="tns:DownloadEntity" />
