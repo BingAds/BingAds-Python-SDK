@@ -3087,6 +3087,165 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="TextAssetSuggestions" nillable="true" type="tns:TextAssetSuggestions" />
+         <xs:element name="ApplyRecommendationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfApplyRecommendationEntity" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfApplyRecommendationEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="ApplyRecommendationEntity" nillable="true" type="tns:ApplyRecommendationEntity" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfApplyRecommendationEntity" nillable="true" type="tns:ArrayOfApplyRecommendationEntity" />
+         <xs:complexType name="ApplyRecommendationEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="RecommendationId" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ApplyRecommendationEntity" nillable="true" type="tns:ApplyRecommendationEntity" />
+         <xs:element name="ApplyRecommendationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DismissRecommendationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfDismissRecommendationEntity" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfDismissRecommendationEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DismissRecommendationEntity" nillable="true" type="tns:DismissRecommendationEntity" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDismissRecommendationEntity" nillable="true" type="tns:ArrayOfDismissRecommendationEntity" />
+         <xs:complexType name="DismissRecommendationEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="RecommendationId" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DismissRecommendationEntity" nillable="true" type="tns:DismissRecommendationEntity" />
+         <xs:element name="DismissRecommendationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="RetrieveRecommendationsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RecommendationTypes" nillable="true" type="q31:ArrayOfstring" />
+                  <xs:element minOccurs="0" name="MaxCount" nillable="true" type="xs:int" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="RetrieveRecommendationsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Recommendations" nillable="true" type="tns:ArrayOfRecommendationBase" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfRecommendationBase">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="RecommendationBase" nillable="true" type="tns:RecommendationBase" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfRecommendationBase" nillable="true" type="tns:ArrayOfRecommendationBase" />
+         <xs:complexType name="RecommendationBase">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AdGroupId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CampaignId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentClicks" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentConversions" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrentCost" type="xs:double" />
+               <xs:element minOccurs="0" name="CurrentImpressions" type="xs:long" />
+               <xs:element minOccurs="0" name="Dismissed" type="xs:boolean" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInClicks" type="xs:long" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInConversions" type="xs:long" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInCost" type="xs:double" />
+               <xs:element minOccurs="0" name="EstimatedIncreaseInImpressions" type="xs:long" />
+               <xs:element minOccurs="0" name="RecommendationHash" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationId" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="RecommendationType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" type="tns:RecommendationType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="RecommendationBase" nillable="true" type="tns:RecommendationBase" />
+         <xs:simpleType name="RecommendationType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="CampaignBudgetRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="KeywordRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveSearchAdRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="RecommendationType" nillable="true" type="tns:RecommendationType" />
+         <xs:complexType name="CampaignBudgetRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="BudgetPoints" nillable="true" type="tns:ArrayOfBudgetPoint" />
+                     <xs:element minOccurs="0" name="BudgetType" type="tns:BudgetLimitType" />
+                     <xs:element minOccurs="0" name="CurrentBudget" type="xs:double" />
+                     <xs:element minOccurs="0" name="RecommendedBudget" type="xs:double" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CampaignBudgetRecommendation" nillable="true" type="tns:CampaignBudgetRecommendation" />
+         <xs:complexType name="KeywordRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Competition" type="xs:double" />
+                     <xs:element minOccurs="0" name="MatchType" type="xs:int" />
+                     <xs:element minOccurs="0" name="MonthlySearches" type="xs:long" />
+                     <xs:element minOccurs="0" name="SuggestedBid" type="xs:double" />
+                     <xs:element minOccurs="0" name="SuggestedKeyword" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="KeywordRecommendation" nillable="true" type="tns:KeywordRecommendation" />
+         <xs:complexType name="ResponsiveSearchAdRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="SuggestedAd" nillable="true" type="tns:SuggestedResponsiveSearchAd" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ResponsiveSearchAdRecommendation" nillable="true" type="tns:ResponsiveSearchAdRecommendation" />
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -3849,6 +4008,78 @@
    <wsdl:message name="IAdInsightService_GetTextAssetSuggestionsByFinalUrls_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="ApplyRecommendationsRequest">
+      <wsdl:part name="parameters" element="tns:ApplyRecommendationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="ApplyRecommendationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="ApplyRecommendationsResponse">
+      <wsdl:part name="parameters" element="tns:ApplyRecommendationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="ApplyRecommendationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_ApplyRecommendations_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q29="https://adapi.microsoft.com" name="detail" element="q29:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_ApplyRecommendations_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DismissRecommendationsRequest">
+      <wsdl:part name="parameters" element="tns:DismissRecommendationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DismissRecommendationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DismissRecommendationsResponse">
+      <wsdl:part name="parameters" element="tns:DismissRecommendationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DismissRecommendationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_DismissRecommendations_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q30="https://adapi.microsoft.com" name="detail" element="q30:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_DismissRecommendations_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="RetrieveRecommendationsRequest">
+      <wsdl:part name="parameters" element="tns:RetrieveRecommendationsRequest" />
+   </wsdl:message>
+   <wsdl:message name="RetrieveRecommendationsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="RetrieveRecommendationsResponse">
+      <wsdl:part name="parameters" element="tns:RetrieveRecommendationsResponse" />
+   </wsdl:message>
+   <wsdl:message name="RetrieveRecommendationsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_RetrieveRecommendations_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q31="https://adapi.microsoft.com" name="detail" element="q31:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_RetrieveRecommendations_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="IAdInsightService">
       <wsdl:operation name="GetBidOpportunities">
          <wsdl:input wsaw:Action="GetBidOpportunities" name="GetBidOpportunitiesRequest" message="tns:GetBidOpportunitiesRequest" />
@@ -4017,6 +4248,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsResponse" name="GetTextAssetSuggestionsByFinalUrlsResponse" message="tns:GetTextAssetSuggestionsByFinalUrlsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetTextAssetSuggestionsByFinalUrls_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetTextAssetSuggestionsByFinalUrlsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetTextAssetSuggestionsByFinalUrls_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="ApplyRecommendations">
+         <wsdl:input wsaw:Action="ApplyRecommendations" name="ApplyRecommendationsRequest" message="tns:ApplyRecommendationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/ApplyRecommendationsResponse" name="ApplyRecommendationsResponse" message="tns:ApplyRecommendationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/ApplyRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_ApplyRecommendations_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/ApplyRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_ApplyRecommendations_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DismissRecommendations">
+         <wsdl:input wsaw:Action="DismissRecommendations" name="DismissRecommendationsRequest" message="tns:DismissRecommendationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/DismissRecommendationsResponse" name="DismissRecommendationsResponse" message="tns:DismissRecommendationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/DismissRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_DismissRecommendations_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/DismissRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_DismissRecommendations_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="RetrieveRecommendations">
+         <wsdl:input wsaw:Action="RetrieveRecommendations" name="RetrieveRecommendationsRequest" message="tns:RetrieveRecommendationsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsResponse" name="RetrieveRecommendationsResponse" message="tns:RetrieveRecommendationsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_RetrieveRecommendations_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_RetrieveRecommendations_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_IAdInsightService_IAdInsightService" type="tns:IAdInsightService">
@@ -4657,6 +4906,75 @@
          </wsdl:input>
          <wsdl:output name="GetTextAssetSuggestionsByFinalUrlsResponse">
             <soap:header message="tns:GetTextAssetSuggestionsByFinalUrlsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="ApplyRecommendations">
+         <soap:operation soapAction="ApplyRecommendations" style="document" />
+         <wsdl:input name="ApplyRecommendationsRequest">
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:ApplyRecommendationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="ApplyRecommendationsResponse">
+            <soap:header message="tns:ApplyRecommendationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DismissRecommendations">
+         <soap:operation soapAction="DismissRecommendations" style="document" />
+         <wsdl:input name="DismissRecommendationsRequest">
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DismissRecommendationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DismissRecommendationsResponse">
+            <soap:header message="tns:DismissRecommendationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="RetrieveRecommendations">
+         <soap:operation soapAction="RetrieveRecommendations" style="document" />
+         <wsdl:input name="RetrieveRecommendationsRequest">
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:RetrieveRecommendationsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="RetrieveRecommendationsResponse">
+            <soap:header message="tns:RetrieveRecommendationsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
