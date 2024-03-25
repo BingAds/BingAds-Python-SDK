@@ -3246,6 +3246,506 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ResponsiveSearchAdRecommendation" nillable="true" type="tns:ResponsiveSearchAdRecommendation" />
+         <xs:element name="GetAudienceFullEstimationRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Age" nillable="true" type="tns:SelectionOfAgeEnum" />
+                  <xs:element minOccurs="0" name="Gender" nillable="true" type="tns:SelectionOfGenderEnum" />
+                  <xs:element minOccurs="0" name="Audience" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Company" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="JobFunction" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Location" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="RadiusTargets" nillable="true" type="tns:ArrayOfRadiusTarget" />
+                  <xs:element minOccurs="0" name="CampaignBiddingStrategy" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="CampaignSubType" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="Feed" nillable="true" type="tns:Feed" />
+                  <xs:element minOccurs="0" name="DailyBudget" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="Bid" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="Currency" nillable="true" type="tns:Currency" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="SelectionOfAgeEnum">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="SelectionOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="AgeEnum" Namespace="https://bingads.microsoft.com/AdInsight/v13" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Includes" nillable="true" type="tns:ArrayOfAgeEnum" />
+               <xs:element minOccurs="0" name="Excludes" nillable="true" type="tns:ArrayOfAgeEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SelectionOfAgeEnum" nillable="true" type="tns:SelectionOfAgeEnum" />
+         <xs:complexType name="ArrayOfAgeEnum">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AgeEnum" type="tns:AgeEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAgeEnum" nillable="true" type="tns:ArrayOfAgeEnum" />
+         <xs:simpleType name="AgeEnum">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="ZeroToTwelve" />
+               <xs:enumeration value="ThirteenToSevenTeen" />
+               <xs:enumeration value="EighteenToTwentyFour" />
+               <xs:enumeration value="TwentyFiveToThirtyFour" />
+               <xs:enumeration value="ThirtyFiveToFourtyNine" />
+               <xs:enumeration value="FiftyToSixtyFour" />
+               <xs:enumeration value="SixtyFiveAndAbove" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AgeEnum" nillable="true" type="tns:AgeEnum" />
+         <xs:complexType name="SelectionOfGenderEnum">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="SelectionOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="GenderEnum" Namespace="https://bingads.microsoft.com/AdInsight/v13" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Includes" nillable="true" type="tns:ArrayOfGenderEnum" />
+               <xs:element minOccurs="0" name="Excludes" nillable="true" type="tns:ArrayOfGenderEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SelectionOfGenderEnum" nillable="true" type="tns:SelectionOfGenderEnum" />
+         <xs:complexType name="ArrayOfGenderEnum">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="GenderEnum" type="tns:GenderEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfGenderEnum" nillable="true" type="tns:ArrayOfGenderEnum" />
+         <xs:simpleType name="GenderEnum">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="Male" />
+               <xs:enumeration value="Female" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="GenderEnum" nillable="true" type="tns:GenderEnum" />
+         <xs:complexType name="SelectionOflong">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="SelectionOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="long" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Includes" nillable="true" type="q32:ArrayOflong" />
+               <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Excludes" nillable="true" type="q33:ArrayOflong" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SelectionOflong" nillable="true" type="tns:SelectionOflong" />
+         <xs:complexType name="ArrayOfRadiusTarget">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="RadiusTarget" nillable="true" type="tns:RadiusTarget" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfRadiusTarget" nillable="true" type="tns:ArrayOfRadiusTarget" />
+         <xs:complexType name="RadiusTarget">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Radius" type="xs:int" />
+               <xs:element minOccurs="0" name="RadiusUnit" type="tns:RadiusUnit" />
+               <xs:element minOccurs="0" name="CenterLatitude" type="xs:double" />
+               <xs:element minOccurs="0" name="CenterLongitude" type="xs:double" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="RadiusTarget" nillable="true" type="tns:RadiusTarget" />
+         <xs:simpleType name="RadiusUnit">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Miles" />
+               <xs:enumeration value="Kilometers" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="RadiusUnit" nillable="true" type="tns:RadiusUnit" />
+         <xs:complexType name="Feed">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="StoreId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="FeedId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="FeedType" nillable="true" type="xs:long" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Feed" nillable="true" type="tns:Feed" />
+         <xs:simpleType name="Currency">
+            <xs:annotation>
+               <xs:appinfo>
+                  <ActualType Name="short" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="UnSpecify" />
+               <xs:enumeration value="AlgerianDinar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">23</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ArgentinePeso">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">15</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AustralianDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Baht">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">78</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Bolivar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">87</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="BrazilianReal">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CanadianDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ChileanPeso">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ColombianPeso">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CzechKoruna">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="DanishKrone">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Dong">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">88</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="EgyptianPound">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">25</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="EURO">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Forint">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="HongKongDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="IndianRupee">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">36</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="JapaneseYen">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="LebanesePound">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">48</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="MalaysianRinggit">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">58</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="MexicanPeso">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">57</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="MoroccanDirham">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">52</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NewTaiwanDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">82</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NewZealandDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NorwegianKrone">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NuevoSol">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="PhilippinePeso">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="QatariRial">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">69</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Rupiah">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">34</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SaudiRiyal">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">72</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SingaporeDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">74</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SouthAfricanRand">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">13</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SwedishKrona">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="SwissFranc">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TurkishLira">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">93</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="UKPound">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="USDollar">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">12</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Won">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">45</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="YuanRenminbi">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">17</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="PolishZloty">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">67</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="UAEDirham">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="IsraeliSheqel">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">35</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="NigerianNaira">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">99</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="Currency" nillable="true" type="tns:Currency" />
+         <xs:element name="GetAudienceFullEstimationResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="EstImpression" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstAudienceSize" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstClick" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstSpend" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstCostPerEvent" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstCTR" nillable="true" type="tns:RangeResultOfdouble" />
+                  <xs:element minOccurs="0" name="SuggestedBid" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="SuggestedBudget" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="EventsLostToBid" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="EventsLostToBudget" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="EstReachAudienceSize" nillable="true" type="tns:DecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstReachImpression" nillable="true" type="tns:DecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="Currency" nillable="true" type="tns:Currency" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="RangeResultOfDecimalRoundedResult">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="RangeResultOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="DecimalRoundedResult" Namespace="https://bingads.microsoft.com/AdInsight/v13" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="High" nillable="true" type="tns:DecimalRoundedResult" />
+               <xs:element minOccurs="0" name="Low" nillable="true" type="tns:DecimalRoundedResult" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="RangeResultOfDecimalRoundedResult" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+         <xs:complexType name="DecimalRoundedResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Value" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="Unit" nillable="true" type="tns:ScaleUnit" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DecimalRoundedResult" nillable="true" type="tns:DecimalRoundedResult" />
+         <xs:simpleType name="ScaleUnit">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Billion" />
+               <xs:enumeration value="Million" />
+               <xs:enumeration value="Thousand" />
+               <xs:enumeration value="None" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="ScaleUnit" nillable="true" type="tns:ScaleUnit" />
+         <xs:complexType name="RangeResultOfdouble">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="RangeResultOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="double" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="High" type="xs:double" />
+               <xs:element minOccurs="0" name="Low" type="xs:double" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="RangeResultOfdouble" nillable="true" type="tns:RangeResultOfdouble" />
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -4080,6 +4580,30 @@
    <wsdl:message name="IAdInsightService_RetrieveRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetAudienceFullEstimationRequest">
+      <wsdl:part name="parameters" element="tns:GetAudienceFullEstimationRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceFullEstimationRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceFullEstimationResponse">
+      <wsdl:part name="parameters" element="tns:GetAudienceFullEstimationResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceFullEstimationResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAudienceFullEstimation_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q32="https://adapi.microsoft.com" name="detail" element="q32:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAudienceFullEstimation_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="IAdInsightService">
       <wsdl:operation name="GetBidOpportunities">
          <wsdl:input wsaw:Action="GetBidOpportunities" name="GetBidOpportunitiesRequest" message="tns:GetBidOpportunitiesRequest" />
@@ -4266,6 +4790,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsResponse" name="RetrieveRecommendationsResponse" message="tns:RetrieveRecommendationsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_RetrieveRecommendations_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/RetrieveRecommendationsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_RetrieveRecommendations_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetAudienceFullEstimation">
+         <wsdl:input wsaw:Action="GetAudienceFullEstimation" name="GetAudienceFullEstimationRequest" message="tns:GetAudienceFullEstimationRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationResponse" name="GetAudienceFullEstimationResponse" message="tns:GetAudienceFullEstimationResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceFullEstimation_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceFullEstimation_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_IAdInsightService_IAdInsightService" type="tns:IAdInsightService">
@@ -4975,6 +5505,29 @@
          </wsdl:input>
          <wsdl:output name="RetrieveRecommendationsResponse">
             <soap:header message="tns:RetrieveRecommendationsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetAudienceFullEstimation">
+         <soap:operation soapAction="GetAudienceFullEstimation" style="document" />
+         <wsdl:input name="GetAudienceFullEstimationRequest">
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetAudienceFullEstimationRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetAudienceFullEstimationResponse">
+            <soap:header message="tns:GetAudienceFullEstimationResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

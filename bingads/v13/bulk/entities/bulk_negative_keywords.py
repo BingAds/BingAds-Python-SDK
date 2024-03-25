@@ -373,7 +373,6 @@ class BulkCampaignNegativeKeywordList(_SingleRecordBulkEntity):
     def read_additional_data(self, stream_reader):
         super(BulkCampaignNegativeKeywordList, self).read_additional_data(stream_reader)
 
-
 class BulkNegativeKeywordList(_SingleRecordBulkEntity):
     """ Represents a negative keyword list that can be read or written in a bulk file.
 
@@ -472,6 +471,34 @@ class BulkSharedNegativeKeyword(_BulkNegativeKeyword):
 
     def __init__(self, status=None, negative_keyword=None, negative_keyword_list_id=None):
         super(BulkSharedNegativeKeyword, self).__init__(status, negative_keyword, negative_keyword_list_id)
+
+    @property
+    def negative_keyword_list_id(self):
+        return self._parent_id
+
+    @negative_keyword_list_id.setter
+    def negative_keyword_list_id(self, value):
+        self._parent_id = value
+
+class BulkAccountSharedNegativeKeyword(_BulkNegativeKeyword):
+    """ Represents an account negative keyword that is shared in a negative keyword list.
+
+    Each shared negative keyword can be read or written in a bulk file.
+    This class exposes the :attr:`.BulkNegativeKeyword.NegativeKeyword` property that
+    can be read and written as fields of the Account Shared Negative Keyword record in a bulk file.
+
+    For more information, see Account Shared Negative Keyword at https://go.microsoft.com/fwlink/?linkid=846127.
+
+    *See also:*
+
+    * :class:`.BulkServiceManager`
+    * :class:`.BulkOperation`
+    * :class:`.BulkFileReader`
+    * :class:`.BulkFileWriter`
+    """
+
+    def __init__(self, status=None, negative_keyword=None, negative_keyword_list_id=None):
+        super(BulkAccountSharedNegativeKeyword, self).__init__(status, negative_keyword, negative_keyword_list_id)
 
     @property
     def negative_keyword_list_id(self):
