@@ -4113,6 +4113,7 @@
                <xs:enumeration value="SiteType" />
                <xs:enumeration value="UserCountry" />
                <xs:enumeration value="ClickShare" />
+               <xs:enumeration value="MissedImpressionsInsufficientBid" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="HotelDimensionPerformanceReportColumn" nillable="true" type="tns:HotelDimensionPerformanceReportColumn" />
@@ -4195,6 +4196,7 @@
                <xs:enumeration value="MissedImpressionsNoTax" />
                <xs:enumeration value="MissedImpressionsOther" />
                <xs:enumeration value="ClickShare" />
+               <xs:enumeration value="MissedImpressionsInsufficientBid" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="HotelGroupPerformanceReportColumn" nillable="true" type="tns:HotelGroupPerformanceReportColumn" />

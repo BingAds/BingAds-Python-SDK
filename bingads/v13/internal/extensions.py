@@ -55,6 +55,7 @@ CoOpSetting_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting'))
 TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset'))
 ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset'))
 VideoAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VideoAsset'))
+CampaignAssociation = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CampaignAssociation'))
 KeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:KeyValuePairOfstringstring'))
 ArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfKeyValuePairOfstringstring'))
 ArrayOfArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfArrayOfKeyValuePairOfstringstring'))
@@ -188,6 +189,9 @@ def entity_csv_to_biddingscheme(row_values, entity):
 
     success, target_ad_position_value = row_values.try_get_value(_StringTable.BidStrategyTargetAdPosition)
 
+    success, target_cost_per_sale_row_value = row_values.try_get_value(_StringTable.BidStrategyTargetCostPerSale)
+    target_cost_per_sale_value = float(target_cost_per_sale_row_value) if target_cost_per_sale_row_value else None
+
     if  bid_strategy_type == 'MaxConversions':
         entity.BiddingScheme.MaxCpc = max_cpc_value
         entity.BiddingScheme.TargetCpa = target_cpa_value
@@ -217,6 +221,9 @@ def entity_csv_to_biddingscheme(row_values, entity):
     elif bid_strategy_type == "Commission":
         entity.BiddingScheme.MaxPercentCpc = commission_rate_value
         entity.BiddingScheme.Type = "Commission"
+    elif bid_strategy_type == "CostPerSale":
+        entity.BiddingScheme.TargetCostPerSale = target_cost_per_sale_value
+        entity.BiddingScheme.Type = "CostPerSale"
 
 def bid_strategy_biddingscheme_to_csv(bulk_bid_strategy, row_values):
     entity_biddingscheme_to_csv(bulk_bid_strategy.bid_strategy, row_values)
@@ -256,6 +263,8 @@ def entity_biddingscheme_to_csv(entity, row_values):
         row_values[_StringTable.BidStrategyPercentMaxCpc] = bulk_str(entity.BiddingScheme.MaxPercentCpc)
     elif bid_strategy_type == 'Commission':
         row_values[_StringTable.BidStrategyCommissionRate] = bulk_str(entity.BiddingScheme.CommissionRate)
+    elif bid_strategy_type == 'CostPerSale':
+        row_values[_StringTable.BidStrategyTargetCostPerSale] = bulk_str(entity.BiddingScheme.TargetCostPerSale)
 
 
 def bulk_optional_str(value, id):
@@ -357,6 +366,37 @@ def csv_to_field_GenderTypes(entity, value):
     if value is None or value.strip() == '':
         return
     entity.gender_types = [None if i == 'None' else i for i in value.split(';')]
+
+def field_to_csv_CampaignType(entity):
+    campaign_type = entity.CampaignTypeFilter
+    if campaign_type is None or len(campaign_type) == 0:
+        return None
+    return ','.join(type for type in campaign_type)
+
+def csv_to_field_CampaignType(entity, value):
+    if value is None or value.strip() == '':
+        return
+    entity.CampaignTypeFilter = [None if i == 'None' else i for i in value.split(',')]
+
+def field_to_csv_CampaignAssociations(entity):
+    associations = entity.CampaignAssociations
+    if associations is None or len(associations.CampaignAssociation) == 0:
+        return None
+    result = ""
+    for association in associations.CampaignAssociation:
+        result += str(association.CampaignId) + ";"
+    return result[:-1]
+
+def csv_to_field_CampaignAssociations(entity, value):
+    if value is None or value.strip() == '':
+        return
+    result = []
+    strs = value.split(';')
+    for str in strs:
+        association = CampaignAssociation()
+        association.CampaignId = int(str)
+        result.append(association)
+    entity.CampaignAssociations = result
 
 def field_to_csv_MediaIds(entity):
     """
@@ -2027,3 +2067,18 @@ def to_operation(op):
     if op.lower() == 'or': return 'Or'
     if op.lower() == 'not': return 'Not'
     return none
+
+def bulk_datetime_str2(value):
+        if value is None:
+            return None
+
+        return value.strftime('%Y/%m/%d %H:%M:%S')
+
+def parse_datetime2(value):
+
+        if not value:
+            return None
+        try:
+            return datetime.strptime(value, '%Y/%m/%d %H:%M:%S')
+        except Exception:
+            return parse_datetime(value)

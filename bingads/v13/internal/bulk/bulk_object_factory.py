@@ -209,6 +209,11 @@ class _BulkObjectFactory():
         _StringTable.CampaignNegativeWebpage: _EntityInfo(lambda: BulkCampaignNegativeWebpage()),
         _StringTable.AssetGroupListingGroup: _EntityInfo(lambda: BulkAssetGroupListingGroup()),
         _StringTable.AudienceGroupAssetGroupAssociation: _EntityInfo(lambda: BulkAudienceGroupAssetGroupAssociation()),
+        _StringTable.SeasonalityAdjustment: _EntityInfo(lambda: BulkSeasonalityAdjustment()),
+        _StringTable.DataExclusion: _EntityInfo(lambda: BulkDataExclusion()),
+        'Account Negative Keyword List': _EntityInfo(lambda: BulkAccountNegativeKeywordList()),
+        'Account Negative Keyword List Association': _EntityInfo(lambda: BulkAccountNegativeKeywordListAssociation()),
+        'Account Shared Negative Keyword': _EntityInfo(lambda: BulkAccountSharedNegativeKeyword()),
     }
 
     ADDITIONAL_OBJECT_MAP = {
