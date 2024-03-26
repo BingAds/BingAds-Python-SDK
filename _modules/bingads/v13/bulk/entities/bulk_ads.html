@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.bulk.entities.bulk_ads &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_ads &#8212; Bing Ads SDK 13.0.19 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_ads</a></li> 
       </ul>
@@ -52,7 +52,6 @@
 <span class="n">DynamicSearchAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;DynamicSearchAd&#39;</span><span class="p">))</span>
 <span class="n">ResponsiveSearchAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ResponsiveSearchAd&#39;</span><span class="p">))</span>
 <span class="n">ResponsiveAd</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;ResponsiveAd&#39;</span><span class="p">))</span>
-
 
 <span class="k">class</span> <span class="nc">_BulkAd</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; This abstract base class provides properties that are shared by all bulk ad classes.</span>
@@ -80,7 +79,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad_group_name</span> <span class="o">=</span> <span class="n">ad_group_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span> <span class="o">=</span> <span class="n">ad</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_performance_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editorial_appeal_status</span> <span class="o">=</span> <span class="kc">None</span>
 
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">editorial_appeal_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The editorial appeal status of the ad.</span>
+
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editorial_appeal_status</span>
+
+    <span class="nd">@editorial_appeal_status</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">editorial_appeal_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">editorial_appeal_status</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editorial_appeal_status</span> <span class="o">=</span> <span class="n">editorial_appeal_status</span>
+        
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">ad_group_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The identifier of the ad group that contains the ad.</span>
@@ -204,6 +217,11 @@
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">FinalUrlSuffix</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_optional_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad</span><span class="o">.</span><span class="n">FinalUrlSuffix</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">ad</span><span class="o">.</span><span class="n">Id</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">ad</span><span class="p">,</span> <span class="s1">&#39;FinalUrlSuffix&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">EditorialAppealStatus</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">editorial_appeal_status</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;_editorial_appeal_status&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="p">]</span>
 
@@ -639,6 +657,7 @@
             <span class="n">ad</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span> <span class="o">=</span> <span class="n">ad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verified_tracking_data</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">responsive_ad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -653,7 +672,21 @@
     <span class="k">def</span> <span class="nf">responsive_ad</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">responsive_ad</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">responsive_ad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">responsive_ad</span><span class="p">,</span> <span class="n">ResponsiveAd</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Not an instance of ResponsiveAd&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span> <span class="o">=</span> <span class="n">responsive_ad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ad</span> <span class="o">=</span> <span class="n">responsive_ad</span>    
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">verified_tracking_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The verified tracking data that the ad associated</span>
+
+<span class="sd">        Corresponds to &#39;Verified Tracking Setting&#39; field in bulk file.</span>
+<span class="sd">        :rtype: ArrayOfArrayOfKeyValuePairOfstringstring</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_verified_tracking_data</span>
+
+    <span class="nd">@verified_tracking_data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">verified_tracking_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_verified_tracking_data</span> <span class="o">=</span> <span class="n">value</span>
 
     <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
@@ -715,6 +748,11 @@
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">LongHeadlines</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">field_to_csv_TextAssetLinks</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">responsive_ad</span><span class="o">.</span><span class="n">LongHeadlines</span><span class="p">),</span>
             <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">csv_to_field_TextAssetLinks</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">responsive_ad</span><span class="o">.</span><span class="n">LongHeadlines</span> <span class="p">,</span><span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Details</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">to_verified_tracking_setting_string</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">verified_tracking_data</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;verified_tracking_data&#39;</span><span class="p">,</span> <span class="n">parse_verified_tracking_setting</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
 
@@ -841,7 +879,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_ads</a></li> 
       </ul>

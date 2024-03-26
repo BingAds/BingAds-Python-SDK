@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.bulk.entities.bulk_negative_keywords &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_negative_keywords &#8212; Bing Ads SDK 13.0.19 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_negative_keywords</a></li> 
       </ul>
@@ -413,7 +413,6 @@
 <div class="viewcode-block" id="BulkCampaignNegativeKeywordList.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_negative_keywords.BulkCampaignNegativeKeywordList.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">BulkCampaignNegativeKeywordList</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
 
-
 <div class="viewcode-block" id="BulkNegativeKeywordList"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_negative_keywords.BulkNegativeKeywordList">[docs]</a><span class="k">class</span> <span class="nc">BulkNegativeKeywordList</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Represents a negative keyword list that can be read or written in a bulk file.</span>
 
@@ -520,6 +519,34 @@
     <span class="nd">@negative_keyword_list_id</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">negative_keyword_list_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="BulkAccountSharedNegativeKeyword"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_negative_keywords.BulkAccountSharedNegativeKeyword">[docs]</a><span class="k">class</span> <span class="nc">BulkAccountSharedNegativeKeyword</span><span class="p">(</span><span class="n">_BulkNegativeKeyword</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an account negative keyword that is shared in a negative keyword list.</span>
+
+<span class="sd">    Each shared negative keyword can be read or written in a bulk file.</span>
+<span class="sd">    This class exposes the :attr:`.BulkNegativeKeyword.NegativeKeyword` property that</span>
+<span class="sd">    can be read and written as fields of the Account Shared Negative Keyword record in a bulk file.</span>
+
+<span class="sd">    For more information, see Account Shared Negative Keyword at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">negative_keyword_list_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAccountSharedNegativeKeyword</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">negative_keyword</span><span class="p">,</span> <span class="n">negative_keyword_list_id</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span>
+
+    <span class="nd">@negative_keyword_list_id</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">negative_keyword_list_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parent_id</span> <span class="o">=</span> <span class="n">value</span></div>
 </pre></div>
 
             <div class="clearer"></div>
@@ -551,7 +578,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_negative_keywords</a></li> 
       </ul>

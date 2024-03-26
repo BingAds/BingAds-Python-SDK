@@ -32,6 +32,14 @@ bingads.v13.bulk.entities.bulk\_account module
    :undoc-members:
    :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_account\_negative\_keyword\_list module
+-----------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_account_negative_keyword_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_ad\_customizer\_attribute module
 ----------------------------------------------------------------
 
@@ -128,6 +136,38 @@ bingads.v13.bulk.entities.bulk\_ads module
    :undoc-members:
    :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_asset\_group module
+---------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_asset_group
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.bulk\_asset\_group\_listing\_group module
+-------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_asset_group_listing_group
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.bulk\_audience\_group module
+------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_audience_group
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.bulk\_audience\_group\_asset\_group\_association module
+---------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_audience_group_asset_group_association
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_bid\_strategy module
 ----------------------------------------------------
 
@@ -176,10 +216,26 @@ bingads.v13.bulk.entities.bulk\_campaign\_negative\_store\_criterion module
    :undoc-members:
    :show-inheritance:
 
+bingads.v13.bulk.entities.bulk\_campaign\_negative\_webpage module
+------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_campaign_negative_webpage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bingads.v13.bulk.entities.bulk\_campaign\_product\_scope module
 ---------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.bulk_campaign_product_scope
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.bulk\_data\_exclusion module
+------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_data_exclusion
    :members:
    :undoc-members:
    :show-inheritance:
@@ -252,6 +308,14 @@ bingads.v13.bulk.entities.bulk\_online\_conversion\_adjustment module
 ---------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.bulk_online_conversion_adjustment
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.bulk\_seasonality\_adjustment module
+--------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.bulk_seasonality_adjustment
    :members:
    :undoc-members:
    :show-inheritance:

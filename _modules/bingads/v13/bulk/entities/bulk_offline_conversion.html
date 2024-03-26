@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.bulk.entities.bulk_offline_conversion &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_offline_conversion &#8212; Bing Ads SDK 13.0.19 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_offline_conversion</a></li> 
       </ul>
@@ -38,8 +38,7 @@
           <div class="body" role="main">
             
   <h1>Source code for bingads.v13.bulk.entities.bulk_offline_conversion</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span>
@@ -70,55 +69,55 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_currency_code</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_model</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_credit</span> <span class="o">=</span> <span class="kc">None</span>
-        
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">adjustment_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_value</span><span class="p">;</span>
-    
+
     <span class="nd">@adjustment_value</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">adjustment_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_value</span> <span class="o">=</span> <span class="n">value</span>
-        
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">adjustment_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_time</span><span class="p">;</span>
-    
+
     <span class="nd">@adjustment_time</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">adjustment_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_time</span> <span class="o">=</span> <span class="n">value</span>
- 
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">adjustment_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_type</span><span class="p">;</span>
-    
+
     <span class="nd">@adjustment_type</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">adjustment_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_type</span> <span class="o">=</span> <span class="n">value</span>
-        
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">adjustment_currency_code</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_currency_code</span><span class="p">;</span>
-    
+
     <span class="nd">@adjustment_currency_code</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">adjustment_currency_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjustment_currency_code</span> <span class="o">=</span> <span class="n">value</span>
-      
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">external_attribution_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_model</span><span class="p">;</span>
-    
+
     <span class="nd">@external_attribution_model</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">external_attribution_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_model</span> <span class="o">=</span> <span class="n">value</span>
-        
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">external_attribution_credit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_credit</span><span class="p">;</span>
-    
+
     <span class="nd">@external_attribution_credit</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">external_attribution_credit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_credit</span> <span class="o">=</span> <span class="n">value</span>                     
-        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_external_attribution_credit</span> <span class="o">=</span> <span class="n">value</span>
+
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">offline_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; The offline conversion Data Object of the Campaign Management Service.</span>
@@ -186,7 +185,7 @@
                 <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
-        
+
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AdjustmentType</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">adjustment_type</span><span class="p">,</span>
@@ -196,7 +195,7 @@
                 <span class="n">v</span>
             <span class="p">)</span>
         <span class="p">),</span>
-        
+
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AdjustmentCurrencyCode</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">adjustment_currency_code</span><span class="p">,</span>
@@ -206,7 +205,7 @@
                 <span class="n">v</span>
             <span class="p">)</span>
         <span class="p">),</span>
-        
+
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ExternalAttributionModel</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">external_attribution_model</span><span class="p">,</span>
@@ -225,8 +224,6 @@
                 <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
         <span class="p">),</span>
-        
-        
         <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
             <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AdjustmentTime</span><span class="p">,</span>
             <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_datetime_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">adjustment_time</span><span class="p">),</span>
@@ -234,6 +231,24 @@
                 <span class="n">c</span><span class="p">,</span>
                 <span class="s1">&#39;adjustment_time&#39;</span><span class="p">,</span>
                 <span class="n">parse_datetime</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">HashedEmailAddress</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">offline_conversion</span><span class="o">.</span><span class="n">HashedEmailAddress</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">offline_conversion</span><span class="p">,</span>
+                <span class="s1">&#39;HashedEmailAddress&#39;</span><span class="p">,</span>
+                <span class="n">v</span>
+            <span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">HashedPhoneNumber</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">offline_conversion</span><span class="o">.</span><span class="n">HashedPhoneNumber</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span>
+                <span class="n">c</span><span class="o">.</span><span class="n">offline_conversion</span><span class="p">,</span>
+                <span class="s1">&#39;HashedPhoneNumber&#39;</span><span class="p">,</span>
+                <span class="n">v</span>
             <span class="p">)</span>
         <span class="p">),</span>
     <span class="p">]</span>
@@ -279,7 +294,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_offline_conversion</a></li> 
       </ul>

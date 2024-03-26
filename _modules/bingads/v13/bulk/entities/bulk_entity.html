@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.bulk.entities.bulk_entity &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <title>bingads.v13.bulk.entities.bulk_entity &#8212; Bing Ads SDK 13.0.19 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_entity</a></li> 
       </ul>
@@ -40,13 +40,12 @@
   <h1>Source code for bingads.v13.bulk.entities.bulk_entity</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractproperty</span>
 
-<span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
 
 <span class="kn">from</span> <span class="nn">bingads.internal.error_messages</span> <span class="kn">import</span> <span class="n">_ErrorMessages</span>
 <span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.bulk_object</span> <span class="kn">import</span> <span class="n">_BulkObject</span>
 
 
-<div class="viewcode-block" id="BulkEntity"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity">[docs]</a><span class="k">class</span> <span class="nc">BulkEntity</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">ABCMeta</span><span class="p">,</span> <span class="n">_BulkObject</span><span class="p">)):</span>
+<div class="viewcode-block" id="BulkEntity"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_entity.BulkEntity">[docs]</a><span class="k">class</span> <span class="nc">BulkEntity</span><span class="p">(</span><span class="n">_BulkObject</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; The abstract base class for all bulk entities that can be read or written in a bulk file.</span>
 
 <span class="sd">    For more information, see Bulk File Schema at https://go.microsoft.com/fwlink/?linkid=846127.</span>
@@ -116,7 +115,7 @@
         <li class="right" >
           <a href="../../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_entity</a></li> 
       </ul>

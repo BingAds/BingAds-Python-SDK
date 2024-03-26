@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>bingads.v13.reporting.reporting_operation &#8212; Bing Ads SDK 13.0.15 documentation</title>
+    <title>bingads.v13.reporting.reporting_operation &#8212; Bing Ads SDK 13.0.19 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/classic.css" />
     
@@ -26,7 +26,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" accesskey="U">Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.reporting.reporting_operation</a></li> 
       </ul>
@@ -44,7 +44,6 @@
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">zipfile</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">six</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">shutil</span>
 
@@ -141,37 +140,35 @@
             <span class="n">zip_file_path</span> <span class="o">=</span> <span class="n">result_file_path</span>
 
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">overwrite</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">six</span><span class="o">.</span><span class="n">PY3</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="s1">&#39;Result file: </span><span class="si">{0}</span><span class="s1"> exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s1">&#39;Result file: </span><span class="si">{0}</span><span class="s1"> exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="ne">FileExistsError</span><span class="p">(</span><span class="s1">&#39;Result file: </span><span class="si">{0}</span><span class="s1"> exists&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">))</span>
         <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="n">USER_AGENT</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-        <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">TlsHttpAdapter</span><span class="p">())</span>
-        <span class="n">timeout_seconds</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">timeout_in_milliseconds</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">timeout_in_milliseconds</span> <span class="o">/</span> <span class="mf">1000.0</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">FileDownloadException</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-        <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">decompress</span><span class="p">:</span>
-                <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">closing</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">))</span> <span class="k">as</span> <span class="n">compressed</span><span class="p">:</span>
-                    <span class="n">first</span> <span class="o">=</span> <span class="n">compressed</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="n">compressed</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cc</span><span class="p">:</span>
-                        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ex</span>
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">decompress</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">):</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">)</span>
+        
+        <span class="k">with</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">s</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;https://&#39;</span><span class="p">,</span> <span class="n">TlsHttpAdapter</span><span class="p">())</span>
+            <span class="n">timeout_seconds</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">timeout_in_milliseconds</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">timeout_in_milliseconds</span> <span class="o">/</span> <span class="mf">1000.0</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_seconds</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">FileDownloadException</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">iter_content</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">4096</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">chunk</span><span class="p">:</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">decompress</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">closing</span><span class="p">(</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">))</span> <span class="k">as</span> <span class="n">compressed</span><span class="p">:</span>
+                        <span class="n">first</span> <span class="o">=</span> <span class="n">compressed</span><span class="o">.</span><span class="n">namelist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">result_file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">,</span> <span class="n">compressed</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">cc</span><span class="p">:</span>
+                            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">cc</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">ex</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">decompress</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">):</span>
+                    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">zip_file_path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result_file_path</span></div>
 
 <div class="viewcode-block" id="ReportingDownloadOperation.track"><a class="viewcode-back" href="../../../../bingads.v13.reporting.html#bingads.v13.reporting.reporting_operation.ReportingDownloadOperation.track">[docs]</a>    <span class="k">def</span> <span class="nf">track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout_in_milliseconds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -299,7 +296,7 @@
         <li class="right" >
           <a href="../../../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.15 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
           <li class="nav-item nav-item-1"><a href="../../../index.html" >Module code</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">bingads.v13.reporting.reporting_operation</a></li> 
       </ul>

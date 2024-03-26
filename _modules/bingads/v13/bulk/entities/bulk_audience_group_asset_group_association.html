@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bingads.v13.bulk.entities.bulk_audience_group_asset_group_association &#8212; Bing Ads SDK 13.0.19 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/classic.css" />
+    
+    <script data-url_root="../../../../../" id="documentation_options" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_audience_group_asset_group_association</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for bingads.v13.bulk.entities.bulk_audience_group_asset_group_association</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">bingads.service_client</span> <span class="kn">import</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span>
+
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.string_table</span> <span class="kn">import</span> <span class="n">_StringTable</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.entities.single_record_bulk_entity</span> <span class="kn">import</span> <span class="n">_SingleRecordBulkEntity</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.bulk.mappings</span> <span class="kn">import</span> <span class="n">_SimpleBulkMapping</span><span class="p">,</span> <span class="n">_ComplexBulkMapping</span>
+<span class="kn">from</span> <span class="nn">bingads.v13.internal.extensions</span> <span class="kn">import</span> <span class="o">*</span>
+
+<div class="viewcode-block" id="BulkAudienceGroupAssetGroupAssociation"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_audience_group_asset_group_association.BulkAudienceGroupAssetGroupAssociation">[docs]</a><span class="k">class</span> <span class="nc">BulkAudienceGroupAssetGroupAssociation</span><span class="p">(</span><span class="n">_SingleRecordBulkEntity</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Represents an audience group asset group association.</span>
+
+<span class="sd">    This class exposes the property :attr:`audience_group_asset_group_association` that can be read and written as fields of the audience group asset group association record</span>
+<span class="sd">    in a bulk file.</span>
+
+<span class="sd">    For more information, see audience group asset group association at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+
+<span class="sd">    *See also:*</span>
+
+<span class="sd">    * :class:`.BulkServiceManager`</span>
+<span class="sd">    * :class:`.BulkOperation`</span>
+<span class="sd">    * :class:`.BulkFileReader`</span>
+<span class="sd">    * :class:`.BulkFileWriter`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">audience_group_asset_group_association</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAudienceGroupAssetGroupAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_audience_group_asset_group_association</span> <span class="o">=</span> <span class="n">audience_group_asset_group_association</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_asset_group_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_status</span>
+
+    <span class="nd">@status</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_status</span> <span class="o">=</span> <span class="n">status</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">asset_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_asset_group_name</span>
+
+    <span class="nd">@asset_group_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">asset_group_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">asset_group_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_asset_group_name</span> <span class="o">=</span> <span class="n">asset_group_name</span>
+        
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span>
+
+    <span class="nd">@campaign_name</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">campaign_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">campaign_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_campaign_name</span> <span class="o">=</span> <span class="n">campaign_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">audience_group_asset_group_association</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; The AudienceGroupAssetGroupAssociation Data Object of the Campaign Management Service.</span>
+
+<span class="sd">        A subset of AudienceGroupAssetGroupAssociation properties are available in the Ad Group record.</span>
+<span class="sd">        For more information, see Ad Group at https://go.microsoft.com/fwlink/?linkid=846127.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_audience_group_asset_group_association</span>
+
+    <span class="nd">@audience_group_asset_group_association</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">audience_group_asset_group_association</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audience_group_asset_group_association</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_audience_group_asset_group_association</span> <span class="o">=</span> <span class="n">audience_group_asset_group_association</span>
+
+    <span class="n">_MAPPINGS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">audience_group_asset_group_association</span><span class="o">.</span><span class="n">AudienceGroupId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">audience_group_asset_group_association</span><span class="p">,</span> <span class="s1">&#39;AudienceGroupId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Status</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">status</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="n">v</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">ParentId</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">bulk_str</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">audience_group_asset_group_association</span><span class="o">.</span><span class="n">AssetGroupId</span><span class="p">),</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">audience_group_asset_group_association</span><span class="p">,</span> <span class="s1">&#39;AssetGroupId&#39;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">AssetGroup</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">asset_group_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;asset_group_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+        <span class="n">_SimpleBulkMapping</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">_StringTable</span><span class="o">.</span><span class="n">Campaign</span><span class="p">,</span>
+            <span class="n">field_to_csv</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">campaign_name</span><span class="p">,</span>
+            <span class="n">csv_to_field</span><span class="o">=</span><span class="k">lambda</span> <span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;campaign_name&#39;</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="p">),</span>
+    <span class="p">]</span>
+
+
+<div class="viewcode-block" id="BulkAudienceGroupAssetGroupAssociation.process_mappings_from_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_audience_group_asset_group_association.BulkAudienceGroupAssetGroupAssociation.process_mappings_from_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_from_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">audience_group_asset_group_association</span> <span class="o">=</span> <span class="n">_CAMPAIGN_OBJECT_FACTORY_V13</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;AudienceGroupAssetGroupAssociation&#39;</span><span class="p">)</span>
+
+        <span class="n">row_values</span><span class="o">.</span><span class="n">convert_to_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">BulkAudienceGroupAssetGroupAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkAudienceGroupAssetGroupAssociation.process_mappings_to_row_values"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_audience_group_asset_group_association.BulkAudienceGroupAssetGroupAssociation.process_mappings_to_row_values">[docs]</a>    <span class="k">def</span> <span class="nf">process_mappings_to_row_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">row_values</span><span class="p">,</span> <span class="n">exclude_readonly_data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate_property_not_null</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_audience_group_asset_group_association</span><span class="p">,</span> <span class="s1">&#39;AudienceGroupAssetGroupAssociation&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convert_to_values</span><span class="p">(</span><span class="n">row_values</span><span class="p">,</span> <span class="n">BulkAudienceGroupAssetGroupAssociation</span><span class="o">.</span><span class="n">_MAPPINGS</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BulkAudienceGroupAssetGroupAssociation.read_additional_data"><a class="viewcode-back" href="../../../../../bingads.v13.bulk.entities.html#bingads.v13.bulk.entities.bulk_audience_group_asset_group_association.BulkAudienceGroupAssetGroupAssociation.read_additional_data">[docs]</a>    <span class="k">def</span> <span class="nf">read_additional_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_reader</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BulkAudienceGroupAssetGroupAssociation</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">read_additional_data</span><span class="p">(</span><span class="n">stream_reader</span><span class="p">)</span></div></div>
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../../../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../../../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../../../../index.html">Bing Ads SDK 13.0.19 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../../../../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">bingads.v13.bulk.entities.bulk_audience_group_asset_group_association</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, Bing Ads SDK Team.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.2.0.
+    </div>
+  </body>
+</html>

@@ -44,6 +44,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_gender\_criterion 
    :undoc-members:
    :show-inheritance:
 
+bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_genre\_criterion module
+-------------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_ad_group_genre_criterion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bingads.v13.bulk.entities.target\_criterions.bulk\_ad\_group\_hotel\_advance\_booking\_window\_criterion module
 ---------------------------------------------------------------------------------------------------------------
 
@@ -176,6 +184,14 @@ bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_day\_time\_criterio
 ----------------------------------------------------------------------------------------
 
 .. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_day_time_criterion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bingads.v13.bulk.entities.target\_criterions.bulk\_campaign\_deal\_criterion module
+-----------------------------------------------------------------------------------
+
+.. automodule:: bingads.v13.bulk.entities.target_criterions.bulk_campaign_deal_criterion
    :members:
    :undoc-members:
    :show-inheritance:
