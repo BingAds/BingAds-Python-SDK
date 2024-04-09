@@ -1411,6 +1411,7 @@
                <xs:enumeration value="Installs" />
                <xs:enumeration value="CostPerInstall" />
                <xs:enumeration value="RevenuePerInstall" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdGroupPerformanceReportColumn" nillable="true" type="tns:AdGroupPerformanceReportColumn" />
@@ -1539,6 +1540,7 @@
                <xs:enumeration value="AverageWatchTimePerImpression" />
                <xs:enumeration value="AdStrength" />
                <xs:enumeration value="AdStrengthActionItems" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdPerformanceReportColumn" nillable="true" type="tns:AdPerformanceReportColumn" />
@@ -1658,6 +1660,7 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="KeywordPerformanceReportColumn" nillable="true" type="tns:KeywordPerformanceReportColumn" />
@@ -2669,6 +2672,7 @@
                <xs:enumeration value="AverageCpm" />
                <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="AllConversionsQualified" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdExtensionByAdReportColumn" nillable="true" type="tns:AdExtensionByAdReportColumn" />
@@ -3912,6 +3916,7 @@
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="AdId" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="GoalId" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DSAAutoTargetPerformanceReportColumn" nillable="true" type="tns:DSAAutoTargetPerformanceReportColumn" />
@@ -4209,6 +4214,79 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="HotelGroupPerformanceReportFilter" nillable="true" type="tns:HotelGroupPerformanceReportFilter" />
+         <xs:complexType name="AssetGroupPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfAssetGroupPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:AssetGroupPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAssetGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AssetGroupPerformanceReportRequest" nillable="true" type="tns:AssetGroupPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfAssetGroupPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetGroupPerformanceReportColumn" type="tns:AssetGroupPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAssetGroupPerformanceReportColumn" nillable="true" type="tns:ArrayOfAssetGroupPerformanceReportColumn" />
+         <xs:simpleType name="AssetGroupPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="AccountStatus" />
+               <xs:enumeration value="CampaignStatus" />
+               <xs:enumeration value="AssetGroupId" />
+               <xs:enumeration value="AssetGroupName" />
+               <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="AverageCpc" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="ReturnOnAdSpend" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AssetGroupPerformanceReportColumn" nillable="true" type="tns:AssetGroupPerformanceReportColumn" />
+         <xs:complexType name="AssetGroupPerformanceReportFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
+               <xs:element minOccurs="0" name="AssetGroupStatus" nillable="true" type="tns:AssetGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AssetGroupPerformanceReportFilter" nillable="true" type="tns:AssetGroupPerformanceReportFilter" />
+         <xs:complexType name="AccountThroughAssetGroupReportScope">
+            <xs:sequence>
+               <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q17:ArrayOflong" />
+               <xs:element minOccurs="0" name="AssetGroups" nillable="true" type="tns:ArrayOfAssetGroupReportScope" />
+               <xs:element minOccurs="0" name="Campaigns" nillable="true" type="tns:ArrayOfCampaignReportScope" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AccountThroughAssetGroupReportScope" nillable="true" type="tns:AccountThroughAssetGroupReportScope" />
+         <xs:complexType name="ArrayOfAssetGroupReportScope">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetGroupReportScope" nillable="true" type="tns:AssetGroupReportScope" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAssetGroupReportScope" nillable="true" type="tns:ArrayOfAssetGroupReportScope" />
+         <xs:complexType name="AssetGroupReportScope">
+            <xs:sequence>
+               <xs:element name="AccountId" type="xs:long" />
+               <xs:element name="CampaignId" type="xs:long" />
+               <xs:element name="AssetGroupId" type="xs:long" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AssetGroupReportScope" nillable="true" type="tns:AssetGroupReportScope" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
@@ -4226,7 +4304,7 @@
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
          <xs:complexType name="ApiFaultDetail">
             <xs:complexContent mixed="false">
-               <xs:extension xmlns:q17="https://adapi.microsoft.com" base="q17:ApplicationFault">
+               <xs:extension xmlns:q18="https://adapi.microsoft.com" base="q18:ApplicationFault">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
