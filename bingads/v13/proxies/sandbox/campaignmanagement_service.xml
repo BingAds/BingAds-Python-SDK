@@ -7335,6 +7335,13 @@
                      <xs:element minOccurs="0" name="NewAudienceTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewCallAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewCalloutAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewConversionGoals" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewDemographicTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewDeviceTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewEntities" nillable="true" type="xs:boolean" />
@@ -7450,6 +7457,13 @@
                      <xs:element minOccurs="0" name="UpdateCampaignAdGroupLanguages" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateCampaignBudgets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateCampaignNames" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="UpdateConversionGoals" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="UpdateDemographicTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateDeviceTargets" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateEntities" nillable="true" type="xs:boolean" />
@@ -7715,6 +7729,20 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131072</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewConversionGoals">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">262144</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="UpdateConversionGoals">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">524288</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
