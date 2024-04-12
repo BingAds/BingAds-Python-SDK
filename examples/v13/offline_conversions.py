@@ -15,6 +15,7 @@ def main(authorization_data):
         conversion_goals=campaign_service.factory.create('ArrayOfConversionGoal')
 
         offline_conversion_goal=set_elements_to_none(campaign_service.factory.create('OfflineConversionGoal'))
+        offline_conversion_goal.GoalCategory = "Purchase"
         # Determines how long after a click that you want to count offline conversions. 
         offline_conversion_goal.ConversionWindowInMinutes = 43200
         # If the count type is 'Unique' then only the first offline conversion will be counted.

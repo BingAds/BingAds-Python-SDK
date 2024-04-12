@@ -76,6 +76,7 @@ def main(authorization_data):
         conversion_goals.ConversionGoal.append(duration_goal)
 
         event_goal=set_elements_to_none(campaign_service.factory.create('EventGoal'))
+        event_goal.GoalCategory = "Purchase"
         # The type of user interaction you want to track.
         event_goal.ActionExpression = "play"
         event_goal.ActionOperator = 'Contains'
@@ -118,6 +119,7 @@ def main(authorization_data):
         conversion_goals.ConversionGoal.append(pages_viewed_per_visit_goal)
             
         url_goal=set_elements_to_none(campaign_service.factory.create('UrlGoal'))
+        url_goal.GoalCategory = "Purchase"
         url_goal.ConversionWindowInMinutes = 30
         url_goal.CountType = 'All'
         url_goal.Name = "My Url Goal"
