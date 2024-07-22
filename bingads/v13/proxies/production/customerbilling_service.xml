@@ -290,6 +290,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:element>
+               <xs:element minOccurs="0" name="DocumentNumber" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BillingDocumentInfo" nillable="true" type="tns:BillingDocumentInfo" />
@@ -323,6 +330,13 @@
                <xs:element minOccurs="0" name="Data" nillable="true" type="xs:base64Binary" />
                <xs:element minOccurs="0" name="Id" type="xs:long" />
                <xs:element minOccurs="0" name="Type" type="tns:DataType" />
+               <xs:element minOccurs="0" name="Number" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BillingDocument" nillable="true" type="tns:BillingDocument" />

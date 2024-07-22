@@ -378,6 +378,17 @@ def csv_to_field_CampaignType(entity, value):
         return
     entity.CampaignTypeFilter = [None if i == 'None' else i for i in value.split(',')]
 
+def field_to_csv_DeviceType(entity):
+    device_type = entity.DeviceTypeFilter
+    if device_type is None or len(device_type) == 0:
+        return None
+    return ','.join(type for type in device_type)
+
+def csv_to_field_DeviceType(entity, value):
+    if value is None or value.strip() == '':
+        return
+    entity.DeviceTypeFilter = [None if i == 'None' else i for i in value.split(',')]
+
 def field_to_csv_CampaignAssociations(entity):
     associations = entity.CampaignAssociations
     if associations is None or len(associations.CampaignAssociation) == 0:

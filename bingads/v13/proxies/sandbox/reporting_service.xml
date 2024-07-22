@@ -4287,6 +4287,109 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AssetGroupReportScope" nillable="true" type="tns:AssetGroupReportScope" />
+         <xs:complexType name="SearchInsightPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfSearchInsightPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:SearchInsightPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughCampaignReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="SearchInsightPerformanceReportRequest" nillable="true" type="tns:SearchInsightPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfSearchInsightPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="SearchInsightPerformanceReportColumn" type="tns:SearchInsightPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfSearchInsightPerformanceReportColumn" nillable="true" type="tns:ArrayOfSearchInsightPerformanceReportColumn" />
+         <xs:simpleType name="SearchInsightPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountNumber" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="AdGroupName" />
+               <xs:enumeration value="AdGroupId" />
+               <xs:enumeration value="CampaignStatus" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="SearchQuery" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="ConversionRate" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="ReturnOnAdSpend" />
+               <xs:enumeration value="RevenuePerConversion" />
+               <xs:enumeration value="AccountStatus" />
+               <xs:enumeration value="AdGroupStatus" />
+               <xs:enumeration value="CustomerId" />
+               <xs:enumeration value="CustomerName" />
+               <xs:enumeration value="AssetGroupId" />
+               <xs:enumeration value="AssetGroupName" />
+               <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="SearchCategory" />
+               <xs:enumeration value="SearchVolume" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="SearchInsightPerformanceReportColumn" nillable="true" type="tns:SearchInsightPerformanceReportColumn" />
+         <xs:complexType name="SearchInsightPerformanceReportFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
+               <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="AssetGroupStatus" nillable="true" type="tns:AssetGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+               <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SearchCategory" nillable="true" type="q18:ArrayOfstring" />
+               <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SearchQueries" nillable="true" type="q19:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SearchInsightPerformanceReportFilter" nillable="true" type="tns:SearchInsightPerformanceReportFilter" />
+         <xs:complexType name="AssetPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfAssetPerformanceReportColumn" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAdGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AssetPerformanceReportRequest" nillable="true" type="tns:AssetPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfAssetPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetPerformanceReportColumn" type="tns:AssetPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAssetPerformanceReportColumn" nillable="true" type="tns:ArrayOfAssetPerformanceReportColumn" />
+         <xs:simpleType name="AssetPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="AdGroupId" />
+               <xs:enumeration value="AdGroupName" />
+               <xs:enumeration value="AssetId" />
+               <xs:enumeration value="AssetContent" />
+               <xs:enumeration value="AssetType" />
+               <xs:enumeration value="AssetSource" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="Spend" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AssetPerformanceReportColumn" nillable="true" type="tns:AssetPerformanceReportColumn" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
@@ -4304,7 +4407,7 @@
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
          <xs:complexType name="ApiFaultDetail">
             <xs:complexContent mixed="false">
-               <xs:extension xmlns:q18="https://adapi.microsoft.com" base="q18:ApplicationFault">
+               <xs:extension xmlns:q20="https://adapi.microsoft.com" base="q20:ApplicationFault">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />

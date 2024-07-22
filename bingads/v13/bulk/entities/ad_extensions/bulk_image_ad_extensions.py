@@ -74,7 +74,7 @@ class BulkImageAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_str(c.image_ad_extension.TrackingUrlTemplate),
+            field_to_csv=lambda c: bulk_optional_str(c.image_ad_extension.TrackingUrlTemplate, c.image_ad_extension.Id),
             csv_to_field=lambda c, v: setattr(c.image_ad_extension, 'TrackingUrlTemplate', v if v else None)
         ),
         _SimpleBulkMapping(
