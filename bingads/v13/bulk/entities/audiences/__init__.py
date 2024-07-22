@@ -42,3 +42,8 @@ from .bulk_ad_group_negative_customer_list_association import *
 from .bulk_campaign_customer_list_association import *
 from .bulk_campaign_negative_customer_list_association import *
 from .bulk_customer_list_item import *
+from .bulk_ad_group_impression_based_remarketing_list_association import *
+from .bulk_ad_group_negative_impression_based_remarketing_list_association import *
+from .bulk_campaign_impression_based_remarketing_list_association import *
+from .bulk_campaign_negative_impression_based_remarketing_list_association import *
+from .bulk_impression_based_remarketing_list import *

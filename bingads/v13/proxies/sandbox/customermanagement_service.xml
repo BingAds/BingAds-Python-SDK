@@ -865,6 +865,9 @@
                <xs:enumeration value="Russian" />
                <xs:enumeration value="TraditionalChinese" />
                <xs:enumeration value="SimplifiedChinese" />
+               <xs:enumeration value="Thai" />
+               <xs:enumeration value="Turkish" />
+               <xs:enumeration value="Filipino" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="LanguageType" nillable="true" type="tns:LanguageType" />
@@ -1995,6 +1998,20 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">18441</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TurkishTurkey">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1055</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="FilipinoPhilippines">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1124</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>

@@ -21,7 +21,7 @@ class BulkDataExclusion(_SingleRecordBulkEntity):
     * :class:`.BulkFileWriter`
     """
 
-    def __init__(self, campaign_id=None, campaign_name=None, data_exclusion=None):
+    def __init__(self, data_exclusion=None):
         super(BulkDataExclusion, self).__init__()
 
         self._data_exclusion = data_exclusion
@@ -30,8 +30,8 @@ class BulkDataExclusion(_SingleRecordBulkEntity):
     def data_exclusion(self):
         """ The DataExclusion Data Object of the Campaign Management Service.
 
-        A subset of DataExclusion properties are available in the Ad Group record.
-        For more information, see Ad Group at https://go.microsoft.com/fwlink/?linkid=846127.
+        A subset of DataExclusion properties are available in the Data Exclusion record.
+        For more information, see Data Exclusion at https://go.microsoft.com/fwlink/?linkid=846127.
         """
         return self._data_exclusion
 
@@ -72,8 +72,8 @@ class BulkDataExclusion(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.DeviceType,
-            field_to_csv=lambda c: bulk_str(c.data_exclusion.DeviceTypeFilter),
-            csv_to_field=lambda c, v: setattr(c.data_exclusion, 'DeviceTypeFilter', v)
+            field_to_csv=lambda c: field_to_csv_DeviceType(c.data_exclusion),
+            csv_to_field=lambda c, v: csv_to_field_DeviceType(c.data_exclusion, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.CampaignAssociations,

@@ -21,7 +21,7 @@ class BulkSeasonalityAdjustment(_SingleRecordBulkEntity):
     * :class:`.BulkFileWriter`
     """
 
-    def __init__(self, campaign_id=None, campaign_name=None, seasonality_adjustment=None):
+    def __init__(self, seasonality_adjustment=None):
         super(BulkSeasonalityAdjustment, self).__init__()
 
         self._seasonality_adjustment = seasonality_adjustment
@@ -30,8 +30,8 @@ class BulkSeasonalityAdjustment(_SingleRecordBulkEntity):
     def seasonality_adjustment(self):
         """ The SeasonalityAdjustment Data Object of the Campaign Management Service.
 
-        A subset of SeasonalityAdjustment properties are available in the Ad Group record.
-        For more information, see Ad Group at https://go.microsoft.com/fwlink/?linkid=846127.
+        A subset of SeasonalityAdjustment properties are available in the Seasonality Adjustment record.
+        For more information, see Seasonality Adjustment at https://go.microsoft.com/fwlink/?linkid=846127.
         """
         return self._seasonality_adjustment
 
@@ -74,8 +74,8 @@ class BulkSeasonalityAdjustment(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.DeviceType,
-            field_to_csv=lambda c: bulk_str(c.seasonality_adjustment.DeviceTypeFilter),
-            csv_to_field=lambda c, v: setattr(c.seasonality_adjustment, 'DeviceTypeFilter', v)
+            field_to_csv=lambda c: field_to_csv_DeviceType(c.seasonality_adjustment),
+            csv_to_field=lambda c, v: csv_to_field_DeviceType(c.seasonality_adjustment, v)
         ),
         _SimpleBulkMapping(
             header=_StringTable.AdjustmentValue,

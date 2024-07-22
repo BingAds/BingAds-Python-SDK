@@ -50,3 +50,8 @@ from .bulk_campaign_negative_webpage import *
 from .bulk_seasonality_adjustment import *
 from .bulk_data_exclusion import *
 from .bulk_account_negative_keyword_list import *
+from .bulk_asset_group_search_theme import *
+from .bulk_campaign_brand_list_association import *
+from .bulk_brand_item import *
+from .bulk_brand_list import *
+from .goals import *

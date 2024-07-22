@@ -191,7 +191,7 @@ class BulkAccount(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_str(c.tracking_url_template),
+            field_to_csv=lambda c: bulk_optional_str(c.tracking_url_template, c.id),
             csv_to_field=lambda c, v: setattr(c, '_tracking_url_template', v)
         ),
         _SimpleBulkMapping(

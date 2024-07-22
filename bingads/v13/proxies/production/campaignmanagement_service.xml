@@ -233,6 +233,13 @@
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
                   <xs:sequence>
+                     <xs:element minOccurs="0" name="AdSubType" nillable="true" type="tns:AdSubType">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
                      <xs:element minOccurs="0" name="CallToActionLanguage" nillable="true" type="tns:LanguageName" />
@@ -276,6 +283,17 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ResponsiveAd" nillable="true" type="tns:ResponsiveAd" />
+         <xs:simpleType name="AdSubType">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="Video" />
+                     <xs:enumeration value="Display" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AdSubType" nillable="true" type="tns:AdSubType" />
          <xs:simpleType name="CallToAction">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Unknown" />
@@ -961,6 +979,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:element>
+                     <xs:element minOccurs="0" name="CostPerSaleOptOut" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="FinalUrlExpansionOptOut" type="xs:boolean" />
                      <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PageFeedIds" nillable="true" type="q7:ArrayOflong">
                         <xs:annotation>
@@ -984,6 +1009,66 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="CallToActionSetting" nillable="true" type="tns:CallToActionSetting" />
+         <xs:complexType name="VanityPharmaSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="DisplayUrlMode" nillable="true" type="tns:VanityPharmaDisplayUrlMode">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                     <xs:element minOccurs="0" name="WebsiteDescription" nillable="true" type="tns:VanityPharmaWebsiteDescription">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="VanityPharmaSetting" nillable="true" type="tns:VanityPharmaSetting" />
+         <xs:simpleType name="VanityPharmaDisplayUrlMode">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="ManufacturerWebsiteUrl">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="WebsiteDescription">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="VanityPharmaDisplayUrlMode" nillable="true" type="tns:VanityPharmaDisplayUrlMode" />
+         <xs:simpleType name="VanityPharmaWebsiteDescription">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unspecified" />
+               <xs:enumeration value="PrescriptionTreatmentWebsite_En" />
+               <xs:enumeration value="PrescriptionTreatmentWebsite_Es" />
+               <xs:enumeration value="PrescriptionDeviceWebsite_En" />
+               <xs:enumeration value="PrescriptionDeviceWebsite_Es" />
+               <xs:enumeration value="MedicalDeviceWebsite_En" />
+               <xs:enumeration value="MedicalDeviceWebsite_Es" />
+               <xs:enumeration value="PreventativeTreatmentWebsite_En" />
+               <xs:enumeration value="PreventativeTreatmentWebsite_Es" />
+               <xs:enumeration value="PrescriptionContraceptionWebsite_En" />
+               <xs:enumeration value="PrescriptionContraceptionWebsite_Es" />
+               <xs:enumeration value="PrescriptionVaccineWebsite_En" />
+               <xs:enumeration value="PrescriptionVaccineWebsite_Es" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="VanityPharmaWebsiteDescription" nillable="true" type="tns:VanityPharmaWebsiteDescription" />
          <xs:complexType name="ResponsiveSearchAd">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
@@ -1234,7 +1319,15 @@
          <xs:complexType name="ManualCpaBiddingScheme">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:BiddingScheme">
-                  <xs:sequence />
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="ManualCpi" nillable="true" type="xs:double">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                  </xs:sequence>
                </xs:extension>
             </xs:complexContent>
          </xs:complexType>
@@ -1286,6 +1379,13 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="App">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">128</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -1409,6 +1509,9 @@
                      <xs:enumeration value="PageFeedInPerformanceMaxSettings" />
                      <xs:enumeration value="DealIds" />
                      <xs:enumeration value="AutoGeneratedTextAndImageOptOutInPerformanceMaxSettings" />
+                     <xs:enumeration value="CostPerSaleOptOutInPerformanceMaxSettings" />
+                     <xs:enumeration value="VanityPharmaSetting" />
+                     <xs:enumeration value="ManualCpi" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2008,6 +2111,7 @@
                      <xs:enumeration value="Videos" />
                      <xs:enumeration value="LongHeadlines" />
                      <xs:enumeration value="ImageTargetDimension" />
+                     <xs:enumeration value="AdSubType" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2735,6 +2839,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:element>
+                     <xs:element minOccurs="0" name="SourceType" nillable="true" type="xs:string">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string" />
                      <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters" />
                   </xs:sequence>
@@ -3193,6 +3304,19 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="DisclaimerAdExtension" nillable="true" type="tns:DisclaimerAdExtension" />
+         <xs:complexType name="LogoAdExtension">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:AdExtension">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="BusinessLogo" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="BusinessLogoUrl" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="DomainName" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="LogoAdExtension" nillable="true" type="tns:LogoAdExtension" />
          <xs:element name="AddAdExtensionsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3277,6 +3401,7 @@
                      <xs:enumeration value="FlyerAdExtension" />
                      <xs:enumeration value="VideoAdExtension" />
                      <xs:enumeration value="DisclaimerAdExtension" />
+                     <xs:enumeration value="LogoAdExtension" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -3292,6 +3417,7 @@
                      <xs:enumeration value="ActionTypesPhase3" />
                      <xs:enumeration value="ActionTypesPhase4" />
                      <xs:enumeration value="NewFilterLinkHeaders" />
+                     <xs:enumeration value="SourceType" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -3540,6 +3666,13 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="MediaType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -3581,6 +3714,7 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="MediaEnabledEntities" type="tns:MediaEnabledEntityFilter" />
                   <xs:element minOccurs="0" name="PageInfo" nillable="true" type="tns:Paging" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:MediaAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3602,6 +3736,16 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Paging" nillable="true" type="tns:Paging" />
+         <xs:simpleType name="MediaAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="Text" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="MediaAdditionalField" nillable="true" type="tns:MediaAdditionalField" />
          <xs:element name="GetMediaMetaDataByAccountIdResponse">
             <xs:complexType>
                <xs:sequence>
@@ -3620,6 +3764,13 @@
                <xs:element name="Id" type="xs:long" />
                <xs:element minOccurs="0" name="MediaType" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Representations" nillable="true" type="tns:ArrayOfMediaRepresentation" />
+               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -3653,6 +3804,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q77="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="MediaIds" nillable="true" type="q77:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:MediaAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3907,6 +4059,13 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">268435456</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="ImpressionBasedRemarketingList">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">536870912</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -4319,6 +4478,7 @@
                      <xs:enumeration value="SimilarRemarketingList" />
                      <xs:enumeration value="CombinedList" />
                      <xs:enumeration value="CustomerList" />
+                     <xs:enumeration value="ImpressionBasedRemarketingList" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5364,6 +5524,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="ImpressionBasedRemarketingList">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8388608</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5769,6 +5936,13 @@
          <xs:element name="ArrayOfAssetGroup" nillable="true" type="tns:ArrayOfAssetGroup" />
          <xs:complexType name="AssetGroup">
             <xs:sequence>
+               <xs:element minOccurs="0" name="AssetGroupSearchThemes" nillable="true" type="tns:ArrayOfAssetGroupSearchTheme">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
                <xs:element minOccurs="0" name="Descriptions" nillable="true" type="tns:ArrayOfAssetLink" />
@@ -5789,6 +5963,19 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AssetGroup" nillable="true" type="tns:AssetGroup" />
+         <xs:complexType name="ArrayOfAssetGroupSearchTheme">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetGroupSearchTheme" nillable="true" type="tns:AssetGroupSearchTheme" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAssetGroupSearchTheme" nillable="true" type="tns:ArrayOfAssetGroupSearchTheme" />
+         <xs:complexType name="AssetGroupSearchTheme">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="SearchTheme" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AssetGroupSearchTheme" nillable="true" type="tns:AssetGroupSearchTheme" />
          <xs:simpleType name="AssetGroupEditorialStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Active" />
@@ -5850,9 +6037,20 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
                   <xs:element xmlns:q119="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AssetGroupIds" nillable="true" type="q119:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AssetGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="AssetGroupAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="AssetGroupSearchThemes" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AssetGroupAdditionalField" nillable="true" type="tns:AssetGroupAdditionalField" />
          <xs:element name="GetAssetGroupsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -5865,6 +6063,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AssetGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6331,6 +6530,26 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="CustomerList" nillable="true" type="tns:CustomerList" />
+         <xs:complexType name="ImpressionBasedRemarketingList">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Audience">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AdGroupId" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="CampaignId" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="EntityType" type="tns:ImpressionBasedEntityType" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ImpressionBasedRemarketingList" nillable="true" type="tns:ImpressionBasedRemarketingList" />
+         <xs:simpleType name="ImpressionBasedEntityType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="None" />
+               <xs:enumeration value="Campaign" />
+               <xs:enumeration value="AdGroup" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="ImpressionBasedEntityType" nillable="true" type="tns:ImpressionBasedEntityType" />
          <xs:element name="AddAudiencesResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6382,6 +6601,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="NormalForm" />
                      <xs:enumeration value="NumberRuleItem" />
+                     <xs:enumeration value="ImpreesionBasedRemarketingList" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -8030,25 +8250,47 @@
          </xs:complexType>
          <xs:element name="CampaignAssociation" nillable="true" type="tns:CampaignAssociation" />
          <xs:simpleType name="DeviceType">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="None" />
-               <xs:enumeration value="Computers" />
-               <xs:enumeration value="Smartphones" />
-               <xs:enumeration value="Tablets">
-                  <xs:annotation>
-                     <xs:appinfo>
-                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-                     </xs:appinfo>
-                  </xs:annotation>
-               </xs:enumeration>
-               <xs:enumeration value="All">
-                  <xs:annotation>
-                     <xs:appinfo>
-                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
-                     </xs:appinfo>
-                  </xs:annotation>
-               </xs:enumeration>
-            </xs:restriction>
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="None">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Computers">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Smartphones">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Tablets">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="All">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
          </xs:simpleType>
          <xs:element name="DeviceType" nillable="true" type="tns:DeviceType" />
          <xs:element name="AddDataExclusionsResponse">
