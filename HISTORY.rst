@@ -3,7 +3,7 @@
 Release History
 13.0.21(2024-07-18)
 +++++++++++++++++++++++++
-* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
 * Added bulk mappings for new AudienceType:ImpressionBasedRemarketingList i.e., BulkImpressionBasedRemarketingList, BulkAdGroupImpressionBasedRemarketingListAssociation, BulkAdGroupNegativeImpressionBasedRemarketingListAssociation, BulkCampaignImpressionBasedRemarketingListAssociation and BulkCampaignNegativeImpressionBasedRemarketingListAssociation.
 * Added bulk mappings for Goals i.e., BulkAppInstallGoal, BulkDurationGoal, BulkEventGoal, BulkInStoreTransactionGoal, BulkInStoreVisitGoal, BulkOfflineConversionGoal, BulkPagesViewedPerVisitGoal, BulkProductGoal and BulkUrlGoal.
 * Added bulk mappings for BulkBrandItem, BulkBrandList and BulkCampaignBrandListAssociation.
