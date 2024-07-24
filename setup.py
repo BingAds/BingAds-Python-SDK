@@ -35,6 +35,7 @@ setup(
         'bingads.v13.bulk.entities.feeds',
         'bingads.v13.bulk.entities.target_criterions',
         'bingads.v13.bulk.entities.labels',
+        'bingads.v13.bulk.entities.goals',
         'bingads.v13.internal',
         'bingads.v13.internal.bulk',
         'bingads.v13.internal.bulk.entities',
