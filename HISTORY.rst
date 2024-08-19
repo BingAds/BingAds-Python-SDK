@@ -2,6 +2,11 @@
 
 Release History
 
+13.0.21.2(2024-08-19)
++++++++++++++++++++++++++
+* Fix Issue #295: https://github.com/BingAds/BingAds-Python-SDK/issues/295
+* Change 'ImpreesionBasedRemarketingList' to 'ImpressionBasedRemarketingList' in AudienceAdditionalField
+
 13.0.21.1(2024-07-24)
 +++++++++++++++++++++++++
 * Fix Issue #291: https://github.com/BingAds/BingAds-Python-SDK/issues/291

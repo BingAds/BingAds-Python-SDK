@@ -36,6 +36,7 @@
                   <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" />
                   <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+                  <xs:element minOccurs="0" name="ReturnInvoiceNumber" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
