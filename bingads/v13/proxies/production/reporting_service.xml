@@ -182,6 +182,18 @@
                <xs:enumeration value="Installs" />
                <xs:enumeration value="CostPerInstall" />
                <xs:enumeration value="RevenuePerInstall" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPerformanceReportColumn" nillable="true" type="tns:AccountPerformanceReportColumn" />
@@ -957,6 +969,18 @@
                <xs:enumeration value="Installs" />
                <xs:enumeration value="CostPerInstall" />
                <xs:enumeration value="RevenuePerInstall" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CampaignPerformanceReportColumn" nillable="true" type="tns:CampaignPerformanceReportColumn" />

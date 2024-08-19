@@ -258,7 +258,7 @@ def entity_biddingscheme_to_csv(entity, row_values):
     elif bid_strategy_type == 'TargetImpressionShare':
         row_values[_StringTable.BidStrategyMaxCpc] = bid_bulk_str(entity.BiddingScheme.MaxCpc, entity.Id)
         row_values[_StringTable.BidStrategyTargetAdPosition] = bulk_optional_str(entity.BiddingScheme.TargetAdPosition, entity.Id)
-        row_values[_StringTable.BidStrategyTargetImpressionShare] = TargetImpressionShare(entity.BiddingScheme.TargetImpressionShare)
+        row_values[_StringTable.BidStrategyTargetImpressionShare] = bulk_str(entity.BiddingScheme.TargetImpressionShare)
     elif bid_strategy_type == 'PercentCpc':
         row_values[_StringTable.BidStrategyPercentMaxCpc] = bulk_str(entity.BiddingScheme.MaxPercentCpc)
     elif bid_strategy_type == 'Commission':

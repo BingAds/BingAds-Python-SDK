@@ -1121,6 +1121,13 @@
                   </xs:annotation>
                </xs:element>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="IsDealCampaign" nillable="true" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="MultimediaAdsBidAdjustment" nillable="true" type="xs:int">
                   <xs:annotation>
                      <xs:appinfo>
@@ -1512,6 +1519,7 @@
                      <xs:enumeration value="CostPerSaleOptOutInPerformanceMaxSettings" />
                      <xs:enumeration value="VanityPharmaSetting" />
                      <xs:enumeration value="ManualCpi" />
+                     <xs:enumeration value="IsDealCampaign" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2634,6 +2642,13 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16384</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="BlockedContentSegments">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32768</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -6601,7 +6616,7 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="NormalForm" />
                      <xs:enumeration value="NumberRuleItem" />
-                     <xs:enumeration value="ImpreesionBasedRemarketingList" />
+                     <xs:enumeration value="ImpressionBasedRemarketingList" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
