@@ -753,6 +753,7 @@ def field_to_csv_ImageAssetLinks(entity):
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
             contract['targetWidth'] = assetLink.TargetWidth if hasattr(assetLink, 'TargetWidth') else None
             contract['targetHeight'] = assetLink.TargetHeight if hasattr(assetLink, 'TargetHeight') else None
+            contract['subType'] = assetLink.SubType if hasattr(assetLink, 'SubType') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts)
@@ -767,6 +768,7 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetLink')
         asset_link.Asset = _CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset')
         asset_link.Asset.Type = 'ImageAsset'
+        asset_link.Asset.SubType = assetLinkContract.get('subType')
         asset_link.Asset.CropHeight = assetLinkContract.get('cropHeight')
         asset_link.Asset.CropWidth = assetLinkContract.get('cropWidth')
         asset_link.Asset.CropX = assetLinkContract.get('cropX')
