@@ -100,13 +100,13 @@ class BulkAssetGroup(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.StartDate,
-            field_to_csv=lambda c: bulk_date_str(c.asset_group.StartDate),
-            csv_to_field=lambda c, v: setattr(c.asset_group, 'StartDate', parse_date(v))
+            field_to_csv=lambda c: bulk_datetime_str(c.asset_group.StartDate),
+            csv_to_field=lambda c, v: setattr(c.asset_group, 'StartDate', parse_datetime(v))
         ),
         _SimpleBulkMapping(
             header=_StringTable.EndDate,
-            field_to_csv=lambda c: bulk_date_str(c.asset_group.EndDate),
-            csv_to_field=lambda c, v: setattr(c.asset_group, 'EndDate', parse_date(v))
+            field_to_csv=lambda c: bulk_datetime_str(c.asset_group.EndDate),
+            csv_to_field=lambda c, v: setattr(c.asset_group, 'EndDate', parse_datetime(v))
         ),
         _SimpleBulkMapping(
             header=_StringTable.BusinessName,
