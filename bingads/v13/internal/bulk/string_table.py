@@ -720,3 +720,15 @@ class _StringTable:
     BrandUrl = "Brand Url"
     BrandName = "Brand Name"
     StatusDateTime = "Editorial Status Date"
+
+    # Asset Group Url Target
+    AssetGroupUrlTarget = "Asset Group Url Target";
+    AssetGroupTargetCondition1 = "Asset Group Target Condition 1";
+    AssetGroupTargetCondition2 = "Asset Group Target Condition 2";
+    AssetGroupTargetCondition3 = "Asset Group Target Condition 3";
+    AssetGroupTargetConditionOperator1 = "Asset Group Target Condition Operator 1";
+    AssetGroupTargetConditionOperator2 = "Asset Group Target Condition Operator 2";
+    AssetGroupTargetConditionOperator3 = "Asset Group Target Condition Operator 3";
+    AssetGroupTargetValue1 = "Asset Group Target Value 1";
+    AssetGroupTargetValue2 = "Asset Group Target Value 2";
+    AssetGroupTargetValue3 = "Asset Group Target Value 3";

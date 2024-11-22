@@ -4411,9 +4411,106 @@
                <xs:enumeration value="Clicks" />
                <xs:enumeration value="Ctr" />
                <xs:enumeration value="Spend" />
+               <xs:enumeration value="VideoViews" />
+               <xs:enumeration value="VideoViewsAt25Percent" />
+               <xs:enumeration value="VideoViewsAt50Percent" />
+               <xs:enumeration value="VideoViewsAt75Percent" />
+               <xs:enumeration value="CompletedVideoViews" />
+               <xs:enumeration value="VideoCompletionRate" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AssetPerformanceReportColumn" nillable="true" type="tns:AssetPerformanceReportColumn" />
+         <xs:complexType name="CategoryInsightsReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfCategoryInsightsReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:CategoryInsightsReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CategoryInsightsReportRequest" nillable="true" type="tns:CategoryInsightsReportRequest" />
+         <xs:complexType name="ArrayOfCategoryInsightsReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryInsightsReportColumn" type="tns:CategoryInsightsReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCategoryInsightsReportColumn" nillable="true" type="tns:ArrayOfCategoryInsightsReportColumn" />
+         <xs:simpleType name="CategoryInsightsReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="L1Vertical" />
+               <xs:enumeration value="L2Vertical" />
+               <xs:enumeration value="L3Vertical" />
+               <xs:enumeration value="WeekStartingMonday" />
+               <xs:enumeration value="WoWSearches" />
+               <xs:enumeration value="MoMSearches" />
+               <xs:enumeration value="YoYLast1WeekSearches" />
+               <xs:enumeration value="YoYLast4WeeksSearches" />
+               <xs:enumeration value="SearchesIndexed" />
+               <xs:enumeration value="SearchesPeakWeek" />
+               <xs:enumeration value="WoWClicks" />
+               <xs:enumeration value="MoMClicks" />
+               <xs:enumeration value="YoYLast1WeekClicks" />
+               <xs:enumeration value="ClicksIndexed" />
+               <xs:enumeration value="ClicksPeakWeek" />
+               <xs:enumeration value="YoYLast4WeeksClicks" />
+               <xs:enumeration value="Country" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CategoryInsightsReportColumn" nillable="true" type="tns:CategoryInsightsReportColumn" />
+         <xs:complexType name="CategoryInsightsReportFilter">
+            <xs:sequence>
+               <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryCode" nillable="true" type="q20:ArrayOfstring" />
+               <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L1Vertical" nillable="true" type="q21:ArrayOfstring" />
+               <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L2Vertical" nillable="true" type="q22:ArrayOfstring" />
+               <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L3Vertical" nillable="true" type="q23:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CategoryInsightsReportFilter" nillable="true" type="tns:CategoryInsightsReportFilter" />
+         <xs:complexType name="CategoryClickCoverageReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfCategoryClickCoverageReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:CategoryClickCoverageReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CategoryClickCoverageReportRequest" nillable="true" type="tns:CategoryClickCoverageReportRequest" />
+         <xs:complexType name="ArrayOfCategoryClickCoverageReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryClickCoverageReportColumn" type="tns:CategoryClickCoverageReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCategoryClickCoverageReportColumn" nillable="true" type="tns:ArrayOfCategoryClickCoverageReportColumn" />
+         <xs:simpleType name="CategoryClickCoverageReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="CustomerName" />
+               <xs:enumeration value="L1Vertical" />
+               <xs:enumeration value="L2Vertical" />
+               <xs:enumeration value="L3Vertical" />
+               <xs:enumeration value="WeekStartingMonday" />
+               <xs:enumeration value="MarketplaceClickCoverage" />
+               <xs:enumeration value="Country" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CategoryClickCoverageReportColumn" nillable="true" type="tns:CategoryClickCoverageReportColumn" />
+         <xs:complexType name="CategoryClickCoverageReportFilter">
+            <xs:sequence>
+               <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CountryCode" nillable="true" type="q24:ArrayOfstring" />
+               <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L1Vertical" nillable="true" type="q25:ArrayOfstring" />
+               <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L2Vertical" nillable="true" type="q26:ArrayOfstring" />
+               <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="L3Vertical" nillable="true" type="q27:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CategoryClickCoverageReportFilter" nillable="true" type="tns:CategoryClickCoverageReportFilter" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
@@ -4431,7 +4528,7 @@
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
          <xs:complexType name="ApiFaultDetail">
             <xs:complexContent mixed="false">
-               <xs:extension xmlns:q20="https://adapi.microsoft.com" base="q20:ApplicationFault">
+               <xs:extension xmlns:q28="https://adapi.microsoft.com" base="q28:ApplicationFault">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="BatchErrors" nillable="true" type="tns:ArrayOfBatchError" />
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />

@@ -3165,8 +3165,11 @@
          <xs:complexType name="RecommendationBase">
             <xs:sequence>
                <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AccountName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="AdGroupId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="AdGroupName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="CampaignId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CampaignName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="CurrentClicks" type="xs:long" />
                <xs:element minOccurs="0" name="CurrentConversions" type="xs:long" />
                <xs:element minOccurs="0" name="CurrentCost" type="xs:double" />
@@ -3203,6 +3206,27 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="RemoveConflictingNegativeKeywordRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="UseBroadMatchKeywordRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ResponsiveSearchAdAssetRecommendation">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -3246,6 +3270,48 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ResponsiveSearchAdRecommendation" nillable="true" type="tns:ResponsiveSearchAdRecommendation" />
+         <xs:complexType name="RemoveConflictingNegativeKeywordRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="NegativeKeyword" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="NegativeKeywordId" type="xs:long" />
+                     <xs:element minOccurs="0" name="NegativeKeywordListName" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="NegativeKeywordMatchType" type="xs:int" />
+                     <xs:element minOccurs="0" name="NegativeKeywordSharedListId" nillable="true" type="xs:long" />
+                     <xs:element minOccurs="0" name="Source" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="RemoveConflictingNegativeKeywordRecommendation" nillable="true" type="tns:RemoveConflictingNegativeKeywordRecommendation" />
+         <xs:complexType name="UseBroadMatchKeywordRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="CurrentMatchType" type="xs:int" />
+                     <xs:element minOccurs="0" name="CurrentStatus" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="KeywordOrderItemId" type="xs:long" />
+                     <xs:element minOccurs="0" name="SuggestedBid" type="xs:double" />
+                     <xs:element minOccurs="0" name="SuggestedMatchType" type="xs:int" />
+                     <xs:element minOccurs="0" name="SuggestedStatus" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="UseBroadMatchKeywordRecommendation" nillable="true" type="tns:UseBroadMatchKeywordRecommendation" />
+         <xs:complexType name="ResponsiveSearchAdAssetRecommendation">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:RecommendationBase">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="RecommendedResponsiveSearchAd" nillable="true" type="tns:SuggestedResponsiveSearchAd" />
+                     <xs:element minOccurs="0" name="ResponsiveSearchAdId" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ResponsiveSearchAdAssetRecommendation" nillable="true" type="tns:ResponsiveSearchAdAssetRecommendation" />
          <xs:element name="GetAudienceFullEstimationRequest">
             <xs:complexType>
                <xs:sequence>

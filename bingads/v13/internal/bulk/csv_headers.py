@@ -517,6 +517,17 @@ class _CsvHeaders:
         _StringTable.BrandUrl,
         _StringTable.BrandName,
         _StringTable.StatusDateTime,
+
+        # Asset Group Url Target
+        _StringTable.AssetGroupTargetCondition1,
+        _StringTable.AssetGroupTargetCondition2,
+        _StringTable.AssetGroupTargetCondition3,
+        _StringTable.AssetGroupTargetConditionOperator1,
+        _StringTable.AssetGroupTargetConditionOperator2,
+        _StringTable.AssetGroupTargetConditionOperator3,
+        _StringTable.AssetGroupTargetValue1,
+        _StringTable.AssetGroupTargetValue2,
+        _StringTable.AssetGroupTargetValue3,
     ]
 
     @staticmethod
