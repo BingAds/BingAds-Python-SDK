@@ -753,6 +753,7 @@ def field_to_csv_ImageAssetLinks(entity):
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
             contract['targetWidth'] = assetLink.TargetWidth if hasattr(assetLink, 'TargetWidth') else None
             contract['targetHeight'] = assetLink.TargetHeight if hasattr(assetLink, 'TargetHeight') else None
+            contract['subType'] = assetLink.Asset.SubType if hasattr(assetLink.Asset, 'SubType') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
         return json.dumps(assetLinkContracts)
@@ -778,6 +779,7 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
         asset_link.TargetWidth = assetLinkContract.get('targetWidth')
         asset_link.TargetHeight = assetLinkContract.get('targetHeight')
+        asset_link.Asset.SubType = assetLinkContract.get('subType')
         assetLinks.AssetLink.append(asset_link)
 
 def field_to_csv_TextAssetLinks(entity):
