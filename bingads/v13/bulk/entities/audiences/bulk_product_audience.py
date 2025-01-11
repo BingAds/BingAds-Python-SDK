@@ -34,7 +34,7 @@ class BulkProductAudience(BulkAudience):
             csv_to_field=lambda c, v: setattr(c.product_audience, 'TagId', int(v) if v else None)
         ),
         _SimpleBulkMapping(
-            _StringTable.Audience,
+            _StringTable.ProductAudienceType,
             field_to_csv=lambda c: bulk_str(c.product_audience.ProductAudienceType),
             csv_to_field=lambda c, v: setattr(c.product_audience, 'ProductAudienceType', v)
         ),
