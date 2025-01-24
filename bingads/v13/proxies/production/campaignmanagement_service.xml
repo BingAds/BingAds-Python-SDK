@@ -1127,6 +1127,18 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ThirdPartyMeasurementSetting" nillable="true" type="tns:ThirdPartyMeasurementSetting" />
+         <xs:complexType name="NewCustomerAcquisitionGoalSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AdditionalConversionValue" nillable="true" type="xs:decimal" />
+                     <xs:element minOccurs="0" name="NewCustomerAcquisitionBidOnlyMode" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewCustomerAcquisitionGoalId" nillable="true" type="xs:long" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="NewCustomerAcquisitionGoalSetting" nillable="true" type="tns:NewCustomerAcquisitionGoalSetting" />
          <xs:complexType name="ResponsiveSearchAd">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
@@ -1273,7 +1285,15 @@
          <xs:complexType name="ManualCpcBiddingScheme">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:BiddingScheme">
-                  <xs:sequence />
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="ManualCpc" nillable="true" type="xs:double">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                  </xs:sequence>
                </xs:extension>
             </xs:complexContent>
          </xs:complexType>
@@ -1411,6 +1431,7 @@
             <xs:restriction base="xs:string">
                <xs:enumeration value="DailyBudgetAccelerated" />
                <xs:enumeration value="DailyBudgetStandard" />
+               <xs:enumeration value="LifetimeBudgetStandard" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="BudgetLimitType" nillable="true" type="tns:BudgetLimitType" />
@@ -1581,6 +1602,8 @@
                      <xs:enumeration value="AppSetting" />
                      <xs:enumeration value="CallToActionOptOut" />
                      <xs:enumeration value="ThirdPartyMeasurementSetting" />
+                     <xs:enumeration value="ManualCpc" />
+                     <xs:enumeration value="NewCustomerAcquisitionGoalSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5192,6 +5215,14 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="BrandList" nillable="true" type="tns:BrandList" />
+         <xs:complexType name="AccountPlacementExclusionList">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:SharedList">
+                  <xs:sequence />
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AccountPlacementExclusionList" nillable="true" type="tns:AccountPlacementExclusionList" />
          <xs:element name="GetSharedEntitiesRequest">
             <xs:complexType>
                <xs:sequence>
@@ -5929,6 +5960,7 @@
                <xs:enumeration value="Age" />
                <xs:enumeration value="Gender" />
                <xs:enumeration value="Audience" />
+               <xs:enumeration value="Profile" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AudienceGroupDimensionType" nillable="true" type="tns:AudienceGroupDimensionType" />
@@ -5987,6 +6019,29 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AudienceInfo" nillable="true" type="tns:AudienceInfo" />
+         <xs:complexType name="ProfileDimension">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:AudienceGroupDimension">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Profiles" nillable="true" type="tns:ArrayOfProfileInfo" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="ProfileDimension" nillable="true" type="tns:ProfileDimension" />
+         <xs:complexType name="ArrayOfProfileInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="ProfileInfo" nillable="true" type="tns:ProfileInfo" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfProfileInfo" nillable="true" type="tns:ArrayOfProfileInfo" />
+         <xs:complexType name="ProfileInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Type" type="tns:ProfileType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ProfileInfo" nillable="true" type="tns:ProfileInfo" />
          <xs:element name="AddAudienceGroupsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6027,9 +6082,20 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q114="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AudienceGroupIds" nillable="true" type="q114:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AudienceGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="AudienceGroupAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="ProfileDimension" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AudienceGroupAdditionalField" nillable="true" type="tns:AudienceGroupAdditionalField" />
          <xs:element name="GetAudienceGroupsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6061,6 +6127,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:element>
+               <xs:element minOccurs="0" name="AssetGroupUrlTargets" nillable="true" type="tns:ArrayOfAssetGroupUrlTarget">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="CallToAction" nillable="true" type="tns:CallToAction" />
                <xs:element minOccurs="0" name="Descriptions" nillable="true" type="tns:ArrayOfAssetLink" />
@@ -6078,6 +6151,13 @@
                <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="StartDate" nillable="true" type="tns:Date" />
                <xs:element minOccurs="0" name="Status" nillable="true" type="tns:AssetGroupStatus" />
+               <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfAssetLink">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AssetGroup" nillable="true" type="tns:AssetGroup" />
@@ -6094,6 +6174,27 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AssetGroupSearchTheme" nillable="true" type="tns:AssetGroupSearchTheme" />
+         <xs:complexType name="ArrayOfAssetGroupUrlTarget">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetGroupUrlTarget" nillable="true" type="tns:AssetGroupUrlTarget" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAssetGroupUrlTarget" nillable="true" type="tns:ArrayOfAssetGroupUrlTarget" />
+         <xs:complexType name="AssetGroupUrlTarget">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="TargetCondition1" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetCondition2" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetCondition3" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetConditionOperator1" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetConditionOperator2" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetConditionOperator3" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetValue1" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetValue2" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TargetValue3" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AssetGroupUrlTarget" nillable="true" type="tns:AssetGroupUrlTarget" />
          <xs:simpleType name="AssetGroupEditorialStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Active" />
@@ -6164,6 +6265,7 @@
                <xs:simpleType>
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="AssetGroupSearchThemes" />
+                     <xs:enumeration value="AssetGroupUrlTargets" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -8694,6 +8796,7 @@
          <xs:element name="ArrayOfAdRecommendationImageSuggestion" nillable="true" type="tns:ArrayOfAdRecommendationImageSuggestion" />
          <xs:complexType name="AdRecommendationImageSuggestion">
             <xs:sequence>
+               <xs:element minOccurs="0" name="AssetLink" nillable="true" type="tns:AssetLink" />
                <xs:element minOccurs="0" name="Image" nillable="true" type="tns:Image" />
                <xs:element minOccurs="0" name="ImageUrl" nillable="true" type="xs:string" />
             </xs:sequence>
@@ -8831,7 +8934,7 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
-         <xs:element name="AddConversionValueRulesRequest">
+         <xs:element name="UpdateConversionValueRulesRequest">
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="ConversionValueRules" nillable="true" type="tns:ArrayOfConversionValueRule" />
@@ -8882,17 +8985,11 @@
          <xs:element name="AudienceConditionItem" nillable="true" type="tns:AudienceConditionItem" />
          <xs:complexType name="DeviceCondition">
             <xs:sequence>
-               <xs:element minOccurs="0" name="DeviceTypes" nillable="true" type="tns:ArrayOfDeviceType" />
+               <xs:element minOccurs="0" name="DeviceTypes" type="tns:DeviceType" />
                <xs:element minOccurs="0" name="IsPrimary" type="xs:boolean" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="DeviceCondition" nillable="true" type="tns:DeviceCondition" />
-         <xs:complexType name="ArrayOfDeviceType">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="DeviceType" type="tns:DeviceType" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfDeviceType" nillable="true" type="tns:ArrayOfDeviceType" />
          <xs:complexType name="LocationCondition">
             <xs:sequence>
                <xs:element minOccurs="0" name="ExcludedLocationIntent" nillable="true" type="tns:IntentOption" />
@@ -9011,10 +9108,190 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ConversionValueRuleStatus" nillable="true" type="tns:ConversionValueRuleStatus" />
+         <xs:element name="UpdateConversionValueRulesResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateConversionValueRulesStatusRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q165="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q165:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Status" type="tns:ConversionValueRuleStatus" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateConversionValueRulesStatusResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddConversionValueRulesRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ConversionValueRules" nillable="true" type="tns:ArrayOfConversionValueRule" />
+                  <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
          <xs:element name="AddConversionValueRulesResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q165="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConversionValueRuleIds" nillable="true" type="q165:ArrayOflong" />
+                  <xs:element xmlns:q166="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConversionValueRuleIds" nillable="true" type="q166:ArrayOflong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetConversionValueRulesByAccountIdRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetConversionValueRulesByAccountIdResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ConversionValueRules" nillable="true" type="tns:ArrayOfConversionValueRule" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetConversionValueRulesByIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q167="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q167:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetConversionValueRulesByIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="ConversionValueRules" nillable="true" type="tns:ArrayOfConversionValueRule" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddBrandKitsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="BrandKits" nillable="true" type="tns:ArrayOfBrandKit" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfBrandKit">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BrandKit" nillable="true" type="tns:BrandKit" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBrandKit" nillable="true" type="tns:ArrayOfBrandKit" />
+         <xs:complexType name="BrandKit">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Fonts" nillable="true" type="tns:ArrayOfBrandKitFont" />
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Images" nillable="true" type="tns:ArrayOfImageAsset" />
+               <xs:element minOccurs="0" name="LandscapeLogos" nillable="true" type="tns:ArrayOfImageAsset" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Palettes" nillable="true" type="tns:ArrayOfBrandKitPalette" />
+               <xs:element minOccurs="0" name="SquareLogos" nillable="true" type="tns:ArrayOfImageAsset" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BrandKit" nillable="true" type="tns:BrandKit" />
+         <xs:complexType name="ArrayOfBrandKitFont">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BrandKitFont" nillable="true" type="tns:BrandKitFont" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBrandKitFont" nillable="true" type="tns:ArrayOfBrandKitFont" />
+         <xs:complexType name="BrandKitFont">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="TextAssetType" type="tns:FontTextAssetType" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Weight" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BrandKitFont" nillable="true" type="tns:BrandKitFont" />
+         <xs:simpleType name="FontTextAssetType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Headline" />
+               <xs:enumeration value="SubHeadline" />
+               <xs:enumeration value="Description" />
+               <xs:enumeration value="Button" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="FontTextAssetType" nillable="true" type="tns:FontTextAssetType" />
+         <xs:complexType name="ArrayOfImageAsset">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="ImageAsset" nillable="true" type="tns:ImageAsset" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfImageAsset" nillable="true" type="tns:ArrayOfImageAsset" />
+         <xs:complexType name="ArrayOfBrandKitPalette">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BrandKitPalette" nillable="true" type="tns:BrandKitPalette" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBrandKitPalette" nillable="true" type="tns:ArrayOfBrandKitPalette" />
+         <xs:complexType name="BrandKitPalette">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="ColorType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Colors" nillable="true" type="tns:ArrayOfBrandKitColor" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BrandKitPalette" nillable="true" type="tns:BrandKitPalette" />
+         <xs:complexType name="ArrayOfBrandKitColor">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BrandKitColor" nillable="true" type="tns:BrandKitColor" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBrandKitColor" nillable="true" type="tns:ArrayOfBrandKitColor" />
+         <xs:complexType name="BrandKitColor">
+            <xs:sequence>
+               <xs:element name="HexCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BrandKitColor" nillable="true" type="tns:BrandKitColor" />
+         <xs:element name="AddBrandKitsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q168="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="BrandKitIds" nillable="true" type="q168:ArrayOfNullableOflong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateBrandKitsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="BrandKits" nillable="true" type="tns:ArrayOfBrandKit" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateBrandKitsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteBrandKitsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element xmlns:q169="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q169:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteBrandKitsResponse">
+            <xs:complexType>
+               <xs:sequence>
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -13011,6 +13288,54 @@
    <wsdl:message name="ICampaignManagementService_RefineResponsiveSearchAdRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesRequest">
+      <wsdl:part name="parameters" element="tns:UpdateConversionValueRulesRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesResponse">
+      <wsdl:part name="parameters" element="tns:UpdateConversionValueRulesResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateConversionValueRules_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q162="https://adapi.microsoft.com" name="detail" element="q162:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateConversionValueRules_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesStatusRequest">
+      <wsdl:part name="parameters" element="tns:UpdateConversionValueRulesStatusRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesStatusRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesStatusResponse">
+      <wsdl:part name="parameters" element="tns:UpdateConversionValueRulesStatusResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateConversionValueRulesStatusResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateConversionValueRulesStatus_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q163="https://adapi.microsoft.com" name="detail" element="q163:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateConversionValueRulesStatus_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:message name="AddConversionValueRulesRequest">
       <wsdl:part name="parameters" element="tns:AddConversionValueRulesRequest" />
    </wsdl:message>
@@ -13030,9 +13355,129 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddConversionValueRules_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q162="https://adapi.microsoft.com" name="detail" element="q162:AdApiFaultDetail" />
+      <wsdl:part xmlns:q164="https://adapi.microsoft.com" name="detail" element="q164:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddConversionValueRules_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByAccountIdRequest">
+      <wsdl:part name="parameters" element="tns:GetConversionValueRulesByAccountIdRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByAccountIdRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByAccountIdResponse">
+      <wsdl:part name="parameters" element="tns:GetConversionValueRulesByAccountIdResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByAccountIdResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByAccountId_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q165="https://adapi.microsoft.com" name="detail" element="q165:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByAccountId_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByIdsRequest">
+      <wsdl:part name="parameters" element="tns:GetConversionValueRulesByIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByIdsResponse">
+      <wsdl:part name="parameters" element="tns:GetConversionValueRulesByIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetConversionValueRulesByIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q166="https://adapi.microsoft.com" name="detail" element="q166:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="AddBrandKitsRequest">
+      <wsdl:part name="parameters" element="tns:AddBrandKitsRequest" />
+   </wsdl:message>
+   <wsdl:message name="AddBrandKitsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="AddBrandKitsResponse">
+      <wsdl:part name="parameters" element="tns:AddBrandKitsResponse" />
+   </wsdl:message>
+   <wsdl:message name="AddBrandKitsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddBrandKits_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q167="https://adapi.microsoft.com" name="detail" element="q167:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddBrandKits_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBrandKitsRequest">
+      <wsdl:part name="parameters" element="tns:UpdateBrandKitsRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBrandKitsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBrandKitsResponse">
+      <wsdl:part name="parameters" element="tns:UpdateBrandKitsResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBrandKitsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateBrandKits_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q168="https://adapi.microsoft.com" name="detail" element="q168:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateBrandKits_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DeleteBrandKitsRequest">
+      <wsdl:part name="parameters" element="tns:DeleteBrandKitsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DeleteBrandKitsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DeleteBrandKitsResponse">
+      <wsdl:part name="parameters" element="tns:DeleteBrandKitsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DeleteBrandKitsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteBrandKits_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q169="https://adapi.microsoft.com" name="detail" element="q169:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteBrandKits_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
@@ -14002,11 +14447,53 @@
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/RefineResponsiveSearchAdRecommendationAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_RefineResponsiveSearchAdRecommendation_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/RefineResponsiveSearchAdRecommendationApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_RefineResponsiveSearchAdRecommendation_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
+      <wsdl:operation name="UpdateConversionValueRules">
+         <wsdl:input wsaw:Action="UpdateConversionValueRules" name="UpdateConversionValueRulesRequest" message="tns:UpdateConversionValueRulesRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesResponse" name="UpdateConversionValueRulesResponse" message="tns:UpdateConversionValueRulesResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateConversionValueRules_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateConversionValueRules_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateConversionValueRulesStatus">
+         <wsdl:input wsaw:Action="UpdateConversionValueRulesStatus" name="UpdateConversionValueRulesStatusRequest" message="tns:UpdateConversionValueRulesStatusRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesStatusResponse" name="UpdateConversionValueRulesStatusResponse" message="tns:UpdateConversionValueRulesStatusResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesStatusAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateConversionValueRulesStatus_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateConversionValueRulesStatusApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateConversionValueRulesStatus_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
       <wsdl:operation name="AddConversionValueRules">
          <wsdl:input wsaw:Action="AddConversionValueRules" name="AddConversionValueRulesRequest" message="tns:AddConversionValueRulesRequest" />
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddConversionValueRulesResponse" name="AddConversionValueRulesResponse" message="tns:AddConversionValueRulesResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddConversionValueRulesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddConversionValueRules_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddConversionValueRulesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddConversionValueRules_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetConversionValueRulesByAccountId">
+         <wsdl:input wsaw:Action="GetConversionValueRulesByAccountId" name="GetConversionValueRulesByAccountIdRequest" message="tns:GetConversionValueRulesByAccountIdRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByAccountIdResponse" name="GetConversionValueRulesByAccountIdResponse" message="tns:GetConversionValueRulesByAccountIdResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByAccountIdAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetConversionValueRulesByAccountId_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByAccountIdApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetConversionValueRulesByAccountId_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetConversionValueRulesByIds">
+         <wsdl:input wsaw:Action="GetConversionValueRulesByIds" name="GetConversionValueRulesByIdsRequest" message="tns:GetConversionValueRulesByIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByIdsResponse" name="GetConversionValueRulesByIdsResponse" message="tns:GetConversionValueRulesByIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetConversionValueRulesByIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetConversionValueRulesByIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetConversionValueRulesByIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="AddBrandKits">
+         <wsdl:input wsaw:Action="AddBrandKits" name="AddBrandKitsRequest" message="tns:AddBrandKitsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddBrandKitsResponse" name="AddBrandKitsResponse" message="tns:AddBrandKitsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddBrandKitsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddBrandKits_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddBrandKitsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddBrandKits_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateBrandKits">
+         <wsdl:input wsaw:Action="UpdateBrandKits" name="UpdateBrandKitsRequest" message="tns:UpdateBrandKitsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateBrandKitsResponse" name="UpdateBrandKitsResponse" message="tns:UpdateBrandKitsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateBrandKitsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateBrandKits_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateBrandKitsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateBrandKits_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DeleteBrandKits">
+         <wsdl:input wsaw:Action="DeleteBrandKits" name="DeleteBrandKitsRequest" message="tns:DeleteBrandKitsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteBrandKitsResponse" name="DeleteBrandKitsResponse" message="tns:DeleteBrandKitsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteBrandKitsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteBrandKits_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteBrandKitsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteBrandKits_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -17715,6 +18202,52 @@
             <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
          </wsdl:fault>
       </wsdl:operation>
+      <wsdl:operation name="UpdateConversionValueRules">
+         <soap:operation soapAction="UpdateConversionValueRules" style="document" />
+         <wsdl:input name="UpdateConversionValueRulesRequest">
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateConversionValueRulesResponse">
+            <soap:header message="tns:UpdateConversionValueRulesResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateConversionValueRulesStatus">
+         <soap:operation soapAction="UpdateConversionValueRulesStatus" style="document" />
+         <wsdl:input name="UpdateConversionValueRulesStatusRequest">
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateConversionValueRulesStatusRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateConversionValueRulesStatusResponse">
+            <soap:header message="tns:UpdateConversionValueRulesStatusResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
       <wsdl:operation name="AddConversionValueRules">
          <soap:operation soapAction="AddConversionValueRules" style="document" />
          <wsdl:input name="AddConversionValueRulesRequest">
@@ -17729,6 +18262,121 @@
          </wsdl:input>
          <wsdl:output name="AddConversionValueRulesResponse">
             <soap:header message="tns:AddConversionValueRulesResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetConversionValueRulesByAccountId">
+         <soap:operation soapAction="GetConversionValueRulesByAccountId" style="document" />
+         <wsdl:input name="GetConversionValueRulesByAccountIdRequest">
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByAccountIdRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetConversionValueRulesByAccountIdResponse">
+            <soap:header message="tns:GetConversionValueRulesByAccountIdResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetConversionValueRulesByIds">
+         <soap:operation soapAction="GetConversionValueRulesByIds" style="document" />
+         <wsdl:input name="GetConversionValueRulesByIdsRequest">
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetConversionValueRulesByIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetConversionValueRulesByIdsResponse">
+            <soap:header message="tns:GetConversionValueRulesByIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="AddBrandKits">
+         <soap:operation soapAction="AddBrandKits" style="document" />
+         <wsdl:input name="AddBrandKitsRequest">
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:AddBrandKitsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="AddBrandKitsResponse">
+            <soap:header message="tns:AddBrandKitsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateBrandKits">
+         <soap:operation soapAction="UpdateBrandKits" style="document" />
+         <wsdl:input name="UpdateBrandKitsRequest">
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateBrandKitsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateBrandKitsResponse">
+            <soap:header message="tns:UpdateBrandKitsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DeleteBrandKits">
+         <soap:operation soapAction="DeleteBrandKits" style="document" />
+         <wsdl:input name="DeleteBrandKitsRequest">
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DeleteBrandKitsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DeleteBrandKitsResponse">
+            <soap:header message="tns:DeleteBrandKitsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
