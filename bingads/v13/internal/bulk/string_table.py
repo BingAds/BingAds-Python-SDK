@@ -453,7 +453,6 @@ class _StringTable:
     ProductAudienceType = "Product Audience Type"
     CombinationRule = "Combination Rule"
     SourceId = "Source Id"
-    ProductAudienceType = "Product Audience Type"
     AdGroupProductAudienceAssociation = "Ad Group Product Audience Association"
     AdGroupNegativeProductAudienceAssociation = "Ad Group Negative Product Audience Association"
     CampaignProductAudienceAssociation = "Campaign Product Audience Association"

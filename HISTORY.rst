@@ -2,6 +2,11 @@
 
 Release History
 
+13.0.23.1(2025-01-23)
++++++++++++++++++++++++++
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
+* Fix issue in BulkProductAudience mapping.
+
 13.0.23(2024-11-21)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
