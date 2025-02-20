@@ -55,4 +55,5 @@ from .bulk_asset_group_search_theme import *
 from .bulk_campaign_brand_list_association import *
 from .bulk_brand_item import *
 from .bulk_brand_list import *
+from .bulk_new_customer_acquisition_goal import *
 from .goals import *

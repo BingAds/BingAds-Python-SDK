@@ -4438,6 +4438,8 @@
                <xs:enumeration value="VideoViewsAt75Percent" />
                <xs:enumeration value="CompletedVideoViews" />
                <xs:enumeration value="VideoCompletionRate" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="Revenue" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AssetPerformanceReportColumn" nillable="true" type="tns:AssetPerformanceReportColumn" />

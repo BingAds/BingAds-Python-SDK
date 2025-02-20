@@ -8,6 +8,7 @@ class _CsvHeaders:
         _StringTable.Status,
         _StringTable.Id,
         _StringTable.ParentId,
+        _StringTable.CampaignId,
         _StringTable.SubType,
         _StringTable.Campaign,
         _StringTable.AdGroup,
@@ -528,6 +529,12 @@ class _CsvHeaders:
         _StringTable.AssetGroupTargetValue1,
         _StringTable.AssetGroupTargetValue2,
         _StringTable.AssetGroupTargetValue3,
+
+        # New Customer Acquisition Goal
+        _StringTable.AdditionalConversionValue,
+        _StringTable.NewCustomerAcquisitionGoalId,
+        _StringTable.NewCustomerAcquisitionBidOnlyMode,
+
     ]
 
     @staticmethod
