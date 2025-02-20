@@ -881,6 +881,8 @@
                <xs:enumeration value="Bulgarian" />
                <xs:enumeration value="Lithuanian" />
                <xs:enumeration value="Croatian" />
+               <xs:enumeration value="Latvian" />
+               <xs:enumeration value="Slovenian" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="LanguageType" nillable="true" type="tns:LanguageType" />
@@ -1864,6 +1866,20 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1057</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Slovenian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1060</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Latvian">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1062</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>

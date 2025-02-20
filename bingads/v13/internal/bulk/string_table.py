@@ -7,6 +7,7 @@ class _StringTable:
     Id = "Id"
     BusinessId = "Business Id"
     ParentId = "Parent Id"
+    CampaignId = "Campaign Id"
     TimeZone = "Time Zone"
     Budget = "Budget"
     BudgetType = "Budget Type"
@@ -731,3 +732,9 @@ class _StringTable:
     AssetGroupTargetValue1 = "Asset Group Target Value 1";
     AssetGroupTargetValue2 = "Asset Group Target Value 2";
     AssetGroupTargetValue3 = "Asset Group Target Value 3";
+
+    # New Customer Acquisition Goal
+    NewCustomerAcquisitionGoal = "New Customer Acquisition Goal";
+    AdditionalConversionValue = "Additional Conversion Value";
+    NewCustomerAcquisitionGoalId = "New Customer Acquisition Goal Id";
+    NewCustomerAcquisitionBidOnlyMode = "New Customer Acquisition Bid Only Mode";

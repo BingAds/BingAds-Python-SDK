@@ -233,6 +233,7 @@ class _BulkObjectFactory():
         _StringTable.BrandItem: _EntityInfo(lambda: BulkBrandItem()),
         _StringTable.CampaignBrandList: _EntityInfo(lambda: BulkCampaignBrandListAssociation()),
         _StringTable.AssetGroupUrlTarget: _EntityInfo(lambda: BulkAssetGroupUrlTarget()),
+        _StringTable.NewCustomerAcquisitionGoal: _EntityInfo(lambda: BulkNewCustomerAcquisitionGoal()),
     }
 
     ADDITIONAL_OBJECT_MAP = {
