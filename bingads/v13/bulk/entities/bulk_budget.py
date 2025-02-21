@@ -20,12 +20,11 @@ class BulkBudget(_SingleRecordBulkEntity):
     * :class:`.BulkFileWriter`
     """
 
-    def __init__(self, budget=None, status=None, account_id=None, campaign_id=None):
+    def __init__(self, budget=None, status=None, account_id=None):
         super(BulkBudget, self).__init__()
         self._budget = budget
         self._status = status
         self._account_id = account_id
-        self._campaign_id = campaign_id
 
     @property
     def budget(self):
@@ -64,19 +63,6 @@ class BulkBudget(_SingleRecordBulkEntity):
     def account_id(self, value):
         self._account_id = value
 
-    @property
-    def campaign_id(self):
-        """ the id of the campaign which contains the budget
-        Corresponds to the 'Campaign Id' field in the bulk file.
-
-        :rtype: long
-        """
-        return self._campaign_id
-
-    @campaign_id.setter
-    def campaign_id(self, value):
-        self._campaign_id = value
-
 
     _MAPPINGS = [
         _SimpleBulkMapping(
@@ -88,11 +74,6 @@ class BulkBudget(_SingleRecordBulkEntity):
             header=_StringTable.ParentId,
             field_to_csv=lambda c: bulk_str(c.account_id),
             csv_to_field=lambda c, v: setattr(c, 'account_id', int(v) if v else None)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.CampaignId,
-            field_to_csv=lambda c: bulk_str(c.campaign_id),
-            csv_to_field=lambda c, v: setattr(c, 'campaign_id', int(v) if v else None)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Status,
