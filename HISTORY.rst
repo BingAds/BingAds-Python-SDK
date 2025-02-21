@@ -2,12 +2,15 @@
 
 Release History
 
+13.0.24.1(2025-02-21)
++++++++++++++++++++++++++
+* Fix issue in BulkBudget in version 13.0.24. 
+
 13.0.24(2025-02-20)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the Bing Ads API Release Notes: https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13.
 * Added NewCustomerAcquisitionGoalSetting in BulkCampaign mapping.
 * Added SubType, ActionType in BulkCampaignConversionGoal mapping.
-* Added CampaignId in BulkKeyword mapping.
 * Added bulk mappings for NCA: BulkNewCustomerAcquisitionGoal.
 
 13.0.23.1(2025-01-23)
