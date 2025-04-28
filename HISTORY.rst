@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.24.2(2025-04-28)
++++++++++++++++++++++++++
+* Enable MSA Production support on the sandbox by default, as MSA INT will soon be deprecated.
+
 13.0.24.1(2025-02-21)
 +++++++++++++++++++++++++
 * Fix issue in BulkBudget in version 13.0.24. 

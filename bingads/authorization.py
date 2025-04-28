@@ -14,6 +14,7 @@ SANDBOX='sandbox'
 MSADS_MANAGE='msads.manage'
 ADS_MANAGE='ads.manage'
 BINGADS_MANAGE='bingads.manage'
+MSA_PROD='msa.prod'
 
 class AuthorizationData:
     """ Represents a user who intends to access the corresponding customer and account.
@@ -216,11 +217,11 @@ class OAuthTokens:
         self._refresh_token = refresh_token
         self._response_json = response_json
         self._access_token_received_datetime=datetime.utcnow()
-        
+
     @property
     def access_token_received_datetime(self):
         """ The datetime when access token was received
-        
+
         :rtype: datetime
         """
         return self._access_token_received_datetime
@@ -264,7 +265,7 @@ class OAuthTokens:
         """
 
         return self._refresh_token
-    
+
     @property
     def response_json(self):
         """ OAuth whole attribute that got along with access token.
@@ -288,7 +289,7 @@ class OAuthAuthorization(Authentication):
     * :class:`.OAuthWebAuthCodeGrant`
     """
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common'):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
         """ Initializes a new instance of the OAuthAuthorization class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -303,10 +304,10 @@ class OAuthAuthorization(Authentication):
         self._client_id = client_id
         self._oauth_tokens = oauth_tokens
         self._state = None
-        self.environment=env
-        self._oauth_scope=oauth_scope
+        self.environment = env
+        self._oauth_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
         self._tenant = tenant
-        
+
     @property
     def tenant(self):
         """ tenant
@@ -387,7 +388,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant="common"):
+    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant="common", use_msa_prod=True):
         """ Initialize a new instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -404,7 +405,7 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         :return:
         """
 
-        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=oauth_scope, tenant=tenant)
+        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=oauth_scope, tenant=tenant, use_msa_prod=use_msa_prod)
         self._client_secret = client_secret
         self._redirection_uri = redirection_uri
         self._token_refreshed_callback = token_refreshed_callback
@@ -418,14 +419,14 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         endpoint_url = _UriOAuthService.AUTHORIZE_URI[(self.environment, self._oauth_scope)]
         if self.environment == PRODUCTION and (self._oauth_scope == MSADS_MANAGE or self._oauth_scope == ADS_MANAGE):
             endpoint_url = endpoint_url.replace('common', self.tenant);
-            
+
         endpoint = str.format(
             endpoint_url,
             self._client_id,
             'code',
             quote_plus(self._redirection_uri)
         )
-        
+
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def request_oauth_tokens_by_response_uri(self, response_uri, **kwargs):
@@ -546,7 +547,7 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common'):
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -555,14 +556,16 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
         :type oauth_tokens: OAuthTokens
         """
 
+        effective_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
         super(OAuthDesktopMobileAuthCodeGrant, self).__init__(
             client_id,
             None,
-            _UriOAuthService.REDIRECTION_URI[(env, oauth_scope)],
+            _UriOAuthService.REDIRECTION_URI[(env, effective_scope)],
             oauth_tokens=oauth_tokens,
             env=env,
-            oauth_scope=oauth_scope,
-            tenant=tenant
+            oauth_scope=effective_scope,
+            tenant=tenant,
+            use_msa_prod=use_msa_prod
         )
 
 
@@ -594,9 +597,9 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
     Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
     For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
     """
-    
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common'):
+
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
         """ Initializes a new instance of the this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
@@ -605,9 +608,10 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         :type oauth_tokens: OAuthTokens
         """
 
-        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=oauth_scope, tenant=tenant)
-        
-    
+        effective_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
+        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=effective_scope, tenant=tenant)
+
+
 
     def get_authorization_endpoint(self):
         """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.
@@ -625,7 +629,7 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
             'token',
             _UriOAuthService.REDIRECTION_URI[(self.environment, self._oauth_scope)],
         )
-        
+
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def extract_access_token_from_uri(self, redirection_uri):
@@ -666,25 +670,29 @@ class _UriOAuthService:
         (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/nativeclient',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/nativeclient',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_desktop.srf',
-        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/common/oauth2/nativeclient'
+        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/common/oauth2/nativeclient',
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/nativeclient'
     }
     AUTH_TOKEN_URI={
         (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/v2.0/token',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/v2.0/token',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_token.srf',
-        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/token'
+        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/token',
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/token'
     }
     AUTHORIZE_URI={
-        (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}', 
+        (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fads.microsoft.com%2Fads.manage%20offline_access&response_type={1}&redirect_uri={2}',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
-        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/authorize?client_id={0}&scope=https://api.ads.microsoft.com/msads.manage%20offline_access&response_type={1}&redirect_uri={2}&prompt=login'
+        (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/authorize?client_id={0}&scope=https://api.ads.microsoft.com/msads.manage%20offline_access&response_type={1}&redirect_uri={2}&prompt=login',
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fsi.ads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}'
     }
     SCOPE={
-        (PRODUCTION, MSADS_MANAGE):   'https://ads.microsoft.com/msads.manage offline_access', 
-        (PRODUCTION, ADS_MANAGE):     'https://ads.microsoft.com/ads.manage offline_access', 
+        (PRODUCTION, MSADS_MANAGE):   'https://ads.microsoft.com/msads.manage offline_access',
+        (PRODUCTION, ADS_MANAGE):     'https://ads.microsoft.com/ads.manage offline_access',
         (PRODUCTION, BINGADS_MANAGE): 'bingads.manage',
-        (SANDBOX, MSADS_MANAGE):      'https://api.ads.microsoft.com/msads.manage offline_access'
+        (SANDBOX, MSADS_MANAGE):      'https://api.ads.microsoft.com/msads.manage offline_access',
+        (SANDBOX, MSA_PROD):          'https://si.ads.microsoft.com'
     }
 
     @staticmethod
@@ -699,12 +707,12 @@ class _UriOAuthService:
 
         if 'client_secret' in kwargs and kwargs['client_secret'] is None:
             del kwargs['client_secret']
-            
+
         if 'oauth_scope' in kwargs and kwargs['oauth_scope'] == 'bingads.manage':
             del kwargs['tenant']
-            
+
         auth_token_url = _UriOAuthService.AUTH_TOKEN_URI[(kwargs['environment'], kwargs['oauth_scope'])]
-        
+
         if 'tenant' in kwargs and kwargs['tenant'] is not None:
             auth_token_url = auth_token_url.replace('common', kwargs['tenant'])
 

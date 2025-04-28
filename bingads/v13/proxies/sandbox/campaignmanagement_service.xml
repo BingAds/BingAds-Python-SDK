@@ -385,6 +385,14 @@
                <xs:enumeration value="SeeModels" />
                <xs:enumeration value="SeeOffers" />
                <xs:enumeration value="ViewDemo" />
+               <xs:enumeration value="CustomText" />
+               <xs:enumeration value="Discover" />
+               <xs:enumeration value="Dismiss" />
+               <xs:enumeration value="Apply" />
+               <xs:enumeration value="ViewQuote" />
+               <xs:enumeration value="Join" />
+               <xs:enumeration value="Attend" />
+               <xs:enumeration value="RequestDemo" />
                <xs:enumeration value="Automated">
                   <xs:annotation>
                      <xs:appinfo>
@@ -689,6 +697,13 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">47</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Korean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">64</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -4927,6 +4942,13 @@
                <xs:element minOccurs="0" name="Dimension" nillable="true" type="tns:ProductCondition" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="IsExcluded" type="xs:boolean" />
+               <xs:element minOccurs="0" name="ListingGroupPath" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="ParentListingGroupId" nillable="true" type="xs:long" />
             </xs:sequence>
          </xs:complexType>
@@ -4963,9 +4985,20 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AssetGroupId" type="xs:long" />
                   <xs:element xmlns:q89="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AssetGroupListingGroupIds" nillable="true" type="q89:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AssetGroupListingGroupAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="AssetGroupListingGroupAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="ListingGroupPath" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AssetGroupListingGroupAdditionalField" nillable="true" type="tns:AssetGroupListingGroupAdditionalField" />
          <xs:element name="GetAssetGroupListingGroupsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6212,9 +6245,20 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="SearchTheme" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" type="tns:GenericEntityStatus" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AssetGroupSearchTheme" nillable="true" type="tns:AssetGroupSearchTheme" />
+         <xs:simpleType name="GenericEntityStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Active" />
+               <xs:enumeration value="Paused" />
+               <xs:enumeration value="Disapproved" />
+               <xs:enumeration value="Inactive" />
+               <xs:enumeration value="Deleted" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="GenericEntityStatus" nillable="true" type="tns:GenericEntityStatus" />
          <xs:complexType name="ArrayOfAssetGroupUrlTarget">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="AssetGroupUrlTarget" nillable="true" type="tns:AssetGroupUrlTarget" />
@@ -6224,6 +6268,7 @@
          <xs:complexType name="AssetGroupUrlTarget">
             <xs:sequence>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Status" type="tns:GenericEntityStatus" />
                <xs:element minOccurs="0" name="TargetCondition1" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TargetCondition2" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TargetCondition3" nillable="true" type="xs:string" />
@@ -7854,6 +7899,13 @@
                      </xs:element>
                      <xs:element minOccurs="0" name="NewCallAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewCalloutAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewCarouselAd" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewConversionGoals" nillable="true" type="xs:boolean">
                         <xs:annotation>
                            <xs:appinfo>
@@ -8283,6 +8335,13 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2097152</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewCarouselAd">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4194304</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -8785,6 +8844,7 @@
                   <xs:element xmlns:q162="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q162:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TextTone" nillable="true" type="tns:AdRecommendationTextTone" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdRecommendationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8821,11 +8881,38 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AdRecommendationTextTone" nillable="true" type="tns:AdRecommendationTextTone" />
+         <xs:simpleType name="AdRecommendationAdditionalField">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="ImageSuggestionMetadata">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="MediaRefineResults">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="PromptBrandWarning">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AdRecommendationAdditionalField" nillable="true" type="tns:AdRecommendationAdditionalField" />
          <xs:element name="CreateAssetGroupRecommendationResponse">
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AssetGroup" nillable="true" type="tns:AssetGroup" />
                   <xs:element minOccurs="0" name="ImageSuggestions" nillable="true" type="tns:ArrayOfAdRecommendationImageSuggestion" />
+                  <xs:element minOccurs="0" name="PromptBrandWarning" nillable="true" type="xs:string" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8839,10 +8926,123 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="AssetLink" nillable="true" type="tns:AssetLink" />
                <xs:element minOccurs="0" name="Image" nillable="true" type="tns:Image" />
+               <xs:element minOccurs="0" name="ImageMetadata" nillable="true" type="tns:AdRecommendationImageSuggestionMetadata">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="ImageUrl" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AdRecommendationImageSuggestion" nillable="true" type="tns:AdRecommendationImageSuggestion" />
+         <xs:complexType name="AdRecommendationImageSuggestionMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CustomizedProperties" nillable="true" type="tns:ArrayOfAdRecommendationCustomizedProperty" />
+               <xs:element minOccurs="0" name="ImageAssetProperties" nillable="true" type="tns:ArrayOfAdRecommendationImageAssetProperty" />
+               <xs:element minOccurs="0" name="TemplateId" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TemplateVersion" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TextAssetProperties" nillable="true" type="tns:ArrayOfAdRecommendationTextAssetProperty" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationImageSuggestionMetadata" nillable="true" type="tns:AdRecommendationImageSuggestionMetadata" />
+         <xs:complexType name="ArrayOfAdRecommendationCustomizedProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationCustomizedProperty" nillable="true" type="tns:AdRecommendationCustomizedProperty" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationCustomizedProperty" nillable="true" type="tns:ArrayOfAdRecommendationCustomizedProperty" />
+         <xs:complexType name="AdRecommendationCustomizedProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AssetTypeName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PropertyName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PropertyValue" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationCustomizedProperty" nillable="true" type="tns:AdRecommendationCustomizedProperty" />
+         <xs:complexType name="ArrayOfAdRecommendationImageAssetProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationImageAssetProperty" nillable="true" type="tns:AdRecommendationImageAssetProperty" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationImageAssetProperty" nillable="true" type="tns:ArrayOfAdRecommendationImageAssetProperty" />
+         <xs:complexType name="AdRecommendationImageAssetProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CropHeight" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="CropWidth" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="CropX" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="CropY" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="ImageField" type="tns:AdRecommendationImageField" />
+               <xs:element minOccurs="0" name="ImageUrl" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationImageAssetProperty" nillable="true" type="tns:AdRecommendationImageAssetProperty" />
+         <xs:simpleType name="AdRecommendationImageField">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Image">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Logo">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AdRecommendationImageField" nillable="true" type="tns:AdRecommendationImageField" />
+         <xs:complexType name="ArrayOfAdRecommendationTextAssetProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationTextAssetProperty" nillable="true" type="tns:AdRecommendationTextAssetProperty" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationTextAssetProperty" nillable="true" type="tns:ArrayOfAdRecommendationTextAssetProperty" />
+         <xs:complexType name="AdRecommendationTextAssetProperty">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="TextField" type="tns:AdRecommendationTextField" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationTextAssetProperty" nillable="true" type="tns:AdRecommendationTextAssetProperty" />
+         <xs:simpleType name="AdRecommendationTextField">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Headline">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="LongHeadline">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Description">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="CallToAction">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AdRecommendationTextField" nillable="true" type="tns:AdRecommendationTextField" />
          <xs:element name="CreateResponsiveAdRecommendationRequest">
             <xs:complexType>
                <xs:sequence>
@@ -8851,6 +9051,8 @@
                   <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TextTone" nillable="true" type="tns:AdRecommendationTextTone" />
                   <xs:element minOccurs="0" name="VideoType" nillable="true" type="tns:AdRecommendationVideoType" />
+                  <xs:element minOccurs="0" name="BrandKitId" nillable="true" type="xs:long" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdRecommendationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8879,6 +9081,7 @@
                   <xs:element minOccurs="0" name="ResponsiveAd" nillable="true" type="tns:ResponsiveAd" />
                   <xs:element minOccurs="0" name="ImageSuggestions" nillable="true" type="tns:ArrayOfAdRecommendationImageSuggestion" />
                   <xs:element minOccurs="0" name="VideoSuggestions" nillable="true" type="tns:ArrayOfAdRecommendationVideoSuggestion" />
+                  <xs:element minOccurs="0" name="PromptBrandWarning" nillable="true" type="xs:string" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8915,6 +9118,9 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="AssetGroup" nillable="true" type="tns:AssetGroup" />
                   <xs:element minOccurs="0" name="TextRefineOperations" nillable="true" type="tns:ArrayOfAdRecommendationTextRefineOperation" />
+                  <xs:element minOccurs="0" name="ImageSuggestions" nillable="true" type="tns:ArrayOfAdRecommendationImageSuggestion" />
+                  <xs:element minOccurs="0" name="ImageRefineOperations" nillable="true" type="tns:ArrayOfAdRecommendationImageRefineOperation" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdRecommendationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8932,36 +9138,44 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AdRecommendationTextRefineOperation" nillable="true" type="tns:AdRecommendationTextRefineOperation" />
-         <xs:simpleType name="AdRecommendationTextField">
+         <xs:complexType name="ArrayOfAdRecommendationImageRefineOperation">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationImageRefineOperation" nillable="true" type="tns:AdRecommendationImageRefineOperation" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationImageRefineOperation" nillable="true" type="tns:ArrayOfAdRecommendationImageRefineOperation" />
+         <xs:complexType name="AdRecommendationImageRefineOperation">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="ImageRefineType" type="tns:AdRecommendationImageRefineType" />
+               <xs:element minOccurs="0" name="ImageIndex" type="xs:int" />
+               <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationImageRefineOperation" nillable="true" type="tns:AdRecommendationImageRefineOperation" />
+         <xs:simpleType name="AdRecommendationImageRefineType">
             <xs:restriction base="xs:string">
-               <xs:enumeration value="Headline">
+               <xs:enumeration value="BackgroundChange">
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
-               <xs:enumeration value="LongHeadline">
+               <xs:enumeration value="RefineDisplay">
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
-               <xs:enumeration value="Description">
-                  <xs:annotation>
-                     <xs:appinfo>
-                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-                     </xs:appinfo>
-                  </xs:annotation>
-               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
-         <xs:element name="AdRecommendationTextField" nillable="true" type="tns:AdRecommendationTextField" />
+         <xs:element name="AdRecommendationImageRefineType" nillable="true" type="tns:AdRecommendationImageRefineType" />
          <xs:element name="RefineAssetGroupRecommendationResponse">
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="TextRefineResults" nillable="true" type="tns:ArrayOfAdRecommendationTextRefineResult" />
+                  <xs:element minOccurs="0" name="MediaRefineResults" nillable="true" type="tns:ArrayOfAdRecommendationMediaRefineResult" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8978,11 +9192,39 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AdRecommendationTextRefineResult" nillable="true" type="tns:AdRecommendationTextRefineResult" />
+         <xs:complexType name="ArrayOfAdRecommendationMediaRefineResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationMediaRefineResult" nillable="true" type="tns:AdRecommendationMediaRefineResult" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationMediaRefineResult" nillable="true" type="tns:ArrayOfAdRecommendationMediaRefineResult" />
+         <xs:complexType name="AdRecommendationMediaRefineResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="MediaList" nillable="true" type="tns:ArrayOfAdRecommendationRefinedMedia" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationMediaRefineResult" nillable="true" type="tns:AdRecommendationMediaRefineResult" />
+         <xs:complexType name="ArrayOfAdRecommendationRefinedMedia">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AdRecommendationRefinedMedia" nillable="true" type="tns:AdRecommendationRefinedMedia" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAdRecommendationRefinedMedia" nillable="true" type="tns:ArrayOfAdRecommendationRefinedMedia" />
+         <xs:complexType name="AdRecommendationRefinedMedia">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="MediaUrl" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AdRecommendationRefinedMedia" nillable="true" type="tns:AdRecommendationRefinedMedia" />
          <xs:element name="RefineResponsiveAdRecommendationRequest">
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="ResponsiveAd" nillable="true" type="tns:ResponsiveAd" />
                   <xs:element minOccurs="0" name="TextRefineOperations" nillable="true" type="tns:ArrayOfAdRecommendationTextRefineOperation" />
+                  <xs:element minOccurs="0" name="ImageRefineOperations" nillable="true" type="tns:ArrayOfAdRecommendationImageRefineOperation" />
+                  <xs:element minOccurs="0" name="ImageSuggestions" nillable="true" type="tns:ArrayOfAdRecommendationImageSuggestion" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdRecommendationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8990,6 +9232,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="TextRefineResults" nillable="true" type="tns:ArrayOfAdRecommendationTextRefineResult" />
+                  <xs:element minOccurs="0" name="MediaRefineResults" nillable="true" type="tns:ArrayOfAdRecommendationMediaRefineResult" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -9267,6 +9510,13 @@
          <xs:element name="ArrayOfBrandKit" nillable="true" type="tns:ArrayOfBrandKit" />
          <xs:complexType name="BrandKit">
             <xs:sequence>
+               <xs:element minOccurs="0" name="BusinessName" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Fonts" nillable="true" type="tns:ArrayOfBrandKitFont" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Images" nillable="true" type="tns:ArrayOfBrandKitImage" />
@@ -9456,9 +9706,20 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:BrandKitAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="BrandKitAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="BusinessName" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="BrandKitAdditionalField" nillable="true" type="tns:BrandKitAdditionalField" />
          <xs:element name="GetBrandKitsByAccountIdResponse">
             <xs:complexType>
                <xs:sequence>
@@ -9466,23 +9727,41 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="GetBrandKitsByIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+                  <xs:element xmlns:q171="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q171:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:BrandKitAdditionalField" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBrandKitsByIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="BrandKits" nillable="true" type="tns:ArrayOfBrandKit" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
          <xs:element name="GetClipchampTemplatesRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="Mock" type="xs:boolean" />
-                  <xs:element minOccurs="0" name="MaxAdsCount" type="xs:int" />
+                  <xs:element minOccurs="0" name="Mock" nillable="true" type="xs:boolean" />
+                  <xs:element minOccurs="0" name="MaxAdsCount" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="TemplateFilter" nillable="true" type="tns:VideoTemplateFilter" />
+                  <xs:element minOccurs="0" name="Locale" nillable="true" type="xs:string" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:complexType name="VideoTemplateFilter">
             <xs:sequence>
-               <xs:element xmlns:q171="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AspectRatios" nillable="true" type="q171:ArrayOfstring" />
-               <xs:element xmlns:q172="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Durations" nillable="true" type="q172:ArrayOfint" />
+               <xs:element xmlns:q172="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AspectRatios" nillable="true" type="q172:ArrayOfstring" />
+               <xs:element xmlns:q173="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Durations" nillable="true" type="q173:ArrayOfint" />
                <xs:element minOccurs="0" name="MaxMediaAssetCount" type="xs:int" />
                <xs:element minOccurs="0" name="MaxTextAssetCount" type="xs:int" />
-               <xs:element xmlns:q173="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TemplateIds" nillable="true" type="q173:ArrayOfstring" />
-               <xs:element xmlns:q174="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q174:ArrayOfstring" />
+               <xs:element xmlns:q174="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TemplateIds" nillable="true" type="q174:ArrayOfstring" />
+               <xs:element xmlns:q175="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q175:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="VideoTemplateFilter" nillable="true" type="tns:VideoTemplateFilter" />
@@ -9504,15 +9783,200 @@
                <xs:element minOccurs="0" name="AspectRatio" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Duration" type="xs:int" />
                <xs:element minOccurs="0" name="NumberOfImages" type="xs:int" />
+               <xs:element minOccurs="0" name="NumberOfLogos" type="xs:int" />
                <xs:element minOccurs="0" name="NumberOfText" type="xs:int" />
+               <xs:element minOccurs="0" name="TemplateDescription" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplateId" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplateName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplatePreviewUrl" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplateThumbnailUrl" nillable="true" type="xs:string" />
-               <xs:element xmlns:q175="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q175:ArrayOfstring" />
+               <xs:element xmlns:q176="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q176:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ClipchampTemplateInfo" nillable="true" type="tns:ClipchampTemplateInfo" />
+         <xs:element name="GetSupportedClipchampAudioRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AudioFilter" nillable="true" type="tns:AudioFilter" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="AudioFilter">
+            <xs:sequence>
+               <xs:element xmlns:q177="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AudioNames" nillable="true" type="q177:ArrayOfstring" />
+               <xs:element xmlns:q178="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Categories" nillable="true" type="q178:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AudioFilter" nillable="true" type="tns:AudioFilter" />
+         <xs:element name="GetSupportedClipchampAudioResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Data" nillable="true" type="tns:SupportedClipchampAudioData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="SupportedClipchampAudioData">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Audio" nillable="true" type="tns:ArrayOfSupportedClipchampAudio" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SupportedClipchampAudioData" nillable="true" type="tns:SupportedClipchampAudioData" />
+         <xs:complexType name="ArrayOfSupportedClipchampAudio">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="SupportedClipchampAudio" nillable="true" type="tns:SupportedClipchampAudio" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfSupportedClipchampAudio" nillable="true" type="tns:ArrayOfSupportedClipchampAudio" />
+         <xs:complexType name="SupportedClipchampAudio">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AudioName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Category" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SupportedClipchampAudio" nillable="true" type="tns:SupportedClipchampAudio" />
+         <xs:element name="GetSupportedFontsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="AdSubType" type="tns:AdSubType" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetSupportedFontsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Data" nillable="true" type="tns:SupportedFontsData" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="SupportedFontsData">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="SupportedFonts" nillable="true" type="tns:ArrayOfSupportedFont" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SupportedFontsData" nillable="true" type="tns:SupportedFontsData" />
+         <xs:complexType name="ArrayOfSupportedFont">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="SupportedFont" nillable="true" type="tns:SupportedFont" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfSupportedFont" nillable="true" type="tns:ArrayOfSupportedFont" />
+         <xs:complexType name="SupportedFont">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="FontFamily" nillable="true" type="xs:string" />
+               <xs:element xmlns:q179="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FontWeights" nillable="true" type="q179:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SupportedFont" nillable="true" type="tns:SupportedFont" />
+         <xs:element name="GetHealthCheckRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="HealthCheckEntities" nillable="true" type="tns:ArrayOfHealthCheckEntity" />
+                  <xs:element xmlns:q180="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HealthCheckTypes" nillable="true" type="q180:ArrayOfstring" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfHealthCheckEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckEntity" nillable="true" type="tns:HealthCheckEntity" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckEntity" nillable="true" type="tns:ArrayOfHealthCheckEntity" />
+         <xs:complexType name="HealthCheckEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="HealthCheckEntityId" type="xs:long" />
+               <xs:element minOccurs="0" name="HealthCheckEntityLevel" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckEntity" nillable="true" type="tns:HealthCheckEntity" />
+         <xs:element name="GetHealthCheckResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="HealthCheckMetadatas" nillable="true" type="tns:ArrayOfHealthCheckMetadata" />
+                  <xs:element minOccurs="0" name="HealthCheckDatas" nillable="true" type="tns:ArrayOfHealthCheckData" />
+                  <xs:element minOccurs="0" name="HealthCheckErrors" nillable="true" type="tns:ArrayOfHealthCheckError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfHealthCheckMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckMetadata" nillable="true" type="tns:HealthCheckMetadata" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckMetadata" nillable="true" type="tns:ArrayOfHealthCheckMetadata" />
+         <xs:complexType name="HealthCheckMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="HealthCheckActionLinksMetadata" nillable="true" type="tns:ArrayOfHealthCheckActionLinkMetadata" />
+               <xs:element minOccurs="0" name="HealthCheckCategory" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckCategoryDisplayName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckColumnsMetadata" nillable="true" type="tns:ArrayOfHealthCheckColumnMetadata" />
+               <xs:element minOccurs="0" name="HealthCheckDescription" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckDisplayName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckHelpTooltip" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckSeverity" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckSubType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckMetadata" nillable="true" type="tns:HealthCheckMetadata" />
+         <xs:complexType name="ArrayOfHealthCheckActionLinkMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckActionLinkMetadata" nillable="true" type="tns:HealthCheckActionLinkMetadata" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckActionLinkMetadata" nillable="true" type="tns:ArrayOfHealthCheckActionLinkMetadata" />
+         <xs:complexType name="HealthCheckActionLinkMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="LinkName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="LinkTemplate" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="LinkType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckActionLinkMetadata" nillable="true" type="tns:HealthCheckActionLinkMetadata" />
+         <xs:complexType name="ArrayOfHealthCheckColumnMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckColumnMetadata" nillable="true" type="tns:HealthCheckColumnMetadata" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckColumnMetadata" nillable="true" type="tns:ArrayOfHealthCheckColumnMetadata" />
+         <xs:complexType name="HealthCheckColumnMetadata">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckColumnMetadata" nillable="true" type="tns:HealthCheckColumnMetadata" />
+         <xs:complexType name="ArrayOfHealthCheckData">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckData" nillable="true" type="tns:HealthCheckData" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckData" nillable="true" type="tns:ArrayOfHealthCheckData" />
+         <xs:complexType name="HealthCheckData">
+            <xs:sequence>
+               <xs:element xmlns:q181="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HealthCheckActionLinks" nillable="true" type="q181:ArrayOfstring" />
+               <xs:element minOccurs="0" name="HealthCheckDataVersion" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckEntity" nillable="true" type="tns:HealthCheckEntity" />
+               <xs:element minOccurs="0" name="HealthCheckJsonData" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="HealthCheckName" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckData" nillable="true" type="tns:HealthCheckData" />
+         <xs:complexType name="ArrayOfHealthCheckError">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HealthCheckError" nillable="true" type="tns:HealthCheckError" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHealthCheckError" nillable="true" type="tns:ArrayOfHealthCheckError" />
+         <xs:complexType name="HealthCheckError">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="HealthCheckEntity" nillable="true" type="tns:HealthCheckEntity" />
+               <xs:element minOccurs="0" name="HealthCheckName" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HealthCheckError" nillable="true" type="tns:HealthCheckError" />
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="ArrayOfstring">
@@ -13799,6 +14263,30 @@
    <wsdl:message name="ICampaignManagementService_GetBrandKitsByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetBrandKitsByIdsRequest">
+      <wsdl:part name="parameters" element="tns:GetBrandKitsByIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBrandKitsByIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBrandKitsByIdsResponse">
+      <wsdl:part name="parameters" element="tns:GetBrandKitsByIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBrandKitsByIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetBrandKitsByIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q174="https://adapi.microsoft.com" name="detail" element="q174:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetBrandKitsByIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:message name="GetClipchampTemplatesRequest">
       <wsdl:part name="parameters" element="tns:GetClipchampTemplatesRequest" />
    </wsdl:message>
@@ -13818,9 +14306,81 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetClipchampTemplates_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q174="https://adapi.microsoft.com" name="detail" element="q174:AdApiFaultDetail" />
+      <wsdl:part xmlns:q175="https://adapi.microsoft.com" name="detail" element="q175:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetClipchampTemplates_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedClipchampAudioRequest">
+      <wsdl:part name="parameters" element="tns:GetSupportedClipchampAudioRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedClipchampAudioRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedClipchampAudioResponse">
+      <wsdl:part name="parameters" element="tns:GetSupportedClipchampAudioResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedClipchampAudioResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetSupportedClipchampAudio_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q176="https://adapi.microsoft.com" name="detail" element="q176:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetSupportedClipchampAudio_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedFontsRequest">
+      <wsdl:part name="parameters" element="tns:GetSupportedFontsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedFontsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedFontsResponse">
+      <wsdl:part name="parameters" element="tns:GetSupportedFontsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetSupportedFontsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetSupportedFonts_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q177="https://adapi.microsoft.com" name="detail" element="q177:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetSupportedFonts_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetHealthCheckRequest">
+      <wsdl:part name="parameters" element="tns:GetHealthCheckRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetHealthCheckRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetHealthCheckResponse">
+      <wsdl:part name="parameters" element="tns:GetHealthCheckResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetHealthCheckResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetHealthCheck_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q178="https://adapi.microsoft.com" name="detail" element="q178:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetHealthCheck_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
@@ -14862,11 +15422,35 @@
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetBrandKitsByAccountIdAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetBrandKitsByAccountId_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetBrandKitsByAccountIdApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetBrandKitsByAccountId_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
+      <wsdl:operation name="GetBrandKitsByIds">
+         <wsdl:input wsaw:Action="GetBrandKitsByIds" name="GetBrandKitsByIdsRequest" message="tns:GetBrandKitsByIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetBrandKitsByIdsResponse" name="GetBrandKitsByIdsResponse" message="tns:GetBrandKitsByIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetBrandKitsByIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetBrandKitsByIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetBrandKitsByIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetBrandKitsByIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
       <wsdl:operation name="GetClipchampTemplates">
          <wsdl:input wsaw:Action="GetClipchampTemplates" name="GetClipchampTemplatesRequest" message="tns:GetClipchampTemplatesRequest" />
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetClipchampTemplatesResponse" name="GetClipchampTemplatesResponse" message="tns:GetClipchampTemplatesResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetClipchampTemplatesAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetClipchampTemplates_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetClipchampTemplatesApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetClipchampTemplates_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetSupportedClipchampAudio">
+         <wsdl:input wsaw:Action="GetSupportedClipchampAudio" name="GetSupportedClipchampAudioRequest" message="tns:GetSupportedClipchampAudioRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedClipchampAudioResponse" name="GetSupportedClipchampAudioResponse" message="tns:GetSupportedClipchampAudioResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedClipchampAudioAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetSupportedClipchampAudio_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedClipchampAudioApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetSupportedClipchampAudio_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetSupportedFonts">
+         <wsdl:input wsaw:Action="GetSupportedFonts" name="GetSupportedFontsRequest" message="tns:GetSupportedFontsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedFontsResponse" name="GetSupportedFontsResponse" message="tns:GetSupportedFontsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedFontsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetSupportedFonts_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetSupportedFontsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetSupportedFonts_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetHealthCheck">
+         <wsdl:input wsaw:Action="GetHealthCheck" name="GetHealthCheckRequest" message="tns:GetHealthCheckRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHealthCheckResponse" name="GetHealthCheckResponse" message="tns:GetHealthCheckResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHealthCheckAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetHealthCheck_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHealthCheckApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetHealthCheck_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -18851,6 +19435,29 @@
             <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
          </wsdl:fault>
       </wsdl:operation>
+      <wsdl:operation name="GetBrandKitsByIds">
+         <soap:operation soapAction="GetBrandKitsByIds" style="document" />
+         <wsdl:input name="GetBrandKitsByIdsRequest">
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBrandKitsByIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBrandKitsByIdsResponse">
+            <soap:header message="tns:GetBrandKitsByIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
       <wsdl:operation name="GetClipchampTemplates">
          <soap:operation soapAction="GetClipchampTemplates" style="document" />
          <wsdl:input name="GetClipchampTemplatesRequest">
@@ -18865,6 +19472,75 @@
          </wsdl:input>
          <wsdl:output name="GetClipchampTemplatesResponse">
             <soap:header message="tns:GetClipchampTemplatesResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetSupportedClipchampAudio">
+         <soap:operation soapAction="GetSupportedClipchampAudio" style="document" />
+         <wsdl:input name="GetSupportedClipchampAudioRequest">
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetSupportedClipchampAudioRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetSupportedClipchampAudioResponse">
+            <soap:header message="tns:GetSupportedClipchampAudioResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetSupportedFonts">
+         <soap:operation soapAction="GetSupportedFonts" style="document" />
+         <wsdl:input name="GetSupportedFontsRequest">
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetSupportedFontsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetSupportedFontsResponse">
+            <soap:header message="tns:GetSupportedFontsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetHealthCheck">
+         <soap:operation soapAction="GetHealthCheck" style="document" />
+         <wsdl:input name="GetHealthCheckRequest">
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetHealthCheckRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetHealthCheckResponse">
+            <soap:header message="tns:GetHealthCheckResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">
