@@ -3209,6 +3209,7 @@
                <xs:enumeration value="AssetGroupName" />
                <xs:enumeration value="AssetGroupStatus" />
                <xs:enumeration value="CollectionId" />
+               <xs:enumeration value="FeedLabel" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProductDimensionPerformanceReportColumn" nillable="true" type="tns:ProductDimensionPerformanceReportColumn" />
@@ -3335,11 +3336,65 @@
                <xs:element minOccurs="0" name="AdStatus" nillable="true" type="tns:AdStatusReportFilter" />
                <xs:element minOccurs="0" name="AssetGroupStatus" nillable="true" type="tns:AssetGroupStatusReportFilter" />
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignType" nillable="true" type="tns:CampaignTypeReportFilter" />
                <xs:element minOccurs="0" name="DeviceType" nillable="true" type="tns:DeviceTypeReportFilter" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ProductPartitionPerformanceReportFilter" nillable="true" type="tns:ProductPartitionPerformanceReportFilter" />
+         <xs:simpleType name="CampaignTypeReportFilter">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="SearchAndContent" />
+                     <xs:enumeration value="Shopping">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="DynamicSearch" />
+                     <xs:enumeration value="Audience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Smart">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="Hotel">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="PerformanceMax">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">9</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="App">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="CampaignTypeReportFilter" nillable="true" type="tns:CampaignTypeReportFilter" />
          <xs:complexType name="ProductPartitionUnitPerformanceReportRequest">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ReportRequest">
@@ -4589,6 +4644,86 @@
             <xs:sequence />
          </xs:complexType>
          <xs:element name="CombinationPerformanceReportFilter" nillable="true" type="tns:CombinationPerformanceReportFilter" />
+         <xs:complexType name="AppsPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfAppsPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:AppsPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAssetGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AppsPerformanceReportRequest" nillable="true" type="tns:AppsPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfAppsPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AppsPerformanceReportColumn" type="tns:AppsPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAppsPerformanceReportColumn" nillable="true" type="tns:ArrayOfAppsPerformanceReportColumn" />
+         <xs:simpleType name="AppsPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountNumber" />
+               <xs:enumeration value="AccountStatus" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="CampaignStatus" />
+               <xs:enumeration value="AssetGroupId" />
+               <xs:enumeration value="AssetGroupName" />
+               <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="CurrencyCode" />
+               <xs:enumeration value="Language" />
+               <xs:enumeration value="BidStrategyType" />
+               <xs:enumeration value="Goal" />
+               <xs:enumeration value="GoalType" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="AverageCpc" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="AverageCpm" />
+               <xs:enumeration value="AllConversions" />
+               <xs:enumeration value="AllCostPerConversion" />
+               <xs:enumeration value="AllConversionRate" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="ConversionRate" />
+               <xs:enumeration value="CostPerConversion" />
+               <xs:enumeration value="ViewThroughConversions" />
+               <xs:enumeration value="ViewThroughConversionRate" />
+               <xs:enumeration value="ViewThroughCostPerConversion" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="ReturnOnAdSpend" />
+               <xs:enumeration value="RevenuePerDownload" />
+               <xs:enumeration value="RevenuePerAppInstall" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="AppsPerformanceReportColumn" nillable="true" type="tns:AppsPerformanceReportColumn" />
+         <xs:complexType name="AppsPerformanceReportFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
+               <xs:element minOccurs="0" name="AssetGroupStatus" nillable="true" type="tns:AssetGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AppsPerformanceReportFilter" nillable="true" type="tns:AppsPerformanceReportFilter" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />
