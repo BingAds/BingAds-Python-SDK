@@ -1,0 +1,21 @@
+# This is a CODEOWNERS file to define individuals or teams that are responsible
+# for code in this repository. See: https://docs.github.com/articles/about-code-owners/
+
+# These owners will be default owners for everything in the repo
+* @xinyuwen
+
+# Core SDK code
+/bingads/ @xinyuwen
+
+# Documentation files
+/docs/ @xinyuwen
+*.rst @xinyuwen
+
+# Examples
+/examples/ @xinyuwen
+
+# Build and deployment related files
+setup.py @xinyuwen
+make.py @xinyuwen
+azure-pipelines.yml @xinyuwen
+requirements.txt @xinyuwen
