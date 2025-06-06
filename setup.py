@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.24.2'
+VERSION = '13.0.24.2b1'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -14,10 +14,13 @@ requirements = [
     'suds-community>=1.1.0',
     'requests',
     'enum34;python_version<"3.9"',
+    'pydantic>=2.0.0',
+    'pydantic-core>=2.0.1',
+    'typing-extensions>=4.0.0'
 ]
 
 setup(
-    name='bingads',
+    name='msads',
     version=VERSION,
     description='A library to make working with the Bing Ads APIs and bulk services easy',
     long_description=readme,
@@ -41,6 +44,14 @@ setup(
         'bingads.v13.internal.bulk.entities',
         'bingads.v13.internal.reporting',
         'bingads.v13.reporting',
+        'openapi_client',
+        'openapi_client.api',
+        'openapi_client.models',
+        'openapi_client.models.bulk',
+        'openapi_client.models.campaign',
+        'openapi_client.models.reporting',
+        'openapi_client.models.customer',
+        'openapi_client.models.billing',
     ],
     include_package_data=True,
     install_requires=requirements,
@@ -55,12 +66,10 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12'
     ],
 )

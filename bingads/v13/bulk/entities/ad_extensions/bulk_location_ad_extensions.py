@@ -64,7 +64,7 @@ class BulkLocationAdExtension(_BulkAdExtensionBase):
         _SimpleBulkMapping(
             header=_StringTable.GeoCodeStatus,
             field_to_csv=lambda c: bulk_str(c.location_ad_extension.GeoCodeStatus),
-            csv_to_field=lambda c, v: setattr(c.location_ad_extension, 'GeoCodeStatus', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.location_ad_extension, v, 'GeoCodeStatus', BusinessGeoCodeStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.AddressLine1,

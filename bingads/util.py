@@ -1,17 +1,6 @@
 import time
 from bingads.exceptions import TimeoutException
-from suds.client import WebFault
-from suds.cache import Cache
-
-
-class DictCache(dict, Cache):
-    # .get and .clear work as intended
-    purge = dict.__delitem__
-
-    def put(self, id_, obj):
-        self[id_] = obj
-        return obj
-    
+from openapi_client.exceptions import ApiException
 
 class _TimeHelper(object):
     """
@@ -61,28 +50,28 @@ class _PollingBlocker(object):
 
 ratelimit_retry_duration=[15, 20, 25, 30]
 def errorcode_of_exception(ex):
-    if isinstance(ex, WebFault):
-        if hasattr(ex.fault, 'detail') \
-                and hasattr(ex.fault.detail, 'AdApiFaultDetail') \
-                and hasattr(ex.fault.detail.AdApiFaultDetail, 'Errors') \
-                and hasattr(ex.fault.detail.AdApiFaultDetail.Errors, 'AdApiError'):
-            ad_api_errors = ex.fault.detail.AdApiFaultDetail.Errors.AdApiError
-            if type(ad_api_errors) == list:
-                return ad_api_errors[0].Code
-            else:
-                return ad_api_errors.Code
+    if isinstance(ex, ApiException):
+        try:
+            body = ex.body
+            if isinstance(body, dict) and 'Errors' in body:
+                errors = body['Errors']
+                if isinstance(errors, list) and errors:
+                    return errors[0].get('Code', -1)
+                return errors.get('Code', -1)
+        except (AttributeError, KeyError):
+            pass
     return -1
 
 
 def operation_errorcode_of_exception(ex):
-    if isinstance(ex, WebFault):
-        if hasattr(ex.fault, 'detail') \
-                and hasattr(ex.fault.detail, 'ApiFaultDetail') \
-                and hasattr(ex.fault.detail.ApiFaultDetail, 'OperationErrors') \
-                and hasattr(ex.fault.detail.ApiFaultDetail.OperationErrors, 'OperationError'):
-            operation_error = ex.fault.detail.ApiFaultDetail.OperationErrors.OperationError
-            if type(operation_error) == list:
-                return operation_error[0].ErrorCode
-            else:
-                return operation_error.ErrorCode
+    if isinstance(ex, ApiException):
+        try:
+            body = ex.body
+            if isinstance(body, dict) and 'OperationErrors' in body:
+                operation_errors = body['OperationErrors']
+                if isinstance(operation_errors, list) and operation_errors:
+                    return operation_errors[0].get('ErrorCode', "")
+                return operation_errors.get('ErrorCode', "")
+        except (AttributeError, KeyError):
+            pass
     return ""

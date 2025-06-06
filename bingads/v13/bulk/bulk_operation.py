@@ -7,16 +7,15 @@ import os
 import sys
 import shutil
 
-
 from .bulk_operation_status import *
 from .bulk_operation_progress_info import *
 from .exceptions import *
-from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration, operation_errorcode_of_exception
+from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration, \
+    operation_errorcode_of_exception
 from bingads.exceptions import *
 
 from bingads.service_client import ServiceClient
 from bingads.manifest import *
-
 
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
@@ -47,15 +46,17 @@ class BulkOperation(object):
                  poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
+                 location=None,
                  **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('BulkService', 13, authorization_data, environment, **suds_options)
+        self._service_client = ServiceClient('Bulk', 13, authorization_data, environment, location, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
-        self.tracking_id=tracking_id
+        self.tracking_id = tracking_id
 
-    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite, timeout_in_milliseconds=None):
+    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite,
+                             timeout_in_milliseconds=None):
         """ Download file with specified URL and download parameters.
 
         :param result_file_directory: The download result local directory name.
@@ -94,7 +95,7 @@ class BulkOperation(object):
 
         if os.path.exists(result_file_path) and overwrite is False:
             raise FileExistsError('Result file: {0} exists'.format(result_file_path))
-            
+
         headers = {
             'User-Agent': USER_AGENT,
         }
@@ -116,7 +117,7 @@ class BulkOperation(object):
                 with contextlib.closing(zipfile.ZipFile(zip_file_path)) as compressed:
                     first = compressed.namelist()[0]
                     with open(result_file_path, 'wb') as f, compressed.open(first, 'r') as cc:
-                        #f.write(compressed.read(first))
+                        # f.write(compressed.read(first))
                         shutil.copyfileobj(cc, f)
         except Exception as ex:
             raise ex
@@ -191,6 +192,7 @@ class BulkDownloadOperation(BulkOperation):
                  poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
+                 location=None,
                  **suds_options):
         super(BulkDownloadOperation, self).__init__(
             request_id=request_id,
@@ -198,6 +200,7 @@ class BulkDownloadOperation(BulkOperation):
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
             tracking_id=tracking_id,
+            location=location,
             **suds_options
         )
 
@@ -259,16 +262,29 @@ class BulkDownloadOperation(BulkOperation):
         return status
 
     def _get_status_with_retry(self, retry_times):
+        from openapi_client.models.bulk import GetBulkDownloadStatusRequest
+
+        request_id = (str(self.request_id)).split("'")[1]
         while retry_times > 1:
             try:
-                return self.service_client.GetBulkDownloadStatus(RequestId=self.request_id)
+                request = GetBulkDownloadStatusRequest(
+                    request_id=request_id
+                )
+                return self.service_client.get_bulk_download_status(
+                    get_bulk_download_status_request=request
+                )
             except Exception as ex:
                 retry_times -= 1
                 if '117' == errorcode_of_exception(ex):
                     time.sleep(ratelimit_retry_duration[3 - retry_times])
                 else:
                     time.sleep(1)
-        return self.service_client.GetBulkDownloadStatus(RequestId=self.request_id)
+        request = GetBulkDownloadStatusRequest(
+            request_id=request_id
+        )
+        return self.service_client.get_bulk_download_status(
+            get_bulk_download_status_request=request
+        )
 
 
 class BulkUploadOperation(BulkOperation):
@@ -290,6 +306,7 @@ class BulkUploadOperation(BulkOperation):
                  poll_interval_in_milliseconds=5000,
                  environment='production',
                  tracking_id=None,
+                 location=None,
                  **suds_options):
         super(BulkUploadOperation, self).__init__(
             request_id=request_id,
@@ -297,6 +314,7 @@ class BulkUploadOperation(BulkOperation):
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
             tracking_id=tracking_id,
+            location=location
             **suds_options
         )
 
@@ -360,13 +378,25 @@ class BulkUploadOperation(BulkOperation):
         return status
 
     def _get_status_with_retry(self, retry_times):
+        from openapi_client.models.bulk import GetBulkUploadStatusRequest
+        
         while retry_times > 1:
             try:
-                return self.service_client.GetBulkUploadStatus(RequestId=self.request_id)
+                request = GetBulkUploadStatusRequest(
+                    request_id=self.request_id
+                )
+                return self.service_client.get_bulk_upload_status(
+                    get_bulk_upload_status_request=request
+                )
             except Exception as ex:
                 retry_times -= 1
                 if '117' == errorcode_of_exception(ex):
                     time.sleep(ratelimit_retry_duration[3 - retry_times])
                 else:
                     time.sleep(1)
-        return self.service_client.GetBulkUploadStatus(RequestId=self.request_id)
+        request = GetBulkUploadStatusRequest(
+            request_id=self.request_id
+        )
+        return self.service_client.get_bulk_upload_status(
+            get_bulk_upload_status_request=request
+        )

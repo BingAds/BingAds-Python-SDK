@@ -4,6 +4,7 @@ import codecs
 import csv
 import io
 
+from openapi_client import DataScope
 from .bulk_operation import *
 from .upload_parameters import *
 from .file_reader import *
@@ -31,7 +32,7 @@ class BulkServiceManager:
     :meth:`.BulkOperation.download_result_file` method.
     """
 
-    def __init__(self, authorization_data, poll_interval_in_milliseconds=5000, environment='production', working_directory=None, **suds_options):
+    def __init__(self, authorization_data, poll_interval_in_milliseconds=5000, environment='production', working_directory=None, location=None, **suds_options):
         """ Initialize a new instance of this class.
 
         :param authorization_data: Represents a user who intends to access the corresponding customer and account.
@@ -47,7 +48,8 @@ class BulkServiceManager:
         """
 
         self._environment = environment
-        self._service_client = ServiceClient('BulkService', 13, authorization_data, environment, **suds_options)
+        self._service_client = ServiceClient('Bulk', 13, authorization_data, environment, location, **suds_options)
+        self._location = location
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._working_directory = os.path.join(tempfile.gettempdir(), WORKING_NAME)
@@ -181,17 +183,20 @@ class BulkServiceManager:
     def bulkupload_entitie_records(self, entity_upload_parameters, tmp_file, progress=None):
         """ Uploads the specified Bulk entities in sync way by UploadEntityRecords.
         """
-        records = self.service_client.factory.create("ns2:ArrayOfstring")
+        from openapi_client.models.bulk import UploadEntityRecordsRequest
+        
         tmp_csv_file = io.open(tmp_file, encoding='utf-8-sig')
-
-        records.string = [x.strip() for x in tmp_csv_file.readlines()]
+        entity_records = [x.strip() for x in tmp_csv_file.readlines()]
         
         try:
-            #print(self.service_client)
-            response = self.service_client.UploadEntityRecords(
-                AccountId=self._authorization_data.account_id,
-                EntityRecords=records,
-                ResponseMode=entity_upload_parameters.response_mode
+            request = UploadEntityRecordsRequest(
+                account_id=self._authorization_data.account_id,
+                entity_records=entity_records,
+                response_mode=entity_upload_parameters.response_mode
+            )
+            
+            response = self.service_client.upload_entity_records(
+                upload_entity_records_request=request
             )
             if self.need_to_fall_back_to_async(response):
                 headers = self.service_client.get_response_header()
@@ -201,6 +206,7 @@ class BulkServiceManager:
                     poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
                     environment=self._environment,
                     tracking_id=headers['TrackingId'] if 'TrackingId' in headers else None,
+                    location=self._location,
                     **self.suds_options
                     )
                 file_path = self.download_upload_result(operation, entity_upload_parameters, progress)
@@ -224,7 +230,7 @@ class BulkServiceManager:
                 yield entity
             
     def read_bulkupsert_response(self, response):        
-        with BulkRowsReader(response.EntityRecords.string) as reader:
+        with BulkRowsReader(response.EntityRecords) as reader:
             for entity in reader:
                 yield entity
     
@@ -267,38 +273,50 @@ class BulkServiceManager:
         data_scope = None if submit_download_parameters.data_scope is None else ' '.join(
             submit_download_parameters.data_scope)
         download_file_type = submit_download_parameters.file_type
-        download_entities = self.service_client.factory.create('ArrayOfDownloadEntity')
-        download_entities.DownloadEntity = submit_download_parameters.download_entities
-
-        # entities = None if submit_download_parameters.entities is None else ' '.join(
-        #    submit_download_parameters.entities)
-
-        format_version = BULK_FORMAT_VERSION_6
-        last_sync_time_in_utc = submit_download_parameters.last_sync_time_in_utc
-
         if submit_download_parameters.campaign_ids is None:
-            response = self.service_client.DownloadCampaignsByAccountIds(
-                AccountIds={'long': [self._authorization_data.account_id]},
-                DataScope=data_scope,
-                DownloadFileType=download_file_type,
-                DownloadEntities=download_entities,
-                FormatVersion=format_version,
-                LastSyncTimeInUTC=last_sync_time_in_utc,
+            from openapi_client.models.bulk import (
+                DownloadCampaignsByAccountIdsRequest,
+                DownloadEntity
+            )
+            
+            request = DownloadCampaignsByAccountIdsRequest(
+                account_ids=[self._authorization_data.account_id],
+                data_scope=DataScope.ENTITYDATA,
+                download_file_type=download_file_type,
+                download_entities=submit_download_parameters.download_entities,
+                format_version=BULK_FORMAT_VERSION_6,
+                last_sync_time_in_utc=submit_download_parameters.last_sync_time_in_utc
+            )
+            
+            response = self.service_client.download_campaigns_by_account_ids(
+                download_campaigns_by_account_ids_request=request
             )
             headers = self.service_client.get_response_header()
         else:
-            response = self.service_client.DownloadCampaignsByCampaignIds(
-                Campaigns={
-                    'CampaignScope': [
-                        {'CampaignId': campaign_id, 'ParentAccountId': self._authorization_data.account_id}
-                        for campaign_id in submit_download_parameters.campaign_ids
-                    ]
-                },
-                DataScope=data_scope,
-                DownloadFileType=download_file_type,
-                DownloadEntities=download_entities,
-                FormatVersion=format_version,
-                LastSyncTimeInUTC=last_sync_time_in_utc,
+            from openapi_client.models.bulk import (
+                DownloadCampaignsByCampaignIdsRequest,
+                CampaignScope
+            )
+            
+            campaign_scopes = [
+                CampaignScope(
+                    campaign_id=str(campaign_id),
+                    parent_account_id=str(self._authorization_data.account_id)
+                )
+                for campaign_id in submit_download_parameters.campaign_ids
+            ]
+
+            request = DownloadCampaignsByCampaignIdsRequest(
+                campaigns=campaign_scopes,
+                data_scope=DataScope.ENTITYDATA,
+                download_file_type=download_file_type,
+                download_entities=submit_download_parameters.download_entities,
+                format_version=BULK_FORMAT_VERSION_6,
+                last_sync_time_in_utc=submit_download_parameters.last_sync_time_in_utc
+            )
+            
+            response = self.service_client.download_campaigns_by_campaign_ids(
+                download_campaigns_by_campaign_ids_request=request
             )
             headers = self.service_client.get_response_header()
         operation = BulkDownloadOperation(
@@ -307,6 +325,7 @@ class BulkServiceManager:
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
             tracking_id=headers['TrackingId'] if 'TrackingId' in headers else None,
+            location=self._location,
             **self.suds_options
         )
         return operation
@@ -320,9 +339,15 @@ class BulkServiceManager:
         :rtype: BulkUploadOperation
         """
 
-        response = self.service_client.GetBulkUploadUrl(
-            AccountId=self._authorization_data.account_id,
-            ResponseMode=submit_upload_parameters.response_mode,
+        from openapi_client.models.bulk import GetBulkUploadUrlRequest
+        
+        request = GetBulkUploadUrlRequest(
+            account_id=self._authorization_data.account_id,
+            response_mode=submit_upload_parameters.response_mode
+        )
+        
+        response = self.service_client.get_bulk_upload_url(
+            get_bulk_upload_url_request=request
         )
         headers = self.service_client.get_response_header()
         request_id = response.RequestId
@@ -346,6 +371,7 @@ class BulkServiceManager:
             poll_interval_in_milliseconds=self._poll_interval_in_milliseconds,
             environment=self._environment,
             tracking_id=headers['TrackingId'] if 'TrackingId' in headers else None,
+            location=self._location,
             **self.suds_options
         )
         return operation

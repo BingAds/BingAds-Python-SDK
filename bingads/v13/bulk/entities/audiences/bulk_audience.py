@@ -63,7 +63,7 @@ class BulkAudience(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Scope,
             field_to_csv=lambda c: bulk_str(c.audience.Scope),
-            csv_to_field=lambda c, v: setattr(c.audience, 'Scope', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.audience, v, 'Scope', EntityScope)
         ),
         _SimpleBulkMapping(
             _StringTable.AudienceSearchSize,

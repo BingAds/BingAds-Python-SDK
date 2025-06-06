@@ -622,11 +622,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c.campaign.Status),
-            csv_to_field=lambda c, v: setattr(
-                c.campaign,
-                'Status',
-                v if v else None
-            )
+            csv_to_field=lambda c, v: csv_to_field_enum(c.campaign, v, 'Status', CampaignStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,

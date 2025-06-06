@@ -81,7 +81,7 @@ class BulkAssetGroup(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c.asset_group.Status),
-            csv_to_field=lambda c, v: setattr(c.asset_group, 'Status', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.asset_group, v, 'Status', AssetGroupStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.ParentId,
@@ -116,7 +116,7 @@ class BulkAssetGroup(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.CallToAction,
             field_to_csv=lambda c: c.asset_group.CallToAction,
-            csv_to_field=lambda c, v: setattr(c.asset_group, 'CallToAction', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.asset_group, v, 'CallToAction', CallToAction)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Descriptions,
@@ -126,7 +126,7 @@ class BulkAssetGroup(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.EditorialStatus,
             field_to_csv=lambda c: c.asset_group.EditorialStatus,
-            csv_to_field=lambda c, v: setattr(c.asset_group, 'EditorialStatus', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.asset_group, v, 'EditorialStatus', AssetGroupEditorialStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.FinalMobileUrl,

@@ -2,7 +2,7 @@ from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
 from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _SingleRecordBulkEntity
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping, _DynamicColumnNameMapping
-from bingads.v13.internal.extensions import bulk_str
+from bingads.v13.internal.extensions import *
 
 
 class _BulkNegativeKeyword(_SingleRecordBulkEntity):
@@ -73,7 +73,7 @@ class _BulkNegativeKeyword(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.MatchType,
             field_to_csv=lambda c: bulk_str(c.negative_keyword.MatchType),
-            csv_to_field=lambda c, v: setattr(c.negative_keyword, 'MatchType', v)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.negative_keyword, v, 'MatchType', MatchType)
         )
     ]
 

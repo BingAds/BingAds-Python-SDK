@@ -42,7 +42,7 @@ class _BulkAdExtensionBase(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c._ad_extension.Status),
-            csv_to_field=lambda c, v: setattr(c._ad_extension, 'Status', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c._ad_extension, v, 'Status', AdExtensionStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,

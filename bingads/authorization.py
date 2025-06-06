@@ -1,26 +1,33 @@
-try:
-    from urllib.parse import parse_qs, urlparse, quote_plus
-except ImportError:
-    from urlparse import parse_qs, urlparse
-    from urllib import quote_plus
+from urllib.parse import parse_qs, urlparse, quote_plus
 import json
 from datetime import datetime, timedelta
 import requests
+from openapi_client.exceptions import ApiException
 
-from .exceptions import OAuthTokenRequestException
+PRODUCTION = 'production'
+SANDBOX = 'sandbox'
+MSADS_MANAGE = 'msads.manage'
+ADS_MANAGE = 'ads.manage'
+BINGADS_MANAGE = 'bingads.manage'
+MSA_PROD = 'msa.prod'
 
-PRODUCTION='production'
-SANDBOX='sandbox'
-MSADS_MANAGE='msads.manage'
-ADS_MANAGE='ads.manage'
-BINGADS_MANAGE='bingads.manage'
-MSA_PROD='msa.prod'
+
+class OAuthTokenRequestException(ApiException):
+    """OAuth token request exception that includes error details from the OAuth service."""
+
+    def __init__(self, error_code, error_description):
+        super(OAuthTokenRequestException, self).__init__(
+            status=None,
+            reason=f"OAuth token request failed. Error: {error_code}. Description: {error_description}"
+        )
+        self.error_code = error_code
+        self.error_description = error_description
+
 
 class AuthorizationData:
     """ Represents a user who intends to access the corresponding customer and account.
 
-    An instance of this class is required to authenticate with Bing Ads if you are using either
-    :class:`.ServiceClient` or :class:`.BulkServiceManager`.
+    An instance of this class is required to authenticate with Bing Ads REST API services.
     """
 
     def __init__(self,
@@ -31,17 +38,12 @@ class AuthorizationData:
         """ Initialize an instance of this class.
 
         :param account_id: The identifier of the account that owns the entities in the request.
-                            Used as the CustomerAccountId header and the AccountId body elements
-                            in calls to the Bing Ads web services.
         :type account_id: int
         :param customer_id: The identifier of the customer that owns the account.
-                            Used as the CustomerId header element in calls to the Bing Ads web services.
         :type customer_id: int
         :param developer_token: The Bing Ads developer access token.
-                            Used as the DeveloperToken header element in calls to the Bing Ads web services.
         :type developer_token: str
-        :param authentication: An object representing the authentication method that should be used in calls
-                            to the Bing Ads web services.
+        :param authentication: An object representing the authentication method.
         :type authentication: Authentication
         """
 
@@ -53,50 +55,29 @@ class AuthorizationData:
     @property
     def account_id(self):
         """ The identifier of the account that owns the entities in the request.
-
-        Used as the CustomerAccountId header and the AccountId body elements in calls to the Bing Ads web services.
-
         :rtype: int
         """
-
         return self._account_id
 
     @property
     def customer_id(self):
         """ The identifier of the customer that owns the account.
-
-        Used as the CustomerId header element in calls to the Bing Ads web services.
-
         :rtype: int
         """
-
         return self._customer_id
 
     @property
     def developer_token(self):
         """ The Bing Ads developer access token.
-
-        Used as the DeveloperToken header element in calls to the Bing Ads web services.
-
         :rtype: str
         """
-
         return self._developer_token
 
     @property
     def authentication(self):
-        """ An object representing the authentication method that should be used in calls to the Bing Ads web services.
-
-        *See also:*
-
-        * :class:`.OAuthDesktopMobileAuthCodeGrant`
-        * :class:`.OAuthDesktopMobileImplicitGrant`
-        * :class:`.OAuthWebAuthCodeGrant`
-        * :class:`.PasswordAuthentication`
-
+        """ An object representing the authentication method.
         :rtype: Authentication
         """
-
         return self._authentication
 
     @account_id.setter
@@ -117,106 +98,75 @@ class AuthorizationData:
 
 
 class Authentication(object):
-    """ The base class for all authentication classes.
-
-    *See also:*
-
-    * :class:`.ServiceClient`
-    * :class:`.BulkServiceManager`
-    * :class:`.AuthorizationData`
-    """
+    """ The base class for all authentication classes. """
 
     def enrich_headers(self, headers):
-        """ Sets the required header elements for the corresponding Bing Ads service or bulk file upload operation.
+        """ Gets the required header elements for the corresponding REST API call.
 
-        The header elements that the method sets will differ depending on the type of authentication.
-        For example if you use one of the OAuth classes, the AuthenticationToken header will be set by this method,
-        whereas the UserName and Password headers will remain empty.
-
-        :param headers: Bing Ads service or bulk file upload operation headers.
-        :type headers: dict
-        :rtype: None
+        :return: Dictionary containing authentication headers
+        :rtype: dict
         """
-
         raise NotImplementedError()
 
 
 class PasswordAuthentication(Authentication):
-    """ Represents a legacy Bing Ads authentication method using user name and password.
-
-    You can use an instance of this class as the authentication property of a :class:`.AuthorizationData` object to
-    authenticate with Bing Ads services.
-    Existing users with legacy Bing Ads credentials may continue to specify the UserName and Password header elements.
-    In future versions of the API, Bing Ads will transition exclusively to Microsoft Account authentication.
-    New customers are required to sign up for Bing Ads with a Microsoft Account, and to manage those accounts you must
-    use OAuth.
-    For example instead of using this :class:`.PasswordAuthentication` class, you would authenticate with an instance
-    of either :class:`.OAuthDesktopMobileAuthCodeGrant`, :class:`.OAuthDesktopMobileImplicitGrant`,
-    or :class:`.OAuthWebAuthCodeGrant`.
-    """
+    """ Represents a legacy authentication method using user name and password. """
 
     def __init__(self, user_name, password):
-        """ Initializes a new instance of this class using the specified user name and password.
+        """ Initialize an instance of this class.
 
-        :param user_name: The Bing Ads user's sign-in user name. You may not set this element to a Microsoft account.
+        :param user_name: The Bing Ads user's sign-in user name.
         :type user_name: str
         :param password: The Bing Ads user's sign-in password.
         :type password: str
         """
-
         self._user_name = user_name
         self._password = password
 
     @property
     def user_name(self):
-        """ The Bing Ads user's sign-in user name. You may not set this element to a Microsoft account.
-
+        """ The Bing Ads user's sign-in user name.
         :rtype: str
         """
-
         return self._user_name
 
     @property
     def password(self):
         """ The Bing Ads user's sign-in password.
-
         :rtype: str
         """
-
         return self._password
 
     def enrich_headers(self, headers):
-        """ Sets the user name and password as headers elements for Bing Ads service or bulk file upload operation. """
-
-        headers['UserName'] = self.user_name
-        headers['Password'] = self.password
+        """ Gets the username/password authentication headers.
+        :return: Dictionary containing authentication headers
+        :rtype: dict
+        """
+        auth_headers = {
+            'UserName': self.user_name,
+            'Password': self.password
+        }
+        headers.update(auth_headers)
 
 
 class OAuthTokens:
-    """ Contains information about OAuth access tokens received from the Microsoft Account authorization service.
-
-    You can get OAuthTokens using the RequestAccessAndRefreshTokens method of RequestAccessAndRefreshTokens method of
-    either the :class:`.OAuthDesktopMobileAuthCodeGrant` or :class:`.OAuthWebAuthCodeGrant` classes.
-    """
+    """ Contains information about OAuth access tokens received from the Microsoft Account authorization service. """
 
     def __init__(self, access_token=None, access_token_expires_in_seconds=None, refresh_token=None, response_json = None):
         """ Initialize an instance of this class.
 
-        :param access_token: OAuth access token that will be used for authorization in the Bing Ads services.
-        :type access_token: (optional) str or None
-        :param access_token_expires_in_seconds: (optional) The access token expiration time in seconds.
-        :type access_token_expires_in_seconds: int or None
-        :param refresh_token: (optional) OAuth refresh token that can be used to refresh an access token.
-        :type refresh_token: str or None
-        :param response_json: (optional) Whole json response along with the get access token request.
-        :type response_json: dictionary
+        :param access_token: OAuth access token for authorization
+        :type access_token: str
+        :param access_token_expires_in_seconds: The access token expiration time in seconds
+        :type access_token_expires_in_seconds: int
+        :param refresh_token: OAuth refresh token that can be used to refresh an access token
+        :type refresh_token: str
         """
-
         self._access_token = access_token
         self._access_token_expires_in_seconds = access_token_expires_in_seconds
         self._refresh_token = refresh_token
         self._response_json = response_json
-        self._access_token_received_datetime=datetime.utcnow()
+        self._access_token_received_datetime = datetime.utcnow()
 
     @property
     def access_token_received_datetime(self):
@@ -232,7 +182,6 @@ class OAuthTokens:
 
         :rtype: str
         """
-
         return self._access_token
 
     @property
@@ -241,9 +190,7 @@ class OAuthTokens:
 
         :rtype: int
         """
-
         return self._access_token_expires_in_seconds
-
 
     @property
     def access_token_expired(self):
@@ -251,11 +198,10 @@ class OAuthTokens:
 
         :rtype: bool
         """
-
         return self.access_token_expires_in_seconds is not None and \
             self.access_token_expires_in_seconds > 0 and \
-            datetime.utcnow() > self.access_token_received_datetime + timedelta(seconds = self.access_token_expires_in_seconds)
-
+            datetime.utcnow() > self.access_token_received_datetime + timedelta(
+                seconds=self.access_token_expires_in_seconds)
 
     @property
     def refresh_token(self):
@@ -263,7 +209,6 @@ class OAuthTokens:
 
         :rtype: str
         """
-
         return self._refresh_token
 
     @property
@@ -281,24 +226,17 @@ class OAuthAuthorization(Authentication):
     You can use this class to dynamically instantiate a derived OAuth authentication class at run time.
     This class cannot be instantiated, and instead you should use either :class:`.OAuthDesktopMobileAuthCodeGrant`,
     :class:`.OAuthDesktopMobileImplicitGrant`, :class:`.OAuthWebAuthCodeGrant`, which extend this class.
-
-    *See also:*
-
-    * :class:`.OAuthDesktopMobileAuthCodeGrant`
-    * :class:`.OAuthDesktopMobileImplicitGrant`
-    * :class:`.OAuthWebAuthCodeGrant`
     """
 
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
-        """ Initializes a new instance of the OAuthAuthorization class.
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common',
+                 use_msa_prod=True):
+        """ Initialize an instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :param oauth_tokens: OAuth token information
         :type oauth_tokens: OAuthTokens
-        :rtype: str
         """
-
         if client_id is None:
             raise ValueError('Client id cannot be None.')
         self._client_id = client_id
@@ -307,6 +245,18 @@ class OAuthAuthorization(Authentication):
         self.environment = env
         self._oauth_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
         self._tenant = tenant
+
+    def enrich_headers(self, headers):
+        """ Gets the OAuth Bearer token authentication headers.
+        :return: Dictionary containing authentication headers
+        :rtype: dict
+        """
+        if self.oauth_tokens is None or self.oauth_tokens.access_token is None:
+            raise ValueError("OAuth access token hasn't been requested.")
+        auth_headers =  {
+            'Authorization': 'Bearer ' + self.oauth_tokens.access_token
+        }
+        headers.update(auth_headers)
 
     @property
     def tenant(self):
@@ -325,7 +275,6 @@ class OAuthAuthorization(Authentication):
 
         :rtype: str
         """
-
         return self._client_id
 
     @property
@@ -334,7 +283,6 @@ class OAuthAuthorization(Authentication):
 
         :rtype: OAuthTokens
         """
-
         return self._oauth_tokens
 
     @property
@@ -342,7 +290,6 @@ class OAuthAuthorization(Authentication):
         """ An opaque value used by the client to maintain state between the request and callback
         :rtype: str
         """
-
         return self._state
 
     @state.setter
@@ -358,7 +305,6 @@ class OAuthAuthorization(Authentication):
 
         :rtype: str
         """
-
         raise NotImplementedError()
 
     def get_authorization_endpoint(self):
@@ -367,58 +313,51 @@ class OAuthAuthorization(Authentication):
         :return: The Microsoft Account authorization endpoint.
         :rtype: str
         """
-
         raise NotImplementedError()
-
-    def enrich_headers(self, headers):
-        """ Sets the AuthenticationToken headers elements for Bing Ads service or bulk file upload operation. """
-
-        if self.oauth_tokens is None:
-            raise NotImplementedError("OAuth access token hasn't been requested.")
-        headers['AuthenticationToken'] = self.oauth_tokens.access_token
 
 
 class OAuthWithAuthorizationCode(OAuthAuthorization):
     """ Represents a proxy to the Microsoft account authorization service.
 
-    Implement an extension of this class in compliance with the authorization code grant flow for Managing User
-    Authentication with OAuth documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0
-    flow and is defined in detail in the Authorization Code Grant section of the OAuth 2.0 spec at
-    https://tools.ietf.org/html/rfc6749#section-4.1.
-    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
+    Implementation of the authorization code grant flow for Managing User Authentication with OAuth.
+    This is a standard OAuth 2.0 flow defined in the Authorization Code Grant section of the OAuth 2.0 spec
+    at https://tools.ietf.org/html/rfc6749#section-4.1.
     """
 
-    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant="common", use_msa_prod=True):
-        """ Initialize a new instance of this class.
+    def __init__(self, client_id, client_secret, redirection_uri, token_refreshed_callback=None,
+                 oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant="common", use_msa_prod=True):
+        """ Initialize an instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param client_secret: The client secret corresponding to your registered application, or None if your app is a
-        desktop or mobile app.
-        :type client_secret: str or None
-        :param redirection_uri: The URI to which the user of the app will be redirected after receiving user consent.
+        :param client_secret: The client secret for your registered application.
+        :type client_secret: str
+        :param redirection_uri: The URI to which your client browser will be redirected after receiving user consent.
         :type redirection_uri: str
-        :param token_refreshed_callback: (optional) Call back function when oauth_tokens be refreshed.
-        :type token_refreshed_callback: (OAuthTokens)->None or None
-        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
-        :type oauth_tokens: OAuthTokens
-        :return:
+        :param token_refreshed_callback: Optional callback function when oauth_tokens are refreshed.
+        :type token_refreshed_callback: OAuthTokens->None or None
         """
-
-        super(OAuthWithAuthorizationCode, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=oauth_scope, tenant=tenant, use_msa_prod=use_msa_prod)
+        super(OAuthWithAuthorizationCode, self).__init__(
+            client_id=client_id,
+            oauth_tokens=oauth_tokens,
+            env=env,
+            oauth_scope=oauth_scope,
+            tenant=tenant,
+            use_msa_prod=use_msa_prod
+        )
         self._client_secret = client_secret
         self._redirection_uri = redirection_uri
         self._token_refreshed_callback = token_refreshed_callback
 
     def get_authorization_endpoint(self):
-        """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.
+        """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give consent.
 
         :return: The Microsoft Account authorization endpoint.
         :rtype: str
         """
         endpoint_url = _UriOAuthService.AUTHORIZE_URI[(self.environment, self._oauth_scope)]
         if self.environment == PRODUCTION and (self._oauth_scope == MSADS_MANAGE or self._oauth_scope == ADS_MANAGE):
-            endpoint_url = endpoint_url.replace('common', self.tenant);
+            endpoint_url = endpoint_url.replace('common', self.tenant)
 
         endpoint = str.format(
             endpoint_url,
@@ -430,18 +369,13 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def request_oauth_tokens_by_response_uri(self, response_uri, **kwargs):
-        """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.
+        """ Request OAuth tokens using the authorization response URI.
 
-        Using the specified authorization response redirection uri.
-        For more information, see the Authorization Response section in the OAuth 2.0 spec
-        at https://tools.ietf.org/html/rfc6749#section-4.1.
-
-        :param response_uri: The response redirection uri.
+        :param response_uri: The response redirection URI.
         :type response_uri: str
         :return: OAuth tokens
         :rtype: OAuthTokens
         """
-
         parameters = parse_qs(urlparse(response_uri).query)
         if 'code' not in parameters or len(parameters['code']) == 0:
             raise ValueError(
@@ -462,22 +396,17 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             **kwargs
         )
         if self.token_refreshed_callback is not None:
-            self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
+            self.token_refreshed_callback(self.oauth_tokens)
         return self.oauth_tokens
 
     def request_oauth_tokens_by_refresh_token(self, refresh_token):
-        """ Retrieves OAuth access and refresh tokens from the Microsoft Account authorization service.
+        """ Request new OAuth tokens using a refresh token.
 
-        Using the specified refresh token.
-        For more information, see the Refreshing an Access Token section in the OAuth 2.0 spec
-        at https://tools.ietf.org/html/rfc6749#section-6.
-
-        :param refresh_token: The refresh token used to request new access and refresh tokens.
+        :param refresh_token: The refresh token used to request new tokens.
         :type refresh_token: str
         :return: OAuth tokens
         :rtype: OAuthTokens
         """
-
         self._oauth_tokens = _UriOAuthService.get_access_token(
             client_id=self.client_id,
             client_secret=self.client_secret,
@@ -486,11 +415,10 @@ class OAuthWithAuthorizationCode(OAuthAuthorization):
             environment=self.environment,
             scope=_UriOAuthService.SCOPE[(self.environment, self._oauth_scope)],
             oauth_scope=self._oauth_scope,
-            tenant = self.tenant
+            tenant=self.tenant
         )
         if self.token_refreshed_callback is not None:
-            self.token_refreshed_callback(self.oauth_tokens)  # invoke the callback when token refreshed.
-
+            self.token_refreshed_callback(self.oauth_tokens)
         return self.oauth_tokens
 
     @property
@@ -538,28 +466,21 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
     or mobile application.
 
     You can use an instance of this class as the AuthorizationData.Authentication property
-    of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.
-    In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.
-
-    This class implements the authorization code grant flow for Managing User Authentication with OAuth
-    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
-    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
+    to authenticate with Bing Ads REST API services.
     """
 
     def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
-        """ Initializes a new instance of the this class with the specified client id.
+        """ Initializes a new instance of this class with the specified client id.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :param oauth_tokens: OAuth token information
         :type oauth_tokens: OAuthTokens
         """
-
         effective_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
         super(OAuthDesktopMobileAuthCodeGrant, self).__init__(
             client_id,
-            None,
+            None,  # client secret not needed for desktop/mobile apps
             _UriOAuthService.REDIRECTION_URI[(env, effective_scope)],
             oauth_tokens=oauth_tokens,
             env=env,
@@ -573,15 +494,8 @@ class OAuthWebAuthCodeGrant(OAuthWithAuthorizationCode):
     """ Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.
 
     You can use an instance of this class as the AuthorizationData.Authentication property
-    of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.
-    In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.
-
-    This class implements the authorization code grant flow for Managing User Authentication with OAuth
-    documented at http://go.microsoft.com/fwlink/?LinkID=511609. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
-    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
+    to authenticate with Bing Ads REST API services.
     """
-
     pass
 
 
@@ -589,40 +503,32 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
     """ Represents an OAuth authorization object implementing the implicit grant flow for use in a desktop or mobile application.
 
     You can use an instance of this class as the AuthorizationData.Authentication property
-    of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.
-    In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.
-
-    This class implements the implicit grant flow for Managing User Authentication with OAuth
-    documented at http://go.microsoft.com/fwlink/?LinkID=511608. This is a standard OAuth 2.0 flow and is defined in detail in the
-    Authorization Code Grant section of the OAuth 2.0 spec at https://tools.ietf.org/html/rfc6749#section-4.1.
-    For more information about registering a Bing Ads application, see http://go.microsoft.com/fwlink/?LinkID=511607.
+    to authenticate with Bing Ads REST API services.
     """
 
-
-    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common', use_msa_prod=True):
-        """ Initializes a new instance of the this class with the specified client id.
+    def __init__(self, client_id, oauth_tokens=None, env=PRODUCTION, oauth_scope=MSADS_MANAGE, tenant='common',
+                 use_msa_prod=True):
+        """ Initialize an instance of this class.
 
         :param client_id: The client identifier corresponding to your registered application.
         :type client_id: str
-        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :param oauth_tokens: OAuth token information
         :type oauth_tokens: OAuthTokens
         """
-
         effective_scope = MSA_PROD if env == SANDBOX and use_msa_prod else oauth_scope
-        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env, oauth_scope=effective_scope, tenant=tenant)
-
-
+        super(OAuthDesktopMobileImplicitGrant, self).__init__(client_id, oauth_tokens=oauth_tokens, env=env,
+                                                              oauth_scope=effective_scope, tenant=tenant)
 
     def get_authorization_endpoint(self):
-        """ Gets the Microsoft Account authorization endpoint where the user should be navigated to give his or her consent.
+        """ Gets the Microsoft Account authorization endpoint for implicit grant flow.
 
         :return: The Microsoft Account authorization endpoint.
         :rtype: str
         """
-
         endpoint_url = _UriOAuthService.AUTHORIZE_URI[(self.environment, self._oauth_scope)]
         if self.environment == PRODUCTION and (self._oauth_scope == MSADS_MANAGE or self._oauth_scope == ADS_MANAGE):
-            endpoint_url = endpoint_url.replace('common', self.tenant);
+            endpoint_url = endpoint_url.replace('common', self.tenant)
+
         endpoint = str.format(
             endpoint_url,
             self.client_id,
@@ -633,17 +539,16 @@ class OAuthDesktopMobileImplicitGrant(OAuthAuthorization):
         return endpoint if self.state is None else endpoint + '&state=' + self.state
 
     def extract_access_token_from_uri(self, redirection_uri):
-        """ Extracts the access token from the specified redirect URI.
+        """ Extract the access token from the specified redirect URI.
 
-        :param redirection_uri: The redirect URI that contains an access token.
+        :param redirection_uri: The redirect URI that contains an access token
         :type redirection_uri: str
-        :return: The :class:`.OAuthTokens` object which contains both the access_token and access_token_expires_in_seconds properties.
+        :return: OAuth tokens
         :rtype: OAuthTokens
         """
-
         parameters = parse_qs(urlparse(redirection_uri).fragment)
         if 'access_token' not in parameters or len(parameters['access_token']) == 0:
-            raise ValueError(str.format("Input URI: {0} doesn't contain access_token parameter", redirection_uri))
+            raise ValueError(f"Input URI: {redirection_uri} doesn't contain access_token parameter")
         access_token = parameters['access_token'][0]
         if 'expires_in' not in parameters or len(parameters['expires_in']) == 0:
             expires_in = None

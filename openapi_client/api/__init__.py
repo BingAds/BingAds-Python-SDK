@@ -1,0 +1,8 @@
+# flake8: noqa
+
+# import apis into api package
+from openapi_client.api.bulk_service_api import BulkServiceApi
+from openapi_client.api.campaign_management_service_api import CampaignManagementServiceApi
+from openapi_client.api.reporting_service_api import ReportingServiceApi
+from openapi_client.api.customer_management_service_api import CustomerManagementServiceApi
+from openapi_client.api.customer_billing_service_api import CustomerBillingServiceApi
