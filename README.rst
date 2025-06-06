@@ -1,6 +1,6 @@
-======================
+===================
 Microsoft Ads Python SDK
-======================
+===================
 
 .. image:: https://img.shields.io/pypi/v/bingads.svg
         :target: https://pypi.python.org/pypi/bingads
@@ -16,15 +16,15 @@ For more information, see `Bing Ads Client Libraries <https://docs.microsoft.com
 Getting Started
 ---------------
 
-To get started developing Microsoft Ads applications with Python, 
-install the SDK and either start with the `examples <https://github.com/BingAds/BingAdsApiSDK/tree/main/examples>`_ or follow the documentation.
-For more information, see `Getting Started Using Python with Microsoft Ads Services <https://learn.microsoft.com/en-us/advertising/guides/get-started?view=bingads-13>`_.
+To get started developing Bing Ads applications with Python,
+install the SDK and either start with the `examples <https://github.com/BingAds/BingAds-Python-SDK/tree/master/examples>`_ or follow one of the application walkthroughs.
+For more information, see `Getting Started Using Python with Bing Ads Services <https://docs.microsoft.com/en-us/bingads/guides/get-started-python>`_.
 
 External Dependencies
 ---------------------
 
+    - `suds-community <https://pypi.org/pypi/suds-community>`_
+    
     - `requests <http://pypi.python.org/pypi/requests>`_
     
-    - `pydantic <https://pypi.python.org/pypi/pydantic>`_
-    
-    - `typing-extensions <https://pypi.python.org/pypi/typing-extensions>`_
+    - `enum34 <http://pypi.python.org/pypi/enum34>`_
