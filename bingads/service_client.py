@@ -7,6 +7,7 @@ from openapi_client.api.bulk_service_api import BulkServiceApi
 from openapi_client.api.reporting_service_api import ReportingServiceApi
 from openapi_client.api.customer_management_service_api import CustomerManagementServiceApi
 from openapi_client.api.customer_billing_service_api import CustomerBillingServiceApi
+from openapi_client.api.ad_insight_service_api import AdInsightServiceApi
 from openapi_client.model_utils import enable_alias_support
 from openapi_client.configuration import Configuration
 from openapi_client.api_client import ApiClient
@@ -347,6 +348,8 @@ class ServiceClient:
             self._api = CustomerManagementServiceApi(api_client)
         elif (service_name == 'customerbilling'):
             self._api = CustomerBillingServiceApi(api_client)
+        elif (service_name == 'adinsight'):
+            self._api = AdInsightServiceApi(api_client)
 
     @staticmethod
     def _format_service(service):

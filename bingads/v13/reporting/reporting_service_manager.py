@@ -1,5 +1,6 @@
 ﻿import tempfile
 
+from openapi_client.models.reporting import *
 from .reporting_operation import *
 from .report_file_reader import *
 from ...manifest import *
@@ -37,7 +38,7 @@ class ReportingServiceManager:
         """
 
         self._environment = environment
-        self._service_client = ServiceClient('ReportingService', 13, authorization_data, environment, **suds_options)
+        self._service_client = ServiceClient('Reporting', 13, authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._working_directory = os.path.join(tempfile.gettempdir(), WORKING_NAME)
@@ -47,7 +48,7 @@ class ReportingServiceManager:
         if not os.path.exists(self._working_directory):
             os.makedirs(self._working_directory)
         self._suds_options = suds_options
-        
+
     def download_report(self, download_parameters):
         """ Downloads the specified reporting to a local file and parse it with report_file_reader.
 
@@ -60,7 +61,7 @@ class ReportingServiceManager:
         if report_file_path:
             reader = ReportFileReader(report_file_path, download_parameters.report_request.Format)
             return reader.get_report()
-        
+
 
     def download_file(self, download_parameters):
         """ Downloads the specified reporting to a local file.
@@ -99,7 +100,10 @@ class ReportingServiceManager:
         :rtype: ReportingDownloadOperation
         """
         self.normalize_request(report_request)
-        response = self.service_client.SubmitGenerateReport(report_request)
+        submit_generate_report_request = SubmitGenerateReportRequest(
+            ReportRequest=ReportRequest(report_request)
+        )
+        response = self.service_client.SubmitGenerateReport(submit_generate_report_request)
         headers = self.service_client.get_response_header()
         operation = ReportingDownloadOperation(
             request_id=response,
@@ -115,7 +119,7 @@ class ReportingServiceManager:
 
         if report_request is None:
             return
-        
+
         if not hasattr(report_request, 'Time'):
             return
 
@@ -123,7 +127,7 @@ class ReportingServiceManager:
         and hasattr(report_request.Time.ReportTimeZone, 'value') \
         and report_request.Time.ReportTimeZone.value is None:
             report_request.Time.ReportTimeZone=None
-            
+
         if hasattr(report_request.Time, 'PredefinedTime') \
         and hasattr(report_request.Time.PredefinedTime, 'value') \
         and report_request.Time.PredefinedTime.value is None:

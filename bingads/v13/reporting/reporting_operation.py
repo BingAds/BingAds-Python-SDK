@@ -1,4 +1,5 @@
-﻿import time
+﻿import re
+import time
 import contextlib
 import ssl
 import requests
@@ -7,6 +8,7 @@ import os
 import sys
 import shutil
 
+from openapi_client.models.reporting import *
 from .reporting_operation_status import *
 from .exceptions import *
 from bingads.util import _PollingBlocker, errorcode_of_exception, ratelimit_retry_duration
@@ -52,7 +54,7 @@ class ReportingDownloadOperation(object):
                  tracking_id=None,
                  **suds_options):
         self._request_id = request_id
-        self._service_client = ServiceClient('ReportingService', 13, authorization_data, environment, **suds_options)
+        self._service_client = ServiceClient('Reporting', 13, authorization_data, environment, **suds_options)
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
@@ -104,7 +106,7 @@ class ReportingDownloadOperation(object):
         headers = {
             'User-Agent': USER_AGENT,
         }
-        
+
         with requests.Session() as s:
             s.mount('https://', TlsHttpAdapter())
             timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
@@ -166,8 +168,8 @@ class ReportingDownloadOperation(object):
         headers = self.service_client.get_response_header()
         self.tracking_id = headers['TrackingId'] if 'TrackingId' in headers else None
         status = ReportingOperationStatus(
-            status=response.Status,
-            report_download_url=response.ReportDownloadUrl
+            status=response.ReportRequestStatus.Status,
+            report_download_url=response.ReportRequestStatus.ReportDownloadUrl
             )
         if status.status == 'Success' or \
                 status.status == 'Error':
@@ -177,14 +179,24 @@ class ReportingDownloadOperation(object):
     def _get_status_with_retry(self, retry_times):
         while retry_times > 1:
             try:
-                return self.service_client.PollGenerateReport(self.request_id)
+                match = re.search(r"report_request_id='(.*?)'", str(self.request_id))
+                request_id = match.group(1) if match else self.request_id
+                poll_generate_report_request = PollGenerateReportRequest(
+                    report_request_id=str(request_id)
+                )
+                return self.service_client.PollGenerateReport(poll_generate_report_request)
             except Exception as ex:
                 retry_times -= 1
                 if '117' == errorcode_of_exception(ex):
                     time.sleep(ratelimit_retry_duration[3 - retry_times])
                 else:
                     time.sleep(1)
-        return self.service_client.PollGenerateReport(self.request_id)
+        match = re.search(r"report_request_id='(.*?)'", str(self.request_id))
+        request_id = match.group(1) if match else self.request_id
+        poll_generate_report_request = PollGenerateReportRequest(
+            report_request_id=str(request_id)
+        )
+        return self.service_client.PollGenerateReport(poll_generate_report_request)
 
     @property
     def request_id(self):
