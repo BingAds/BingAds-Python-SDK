@@ -52,6 +52,7 @@ setup(
         'openapi_client.models.reporting',
         'openapi_client.models.customer',
         'openapi_client.models.billing',
+        'openapi_client.models.adinsight',
     ],
     include_package_data=True,
     install_requires=requirements,
