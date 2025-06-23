@@ -14,6 +14,7 @@ requirements = [
     'suds-community>=1.1.0',
     'requests',
     'enum34;python_version<"3.9"',
+    'importlib_resources>=1.3;python_version<"3.9"'
 ]
 
 setup(

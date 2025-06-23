@@ -304,14 +304,18 @@ class _ServiceCall:
         return self._name
 
 
-import pkg_resources
+import sys
+if sys.version_info >= (3, 9):
+    import importlib.resources as importlib_resources
+else:
+    import importlib_resources
 import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
 
 # this is used to create entity only. Given the sandbox should have the same contract, we are good to use sandbox wsdl.
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'), cache=DictCache())
+    'file:///' + importlib_resources.files('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'), cache=DictCache())
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
 _CAMPAIGN_OBJECT_FACTORY_V13.builder = BingAdsBuilder(_CAMPAIGN_OBJECT_FACTORY_V13.builder.resolver)
 
