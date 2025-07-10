@@ -199,6 +199,10 @@
                <xs:enumeration value="NewCustomerConversionRate" />
                <xs:enumeration value="NewCustomerCPA" />
                <xs:enumeration value="NewCustomerReturnOnAdSpend" />
+               <xs:enumeration value="ConversionDelay" />
+               <xs:enumeration value="UnknownCustomerConversions" />
+               <xs:enumeration value="UnknownCustomerRevenue" />
+               <xs:enumeration value="NewCustomerCount" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AccountPerformanceReportColumn" nillable="true" type="tns:AccountPerformanceReportColumn" />
@@ -991,6 +995,10 @@
                <xs:enumeration value="NewCustomerConversionRate" />
                <xs:enumeration value="NewCustomerCPA" />
                <xs:enumeration value="NewCustomerReturnOnAdSpend" />
+               <xs:enumeration value="ConversionDelay" />
+               <xs:enumeration value="UnknownCustomerConversions" />
+               <xs:enumeration value="UnknownCustomerRevenue" />
+               <xs:enumeration value="NewCustomerCount" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CampaignPerformanceReportColumn" nillable="true" type="tns:CampaignPerformanceReportColumn" />
@@ -2232,6 +2240,21 @@
                <xs:enumeration value="AssetGroupId" />
                <xs:enumeration value="AssetGroupName" />
                <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="AppName" />
+               <xs:enumeration value="AppBundle" />
+               <xs:enumeration value="AppStoreUrl" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="PublisherUsagePerformanceReportColumn" nillable="true" type="tns:PublisherUsagePerformanceReportColumn" />
@@ -2487,6 +2510,7 @@
                <xs:enumeration value="AssetGroupId" />
                <xs:enumeration value="AssetGroupName" />
                <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="ConversionDelay" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="GoalsAndFunnelsReportColumn" nillable="true" type="tns:GoalsAndFunnelsReportColumn" />
@@ -4354,6 +4378,7 @@
                <xs:enumeration value="Conversions" />
                <xs:enumeration value="Revenue" />
                <xs:enumeration value="ReturnOnAdSpend" />
+               <xs:enumeration value="CampaignType" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AssetGroupPerformanceReportColumn" nillable="true" type="tns:AssetGroupPerformanceReportColumn" />
@@ -4724,6 +4749,119 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AppsPerformanceReportFilter" nillable="true" type="tns:AppsPerformanceReportFilter" />
+         <xs:complexType name="FeedItemPerformanceReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Aggregation" type="tns:ReportAggregation" />
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfFeedItemPerformanceReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:FeedItemPerformanceReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountThroughAdGroupReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="FeedItemPerformanceReportRequest" nillable="true" type="tns:FeedItemPerformanceReportRequest" />
+         <xs:complexType name="ArrayOfFeedItemPerformanceReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="FeedItemPerformanceReportColumn" type="tns:FeedItemPerformanceReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfFeedItemPerformanceReportColumn" nillable="true" type="tns:ArrayOfFeedItemPerformanceReportColumn" />
+         <xs:simpleType name="FeedItemPerformanceReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="TimePeriod" />
+               <xs:enumeration value="AccountId" />
+               <xs:enumeration value="AccountName" />
+               <xs:enumeration value="AccountNumber" />
+               <xs:enumeration value="CampaignId" />
+               <xs:enumeration value="CampaignName" />
+               <xs:enumeration value="AdGroupId" />
+               <xs:enumeration value="AdId" />
+               <xs:enumeration value="FeedId" />
+               <xs:enumeration value="FeedItemId" />
+               <xs:enumeration value="Impressions" />
+               <xs:enumeration value="Clicks" />
+               <xs:enumeration value="Spend" />
+               <xs:enumeration value="Ctr" />
+               <xs:enumeration value="AverageCpc" />
+               <xs:enumeration value="AveragePosition" />
+               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="Assists" />
+               <xs:enumeration value="Revenue" />
+               <xs:enumeration value="ExtendedCost" />
+               <xs:enumeration value="ConversionsQualified" />
+               <xs:enumeration value="ConversionRate" />
+               <xs:enumeration value="CostPerConversion" />
+               <xs:enumeration value="ReturnOnAdSpend" />
+               <xs:enumeration value="CostPerAssist" />
+               <xs:enumeration value="RevenuePerConversion" />
+               <xs:enumeration value="RevenuePerAssist" />
+               <xs:enumeration value="AllConversions" />
+               <xs:enumeration value="AllConversionsQualified" />
+               <xs:enumeration value="AllRevenue" />
+               <xs:enumeration value="AllCostPerConversion" />
+               <xs:enumeration value="AllConversionRate" />
+               <xs:enumeration value="AllRevenuePerConversion" />
+               <xs:enumeration value="AllReturnOnAdSpend" />
+               <xs:enumeration value="ViewThroughConversions" />
+               <xs:enumeration value="ViewThroughConversionsQualified" />
+               <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="ViewThroughConversionRate" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="FeedItemPerformanceReportColumn" nillable="true" type="tns:FeedItemPerformanceReportColumn" />
+         <xs:complexType name="FeedItemPerformanceReportFilter">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:element name="FeedItemPerformanceReportFilter" nillable="true" type="tns:FeedItemPerformanceReportFilter" />
+         <xs:complexType name="TravelQueryInsightReportRequest">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ReportRequest">
+                  <xs:sequence>
+                     <xs:element name="Columns" nillable="true" type="tns:ArrayOfTravelQueryInsightReportColumn" />
+                     <xs:element minOccurs="0" name="Filter" nillable="true" type="tns:TravelQueryInsightReportFilter" />
+                     <xs:element name="Scope" nillable="true" type="tns:AccountReportScope" />
+                     <xs:element name="Time" nillable="true" type="tns:ReportTime" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="TravelQueryInsightReportRequest" nillable="true" type="tns:TravelQueryInsightReportRequest" />
+         <xs:complexType name="ArrayOfTravelQueryInsightReportColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="TravelQueryInsightReportColumn" type="tns:TravelQueryInsightReportColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfTravelQueryInsightReportColumn" nillable="true" type="tns:ArrayOfTravelQueryInsightReportColumn" />
+         <xs:simpleType name="TravelQueryInsightReportColumn">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="SearchQuery" />
+               <xs:enumeration value="Country" />
+               <xs:enumeration value="Region" />
+               <xs:enumeration value="MetroArea" />
+               <xs:enumeration value="City" />
+               <xs:enumeration value="PostalCode" />
+               <xs:enumeration value="L1Vertical" />
+               <xs:enumeration value="L2Vertical" />
+               <xs:enumeration value="L3Vertical" />
+               <xs:enumeration value="POSCountry" />
+               <xs:enumeration value="POSRegion" />
+               <xs:enumeration value="POSCity" />
+               <xs:enumeration value="BrandImpressions" />
+               <xs:enumeration value="BrandClicks" />
+               <xs:enumeration value="BrandSpend" />
+               <xs:enumeration value="MSAImpressions" />
+               <xs:enumeration value="MSAClicks" />
+               <xs:enumeration value="MSASpend" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="TravelQueryInsightReportColumn" nillable="true" type="tns:TravelQueryInsightReportColumn" />
+         <xs:complexType name="TravelQueryInsightReportFilter">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:element name="TravelQueryInsightReportFilter" nillable="true" type="tns:TravelQueryInsightReportFilter" />
          <xs:element name="ApplicationToken" nillable="true" type="xs:string" />
          <xs:element name="AuthenticationToken" nillable="true" type="xs:string" />
          <xs:element name="CustomerAccountId" nillable="true" type="xs:string" />

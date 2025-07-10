@@ -726,6 +726,14 @@
                <xs:element minOccurs="0" name="PercentOff" nillable="true" type="xs:double" />
                <xs:element minOccurs="0" name="CouponValue" nillable="true" type="xs:decimal" />
                <xs:element minOccurs="0" name="UpfrontSpending" nillable="true" type="xs:decimal" />
+               <xs:element minOccurs="0" name="ActiveDuration" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="SpendToThreshold" nillable="true" type="xs:decimal" />
+               <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Balance" nillable="true" type="xs:decimal" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="FeatureId" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="CouponType" nillable="true" type="xs:unsignedByte" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CouponInfoData" nillable="true" type="tns:CouponInfoData" />

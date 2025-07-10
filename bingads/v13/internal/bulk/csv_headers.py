@@ -535,6 +535,8 @@ class _CsvHeaders:
         _StringTable.NewCustomerAcquisitionGoalId,
         _StringTable.NewCustomerAcquisitionBidOnlyMode,
 
+        _StringTable.AccountPlacementListItemUrl,
+
     ]
 
     @staticmethod

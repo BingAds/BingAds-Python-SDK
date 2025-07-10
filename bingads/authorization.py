@@ -692,7 +692,7 @@ class _UriOAuthService:
         (PRODUCTION, ADS_MANAGE):     'https://ads.microsoft.com/ads.manage offline_access',
         (PRODUCTION, BINGADS_MANAGE): 'bingads.manage',
         (SANDBOX, MSADS_MANAGE):      'https://api.ads.microsoft.com/msads.manage offline_access',
-        (SANDBOX, MSA_PROD):          'https://si.ads.microsoft.com'
+        (SANDBOX, MSA_PROD):          'https://si.ads.microsoft.com/msads.manage offline_access'
     }
 
     @staticmethod

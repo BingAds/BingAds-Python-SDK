@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.24.2'
+VERSION = '13.0.25'
 
 with open('README.rst', 'r') as f:
     readme = f.read()

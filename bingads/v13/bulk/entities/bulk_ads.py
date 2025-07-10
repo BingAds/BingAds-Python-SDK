@@ -115,7 +115,7 @@ class _BulkAd(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c.ad.Status),
-            csv_to_field=lambda c, v: setattr(c.ad, 'Status', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.ad, v, 'Status', AdStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -140,7 +140,7 @@ class _BulkAd(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.EditorialStatus,
             field_to_csv=lambda c: c.ad.EditorialStatus,
-            csv_to_field=lambda c, v: setattr(c.ad, 'EditorialStatus', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.ad, v, 'EditorialStatus', AdEditorialStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.DevicePreference,
