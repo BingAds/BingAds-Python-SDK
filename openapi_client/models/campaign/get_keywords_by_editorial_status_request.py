@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.keyword_additional_field import KeywordAdditionalField
 from openapi_client.models.campaign.keyword_editorial_status import KeywordEditorialStatus
 from typing_extensions import Self
 
@@ -29,7 +30,8 @@ class GetKeywordsByEditorialStatusRequest(BaseModel):
     """ # noqa: E501
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
     editorial_status: Optional[KeywordEditorialStatus] = Field(default=None, alias="EditorialStatus")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "EditorialStatus"]
+    return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
+    __properties: ClassVar[List[str]] = ["AdGroupId", "EditorialStatus", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,6 +68,11 @@ class GetKeywordsByEditorialStatusRequest(BaseModel):
         if self.editorial_status is None and "editorial_status" in self.model_fields_set:
             _dict['EditorialStatus'] = None
 
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         return _dict
 
     @classmethod
@@ -79,6 +86,7 @@ class GetKeywordsByEditorialStatusRequest(BaseModel):
 
         _obj = cls.model_validate({
             "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None
+                        "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

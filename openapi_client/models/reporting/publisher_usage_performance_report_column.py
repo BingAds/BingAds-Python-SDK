@@ -130,6 +130,36 @@ class PublisherUsagePerformanceReportColumn(str, Enum):
 
     ASSETGROUPSTATUS = 'AssetGroupStatus'
 
+    APPNAME = 'AppName'
+
+    APPBUNDLE = 'AppBundle'
+
+    APPSTOREURL = 'AppStoreUrl'
+
+    DOWNLOADS = 'Downloads'
+
+    POSTCLICKDOWNLOADRATE = 'PostClickDownloadRate'
+
+    COSTPERDOWNLOAD = 'CostPerDownload'
+
+    APPINSTALLS = 'AppInstalls'
+
+    POSTCLICKINSTALLRATE = 'PostClickInstallRate'
+
+    CPI = 'CPI'
+
+    PURCHASES = 'Purchases'
+
+    POSTINSTALLPURCHASERATE = 'PostInstallPurchaseRate'
+
+    CPP = 'CPP'
+
+    SUBSCRIPTIONS = 'Subscriptions'
+
+    POSTINSTALLSUBSCRIPTIONRATE = 'PostInstallSubscriptionRate'
+
+    CPS = 'CPS'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -24,6 +24,8 @@ class AudienceAdditionalField(Flag):
 
     IMPRESSIONBASEDREMARKETINGLIST = auto()
 
+    CAMPAIGNIDSADGROUPIDS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""

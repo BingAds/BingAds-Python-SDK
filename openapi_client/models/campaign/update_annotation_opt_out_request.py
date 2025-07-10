@@ -28,9 +28,8 @@ class UpdateAnnotationOptOutRequest(BaseModel):
     UpdateAnnotationOptOutRequest
     """ # noqa: E501
     justification: Optional[StrictStr] = Field(default=None, alias="Justification")
-    ticket_number: Optional[StrictStr] = Field(default=None, alias="TicketNumber")
     annotation_opt_outs: Optional[List[Optional[AnnotationOptOut]]] = Field(default=None, alias="AnnotationOptOuts")
-    __properties: ClassVar[List[str]] = ["Justification", "TicketNumber", "AnnotationOptOuts"]
+    __properties: ClassVar[List[str]] = ["Justification", "AnnotationOptOuts"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -69,11 +68,6 @@ class UpdateAnnotationOptOutRequest(BaseModel):
         if self.justification is None and "justification" in self.model_fields_set:
             _dict['Justification'] = None
 
-        # set to None if ticket_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.ticket_number is None and "ticket_number" in self.model_fields_set:
-            _dict['TicketNumber'] = None
-
         # set to None if annotation_opt_outs (nullable) is None
         # and model_fields_set contains the field
         if self.annotation_opt_outs is None and "annotation_opt_outs" in self.model_fields_set:
@@ -92,7 +86,6 @@ class UpdateAnnotationOptOutRequest(BaseModel):
 
         _obj = cls.model_validate({
             "Justification": obj.get("Justification") if obj.get("Justification") is not None else None,
-                        "TicketNumber": obj.get("TicketNumber") if obj.get("TicketNumber") is not None else None,
                         "AnnotationOptOuts": [AnnotationOptOut.from_dict(_item) for _item in obj["AnnotationOptOuts"]] if obj.get("AnnotationOptOuts") is not None else None
         })
         return _obj

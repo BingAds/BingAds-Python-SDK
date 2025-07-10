@@ -54,6 +54,8 @@ class AssetGroupPerformanceReportColumn(str, Enum):
 
     RETURNONADSPEND = 'ReturnOnAdSpend'
 
+    CAMPAIGNTYPE = 'CampaignType'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

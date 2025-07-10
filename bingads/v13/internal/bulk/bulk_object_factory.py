@@ -234,6 +234,12 @@ class _BulkObjectFactory():
         _StringTable.CampaignBrandList: _EntityInfo(lambda: BulkCampaignBrandListAssociation()),
         _StringTable.AssetGroupUrlTarget: _EntityInfo(lambda: BulkAssetGroupUrlTarget()),
         _StringTable.NewCustomerAcquisitionGoal: _EntityInfo(lambda: BulkNewCustomerAcquisitionGoal()),
+        _StringTable.AccountPlacementExclusionList: _EntityInfo(lambda: BulkAccountPlacementExclusionList()),
+        _StringTable.AccountPlacementExclusionListItem: _EntityInfo(lambda: BulkSharedNegativeSite()),
+        _StringTable.CampaignAccountPlacementListAssociation: _EntityInfo(lambda: BulkAccountPlacementExclusionListAssociation()),
+        _StringTable.AccountPlacementInclusionList: _EntityInfo(lambda: BulkAccountPlacementInclusionList()),
+        _StringTable.AccountPlacementInclusionListItem: _EntityInfo(lambda: BulkSharedSite()),
+        _StringTable.CampaignAccountPlacementInclusionListAssociation: _EntityInfo(lambda: BulkAccountPlacementInclusionListAssociation()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

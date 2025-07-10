@@ -20,7 +20,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.brand_kit_additional_field import BrandKitAdditionalField
 from typing_extensions import Self
 
 class GetBrandKitsByIdsRequest(BaseModel):
@@ -29,8 +28,7 @@ class GetBrandKitsByIdsRequest(BaseModel):
     """ # noqa: E501
     account_id: Optional[StrictStr] = Field(default=None, alias="AccountId")
     brand_kit_ids: Optional[List[StrictStr]] = Field(default=None, alias="BrandKitIds")
-    return_additional_fields: Optional[BrandKitAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["AccountId", "BrandKitIds", "ReturnAdditionalFields"]
+    __properties: ClassVar[List[str]] = ["AccountId", "BrandKitIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,11 +65,6 @@ class GetBrandKitsByIdsRequest(BaseModel):
         if self.brand_kit_ids is None and "brand_kit_ids" in self.model_fields_set:
             _dict['BrandKitIds'] = None
 
-        # set to None if return_additional_fields (nullable) is None
-        # and model_fields_set contains the field
-        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
-            _dict['ReturnAdditionalFields'] = None
-
         return _dict
 
     @classmethod
@@ -85,7 +78,6 @@ class GetBrandKitsByIdsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "AccountId": obj.get("AccountId") if obj.get("AccountId") is not None else None,
-                        "BrandKitIds": obj.get("BrandKitIds"),
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+                        "BrandKitIds": obj.get("BrandKitIds")
         })
         return _obj

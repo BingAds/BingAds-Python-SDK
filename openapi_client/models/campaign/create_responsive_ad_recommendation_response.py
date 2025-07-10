@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_recommendation_image_suggestion import AdRecommendationImageSuggestion
+from openapi_client.models.campaign.ad_recommendation_job_info import AdRecommendationJobInfo
 from openapi_client.models.campaign.ad_recommendation_video_suggestion import AdRecommendationVideoSuggestion
 from openapi_client.models.campaign.responsive_ad import ResponsiveAd
 from typing_extensions import Self
@@ -33,7 +34,8 @@ class CreateResponsiveAdRecommendationResponse(BaseModel):
     image_suggestions: Optional[List[Optional[AdRecommendationImageSuggestion]]] = Field(default=None, alias="ImageSuggestions")
     video_suggestions: Optional[List[Optional[AdRecommendationVideoSuggestion]]] = Field(default=None, alias="VideoSuggestions")
     prompt_brand_warning: Optional[StrictStr] = Field(default=None, alias="PromptBrandWarning")
-    __properties: ClassVar[List[str]] = ["ResponsiveAd", "ImageSuggestions", "VideoSuggestions", "PromptBrandWarning"]
+    job_info: Optional[AdRecommendationJobInfo] = Field(default=None, alias="JobInfo")
+    __properties: ClassVar[List[str]] = ["ResponsiveAd", "ImageSuggestions", "VideoSuggestions", "PromptBrandWarning", "JobInfo"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -77,6 +79,9 @@ class CreateResponsiveAdRecommendationResponse(BaseModel):
                 if _item_video_suggestions:
                     _items.append(_item_video_suggestions.to_dict())
             _dict['VideoSuggestions'] = _items
+        # override the default output from pydantic by calling `to_dict()` of job_info
+        if self.job_info:
+            _dict['JobInfo'] = self.job_info.to_dict()
         # set to None if responsive_ad (nullable) is None
         # and model_fields_set contains the field
         if self.responsive_ad is None and "responsive_ad" in self.model_fields_set:
@@ -97,6 +102,11 @@ class CreateResponsiveAdRecommendationResponse(BaseModel):
         if self.prompt_brand_warning is None and "prompt_brand_warning" in self.model_fields_set:
             _dict['PromptBrandWarning'] = None
 
+        # set to None if job_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.job_info is None and "job_info" in self.model_fields_set:
+            _dict['JobInfo'] = None
+
         return _dict
 
     @classmethod
@@ -112,6 +122,7 @@ class CreateResponsiveAdRecommendationResponse(BaseModel):
             "ResponsiveAd": ResponsiveAd.from_dict(obj["ResponsiveAd"]) if obj.get("ResponsiveAd") is not None else None,
                         "ImageSuggestions": [AdRecommendationImageSuggestion.from_dict(_item) for _item in obj["ImageSuggestions"]] if obj.get("ImageSuggestions") is not None else None,
                         "VideoSuggestions": [AdRecommendationVideoSuggestion.from_dict(_item) for _item in obj["VideoSuggestions"]] if obj.get("VideoSuggestions") is not None else None,
-                        "PromptBrandWarning": obj.get("PromptBrandWarning") if obj.get("PromptBrandWarning") is not None else None
+                        "PromptBrandWarning": obj.get("PromptBrandWarning") if obj.get("PromptBrandWarning") is not None else None,
+                        "JobInfo": AdRecommendationJobInfo.from_dict(obj["JobInfo"]) if obj.get("JobInfo") is not None else None
         })
         return _obj

@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.keyword_additional_field import KeywordAdditionalField
 from typing_extensions import Self
 
 class GetKeywordsByAdGroupIdRequest(BaseModel):
@@ -27,7 +28,8 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
     GetKeywordsByAdGroupIdRequest
     """ # noqa: E501
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    __properties: ClassVar[List[str]] = ["AdGroupId"]
+    return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
+    __properties: ClassVar[List[str]] = ["AdGroupId", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,6 +61,11 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
 
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         return _dict
 
     @classmethod
@@ -71,6 +78,7 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None
+            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

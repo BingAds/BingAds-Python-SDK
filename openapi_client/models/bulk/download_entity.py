@@ -404,6 +404,12 @@ class DownloadEntity(str, Enum):
 
     CAMPAIGNACCOUNTPLACEMENTINCLUSIONLISTASSOCIATION = 'CampaignAccountPlacementInclusionListAssociation'
 
+    TOPIC = 'Topic'
+
+    CONTENTPLACEMENT = 'ContentPlacement'
+
+    BRANDKIT = 'BrandKit'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

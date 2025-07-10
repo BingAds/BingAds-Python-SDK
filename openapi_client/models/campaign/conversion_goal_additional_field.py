@@ -30,6 +30,8 @@ class ConversionGoalAdditionalField(Flag):
 
     ISENHANCEDCONVERSIONSENABLED = auto()
 
+    ISAUTOGOAL = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""

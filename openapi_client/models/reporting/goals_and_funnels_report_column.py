@@ -78,6 +78,8 @@ class GoalsAndFunnelsReportColumn(str, Enum):
 
     ASSETGROUPSTATUS = 'AssetGroupStatus'
 
+    CONVERSIONDELAY = 'ConversionDelay'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

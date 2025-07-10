@@ -29,7 +29,8 @@ class BrandKitPalette(BaseModel):
     """ # noqa: E501
     colors: Optional[List[Optional[BrandKitColor]]] = Field(default=None, alias="Colors")
     color_type: Optional[StrictStr] = Field(default=None, alias="ColorType")
-    __properties: ClassVar[List[str]] = ["Colors", "ColorType"]
+    name: Optional[StrictStr] = Field(default=None, alias="Name")
+    __properties: ClassVar[List[str]] = ["Colors", "ColorType", "Name"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -73,6 +74,11 @@ class BrandKitPalette(BaseModel):
         if self.color_type is None and "color_type" in self.model_fields_set:
             _dict['ColorType'] = None
 
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['Name'] = None
+
         return _dict
 
     @classmethod
@@ -86,6 +92,7 @@ class BrandKitPalette(BaseModel):
 
         _obj = cls.model_validate({
             "Colors": [BrandKitColor.from_dict(_item) for _item in obj["Colors"]] if obj.get("Colors") is not None else None,
-                        "ColorType": obj.get("ColorType") if obj.get("ColorType") is not None else None
+                        "ColorType": obj.get("ColorType") if obj.get("ColorType") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None
         })
         return _obj

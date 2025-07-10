@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.portfolio_bid_strategy_additional_field import PortfolioBidStrategyAdditionalField
 from typing_extensions import Self
 
 class GetBidStrategiesByIdsRequest(BaseModel):
@@ -27,7 +28,8 @@ class GetBidStrategiesByIdsRequest(BaseModel):
     GetBidStrategiesByIdsRequest
     """ # noqa: E501
     bid_strategy_ids: Optional[List[StrictStr]] = Field(default=None, alias="BidStrategyIds")
-    __properties: ClassVar[List[str]] = ["BidStrategyIds"]
+    return_additional_fields: Optional[PortfolioBidStrategyAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
+    __properties: ClassVar[List[str]] = ["BidStrategyIds", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,6 +61,11 @@ class GetBidStrategiesByIdsRequest(BaseModel):
         if self.bid_strategy_ids is None and "bid_strategy_ids" in self.model_fields_set:
             _dict['BidStrategyIds'] = None
 
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         return _dict
 
     @classmethod
@@ -71,6 +78,7 @@ class GetBidStrategiesByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "BidStrategyIds": obj.get("BidStrategyIds")
+            "BidStrategyIds": obj.get("BidStrategyIds"),
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

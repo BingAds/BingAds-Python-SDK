@@ -51,13 +51,14 @@ from openapi_client.models.campaign.profile_criterion import ProfileCriterion
 from openapi_client.models.campaign.profile_type import ProfileType
 from openapi_client.models.campaign.radius_criterion import RadiusCriterion
 from openapi_client.models.campaign.store_criterion import StoreCriterion
+from openapi_client.models.campaign.topic_criterion import TopicCriterion
 from openapi_client.models.campaign.webpage import Webpage
 from openapi_client.models.campaign.webpage_parameter import WebpageParameter
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
 
-Criterion_ONE_OF_SCHEMAS = ["AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "Webpage"]
+Criterion_ONE_OF_SCHEMAS = ["AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "TopicCriterion", "Webpage"]
 
 class Criterion(BaseModel):
     """
@@ -105,10 +106,12 @@ class Criterion(BaseModel):
     oneof_schema_radius_criterion_validator: Optional[RadiusCriterion] = None
     # data type: StoreCriterion
     oneof_schema_store_criterion_validator: Optional[StoreCriterion] = None
+    # data type: TopicCriterion
+    oneof_schema_topic_criterion_validator: Optional[TopicCriterion] = None
     # data type: Webpage
     oneof_schema_webpage_validator: Optional[Webpage] = None
-    actual_instance: Optional[Union[AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage]] = None
-    one_of_schemas: Set[str] = { "AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "Webpage" }
+    actual_instance: Optional[Union[AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage]] = None
+    one_of_schemas: Set[str] = { "AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "TopicCriterion", "Webpage" }
 
     model_config = ConfigDict(
         validate_assignment=True,
@@ -241,6 +244,11 @@ class Criterion(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `StoreCriterion`")
         else:
             match += 1
+        # validate data type: TopicCriterion
+        if not isinstance(v, TopicCriterion):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `TopicCriterion`")
+        else:
+            match += 1
         # validate data type: Webpage
         if not isinstance(v, Webpage):
             error_messages.append(f"Error! Input type `{type(v)}` is not `Webpage`")
@@ -248,10 +256,10 @@ class Criterion(BaseModel):
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -377,6 +385,11 @@ class Criterion(BaseModel):
 		# check if data type is `StoreCriterion`
         if _data_type == "StoreCriterion":
             instance.actual_instance = StoreCriterion.from_json(json_str)
+            return instance
+			
+		# check if data type is `TopicCriterion`
+        if _data_type == "TopicCriterion":
+            instance.actual_instance = TopicCriterion.from_json(json_str)
             return instance
 			
 		# check if data type is `Webpage`
@@ -511,6 +524,12 @@ class Criterion(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into TopicCriterion
+        try:
+            instance.actual_instance = TopicCriterion.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
         # deserialize data into Webpage
         try:
             instance.actual_instance = Webpage.from_json(json_str)
@@ -520,10 +539,10 @@ class Criterion(BaseModel):
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
         else:
             return instance
 
@@ -537,7 +556,7 @@ class Criterion(BaseModel):
         else:
             return json.dumps(self.actual_instance)
 
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, Webpage]]:
+    def to_dict(self) -> Optional[Union[Dict[str, Any], AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage]]:
         """Returns the dict representation of the actual instance"""
         if self.actual_instance is None:
             return None
@@ -560,7 +579,7 @@ class Criterion(BaseModel):
 
     def __setattr__(self, name, value):
         """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_age_criterion_validator', 'oneof_schema_audience_criterion_validator', 'oneof_schema_day_time_criterion_validator', 'oneof_schema_deal_criterion_validator', 'oneof_schema_device_criterion_validator', 'oneof_schema_gender_criterion_validator', 'oneof_schema_genre_criterion_validator', 'oneof_schema_hotel_advance_booking_window_criterion_validator', 'oneof_schema_hotel_check_in_date_criterion_validator', 'oneof_schema_hotel_check_in_day_criterion_validator', 'oneof_schema_hotel_date_selection_type_criterion_validator', 'oneof_schema_hotel_group_validator', 'oneof_schema_hotel_length_of_stay_criterion_validator', 'oneof_schema_location_criterion_validator', 'oneof_schema_location_intent_criterion_validator', 'oneof_schema_placement_criterion_validator', 'oneof_schema_product_partition_validator', 'oneof_schema_product_scope_validator', 'oneof_schema_profile_criterion_validator', 'oneof_schema_radius_criterion_validator', 'oneof_schema_store_criterion_validator', 'oneof_schema_webpage_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
+        if name in ['actual_instance', 'oneof_schema_age_criterion_validator', 'oneof_schema_audience_criterion_validator', 'oneof_schema_day_time_criterion_validator', 'oneof_schema_deal_criterion_validator', 'oneof_schema_device_criterion_validator', 'oneof_schema_gender_criterion_validator', 'oneof_schema_genre_criterion_validator', 'oneof_schema_hotel_advance_booking_window_criterion_validator', 'oneof_schema_hotel_check_in_date_criterion_validator', 'oneof_schema_hotel_check_in_day_criterion_validator', 'oneof_schema_hotel_date_selection_type_criterion_validator', 'oneof_schema_hotel_group_validator', 'oneof_schema_hotel_length_of_stay_criterion_validator', 'oneof_schema_location_criterion_validator', 'oneof_schema_location_intent_criterion_validator', 'oneof_schema_placement_criterion_validator', 'oneof_schema_product_partition_validator', 'oneof_schema_product_scope_validator', 'oneof_schema_profile_criterion_validator', 'oneof_schema_radius_criterion_validator', 'oneof_schema_store_criterion_validator', 'oneof_schema_topic_criterion_validator', 'oneof_schema_webpage_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
             super().__setattr__(name, value)
         elif self.actual_instance is not None and hasattr(self.actual_instance, name):
             setattr(self.actual_instance, name, value)

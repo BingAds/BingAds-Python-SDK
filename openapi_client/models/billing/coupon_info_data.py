@@ -35,7 +35,15 @@ class CouponInfoData(BaseModel):
     percent_off: Optional[StrictFloat] = Field(default=None, alias="PercentOff")
     coupon_value: Optional[StrictFloat] = Field(default=None, alias="CouponValue")
     upfront_spending: Optional[StrictFloat] = Field(default=None, alias="UpfrontSpending")
-    __properties: ClassVar[List[str]] = ["AccountId", "CouponId", "ClaimDate", "Status", "RedemptionDate", "ExpirationDate", "PercentOff", "CouponValue", "UpfrontSpending"]
+    active_duration: Optional[StrictInt] = Field(default=None, alias="ActiveDuration")
+    spend_to_threshold: Optional[StrictFloat] = Field(default=None, alias="SpendToThreshold")
+    start_date: Optional[datetime] = Field(default=None, alias="StartDate")
+    end_date: Optional[datetime] = Field(default=None, alias="EndDate")
+    balance: Optional[StrictFloat] = Field(default=None, alias="Balance")
+    currency_code: Optional[StrictStr] = Field(default=None, alias="CurrencyCode")
+    feature_id: Optional[StrictInt] = Field(default=None, alias="FeatureId")
+    coupon_type: Optional[StrictInt] = Field(default=None, alias="CouponType")
+    __properties: ClassVar[List[str]] = ["AccountId", "CouponId", "ClaimDate", "Status", "RedemptionDate", "ExpirationDate", "PercentOff", "CouponValue", "UpfrontSpending", "ActiveDuration", "SpendToThreshold", "StartDate", "EndDate", "Balance", "CurrencyCode", "FeatureId", "CouponType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -107,6 +115,46 @@ class CouponInfoData(BaseModel):
         if self.upfront_spending is None and "upfront_spending" in self.model_fields_set:
             _dict['UpfrontSpending'] = None
 
+        # set to None if active_duration (nullable) is None
+        # and model_fields_set contains the field
+        if self.active_duration is None and "active_duration" in self.model_fields_set:
+            _dict['ActiveDuration'] = None
+
+        # set to None if spend_to_threshold (nullable) is None
+        # and model_fields_set contains the field
+        if self.spend_to_threshold is None and "spend_to_threshold" in self.model_fields_set:
+            _dict['SpendToThreshold'] = None
+
+        # set to None if start_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_date is None and "start_date" in self.model_fields_set:
+            _dict['StartDate'] = None
+
+        # set to None if end_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.end_date is None and "end_date" in self.model_fields_set:
+            _dict['EndDate'] = None
+
+        # set to None if balance (nullable) is None
+        # and model_fields_set contains the field
+        if self.balance is None and "balance" in self.model_fields_set:
+            _dict['Balance'] = None
+
+        # set to None if currency_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.currency_code is None and "currency_code" in self.model_fields_set:
+            _dict['CurrencyCode'] = None
+
+        # set to None if feature_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.feature_id is None and "feature_id" in self.model_fields_set:
+            _dict['FeatureId'] = None
+
+        # set to None if coupon_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.coupon_type is None and "coupon_type" in self.model_fields_set:
+            _dict['CouponType'] = None
+
         return _dict
 
     @classmethod
@@ -127,6 +175,14 @@ class CouponInfoData(BaseModel):
                         "ExpirationDate": obj.get("ExpirationDate") if obj.get("ExpirationDate") is not None else None,
                         "PercentOff": obj.get("PercentOff") if obj.get("PercentOff") is not None else None,
                         "CouponValue": obj.get("CouponValue") if obj.get("CouponValue") is not None else None,
-                        "UpfrontSpending": obj.get("UpfrontSpending") if obj.get("UpfrontSpending") is not None else None
+                        "UpfrontSpending": obj.get("UpfrontSpending") if obj.get("UpfrontSpending") is not None else None,
+                        "ActiveDuration": obj.get("ActiveDuration") if obj.get("ActiveDuration") is not None else None,
+                        "SpendToThreshold": obj.get("SpendToThreshold") if obj.get("SpendToThreshold") is not None else None,
+                        "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
+                        "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
+                        "Balance": obj.get("Balance") if obj.get("Balance") is not None else None,
+                        "CurrencyCode": obj.get("CurrencyCode") if obj.get("CurrencyCode") is not None else None,
+                        "FeatureId": obj.get("FeatureId") if obj.get("FeatureId") is not None else None,
+                        "CouponType": obj.get("CouponType") if obj.get("CouponType") is not None else None
         })
         return _obj

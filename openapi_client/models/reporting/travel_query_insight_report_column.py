@@ -42,17 +42,17 @@ class TravelQueryInsightReportColumn(str, Enum):
 
     POSCITY = 'POSCity'
 
-    ADVERTISERIMPRESSIONS = 'AdvertiserImpressions'
+    BRANDIMPRESSIONS = 'BrandImpressions'
 
-    ADVERTISERCLICKS = 'AdvertiserClicks'
+    BRANDCLICKS = 'BrandClicks'
 
-    ADVERTISERSPEND = 'AdvertiserSpend'
+    BRANDSPEND = 'BrandSpend'
 
-    BINGIMPRESSIONS = 'BingImpressions'
+    MSAIMPRESSIONS = 'MSAImpressions'
 
-    BINGCLICKS = 'BingClicks'
+    MSACLICKS = 'MSAClicks'
 
-    BINGSPEND = 'BingSpend'
+    MSASPEND = 'MSASpend'
 
 	
     @classmethod

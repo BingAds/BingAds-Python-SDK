@@ -48,7 +48,8 @@ class InStoreTransactionGoal(BaseModel):
     goal_category: Optional[ConversionGoalCategory] = Field(default=None, alias="GoalCategory")
     attribution_model_type: Optional[AttributionModelType] = Field(default=None, alias="AttributionModelType")
     is_enhanced_conversions_enabled: Optional[StrictBool] = Field(default=None, alias="IsEnhancedConversionsEnabled")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled"]
+    is_auto_goal: Optional[StrictBool] = Field(default=None, alias="IsAutoGoal")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -163,6 +164,11 @@ class InStoreTransactionGoal(BaseModel):
         if self.is_enhanced_conversions_enabled is None and "is_enhanced_conversions_enabled" in self.model_fields_set:
             _dict['IsEnhancedConversionsEnabled'] = None
 
+        # set to None if is_auto_goal (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_auto_goal is None and "is_auto_goal" in self.model_fields_set:
+            _dict['IsAutoGoal'] = None
+
         return _dict
 
     @classmethod
@@ -189,6 +195,7 @@ class InStoreTransactionGoal(BaseModel):
                         "ViewThroughConversionWindowInMinutes": obj.get("ViewThroughConversionWindowInMinutes") if obj.get("ViewThroughConversionWindowInMinutes") is not None else None,
                         "GoalCategory": obj.get("GoalCategory") if obj.get("GoalCategory") is not None else None,
                         "AttributionModelType": obj.get("AttributionModelType") if obj.get("AttributionModelType") is not None else None,
-                        "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None
+                        "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None,
+                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None
         })
         return _obj

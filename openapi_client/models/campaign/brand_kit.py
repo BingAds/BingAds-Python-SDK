@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.brand_kit_font import BrandKitFont
 from openapi_client.models.campaign.brand_kit_image import BrandKitImage
 from openapi_client.models.campaign.brand_kit_palette import BrandKitPalette
+from openapi_client.models.campaign.brand_voice import BrandVoice
 from typing_extensions import Self
 
 class BrandKit(BaseModel):
@@ -37,7 +38,8 @@ class BrandKit(BaseModel):
     landscape_logos: Optional[List[Optional[BrandKitImage]]] = Field(default=None, alias="LandscapeLogos")
     palettes: Optional[List[Optional[BrandKitPalette]]] = Field(default=None, alias="Palettes")
     fonts: Optional[List[Optional[BrandKitFont]]] = Field(default=None, alias="Fonts")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "BusinessName", "Images", "SquareLogos", "LandscapeLogos", "Palettes", "Fonts"]
+    brand_voice: Optional[BrandVoice] = Field(default=None, alias="BrandVoice")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "BusinessName", "Images", "SquareLogos", "LandscapeLogos", "Palettes", "Fonts", "BrandVoice"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -99,6 +101,9 @@ class BrandKit(BaseModel):
                 if _item_fonts:
                     _items.append(_item_fonts.to_dict())
             _dict['Fonts'] = _items
+        # override the default output from pydantic by calling `to_dict()` of brand_voice
+        if self.brand_voice:
+            _dict['BrandVoice'] = self.brand_voice.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -139,6 +144,11 @@ class BrandKit(BaseModel):
         if self.fonts is None and "fonts" in self.model_fields_set:
             _dict['Fonts'] = None
 
+        # set to None if brand_voice (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_voice is None and "brand_voice" in self.model_fields_set:
+            _dict['BrandVoice'] = None
+
         return _dict
 
     @classmethod
@@ -158,6 +168,7 @@ class BrandKit(BaseModel):
                         "SquareLogos": [BrandKitImage.from_dict(_item) for _item in obj["SquareLogos"]] if obj.get("SquareLogos") is not None else None,
                         "LandscapeLogos": [BrandKitImage.from_dict(_item) for _item in obj["LandscapeLogos"]] if obj.get("LandscapeLogos") is not None else None,
                         "Palettes": [BrandKitPalette.from_dict(_item) for _item in obj["Palettes"]] if obj.get("Palettes") is not None else None,
-                        "Fonts": [BrandKitFont.from_dict(_item) for _item in obj["Fonts"]] if obj.get("Fonts") is not None else None
+                        "Fonts": [BrandKitFont.from_dict(_item) for _item in obj["Fonts"]] if obj.get("Fonts") is not None else None,
+                        "BrandVoice": BrandVoice.from_dict(obj["BrandVoice"]) if obj.get("BrandVoice") is not None else None
         })
         return _obj

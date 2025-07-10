@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.24.2b3'
+VERSION = '13.0.25b4'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -11,7 +11,6 @@ with open('HISTORY.rst', 'r') as f:
     history = f.read().replace('.. :changelog:', '')
 
 requirements = [
-    'suds-community>=1.1.0',
     'requests',
     'enum34;python_version<"3.9"',
     'pydantic>=2.0.0',

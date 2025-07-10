@@ -78,6 +78,8 @@ class AdGroupCriterionType(Flag):
 
     PLACEMENT = auto()
 
+    TOPIC = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""

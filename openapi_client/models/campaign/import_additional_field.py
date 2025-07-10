@@ -64,6 +64,8 @@ class ImportAdditionalField(Flag):
 
     NEWCAROUSELAD = auto()
 
+    UPDATEASSETAUTOMATIONCAMPAIGNSETTING = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""

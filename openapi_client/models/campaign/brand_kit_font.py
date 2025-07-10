@@ -20,7 +20,6 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.font_text_asset_type import FontTextAssetType
 from typing_extensions import Self
 
 class BrandKitFont(BaseModel):
@@ -29,7 +28,7 @@ class BrandKitFont(BaseModel):
     """ # noqa: E501
     typeface: Optional[StrictStr] = Field(default=None, alias="Typeface")
     weight: Optional[StrictStr] = Field(default=None, alias="Weight")
-    text_asset_type: Optional[FontTextAssetType] = Field(default=None, alias="TextAssetType")
+    text_asset_type: Optional[StrictStr] = Field(default=None, alias="TextAssetType")
     __properties: ClassVar[List[str]] = ["Typeface", "Weight", "TextAssetType"]
 
     model_config = ConfigDict(

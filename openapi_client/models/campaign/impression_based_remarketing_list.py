@@ -33,6 +33,8 @@ class ImpressionBasedRemarketingList(BaseModel):
     entity_type: Optional[ImpressionBasedEntityType] = Field(default=None, alias="EntityType")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
+    campaign_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignIds")
+    ad_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupIds")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
@@ -45,7 +47,7 @@ class ImpressionBasedRemarketingList(BaseModel):
     supported_campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="SupportedCampaignTypes")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["EntityType", "CampaignId", "AdGroupId", "Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["EntityType", "CampaignId", "AdGroupId", "CampaignIds", "AdGroupIds", "Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -106,6 +108,16 @@ class ImpressionBasedRemarketingList(BaseModel):
         # and model_fields_set contains the field
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
+
+        # set to None if campaign_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_ids is None and "campaign_ids" in self.model_fields_set:
+            _dict['CampaignIds'] = None
+
+        # set to None if ad_group_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_ids is None and "ad_group_ids" in self.model_fields_set:
+            _dict['AdGroupIds'] = None
 
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
@@ -182,6 +194,8 @@ class ImpressionBasedRemarketingList(BaseModel):
             "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
                         "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
                         "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "CampaignIds": obj.get("CampaignIds"),
+                        "AdGroupIds": obj.get("AdGroupIds"),
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,

@@ -27,7 +27,7 @@ class Predicate(BaseModel):
     """
     Predicate
     """ # noqa: E501
-    field: Optional[StrictStr] = Field(default=None, alias="Field")
+    var_field: Optional[StrictStr] = Field(default=None, alias="Field")
     operator: Optional[PredicateOperator] = Field(default=None, alias="Operator")
     value: Optional[StrictStr] = Field(default=None, alias="Value")
     __properties: ClassVar[List[str]] = ["Field", "Operator", "Value"]
@@ -57,9 +57,9 @@ class Predicate(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if field (nullable) is None
+        # set to None if var_field (nullable) is None
         # and model_fields_set contains the field
-        if self.field is None and "field" in self.model_fields_set:
+        if self.var_field is None and "var_field" in self.model_fields_set:
             _dict['Field'] = None
 
         # set to None if operator (nullable) is None

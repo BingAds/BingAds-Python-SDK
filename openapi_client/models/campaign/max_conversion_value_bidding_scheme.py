@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.bid import Bid
 from typing_extensions import Self
 
 class MaxConversionValueBiddingScheme(BaseModel):
@@ -27,8 +28,9 @@ class MaxConversionValueBiddingScheme(BaseModel):
     MaxConversionValueBiddingScheme
     """ # noqa: E501
     target_roas: Optional[StrictFloat] = Field(default=None, alias="TargetRoas")
+    max_cpc: Optional[Bid] = Field(default=None, alias="MaxCpc")
     type: Optional[StrictStr] = Field(default='MaxConversionValueBiddingScheme', alias="Type")
-    __properties: ClassVar[List[str]] = ["TargetRoas", "Type"]
+    __properties: ClassVar[List[str]] = ["TargetRoas", "MaxCpc", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,10 +67,18 @@ class MaxConversionValueBiddingScheme(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of max_cpc
+        if self.max_cpc:
+            _dict['MaxCpc'] = self.max_cpc.to_dict()
         # set to None if target_roas (nullable) is None
         # and model_fields_set contains the field
         if self.target_roas is None and "target_roas" in self.model_fields_set:
             _dict['TargetRoas'] = None
+
+        # set to None if max_cpc (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_cpc is None and "max_cpc" in self.model_fields_set:
+            _dict['MaxCpc'] = None
 
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
@@ -88,6 +98,7 @@ class MaxConversionValueBiddingScheme(BaseModel):
 
         _obj = cls.model_validate({
             "TargetRoas": obj.get("TargetRoas") if obj.get("TargetRoas") is not None else None,
+                        "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else 'MaxConversionValueBiddingScheme'
         })
         return _obj

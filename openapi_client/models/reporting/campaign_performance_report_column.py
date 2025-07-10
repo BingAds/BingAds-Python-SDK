@@ -272,6 +272,14 @@ class CampaignPerformanceReportColumn(str, Enum):
 
     NEWCUSTOMERRETURNONADSPEND = 'NewCustomerReturnOnAdSpend'
 
+    CONVERSIONDELAY = 'ConversionDelay'
+
+    UNKNOWNCUSTOMERCONVERSIONS = 'UnknownCustomerConversions'
+
+    UNKNOWNCUSTOMERREVENUE = 'UnknownCustomerRevenue'
+
+    NEWCUSTOMERCOUNT = 'NewCustomerCount'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:
