@@ -722,19 +722,31 @@ class _StringTable:
     StatusDateTime = "Editorial Status Date"
 
     # Asset Group Url Target
-    AssetGroupUrlTarget = "Asset Group Url Target";
-    AssetGroupTargetCondition1 = "Asset Group Target Condition 1";
-    AssetGroupTargetCondition2 = "Asset Group Target Condition 2";
-    AssetGroupTargetCondition3 = "Asset Group Target Condition 3";
-    AssetGroupTargetConditionOperator1 = "Asset Group Target Condition Operator 1";
-    AssetGroupTargetConditionOperator2 = "Asset Group Target Condition Operator 2";
-    AssetGroupTargetConditionOperator3 = "Asset Group Target Condition Operator 3";
-    AssetGroupTargetValue1 = "Asset Group Target Value 1";
-    AssetGroupTargetValue2 = "Asset Group Target Value 2";
-    AssetGroupTargetValue3 = "Asset Group Target Value 3";
+    AssetGroupUrlTarget = "Asset Group Url Target"
+    AssetGroupTargetCondition1 = "Asset Group Target Condition 1"
+    AssetGroupTargetCondition2 = "Asset Group Target Condition 2"
+    AssetGroupTargetCondition3 = "Asset Group Target Condition 3"
+    AssetGroupTargetConditionOperator1 = "Asset Group Target Condition Operator 1"
+    AssetGroupTargetConditionOperator2 = "Asset Group Target Condition Operator 2"
+    AssetGroupTargetConditionOperator3 = "Asset Group Target Condition Operator 3"
+    AssetGroupTargetValue1 = "Asset Group Target Value 1"
+    AssetGroupTargetValue2 = "Asset Group Target Value 2"
+    AssetGroupTargetValue3 = "Asset Group Target Value 3"
 
     # New Customer Acquisition Goal
-    NewCustomerAcquisitionGoal = "New Customer Acquisition Goal";
-    AdditionalConversionValue = "Additional Conversion Value";
-    NewCustomerAcquisitionGoalId = "New Customer Acquisition Goal Id";
-    NewCustomerAcquisitionBidOnlyMode = "New Customer Acquisition Bid Only Mode";
+    NewCustomerAcquisitionGoal = "New Customer Acquisition Goal"
+    AdditionalConversionValue = "Additional Conversion Value"
+    NewCustomerAcquisitionGoalId = "New Customer Acquisition Goal Id"
+    NewCustomerAcquisitionBidOnlyMode = "New Customer Acquisition Bid Only Mode"
+
+    AccountPlacementExclusionList = "Account Placement Exclusion List"
+    AccountPlacementExclusionListItem = "Account Placement Exclusion List Item"
+    AccountPlacementListItemUrl = "Site List Item Url"
+    CampaignAccountPlacementListAssociation = "Campaign Account Placement Exclusion List Association"
+    AccountPlacementExclusionListId = "Account Placement Exclusion List Id"
+    AccountPlacementExclusionListItemId = "Account Placement Exclusion List Item Id"
+    AccountPlacementInclusionList = "Account Placement Inclusion List"
+    AccountPlacementInclusionListItem = "Account Placement Inclusion List Item"
+    CampaignAccountPlacementInclusionListAssociation = "Campaign Account Placement Inclusion List Association"
+    AccountPlacementInclusionListId = "Account Placement Inclusion List Id"
+    AccountPlacementInclusionListItemId = "Account Placement Inclusion List Item Id"

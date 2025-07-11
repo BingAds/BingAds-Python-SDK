@@ -27,7 +27,7 @@ def csv_to_bidding_scheme(row_values, bulk_keyword):
         if success and inherited_bid_strategy_type != '':
             bulk_keyword.keyword.BiddingScheme.InheritedBidStrategyType = inherited_bid_strategy_type
         elif hasattr(bulk_keyword.keyword.BiddingScheme, 'InheritedBidStrategyType'):
-            del bulk_keyword.keyword.BiddingScheme.InheritedBidStrategyType
+            bulk_keyword.keyword.BiddingScheme.InheritedBidStrategyType = None
     else:
         bulk_keyword.keyword.BiddingScheme.Type = bid_strategy_type
 
@@ -136,11 +136,7 @@ class BulkKeyword(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.Status,
             field_to_csv=lambda c: bulk_str(c.keyword.Status),
-            csv_to_field=lambda c, v: setattr(
-                c.keyword,
-                'Status',
-                v if v else None
-            )
+            csv_to_field=lambda c, v: csv_to_field_enum(c.keyword, v, 'Status', KeywordStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -178,20 +174,12 @@ class BulkKeyword(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.EditorialStatus,
             field_to_csv=lambda c: bulk_str(c.keyword.EditorialStatus),
-            csv_to_field=lambda c, v: setattr(
-                c.keyword,
-                'EditorialStatus',
-                v if v else None
-            )
+            csv_to_field=lambda c, v: csv_to_field_enum(c.keyword, v, 'EditorialStatus', KeywordEditorialStatus)
         ),
         _SimpleBulkMapping(
             header=_StringTable.MatchType,
             field_to_csv=lambda c: bulk_str(c.keyword.MatchType),
-            csv_to_field=lambda c, v: setattr(
-                c.keyword,
-                'MatchType',
-                v if v else None
-            )
+            csv_to_field=lambda c, v: csv_to_field_enum(c.keyword, v, 'MatchType', MatchType)
         ),
         _SimpleBulkMapping(
             header=_StringTable.DestinationUrl,

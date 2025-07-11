@@ -28,7 +28,7 @@ def csv_to_coop_setting(row_values, bulk_ad_group):
     if maximum_bid_success or bid_boost_value_success or bid_option_success:
         coop_setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('CoOpSetting')
         coop_setting.Type = 'CoOpSetting'
-        coop_setting.BidOption = bid_option if bid_option else None
+        coop_setting.BidOption = parse_bid_option(bid_option)
         coop_setting.BidBoostValue = float(bid_boost_value) if bid_boost_value else None
         coop_setting.BidMaxValue = float(maximum_bid) if maximum_bid else None
         bulk_ad_group.ad_group.Settings.Setting.append(coop_setting)
@@ -55,7 +55,7 @@ def csv_to_bidding_scheme(row_values, bulk_ad_group):
         if success and inherited_bid_strategy_type != '':
             bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType = inherited_bid_strategy_type
         elif hasattr(bulk_ad_group.ad_group.BiddingScheme, 'InheritedBidStrategyType'):
-            del bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType
+            bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType = None
     else:
         bulk_ad_group.ad_group.BiddingScheme.Type = bid_strategy_type
 
@@ -177,7 +177,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
         _SimpleBulkMapping(
             header=_StringTable.NetworkDistribution,
             field_to_csv=lambda c: bulk_str(c.ad_group.Network),
-            csv_to_field=lambda c, v: setattr(c.ad_group, 'Network', v if v else None)
+            csv_to_field=lambda c, v: csv_to_field_enum(c.ad_group, v, 'Network', Network)
         ),
         _SimpleBulkMapping(
             header=_StringTable.AdRotation,

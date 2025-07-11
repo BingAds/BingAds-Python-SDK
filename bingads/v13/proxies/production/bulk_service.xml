@@ -1415,6 +1415,27 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="Topic">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">193</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ContentPlacement">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">194</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="BrandKit">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">195</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DownloadEntity" nillable="true" type="tns:DownloadEntity" />

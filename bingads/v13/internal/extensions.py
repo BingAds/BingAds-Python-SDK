@@ -3,7 +3,7 @@
 from bingads.v13.internal.bulk.string_table import _StringTable
 import re
 import json
-from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13, _CAMPAIGN_MANAGEMENT_SERVICE_V13
+from bingads.service_client import _CAMPAIGN_OBJECT_FACTORY_V13
 
 target_setting_detail_pattern=r'^(Age|Audience|CompanyName|Gender|Industry|JobFunction)$'
 
@@ -17,7 +17,24 @@ custom_param_splitter = r'(?<!\\);\s*'
 custom_param_pattern = r'^\{_(.*?)\}=(.*$)'
 combine_rule_pattern = r'^(And|Or|Not)\(([\d|\s|,]*?)\)$'
 
+AdEditorialStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdEditorialStatus')
+AdStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdStatus')
+AssetGroupStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetGroupStatus')
+AdGroupStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdGroupStatus')
+AssetGroupEditorialStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AssetGroupEditorialStatus')
+AdExtensionStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('AdExtensionStatus')
+EntityScope = _CAMPAIGN_OBJECT_FACTORY_V13.create('EntityScope')
+Network = _CAMPAIGN_OBJECT_FACTORY_V13.create('Network')
+Minute = _CAMPAIGN_OBJECT_FACTORY_V13.create('Minute')
+Day = _CAMPAIGN_OBJECT_FACTORY_V13.create('Day')
+BusinessGeoCodeStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('BusinessGeoCodeStatus')
+BidOption = _CAMPAIGN_OBJECT_FACTORY_V13.create('BidOption')
+CallToAction = _CAMPAIGN_OBJECT_FACTORY_V13.create('CallToAction')
+MatchType = _CAMPAIGN_OBJECT_FACTORY_V13.create('MatchType')
+KeywordEditorialStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('KeywordEditorialStatus')
+KeywordStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('KeywordStatus')
 BudgetLimitType = _CAMPAIGN_OBJECT_FACTORY_V13.create('BudgetLimitType')
+CampaignStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('CampaignStatus')
 DynamicSearchAdsSetting = _CAMPAIGN_OBJECT_FACTORY_V13.create('DynamicSearchAdsSetting')
 Webpage = _CAMPAIGN_OBJECT_FACTORY_V13.create('Webpage')
 WebpageConditionOperand = _CAMPAIGN_OBJECT_FACTORY_V13.create('WebpageConditionOperand')
@@ -56,9 +73,7 @@ TextAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('TextAsset'))
 ImageAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ImageAsset'))
 VideoAsset_Type = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('VideoAsset'))
 CampaignAssociation = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('CampaignAssociation'))
-KeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:KeyValuePairOfstringstring'))
-ArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfKeyValuePairOfstringstring'))
-ArrayOfArrayOfKeyValuePairOfstringstring = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:ArrayOfArrayOfKeyValuePairOfstringstring'))
+
 
 def bulk_str(value):
     if value is None or (hasattr(value, 'value') and value.value is None):
@@ -101,7 +116,7 @@ def parse_verified_tracking_setting(str):
         array = []
         for res in result:
             if res is not None and res.__contains__('key') and res.__contains__('value'):
-                kv = KeyValuePairOfstringstring()
+                kv = _CAMPAIGN_OBJECT_FACTORY_V13.create('ns1:KeyValuePairOfstringstring')
                 kv['key'] = res['key']
                 kv['value'] = res['value']
                 array.append(kv)
@@ -277,11 +292,24 @@ def bulk_optional_str(value, id):
 
 def csv_to_status(c, v):
     if v == 'Expired':
-        c.ad_group.Status = 'Expired'
+        c.ad_group.Status = AdGroupStatus.Expired
         c._is_expired = True
+    elif v == 'Active':
+        c.ad_group.Status = AdGroupStatus.Active
+    elif v == 'Paused':
+        c.ad_group.Status = AdGroupStatus.Paused
+    elif v == 'Deleted':
+        c.ad_group.Status = AdGroupStatus.Deleted
     else:
-        c.ad_group.Status = v if v else None
-
+        c.ad_group.Status = None
+        
+def parse_bid_option(str):
+    if str == "BidValue":
+        return BidOption.BidValue
+    elif str == "BidBoost":
+        return BidOption.BidBoost
+    else:
+        return None
 
 def bulk_device_preference_str(value):
     if value is None:
@@ -751,8 +779,8 @@ def field_to_csv_ImageAssetLinks(entity):
             contract['assetPerformanceLabel'] = assetLink.AssetPerformanceLabel if hasattr(assetLink, 'AssetPerformanceLabel') else None
             contract['editorialStatus'] = assetLink.EditorialStatus if hasattr(assetLink, 'EditorialStatus') else None
             contract['pinnedField'] = assetLink.PinnedField if hasattr(assetLink, 'PinnedField') else None
-            contract['targetWidth'] = assetLink.TargetWidth if hasattr(assetLink, 'TargetWidth') else None
-            contract['targetHeight'] = assetLink.TargetHeight if hasattr(assetLink, 'TargetHeight') else None
+            contract['targetWidth'] = assetLink.Asset.TargetWidth if hasattr(assetLink.Asset, 'TargetWidth') else None
+            contract['targetHeight'] = assetLink.Asset.TargetHeight if hasattr(assetLink.Asset, 'TargetHeight') else None
             contract['subType'] = assetLink.Asset.SubType if hasattr(assetLink.Asset, 'SubType') else None
             assetLinkContracts.append(contract)
     if len(assetLinkContracts) > 0:
@@ -777,8 +805,8 @@ def csv_to_field_ImageAssetLinks(assetLinks, value):
         asset_link.AssetPerformanceLabel = assetLinkContract.get('assetPerformanceLabel')
         asset_link.PinnedField = assetLinkContract.get('pinnedField')
         asset_link.EditorialStatus = assetLinkContract.get('editorialStatus')
-        asset_link.TargetWidth = assetLinkContract.get('targetWidth')
-        asset_link.TargetHeight = assetLinkContract.get('targetHeight')
+        asset_link.Asset.TargetWidth = assetLinkContract.get('targetWidth')
+        asset_link.Asset.TargetHeight = assetLinkContract.get('targetHeight')
         asset_link.Asset.SubType = assetLinkContract.get('subType')
         assetLinks.AssetLink.append(asset_link)
 
@@ -895,15 +923,16 @@ def bid_multiplier_bulk_str(value):
     return bulk_str(value.Multiplier)
 
 def parse_minute(value):
+    Minute = _CAMPAIGN_OBJECT_FACTORY_V13.create('Minute')
     minute_number = int(value)
     if minute_number == 0:
-        return 'Zero'
+        return Minute.Zero
     elif minute_number == 15:
-        return 'Fifteen'
+        return Minute.Fifteen
     elif minute_number == 30:
-        return 'Thirty'
+        return Minute.Thirty
     elif minute_number == 45:
-        return 'FortyFive'
+        return Minute.FortyFive
     raise ValueError('Unknown minute')
 
 
@@ -1068,6 +1097,45 @@ def field_to_csv_UseSearcherTimeZone(bool_value, id):
         return DELETE_VALUE if id and id > 0 else None
     else:
         return str(bool_value)
+    
+def csv_to_field_enum(entity, value, attr_name, enum_class):
+    """
+    Generic method to convert CSV string values to enum fields on an entity.
+
+    Args:
+        entity: The entity object to set the attribute on
+        value: The string value from CSV
+        attr_name: The name of the attribute to set on the entity
+        enum_class: The enum class to convert the value to
+    """
+    if value is None or value == '':
+        setattr(entity, attr_name, None)
+        return
+
+    try:
+        enum_value = getattr(enum_class, value)
+        setattr(entity, attr_name, enum_value)
+    except (AttributeError, ValueError):
+        # If the value doesn't match any enum value, set to None
+        setattr(entity, attr_name, None)
+    
+def csv_to_field_CampaignStatus(entity, value):
+    if value is None or value == '':
+        entity.Status = None
+    elif value == 'Active':
+        entity.Status = CampaignStatus.Active
+    elif value == 'Paused':
+        entity.Status = CampaignStatus.Paused
+    elif value == 'BudgetPaused':
+        entity.Status = CampaignStatus.BudgetPaused
+    elif value == 'BudgetAndManualPaused':
+        entity.Status = CampaignStatus.BudgetAndManualPaused
+    elif value == 'Deleted':
+        entity.Status = CampaignStatus.Deleted
+    elif value == 'Suspended':
+        entity.Status = CampaignStatus.Suspended
+    else:
+        entity.Status = None 
 
 def field_to_csv_bool(bool_value):
     if bool_value is None:

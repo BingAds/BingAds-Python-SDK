@@ -56,9 +56,10 @@ class ReportingDownloadOperation(object):
         self._authorization_data = authorization_data
         self._poll_interval_in_milliseconds = poll_interval_in_milliseconds
         self._final_status = None
-        self.tracking_id=tracking_id
+        self.tracking_id = tracking_id
 
-    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite, timeout_in_milliseconds=None):
+    def download_result_file(self, result_file_directory, result_file_name, decompress, overwrite,
+                             timeout_in_milliseconds=None):
         """ Download file with specified URL and download parameters.
 
         :param result_file_directory: The download result local directory name.
@@ -104,7 +105,7 @@ class ReportingDownloadOperation(object):
         headers = {
             'User-Agent': USER_AGENT,
         }
-        
+
         with requests.Session() as s:
             s.mount('https://', TlsHttpAdapter())
             timeout_seconds = None if timeout_in_milliseconds is None else timeout_in_milliseconds / 1000.0
@@ -168,9 +169,9 @@ class ReportingDownloadOperation(object):
         status = ReportingOperationStatus(
             status=response.Status,
             report_download_url=response.ReportDownloadUrl
-            )
+        )
         if status.status == 'Success' or \
-                status.status == 'Error':
+            status.status == 'Error':
             self._final_status = status
         return status
 

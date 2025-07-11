@@ -2,6 +2,21 @@
 
 Release History
 
+13.0.25(2025-07-10)
++++++++++++++++++++++++++
+API Updates:
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* New Reports in Reporting Service: AppsPerformanceReport, TravelQueryInsightReport and FeedIemPerformanceReport.
+* Support CampaignTypeReportFilter in Reporting API.
+* New APIs in CampaignManagement Service: GetAnnotationOptOut, UpdateAnnotationOptOut, CreateBrandKitRecommendation and GetResponsiveAdRecommendationJob.
+* New field ListingGroupPath in AssetGroupListingGroup.
+* New field IsAutoGoal in ConversionGoal.
+* New field MaxCpc in MaxConversionValueBiddingScheme.
+* New API in CustomerBilling Service: GetCouponInfo.
+
+Bulk Mapping Updates:
+* Added bulk mappings for Site Exclusion: BulkAccountPlacementExclusionList, BulkSharedListNegativeSite, BulkAccountPlacementExclusionListAssociation, BulkAccountPlacementInclusionList, BulkSharedListSite and BulkAccountPlacementInclusionListAssociation.
+
 13.0.24.2(2025-04-28)
 +++++++++++++++++++++++++
 * Enable MSA Production support on the sandbox by default, as MSA INT will soon be deprecated.
