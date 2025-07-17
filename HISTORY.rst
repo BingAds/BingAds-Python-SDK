@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.25.1(2025-07-17)
++++++++++++++++++++++++++
+* Fix Issue #321: https://github.com/BingAds/BingAds-Python-SDK/issues/321
+
 13.0.25(2025-07-10)
 +++++++++++++++++++++++++
 API Updates:
