@@ -3329,6 +3329,10 @@
                   <xs:element minOccurs="0" name="DailyBudget" nillable="true" type="xs:decimal" />
                   <xs:element minOccurs="0" name="Bid" nillable="true" type="xs:decimal" />
                   <xs:element minOccurs="0" name="Currency" nillable="true" type="tns:Currency" />
+                  <xs:element minOccurs="0" name="MultiAdTypes" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
+                  <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
+                  <xs:element minOccurs="0" name="TotalBudget" nillable="true" type="xs:decimal" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
