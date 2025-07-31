@@ -239,6 +239,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="CrossNetwork">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2151,6 +2158,18 @@
                <xs:enumeration value="CampaignType" />
                <xs:enumeration value="AssetGroupId" />
                <xs:enumeration value="AssetGroupName" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="UserLocationPerformanceReportColumn" nillable="true" type="tns:UserLocationPerformanceReportColumn" />
@@ -3851,6 +3870,18 @@
                <xs:enumeration value="AssetGroupId" />
                <xs:enumeration value="AssetGroupName" />
                <xs:enumeration value="AssetGroupStatus" />
+               <xs:enumeration value="Downloads" />
+               <xs:enumeration value="PostClickDownloadRate" />
+               <xs:enumeration value="CostPerDownload" />
+               <xs:enumeration value="AppInstalls" />
+               <xs:enumeration value="PostClickInstallRate" />
+               <xs:enumeration value="CPI" />
+               <xs:enumeration value="Purchases" />
+               <xs:enumeration value="PostInstallPurchaseRate" />
+               <xs:enumeration value="CPP" />
+               <xs:enumeration value="Subscriptions" />
+               <xs:enumeration value="PostInstallSubscriptionRate" />
+               <xs:enumeration value="CPS" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="GeographicPerformanceReportColumn" nillable="true" type="tns:GeographicPerformanceReportColumn" />

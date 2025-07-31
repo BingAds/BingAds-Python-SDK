@@ -7073,9 +7073,20 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q133="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TagIds" nillable="true" type="q133:ArrayOflong" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:UetTagAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="UetTagAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="Industry" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="UetTagAdditionalField" nillable="true" type="tns:UetTagAdditionalField" />
          <xs:element name="GetUetTagsByIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -7095,6 +7106,13 @@
                <xs:element minOccurs="0" name="CustomerShare" nillable="true" type="tns:CustomerShare" />
                <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:UetTagIndustry">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TrackingNoScript" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TrackingScript" nillable="true" type="xs:string" />
@@ -7102,6 +7120,30 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="UetTag" nillable="true" type="tns:UetTag" />
+         <xs:simpleType name="UetTagIndustry">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="AdultGambling" />
+               <xs:enumeration value="Autos" />
+               <xs:enumeration value="B2BServices" />
+               <xs:enumeration value="B2CServices" />
+               <xs:enumeration value="CPG" />
+               <xs:enumeration value="CareersEducation" />
+               <xs:enumeration value="CommunitySocialCharitableGroups" />
+               <xs:enumeration value="Entertainment" />
+               <xs:enumeration value="FinancialServicesInsurance" />
+               <xs:enumeration value="Government" />
+               <xs:enumeration value="HealthWellness" />
+               <xs:enumeration value="RealEstate" />
+               <xs:enumeration value="RestaurantsFood" />
+               <xs:enumeration value="Retail" />
+               <xs:enumeration value="ScienceSocialScienceOthers" />
+               <xs:enumeration value="TechnologyTelecommunications" />
+               <xs:enumeration value="TravelTransportation" />
+               <xs:enumeration value="Other" />
+               <xs:enumeration value="Unknown" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="UetTagIndustry" nillable="true" type="tns:UetTagIndustry" />
          <xs:simpleType name="UetTagTrackingStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Unverified" />
