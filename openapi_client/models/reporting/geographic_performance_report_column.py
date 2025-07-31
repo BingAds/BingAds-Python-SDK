@@ -154,6 +154,30 @@ class GeographicPerformanceReportColumn(str, Enum):
 
     ASSETGROUPSTATUS = 'AssetGroupStatus'
 
+    DOWNLOADS = 'Downloads'
+
+    POSTCLICKDOWNLOADRATE = 'PostClickDownloadRate'
+
+    COSTPERDOWNLOAD = 'CostPerDownload'
+
+    APPINSTALLS = 'AppInstalls'
+
+    POSTCLICKINSTALLRATE = 'PostClickInstallRate'
+
+    CPI = 'CPI'
+
+    PURCHASES = 'Purchases'
+
+    POSTINSTALLPURCHASERATE = 'PostInstallPurchaseRate'
+
+    CPP = 'CPP'
+
+    SUBSCRIPTIONS = 'Subscriptions'
+
+    POSTINSTALLSUBSCRIPTIONRATE = 'PostInstallSubscriptionRate'
+
+    CPS = 'CPS'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

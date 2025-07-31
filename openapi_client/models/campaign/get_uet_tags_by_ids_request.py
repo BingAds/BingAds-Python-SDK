@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.uet_tag_additional_field import UetTagAdditionalField
 from typing_extensions import Self
 
 class GetUetTagsByIdsRequest(BaseModel):
@@ -27,7 +28,8 @@ class GetUetTagsByIdsRequest(BaseModel):
     GetUetTagsByIdsRequest
     """ # noqa: E501
     tag_ids: Optional[List[StrictStr]] = Field(default=None, alias="TagIds")
-    __properties: ClassVar[List[str]] = ["TagIds"]
+    return_additional_fields: Optional[UetTagAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
+    __properties: ClassVar[List[str]] = ["TagIds", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,6 +61,11 @@ class GetUetTagsByIdsRequest(BaseModel):
         if self.tag_ids is None and "tag_ids" in self.model_fields_set:
             _dict['TagIds'] = None
 
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         return _dict
 
     @classmethod
@@ -71,6 +78,7 @@ class GetUetTagsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "TagIds": obj.get("TagIds")
+            "TagIds": obj.get("TagIds"),
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

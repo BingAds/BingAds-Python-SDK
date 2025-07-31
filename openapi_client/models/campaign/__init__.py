@@ -745,6 +745,8 @@ from openapi_client.models.campaign.text_asset import TextAsset
 from openapi_client.models.campaign.third_party_measurement_setting import ThirdPartyMeasurementSetting
 from openapi_client.models.campaign.topic_criterion import TopicCriterion
 from openapi_client.models.campaign.uet_tag import UetTag
+from openapi_client.models.campaign.uet_tag_additional_field import UetTagAdditionalField
+from openapi_client.models.campaign.uet_tag_industry import UetTagIndustry
 from openapi_client.models.campaign.uet_tag_tracking_status import UetTagTrackingStatus
 from openapi_client.models.campaign.update_ad_extensions_request import UpdateAdExtensionsRequest
 from openapi_client.models.campaign.update_ad_extensions_response import UpdateAdExtensionsResponse

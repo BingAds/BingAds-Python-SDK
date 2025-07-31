@@ -15,10 +15,10 @@
 from __future__ import annotations
 from enum import Flag, auto
 
-class BrandKitAdditionalField(Flag):
+class UetTagAdditionalField(Flag):
     NONE = auto()
 
-    BUSINESSNAME = auto()
+    INDUSTRY = auto()
 
 	
     def to_json(self) -> str:
@@ -33,7 +33,7 @@ class BrandKitAdditionalField(Flag):
 
     def _to_str(self) -> str:
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in BrandKitAdditionalField if flag & self]
+        names = [flag.name.title() for flag in UetTagAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:
@@ -47,7 +47,7 @@ class BrandKitAdditionalField(Flag):
         yield cls._validate
 		
     @classmethod
-    def _validate(cls, value, handler) -> "BrandKitAdditionalField":
+    def _validate(cls, value, handler) -> "UetTagAdditionalField":
         if isinstance(value, cls):
             return value
         if isinstance(value, int):
@@ -68,7 +68,7 @@ class BrandKitAdditionalField(Flag):
                 try:
                     return getattr(cls, value.strip().upper())
                 except AttributeError:
-                    raise ValueError(f"Invalid BrandKitAdditionalField value: {value}")
-        raise ValueError(f"Cannot convert {value} to BrandKitAdditionalField")
+                    raise ValueError(f"Invalid UetTagAdditionalField value: {value}")
+        raise ValueError(f"Cannot convert {value} to UetTagAdditionalField")
 
 

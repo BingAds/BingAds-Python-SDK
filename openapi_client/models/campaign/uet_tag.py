@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.customer_share import CustomerShare
+from openapi_client.models.campaign.uet_tag_industry import UetTagIndustry
 from openapi_client.models.campaign.uet_tag_tracking_status import UetTagTrackingStatus
 from typing_extensions import Self
 
@@ -35,7 +36,8 @@ class UetTag(BaseModel):
     tracking_no_script: Optional[StrictStr] = Field(default=None, alias="TrackingNoScript")
     tracking_status: Optional[UetTagTrackingStatus] = Field(default=None, alias="TrackingStatus")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "TrackingScript", "TrackingNoScript", "TrackingStatus", "CustomerShare"]
+    industry: Optional[UetTagIndustry] = Field(default=None, alias="Industry")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "TrackingScript", "TrackingNoScript", "TrackingStatus", "CustomerShare", "Industry"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -100,6 +102,11 @@ class UetTag(BaseModel):
         if self.customer_share is None and "customer_share" in self.model_fields_set:
             _dict['CustomerShare'] = None
 
+        # set to None if industry (nullable) is None
+        # and model_fields_set contains the field
+        if self.industry is None and "industry" in self.model_fields_set:
+            _dict['Industry'] = None
+
         return _dict
 
     @classmethod
@@ -118,6 +125,7 @@ class UetTag(BaseModel):
                         "TrackingScript": obj.get("TrackingScript") if obj.get("TrackingScript") is not None else None,
                         "TrackingNoScript": obj.get("TrackingNoScript") if obj.get("TrackingNoScript") is not None else None,
                         "TrackingStatus": obj.get("TrackingStatus") if obj.get("TrackingStatus") is not None else None,
-                        "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None
+                        "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None,
+                        "Industry": obj.get("Industry") if obj.get("Industry") is not None else None
         })
         return _obj
