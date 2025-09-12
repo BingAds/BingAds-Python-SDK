@@ -839,6 +839,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             field_to_csv=lambda c: BulkCampaign._write_additional_conversion_value(c),
             csv_to_field=lambda c, v: BulkCampaign._read_additional_conversion_value(c, v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.IsPolitical,
+            field_to_csv=lambda c: field_to_csv_bool(c.campaign.IsPolitical),
+            csv_to_field=lambda c, v: setattr(c.campaign, 'IsPolitical', parse_bool(v))
+        ),
     ]
 
     def read_additional_data(self, stream_reader):

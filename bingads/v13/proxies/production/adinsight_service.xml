@@ -3333,6 +3333,7 @@
                   <xs:element minOccurs="0" name="StartDate" nillable="true" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="TotalBudget" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="IncludeImpressionsBreakdown" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3769,6 +3770,14 @@
                   <xs:element minOccurs="0" name="EstReachAudienceSize" nillable="true" type="tns:DecimalRoundedResult" />
                   <xs:element minOccurs="0" name="EstReachImpression" nillable="true" type="tns:DecimalRoundedResult" />
                   <xs:element minOccurs="0" name="Currency" nillable="true" type="tns:Currency" />
+                  <xs:element minOccurs="0" name="EstImpressionByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstClickByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstSpendByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstCostPerEventByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstCPCByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstViewByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+                  <xs:element minOccurs="0" name="EstCTRByType" nillable="true" type="tns:ArrayOfRangeResultByTypeOfdouble" />
+                  <xs:element minOccurs="0" name="EstReachImpressionByType" nillable="true" type="tns:ArrayOfDecimalRoundedByType" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3816,6 +3825,134 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="RangeResultOfdouble" nillable="true" type="tns:RangeResultOfdouble" />
+         <xs:complexType name="ArrayOfDecimalRoundedRangeResultByType">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DecimalRoundedRangeResultByType" nillable="true" type="tns:DecimalRoundedRangeResultByType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDecimalRoundedRangeResultByType" nillable="true" type="tns:ArrayOfDecimalRoundedRangeResultByType" />
+         <xs:complexType name="DecimalRoundedRangeResultByType">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:element name="DecimalRoundedRangeResultByType" nillable="true" type="tns:DecimalRoundedRangeResultByType" />
+         <xs:complexType name="ArrayOfRangeResultByTypeOfdouble">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="RangeResultByTypeOfdouble" nillable="true" type="tns:RangeResultByTypeOfdouble" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfRangeResultByTypeOfdouble" nillable="true" type="tns:ArrayOfRangeResultByTypeOfdouble" />
+         <xs:complexType name="RangeResultByTypeOfdouble">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="RangeResultByTypeOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="double" Namespace="http://www.w3.org/2001/XMLSchema" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence />
+         </xs:complexType>
+         <xs:element name="RangeResultByTypeOfdouble" nillable="true" type="tns:RangeResultByTypeOfdouble" />
+         <xs:complexType name="ArrayOfDecimalRoundedByType">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DecimalRoundedByType" nillable="true" type="tns:DecimalRoundedByType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDecimalRoundedByType" nillable="true" type="tns:ArrayOfDecimalRoundedByType" />
+         <xs:complexType name="DecimalRoundedByType">
+            <xs:sequence />
+         </xs:complexType>
+         <xs:element name="DecimalRoundedByType" nillable="true" type="tns:DecimalRoundedByType" />
+         <xs:element name="GetAudienceBreakdownRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="Age" nillable="true" type="tns:SelectionOfAgeEnum" />
+                  <xs:element minOccurs="0" name="Gender" nillable="true" type="tns:SelectionOfGenderEnum" />
+                  <xs:element minOccurs="0" name="Audience" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Company" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="JobFunction" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Location" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="RadiusTargets" nillable="true" type="tns:ArrayOfRadiusTarget" />
+                  <xs:element minOccurs="0" name="CampaignBiddingStrategy" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="CampaignSubType" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="Feed" nillable="true" type="tns:Feed" />
+                  <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="BreakdownReturnCategory" type="tns:BreakdownCategory" />
+                  <xs:element minOccurs="0" name="MultiAdTypes" nillable="true" type="xs:int" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:simpleType name="BreakdownCategory">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="All" />
+               <xs:enumeration value="Demographics" />
+               <xs:enumeration value="Location" />
+               <xs:enumeration value="Interest" />
+               <xs:enumeration value="Device" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="BreakdownCategory" nillable="true" type="tns:BreakdownCategory" />
+         <xs:element name="GetAudienceBreakdownResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="EstAudienceSize" nillable="true" type="tns:DecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstImpression" nillable="true" type="tns:DecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="IsImpressionTooSpecific" nillable="true" type="xs:boolean" />
+                  <xs:element minOccurs="0" name="IsPrivacyCheckPassed" nillable="true" type="xs:boolean" />
+                  <xs:element minOccurs="0" name="SuggestedBid" nillable="true" type="xs:decimal" />
+                  <xs:element minOccurs="0" name="Currency" nillable="true" type="tns:Currency" />
+                  <xs:element minOccurs="0" name="Breakdowns" nillable="true" type="tns:Breakdowns" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="Breakdowns">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Age" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="Device" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="Gender" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="InMarket" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="JobFunction" nillable="true" type="tns:Breakdown" />
+               <xs:element minOccurs="0" name="LocationCountry" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="Location" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="LocationSubGeography" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="LocationMetroArea" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="LocationCity" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="LocationPostalCode" nillable="true" type="tns:LocationBreakdown" />
+               <xs:element minOccurs="0" name="LocationCounty" nillable="true" type="tns:LocationBreakdown" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Breakdowns" nillable="true" type="tns:Breakdowns" />
+         <xs:complexType name="Breakdown">
+            <xs:sequence>
+               <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keys" nillable="true" type="q34:ArrayOfstring" />
+               <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Values" nillable="true" type="q35:ArrayOfint" />
+               <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GlobalValues" nillable="true" type="q36:ArrayOfint" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Breakdown" nillable="true" type="tns:Breakdown" />
+         <xs:complexType name="LocationBreakdown">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Breakdown">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Info" nillable="true" type="tns:ArrayOfLocationInfo" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="LocationBreakdown" nillable="true" type="tns:LocationBreakdown" />
+         <xs:complexType name="ArrayOfLocationInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="LocationInfo" nillable="true" type="tns:LocationInfo" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfLocationInfo" nillable="true" type="tns:ArrayOfLocationInfo" />
+         <xs:complexType name="LocationInfo">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="LocationInfo" nillable="true" type="tns:LocationInfo" />
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -3904,6 +4041,12 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+         <xs:complexType name="ArrayOfint">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
       </xs:schema>
    </wsdl:types>
    <wsdl:message name="GetBidOpportunitiesRequest">
@@ -4674,6 +4817,30 @@
    <wsdl:message name="IAdInsightService_GetAudienceFullEstimation_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetAudienceBreakdownRequest">
+      <wsdl:part name="parameters" element="tns:GetAudienceBreakdownRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceBreakdownRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceBreakdownResponse">
+      <wsdl:part name="parameters" element="tns:GetAudienceBreakdownResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetAudienceBreakdownResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAudienceBreakdown_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetAudienceBreakdown_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="IAdInsightService">
       <wsdl:operation name="GetBidOpportunities">
          <wsdl:input wsaw:Action="GetBidOpportunities" name="GetBidOpportunitiesRequest" message="tns:GetBidOpportunitiesRequest" />
@@ -4866,6 +5033,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationResponse" name="GetAudienceFullEstimationResponse" message="tns:GetAudienceFullEstimationResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceFullEstimation_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceFullEstimationApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceFullEstimation_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetAudienceBreakdown">
+         <wsdl:input wsaw:Action="GetAudienceBreakdown" name="GetAudienceBreakdownRequest" message="tns:GetAudienceBreakdownRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceBreakdownResponse" name="GetAudienceBreakdownResponse" message="tns:GetAudienceBreakdownResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceBreakdownAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceBreakdown_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetAudienceBreakdownApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetAudienceBreakdown_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_IAdInsightService_IAdInsightService" type="tns:IAdInsightService">
@@ -5598,6 +5771,29 @@
          </wsdl:input>
          <wsdl:output name="GetAudienceFullEstimationResponse">
             <soap:header message="tns:GetAudienceFullEstimationResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetAudienceBreakdown">
+         <soap:operation soapAction="GetAudienceBreakdown" style="document" />
+         <wsdl:input name="GetAudienceBreakdownRequest">
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetAudienceBreakdownRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetAudienceBreakdownResponse">
+            <soap:header message="tns:GetAudienceBreakdownResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

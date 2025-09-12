@@ -1227,6 +1227,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:element>
+               <xs:element minOccurs="0" name="IsPolitical" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="MultimediaAdsBidAdjustment" nillable="true" type="xs:int">
                   <xs:annotation>
                      <xs:appinfo>
@@ -2553,6 +2560,20 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="TextAsset">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ImageAsset">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -6046,6 +6067,27 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="Scope">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="CurrencyCode">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="ReportingTimeZone">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -6294,6 +6336,13 @@
                <xs:element minOccurs="0" name="EditorialStatus" nillable="true" type="tns:AssetGroupEditorialStatus" />
                <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:Date" />
                <xs:element xmlns:q115="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalMobileUrls" nillable="true" type="q115:ArrayOfstring" />
+               <xs:element minOccurs="0" name="FinalUrlSuffix" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element xmlns:q116="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q116:ArrayOfstring" />
                <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q117:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="Headlines" nillable="true" type="tns:ArrayOfAssetLink" />
@@ -6305,6 +6354,20 @@
                <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="StartDate" nillable="true" type="tns:Date" />
                <xs:element minOccurs="0" name="Status" nillable="true" type="tns:AssetGroupStatus" />
+               <xs:element minOccurs="0" name="TrackingUrlTemplate" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="UrlCustomParameters" nillable="true" type="tns:CustomParameters">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Videos" nillable="true" type="tns:ArrayOfAssetLink">
                   <xs:annotation>
                      <xs:appinfo>
@@ -6432,6 +6495,9 @@
                   <xs:restriction base="xs:string">
                      <xs:enumeration value="AssetGroupSearchThemes" />
                      <xs:enumeration value="AssetGroupUrlTargets" />
+                     <xs:enumeration value="TrackingUrlTemplate" />
+                     <xs:enumeration value="FinalUrlSuffix" />
+                     <xs:enumeration value="UrlCustomParameters" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7059,6 +7125,7 @@
             <xs:restriction base="xs:string">
                <xs:enumeration value="Email" />
                <xs:enumeration value="CRM" />
+               <xs:enumeration value="Phone" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CustomerListItemSubType" nillable="true" type="tns:CustomerListItemSubType" />
@@ -7217,6 +7284,7 @@
                      <xs:enumeration value="AttributionModelType" />
                      <xs:enumeration value="IsEnhancedConversionsEnabled" />
                      <xs:enumeration value="IsAutoGoal" />
+                     <xs:enumeration value="DataDrivenAttribute" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7291,6 +7359,7 @@
             <xs:restriction base="xs:string">
                <xs:enumeration value="LastClick" />
                <xs:enumeration value="LastTouch" />
+               <xs:enumeration value="DataDriven" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="AttributionModelType" nillable="true" type="tns:AttributionModelType" />
@@ -8020,6 +8089,13 @@
                      </xs:element>
                      <xs:element minOccurs="0" name="DeleteRemovedEntities" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="EnableAutoCurrencyConversion" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="EnableCopilot" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="EnableParentLocationMapping" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewAccountNegativeKeywords" nillable="true" type="xs:boolean">
                         <xs:annotation>
@@ -8504,6 +8580,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="EnableCopilot">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16777216</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -8707,6 +8790,73 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="AddHTML5sRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="HTML5Assets" nillable="true" type="tns:ArrayOfHTML5" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfHTML5">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="HTML5" nillable="true" type="tns:HTML5" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfHTML5" nillable="true" type="tns:ArrayOfHTML5" />
+         <xs:complexType name="HTML5">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CreatedDateTimeInUTC" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="DestinationUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="FailureCode" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Height" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="ModifiedDateTimeInUTC" nillable="true" type="xs:dateTime" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ThumbnailUrl" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Url" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Width" nillable="true" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="HTML5" nillable="true" type="tns:HTML5" />
+         <xs:element name="AddHTML5sResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q158="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HTML5AssetIds" nillable="true" type="q158:ArrayOflong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetHTML5sByIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q159="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HTML5AssetIds" nillable="true" type="q159:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetHTML5sByIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="HTML5Assets" nillable="true" type="tns:ArrayOfHTML5" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteHTML5sRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q160="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HTML5AssetIds" nillable="true" type="q160:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteHTML5sResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
          <xs:element name="AddCampaignConversionGoalsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -8834,7 +8984,7 @@
          <xs:element name="AddDataExclusionsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q158="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="DataExclusionIds" nillable="true" type="q158:ArrayOfNullableOflong" />
+                  <xs:element xmlns:q161="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="DataExclusionIds" nillable="true" type="q161:ArrayOfNullableOflong" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -8858,7 +9008,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q159="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DataExclusionIds" nillable="true" type="q159:ArrayOflong" />
+                  <xs:element xmlns:q162="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DataExclusionIds" nillable="true" type="q162:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8873,7 +9023,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q160="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DataExclusionIds" nillable="true" type="q160:ArrayOflong" />
+                  <xs:element xmlns:q163="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="DataExclusionIds" nillable="true" type="q163:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8931,7 +9081,7 @@
          <xs:element name="AddSeasonalityAdjustmentsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q161="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q161:ArrayOfNullableOflong" />
+                  <xs:element xmlns:q164="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q164:ArrayOfNullableOflong" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -8955,7 +9105,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q162="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q162:ArrayOflong" />
+                  <xs:element xmlns:q165="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q165:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -8970,7 +9120,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q163="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q163:ArrayOflong" />
+                  <xs:element xmlns:q166="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SeasonalityAdjustmentIds" nillable="true" type="q166:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -9000,7 +9150,7 @@
          <xs:element name="CreateAssetGroupRecommendationRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q164="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q164:ArrayOfstring" />
+                  <xs:element xmlns:q167="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q167:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TextTone" nillable="true" type="tns:AdRecommendationTextTone" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AdRecommendationAdditionalField" />
@@ -9206,7 +9356,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AdSubType" nillable="true" type="tns:AdSubType" />
-                  <xs:element xmlns:q165="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q165:ArrayOfstring" />
+                  <xs:element xmlns:q168="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q168:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TextTone" nillable="true" type="tns:AdRecommendationTextTone" />
                   <xs:element minOccurs="0" name="VideoType" nillable="true" type="tns:AdRecommendationVideoType" />
@@ -9269,7 +9419,7 @@
          <xs:element name="CreateResponsiveSearchAdRecommendationRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q166="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q166:ArrayOfstring" />
+                  <xs:element xmlns:q169="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q169:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="TextTone" nillable="true" type="tns:AdRecommendationTextTone" />
                </xs:sequence>
@@ -9622,7 +9772,7 @@
          <xs:element name="UpdateConversionValueRulesStatusRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q167="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q167:ArrayOflong" />
+                  <xs:element xmlns:q170="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q170:ArrayOflong" />
                   <xs:element minOccurs="0" name="Status" type="tns:ConversionValueRuleStatus" />
                </xs:sequence>
             </xs:complexType>
@@ -9645,7 +9795,7 @@
          <xs:element name="AddConversionValueRulesResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q168="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConversionValueRuleIds" nillable="true" type="q168:ArrayOflong" />
+                  <xs:element xmlns:q171="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ConversionValueRuleIds" nillable="true" type="q171:ArrayOflong" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -9668,7 +9818,7 @@
          <xs:element name="GetConversionValueRulesByIdsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q169="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q169:ArrayOflong" />
+                  <xs:element xmlns:q172="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RuleIds" nillable="true" type="q172:ArrayOflong" />
                   <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
                </xs:sequence>
             </xs:complexType>
@@ -9724,7 +9874,7 @@
          <xs:complexType name="BrandVoice">
             <xs:sequence>
                <xs:element minOccurs="0" name="Personality" nillable="true" type="xs:string" />
-               <xs:element xmlns:q170="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tones" nillable="true" type="q170:ArrayOfstring" />
+               <xs:element xmlns:q173="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Tones" nillable="true" type="q173:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BrandVoice" nillable="true" type="tns:BrandVoice" />
@@ -9790,7 +9940,7 @@
          <xs:element name="AddBrandKitsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q171="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="BrandKitIds" nillable="true" type="q171:ArrayOfNullableOflong" />
+                  <xs:element xmlns:q174="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="BrandKitIds" nillable="true" type="q174:ArrayOfNullableOflong" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -9814,7 +9964,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q172="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q172:ArrayOflong" />
+                  <xs:element xmlns:q175="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q175:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -9877,7 +10027,7 @@
          <xs:element name="AddNewCustomerAcquisitionGoalsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q173="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="NewCustomerAcquisitionGoalIds" nillable="true" type="q173:ArrayOfNullableOflong" />
+                  <xs:element xmlns:q176="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="NewCustomerAcquisitionGoalIds" nillable="true" type="q176:ArrayOfNullableOflong" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -9928,7 +10078,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="AccountId" type="xs:long" />
-                  <xs:element xmlns:q174="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q174:ArrayOflong" />
+                  <xs:element xmlns:q177="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BrandKitIds" nillable="true" type="q177:ArrayOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -9952,12 +10102,12 @@
          </xs:element>
          <xs:complexType name="VideoTemplateFilter">
             <xs:sequence>
-               <xs:element xmlns:q175="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AspectRatios" nillable="true" type="q175:ArrayOfstring" />
-               <xs:element xmlns:q176="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Durations" nillable="true" type="q176:ArrayOfint" />
+               <xs:element xmlns:q178="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AspectRatios" nillable="true" type="q178:ArrayOfstring" />
+               <xs:element xmlns:q179="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Durations" nillable="true" type="q179:ArrayOfint" />
                <xs:element minOccurs="0" name="MaxMediaAssetCount" type="xs:int" />
                <xs:element minOccurs="0" name="MaxTextAssetCount" type="xs:int" />
-               <xs:element xmlns:q177="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TemplateIds" nillable="true" type="q177:ArrayOfstring" />
-               <xs:element xmlns:q178="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q178:ArrayOfstring" />
+               <xs:element xmlns:q180="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TemplateIds" nillable="true" type="q180:ArrayOfstring" />
+               <xs:element xmlns:q181="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q181:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="VideoTemplateFilter" nillable="true" type="tns:VideoTemplateFilter" />
@@ -9986,7 +10136,7 @@
                <xs:element minOccurs="0" name="TemplateName" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplatePreviewUrl" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="TemplateThumbnailUrl" nillable="true" type="xs:string" />
-               <xs:element xmlns:q179="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q179:ArrayOfstring" />
+               <xs:element xmlns:q182="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Themes" nillable="true" type="q182:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ClipchampTemplateInfo" nillable="true" type="tns:ClipchampTemplateInfo" />
@@ -9999,8 +10149,8 @@
          </xs:element>
          <xs:complexType name="AudioFilter">
             <xs:sequence>
-               <xs:element xmlns:q180="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AudioNames" nillable="true" type="q180:ArrayOfstring" />
-               <xs:element xmlns:q181="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Categories" nillable="true" type="q181:ArrayOfstring" />
+               <xs:element xmlns:q183="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AudioNames" nillable="true" type="q183:ArrayOfstring" />
+               <xs:element xmlns:q184="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Categories" nillable="true" type="q184:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AudioFilter" nillable="true" type="tns:AudioFilter" />
@@ -10060,7 +10210,7 @@
          <xs:complexType name="SupportedFont">
             <xs:sequence>
                <xs:element minOccurs="0" name="FontFamily" nillable="true" type="xs:string" />
-               <xs:element xmlns:q182="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FontWeights" nillable="true" type="q182:ArrayOfstring" />
+               <xs:element xmlns:q185="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FontWeights" nillable="true" type="q185:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="SupportedFont" nillable="true" type="tns:SupportedFont" />
@@ -10068,7 +10218,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="HealthCheckEntities" nillable="true" type="tns:ArrayOfHealthCheckEntity" />
-                  <xs:element xmlns:q183="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HealthCheckTypes" nillable="true" type="q183:ArrayOfstring" />
+                  <xs:element xmlns:q186="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HealthCheckTypes" nillable="true" type="q186:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -10161,7 +10311,7 @@
          <xs:complexType name="HealthCheckSubEntityData">
             <xs:sequence>
                <xs:element minOccurs="0" name="SubEntityHealthIssueCount" type="xs:int" />
-               <xs:element xmlns:q184="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubEntityIds" nillable="true" type="q184:ArrayOflong" />
+               <xs:element xmlns:q187="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubEntityIds" nillable="true" type="q187:ArrayOflong" />
                <xs:element minOccurs="0" name="SubEntityLevel" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -10183,22 +10333,177 @@
          <xs:element name="GetDiagnosticsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="HealthCheckEntities" nillable="true" type="tns:ArrayOfHealthCheckEntity" />
-                  <xs:element xmlns:q185="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="HealthCheckTypes" nillable="true" type="q185:ArrayOfstring" />
+                  <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfDiagnosticsEntity" />
+                  <xs:element minOccurs="0" name="Checks" nillable="true" type="tns:ArrayOfDiagnosticsFilter" />
+                  <xs:element minOccurs="0" name="Settings" nillable="true" type="tns:DiagnosticsSettings" />
+                  <xs:element minOccurs="0" name="CallerName" nillable="true" type="xs:string" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:complexType name="ArrayOfDiagnosticsEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DiagnosticsEntity" nillable="true" type="tns:DiagnosticsEntity" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDiagnosticsEntity" nillable="true" type="tns:ArrayOfDiagnosticsEntity" />
+         <xs:complexType name="DiagnosticsEntity">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" type="xs:long" />
+               <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DiagnosticsEntity" nillable="true" type="tns:DiagnosticsEntity" />
+         <xs:complexType name="ArrayOfDiagnosticsFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DiagnosticsFilter" nillable="true" type="tns:DiagnosticsFilter" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDiagnosticsFilter" nillable="true" type="tns:ArrayOfDiagnosticsFilter" />
+         <xs:complexType name="DiagnosticsFilter">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element xmlns:q188="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Values" nillable="true" type="q188:ArrayOfstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DiagnosticsFilter" nillable="true" type="tns:DiagnosticsFilter" />
+         <xs:complexType name="DiagnosticsSettings">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="EnableCache" type="xs:boolean" />
+               <xs:element minOccurs="0" name="LastCheckTimeUTC" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DiagnosticsSettings" nillable="true" type="tns:DiagnosticsSettings" />
          <xs:element name="GetDiagnosticsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element minOccurs="0" name="DiagnosticTileData" nillable="true" type="tns:DiagnosticTileData" />
-                  <xs:element minOccurs="0" name="DiagnosticCategoryData" nillable="true" type="tns:ArrayOfDiagnosticCategoryData" />
-                  <xs:element minOccurs="0" name="DiagnosticCardData" nillable="true" type="tns:ArrayOfDiagnosticCardData" />
-                  <xs:element minOccurs="0" name="DiagnosticErrors" nillable="true" type="tns:ArrayOfHealthCheckError" />
+                  <xs:element minOccurs="0" name="RequestStatus" nillable="true" type="tns:DiagnosticsRequestStatus" />
+                  <xs:element minOccurs="0" name="Entities" nillable="true" type="tns:ArrayOfEntityResult" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
-         <xs:complexType name="DiagnosticTileData">
+         <xs:complexType name="DiagnosticsRequestStatus">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="DiagnosticsRequestStatus" nillable="true" type="tns:DiagnosticsRequestStatus" />
+         <xs:complexType name="ArrayOfEntityResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="EntityResult" nillable="true" type="tns:EntityResult" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfEntityResult" nillable="true" type="tns:ArrayOfEntityResult" />
+         <xs:complexType name="EntityResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Categories" nillable="true" type="tns:ArrayOfCategoryResult" />
+               <xs:element minOccurs="0" name="Id" type="xs:long" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:EntityTemplate" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="EntityResult" nillable="true" type="tns:EntityResult" />
+         <xs:complexType name="ArrayOfCategoryResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryResult" nillable="true" type="tns:CategoryResult" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCategoryResult" nillable="true" type="tns:ArrayOfCategoryResult" />
+         <xs:complexType name="CategoryResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AuditPoints" nillable="true" type="tns:ArrayOfAuditPointResult" />
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
+               <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:CategoryTemplate" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CategoryResult" nillable="true" type="tns:CategoryResult" />
+         <xs:complexType name="ArrayOfAuditPointResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointResult" nillable="true" type="tns:AuditPointResult" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAuditPointResult" nillable="true" type="tns:ArrayOfAuditPointResult" />
+         <xs:complexType name="AuditPointResult">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Details" nillable="true" type="tns:AuditPointDetails" />
+               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
+               <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="SubEntities" nillable="true" type="tns:AuditPointSubEnities" />
+               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:AuditPointTemplate" />
+               <xs:element minOccurs="0" name="Timestamp" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointResult" nillable="true" type="tns:AuditPointResult" />
+         <xs:complexType name="AuditPointDetails">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="JsonColumns" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
+               <xs:element minOccurs="0" name="JsonString" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointDetails" nillable="true" type="tns:AuditPointDetails" />
+         <xs:complexType name="ArrayOfAuditPointJsonColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAuditPointJsonColumn" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
+         <xs:complexType name="AuditPointJsonColumn">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
+         <xs:complexType name="AuditPointSubEnities">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="IssueCount" type="xs:int" />
+               <xs:element xmlns:q189="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubEntitiesIds" nillable="true" type="q189:ArrayOflong" />
+               <xs:element minOccurs="0" name="SubEntitiesType" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointSubEnities" nillable="true" type="tns:AuditPointSubEnities" />
+         <xs:complexType name="AuditPointTemplate">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Links" nillable="true" type="tns:ArrayOfAuditPointLink" />
+               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointTemplate" nillable="true" type="tns:AuditPointTemplate" />
+         <xs:complexType name="ArrayOfAuditPointLink">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfAuditPointLink" nillable="true" type="tns:ArrayOfAuditPointLink" />
+         <xs:complexType name="AuditPointLink">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="UrlTemplate" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
+         <xs:complexType name="CategoryTemplate">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CategoryTemplate" nillable="true" type="tns:CategoryTemplate" />
+         <xs:complexType name="EntityTemplate">
             <xs:sequence>
                <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
@@ -10206,37 +10511,7 @@
                <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
-         <xs:element name="DiagnosticTileData" nillable="true" type="tns:DiagnosticTileData" />
-         <xs:complexType name="ArrayOfDiagnosticCategoryData">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="DiagnosticCategoryData" nillable="true" type="tns:DiagnosticCategoryData" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfDiagnosticCategoryData" nillable="true" type="tns:ArrayOfDiagnosticCategoryData" />
-         <xs:complexType name="DiagnosticCategoryData">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="ActionLinks" nillable="true" type="tns:ArrayOfHealthCheckActionLinkMetadata" />
-               <xs:element minOccurs="0" name="CategoryDisplayName" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="CategoryKey" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="CategorySeverity" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="CategoryStatus" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="DiagnosticCategoryData" nillable="true" type="tns:DiagnosticCategoryData" />
-         <xs:complexType name="ArrayOfDiagnosticCardData">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="DiagnosticCardData" nillable="true" type="tns:DiagnosticCardData" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfDiagnosticCardData" nillable="true" type="tns:ArrayOfDiagnosticCardData" />
-         <xs:complexType name="DiagnosticCardData">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="CheckpointsData" nillable="true" type="tns:ArrayOfHealthCheckData" />
-               <xs:element minOccurs="0" name="Metadata" nillable="true" type="tns:HealthCheckMetadata" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="DiagnosticCardData" nillable="true" type="tns:DiagnosticCardData" />
+         <xs:element name="EntityTemplate" nillable="true" type="tns:EntityTemplate" />
          <xs:element name="GetAnnotationOptOutRequest">
             <xs:complexType>
                <xs:sequence />
@@ -13848,6 +14123,78 @@
    <wsdl:message name="ICampaignManagementService_UpdateVideos_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="AddHTML5sRequest">
+      <wsdl:part name="parameters" element="tns:AddHTML5sRequest" />
+   </wsdl:message>
+   <wsdl:message name="AddHTML5sRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="AddHTML5sResponse">
+      <wsdl:part name="parameters" element="tns:AddHTML5sResponse" />
+   </wsdl:message>
+   <wsdl:message name="AddHTML5sResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddHTML5s_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q144="https://adapi.microsoft.com" name="detail" element="q144:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddHTML5s_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="GetHTML5sByIdsRequest">
+      <wsdl:part name="parameters" element="tns:GetHTML5sByIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetHTML5sByIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetHTML5sByIdsResponse">
+      <wsdl:part name="parameters" element="tns:GetHTML5sByIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetHTML5sByIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetHTML5sByIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q145="https://adapi.microsoft.com" name="detail" element="q145:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetHTML5sByIds_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DeleteHTML5sRequest">
+      <wsdl:part name="parameters" element="tns:DeleteHTML5sRequest" />
+   </wsdl:message>
+   <wsdl:message name="DeleteHTML5sRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DeleteHTML5sResponse">
+      <wsdl:part name="parameters" element="tns:DeleteHTML5sResponse" />
+   </wsdl:message>
+   <wsdl:message name="DeleteHTML5sResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteHTML5s_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q146="https://adapi.microsoft.com" name="detail" element="q146:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteHTML5s_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:message name="AddCampaignConversionGoalsRequest">
       <wsdl:part name="parameters" element="tns:AddCampaignConversionGoalsRequest" />
    </wsdl:message>
@@ -13867,7 +14214,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddCampaignConversionGoals_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q144="https://adapi.microsoft.com" name="detail" element="q144:AdApiFaultDetail" />
+      <wsdl:part xmlns:q147="https://adapi.microsoft.com" name="detail" element="q147:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddCampaignConversionGoals_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -13891,7 +14238,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteCampaignConversionGoals_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q145="https://adapi.microsoft.com" name="detail" element="q145:AdApiFaultDetail" />
+      <wsdl:part xmlns:q148="https://adapi.microsoft.com" name="detail" element="q148:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteCampaignConversionGoals_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -13915,7 +14262,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddDataExclusions_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q146="https://adapi.microsoft.com" name="detail" element="q146:AdApiFaultDetail" />
+      <wsdl:part xmlns:q149="https://adapi.microsoft.com" name="detail" element="q149:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddDataExclusions_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -13939,7 +14286,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateDataExclusions_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q147="https://adapi.microsoft.com" name="detail" element="q147:AdApiFaultDetail" />
+      <wsdl:part xmlns:q150="https://adapi.microsoft.com" name="detail" element="q150:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateDataExclusions_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -13963,7 +14310,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteDataExclusions_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q148="https://adapi.microsoft.com" name="detail" element="q148:AdApiFaultDetail" />
+      <wsdl:part xmlns:q151="https://adapi.microsoft.com" name="detail" element="q151:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteDataExclusions_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -13987,7 +14334,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDataExclusionsByIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q149="https://adapi.microsoft.com" name="detail" element="q149:AdApiFaultDetail" />
+      <wsdl:part xmlns:q152="https://adapi.microsoft.com" name="detail" element="q152:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDataExclusionsByIds_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14011,7 +14358,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDataExclusionsByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q150="https://adapi.microsoft.com" name="detail" element="q150:AdApiFaultDetail" />
+      <wsdl:part xmlns:q153="https://adapi.microsoft.com" name="detail" element="q153:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDataExclusionsByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14035,7 +14382,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddSeasonalityAdjustments_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q151="https://adapi.microsoft.com" name="detail" element="q151:AdApiFaultDetail" />
+      <wsdl:part xmlns:q154="https://adapi.microsoft.com" name="detail" element="q154:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddSeasonalityAdjustments_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14059,7 +14406,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateSeasonalityAdjustments_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q152="https://adapi.microsoft.com" name="detail" element="q152:AdApiFaultDetail" />
+      <wsdl:part xmlns:q155="https://adapi.microsoft.com" name="detail" element="q155:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateSeasonalityAdjustments_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14083,7 +14430,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteSeasonalityAdjustments_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q153="https://adapi.microsoft.com" name="detail" element="q153:AdApiFaultDetail" />
+      <wsdl:part xmlns:q156="https://adapi.microsoft.com" name="detail" element="q156:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteSeasonalityAdjustments_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14107,7 +14454,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSeasonalityAdjustmentsByIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q154="https://adapi.microsoft.com" name="detail" element="q154:AdApiFaultDetail" />
+      <wsdl:part xmlns:q157="https://adapi.microsoft.com" name="detail" element="q157:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSeasonalityAdjustmentsByIds_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14131,7 +14478,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSeasonalityAdjustmentsByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q155="https://adapi.microsoft.com" name="detail" element="q155:AdApiFaultDetail" />
+      <wsdl:part xmlns:q158="https://adapi.microsoft.com" name="detail" element="q158:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSeasonalityAdjustmentsByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14155,7 +14502,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateAssetGroupRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q156="https://adapi.microsoft.com" name="detail" element="q156:AdApiFaultDetail" />
+      <wsdl:part xmlns:q159="https://adapi.microsoft.com" name="detail" element="q159:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateAssetGroupRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14179,7 +14526,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateResponsiveAdRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q157="https://adapi.microsoft.com" name="detail" element="q157:AdApiFaultDetail" />
+      <wsdl:part xmlns:q160="https://adapi.microsoft.com" name="detail" element="q160:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateResponsiveAdRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14203,7 +14550,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateResponsiveSearchAdRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q158="https://adapi.microsoft.com" name="detail" element="q158:AdApiFaultDetail" />
+      <wsdl:part xmlns:q161="https://adapi.microsoft.com" name="detail" element="q161:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateResponsiveSearchAdRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14227,7 +14574,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineAssetGroupRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q159="https://adapi.microsoft.com" name="detail" element="q159:AdApiFaultDetail" />
+      <wsdl:part xmlns:q162="https://adapi.microsoft.com" name="detail" element="q162:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineAssetGroupRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14251,7 +14598,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineResponsiveAdRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q160="https://adapi.microsoft.com" name="detail" element="q160:AdApiFaultDetail" />
+      <wsdl:part xmlns:q163="https://adapi.microsoft.com" name="detail" element="q163:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineResponsiveAdRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14275,7 +14622,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineResponsiveSearchAdRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q161="https://adapi.microsoft.com" name="detail" element="q161:AdApiFaultDetail" />
+      <wsdl:part xmlns:q164="https://adapi.microsoft.com" name="detail" element="q164:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_RefineResponsiveSearchAdRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14299,7 +14646,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetResponsiveAdRecommendationJob_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q162="https://adapi.microsoft.com" name="detail" element="q162:AdApiFaultDetail" />
+      <wsdl:part xmlns:q165="https://adapi.microsoft.com" name="detail" element="q165:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetResponsiveAdRecommendationJob_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14323,7 +14670,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateConversionValueRules_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q163="https://adapi.microsoft.com" name="detail" element="q163:AdApiFaultDetail" />
+      <wsdl:part xmlns:q166="https://adapi.microsoft.com" name="detail" element="q166:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateConversionValueRules_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14347,7 +14694,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateConversionValueRulesStatus_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q164="https://adapi.microsoft.com" name="detail" element="q164:AdApiFaultDetail" />
+      <wsdl:part xmlns:q167="https://adapi.microsoft.com" name="detail" element="q167:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateConversionValueRulesStatus_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14371,7 +14718,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddConversionValueRules_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q165="https://adapi.microsoft.com" name="detail" element="q165:AdApiFaultDetail" />
+      <wsdl:part xmlns:q168="https://adapi.microsoft.com" name="detail" element="q168:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddConversionValueRules_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14395,7 +14742,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q166="https://adapi.microsoft.com" name="detail" element="q166:AdApiFaultDetail" />
+      <wsdl:part xmlns:q169="https://adapi.microsoft.com" name="detail" element="q169:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14419,7 +14766,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q167="https://adapi.microsoft.com" name="detail" element="q167:AdApiFaultDetail" />
+      <wsdl:part xmlns:q170="https://adapi.microsoft.com" name="detail" element="q170:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetConversionValueRulesByIds_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14443,7 +14790,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddBrandKits_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q168="https://adapi.microsoft.com" name="detail" element="q168:AdApiFaultDetail" />
+      <wsdl:part xmlns:q171="https://adapi.microsoft.com" name="detail" element="q171:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddBrandKits_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14467,7 +14814,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateBrandKits_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q169="https://adapi.microsoft.com" name="detail" element="q169:AdApiFaultDetail" />
+      <wsdl:part xmlns:q172="https://adapi.microsoft.com" name="detail" element="q172:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateBrandKits_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14491,7 +14838,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteBrandKits_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q170="https://adapi.microsoft.com" name="detail" element="q170:AdApiFaultDetail" />
+      <wsdl:part xmlns:q173="https://adapi.microsoft.com" name="detail" element="q173:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_DeleteBrandKits_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14515,7 +14862,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateBrandKitRecommendation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q171="https://adapi.microsoft.com" name="detail" element="q171:AdApiFaultDetail" />
+      <wsdl:part xmlns:q174="https://adapi.microsoft.com" name="detail" element="q174:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_CreateBrandKitRecommendation_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14539,7 +14886,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddNewCustomerAcquisitionGoals_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q172="https://adapi.microsoft.com" name="detail" element="q172:AdApiFaultDetail" />
+      <wsdl:part xmlns:q175="https://adapi.microsoft.com" name="detail" element="q175:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_AddNewCustomerAcquisitionGoals_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14563,7 +14910,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateNewCustomerAcquisitionGoals_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q173="https://adapi.microsoft.com" name="detail" element="q173:AdApiFaultDetail" />
+      <wsdl:part xmlns:q176="https://adapi.microsoft.com" name="detail" element="q176:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateNewCustomerAcquisitionGoals_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14587,7 +14934,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetNewCustomerAcquisitionGoalsByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q174="https://adapi.microsoft.com" name="detail" element="q174:AdApiFaultDetail" />
+      <wsdl:part xmlns:q177="https://adapi.microsoft.com" name="detail" element="q177:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetNewCustomerAcquisitionGoalsByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14611,7 +14958,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetBrandKitsByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q175="https://adapi.microsoft.com" name="detail" element="q175:AdApiFaultDetail" />
+      <wsdl:part xmlns:q178="https://adapi.microsoft.com" name="detail" element="q178:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetBrandKitsByAccountId_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14635,7 +14982,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetBrandKitsByIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q176="https://adapi.microsoft.com" name="detail" element="q176:AdApiFaultDetail" />
+      <wsdl:part xmlns:q179="https://adapi.microsoft.com" name="detail" element="q179:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetBrandKitsByIds_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14659,7 +15006,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetClipchampTemplates_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q177="https://adapi.microsoft.com" name="detail" element="q177:AdApiFaultDetail" />
+      <wsdl:part xmlns:q180="https://adapi.microsoft.com" name="detail" element="q180:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetClipchampTemplates_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14683,7 +15030,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSupportedClipchampAudio_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q178="https://adapi.microsoft.com" name="detail" element="q178:AdApiFaultDetail" />
+      <wsdl:part xmlns:q181="https://adapi.microsoft.com" name="detail" element="q181:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSupportedClipchampAudio_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14707,7 +15054,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSupportedFonts_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q179="https://adapi.microsoft.com" name="detail" element="q179:AdApiFaultDetail" />
+      <wsdl:part xmlns:q182="https://adapi.microsoft.com" name="detail" element="q182:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetSupportedFonts_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14731,7 +15078,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetHealthCheck_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q180="https://adapi.microsoft.com" name="detail" element="q180:AdApiFaultDetail" />
+      <wsdl:part xmlns:q183="https://adapi.microsoft.com" name="detail" element="q183:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetHealthCheck_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14755,7 +15102,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDiagnostics_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q181="https://adapi.microsoft.com" name="detail" element="q181:AdApiFaultDetail" />
+      <wsdl:part xmlns:q184="https://adapi.microsoft.com" name="detail" element="q184:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetDiagnostics_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14779,7 +15126,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetAnnotationOptOut_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q182="https://adapi.microsoft.com" name="detail" element="q182:AdApiFaultDetail" />
+      <wsdl:part xmlns:q185="https://adapi.microsoft.com" name="detail" element="q185:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_GetAnnotationOptOut_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -14803,7 +15150,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateAnnotationOptOut_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q183="https://adapi.microsoft.com" name="detail" element="q183:AdApiFaultDetail" />
+      <wsdl:part xmlns:q186="https://adapi.microsoft.com" name="detail" element="q186:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="ICampaignManagementService_UpdateAnnotationOptOut_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -15666,6 +16013,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosResponse" name="UpdateVideosResponse" message="tns:UpdateVideosResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateVideos_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateVideosApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateVideos_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="AddHTML5s">
+         <wsdl:input wsaw:Action="AddHTML5s" name="AddHTML5sRequest" message="tns:AddHTML5sRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddHTML5sResponse" name="AddHTML5sResponse" message="tns:AddHTML5sResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddHTML5sAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddHTML5s_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddHTML5sApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddHTML5s_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetHTML5sByIds">
+         <wsdl:input wsaw:Action="GetHTML5sByIds" name="GetHTML5sByIdsRequest" message="tns:GetHTML5sByIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHTML5sByIdsResponse" name="GetHTML5sByIdsResponse" message="tns:GetHTML5sByIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHTML5sByIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetHTML5sByIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetHTML5sByIdsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetHTML5sByIds_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DeleteHTML5s">
+         <wsdl:input wsaw:Action="DeleteHTML5s" name="DeleteHTML5sRequest" message="tns:DeleteHTML5sRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteHTML5sResponse" name="DeleteHTML5sResponse" message="tns:DeleteHTML5sResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteHTML5sAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteHTML5s_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteHTML5sApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteHTML5s_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
       <wsdl:operation name="AddCampaignConversionGoals">
          <wsdl:input wsaw:Action="AddCampaignConversionGoals" name="AddCampaignConversionGoalsRequest" message="tns:AddCampaignConversionGoalsRequest" />
@@ -19191,6 +19556,75 @@
          </wsdl:input>
          <wsdl:output name="UpdateVideosResponse">
             <soap:header message="tns:UpdateVideosResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="AddHTML5s">
+         <soap:operation soapAction="AddHTML5s" style="document" />
+         <wsdl:input name="AddHTML5sRequest">
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:AddHTML5sRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="AddHTML5sResponse">
+            <soap:header message="tns:AddHTML5sResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetHTML5sByIds">
+         <soap:operation soapAction="GetHTML5sByIds" style="document" />
+         <wsdl:input name="GetHTML5sByIdsRequest">
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetHTML5sByIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetHTML5sByIdsResponse">
+            <soap:header message="tns:GetHTML5sByIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DeleteHTML5s">
+         <soap:operation soapAction="DeleteHTML5s" style="document" />
+         <wsdl:input name="DeleteHTML5sRequest">
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DeleteHTML5sRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DeleteHTML5sResponse">
+            <soap:header message="tns:DeleteHTML5sResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

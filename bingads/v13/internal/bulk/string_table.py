@@ -103,6 +103,7 @@ class _StringTable:
     UseOptimizedTargeting = "Use Optimized Targeting"
     BusinessAttributes = "Business Attributes"
     Schedule = "Schedule"
+    IsPolitical = "Is Political"
 
     # Entity Types
     SemanticVersion = "Format Version"

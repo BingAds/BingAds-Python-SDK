@@ -30,6 +30,7 @@ class _CsvHeaders:
         _StringTable.BudgetId,
         _StringTable.DestinationChannel,
         _StringTable.IsMultiChannelCampaign,
+        _StringTable.IsPolitical,
 
         # AdGroup
         _StringTable.StartDate,
