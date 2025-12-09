@@ -1192,6 +1192,13 @@
          <xs:complexType name="Campaign">
             <xs:sequence>
                <xs:element minOccurs="0" name="AudienceAdsBidAdjustment" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="BidStrategyScope" nillable="true" type="tns:EntityScope">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
                <xs:element minOccurs="0" name="BudgetType" nillable="true" type="tns:BudgetLimitType" />
                <xs:element minOccurs="0" name="DailyBudget" nillable="true" type="xs:double" />
@@ -1282,6 +1289,13 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Campaign" nillable="true" type="tns:Campaign" />
+         <xs:simpleType name="EntityScope">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Account" />
+               <xs:enumeration value="Customer" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:complexType name="BiddingScheme">
             <xs:sequence>
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
@@ -1668,6 +1682,8 @@
                      <xs:enumeration value="NewCustomerAcquisitionGoalSetting" />
                      <xs:enumeration value="LifetimeBudgetFields" />
                      <xs:enumeration value="MaxConversionValueWithMaxCpc" />
+                     <xs:enumeration value="PmaxAppCampaign" />
+                     <xs:enumeration value="CrossAccountBidStrategyFields" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5389,13 +5405,6 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
-         <xs:simpleType name="EntityScope">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="Account" />
-               <xs:enumeration value="Customer" />
-            </xs:restriction>
-         </xs:simpleType>
-         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:element name="GetSharedEntitiesResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6007,8 +6016,29 @@
                <xs:element minOccurs="0" name="AssociatedCampaignType" nillable="true" type="tns:CampaignType" />
                <xs:element minOccurs="0" name="AssociationCount" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ReportingTimeZone" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BidStrategy" nillable="true" type="tns:BidStrategy" />
@@ -6038,6 +6068,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q109="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q109:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6053,6 +6084,7 @@
                <xs:sequence>
                   <xs:element xmlns:q110="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q110:ArrayOflong" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:PortfolioBidStrategyAdditionalField" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6105,6 +6137,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q111:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -7268,6 +7301,7 @@
                      <xs:enumeration value="AppInstall" />
                      <xs:enumeration value="OfflineConversion" />
                      <xs:enumeration value="InStoreTransaction" />
+                     <xs:enumeration value="AppDownload" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7285,6 +7319,7 @@
                      <xs:enumeration value="IsEnhancedConversionsEnabled" />
                      <xs:enumeration value="IsAutoGoal" />
                      <xs:enumeration value="DataDrivenAttribute" />
+                     <xs:enumeration value="ApplicationDownloadGoal" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7525,6 +7560,17 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="InStoreTransactionGoal" nillable="true" type="tns:InStoreTransactionGoal" />
+         <xs:complexType name="AppDownloadGoal">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ConversionGoal">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AppPlatform" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="AppStoreId" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AppDownloadGoal" nillable="true" type="tns:AppDownloadGoal" />
          <xs:element name="GetConversionGoalsByTagIdsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -8175,6 +8221,13 @@
                      <xs:element minOccurs="0" name="NewReviewAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewSitelinkAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewTopicTargets" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewUrlOptions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="PauseAIMAdGroupIfAllAudienceCriterionNotImported" nillable="true" type="xs:boolean">
                         <xs:annotation>
@@ -8318,6 +8371,13 @@
                      <xs:element minOccurs="0" name="UpdateStatusForCampaigns" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateStatusForKeywords" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="UpdateTopicTargets" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="UpdateUrlOptions" nillable="true" type="xs:boolean" />
                   </xs:sequence>
                </xs:extension>
@@ -8584,6 +8644,20 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16777216</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewTopicTargets">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33554432</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="UpdateTopicTargets">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">67108864</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -10399,9 +10473,7 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="Categories" nillable="true" type="tns:ArrayOfCategoryResult" />
                <xs:element minOccurs="0" name="Id" type="xs:long" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:EntityTemplate" />
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -10416,9 +10488,6 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="AuditPoints" nillable="true" type="tns:ArrayOfAuditPointResult" />
                <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
-               <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:CategoryTemplate" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CategoryResult" nillable="true" type="tns:CategoryResult" />
@@ -10430,88 +10499,13 @@
          <xs:element name="ArrayOfAuditPointResult" nillable="true" type="tns:ArrayOfAuditPointResult" />
          <xs:complexType name="AuditPointResult">
             <xs:sequence>
-               <xs:element minOccurs="0" name="Details" nillable="true" type="tns:AuditPointDetails" />
-               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+               <xs:element xmlns:q189="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Details" nillable="true" type="q189:ArrayOfKeyValueOfstringstring" />
                <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
                <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="SubEntities" nillable="true" type="tns:AuditPointSubEnities" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:AuditPointTemplate" />
-               <xs:element minOccurs="0" name="Timestamp" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AuditPointResult" nillable="true" type="tns:AuditPointResult" />
-         <xs:complexType name="AuditPointDetails">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="JsonColumns" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
-               <xs:element minOccurs="0" name="JsonString" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointDetails" nillable="true" type="tns:AuditPointDetails" />
-         <xs:complexType name="ArrayOfAuditPointJsonColumn">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfAuditPointJsonColumn" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
-         <xs:complexType name="AuditPointJsonColumn">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
-         <xs:complexType name="AuditPointSubEnities">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="IssueCount" type="xs:int" />
-               <xs:element xmlns:q189="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubEntitiesIds" nillable="true" type="q189:ArrayOflong" />
-               <xs:element minOccurs="0" name="SubEntitiesType" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointSubEnities" nillable="true" type="tns:AuditPointSubEnities" />
-         <xs:complexType name="AuditPointTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Links" nillable="true" type="tns:ArrayOfAuditPointLink" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointTemplate" nillable="true" type="tns:AuditPointTemplate" />
-         <xs:complexType name="ArrayOfAuditPointLink">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfAuditPointLink" nillable="true" type="tns:ArrayOfAuditPointLink" />
-         <xs:complexType name="AuditPointLink">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="UrlTemplate" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
-         <xs:complexType name="CategoryTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="CategoryTemplate" nillable="true" type="tns:CategoryTemplate" />
-         <xs:complexType name="EntityTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="ProgressPercent" type="xs:int" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="EntityTemplate" nillable="true" type="tns:EntityTemplate" />
          <xs:element name="GetAnnotationOptOutRequest">
             <xs:complexType>
                <xs:sequence />

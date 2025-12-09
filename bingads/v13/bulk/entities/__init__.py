@@ -58,3 +58,5 @@ from .bulk_brand_list import *
 from .bulk_new_customer_acquisition_goal import *
 from .goals import *
 from .account_placement_exclusion_list import *
+from .bulk_topic import *
+from .bulk_content_placement import *

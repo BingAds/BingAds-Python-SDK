@@ -1192,6 +1192,13 @@
          <xs:complexType name="Campaign">
             <xs:sequence>
                <xs:element minOccurs="0" name="AudienceAdsBidAdjustment" nillable="true" type="xs:int" />
+               <xs:element minOccurs="0" name="BidStrategyScope" nillable="true" type="tns:EntityScope">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
                <xs:element minOccurs="0" name="BudgetType" nillable="true" type="tns:BudgetLimitType" />
                <xs:element minOccurs="0" name="DailyBudget" nillable="true" type="xs:double" />
@@ -1282,6 +1289,13 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Campaign" nillable="true" type="tns:Campaign" />
+         <xs:simpleType name="EntityScope">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Account" />
+               <xs:enumeration value="Customer" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:complexType name="BiddingScheme">
             <xs:sequence>
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
@@ -1668,6 +1682,8 @@
                      <xs:enumeration value="NewCustomerAcquisitionGoalSetting" />
                      <xs:enumeration value="LifetimeBudgetFields" />
                      <xs:enumeration value="MaxConversionValueWithMaxCpc" />
+                     <xs:enumeration value="PmaxAppCampaign" />
+                     <xs:enumeration value="CrossAccountBidStrategyFields" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -4705,6 +4721,7 @@
                      <xs:enumeration value="CombinedList" />
                      <xs:enumeration value="CustomerList" />
                      <xs:enumeration value="ImpressionBasedRemarketingList" />
+                     <xs:enumeration value="CustomSegment" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5389,13 +5406,6 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
-         <xs:simpleType name="EntityScope">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="Account" />
-               <xs:enumeration value="Customer" />
-            </xs:restriction>
-         </xs:simpleType>
-         <xs:element name="EntityScope" nillable="true" type="tns:EntityScope" />
          <xs:element name="GetSharedEntitiesResponse">
             <xs:complexType>
                <xs:sequence>
@@ -6007,8 +6017,29 @@
                <xs:element minOccurs="0" name="AssociatedCampaignType" nillable="true" type="tns:CampaignType" />
                <xs:element minOccurs="0" name="AssociationCount" nillable="true" type="xs:int" />
                <xs:element minOccurs="0" name="BiddingScheme" nillable="true" type="tns:BiddingScheme" />
+               <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ReportingTimeZone" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
+               <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BidStrategy" nillable="true" type="tns:BidStrategy" />
@@ -6038,6 +6069,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q109="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q109:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6053,6 +6085,7 @@
                <xs:sequence>
                   <xs:element xmlns:q110="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q110:ArrayOflong" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:PortfolioBidStrategyAdditionalField" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -6105,6 +6138,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element xmlns:q111="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="BidStrategyIds" nillable="true" type="q111:ArrayOflong" />
+                  <xs:element minOccurs="0" name="Scope" nillable="true" type="tns:EntityScope" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -7016,6 +7050,62 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ImpressionBasedEntityType" nillable="true" type="tns:ImpressionBasedEntityType" />
+         <xs:complexType name="CustomSegment">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Audience">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="CustomSegmentCatalogList" nillable="true" type="tns:ArrayOfCustomSegmentCatalog" />
+                     <xs:element minOccurs="0" name="EditorialStatus" nillable="true" type="tns:CustomSegmentEditorialStatus" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CustomSegment" nillable="true" type="tns:CustomSegment" />
+         <xs:complexType name="ArrayOfCustomSegmentCatalog">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomSegmentCatalog" nillable="true" type="tns:CustomSegmentCatalog" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCustomSegmentCatalog" nillable="true" type="tns:ArrayOfCustomSegmentCatalog" />
+         <xs:complexType name="CustomSegmentCatalog">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CatalogId" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CatalogName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="EffectiveEditorialStatus" nillable="true" type="tns:EffectiveEditorialStatus" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CustomSegmentCatalog" nillable="true" type="tns:CustomSegmentCatalog" />
+         <xs:simpleType name="EffectiveEditorialStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="Approved" />
+               <xs:enumeration value="Rejected">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Pending">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="EffectiveEditorialStatus" nillable="true" type="tns:EffectiveEditorialStatus" />
+         <xs:simpleType name="CustomSegmentEditorialStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Unknown" />
+               <xs:enumeration value="Rejected" />
+               <xs:enumeration value="Pending" />
+               <xs:enumeration value="PartialApproved" />
+               <xs:enumeration value="Approved" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CustomSegmentEditorialStatus" nillable="true" type="tns:CustomSegmentEditorialStatus" />
          <xs:element name="AddAudiencesResponse">
             <xs:complexType>
                <xs:sequence>
@@ -7268,6 +7358,7 @@
                      <xs:enumeration value="AppInstall" />
                      <xs:enumeration value="OfflineConversion" />
                      <xs:enumeration value="InStoreTransaction" />
+                     <xs:enumeration value="AppDownload" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7285,6 +7376,7 @@
                      <xs:enumeration value="IsEnhancedConversionsEnabled" />
                      <xs:enumeration value="IsAutoGoal" />
                      <xs:enumeration value="DataDrivenAttribute" />
+                     <xs:enumeration value="ApplicationDownloadGoal" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -7525,6 +7617,17 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="InStoreTransactionGoal" nillable="true" type="tns:InStoreTransactionGoal" />
+         <xs:complexType name="AppDownloadGoal">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ConversionGoal">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AppPlatform" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="AppStoreId" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AppDownloadGoal" nillable="true" type="tns:AppDownloadGoal" />
          <xs:element name="GetConversionGoalsByTagIdsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -8169,12 +8272,26 @@
                      <xs:element minOccurs="0" name="NewPageFeeds" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewPausedAdsForExistingAdGroups" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewPausedCampaignsAndChildEntities" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewPortfolioBidStrategy" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewPriceAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewProductFilters" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewPromotionAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewReviewAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewSitelinkAdExtensions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="NewStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="NewTopicTargets" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="NewUrlOptions" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="PauseAIMAdGroupIfAllAudienceCriterionNotImported" nillable="true" type="xs:boolean">
                         <xs:annotation>
@@ -8318,6 +8435,13 @@
                      <xs:element minOccurs="0" name="UpdateStatusForCampaigns" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateStatusForKeywords" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="UpdateStructuredSnippetAdExtensions" nillable="true" type="xs:boolean" />
+                     <xs:element minOccurs="0" name="UpdateTopicTargets" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
                      <xs:element minOccurs="0" name="UpdateUrlOptions" nillable="true" type="xs:boolean" />
                   </xs:sequence>
                </xs:extension>
@@ -8584,6 +8708,27 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16777216</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewTopicTargets">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">33554432</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="UpdateTopicTargets">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">67108864</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="NewPortfolioBidStrategy">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">134217728</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -10399,9 +10544,7 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="Categories" nillable="true" type="tns:ArrayOfCategoryResult" />
                <xs:element minOccurs="0" name="Id" type="xs:long" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="SubType" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:EntityTemplate" />
                <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
@@ -10416,9 +10559,6 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="AuditPoints" nillable="true" type="tns:ArrayOfAuditPointResult" />
                <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
-               <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:CategoryTemplate" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CategoryResult" nillable="true" type="tns:CategoryResult" />
@@ -10430,88 +10570,13 @@
          <xs:element name="ArrayOfAuditPointResult" nillable="true" type="tns:ArrayOfAuditPointResult" />
          <xs:complexType name="AuditPointResult">
             <xs:sequence>
-               <xs:element minOccurs="0" name="Details" nillable="true" type="tns:AuditPointDetails" />
-               <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfOperationError" />
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+               <xs:element xmlns:q189="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Details" nillable="true" type="q189:ArrayOfKeyValueOfstringstring" />
                <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Ranking" type="xs:int" />
                <xs:element minOccurs="0" name="Severity" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="SubEntities" nillable="true" type="tns:AuditPointSubEnities" />
-               <xs:element minOccurs="0" name="Template" nillable="true" type="tns:AuditPointTemplate" />
-               <xs:element minOccurs="0" name="Timestamp" nillable="true" type="xs:string" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="AuditPointResult" nillable="true" type="tns:AuditPointResult" />
-         <xs:complexType name="AuditPointDetails">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="JsonColumns" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
-               <xs:element minOccurs="0" name="JsonString" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointDetails" nillable="true" type="tns:AuditPointDetails" />
-         <xs:complexType name="ArrayOfAuditPointJsonColumn">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfAuditPointJsonColumn" nillable="true" type="tns:ArrayOfAuditPointJsonColumn" />
-         <xs:complexType name="AuditPointJsonColumn">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointJsonColumn" nillable="true" type="tns:AuditPointJsonColumn" />
-         <xs:complexType name="AuditPointSubEnities">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="IssueCount" type="xs:int" />
-               <xs:element xmlns:q189="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SubEntitiesIds" nillable="true" type="q189:ArrayOflong" />
-               <xs:element minOccurs="0" name="SubEntitiesType" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointSubEnities" nillable="true" type="tns:AuditPointSubEnities" />
-         <xs:complexType name="AuditPointTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Links" nillable="true" type="tns:ArrayOfAuditPointLink" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointTemplate" nillable="true" type="tns:AuditPointTemplate" />
-         <xs:complexType name="ArrayOfAuditPointLink">
-            <xs:sequence>
-               <xs:element minOccurs="0" maxOccurs="unbounded" name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="ArrayOfAuditPointLink" nillable="true" type="tns:ArrayOfAuditPointLink" />
-         <xs:complexType name="AuditPointLink">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Type" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="UrlTemplate" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="AuditPointLink" nillable="true" type="tns:AuditPointLink" />
-         <xs:complexType name="CategoryTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="StatusMessage" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="CategoryTemplate" nillable="true" type="tns:CategoryTemplate" />
-         <xs:complexType name="EntityTemplate">
-            <xs:sequence>
-               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="Headline" nillable="true" type="xs:string" />
-               <xs:element minOccurs="0" name="ProgressPercent" type="xs:int" />
-               <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
-            </xs:sequence>
-         </xs:complexType>
-         <xs:element name="EntityTemplate" nillable="true" type="tns:EntityTemplate" />
          <xs:element name="GetAnnotationOptOutRequest">
             <xs:complexType>
                <xs:sequence />
@@ -10555,6 +10620,117 @@
          <xs:element name="UpdateAnnotationOptOutResponse">
             <xs:complexType>
                <xs:sequence />
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="AddLinkedInSegmentsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="LinkedInSegments" nillable="true" type="tns:ArrayOfLinkedInSegment" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfLinkedInSegment">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="LinkedInSegment" nillable="true" type="tns:LinkedInSegment" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfLinkedInSegment" nillable="true" type="tns:ArrayOfLinkedInSegment" />
+         <xs:complexType name="LinkedInSegment">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Reach" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="tns:LinkedInSegmentStatus" />
+               <xs:element minOccurs="0" name="Type" type="tns:LinkedInSegmentType" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="LinkedInSegment" nillable="true" type="tns:LinkedInSegment" />
+         <xs:simpleType name="LinkedInSegmentStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Building" />
+               <xs:enumeration value="Ready" />
+               <xs:enumeration value="ReachTooSmall" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="LinkedInSegmentStatus" nillable="true" type="tns:LinkedInSegmentStatus" />
+         <xs:simpleType name="LinkedInSegmentType">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="CompanyList" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="LinkedInSegmentType" nillable="true" type="tns:LinkedInSegmentType" />
+         <xs:complexType name="CompanyList">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:LinkedInSegment">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="CompanyNames" nillable="true" type="tns:ArrayOfCompanyName" />
+                     <xs:element minOccurs="0" name="Matched" nillable="true" type="xs:int" />
+                     <xs:element minOccurs="0" name="Total" nillable="true" type="xs:int" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="CompanyList" nillable="true" type="tns:CompanyList" />
+         <xs:complexType name="ArrayOfCompanyName">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CompanyName" nillable="true" type="tns:CompanyName" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCompanyName" nillable="true" type="tns:ArrayOfCompanyName" />
+         <xs:complexType name="CompanyName">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Id" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="tns:CompanyNameStatus" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CompanyName" nillable="true" type="tns:CompanyName" />
+         <xs:simpleType name="CompanyNameStatus">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="NotProcessed" />
+               <xs:enumeration value="Matched" />
+               <xs:enumeration value="NoMatch" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CompanyNameStatus" nillable="true" type="tns:CompanyNameStatus" />
+         <xs:element name="AddLinkedInSegmentsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q190="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="LinkedInSegmentIds" nillable="true" type="q190:ArrayOfNullableOflong" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteLinkedInSegmentsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q191="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="LinkedInSegmentIds" nillable="true" type="q191:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DeleteLinkedInSegmentsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateLinkedInSegmentsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="LinkedInSegments" nillable="true" type="tns:ArrayOfLinkedInSegment" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateLinkedInSegmentsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
             </xs:complexType>
          </xs:element>
       </xs:schema>
@@ -15155,6 +15331,78 @@
    <wsdl:message name="ICampaignManagementService_UpdateAnnotationOptOut_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="AddLinkedInSegmentsRequest">
+      <wsdl:part name="parameters" element="tns:AddLinkedInSegmentsRequest" />
+   </wsdl:message>
+   <wsdl:message name="AddLinkedInSegmentsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="AddLinkedInSegmentsResponse">
+      <wsdl:part name="parameters" element="tns:AddLinkedInSegmentsResponse" />
+   </wsdl:message>
+   <wsdl:message name="AddLinkedInSegmentsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddLinkedInSegments_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q187="https://adapi.microsoft.com" name="detail" element="q187:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_AddLinkedInSegments_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="DeleteLinkedInSegmentsRequest">
+      <wsdl:part name="parameters" element="tns:DeleteLinkedInSegmentsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DeleteLinkedInSegmentsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DeleteLinkedInSegmentsResponse">
+      <wsdl:part name="parameters" element="tns:DeleteLinkedInSegmentsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DeleteLinkedInSegmentsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteLinkedInSegments_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q188="https://adapi.microsoft.com" name="detail" element="q188:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_DeleteLinkedInSegments_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="UpdateLinkedInSegmentsRequest">
+      <wsdl:part name="parameters" element="tns:UpdateLinkedInSegmentsRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateLinkedInSegmentsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateLinkedInSegmentsResponse">
+      <wsdl:part name="parameters" element="tns:UpdateLinkedInSegmentsResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateLinkedInSegmentsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateLinkedInSegments_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q189="https://adapi.microsoft.com" name="detail" element="q189:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_UpdateLinkedInSegments_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
       <wsdl:operation name="AddCampaigns">
          <wsdl:input wsaw:Action="AddCampaigns" name="AddCampaignsRequest" message="tns:AddCampaignsRequest" />
@@ -16271,6 +16519,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateAnnotationOptOutResponse" name="UpdateAnnotationOptOutResponse" message="tns:UpdateAnnotationOptOutResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateAnnotationOptOutAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateAnnotationOptOut_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateAnnotationOptOutApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateAnnotationOptOut_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="AddLinkedInSegments">
+         <wsdl:input wsaw:Action="AddLinkedInSegments" name="AddLinkedInSegmentsRequest" message="tns:AddLinkedInSegmentsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddLinkedInSegmentsResponse" name="AddLinkedInSegmentsResponse" message="tns:AddLinkedInSegmentsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddLinkedInSegmentsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_AddLinkedInSegments_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/AddLinkedInSegmentsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_AddLinkedInSegments_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DeleteLinkedInSegments">
+         <wsdl:input wsaw:Action="DeleteLinkedInSegments" name="DeleteLinkedInSegmentsRequest" message="tns:DeleteLinkedInSegmentsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteLinkedInSegmentsResponse" name="DeleteLinkedInSegmentsResponse" message="tns:DeleteLinkedInSegmentsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteLinkedInSegmentsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_DeleteLinkedInSegments_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/DeleteLinkedInSegmentsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_DeleteLinkedInSegments_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateLinkedInSegments">
+         <wsdl:input wsaw:Action="UpdateLinkedInSegments" name="UpdateLinkedInSegmentsRequest" message="tns:UpdateLinkedInSegmentsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsResponse" name="UpdateLinkedInSegmentsResponse" message="tns:UpdateLinkedInSegmentsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateLinkedInSegments_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateLinkedInSegments_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -20545,6 +20811,75 @@
          </wsdl:input>
          <wsdl:output name="UpdateAnnotationOptOutResponse">
             <soap:header message="tns:UpdateAnnotationOptOutResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="AddLinkedInSegments">
+         <soap:operation soapAction="AddLinkedInSegments" style="document" />
+         <wsdl:input name="AddLinkedInSegmentsRequest">
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:AddLinkedInSegmentsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="AddLinkedInSegmentsResponse">
+            <soap:header message="tns:AddLinkedInSegmentsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DeleteLinkedInSegments">
+         <soap:operation soapAction="DeleteLinkedInSegments" style="document" />
+         <wsdl:input name="DeleteLinkedInSegmentsRequest">
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DeleteLinkedInSegmentsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DeleteLinkedInSegmentsResponse">
+            <soap:header message="tns:DeleteLinkedInSegmentsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateLinkedInSegments">
+         <soap:operation soapAction="UpdateLinkedInSegments" style="document" />
+         <wsdl:input name="UpdateLinkedInSegmentsRequest">
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateLinkedInSegmentsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateLinkedInSegmentsResponse">
+            <soap:header message="tns:UpdateLinkedInSegmentsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

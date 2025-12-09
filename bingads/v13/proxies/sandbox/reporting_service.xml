@@ -2056,6 +2056,10 @@
                <xs:enumeration value="AllConversionsQualified" />
                <xs:enumeration value="ViewThroughConversionsQualified" />
                <xs:enumeration value="ViewThroughRevenue" />
+               <xs:enumeration value="CampaignType" />
+               <xs:enumeration value="AssetGroupId" />
+               <xs:enumeration value="AssetGroupName" />
+               <xs:enumeration value="AssetGroupStatus" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ProfessionalDemographicsAudienceReportColumn" nillable="true" type="tns:ProfessionalDemographicsAudienceReportColumn" />
@@ -2064,11 +2068,24 @@
                <xs:element minOccurs="0" name="AccountStatus" nillable="true" type="tns:AccountStatusReportFilter" />
                <xs:element minOccurs="0" name="AdDistribution" nillable="true" type="tns:AdDistributionReportFilter" />
                <xs:element minOccurs="0" name="AdGroupStatus" nillable="true" type="tns:AdGroupStatusReportFilter" />
+               <xs:element minOccurs="0" name="AssetGroupStatus" nillable="true" type="tns:AssetGroupStatusReportFilter" />
                <xs:element minOccurs="0" name="CampaignStatus" nillable="true" type="tns:CampaignStatusReportFilter" />
                <xs:element minOccurs="0" name="Language" nillable="true" type="tns:LanguageReportFilter" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ProfessionalDemographicsAudienceReportFilter" nillable="true" type="tns:ProfessionalDemographicsAudienceReportFilter" />
+         <xs:simpleType name="AssetGroupStatusReportFilter">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="Active" />
+                     <xs:enumeration value="Paused" />
+                     <xs:enumeration value="Deleted" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="AssetGroupStatusReportFilter" nillable="true" type="tns:AssetGroupStatusReportFilter" />
          <xs:complexType name="UserLocationPerformanceReportRequest">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ReportRequest">
@@ -2290,18 +2307,6 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="PublisherUsagePerformanceReportFilter" nillable="true" type="tns:PublisherUsagePerformanceReportFilter" />
-         <xs:simpleType name="AssetGroupStatusReportFilter">
-            <xs:list>
-               <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                     <xs:enumeration value="Active" />
-                     <xs:enumeration value="Paused" />
-                     <xs:enumeration value="Deleted" />
-                  </xs:restriction>
-               </xs:simpleType>
-            </xs:list>
-         </xs:simpleType>
-         <xs:element name="AssetGroupStatusReportFilter" nillable="true" type="tns:AssetGroupStatusReportFilter" />
          <xs:complexType name="SearchQueryPerformanceReportRequest">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ReportRequest">
@@ -4595,6 +4600,8 @@
                <xs:enumeration value="ClicksPeakWeek" />
                <xs:enumeration value="YoYLast4WeeksClicks" />
                <xs:enumeration value="Country" />
+               <xs:enumeration value="MarketplaceClickCoverage" />
+               <xs:enumeration value="ProportionOfSpend" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CategoryInsightsReportColumn" nillable="true" type="tns:CategoryInsightsReportColumn" />
@@ -4938,16 +4945,19 @@
                <xs:enumeration value="Clicks" />
                <xs:enumeration value="Ctr" />
                <xs:enumeration value="Spend" />
-               <xs:enumeration value="Conversions" />
+               <xs:enumeration value="ConversionsQualified" />
                <xs:enumeration value="ConversionRate" />
                <xs:enumeration value="AverageCpc" />
                <xs:enumeration value="ConversionDelay" />
-               <xs:enumeration value="CPA" />
+               <xs:enumeration value="CostPerConversionQualified" />
                <xs:enumeration value="ROAS" />
                <xs:enumeration value="AvgTargetCPA" />
                <xs:enumeration value="AvgTargetRoas" />
                <xs:enumeration value="AvgTargetImpressionShare" />
                <xs:enumeration value="ImpressionSharePercent" />
+               <xs:enumeration value="Owner" />
+               <xs:enumeration value="TimeZone" />
+               <xs:enumeration value="Currency" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="BidStrategyReportColumn" nillable="true" type="tns:BidStrategyReportColumn" />

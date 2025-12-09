@@ -331,6 +331,7 @@ class _CsvHeaders:
         _StringTable.BidStrategyCommissionRate,
         _StringTable.BidStrategyPercentMaxCpc,
         _StringTable.BidStrategyTargetCostPerSale,
+        _StringTable.BidStrategyScope,
 
         # Ad Format Preference
         _StringTable.AdFormatPreference,
@@ -537,7 +538,7 @@ class _CsvHeaders:
         _StringTable.NewCustomerAcquisitionBidOnlyMode,
 
         _StringTable.AccountPlacementListItemUrl,
-
+        _StringTable.TopicParentId,
     ]
 
     @staticmethod

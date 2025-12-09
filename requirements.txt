@@ -7,3 +7,4 @@ coverage
 flake8
 setuptools
 Sphinx
+importlib_resources>=5; python_version < "3.9"

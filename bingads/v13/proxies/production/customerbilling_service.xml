@@ -224,6 +224,24 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="DistributeCouponsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q29:ArrayOfint" />
+                  <xs:element minOccurs="0" name="ClassName" nillable="true" type="xs:string" />
+                  <xs:element minOccurs="0" name="FeatureId" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="SendNotification" type="xs:boolean" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="DistributeCouponsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q30="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q30:ArrayOfOperationError" />
+                  <xs:element xmlns:q31="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q31:ArrayOfArrayOfOperationError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -279,6 +297,12 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+         <xs:complexType name="ArrayOfint">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="int" type="xs:int" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
       </xs:schema>
       <xs:schema xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities" elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
@@ -1100,6 +1124,28 @@
    <wsdl:message name="ICustomerBillingService_GetCouponInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
    </wsdl:message>
+   <wsdl:message name="DistributeCouponsRequest">
+      <wsdl:part name="parameters" element="tns:DistributeCouponsRequest" />
+   </wsdl:message>
+   <wsdl:message name="DistributeCouponsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="DistributeCouponsResponse">
+      <wsdl:part name="parameters" element="tns:DistributeCouponsResponse" />
+   </wsdl:message>
+   <wsdl:message name="DistributeCouponsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_DistributeCoupons_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q13="https://adapi.microsoft.com" name="detail" element="q13:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_DistributeCoupons_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICustomerBillingService">
       <wsdl:operation name="GetBillingDocumentsInfo">
          <wsdl:input wsaw:Action="GetBillingDocumentsInfo" name="GetBillingDocumentsInfoRequest" message="tns:GetBillingDocumentsInfoRequest" />
@@ -1174,6 +1220,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetCouponInfoResponse" name="GetCouponInfoResponse" message="tns:GetCouponInfoResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetCouponInfoAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetCouponInfo_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetCouponInfoApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetCouponInfo_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="DistributeCoupons">
+         <wsdl:input wsaw:Action="DistributeCoupons" name="DistributeCouponsRequest" message="tns:DistributeCouponsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsResponse" name="DistributeCouponsResponse" message="tns:DistributeCouponsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_DistributeCoupons_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_DistributeCoupons_ApiFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICustomerBillingService" type="tns:ICustomerBillingService">
@@ -1428,6 +1480,27 @@
          </wsdl:input>
          <wsdl:output name="GetCouponInfoResponse">
             <soap:header message="tns:GetCouponInfoResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="DistributeCoupons">
+         <soap:operation soapAction="DistributeCoupons" style="document" />
+         <wsdl:input name="DistributeCouponsRequest">
+            <soap:header message="tns:DistributeCouponsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:DistributeCouponsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:DistributeCouponsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:DistributeCouponsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:DistributeCouponsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="DistributeCouponsResponse">
+            <soap:header message="tns:DistributeCouponsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

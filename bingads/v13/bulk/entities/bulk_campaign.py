@@ -44,6 +44,7 @@ class BulkCampaign(_SingleRecordBulkEntity):
         self._destination_channel = None
         self._is_multi_channel_campaign = None
         self._should_serve_on_msan = None
+        self._scope = None
 
     @property
     def account_id(self):
@@ -147,6 +148,14 @@ class BulkCampaign(_SingleRecordBulkEntity):
     @should_serve_on_msan.setter
     def should_serve_on_msan(self, value):
         self._should_serve_on_msan = value
+
+    @property
+    def scope(self):
+        return self._scope
+
+    @scope.setter
+    def scope(self, value):
+        self._scope = value
 
     def _get_dynamic_feed_setting(self):
         return self._get_setting(_DynamicFeedSetting, 'DynamicFeedSetting')
@@ -843,6 +852,11 @@ class BulkCampaign(_SingleRecordBulkEntity):
             header=_StringTable.IsPolitical,
             field_to_csv=lambda c: field_to_csv_bool(c.campaign.IsPolitical),
             csv_to_field=lambda c, v: setattr(c.campaign, 'IsPolitical', parse_bool(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyScope,
+            field_to_csv=lambda c: bulk_str(c.scope),
+            csv_to_field=lambda c, v: csv_to_field_enum(c, v, 'scope', EntityScope)
         ),
     ]
 

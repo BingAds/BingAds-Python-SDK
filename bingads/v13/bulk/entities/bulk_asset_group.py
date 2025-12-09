@@ -163,6 +163,21 @@ class BulkAssetGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_optional_str(c.asset_group.Path2, c.asset_group.Id),
             csv_to_field=lambda c, v: setattr(c.asset_group, 'Path2', v)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.TrackingTemplate,
+            field_to_csv=lambda c: bulk_optional_str(c.asset_group.TrackingUrlTemplate, c.asset_group.Id),
+            csv_to_field=lambda c, v: setattr(c.asset_group, 'TrackingUrlTemplate', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.FinalUrlSuffix,
+            field_to_csv=lambda c: bulk_optional_str(c.asset_group.FinalUrlSuffix, c.asset_group.Id),
+            csv_to_field=lambda c, v: setattr(c.asset_group, 'FinalUrlSuffix', v if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CustomParameter,
+            field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.asset_group),
+            csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.asset_group, v)
+        ),
     ]
 
 

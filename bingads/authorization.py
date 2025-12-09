@@ -9,12 +9,13 @@ import requests
 
 from .exceptions import OAuthTokenRequestException
 
-PRODUCTION='production'
-SANDBOX='sandbox'
-MSADS_MANAGE='msads.manage'
-ADS_MANAGE='ads.manage'
-BINGADS_MANAGE='bingads.manage'
-MSA_PROD='msa.prod'
+PRODUCTION = 'production'
+SANDBOX = 'sandbox'
+MSADS_MANAGE = 'msads.manage'
+ADS_MANAGE = 'ads.manage'
+BINGADS_MANAGE = 'bingads.manage'
+MSA_PROD = 'msa.prod'
+GOOGLE_PROD = 'google.prod'
 
 class AuthorizationData:
     """ Represents a user who intends to access the corresponding customer and account.
@@ -568,6 +569,62 @@ class OAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
             use_msa_prod=use_msa_prod
         )
 
+class GoogleOAuthDesktopMobileAuthCodeGrant(OAuthWithAuthorizationCode):
+    """ Represents a Google OAuth authorization object implementing the authorization code grant flow for use in a desktop or mobile application.
+
+    You can use an instance of this class as the AuthorizationData.Authentication property
+    of an :class:`.AuthorizationData` object to authenticate with Bing Ads services.
+    In this case the AuthenticationToken request header will be set to the corresponding OAuthTokens.AccessToken value.
+
+    This class implements the authorization code grant flow for Google OAuth 2.0, which follows the standard OAuth 2.0 flow
+    as defined in detail in the <see href="https://tools.ietf.org/html/rfc6749#section-4.1">Authorization Code Grant section of the OAuth 2.0 spec</see>.
+    The Google access token obtained through this flow can be passed to the Bing Ads API backend in the same manner as Microsoft tokens.
+    """
+
+    def __init__(self, client_id, client_secret=None, oauth_tokens=None, env=PRODUCTION, oauth_scope=GOOGLE_PROD, tenant='common'):
+        """ Initializes a new instance of the this class with the specified client id.
+
+        :param client_id: The client identifier corresponding to your registered application.
+        :type client_id: str
+        :param oauth_tokens: Contains information about OAuth access tokens received from the Microsoft Account authorization service
+        :type oauth_tokens: OAuthTokens
+        """
+
+        super(GoogleOAuthDesktopMobileAuthCodeGrant, self).__init__(
+            client_id,
+            client_secret,
+            _UriOAuthService.REDIRECTION_URI[(env, oauth_scope)],
+            oauth_tokens=oauth_tokens,
+            env=env,
+            oauth_scope=oauth_scope,
+            tenant=tenant
+        )
+
+class GoogleOAuthWebAuthCodeGrant(OAuthWithAuthorizationCode):
+    """ Represents a Google OAuth authorization object implementing the authorization code grant flow for use in a web application.
+
+    You can use an instance of this class as the AuthorizationData.Authentication property
+    to authenticate with Bing Ads REST API services.
+    """
+
+    def __init__(self, client_id, client_secret, redirect_url, oauth_tokens=None, env=PRODUCTION, oauth_scope=GOOGLE_PROD, tenant='common'):
+        """ Initializes a new instance of this class with the specified client id.
+
+        :param client_id: The client identifier corresponding to your registered application.
+        :type client_id: str
+        :param oauth_tokens: OAuth token information
+        :type oauth_tokens: OAuthTokens
+        """
+        super(GoogleOAuthWebAuthCodeGrant, self).__init__(
+            client_id,
+            client_secret,
+            redirect_url,
+            oauth_tokens=oauth_tokens,
+            env=env,
+            oauth_scope=oauth_scope,
+            tenant=tenant
+        )
+
 
 class OAuthWebAuthCodeGrant(OAuthWithAuthorizationCode):
     """ Represents an OAuth authorization object implementing the authorization code grant flow for use in a web application.
@@ -666,33 +723,41 @@ class _UriOAuthService:
     def __init__(self):
         pass
 
-    REDIRECTION_URI={
+    REDIRECTION_URI = {
         (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/nativeclient',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/nativeclient',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_desktop.srf',
         (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/common/oauth2/nativeclient',
-        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/nativeclient'
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/nativeclient',
+        (PRODUCTION, GOOGLE_PROD):    'http://localhost',
+        (SANDBOX, GOOGLE_PROD):       'http://localhost'
     }
-    AUTH_TOKEN_URI={
+    AUTH_TOKEN_URI = {
         (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/v2.0/token',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/v2.0/token',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_token.srf',
         (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/token',
-        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+        (PRODUCTION, GOOGLE_PROD):    'https://oauth2.googleapis.com/token',
+        (SANDBOX, GOOGLE_PROD):       'https://oauth2.googleapis.com/token'
     }
-    AUTHORIZE_URI={
+    AUTHORIZE_URI = {
         (PRODUCTION, MSADS_MANAGE):   'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}',
         (PRODUCTION, ADS_MANAGE):     'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fads.microsoft.com%2Fads.manage%20offline_access&response_type={1}&redirect_uri={2}',
         (PRODUCTION, BINGADS_MANAGE): 'https://login.live.com/oauth20_authorize.srf?client_id={0}&scope=bingads.manage&response_type={1}&redirect_uri={2}',
         (SANDBOX, MSADS_MANAGE):      'https://login.windows-ppe.net/consumers/oauth2/v2.0/authorize?client_id={0}&scope=https://api.ads.microsoft.com/msads.manage%20offline_access&response_type={1}&redirect_uri={2}&prompt=login',
-        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fsi.ads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}'
+        (SANDBOX, MSA_PROD):          'https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id={0}&scope=https%3A%2F%2Fsi.ads.microsoft.com%2Fmsads.manage%20offline_access&response_type={1}&redirect_uri={2}',
+        (PRODUCTION, GOOGLE_PROD):    'https://accounts.google.com/o/oauth2/v2/auth?client_id={0}&scope=openid%20email%20profile&response_type={1}&redirect_uri={2}&access_type=offline&prompt=consent',
+        (SANDBOX, GOOGLE_PROD):       'https://accounts.google.com/o/oauth2/v2/auth?client_id={0}&scope=openid%20email%20profile&response_type={1}&redirect_uri={2}&access_type=offline&prompt=consent'
     }
-    SCOPE={
+    SCOPE = {
         (PRODUCTION, MSADS_MANAGE):   'https://ads.microsoft.com/msads.manage offline_access',
         (PRODUCTION, ADS_MANAGE):     'https://ads.microsoft.com/ads.manage offline_access',
         (PRODUCTION, BINGADS_MANAGE): 'bingads.manage',
         (SANDBOX, MSADS_MANAGE):      'https://api.ads.microsoft.com/msads.manage offline_access',
-        (SANDBOX, MSA_PROD):          'https://si.ads.microsoft.com/msads.manage offline_access'
+        (SANDBOX, MSA_PROD):          'https://si.ads.microsoft.com/msads.manage offline_access',
+        (PRODUCTION, GOOGLE_PROD):    'openid email profile',
+        (SANDBOX, GOOGLE_PROD):       'openid email profile'
     }
 
     @staticmethod
@@ -725,4 +790,4 @@ class _UriOAuthService:
             raise OAuthTokenRequestException(error_json.get('error'), error_json.get('error_description'))
 
         r_json = json.loads(r.text)
-        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json['refresh_token'], r_json)
+        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json.get('refresh_token', None), r_json)

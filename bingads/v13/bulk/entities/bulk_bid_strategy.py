@@ -90,6 +90,21 @@ class BulkBidStrategy(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.bid_strategy.AssociatedCampaignType),
             csv_to_field=lambda c, v: setattr(c.bid_strategy, 'AssociatedCampaignType', v if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.BidStrategyScope,
+            field_to_csv=lambda c: bulk_str(c.bid_strategy.Scope),
+            csv_to_field=lambda c, v: csv_to_field_enum(c.bid_strategy, v, 'Scope', EntityScope)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.CurrencyCode,
+            field_to_csv=lambda c: bulk_str(c.bid_strategy.CurrencyCode),
+            csv_to_field=lambda c, v: setattr(c.bid_strategy, 'CurrencyCode', v)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.TimeZone,
+            field_to_csv=lambda c: bulk_str(c.bid_strategy.ReportingTimeZone),
+            csv_to_field=lambda c, v: setattr(c.bid_strategy, 'ReportingTimeZone', v)
+        ),
         _ComplexBulkMapping(bid_strategy_biddingscheme_to_csv, csv_to_bid_strategy_biddingscheme),
     ]
 
