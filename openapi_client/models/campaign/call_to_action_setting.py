@@ -21,15 +21,15 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class CallToActionSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class CallToActionSetting(Setting):
     """
     CallToActionSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     automated_call_to_action_opt_out: Optional[StrictBool] = Field(default=None, alias="AutomatedCallToActionOptOut")
     call_to_action_opt_out: Optional[StrictBool] = Field(default=None, alias="CallToActionOptOut")
-    type: Optional[StrictStr] = Field(default='CallToActionSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["AutomatedCallToActionOptOut", "CallToActionOptOut", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "AutomatedCallToActionOptOut", "CallToActionOptOut"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class CallToActionSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,6 +69,11 @@ class CallToActionSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if automated_call_to_action_opt_out (nullable) is None
         # and model_fields_set contains the field
         if self.automated_call_to_action_opt_out is None and "automated_call_to_action_opt_out" in self.model_fields_set:
@@ -75,11 +83,6 @@ class CallToActionSetting(BaseModel):
         # and model_fields_set contains the field
         if self.call_to_action_opt_out is None and "call_to_action_opt_out" in self.model_fields_set:
             _dict['CallToActionOptOut'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -93,8 +96,8 @@ class CallToActionSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AutomatedCallToActionOptOut": obj.get("AutomatedCallToActionOptOut") if obj.get("AutomatedCallToActionOptOut") is not None else None,
-                        "CallToActionOptOut": obj.get("CallToActionOptOut") if obj.get("CallToActionOptOut") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'CallToActionSetting'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "AutomatedCallToActionOptOut": obj.get("AutomatedCallToActionOptOut") if obj.get("AutomatedCallToActionOptOut") is not None else None,
+                        "CallToActionOptOut": obj.get("CallToActionOptOut") if obj.get("CallToActionOptOut") is not None else None
         })
         return _obj

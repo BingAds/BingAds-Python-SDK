@@ -17,220 +17,113 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.age_dimension import AgeDimension
-from openapi_client.models.campaign.age_range import AgeRange
-from openapi_client.models.campaign.audience_dimension import AudienceDimension
-from openapi_client.models.campaign.audience_info import AudienceInfo
-from openapi_client.models.campaign.gender_dimension import GenderDimension
-from openapi_client.models.campaign.gender_type import GenderType
-from openapi_client.models.campaign.profile_dimension import ProfileDimension
-from openapi_client.models.campaign.profile_info import ProfileInfo
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-AudienceGroupDimension_ONE_OF_SCHEMAS = ["AgeDimension", "AudienceDimension", "GenderDimension", "ProfileDimension"]
 
 class AudienceGroupDimension(BaseModel):
     """
     AudienceGroupDimension
     """
-    # data type: AgeDimension
-    oneof_schema_age_dimension_validator: Optional[AgeDimension] = None
-    # data type: AudienceDimension
-    oneof_schema_audience_dimension_validator: Optional[AudienceDimension] = None
-    # data type: GenderDimension
-    oneof_schema_gender_dimension_validator: Optional[GenderDimension] = None
-    # data type: ProfileDimension
-    oneof_schema_profile_dimension_validator: Optional[ProfileDimension] = None
-    actual_instance: Optional[Union[AgeDimension, AudienceDimension, GenderDimension, ProfileDimension]] = None
-    one_of_schemas: Set[str] = { "AgeDimension", "AudienceDimension", "GenderDimension", "ProfileDimension" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AgeDimension', 'Age'),
+                ('AudienceDimension', 'Audience'),
+                ('GenderDimension', 'Gender'),
+                ('ProfileDimension', 'Profile'),
+                ('AgeDimension', 'AgeDimension'),
+                ('AudienceDimension', 'AudienceDimension'),
+                ('GenderDimension', 'GenderDimension'),
+                ('ProfileDimension', 'ProfileDimension'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = AudienceGroupDimension.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AgeDimension
-        if not isinstance(v, AgeDimension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AgeDimension`")
-        else:
-            match += 1
-        # validate data type: AudienceDimension
-        if not isinstance(v, AudienceDimension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AudienceDimension`")
-        else:
-            match += 1
-        # validate data type: GenderDimension
-        if not isinstance(v, GenderDimension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `GenderDimension`")
-        else:
-            match += 1
-        # validate data type: ProfileDimension
-        if not isinstance(v, ProfileDimension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProfileDimension`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in AudienceGroupDimension with oneOf schemas: AgeDimension, AudienceDimension, GenderDimension, ProfileDimension. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in AudienceGroupDimension with oneOf schemas: AgeDimension, AudienceDimension, GenderDimension, ProfileDimension. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of AudienceGroupDimension from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AgeDimension`
-        if _data_type == "Age":
-            instance.actual_instance = AgeDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `AudienceDimension`
-        if _data_type == "Audience":
-            instance.actual_instance = AudienceDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `GenderDimension`
-        if _data_type == "Gender":
-            instance.actual_instance = GenderDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProfileDimension`
-        if _data_type == "Profile":
-            instance.actual_instance = ProfileDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `AgeDimension`
-        if _data_type == "AgeDimension":
-            instance.actual_instance = AgeDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `AudienceDimension`
-        if _data_type == "AudienceDimension":
-            instance.actual_instance = AudienceDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `GenderDimension`
-        if _data_type == "GenderDimension":
-            instance.actual_instance = GenderDimension.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProfileDimension`
-        if _data_type == "ProfileDimension":
-            instance.actual_instance = ProfileDimension.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AgeDimension
-        try:
-            instance.actual_instance = AgeDimension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AudienceDimension
-        try:
-            instance.actual_instance = AudienceDimension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into GenderDimension
-        try:
-            instance.actual_instance = GenderDimension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProfileDimension
-        try:
-            instance.actual_instance = ProfileDimension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into AudienceGroupDimension with oneOf schemas: AgeDimension, AudienceDimension, GenderDimension, ProfileDimension. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into AudienceGroupDimension with oneOf schemas: AgeDimension, AudienceDimension, GenderDimension, ProfileDimension. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AgeDimension, AudienceDimension, GenderDimension, ProfileDimension]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of AudienceGroupDimension from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_age_dimension_validator', 'oneof_schema_audience_dimension_validator', 'oneof_schema_gender_dimension_validator', 'oneof_schema_profile_dimension_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "Age":
+            from openapi_client.models.campaign.age_dimension import AgeDimension
+            return AgeDimension.from_dict(obj)
+        
+        if type == "Audience":
+            from openapi_client.models.campaign.audience_dimension import AudienceDimension
+            return AudienceDimension.from_dict(obj)
+        
+        if type == "Gender":
+            from openapi_client.models.campaign.gender_dimension import GenderDimension
+            return GenderDimension.from_dict(obj)
+        
+        if type == "Profile":
+            from openapi_client.models.campaign.profile_dimension import ProfileDimension
+            return ProfileDimension.from_dict(obj)
+        
+        if type == "AgeDimension":
+            from openapi_client.models.campaign.age_dimension import AgeDimension
+            return AgeDimension.from_dict(obj)
+        
+        if type == "AudienceDimension":
+            from openapi_client.models.campaign.audience_dimension import AudienceDimension
+            return AudienceDimension.from_dict(obj)
+        
+        if type == "GenderDimension":
+            from openapi_client.models.campaign.gender_dimension import GenderDimension
+            return GenderDimension.from_dict(obj)
+        
+        if type == "ProfileDimension":
+            from openapi_client.models.campaign.profile_dimension import ProfileDimension
+            return ProfileDimension.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

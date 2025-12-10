@@ -13,168 +13,162 @@
 
 
 from __future__ import annotations
-import json
 import pprint
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
-from typing import Any, List, Optional
-from openapi_client.models.adinsight.recommendation_base import RecommendationBase
-from openapi_client.models.adinsight.responsive_search_ads_recommendation import ResponsiveSearchAdsRecommendation
-from openapi_client.models.adinsight.suggested_responsive_search_ad import SuggestedResponsiveSearchAd
-from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
-from typing_extensions import Literal, Self
+import re  # noqa: F401
+import json
 
-Recommendation_ONE_OF_SCHEMAS = ["RecommendationBase", "ResponsiveSearchAdsRecommendation"]
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from typing_extensions import Self
 
 class Recommendation(BaseModel):
     """
     Recommendation
-    """
-    # data type: RecommendationBase
-    oneof_schema_recommendation_base_validator: Optional[RecommendationBase] = None
-    # data type: ResponsiveSearchAdsRecommendation
-    oneof_schema_responsive_search_ads_recommendation_validator: Optional[ResponsiveSearchAdsRecommendation] = None
-    actual_instance: Optional[Union[RecommendationBase, ResponsiveSearchAdsRecommendation]] = None
-    one_of_schemas: Set[str] = { "RecommendationBase", "ResponsiveSearchAdsRecommendation" }
+    """ # noqa: E501
+    account_id: Optional[StrictStr] = Field(default=None, alias="AccountId")
+    campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
+    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
+    recommendation_type: Optional[StrictStr] = Field(default=None, alias="RecommendationType")
+    recommendation_id: Optional[StrictStr] = Field(default=None, alias="RecommendationId")
+    recommendation_hash: Optional[StrictStr] = Field(default=None, alias="RecommendationHash")
+    current_clicks: Optional[StrictStr] = Field(default=None, alias="CurrentClicks")
+    estimated_increase_in_clicks: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInClicks")
+    current_cost: Optional[StrictFloat] = Field(default=None, alias="CurrentCost")
+    estimated_increase_in_cost: Optional[StrictFloat] = Field(default=None, alias="EstimatedIncreaseInCost")
+    current_impressions: Optional[StrictStr] = Field(default=None, alias="CurrentImpressions")
+    estimated_increase_in_impressions: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInImpressions")
+    current_conversions: Optional[StrictStr] = Field(default=None, alias="CurrentConversions")
+    estimated_increase_in_conversions: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInConversions")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    __properties: ClassVar[List[str]] = ["AccountId", "CampaignId", "AdGroupId", "RecommendationType", "RecommendationId", "RecommendationHash", "CurrentClicks", "EstimatedIncreaseInClicks", "CurrentCost", "EstimatedIncreaseInCost", "CurrentImpressions", "EstimatedIncreaseInImpressions", "CurrentConversions", "EstimatedIncreaseInConversions", "Type"]
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+	
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
 
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
 
-        instance = Recommendation.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: RecommendationBase
-        if not isinstance(v, RecommendationBase):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `RecommendationBase`")
-        else:
-            match += 1
-        # validate data type: ResponsiveSearchAdsRecommendation
-        if not isinstance(v, ResponsiveSearchAdsRecommendation):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ResponsiveSearchAdsRecommendation`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Recommendation with oneOf schemas: RecommendationBase, ResponsiveSearchAdsRecommendation. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in Recommendation with oneOf schemas: RecommendationBase, ResponsiveSearchAdsRecommendation. Details: " + ", ".join(error_messages))
-        else:
-            return v
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # set to None if account_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.account_id is None and "account_id" in self.model_fields_set:
+            _dict['AccountId'] = None
+
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['CampaignId'] = None
+
+        # set to None if ad_group_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
+            _dict['AdGroupId'] = None
+
+        # set to None if recommendation_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.recommendation_type is None and "recommendation_type" in self.model_fields_set:
+            _dict['RecommendationType'] = None
+
+        # set to None if recommendation_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.recommendation_id is None and "recommendation_id" in self.model_fields_set:
+            _dict['RecommendationId'] = None
+
+        # set to None if recommendation_hash (nullable) is None
+        # and model_fields_set contains the field
+        if self.recommendation_hash is None and "recommendation_hash" in self.model_fields_set:
+            _dict['RecommendationHash'] = None
+
+        # set to None if current_clicks (nullable) is None
+        # and model_fields_set contains the field
+        if self.current_clicks is None and "current_clicks" in self.model_fields_set:
+            _dict['CurrentClicks'] = None
+
+        # set to None if estimated_increase_in_clicks (nullable) is None
+        # and model_fields_set contains the field
+        if self.estimated_increase_in_clicks is None and "estimated_increase_in_clicks" in self.model_fields_set:
+            _dict['EstimatedIncreaseInClicks'] = None
+
+        # set to None if current_cost (nullable) is None
+        # and model_fields_set contains the field
+        if self.current_cost is None and "current_cost" in self.model_fields_set:
+            _dict['CurrentCost'] = None
+
+        # set to None if estimated_increase_in_cost (nullable) is None
+        # and model_fields_set contains the field
+        if self.estimated_increase_in_cost is None and "estimated_increase_in_cost" in self.model_fields_set:
+            _dict['EstimatedIncreaseInCost'] = None
+
+        # set to None if current_impressions (nullable) is None
+        # and model_fields_set contains the field
+        if self.current_impressions is None and "current_impressions" in self.model_fields_set:
+            _dict['CurrentImpressions'] = None
+
+        # set to None if estimated_increase_in_impressions (nullable) is None
+        # and model_fields_set contains the field
+        if self.estimated_increase_in_impressions is None and "estimated_increase_in_impressions" in self.model_fields_set:
+            _dict['EstimatedIncreaseInImpressions'] = None
+
+        # set to None if current_conversions (nullable) is None
+        # and model_fields_set contains the field
+        if self.current_conversions is None and "current_conversions" in self.model_fields_set:
+            _dict['CurrentConversions'] = None
+
+        # set to None if estimated_increase_in_conversions (nullable) is None
+        # and model_fields_set contains the field
+        if self.estimated_increase_in_conversions is None and "estimated_increase_in_conversions" in self.model_fields_set:
+            _dict['EstimatedIncreaseInConversions'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        return _dict
 
     @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
-
-    @classmethod
-    def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
-
-        error_messages = []
-        match = 0
-
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
-
-		# check if data type is `RecommendationBase`
-        if _data_type == "Recommendation":
-            instance.actual_instance = RecommendationBase.from_json(json_str)
-            return instance
-			
-		# check if data type is `ResponsiveSearchAdsRecommendation`
-        if _data_type == "ResponsiveSearchAdsRecommendation":
-            instance.actual_instance = ResponsiveSearchAdsRecommendation.from_json(json_str)
-            return instance
-			
-		# check if data type is `RecommendationBase`
-        if _data_type == "RecommendationBase":
-            instance.actual_instance = RecommendationBase.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into RecommendationBase
-        try:
-            instance.actual_instance = RecommendationBase.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ResponsiveSearchAdsRecommendation
-        try:
-            instance.actual_instance = ResponsiveSearchAdsRecommendation.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Recommendation with oneOf schemas: RecommendationBase, ResponsiveSearchAdsRecommendation. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into Recommendation with oneOf schemas: RecommendationBase, ResponsiveSearchAdsRecommendation. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], RecommendationBase, ResponsiveSearchAdsRecommendation]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of Recommendation from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_recommendation_base_validator', 'oneof_schema_responsive_search_ads_recommendation_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        _obj = cls.model_validate({
+            "AccountId": obj.get("AccountId") if obj.get("AccountId") is not None else None,
+                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+                        "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "RecommendationType": obj.get("RecommendationType") if obj.get("RecommendationType") is not None else None,
+                        "RecommendationId": obj.get("RecommendationId") if obj.get("RecommendationId") is not None else None,
+                        "RecommendationHash": obj.get("RecommendationHash") if obj.get("RecommendationHash") is not None else None,
+                        "CurrentClicks": obj.get("CurrentClicks") if obj.get("CurrentClicks") is not None else None,
+                        "EstimatedIncreaseInClicks": obj.get("EstimatedIncreaseInClicks") if obj.get("EstimatedIncreaseInClicks") is not None else None,
+                        "CurrentCost": obj.get("CurrentCost") if obj.get("CurrentCost") is not None else None,
+                        "EstimatedIncreaseInCost": obj.get("EstimatedIncreaseInCost") if obj.get("EstimatedIncreaseInCost") is not None else None,
+                        "CurrentImpressions": obj.get("CurrentImpressions") if obj.get("CurrentImpressions") is not None else None,
+                        "EstimatedIncreaseInImpressions": obj.get("EstimatedIncreaseInImpressions") if obj.get("EstimatedIncreaseInImpressions") is not None else None,
+                        "CurrentConversions": obj.get("CurrentConversions") if obj.get("CurrentConversions") is not None else None,
+                        "EstimatedIncreaseInConversions": obj.get("EstimatedIncreaseInConversions") if obj.get("EstimatedIncreaseInConversions") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

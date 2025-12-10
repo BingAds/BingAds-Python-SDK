@@ -22,6 +22,12 @@ class AssetGroupAdditionalField(Flag):
 
     ASSETGROUPURLTARGETS = auto()
 
+    TRACKINGURLTEMPLATE = auto()
+
+    FINALURLSUFFIX = auto()
+
+    URLCUSTOMPARAMETERS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -34,8 +40,16 @@ class AssetGroupAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AssetGroupAdditionalField.NONE: 'None',
+            AssetGroupAdditionalField.ASSETGROUPSEARCHTHEMES: 'AssetGroupSearchThemes',
+            AssetGroupAdditionalField.ASSETGROUPURLTARGETS: 'AssetGroupUrlTargets',
+            AssetGroupAdditionalField.TRACKINGURLTEMPLATE: 'TrackingUrlTemplate',
+            AssetGroupAdditionalField.FINALURLSUFFIX: 'FinalUrlSuffix',
+            AssetGroupAdditionalField.URLCUSTOMPARAMETERS: 'UrlCustomParameters',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AssetGroupAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AssetGroupAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

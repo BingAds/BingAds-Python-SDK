@@ -24,23 +24,23 @@ from openapi_client.models.campaign.ad_extension_status import AdExtensionStatus
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class NewsAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class NewsAdExtension(AdExtension):
     """
     NewsAdExtension
     """ # noqa: E501
-    name: Optional[StrictStr] = Field(default=None, alias="Name")
-    source_url: Optional[StrictStr] = Field(default=None, alias="SourceUrl")
-    filter: Optional[StrictStr] = Field(default=None, alias="Filter")
-    priority: Optional[StrictInt] = Field(default=None, alias="Priority")
     status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
     scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
     device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='NewsAdExtension', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     version: Optional[StrictInt] = Field(default=None, alias="Version")
+    name: Optional[StrictStr] = Field(default=None, alias="Name")
+    source_url: Optional[StrictStr] = Field(default=None, alias="SourceUrl")
+    filter: Optional[StrictStr] = Field(default=None, alias="Filter")
+    priority: Optional[StrictInt] = Field(default=None, alias="Priority")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Name", "SourceUrl", "Filter", "Priority", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "Name", "SourceUrl", "Filter", "Priority", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,6 +48,9 @@ class NewsAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -87,26 +90,6 @@ class NewsAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['Name'] = None
-
-        # set to None if source_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.source_url is None and "source_url" in self.model_fields_set:
-            _dict['SourceUrl'] = None
-
-        # set to None if filter (nullable) is None
-        # and model_fields_set contains the field
-        if self.filter is None and "filter" in self.model_fields_set:
-            _dict['Filter'] = None
-
-        # set to None if priority (nullable) is None
-        # and model_fields_set contains the field
-        if self.priority is None and "priority" in self.model_fields_set:
-            _dict['Priority'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -137,6 +120,26 @@ class NewsAdExtension(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['Version'] = None
 
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['Name'] = None
+
+        # set to None if source_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.source_url is None and "source_url" in self.model_fields_set:
+            _dict['SourceUrl'] = None
+
+        # set to None if filter (nullable) is None
+        # and model_fields_set contains the field
+        if self.filter is None and "filter" in self.model_fields_set:
+            _dict['Filter'] = None
+
+        # set to None if priority (nullable) is None
+        # and model_fields_set contains the field
+        if self.priority is None and "priority" in self.model_fields_set:
+            _dict['Priority'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -154,16 +157,16 @@ class NewsAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "SourceUrl": obj.get("SourceUrl") if obj.get("SourceUrl") is not None else None,
-                        "Filter": obj.get("Filter") if obj.get("Filter") is not None else None,
-                        "Priority": obj.get("Priority") if obj.get("Priority") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
                         "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NewsAdExtension',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+                        "SourceUrl": obj.get("SourceUrl") if obj.get("SourceUrl") is not None else None,
+                        "Filter": obj.get("Filter") if obj.get("Filter") is not None else None,
+                        "Priority": obj.get("Priority") if obj.get("Priority") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

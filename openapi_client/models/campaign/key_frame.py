@@ -28,7 +28,8 @@ class KeyFrame(BaseModel):
     """ # noqa: E501
     template_id: Optional[StrictStr] = Field(default=None, alias="templateId")
     url: Optional[StrictStr] = Field(default=None, alias="url")
-    __properties: ClassVar[List[str]] = ["templateId", "url"]
+    keyframe_timestamp: Optional[StrictFloat] = Field(default=None, alias="keyframeTimestamp")
+    __properties: ClassVar[List[str]] = ["templateId", "url", "keyframeTimestamp"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,6 +66,11 @@ class KeyFrame(BaseModel):
         if self.url is None and "url" in self.model_fields_set:
             _dict['url'] = None
 
+        # set to None if keyframe_timestamp (nullable) is None
+        # and model_fields_set contains the field
+        if self.keyframe_timestamp is None and "keyframe_timestamp" in self.model_fields_set:
+            _dict['keyframeTimestamp'] = None
+
         return _dict
 
     @classmethod
@@ -78,6 +84,7 @@ class KeyFrame(BaseModel):
 
         _obj = cls.model_validate({
             "templateId": obj.get("TemplateId") if obj.get("TemplateId") is not None else None,
-                        "url": obj.get("Url") if obj.get("Url") is not None else None
+                        "url": obj.get("Url") if obj.get("Url") is not None else None,
+                        "keyframeTimestamp": obj.get("KeyframeTimestamp") if obj.get("KeyframeTimestamp") is not None else None
         })
         return _obj

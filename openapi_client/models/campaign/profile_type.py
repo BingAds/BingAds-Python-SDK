@@ -38,8 +38,15 @@ class ProfileType(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            ProfileType.COMPANYNAME: 'CompanyName',
+            ProfileType.JOBFUNCTION: 'JobFunction',
+            ProfileType.INDUSTRY: 'Industry',
+            ProfileType.JOBSENIORITY: 'JobSeniority',
+            ProfileType.JOBTITLE: 'JobTitle',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in ProfileType if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in ProfileType if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

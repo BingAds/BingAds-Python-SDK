@@ -26,15 +26,11 @@ from openapi_client.models.reporting.report_aggregation import ReportAggregation
 from openapi_client.models.reporting.report_format import ReportFormat
 from openapi_client.models.reporting.report_time import ReportTime
 from typing_extensions import Self
-
-class AssetPerformanceReportRequest(BaseModel):
+from openapi_client.models.reporting.report_request import ReportRequest
+class AssetPerformanceReportRequest(ReportRequest):
     """
     AssetPerformanceReportRequest
     """ # noqa: E501
-    time: Optional[ReportTime] = Field(default=None, alias="Time")
-    aggregation: Optional[ReportAggregation] = Field(default=None, alias="Aggregation")
-    columns: Optional[List[Optional[AssetPerformanceReportColumn]]] = Field(default=None, alias="Columns")
-    scope: Optional[AccountThroughAdGroupReportScope] = Field(default=None, alias="Scope")
     report_name: Optional[StrictStr] = Field(default=None, alias="ReportName")
     format: Optional[ReportFormat] = Field(default=None, alias="Format")
     return_only_complete_data: Optional[StrictBool] = Field(default=None, alias="ReturnOnlyCompleteData")
@@ -42,8 +38,12 @@ class AssetPerformanceReportRequest(BaseModel):
     exclude_report_footer: Optional[StrictBool] = Field(default=None, alias="ExcludeReportFooter")
     exclude_column_headers: Optional[StrictBool] = Field(default=None, alias="ExcludeColumnHeaders")
     format_version: Optional[StrictStr] = Field(default=None, alias="FormatVersion")
+    time: Optional[ReportTime] = Field(default=None, alias="Time")
+    aggregation: Optional[ReportAggregation] = Field(default=None, alias="Aggregation")
+    columns: Optional[List[Optional[AssetPerformanceReportColumn]]] = Field(default=None, alias="Columns")
+    scope: Optional[AccountThroughAdGroupReportScope] = Field(default=None, alias="Scope")
     type: Optional[StrictStr] = Field(default='AssetPerformanceReportRequest', alias="Type")
-    __properties: ClassVar[List[str]] = ["Time", "Aggregation", "Columns", "Scope", "ReportName", "Format", "ReturnOnlyCompleteData", "ExcludeReportHeader", "ExcludeReportFooter", "ExcludeColumnHeaders", "FormatVersion", "Type"]
+    __properties: ClassVar[List[str]] = ["ReportName", "Format", "ReturnOnlyCompleteData", "ExcludeReportHeader", "ExcludeReportFooter", "ExcludeColumnHeaders", "FormatVersion", "Time", "Aggregation", "Columns", "Scope", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,6 +51,9 @@ class AssetPerformanceReportRequest(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -86,26 +89,6 @@ class AssetPerformanceReportRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of scope
         if self.scope:
             _dict['Scope'] = self.scope.to_dict()
-        # set to None if time (nullable) is None
-        # and model_fields_set contains the field
-        if self.time is None and "time" in self.model_fields_set:
-            _dict['Time'] = None
-
-        # set to None if aggregation (nullable) is None
-        # and model_fields_set contains the field
-        if self.aggregation is None and "aggregation" in self.model_fields_set:
-            _dict['Aggregation'] = None
-
-        # set to None if columns (nullable) is None
-        # and model_fields_set contains the field
-        if self.columns is None and "columns" in self.model_fields_set:
-            _dict['Columns'] = None
-
-        # set to None if scope (nullable) is None
-        # and model_fields_set contains the field
-        if self.scope is None and "scope" in self.model_fields_set:
-            _dict['Scope'] = None
-
         # set to None if report_name (nullable) is None
         # and model_fields_set contains the field
         if self.report_name is None and "report_name" in self.model_fields_set:
@@ -141,6 +124,26 @@ class AssetPerformanceReportRequest(BaseModel):
         if self.format_version is None and "format_version" in self.model_fields_set:
             _dict['FormatVersion'] = None
 
+        # set to None if time (nullable) is None
+        # and model_fields_set contains the field
+        if self.time is None and "time" in self.model_fields_set:
+            _dict['Time'] = None
+
+        # set to None if aggregation (nullable) is None
+        # and model_fields_set contains the field
+        if self.aggregation is None and "aggregation" in self.model_fields_set:
+            _dict['Aggregation'] = None
+
+        # set to None if columns (nullable) is None
+        # and model_fields_set contains the field
+        if self.columns is None and "columns" in self.model_fields_set:
+            _dict['Columns'] = None
+
+        # set to None if scope (nullable) is None
+        # and model_fields_set contains the field
+        if self.scope is None and "scope" in self.model_fields_set:
+            _dict['Scope'] = None
+
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -158,17 +161,17 @@ class AssetPerformanceReportRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Time": ReportTime.from_dict(obj["Time"]) if obj.get("Time") is not None else None,
-                        "Aggregation": obj.get("Aggregation") if obj.get("Aggregation") is not None else None,
-                        "Columns": obj.get("Columns"),
-                        "Scope": AccountThroughAdGroupReportScope.from_dict(obj["Scope"]) if obj.get("Scope") is not None else None,
-                        "ReportName": obj.get("ReportName") if obj.get("ReportName") is not None else None,
+            "ReportName": obj.get("ReportName") if obj.get("ReportName") is not None else None,
                         "Format": obj.get("Format") if obj.get("Format") is not None else None,
                         "ReturnOnlyCompleteData": obj.get("ReturnOnlyCompleteData") if obj.get("ReturnOnlyCompleteData") is not None else None,
                         "ExcludeReportHeader": obj.get("ExcludeReportHeader") if obj.get("ExcludeReportHeader") is not None else None,
                         "ExcludeReportFooter": obj.get("ExcludeReportFooter") if obj.get("ExcludeReportFooter") is not None else None,
                         "ExcludeColumnHeaders": obj.get("ExcludeColumnHeaders") if obj.get("ExcludeColumnHeaders") is not None else None,
                         "FormatVersion": obj.get("FormatVersion") if obj.get("FormatVersion") is not None else None,
+                        "Time": ReportTime.from_dict(obj["Time"]) if obj.get("Time") is not None else None,
+                        "Aggregation": obj.get("Aggregation") if obj.get("Aggregation") is not None else None,
+                        "Columns": obj.get("Columns"),
+                        "Scope": AccountThroughAdGroupReportScope.from_dict(obj["Scope"]) if obj.get("Scope") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else 'AssetPerformanceReportRequest'
         })
         return _obj

@@ -23,17 +23,17 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.match_type import MatchType
 from typing_extensions import Self
-
-class NegativeKeyword(BaseModel):
+from openapi_client.models.campaign.shared_list_item import SharedListItem
+class NegativeKeyword(SharedListItem):
     """
     NegativeKeyword
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
     match_type: Optional[MatchType] = Field(default=None, alias="MatchType")
-    type: Optional[StrictStr] = Field(default='NegativeKeyword', alias="Type")
-    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Text", "MatchType", "Type", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Type", "ForwardCompatibilityMap", "Id", "Text", "MatchType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -41,6 +41,9 @@ class NegativeKeyword(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -77,6 +80,16 @@ class NegativeKeyword(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if forward_compatibility_map (nullable) is None
+        # and model_fields_set contains the field
+        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
+            _dict['ForwardCompatibilityMap'] = None
+
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -92,16 +105,6 @@ class NegativeKeyword(BaseModel):
         if self.match_type is None and "match_type" in self.model_fields_set:
             _dict['MatchType'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
-        # set to None if forward_compatibility_map (nullable) is None
-        # and model_fields_set contains the field
-        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
-            _dict['ForwardCompatibilityMap'] = None
-
         return _dict
 
     @classmethod
@@ -114,10 +117,10 @@ class NegativeKeyword(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Text": obj.get("Text") if obj.get("Text") is not None else None,
-                        "MatchType": obj.get("MatchType") if obj.get("MatchType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NegativeKeyword',
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "MatchType": obj.get("MatchType") if obj.get("MatchType") is not None else None
         })
         return _obj

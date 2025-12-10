@@ -21,8 +21,8 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class MediaRepresentationBase(BaseModel):
+from openapi_client.models.campaign.media_representation import MediaRepresentation
+class MediaRepresentationBase(MediaRepresentation):
     """
     MediaRepresentationBase
     """ # noqa: E501
@@ -37,6 +37,9 @@ class MediaRepresentationBase(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead

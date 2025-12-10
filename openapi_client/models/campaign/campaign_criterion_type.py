@@ -74,8 +74,33 @@ class CampaignCriterionType(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            CampaignCriterionType.PRODUCTSCOPE: 'ProductScope',
+            CampaignCriterionType.WEBPAGE: 'Webpage',
+            CampaignCriterionType.TARGETS: 'Targets',
+            CampaignCriterionType.AGE: 'Age',
+            CampaignCriterionType.DAYTIME: 'DayTime',
+            CampaignCriterionType.GENDER: 'Gender',
+            CampaignCriterionType.LOCATION: 'Location',
+            CampaignCriterionType.RADIUS: 'Radius',
+            CampaignCriterionType.DEVICE: 'Device',
+            CampaignCriterionType.LOCATIONINTENT: 'LocationIntent',
+            CampaignCriterionType.AUDIENCE: 'Audience',
+            CampaignCriterionType.CUSTOMAUDIENCE: 'CustomAudience',
+            CampaignCriterionType.INMARKETAUDIENCE: 'InMarketAudience',
+            CampaignCriterionType.REMARKETINGLIST: 'RemarketingList',
+            CampaignCriterionType.COMPANYNAME: 'CompanyName',
+            CampaignCriterionType.JOBFUNCTION: 'JobFunction',
+            CampaignCriterionType.INDUSTRY: 'Industry',
+            CampaignCriterionType.PRODUCTAUDIENCE: 'ProductAudience',
+            CampaignCriterionType.SIMILARREMARKETINGLIST: 'SimilarRemarketingList',
+            CampaignCriterionType.STORE: 'Store',
+            CampaignCriterionType.COMBINEDLIST: 'CombinedList',
+            CampaignCriterionType.CUSTOMERLIST: 'CustomerList',
+            CampaignCriterionType.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in CampaignCriterionType if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in CampaignCriterionType if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

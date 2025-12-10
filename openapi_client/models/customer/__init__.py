@@ -33,6 +33,7 @@ from openapi_client.models.customer.advertiser_account import AdvertiserAccount
 from openapi_client.models.customer.api_batch_fault import ApiBatchFault
 from openapi_client.models.customer.api_fault import ApiFault
 from openapi_client.models.customer.application_fault import ApplicationFault
+from openapi_client.models.customer.application_fault_base import ApplicationFaultBase
 from openapi_client.models.customer.auto_tag_type import AutoTagType
 from openapi_client.models.customer.batch_error import BatchError
 from openapi_client.models.customer.client_link import ClientLink

@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
 from openapi_client.models.campaign.campaign_type import CampaignType
+from openapi_client.models.campaign.entity_scope import EntityScope
 from typing_extensions import Self
 
 class BidStrategy(BaseModel):
@@ -33,7 +34,10 @@ class BidStrategy(BaseModel):
     associated_campaign_type: Optional[CampaignType] = Field(default=None, alias="AssociatedCampaignType")
     bidding_scheme: Optional[BiddingScheme] = Field(default=None, alias="BiddingScheme")
     association_count: Optional[StrictInt] = Field(default=None, alias="AssociationCount")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "AssociatedCampaignType", "BiddingScheme", "AssociationCount"]
+    scope: Optional[EntityScope] = Field(default=None, alias="Scope")
+    currency_code: Optional[StrictStr] = Field(default=None, alias="CurrencyCode")
+    reporting_time_zone: Optional[StrictStr] = Field(default=None, alias="ReportingTimeZone")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "AssociatedCampaignType", "BiddingScheme", "AssociationCount", "Scope", "CurrencyCode", "ReportingTimeZone"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +92,21 @@ class BidStrategy(BaseModel):
         if self.association_count is None and "association_count" in self.model_fields_set:
             _dict['AssociationCount'] = None
 
+        # set to None if scope (nullable) is None
+        # and model_fields_set contains the field
+        if self.scope is None and "scope" in self.model_fields_set:
+            _dict['Scope'] = None
+
+        # set to None if currency_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.currency_code is None and "currency_code" in self.model_fields_set:
+            _dict['CurrencyCode'] = None
+
+        # set to None if reporting_time_zone (nullable) is None
+        # and model_fields_set contains the field
+        if self.reporting_time_zone is None and "reporting_time_zone" in self.model_fields_set:
+            _dict['ReportingTimeZone'] = None
+
         return _dict
 
     @classmethod
@@ -104,6 +123,9 @@ class BidStrategy(BaseModel):
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "AssociatedCampaignType": obj.get("AssociatedCampaignType") if obj.get("AssociatedCampaignType") is not None else None,
                         "BiddingScheme": BiddingScheme.from_dict(obj["BiddingScheme"]) if obj.get("BiddingScheme") is not None else None,
-                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None
+                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None,
+                        "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
+                        "CurrencyCode": obj.get("CurrencyCode") if obj.get("CurrencyCode") is not None else None,
+                        "ReportingTimeZone": obj.get("ReportingTimeZone") if obj.get("ReportingTimeZone") is not None else None
         })
         return _obj

@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_api_error import AdApiError
 from typing_extensions import Self
-
-class AdApiFaultDetail(BaseModel):
+from openapi_client.models.campaign.application_fault import ApplicationFault
+class AdApiFaultDetail(ApplicationFault):
     """
     AdApiFaultDetail
     """ # noqa: E501
-    errors: Optional[List[Optional[AdApiError]]] = Field(default=None, alias="Errors")
     tracking_id: Optional[StrictStr] = Field(default=None, alias="TrackingId")
+    errors: Optional[List[Optional[AdApiError]]] = Field(default=None, alias="Errors")
     type: Optional[StrictStr] = Field(default='AdApiFaultDetail', alias="Type")
-    __properties: ClassVar[List[str]] = ["Errors", "TrackingId", "Type"]
+    __properties: ClassVar[List[str]] = ["TrackingId", "Errors", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class AdApiFaultDetail(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -74,15 +77,15 @@ class AdApiFaultDetail(BaseModel):
                 if _item_errors:
                     _items.append(_item_errors.to_dict())
             _dict['Errors'] = _items
-        # set to None if errors (nullable) is None
-        # and model_fields_set contains the field
-        if self.errors is None and "errors" in self.model_fields_set:
-            _dict['Errors'] = None
-
         # set to None if tracking_id (nullable) is None
         # and model_fields_set contains the field
         if self.tracking_id is None and "tracking_id" in self.model_fields_set:
             _dict['TrackingId'] = None
+
+        # set to None if errors (nullable) is None
+        # and model_fields_set contains the field
+        if self.errors is None and "errors" in self.model_fields_set:
+            _dict['Errors'] = None
 
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
@@ -101,8 +104,8 @@ class AdApiFaultDetail(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Errors": [AdApiError.from_dict(_item) for _item in obj["Errors"]] if obj.get("Errors") is not None else None,
-                        "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
+            "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
+                        "Errors": [AdApiError.from_dict(_item) for _item in obj["Errors"]] if obj.get("Errors") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else 'AdApiFaultDetail'
         })
         return _obj

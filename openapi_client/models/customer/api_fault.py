@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.customer.operation_error import OperationError
 from typing_extensions import Self
-
-class ApiFault(BaseModel):
+from openapi_client.models.customer.application_fault import ApplicationFault
+class ApiFault(ApplicationFault):
     """
     ApiFault
     """ # noqa: E501
-    operation_errors: Optional[List[Optional[OperationError]]] = Field(default=None, alias="OperationErrors")
     tracking_id: Optional[StrictStr] = Field(default=None, alias="TrackingId")
+    operation_errors: Optional[List[Optional[OperationError]]] = Field(default=None, alias="OperationErrors")
     type: Optional[StrictStr] = Field(default='ApiFault', alias="Type")
-    __properties: ClassVar[List[str]] = ["OperationErrors", "TrackingId", "Type"]
+    __properties: ClassVar[List[str]] = ["TrackingId", "OperationErrors", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class ApiFault(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -74,15 +77,15 @@ class ApiFault(BaseModel):
                 if _item_operation_errors:
                     _items.append(_item_operation_errors.to_dict())
             _dict['OperationErrors'] = _items
-        # set to None if operation_errors (nullable) is None
-        # and model_fields_set contains the field
-        if self.operation_errors is None and "operation_errors" in self.model_fields_set:
-            _dict['OperationErrors'] = None
-
         # set to None if tracking_id (nullable) is None
         # and model_fields_set contains the field
         if self.tracking_id is None and "tracking_id" in self.model_fields_set:
             _dict['TrackingId'] = None
+
+        # set to None if operation_errors (nullable) is None
+        # and model_fields_set contains the field
+        if self.operation_errors is None and "operation_errors" in self.model_fields_set:
+            _dict['OperationErrors'] = None
 
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
@@ -101,8 +104,8 @@ class ApiFault(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "OperationErrors": [OperationError.from_dict(_item) for _item in obj["OperationErrors"]] if obj.get("OperationErrors") is not None else None,
-                        "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
+            "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
+                        "OperationErrors": [OperationError.from_dict(_item) for _item in obj["OperationErrors"]] if obj.get("OperationErrors") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else 'ApiFault'
         })
         return _obj

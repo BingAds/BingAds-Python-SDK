@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.portfolio_bid_strategy_additional_field import PortfolioBidStrategyAdditionalField
 from typing_extensions import Self
 
@@ -28,8 +29,9 @@ class GetBidStrategiesByIdsRequest(BaseModel):
     GetBidStrategiesByIdsRequest
     """ # noqa: E501
     bid_strategy_ids: Optional[List[StrictStr]] = Field(default=None, alias="BidStrategyIds")
+    scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     return_additional_fields: Optional[PortfolioBidStrategyAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["BidStrategyIds", "ReturnAdditionalFields"]
+    __properties: ClassVar[List[str]] = ["BidStrategyIds", "Scope", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,6 +63,11 @@ class GetBidStrategiesByIdsRequest(BaseModel):
         if self.bid_strategy_ids is None and "bid_strategy_ids" in self.model_fields_set:
             _dict['BidStrategyIds'] = None
 
+        # set to None if scope (nullable) is None
+        # and model_fields_set contains the field
+        if self.scope is None and "scope" in self.model_fields_set:
+            _dict['Scope'] = None
+
         # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
@@ -79,6 +86,7 @@ class GetBidStrategiesByIdsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "BidStrategyIds": obj.get("BidStrategyIds"),
+                        "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

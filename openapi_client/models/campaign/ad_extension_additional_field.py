@@ -44,8 +44,18 @@ class AdExtensionAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AdExtensionAdditionalField.NONE: 'None',
+            AdExtensionAdditionalField.IMAGES: 'Images',
+            AdExtensionAdditionalField.DISPLAYTEXT: 'DisplayText',
+            AdExtensionAdditionalField.LAYOUTS: 'Layouts',
+            AdExtensionAdditionalField.ACTIONTYPESPHASE3: 'ActionTypesPhase3',
+            AdExtensionAdditionalField.ACTIONTYPESPHASE4: 'ActionTypesPhase4',
+            AdExtensionAdditionalField.NEWFILTERLINKHEADERS: 'NewFilterLinkHeaders',
+            AdExtensionAdditionalField.SOURCETYPE: 'SourceType',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AdExtensionAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AdExtensionAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

@@ -24,24 +24,24 @@ from openapi_client.models.campaign.ad_extension_status import AdExtensionStatus
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class CallAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class CallAdExtension(AdExtension):
     """
     CallAdExtension
     """ # noqa: E501
+    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
+    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    version: Optional[StrictInt] = Field(default=None, alias="Version")
     phone_number: Optional[StrictStr] = Field(default=None, alias="PhoneNumber")
     country_code: Optional[StrictStr] = Field(default=None, alias="CountryCode")
     is_call_only: Optional[StrictBool] = Field(default=None, alias="IsCallOnly")
     is_call_tracking_enabled: Optional[StrictBool] = Field(default=None, alias="IsCallTrackingEnabled")
     require_toll_free_tracking_number: Optional[StrictBool] = Field(default=None, alias="RequireTollFreeTrackingNumber")
-    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
-    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='CallAdExtension', alias="Type")
-    version: Optional[StrictInt] = Field(default=None, alias="Version")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["PhoneNumber", "CountryCode", "IsCallOnly", "IsCallTrackingEnabled", "RequireTollFreeTrackingNumber", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "PhoneNumber", "CountryCode", "IsCallOnly", "IsCallTrackingEnabled", "RequireTollFreeTrackingNumber", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -49,6 +49,9 @@ class CallAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -88,31 +91,6 @@ class CallAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if phone_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.phone_number is None and "phone_number" in self.model_fields_set:
-            _dict['PhoneNumber'] = None
-
-        # set to None if country_code (nullable) is None
-        # and model_fields_set contains the field
-        if self.country_code is None and "country_code" in self.model_fields_set:
-            _dict['CountryCode'] = None
-
-        # set to None if is_call_only (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_call_only is None and "is_call_only" in self.model_fields_set:
-            _dict['IsCallOnly'] = None
-
-        # set to None if is_call_tracking_enabled (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_call_tracking_enabled is None and "is_call_tracking_enabled" in self.model_fields_set:
-            _dict['IsCallTrackingEnabled'] = None
-
-        # set to None if require_toll_free_tracking_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.require_toll_free_tracking_number is None and "require_toll_free_tracking_number" in self.model_fields_set:
-            _dict['RequireTollFreeTrackingNumber'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -143,6 +121,31 @@ class CallAdExtension(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['Version'] = None
 
+        # set to None if phone_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.phone_number is None and "phone_number" in self.model_fields_set:
+            _dict['PhoneNumber'] = None
+
+        # set to None if country_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.country_code is None and "country_code" in self.model_fields_set:
+            _dict['CountryCode'] = None
+
+        # set to None if is_call_only (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_call_only is None and "is_call_only" in self.model_fields_set:
+            _dict['IsCallOnly'] = None
+
+        # set to None if is_call_tracking_enabled (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_call_tracking_enabled is None and "is_call_tracking_enabled" in self.model_fields_set:
+            _dict['IsCallTrackingEnabled'] = None
+
+        # set to None if require_toll_free_tracking_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.require_toll_free_tracking_number is None and "require_toll_free_tracking_number" in self.model_fields_set:
+            _dict['RequireTollFreeTrackingNumber'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -160,17 +163,17 @@ class CallAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "PhoneNumber": obj.get("PhoneNumber") if obj.get("PhoneNumber") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "PhoneNumber": obj.get("PhoneNumber") if obj.get("PhoneNumber") is not None else None,
                         "CountryCode": obj.get("CountryCode") if obj.get("CountryCode") is not None else None,
                         "IsCallOnly": obj.get("IsCallOnly") if obj.get("IsCallOnly") is not None else None,
                         "IsCallTrackingEnabled": obj.get("IsCallTrackingEnabled") if obj.get("IsCallTrackingEnabled") is not None else None,
                         "RequireTollFreeTrackingNumber": obj.get("RequireTollFreeTrackingNumber") if obj.get("RequireTollFreeTrackingNumber") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'CallAdExtension',
-                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

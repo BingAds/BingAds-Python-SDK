@@ -23,12 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.number_operator import NumberOperator
 from openapi_client.models.campaign.string_operator import StringOperator
 from typing_extensions import Self
-
-class CustomEventsRule(BaseModel):
+from openapi_client.models.campaign.remarketing_rule import RemarketingRule
+class CustomEventsRule(RemarketingRule):
     """
     CustomEventsRule
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='CustomEvents', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     category_operator: Optional[StringOperator] = Field(default=None, alias="CategoryOperator")
     category: Optional[StrictStr] = Field(default=None, alias="Category")
     action_operator: Optional[StringOperator] = Field(default=None, alias="ActionOperator")
@@ -45,6 +45,9 @@ class CustomEventsRule(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -131,7 +134,7 @@ class CustomEventsRule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'CustomEvents',
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "CategoryOperator": obj.get("CategoryOperator") if obj.get("CategoryOperator") is not None else None,
                         "Category": obj.get("Category") if obj.get("Category") is not None else None,
                         "ActionOperator": obj.get("ActionOperator") if obj.get("ActionOperator") is not None else None,

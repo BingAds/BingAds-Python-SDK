@@ -22,23 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_editorial_status import AdEditorialStatus
 from openapi_client.models.campaign.ad_status import AdStatus
+from openapi_client.models.campaign.ad_type import AdType
 from openapi_client.models.campaign.app_url import AppUrl
 from openapi_client.models.campaign.asset_link import AssetLink
 from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class ResponsiveSearchAd(BaseModel):
+from openapi_client.models.campaign.ad import Ad
+class ResponsiveSearchAd(Ad):
     """
     ResponsiveSearchAd
     """ # noqa: E501
-    headlines: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Headlines")
-    descriptions: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Descriptions")
-    domain: Optional[StrictStr] = Field(default=None, alias="Domain")
-    path1: Optional[StrictStr] = Field(default=None, alias="Path1")
-    path2: Optional[StrictStr] = Field(default=None, alias="Path2")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='ResponsiveSearch', alias="Type")
+    type: Optional[AdType] = Field(default=None, alias="Type")
     status: Optional[AdStatus] = Field(default=None, alias="Status")
     editorial_status: Optional[AdEditorialStatus] = Field(default=None, alias="EditorialStatus")
     device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
@@ -50,7 +46,12 @@ class ResponsiveSearchAd(BaseModel):
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Headlines", "Descriptions", "Domain", "Path1", "Path2", "Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap"]
+    headlines: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Headlines")
+    descriptions: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Descriptions")
+    domain: Optional[StrictStr] = Field(default=None, alias="Domain")
+    path1: Optional[StrictStr] = Field(default=None, alias="Path1")
+    path2: Optional[StrictStr] = Field(default=None, alias="Path2")
+    __properties: ClassVar[List[str]] = ["Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap", "Headlines", "Descriptions", "Domain", "Path1", "Path2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,6 +59,9 @@ class ResponsiveSearchAd(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -87,20 +91,6 @@ class ResponsiveSearchAd(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in headlines (list)
-        _items = []
-        if self.headlines:
-            for _item_headlines in self.headlines:
-                if _item_headlines:
-                    _items.append(_item_headlines.to_dict())
-            _dict['Headlines'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in descriptions (list)
-        _items = []
-        if self.descriptions:
-            for _item_descriptions in self.descriptions:
-                if _item_descriptions:
-                    _items.append(_item_descriptions.to_dict())
-            _dict['Descriptions'] = _items
         # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
         if self.url_custom_parameters:
             _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
@@ -118,31 +108,20 @@ class ResponsiveSearchAd(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if headlines (nullable) is None
-        # and model_fields_set contains the field
-        if self.headlines is None and "headlines" in self.model_fields_set:
-            _dict['Headlines'] = None
-
-        # set to None if descriptions (nullable) is None
-        # and model_fields_set contains the field
-        if self.descriptions is None and "descriptions" in self.model_fields_set:
-            _dict['Descriptions'] = None
-
-        # set to None if domain (nullable) is None
-        # and model_fields_set contains the field
-        if self.domain is None and "domain" in self.model_fields_set:
-            _dict['Domain'] = None
-
-        # set to None if path1 (nullable) is None
-        # and model_fields_set contains the field
-        if self.path1 is None and "path1" in self.model_fields_set:
-            _dict['Path1'] = None
-
-        # set to None if path2 (nullable) is None
-        # and model_fields_set contains the field
-        if self.path2 is None and "path2" in self.model_fields_set:
-            _dict['Path2'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in headlines (list)
+        _items = []
+        if self.headlines:
+            for _item_headlines in self.headlines:
+                if _item_headlines:
+                    _items.append(_item_headlines.to_dict())
+            _dict['Headlines'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in descriptions (list)
+        _items = []
+        if self.descriptions:
+            for _item_descriptions in self.descriptions:
+                if _item_descriptions:
+                    _items.append(_item_descriptions.to_dict())
+            _dict['Descriptions'] = _items
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -208,6 +187,31 @@ class ResponsiveSearchAd(BaseModel):
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
 
+        # set to None if headlines (nullable) is None
+        # and model_fields_set contains the field
+        if self.headlines is None and "headlines" in self.model_fields_set:
+            _dict['Headlines'] = None
+
+        # set to None if descriptions (nullable) is None
+        # and model_fields_set contains the field
+        if self.descriptions is None and "descriptions" in self.model_fields_set:
+            _dict['Descriptions'] = None
+
+        # set to None if domain (nullable) is None
+        # and model_fields_set contains the field
+        if self.domain is None and "domain" in self.model_fields_set:
+            _dict['Domain'] = None
+
+        # set to None if path1 (nullable) is None
+        # and model_fields_set contains the field
+        if self.path1 is None and "path1" in self.model_fields_set:
+            _dict['Path1'] = None
+
+        # set to None if path2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.path2 is None and "path2" in self.model_fields_set:
+            _dict['Path2'] = None
+
         return _dict
 
     @classmethod
@@ -220,13 +224,8 @@ class ResponsiveSearchAd(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Headlines": [AssetLink.from_dict(_item) for _item in obj["Headlines"]] if obj.get("Headlines") is not None else None,
-                        "Descriptions": [AssetLink.from_dict(_item) for _item in obj["Descriptions"]] if obj.get("Descriptions") is not None else None,
-                        "Domain": obj.get("Domain") if obj.get("Domain") is not None else None,
-                        "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
-                        "Path2": obj.get("Path2") if obj.get("Path2") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ResponsiveSearch',
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
@@ -237,6 +236,11 @@ class ResponsiveSearchAd(BaseModel):
                         "FinalUrls": obj.get("FinalUrls"),
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "Headlines": [AssetLink.from_dict(_item) for _item in obj["Headlines"]] if obj.get("Headlines") is not None else None,
+                        "Descriptions": [AssetLink.from_dict(_item) for _item in obj["Descriptions"]] if obj.get("Descriptions") is not None else None,
+                        "Domain": obj.get("Domain") if obj.get("Domain") is not None else None,
+                        "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
+                        "Path2": obj.get("Path2") if obj.get("Path2") is not None else None
         })
         return _obj

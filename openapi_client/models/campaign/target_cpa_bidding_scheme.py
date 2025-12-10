@@ -22,12 +22,12 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.bid import Bid
 from typing_extensions import Self
-
-class TargetCpaBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class TargetCpaBiddingScheme(BiddingScheme):
     """
     TargetCpaBiddingScheme
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='TargetCpa', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     max_cpc: Optional[Bid] = Field(default=None, alias="MaxCpc")
     target_cpa: Optional[StrictFloat] = Field(default=None, alias="TargetCpa")
     __properties: ClassVar[List[str]] = ["Type", "MaxCpc", "TargetCpa"]
@@ -38,6 +38,9 @@ class TargetCpaBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -97,7 +100,7 @@ class TargetCpaBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'TargetCpa',
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None,
                         "TargetCpa": obj.get("TargetCpa") if obj.get("TargetCpa") is not None else None
         })

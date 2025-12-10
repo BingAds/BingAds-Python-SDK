@@ -88,8 +88,40 @@ class LanguageReportFilter(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            LanguageReportFilter.DANISH: 'Danish',
+            LanguageReportFilter.DUTCH: 'Dutch',
+            LanguageReportFilter.ENGLISH: 'English',
+            LanguageReportFilter.FINNISH: 'Finnish',
+            LanguageReportFilter.FRENCH: 'French',
+            LanguageReportFilter.GERMAN: 'German',
+            LanguageReportFilter.ITALIAN: 'Italian',
+            LanguageReportFilter.JAPANESE: 'Japanese',
+            LanguageReportFilter.NORWEGIAN: 'Norwegian',
+            LanguageReportFilter.PORTUGUESE: 'Portuguese',
+            LanguageReportFilter.SWEDISH: 'Swedish',
+            LanguageReportFilter.SPANISH: 'Spanish',
+            LanguageReportFilter.ARABIC: 'Arabic',
+            LanguageReportFilter.HEBREW: 'Hebrew',
+            LanguageReportFilter.KOREAN: 'Korean',
+            LanguageReportFilter.RUSSIAN: 'Russian',
+            LanguageReportFilter.TRADITIONALCHINESE: 'TraditionalChinese',
+            LanguageReportFilter.GREEK: 'Greek',
+            LanguageReportFilter.POLISH: 'Polish',
+            LanguageReportFilter.CZECH: 'Czech',
+            LanguageReportFilter.ROMANIAN: 'Romanian',
+            LanguageReportFilter.HUNGARIAN: 'Hungarian',
+            LanguageReportFilter.SLOVAK: 'Slovak',
+            LanguageReportFilter.BULGARIAN: 'Bulgarian',
+            LanguageReportFilter.CROATIAN: 'Croatian',
+            LanguageReportFilter.LITHUANIAN: 'Lithuanian',
+            LanguageReportFilter.SLOVENIAN: 'Slovenian',
+            LanguageReportFilter.ESTONIAN: 'Estonian',
+            LanguageReportFilter.LATVIAN: 'Latvian',
+            LanguageReportFilter.MALTESE: 'Maltese',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in LanguageReportFilter if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in LanguageReportFilter if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

@@ -21,14 +21,14 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class PercentCpcBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class PercentCpcBiddingScheme(BiddingScheme):
     """
     PercentCpcBiddingScheme
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     max_percent_cpc: Optional[StrictFloat] = Field(default=None, alias="MaxPercentCpc")
-    type: Optional[StrictStr] = Field(default='PercentCpcBiddingScheme', alias="Type")
-    __properties: ClassVar[List[str]] = ["MaxPercentCpc", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "MaxPercentCpc"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -36,6 +36,9 @@ class PercentCpcBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -65,15 +68,15 @@ class PercentCpcBiddingScheme(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if max_percent_cpc (nullable) is None
-        # and model_fields_set contains the field
-        if self.max_percent_cpc is None and "max_percent_cpc" in self.model_fields_set:
-            _dict['MaxPercentCpc'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if max_percent_cpc (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_percent_cpc is None and "max_percent_cpc" in self.model_fields_set:
+            _dict['MaxPercentCpc'] = None
 
         return _dict
 
@@ -87,7 +90,7 @@ class PercentCpcBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "MaxPercentCpc": obj.get("MaxPercentCpc") if obj.get("MaxPercentCpc") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'PercentCpcBiddingScheme'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "MaxPercentCpc": obj.get("MaxPercentCpc") if obj.get("MaxPercentCpc") is not None else None
         })
         return _obj

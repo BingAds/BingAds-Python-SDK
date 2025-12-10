@@ -21,12 +21,12 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class CostPerSaleBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class CostPerSaleBiddingScheme(BiddingScheme):
     """
     CostPerSaleBiddingScheme
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='CostPerSale', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     target_cost_per_sale: Optional[StrictFloat] = Field(default=None, alias="TargetCostPerSale")
     __properties: ClassVar[List[str]] = ["Type", "TargetCostPerSale"]
 
@@ -36,6 +36,9 @@ class CostPerSaleBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -87,7 +90,7 @@ class CostPerSaleBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'CostPerSale',
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "TargetCostPerSale": obj.get("TargetCostPerSale") if obj.get("TargetCostPerSale") is not None else None
         })
         return _obj

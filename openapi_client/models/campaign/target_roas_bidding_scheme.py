@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.bid import Bid
 from typing_extensions import Self
-
-class TargetRoasBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class TargetRoasBiddingScheme(BiddingScheme):
     """
     TargetRoasBiddingScheme
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     max_cpc: Optional[Bid] = Field(default=None, alias="MaxCpc")
     target_roas: Optional[StrictFloat] = Field(default=None, alias="TargetRoas")
-    type: Optional[StrictStr] = Field(default='TargetRoasBiddingScheme', alias="Type")
-    __properties: ClassVar[List[str]] = ["MaxCpc", "TargetRoas", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "MaxCpc", "TargetRoas"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class TargetRoasBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -70,6 +73,11 @@ class TargetRoasBiddingScheme(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of max_cpc
         if self.max_cpc:
             _dict['MaxCpc'] = self.max_cpc.to_dict()
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if max_cpc (nullable) is None
         # and model_fields_set contains the field
         if self.max_cpc is None and "max_cpc" in self.model_fields_set:
@@ -79,11 +87,6 @@ class TargetRoasBiddingScheme(BaseModel):
         # and model_fields_set contains the field
         if self.target_roas is None and "target_roas" in self.model_fields_set:
             _dict['TargetRoas'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -97,8 +100,8 @@ class TargetRoasBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None,
-                        "TargetRoas": obj.get("TargetRoas") if obj.get("TargetRoas") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'TargetRoasBiddingScheme'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None,
+                        "TargetRoas": obj.get("TargetRoas") if obj.get("TargetRoas") is not None else None
         })
         return _obj

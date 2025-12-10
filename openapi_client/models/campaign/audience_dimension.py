@@ -20,16 +20,17 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.audience_group_dimension_type import AudienceGroupDimensionType
 from openapi_client.models.campaign.audience_info import AudienceInfo
 from typing_extensions import Self
-
-class AudienceDimension(BaseModel):
+from openapi_client.models.campaign.audience_group_dimension import AudienceGroupDimension
+class AudienceDimension(AudienceGroupDimension):
     """
     AudienceDimension
     """ # noqa: E501
+    type: Optional[AudienceGroupDimensionType] = Field(default=None, alias="Type")
     audiences: Optional[List[Optional[AudienceInfo]]] = Field(default=None, alias="Audiences")
-    type: Optional[StrictStr] = Field(default='Audience', alias="Type")
-    __properties: ClassVar[List[str]] = ["Audiences", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Audiences"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +38,9 @@ class AudienceDimension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -73,15 +77,15 @@ class AudienceDimension(BaseModel):
                 if _item_audiences:
                     _items.append(_item_audiences.to_dict())
             _dict['Audiences'] = _items
-        # set to None if audiences (nullable) is None
-        # and model_fields_set contains the field
-        if self.audiences is None and "audiences" in self.model_fields_set:
-            _dict['Audiences'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if audiences (nullable) is None
+        # and model_fields_set contains the field
+        if self.audiences is None and "audiences" in self.model_fields_set:
+            _dict['Audiences'] = None
 
         return _dict
 
@@ -95,7 +99,7 @@ class AudienceDimension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Audiences": [AudienceInfo.from_dict(_item) for _item in obj["Audiences"]] if obj.get("Audiences") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Audience'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Audiences": [AudienceInfo.from_dict(_item) for _item in obj["Audiences"]] if obj.get("Audiences") is not None else None
         })
         return _obj

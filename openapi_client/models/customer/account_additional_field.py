@@ -36,8 +36,14 @@ class AccountAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AccountAdditionalField.NONE: 'None',
+            AccountAdditionalField.TAXCERTIFICATE: 'TaxCertificate',
+            AccountAdditionalField.ACCOUNTMODE: 'AccountMode',
+            AccountAdditionalField.COUPONCLAIMINFO: 'CouponClaimInfo',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AccountAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AccountAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

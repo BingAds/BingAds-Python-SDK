@@ -26,20 +26,19 @@ from openapi_client.models.campaign.conversion_goal_count_type import Conversion
 from openapi_client.models.campaign.conversion_goal_revenue import ConversionGoalRevenue
 from openapi_client.models.campaign.conversion_goal_status import ConversionGoalStatus
 from openapi_client.models.campaign.conversion_goal_tracking_status import ConversionGoalTrackingStatus
+from openapi_client.models.campaign.conversion_goal_type import ConversionGoalType
 from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.expression_operator import ExpressionOperator
 from typing_extensions import Self
-
-class UrlGoal(BaseModel):
+from openapi_client.models.campaign.conversion_goal import ConversionGoal
+class UrlGoal(ConversionGoal):
     """
     UrlGoal
     """ # noqa: E501
-    url_expression: Optional[StrictStr] = Field(default=None, alias="UrlExpression")
-    url_operator: Optional[ExpressionOperator] = Field(default=None, alias="UrlOperator")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[ConversionGoalStatus] = Field(default=None, alias="Status")
-    type: Optional[StrictStr] = Field(default='Url', alias="Type")
+    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     count_type: Optional[ConversionGoalCountType] = Field(default=None, alias="CountType")
     revenue: Optional[ConversionGoalRevenue] = Field(default=None, alias="Revenue")
@@ -52,7 +51,9 @@ class UrlGoal(BaseModel):
     attribution_model_type: Optional[AttributionModelType] = Field(default=None, alias="AttributionModelType")
     is_enhanced_conversions_enabled: Optional[StrictBool] = Field(default=None, alias="IsEnhancedConversionsEnabled")
     is_auto_goal: Optional[StrictBool] = Field(default=None, alias="IsAutoGoal")
-    __properties: ClassVar[List[str]] = ["UrlExpression", "UrlOperator", "Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal"]
+    url_expression: Optional[StrictStr] = Field(default=None, alias="UrlExpression")
+    url_operator: Optional[ExpressionOperator] = Field(default=None, alias="UrlOperator")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal", "UrlExpression", "UrlOperator"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,6 +61,9 @@ class UrlGoal(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -92,16 +96,6 @@ class UrlGoal(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of revenue
         if self.revenue:
             _dict['Revenue'] = self.revenue.to_dict()
-        # set to None if url_expression (nullable) is None
-        # and model_fields_set contains the field
-        if self.url_expression is None and "url_expression" in self.model_fields_set:
-            _dict['UrlExpression'] = None
-
-        # set to None if url_operator (nullable) is None
-        # and model_fields_set contains the field
-        if self.url_operator is None and "url_operator" in self.model_fields_set:
-            _dict['UrlOperator'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -182,6 +176,16 @@ class UrlGoal(BaseModel):
         if self.is_auto_goal is None and "is_auto_goal" in self.model_fields_set:
             _dict['IsAutoGoal'] = None
 
+        # set to None if url_expression (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_expression is None and "url_expression" in self.model_fields_set:
+            _dict['UrlExpression'] = None
+
+        # set to None if url_operator (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_operator is None and "url_operator" in self.model_fields_set:
+            _dict['UrlOperator'] = None
+
         return _dict
 
     @classmethod
@@ -194,12 +198,10 @@ class UrlGoal(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "UrlExpression": obj.get("UrlExpression") if obj.get("UrlExpression") is not None else None,
-                        "UrlOperator": obj.get("UrlOperator") if obj.get("UrlOperator") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Url',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "CountType": obj.get("CountType") if obj.get("CountType") is not None else None,
                         "Revenue": ConversionGoalRevenue.from_dict(obj["Revenue"]) if obj.get("Revenue") is not None else None,
@@ -211,6 +213,8 @@ class UrlGoal(BaseModel):
                         "GoalCategory": obj.get("GoalCategory") if obj.get("GoalCategory") is not None else None,
                         "AttributionModelType": obj.get("AttributionModelType") if obj.get("AttributionModelType") is not None else None,
                         "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None,
-                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None
+                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None,
+                        "UrlExpression": obj.get("UrlExpression") if obj.get("UrlExpression") is not None else None,
+                        "UrlOperator": obj.get("UrlOperator") if obj.get("UrlOperator") is not None else None
         })
         return _obj

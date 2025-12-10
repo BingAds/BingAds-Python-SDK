@@ -21,7 +21,6 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.adinsight.ad_group_estimator import AdGroupEstimator
-from openapi_client.models.adinsight.criterion import Criterion
 from openapi_client.models.adinsight.negative_keyword import NegativeKeyword
 from typing_extensions import Self
 
@@ -31,7 +30,7 @@ class CampaignEstimator(BaseModel):
     """ # noqa: E501
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     daily_budget: Optional[StrictFloat] = Field(default=None, alias="DailyBudget")
-    criteria: Optional[List[Optional[Criterion]]] = Field(default=None, alias="Criteria")
+    criteria: Optional[List[StrictStr]] = Field(default=None, alias="Criteria")
     ad_group_estimators: Optional[List[Optional[AdGroupEstimator]]] = Field(default=None, alias="AdGroupEstimators")
     negative_keywords: Optional[List[Optional[NegativeKeyword]]] = Field(default=None, alias="NegativeKeywords")
     __properties: ClassVar[List[str]] = ["CampaignId", "DailyBudget", "Criteria", "AdGroupEstimators", "NegativeKeywords"]
@@ -61,13 +60,6 @@ class CampaignEstimator(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in criteria (list)
-        _items = []
-        if self.criteria:
-            for _item_criteria in self.criteria:
-                if _item_criteria:
-                    _items.append(_item_criteria.to_dict())
-            _dict['Criteria'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in ad_group_estimators (list)
         _items = []
         if self.ad_group_estimators:
@@ -121,7 +113,7 @@ class CampaignEstimator(BaseModel):
         _obj = cls.model_validate({
             "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
                         "DailyBudget": obj.get("DailyBudget") if obj.get("DailyBudget") is not None else None,
-                        "Criteria": [Criterion.from_dict(_item) for _item in obj["Criteria"]] if obj.get("Criteria") is not None else None,
+                        "Criteria": obj.get("Criteria"),
                         "AdGroupEstimators": [AdGroupEstimator.from_dict(_item) for _item in obj["AdGroupEstimators"]] if obj.get("AdGroupEstimators") is not None else None,
                         "NegativeKeywords": [NegativeKeyword.from_dict(_item) for _item in obj["NegativeKeywords"]] if obj.get("NegativeKeywords") is not None else None
         })

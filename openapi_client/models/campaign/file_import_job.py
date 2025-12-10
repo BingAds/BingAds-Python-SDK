@@ -23,16 +23,14 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.frequency import Frequency
 from openapi_client.models.campaign.import_option import ImportOption
 from typing_extensions import Self
-
-class FileImportJob(BaseModel):
+from openapi_client.models.campaign.import_job import ImportJob
+class FileImportJob(ImportJob):
     """
     FileImportJob
     """ # noqa: E501
-    file_url: Optional[StrictStr] = Field(default=None, alias="FileUrl")
-    file_source: Optional[StrictStr] = Field(default=None, alias="FileSource")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='FileImportJob', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     status: Optional[StrictStr] = Field(default=None, alias="Status")
     notification_type: Optional[StrictStr] = Field(default=None, alias="NotificationType")
     created_by_user_id: Optional[StrictStr] = Field(default=None, alias="CreatedByUserId")
@@ -42,7 +40,9 @@ class FileImportJob(BaseModel):
     created_date_time_in_utc: Optional[datetime] = Field(default=None, alias="CreatedDateTimeInUTC")
     import_option: Optional[ImportOption] = Field(default=None, alias="ImportOption")
     notification_email: Optional[StrictStr] = Field(default=None, alias="NotificationEmail")
-    __properties: ClassVar[List[str]] = ["FileUrl", "FileSource", "Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail"]
+    file_url: Optional[StrictStr] = Field(default=None, alias="FileUrl")
+    file_source: Optional[StrictStr] = Field(default=None, alias="FileSource")
+    __properties: ClassVar[List[str]] = ["Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail", "FileUrl", "FileSource"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,6 +50,9 @@ class FileImportJob(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -85,16 +88,6 @@ class FileImportJob(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of import_option
         if self.import_option:
             _dict['ImportOption'] = self.import_option.to_dict()
-        # set to None if file_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.file_url is None and "file_url" in self.model_fields_set:
-            _dict['FileUrl'] = None
-
-        # set to None if file_source (nullable) is None
-        # and model_fields_set contains the field
-        if self.file_source is None and "file_source" in self.model_fields_set:
-            _dict['FileSource'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -155,6 +148,16 @@ class FileImportJob(BaseModel):
         if self.notification_email is None and "notification_email" in self.model_fields_set:
             _dict['NotificationEmail'] = None
 
+        # set to None if file_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.file_url is None and "file_url" in self.model_fields_set:
+            _dict['FileUrl'] = None
+
+        # set to None if file_source (nullable) is None
+        # and model_fields_set contains the field
+        if self.file_source is None and "file_source" in self.model_fields_set:
+            _dict['FileSource'] = None
+
         return _dict
 
     @classmethod
@@ -167,11 +170,9 @@ class FileImportJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "FileUrl": obj.get("FileUrl") if obj.get("FileUrl") is not None else None,
-                        "FileSource": obj.get("FileSource") if obj.get("FileSource") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'FileImportJob',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "NotificationType": obj.get("NotificationType") if obj.get("NotificationType") is not None else None,
                         "CreatedByUserId": obj.get("CreatedByUserId") if obj.get("CreatedByUserId") is not None else None,
@@ -180,6 +181,8 @@ class FileImportJob(BaseModel):
                         "LastRunTimeInUTC": obj.get("LastRunTimeInUTC") if obj.get("LastRunTimeInUTC") is not None else None,
                         "CreatedDateTimeInUTC": obj.get("CreatedDateTimeInUTC") if obj.get("CreatedDateTimeInUTC") is not None else None,
                         "ImportOption": ImportOption.from_dict(obj["ImportOption"]) if obj.get("ImportOption") is not None else None,
-                        "NotificationEmail": obj.get("NotificationEmail") if obj.get("NotificationEmail") is not None else None
+                        "NotificationEmail": obj.get("NotificationEmail") if obj.get("NotificationEmail") is not None else None,
+                        "FileUrl": obj.get("FileUrl") if obj.get("FileUrl") is not None else None,
+                        "FileSource": obj.get("FileSource") if obj.get("FileSource") is not None else None
         })
         return _obj

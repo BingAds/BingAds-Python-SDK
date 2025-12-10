@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.hotel_ad_group_type import HotelAdGroupType
 from typing_extensions import Self
-
-class HotelSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class HotelSetting(Setting):
     """
     HotelSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     hotel_ad_group_type: Optional[HotelAdGroupType] = Field(default=None, alias="HotelAdGroupType")
-    type: Optional[StrictStr] = Field(default='HotelSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["HotelAdGroupType", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "HotelAdGroupType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class HotelSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,15 +69,15 @@ class HotelSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if hotel_ad_group_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.hotel_ad_group_type is None and "hotel_ad_group_type" in self.model_fields_set:
-            _dict['HotelAdGroupType'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if hotel_ad_group_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.hotel_ad_group_type is None and "hotel_ad_group_type" in self.model_fields_set:
+            _dict['HotelAdGroupType'] = None
 
         return _dict
 
@@ -88,7 +91,7 @@ class HotelSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "HotelAdGroupType": obj.get("HotelAdGroupType") if obj.get("HotelAdGroupType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'HotelSetting'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "HotelAdGroupType": obj.get("HotelAdGroupType") if obj.get("HotelAdGroupType") is not None else None
         })
         return _obj

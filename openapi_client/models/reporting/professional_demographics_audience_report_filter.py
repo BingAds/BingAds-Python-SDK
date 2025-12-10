@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.reporting.account_status_report_filter import AccountStatusReportFilter
 from openapi_client.models.reporting.ad_distribution_report_filter import AdDistributionReportFilter
 from openapi_client.models.reporting.ad_group_status_report_filter import AdGroupStatusReportFilter
+from openapi_client.models.reporting.asset_group_status_report_filter import AssetGroupStatusReportFilter
 from openapi_client.models.reporting.campaign_status_report_filter import CampaignStatusReportFilter
 from openapi_client.models.reporting.language_report_filter import LanguageReportFilter
 from typing_extensions import Self
@@ -36,7 +37,8 @@ class ProfessionalDemographicsAudienceReportFilter(BaseModel):
     account_status: Optional[AccountStatusReportFilter] = Field(default=None, alias="AccountStatus")
     campaign_status: Optional[CampaignStatusReportFilter] = Field(default=None, alias="CampaignStatus")
     ad_group_status: Optional[AdGroupStatusReportFilter] = Field(default=None, alias="AdGroupStatus")
-    __properties: ClassVar[List[str]] = ["AdDistribution", "Language", "AccountStatus", "CampaignStatus", "AdGroupStatus"]
+    asset_group_status: Optional[AssetGroupStatusReportFilter] = Field(default=None, alias="AssetGroupStatus")
+    __properties: ClassVar[List[str]] = ["AdDistribution", "Language", "AccountStatus", "CampaignStatus", "AdGroupStatus", "AssetGroupStatus"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +90,11 @@ class ProfessionalDemographicsAudienceReportFilter(BaseModel):
         if self.ad_group_status is None and "ad_group_status" in self.model_fields_set:
             _dict['AdGroupStatus'] = None
 
+        # set to None if asset_group_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_group_status is None and "asset_group_status" in self.model_fields_set:
+            _dict['AssetGroupStatus'] = None
+
         return _dict
 
     @classmethod
@@ -104,6 +111,7 @@ class ProfessionalDemographicsAudienceReportFilter(BaseModel):
                         "Language": obj.get("Language") if obj.get("Language") is not None else None,
                         "AccountStatus": obj.get("AccountStatus") if obj.get("AccountStatus") is not None else None,
                         "CampaignStatus": obj.get("CampaignStatus") if obj.get("CampaignStatus") is not None else None,
-                        "AdGroupStatus": obj.get("AdGroupStatus") if obj.get("AdGroupStatus") is not None else None
+                        "AdGroupStatus": obj.get("AdGroupStatus") if obj.get("AdGroupStatus") is not None else None,
+                        "AssetGroupStatus": obj.get("AssetGroupStatus") if obj.get("AssetGroupStatus") is not None else None
         })
         return _obj

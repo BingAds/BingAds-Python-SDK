@@ -20,12 +20,13 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.audience_type import AudienceType
 from openapi_client.models.campaign.customer_share import CustomerShare
 from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class InMarketAudience(BaseModel):
+from openapi_client.models.campaign.audience import Audience
+class InMarketAudience(Audience):
     """
     InMarketAudience
     """ # noqa: E501
@@ -35,7 +36,7 @@ class InMarketAudience(BaseModel):
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     parent_id: Optional[StrictStr] = Field(default=None, alias="ParentId")
     membership_duration: Optional[StrictInt] = Field(default=None, alias="MembershipDuration")
-    type: Optional[StrictStr] = Field(default='InMarket', alias="Type")
+    type: Optional[AudienceType] = Field(default=None, alias="Type")
     search_size: Optional[StrictStr] = Field(default=None, alias="SearchSize")
     audience_network_size: Optional[StrictStr] = Field(default=None, alias="AudienceNetworkSize")
     supported_campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="SupportedCampaignTypes")
@@ -49,6 +50,9 @@ class InMarketAudience(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -166,7 +170,7 @@ class InMarketAudience(BaseModel):
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "ParentId": obj.get("ParentId") if obj.get("ParentId") is not None else None,
                         "MembershipDuration": obj.get("MembershipDuration") if obj.get("MembershipDuration") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'InMarket',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "SearchSize": obj.get("SearchSize") if obj.get("SearchSize") is not None else None,
                         "AudienceNetworkSize": obj.get("AudienceNetworkSize") if obj.get("AudienceNetworkSize") is not None else None,
                         "SupportedCampaignTypes": obj.get("SupportedCampaignTypes"),

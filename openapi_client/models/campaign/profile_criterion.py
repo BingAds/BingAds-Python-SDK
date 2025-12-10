@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.profile_type import ProfileType
 from typing_extensions import Self
-
-class ProfileCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class ProfileCriterion(Criterion):
     """
     ProfileCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     profile_id: Optional[StrictStr] = Field(default=None, alias="ProfileId")
     profile_type: Optional[ProfileType] = Field(default=None, alias="ProfileType")
-    type: Optional[StrictStr] = Field(default='ProfileCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["ProfileId", "ProfileType", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "ProfileId", "ProfileType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class ProfileCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -67,6 +70,11 @@ class ProfileCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if profile_id (nullable) is None
         # and model_fields_set contains the field
         if self.profile_id is None and "profile_id" in self.model_fields_set:
@@ -76,11 +84,6 @@ class ProfileCriterion(BaseModel):
         # and model_fields_set contains the field
         if self.profile_type is None and "profile_type" in self.model_fields_set:
             _dict['ProfileType'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -94,8 +97,8 @@ class ProfileCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ProfileId": obj.get("ProfileId") if obj.get("ProfileId") is not None else None,
-                        "ProfileType": obj.get("ProfileType") if obj.get("ProfileType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ProfileCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ProfileId": obj.get("ProfileId") if obj.get("ProfileId") is not None else None,
+                        "ProfileType": obj.get("ProfileType") if obj.get("ProfileType") is not None else None
         })
         return _obj

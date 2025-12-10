@@ -22,17 +22,17 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.image_asset import ImageAsset
 from typing_extensions import Self
-
-class VideoAsset(BaseModel):
+from openapi_client.models.campaign.asset import Asset
+class VideoAsset(Asset):
     """
     VideoAsset
     """ # noqa: E501
-    sub_type: Optional[StrictStr] = Field(default=None, alias="SubType")
-    thumbnail_image: Optional[ImageAsset] = Field(default=None, alias="ThumbnailImage")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
-    type: Optional[StrictStr] = Field(default='VideoAsset', alias="Type")
-    __properties: ClassVar[List[str]] = ["SubType", "ThumbnailImage", "Id", "Name", "Type"]
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    sub_type: Optional[StrictStr] = Field(default=None, alias="SubType")
+    thumbnail_image: Optional[ImageAsset] = Field(default=None, alias="ThumbnailImage")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "ThumbnailImage"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -40,6 +40,9 @@ class VideoAsset(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -72,16 +75,6 @@ class VideoAsset(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of thumbnail_image
         if self.thumbnail_image:
             _dict['ThumbnailImage'] = self.thumbnail_image.to_dict()
-        # set to None if sub_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.sub_type is None and "sub_type" in self.model_fields_set:
-            _dict['SubType'] = None
-
-        # set to None if thumbnail_image (nullable) is None
-        # and model_fields_set contains the field
-        if self.thumbnail_image is None and "thumbnail_image" in self.model_fields_set:
-            _dict['ThumbnailImage'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -97,6 +90,16 @@ class VideoAsset(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
+        # set to None if sub_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.sub_type is None and "sub_type" in self.model_fields_set:
+            _dict['SubType'] = None
+
+        # set to None if thumbnail_image (nullable) is None
+        # and model_fields_set contains the field
+        if self.thumbnail_image is None and "thumbnail_image" in self.model_fields_set:
+            _dict['ThumbnailImage'] = None
+
         return _dict
 
     @classmethod
@@ -109,10 +112,10 @@ class VideoAsset(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "SubType": obj.get("SubType") if obj.get("SubType") is not None else None,
-                        "ThumbnailImage": ImageAsset.from_dict(obj["ThumbnailImage"]) if obj.get("ThumbnailImage") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'VideoAsset'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "SubType": obj.get("SubType") if obj.get("SubType") is not None else None,
+                        "ThumbnailImage": ImageAsset.from_dict(obj["ThumbnailImage"]) if obj.get("ThumbnailImage") is not None else None
         })
         return _obj

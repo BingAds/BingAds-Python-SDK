@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.intent_option import IntentOption
 from typing_extensions import Self
-
-class LocationIntentCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class LocationIntentCriterion(Criterion):
     """
     LocationIntentCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     intent_option: Optional[IntentOption] = Field(default=None, alias="IntentOption")
-    type: Optional[StrictStr] = Field(default='LocationIntentCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["IntentOption", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "IntentOption"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class LocationIntentCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,15 +69,15 @@ class LocationIntentCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if intent_option (nullable) is None
-        # and model_fields_set contains the field
-        if self.intent_option is None and "intent_option" in self.model_fields_set:
-            _dict['IntentOption'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if intent_option (nullable) is None
+        # and model_fields_set contains the field
+        if self.intent_option is None and "intent_option" in self.model_fields_set:
+            _dict['IntentOption'] = None
 
         return _dict
 
@@ -88,7 +91,7 @@ class LocationIntentCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "IntentOption": obj.get("IntentOption") if obj.get("IntentOption") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'LocationIntentCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "IntentOption": obj.get("IntentOption") if obj.get("IntentOption") is not None else None
         })
         return _obj

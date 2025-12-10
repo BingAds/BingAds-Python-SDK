@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class VerifiedTrackingSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class VerifiedTrackingSetting(Setting):
     """
     VerifiedTrackingSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     details: Optional[List[Optional[List[KeyValuePairOfstringAndstring]]]] = Field(default=None, alias="Details")
-    type: Optional[StrictStr] = Field(default='VerifiedTrackingSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["Details", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class VerifiedTrackingSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,15 +69,15 @@ class VerifiedTrackingSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if details (nullable) is None
-        # and model_fields_set contains the field
-        if self.details is None and "details" in self.model_fields_set:
-            _dict['Details'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if details (nullable) is None
+        # and model_fields_set contains the field
+        if self.details is None and "details" in self.model_fields_set:
+            _dict['Details'] = None
 
         return _dict
 
@@ -88,7 +91,7 @@ class VerifiedTrackingSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Details": obj.get("Details"),
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'VerifiedTrackingSetting'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Details": obj.get("Details")
         })
         return _obj

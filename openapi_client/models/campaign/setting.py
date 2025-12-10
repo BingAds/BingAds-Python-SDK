@@ -17,412 +17,148 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.app_setting import AppSetting
-from openapi_client.models.campaign.app_store import AppStore
-from openapi_client.models.campaign.bid_option import BidOption
-from openapi_client.models.campaign.call_to_action_setting import CallToActionSetting
-from openapi_client.models.campaign.co_op_setting import CoOpSetting
-from openapi_client.models.campaign.disclaimer_setting import DisclaimerSetting
-from openapi_client.models.campaign.dynamic_feed_setting import DynamicFeedSetting
-from openapi_client.models.campaign.dynamic_search_ads_setting import DynamicSearchAdsSetting
-from openapi_client.models.campaign.dynamic_search_ads_source import DynamicSearchAdsSource
-from openapi_client.models.campaign.hotel_ad_group_type import HotelAdGroupType
-from openapi_client.models.campaign.hotel_setting import HotelSetting
-from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.new_customer_acquisition_goal_setting import NewCustomerAcquisitionGoalSetting
-from openapi_client.models.campaign.performance_max_setting import PerformanceMaxSetting
-from openapi_client.models.campaign.responsive_search_ads_setting import ResponsiveSearchAdsSetting
-from openapi_client.models.campaign.shopping_setting import ShoppingSetting
-from openapi_client.models.campaign.target_setting import TargetSetting
-from openapi_client.models.campaign.third_party_measurement_setting import ThirdPartyMeasurementSetting
-from openapi_client.models.campaign.vanity_pharma_display_url_mode import VanityPharmaDisplayUrlMode
-from openapi_client.models.campaign.vanity_pharma_setting import VanityPharmaSetting
-from openapi_client.models.campaign.vanity_pharma_website_description import VanityPharmaWebsiteDescription
-from openapi_client.models.campaign.verified_tracking_setting import VerifiedTrackingSetting
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-Setting_ONE_OF_SCHEMAS = ["AppSetting", "CallToActionSetting", "CoOpSetting", "DisclaimerSetting", "DynamicFeedSetting", "DynamicSearchAdsSetting", "HotelSetting", "NewCustomerAcquisitionGoalSetting", "PerformanceMaxSetting", "ResponsiveSearchAdsSetting", "ShoppingSetting", "TargetSetting", "ThirdPartyMeasurementSetting", "VanityPharmaSetting", "VerifiedTrackingSetting"]
 
 class Setting(BaseModel):
     """
     Setting
     """
-    # data type: AppSetting
-    oneof_schema_app_setting_validator: Optional[AppSetting] = None
-    # data type: CallToActionSetting
-    oneof_schema_call_to_action_setting_validator: Optional[CallToActionSetting] = None
-    # data type: CoOpSetting
-    oneof_schema_co_op_setting_validator: Optional[CoOpSetting] = None
-    # data type: DisclaimerSetting
-    oneof_schema_disclaimer_setting_validator: Optional[DisclaimerSetting] = None
-    # data type: DynamicFeedSetting
-    oneof_schema_dynamic_feed_setting_validator: Optional[DynamicFeedSetting] = None
-    # data type: DynamicSearchAdsSetting
-    oneof_schema_dynamic_search_ads_setting_validator: Optional[DynamicSearchAdsSetting] = None
-    # data type: HotelSetting
-    oneof_schema_hotel_setting_validator: Optional[HotelSetting] = None
-    # data type: NewCustomerAcquisitionGoalSetting
-    oneof_schema_new_customer_acquisition_goal_setting_validator: Optional[NewCustomerAcquisitionGoalSetting] = None
-    # data type: PerformanceMaxSetting
-    oneof_schema_performance_max_setting_validator: Optional[PerformanceMaxSetting] = None
-    # data type: ResponsiveSearchAdsSetting
-    oneof_schema_responsive_search_ads_setting_validator: Optional[ResponsiveSearchAdsSetting] = None
-    # data type: ShoppingSetting
-    oneof_schema_shopping_setting_validator: Optional[ShoppingSetting] = None
-    # data type: TargetSetting
-    oneof_schema_target_setting_validator: Optional[TargetSetting] = None
-    # data type: ThirdPartyMeasurementSetting
-    oneof_schema_third_party_measurement_setting_validator: Optional[ThirdPartyMeasurementSetting] = None
-    # data type: VanityPharmaSetting
-    oneof_schema_vanity_pharma_setting_validator: Optional[VanityPharmaSetting] = None
-    # data type: VerifiedTrackingSetting
-    oneof_schema_verified_tracking_setting_validator: Optional[VerifiedTrackingSetting] = None
-    actual_instance: Optional[Union[AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting]] = None
-    one_of_schemas: Set[str] = { "AppSetting", "CallToActionSetting", "CoOpSetting", "DisclaimerSetting", "DynamicFeedSetting", "DynamicSearchAdsSetting", "HotelSetting", "NewCustomerAcquisitionGoalSetting", "PerformanceMaxSetting", "ResponsiveSearchAdsSetting", "ShoppingSetting", "TargetSetting", "ThirdPartyMeasurementSetting", "VanityPharmaSetting", "VerifiedTrackingSetting" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AppSetting', 'AppSetting'),
+                ('CallToActionSetting', 'CallToActionSetting'),
+                ('CoOpSetting', 'CoOpSetting'),
+                ('DisclaimerSetting', 'DisclaimerSetting'),
+                ('DynamicFeedSetting', 'DynamicFeedSetting'),
+                ('DynamicSearchAdsSetting', 'DynamicSearchAdsSetting'),
+                ('HotelSetting', 'HotelSetting'),
+                ('NewCustomerAcquisitionGoalSetting', 'NewCustomerAcquisitionGoalSetting'),
+                ('PerformanceMaxSetting', 'PerformanceMaxSetting'),
+                ('ResponsiveSearchAdsSetting', 'ResponsiveSearchAdsSetting'),
+                ('ShoppingSetting', 'ShoppingSetting'),
+                ('TargetSetting', 'TargetSetting'),
+                ('ThirdPartyMeasurementSetting', 'ThirdPartyMeasurementSetting'),
+                ('VanityPharmaSetting', 'VanityPharmaSetting'),
+                ('VerifiedTrackingSetting', 'VerifiedTrackingSetting'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = Setting.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AppSetting
-        if not isinstance(v, AppSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AppSetting`")
-        else:
-            match += 1
-        # validate data type: CallToActionSetting
-        if not isinstance(v, CallToActionSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CallToActionSetting`")
-        else:
-            match += 1
-        # validate data type: CoOpSetting
-        if not isinstance(v, CoOpSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CoOpSetting`")
-        else:
-            match += 1
-        # validate data type: DisclaimerSetting
-        if not isinstance(v, DisclaimerSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DisclaimerSetting`")
-        else:
-            match += 1
-        # validate data type: DynamicFeedSetting
-        if not isinstance(v, DynamicFeedSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DynamicFeedSetting`")
-        else:
-            match += 1
-        # validate data type: DynamicSearchAdsSetting
-        if not isinstance(v, DynamicSearchAdsSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DynamicSearchAdsSetting`")
-        else:
-            match += 1
-        # validate data type: HotelSetting
-        if not isinstance(v, HotelSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelSetting`")
-        else:
-            match += 1
-        # validate data type: NewCustomerAcquisitionGoalSetting
-        if not isinstance(v, NewCustomerAcquisitionGoalSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `NewCustomerAcquisitionGoalSetting`")
-        else:
-            match += 1
-        # validate data type: PerformanceMaxSetting
-        if not isinstance(v, PerformanceMaxSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PerformanceMaxSetting`")
-        else:
-            match += 1
-        # validate data type: ResponsiveSearchAdsSetting
-        if not isinstance(v, ResponsiveSearchAdsSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ResponsiveSearchAdsSetting`")
-        else:
-            match += 1
-        # validate data type: ShoppingSetting
-        if not isinstance(v, ShoppingSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ShoppingSetting`")
-        else:
-            match += 1
-        # validate data type: TargetSetting
-        if not isinstance(v, TargetSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `TargetSetting`")
-        else:
-            match += 1
-        # validate data type: ThirdPartyMeasurementSetting
-        if not isinstance(v, ThirdPartyMeasurementSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ThirdPartyMeasurementSetting`")
-        else:
-            match += 1
-        # validate data type: VanityPharmaSetting
-        if not isinstance(v, VanityPharmaSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `VanityPharmaSetting`")
-        else:
-            match += 1
-        # validate data type: VerifiedTrackingSetting
-        if not isinstance(v, VerifiedTrackingSetting):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `VerifiedTrackingSetting`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Setting with oneOf schemas: AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in Setting with oneOf schemas: AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of Setting from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AppSetting`
-        if _data_type == "AppSetting":
-            instance.actual_instance = AppSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `CallToActionSetting`
-        if _data_type == "CallToActionSetting":
-            instance.actual_instance = CallToActionSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `CoOpSetting`
-        if _data_type == "CoOpSetting":
-            instance.actual_instance = CoOpSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `DisclaimerSetting`
-        if _data_type == "DisclaimerSetting":
-            instance.actual_instance = DisclaimerSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `DynamicFeedSetting`
-        if _data_type == "DynamicFeedSetting":
-            instance.actual_instance = DynamicFeedSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `DynamicSearchAdsSetting`
-        if _data_type == "DynamicSearchAdsSetting":
-            instance.actual_instance = DynamicSearchAdsSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelSetting`
-        if _data_type == "HotelSetting":
-            instance.actual_instance = HotelSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `NewCustomerAcquisitionGoalSetting`
-        if _data_type == "NewCustomerAcquisitionGoalSetting":
-            instance.actual_instance = NewCustomerAcquisitionGoalSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `PerformanceMaxSetting`
-        if _data_type == "PerformanceMaxSetting":
-            instance.actual_instance = PerformanceMaxSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `ResponsiveSearchAdsSetting`
-        if _data_type == "ResponsiveSearchAdsSetting":
-            instance.actual_instance = ResponsiveSearchAdsSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `ShoppingSetting`
-        if _data_type == "ShoppingSetting":
-            instance.actual_instance = ShoppingSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `TargetSetting`
-        if _data_type == "TargetSetting":
-            instance.actual_instance = TargetSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `ThirdPartyMeasurementSetting`
-        if _data_type == "ThirdPartyMeasurementSetting":
-            instance.actual_instance = ThirdPartyMeasurementSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `VanityPharmaSetting`
-        if _data_type == "VanityPharmaSetting":
-            instance.actual_instance = VanityPharmaSetting.from_json(json_str)
-            return instance
-			
-		# check if data type is `VerifiedTrackingSetting`
-        if _data_type == "VerifiedTrackingSetting":
-            instance.actual_instance = VerifiedTrackingSetting.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AppSetting
-        try:
-            instance.actual_instance = AppSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CallToActionSetting
-        try:
-            instance.actual_instance = CallToActionSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CoOpSetting
-        try:
-            instance.actual_instance = CoOpSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DisclaimerSetting
-        try:
-            instance.actual_instance = DisclaimerSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DynamicFeedSetting
-        try:
-            instance.actual_instance = DynamicFeedSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DynamicSearchAdsSetting
-        try:
-            instance.actual_instance = DynamicSearchAdsSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelSetting
-        try:
-            instance.actual_instance = HotelSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into NewCustomerAcquisitionGoalSetting
-        try:
-            instance.actual_instance = NewCustomerAcquisitionGoalSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PerformanceMaxSetting
-        try:
-            instance.actual_instance = PerformanceMaxSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ResponsiveSearchAdsSetting
-        try:
-            instance.actual_instance = ResponsiveSearchAdsSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ShoppingSetting
-        try:
-            instance.actual_instance = ShoppingSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into TargetSetting
-        try:
-            instance.actual_instance = TargetSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ThirdPartyMeasurementSetting
-        try:
-            instance.actual_instance = ThirdPartyMeasurementSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into VanityPharmaSetting
-        try:
-            instance.actual_instance = VanityPharmaSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into VerifiedTrackingSetting
-        try:
-            instance.actual_instance = VerifiedTrackingSetting.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Setting with oneOf schemas: AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into Setting with oneOf schemas: AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AppSetting, CallToActionSetting, CoOpSetting, DisclaimerSetting, DynamicFeedSetting, DynamicSearchAdsSetting, HotelSetting, NewCustomerAcquisitionGoalSetting, PerformanceMaxSetting, ResponsiveSearchAdsSetting, ShoppingSetting, TargetSetting, ThirdPartyMeasurementSetting, VanityPharmaSetting, VerifiedTrackingSetting]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of Setting from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_app_setting_validator', 'oneof_schema_call_to_action_setting_validator', 'oneof_schema_co_op_setting_validator', 'oneof_schema_disclaimer_setting_validator', 'oneof_schema_dynamic_feed_setting_validator', 'oneof_schema_dynamic_search_ads_setting_validator', 'oneof_schema_hotel_setting_validator', 'oneof_schema_new_customer_acquisition_goal_setting_validator', 'oneof_schema_performance_max_setting_validator', 'oneof_schema_responsive_search_ads_setting_validator', 'oneof_schema_shopping_setting_validator', 'oneof_schema_target_setting_validator', 'oneof_schema_third_party_measurement_setting_validator', 'oneof_schema_vanity_pharma_setting_validator', 'oneof_schema_verified_tracking_setting_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AppSetting":
+            from openapi_client.models.campaign.app_setting import AppSetting
+            return AppSetting.from_dict(obj)
+        
+        if type == "CallToActionSetting":
+            from openapi_client.models.campaign.call_to_action_setting import CallToActionSetting
+            return CallToActionSetting.from_dict(obj)
+        
+        if type == "CoOpSetting":
+            from openapi_client.models.campaign.co_op_setting import CoOpSetting
+            return CoOpSetting.from_dict(obj)
+        
+        if type == "DisclaimerSetting":
+            from openapi_client.models.campaign.disclaimer_setting import DisclaimerSetting
+            return DisclaimerSetting.from_dict(obj)
+        
+        if type == "DynamicFeedSetting":
+            from openapi_client.models.campaign.dynamic_feed_setting import DynamicFeedSetting
+            return DynamicFeedSetting.from_dict(obj)
+        
+        if type == "DynamicSearchAdsSetting":
+            from openapi_client.models.campaign.dynamic_search_ads_setting import DynamicSearchAdsSetting
+            return DynamicSearchAdsSetting.from_dict(obj)
+        
+        if type == "HotelSetting":
+            from openapi_client.models.campaign.hotel_setting import HotelSetting
+            return HotelSetting.from_dict(obj)
+        
+        if type == "NewCustomerAcquisitionGoalSetting":
+            from openapi_client.models.campaign.new_customer_acquisition_goal_setting import NewCustomerAcquisitionGoalSetting
+            return NewCustomerAcquisitionGoalSetting.from_dict(obj)
+        
+        if type == "PerformanceMaxSetting":
+            from openapi_client.models.campaign.performance_max_setting import PerformanceMaxSetting
+            return PerformanceMaxSetting.from_dict(obj)
+        
+        if type == "ResponsiveSearchAdsSetting":
+            from openapi_client.models.campaign.responsive_search_ads_setting import ResponsiveSearchAdsSetting
+            return ResponsiveSearchAdsSetting.from_dict(obj)
+        
+        if type == "ShoppingSetting":
+            from openapi_client.models.campaign.shopping_setting import ShoppingSetting
+            return ShoppingSetting.from_dict(obj)
+        
+        if type == "TargetSetting":
+            from openapi_client.models.campaign.target_setting import TargetSetting
+            return TargetSetting.from_dict(obj)
+        
+        if type == "ThirdPartyMeasurementSetting":
+            from openapi_client.models.campaign.third_party_measurement_setting import ThirdPartyMeasurementSetting
+            return ThirdPartyMeasurementSetting.from_dict(obj)
+        
+        if type == "VanityPharmaSetting":
+            from openapi_client.models.campaign.vanity_pharma_setting import VanityPharmaSetting
+            return VanityPharmaSetting.from_dict(obj)
+        
+        if type == "VerifiedTrackingSetting":
+            from openapi_client.models.campaign.verified_tracking_setting import VerifiedTrackingSetting
+            return VerifiedTrackingSetting.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

@@ -26,6 +26,7 @@ from openapi_client.models.campaign.asset_group_status import AssetGroupStatus
 from openapi_client.models.campaign.asset_group_url_target import AssetGroupUrlTarget
 from openapi_client.models.campaign.asset_link import AssetLink
 from openapi_client.models.campaign.call_to_action import CallToAction
+from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.model_date import ModelDate
 from typing_extensions import Self
@@ -51,10 +52,13 @@ class AssetGroup(BaseModel):
     final_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalUrls")
     asset_group_search_themes: Optional[List[Optional[AssetGroupSearchTheme]]] = Field(default=None, alias="AssetGroupSearchThemes")
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
+    tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
+    final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
+    url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
     editorial_status: Optional[AssetGroupEditorialStatus] = Field(default=None, alias="EditorialStatus")
     asset_group_url_targets: Optional[List[Optional[AssetGroupUrlTarget]]] = Field(default=None, alias="AssetGroupUrlTargets")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "EditorialStatus", "AssetGroupUrlTargets", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "EditorialStatus", "AssetGroupUrlTargets", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -129,6 +133,9 @@ class AssetGroup(BaseModel):
                 if _item_asset_group_search_themes:
                     _items.append(_item_asset_group_search_themes.to_dict())
             _dict['AssetGroupSearchThemes'] = _items
+        # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
+        if self.url_custom_parameters:
+            _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in asset_group_url_targets (list)
         _items = []
         if self.asset_group_url_targets:
@@ -228,6 +235,21 @@ class AssetGroup(BaseModel):
         if self.final_mobile_urls is None and "final_mobile_urls" in self.model_fields_set:
             _dict['FinalMobileUrls'] = None
 
+        # set to None if tracking_url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
+            _dict['TrackingUrlTemplate'] = None
+
+        # set to None if final_url_suffix (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
+            _dict['FinalUrlSuffix'] = None
+
+        # set to None if url_custom_parameters (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
+            _dict['UrlCustomParameters'] = None
+
         # set to None if editorial_status (nullable) is None
         # and model_fields_set contains the field
         if self.editorial_status is None and "editorial_status" in self.model_fields_set:
@@ -272,6 +294,9 @@ class AssetGroup(BaseModel):
                         "FinalUrls": obj.get("FinalUrls"),
                         "AssetGroupSearchThemes": [AssetGroupSearchTheme.from_dict(_item) for _item in obj["AssetGroupSearchThemes"]] if obj.get("AssetGroupSearchThemes") is not None else None,
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
+                        "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
+                        "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
+                        "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "AssetGroupUrlTargets": [AssetGroupUrlTarget.from_dict(_item) for _item in obj["AssetGroupUrlTargets"]] if obj.get("AssetGroupUrlTargets") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None

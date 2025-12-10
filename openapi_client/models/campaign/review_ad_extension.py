@@ -24,23 +24,23 @@ from openapi_client.models.campaign.ad_extension_status import AdExtensionStatus
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class ReviewAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class ReviewAdExtension(AdExtension):
     """
     ReviewAdExtension
     """ # noqa: E501
-    is_exact: Optional[StrictBool] = Field(default=None, alias="IsExact")
-    text: Optional[StrictStr] = Field(default=None, alias="Text")
-    source: Optional[StrictStr] = Field(default=None, alias="Source")
-    url: Optional[StrictStr] = Field(default=None, alias="Url")
     status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
     scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
     device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='ReviewAdExtension', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     version: Optional[StrictInt] = Field(default=None, alias="Version")
+    is_exact: Optional[StrictBool] = Field(default=None, alias="IsExact")
+    text: Optional[StrictStr] = Field(default=None, alias="Text")
+    source: Optional[StrictStr] = Field(default=None, alias="Source")
+    url: Optional[StrictStr] = Field(default=None, alias="Url")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["IsExact", "Text", "Source", "Url", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "IsExact", "Text", "Source", "Url", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -48,6 +48,9 @@ class ReviewAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -87,26 +90,6 @@ class ReviewAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if is_exact (nullable) is None
-        # and model_fields_set contains the field
-        if self.is_exact is None and "is_exact" in self.model_fields_set:
-            _dict['IsExact'] = None
-
-        # set to None if text (nullable) is None
-        # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['Text'] = None
-
-        # set to None if source (nullable) is None
-        # and model_fields_set contains the field
-        if self.source is None and "source" in self.model_fields_set:
-            _dict['Source'] = None
-
-        # set to None if url (nullable) is None
-        # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['Url'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -137,6 +120,26 @@ class ReviewAdExtension(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['Version'] = None
 
+        # set to None if is_exact (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_exact is None and "is_exact" in self.model_fields_set:
+            _dict['IsExact'] = None
+
+        # set to None if text (nullable) is None
+        # and model_fields_set contains the field
+        if self.text is None and "text" in self.model_fields_set:
+            _dict['Text'] = None
+
+        # set to None if source (nullable) is None
+        # and model_fields_set contains the field
+        if self.source is None and "source" in self.model_fields_set:
+            _dict['Source'] = None
+
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['Url'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -154,16 +157,16 @@ class ReviewAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "IsExact": obj.get("IsExact") if obj.get("IsExact") is not None else None,
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
-                        "Source": obj.get("Source") if obj.get("Source") is not None else None,
-                        "Url": obj.get("Url") if obj.get("Url") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
                         "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ReviewAdExtension',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "IsExact": obj.get("IsExact") if obj.get("IsExact") is not None else None,
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "Source": obj.get("Source") if obj.get("Source") is not None else None,
+                        "Url": obj.get("Url") if obj.get("Url") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

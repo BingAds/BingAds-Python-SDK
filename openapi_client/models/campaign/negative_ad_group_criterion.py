@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_group_criterion_status import AdGroupCriterionStatus
 from openapi_client.models.campaign.criterion import Criterion
 from typing_extensions import Self
-
-class NegativeAdGroupCriterion(BaseModel):
+from openapi_client.models.campaign.ad_group_criterion import AdGroupCriterion
+class NegativeAdGroupCriterion(AdGroupCriterion):
     """
     NegativeAdGroupCriterion
     """ # noqa: E501
@@ -32,7 +32,7 @@ class NegativeAdGroupCriterion(BaseModel):
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
-    type: Optional[StrictStr] = Field(default='NegativeAdGroupCriterion', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     __properties: ClassVar[List[str]] = ["AdGroupId", "Id", "Status", "Criterion", "Type"]
 
     model_config = ConfigDict(
@@ -41,6 +41,9 @@ class NegativeAdGroupCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -114,6 +117,6 @@ class NegativeAdGroupCriterion(BaseModel):
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NegativeAdGroupCriterion'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

@@ -38,8 +38,15 @@ class AudienceAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AudienceAdditionalField.NONE: 'None',
+            AudienceAdditionalField.NORMALFORM: 'NormalForm',
+            AudienceAdditionalField.NUMBERRULEITEM: 'NumberRuleItem',
+            AudienceAdditionalField.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
+            AudienceAdditionalField.CAMPAIGNIDSADGROUPIDS: 'CampaignIdsAdGroupIds',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AudienceAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AudienceAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

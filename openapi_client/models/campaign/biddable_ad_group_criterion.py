@@ -28,11 +28,16 @@ from openapi_client.models.campaign.criterion_bid import CriterionBid
 from openapi_client.models.campaign.criterion_cashback import CriterionCashback
 from openapi_client.models.campaign.custom_parameters import CustomParameters
 from typing_extensions import Self
-
-class BiddableAdGroupCriterion(BaseModel):
+from openapi_client.models.campaign.ad_group_criterion import AdGroupCriterion
+class BiddableAdGroupCriterion(AdGroupCriterion):
     """
     BiddableAdGroupCriterion
     """ # noqa: E501
+    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
+    criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     criterion_bid: Optional[CriterionBid] = Field(default=None, alias="CriterionBid")
     destination_url: Optional[StrictStr] = Field(default=None, alias="DestinationUrl")
     tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
@@ -43,12 +48,7 @@ class BiddableAdGroupCriterion(BaseModel):
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     editorial_status: Optional[AdGroupCriterionEditorialStatus] = Field(default=None, alias="EditorialStatus")
     criterion_cashback: Optional[CriterionCashback] = Field(default=None, alias="CriterionCashback")
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
-    criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
-    type: Optional[StrictStr] = Field(default='BiddableAdGroupCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["CriterionBid", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "EditorialStatus", "CriterionCashback", "AdGroupId", "Id", "Status", "Criterion", "Type"]
+    __properties: ClassVar[List[str]] = ["AdGroupId", "Id", "Status", "Criterion", "Type", "CriterionBid", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "EditorialStatus", "CriterionCashback"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,6 +56,9 @@ class BiddableAdGroupCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -85,6 +88,9 @@ class BiddableAdGroupCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of criterion
+        if self.criterion:
+            _dict['Criterion'] = self.criterion.to_dict()
         # override the default output from pydantic by calling `to_dict()` of criterion_bid
         if self.criterion_bid:
             _dict['CriterionBid'] = self.criterion_bid.to_dict()
@@ -101,9 +107,31 @@ class BiddableAdGroupCriterion(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of criterion_cashback
         if self.criterion_cashback:
             _dict['CriterionCashback'] = self.criterion_cashback.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of criterion
-        if self.criterion:
-            _dict['Criterion'] = self.criterion.to_dict()
+        # set to None if ad_group_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
+            _dict['AdGroupId'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['Status'] = None
+
+        # set to None if criterion (nullable) is None
+        # and model_fields_set contains the field
+        if self.criterion is None and "criterion" in self.model_fields_set:
+            _dict['Criterion'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if criterion_bid (nullable) is None
         # and model_fields_set contains the field
         if self.criterion_bid is None and "criterion_bid" in self.model_fields_set:
@@ -154,31 +182,6 @@ class BiddableAdGroupCriterion(BaseModel):
         if self.criterion_cashback is None and "criterion_cashback" in self.model_fields_set:
             _dict['CriterionCashback'] = None
 
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if status (nullable) is None
-        # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['Status'] = None
-
-        # set to None if criterion (nullable) is None
-        # and model_fields_set contains the field
-        if self.criterion is None and "criterion" in self.model_fields_set:
-            _dict['Criterion'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -191,7 +194,12 @@ class BiddableAdGroupCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CriterionBid": CriterionBid.from_dict(obj["CriterionBid"]) if obj.get("CriterionBid") is not None else None,
+            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "CriterionBid": CriterionBid.from_dict(obj["CriterionBid"]) if obj.get("CriterionBid") is not None else None,
                         "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
                         "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
                         "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
@@ -200,11 +208,6 @@ class BiddableAdGroupCriterion(BaseModel):
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
-                        "CriterionCashback": CriterionCashback.from_dict(obj["CriterionCashback"]) if obj.get("CriterionCashback") is not None else None,
-                        "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'BiddableAdGroupCriterion'
+                        "CriterionCashback": CriterionCashback.from_dict(obj["CriterionCashback"]) if obj.get("CriterionCashback") is not None else None
         })
         return _obj

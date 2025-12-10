@@ -2,6 +2,34 @@
 
 Release History
 
+13.0.26(2026-12-09)
++++++++++++++++++++++++++
+API Updates:
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* New report: BidStrategyReport.
+* New column ConversionDelay in AccountPerformanceReport, CampaignPerformanceReport and GoalsAndFunnelsReport.
+* New column CostPerConversion in AssetGroupPerformanceReport.
+* New API in AdInsight Service: GetAudienceBreakdown.
+* New criterion type: TopicCriterion.
+* Support multiple campaignIds/adGroupIds in ImpressionBasedRemarketingList.
+* New field Industry in UetTag.
+* New fields TrackingUrlTemplate, FinalUrlSuffix and UrlCustomParameters in AssetGroup.
+* New field IsPolitical in Campaign.
+* New field CurrencyCode, ReportingTimeZone and Scope in BidStrategy.
+* New field BidStrategyScope in Campaign.
+* Add enum value DataDriven in AttributionModelType.
+* New option NewTopicTargets and UpdateTopicTargets in GoogleImportOption.
+
+Bulk Mapping Updates:
+* Add bulk mappings: BulkAdGroupTopicCriterion, BulkContentPlacement and BulkTopic.
+* Add TrackingTemplate, FinalUrlSuffix and CustomParameter in BulkAssetGroup mapping.
+* Add BidStrategyScope, CurrencyCode and TimeZone in BulkBidStrategy mapping.
+* Add BidStrategyScope in BulkCampaign mapping.
+
+Other:
+* Support for Google login is now available. You can use GoogleOAuthDesktopMobileAuthCodeGrant or GoogleOAuthWebAuthCodeGrant to sign in with a Google account and access the Bing Ads API.
+* Remove pkg_resources and switch to importlib_resources.
+
 13.0.25.2(2025-07-31)
 +++++++++++++++++++++++++
 * Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).

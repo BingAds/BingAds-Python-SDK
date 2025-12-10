@@ -22,6 +22,8 @@ class AttributionModelType(str, Enum):
 
     LASTTOUCH = 'LastTouch'
 
+    DATADRIVEN = 'DataDriven'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

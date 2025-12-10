@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.target_setting_detail import TargetSettingDetail
 from typing_extensions import Self
-
-class TargetSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class TargetSetting(Setting):
     """
     TargetSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     details: Optional[List[Optional[TargetSettingDetail]]] = Field(default=None, alias="Details")
-    type: Optional[StrictStr] = Field(default='TargetSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["Details", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class TargetSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -73,15 +76,15 @@ class TargetSetting(BaseModel):
                 if _item_details:
                     _items.append(_item_details.to_dict())
             _dict['Details'] = _items
-        # set to None if details (nullable) is None
-        # and model_fields_set contains the field
-        if self.details is None and "details" in self.model_fields_set:
-            _dict['Details'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if details (nullable) is None
+        # and model_fields_set contains the field
+        if self.details is None and "details" in self.model_fields_set:
+            _dict['Details'] = None
 
         return _dict
 
@@ -95,7 +98,7 @@ class TargetSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Details": [TargetSettingDetail.from_dict(_item) for _item in obj["Details"]] if obj.get("Details") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'TargetSetting'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Details": [TargetSettingDetail.from_dict(_item) for _item in obj["Details"]] if obj.get("Details") is not None else None
         })
         return _obj

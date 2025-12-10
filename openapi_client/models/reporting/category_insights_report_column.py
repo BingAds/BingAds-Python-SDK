@@ -52,6 +52,10 @@ class CategoryInsightsReportColumn(str, Enum):
 
     COUNTRY = 'Country'
 
+    MARKETPLACECLICKCOVERAGE = 'MarketplaceClickCoverage'
+
+    PROPORTIONOFSPEND = 'ProportionOfSpend'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

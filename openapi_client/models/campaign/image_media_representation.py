@@ -21,17 +21,17 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class ImageMediaRepresentation(BaseModel):
+from openapi_client.models.campaign.media_representation import MediaRepresentation
+class ImageMediaRepresentation(MediaRepresentation):
     """
     ImageMediaRepresentation
     """ # noqa: E501
-    height: Optional[StrictInt] = Field(default=None, alias="Height")
-    width: Optional[StrictInt] = Field(default=None, alias="Width")
-    type: Optional[StrictStr] = Field(default='ImageMediaRepresentation', alias="Type")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     url: Optional[StrictStr] = Field(default=None, alias="Url")
-    __properties: ClassVar[List[str]] = ["Height", "Width", "Type", "Name", "Url"]
+    type: Optional[StrictStr] = Field(default='MediaRepresentation', alias="Type")
+    height: Optional[StrictInt] = Field(default=None, alias="Height")
+    width: Optional[StrictInt] = Field(default=None, alias="Width")
+    __properties: ClassVar[List[str]] = ["Name", "Url", "Type", "Height", "Width"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class ImageMediaRepresentation(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -68,21 +71,6 @@ class ImageMediaRepresentation(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if height (nullable) is None
-        # and model_fields_set contains the field
-        if self.height is None and "height" in self.model_fields_set:
-            _dict['Height'] = None
-
-        # set to None if width (nullable) is None
-        # and model_fields_set contains the field
-        if self.width is None and "width" in self.model_fields_set:
-            _dict['Width'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -92,6 +80,21 @@ class ImageMediaRepresentation(BaseModel):
         # and model_fields_set contains the field
         if self.url is None and "url" in self.model_fields_set:
             _dict['Url'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if height (nullable) is None
+        # and model_fields_set contains the field
+        if self.height is None and "height" in self.model_fields_set:
+            _dict['Height'] = None
+
+        # set to None if width (nullable) is None
+        # and model_fields_set contains the field
+        if self.width is None and "width" in self.model_fields_set:
+            _dict['Width'] = None
 
         return _dict
 
@@ -105,10 +108,10 @@ class ImageMediaRepresentation(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Height": obj.get("Height") if obj.get("Height") is not None else None,
-                        "Width": obj.get("Width") if obj.get("Width") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ImageMediaRepresentation',
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Url": obj.get("Url") if obj.get("Url") is not None else None
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
+                        "Url": obj.get("Url") if obj.get("Url") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else 'MediaRepresentation',
+                        "Height": obj.get("Height") if obj.get("Height") is not None else None,
+                        "Width": obj.get("Width") if obj.get("Width") is not None else None
         })
         return _obj

@@ -13,200 +13,65 @@
 
 
 from __future__ import annotations
-import json
 import pprint
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
-from typing import Any, List, Optional
-from openapi_client.models.adinsight.entity_detail import EntityDetail
-from openapi_client.models.adinsight.entity_parameter import EntityParameter
-from openapi_client.models.adinsight.performance_insights_entity_type import PerformanceInsightsEntityType
-from openapi_client.models.adinsight.performance_insights_url_category import PerformanceInsightsUrlCategory
-from openapi_client.models.adinsight.performance_insights_url_id import PerformanceInsightsUrlId
-from openapi_client.models.adinsight.text_parameter import TextParameter
-from openapi_client.models.adinsight.url_parameter import UrlParameter
-from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
-from typing_extensions import Literal, Self
+import re  # noqa: F401
+import json
 
-PerformanceInsightsMessageParameter_ONE_OF_SCHEMAS = ["EntityParameter", "TextParameter", "UrlParameter"]
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.adinsight.parameter_type import ParameterType
+from typing_extensions import Self
 
 class PerformanceInsightsMessageParameter(BaseModel):
     """
     PerformanceInsightsMessageParameter
-    """
-    # data type: EntityParameter
-    oneof_schema_entity_parameter_validator: Optional[EntityParameter] = None
-    # data type: TextParameter
-    oneof_schema_text_parameter_validator: Optional[TextParameter] = None
-    # data type: UrlParameter
-    oneof_schema_url_parameter_validator: Optional[UrlParameter] = None
-    actual_instance: Optional[Union[EntityParameter, TextParameter, UrlParameter]] = None
-    one_of_schemas: Set[str] = { "EntityParameter", "TextParameter", "UrlParameter" }
+    """ # noqa: E501
+    type: Optional[ParameterType] = Field(default=None, alias="Type")
+    __properties: ClassVar[List[str]] = ["Type"]
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+	
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
 
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
 
-        instance = PerformanceInsightsMessageParameter.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: EntityParameter
-        if not isinstance(v, EntityParameter):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `EntityParameter`")
-        else:
-            match += 1
-        # validate data type: TextParameter
-        if not isinstance(v, TextParameter):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `TextParameter`")
-        else:
-            match += 1
-        # validate data type: UrlParameter
-        if not isinstance(v, UrlParameter):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `UrlParameter`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in PerformanceInsightsMessageParameter with oneOf schemas: EntityParameter, TextParameter, UrlParameter. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in PerformanceInsightsMessageParameter with oneOf schemas: EntityParameter, TextParameter, UrlParameter. Details: " + ", ".join(error_messages))
-        else:
-            return v
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        return _dict
 
     @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
-
-    @classmethod
-    def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
-
-        error_messages = []
-        match = 0
-
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
-
-		# check if data type is `EntityParameter`
-        if _data_type == "Entities":
-            instance.actual_instance = EntityParameter.from_json(json_str)
-            return instance
-			
-		# check if data type is `TextParameter`
-        if _data_type == "Text":
-            instance.actual_instance = TextParameter.from_json(json_str)
-            return instance
-			
-		# check if data type is `UrlParameter`
-        if _data_type == "Url":
-            instance.actual_instance = UrlParameter.from_json(json_str)
-            return instance
-			
-		# check if data type is `EntityParameter`
-        if _data_type == "EntityParameter":
-            instance.actual_instance = EntityParameter.from_json(json_str)
-            return instance
-			
-		# check if data type is `TextParameter`
-        if _data_type == "TextParameter":
-            instance.actual_instance = TextParameter.from_json(json_str)
-            return instance
-			
-		# check if data type is `UrlParameter`
-        if _data_type == "UrlParameter":
-            instance.actual_instance = UrlParameter.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into EntityParameter
-        try:
-            instance.actual_instance = EntityParameter.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into TextParameter
-        try:
-            instance.actual_instance = TextParameter.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into UrlParameter
-        try:
-            instance.actual_instance = UrlParameter.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into PerformanceInsightsMessageParameter with oneOf schemas: EntityParameter, TextParameter, UrlParameter. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into PerformanceInsightsMessageParameter with oneOf schemas: EntityParameter, TextParameter, UrlParameter. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], EntityParameter, TextParameter, UrlParameter]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of PerformanceInsightsMessageParameter from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_entity_parameter_validator', 'oneof_schema_text_parameter_validator', 'oneof_schema_url_parameter_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

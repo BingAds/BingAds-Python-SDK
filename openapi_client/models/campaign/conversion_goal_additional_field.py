@@ -32,6 +32,10 @@ class ConversionGoalAdditionalField(Flag):
 
     ISAUTOGOAL = auto()
 
+    DATADRIVENATTRIBUTE = auto()
+
+    APPLICATIONDOWNLOADGOAL = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -44,8 +48,20 @@ class ConversionGoalAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            ConversionGoalAdditionalField.NONE: 'None',
+            ConversionGoalAdditionalField.VIEWTHROUGHCONVERSIONWINDOWINMINUTES: 'ViewThroughConversionWindowInMinutes',
+            ConversionGoalAdditionalField.ISEXTERNALLYATTRIBUTED: 'IsExternallyAttributed',
+            ConversionGoalAdditionalField.GOALCATEGORY: 'GoalCategory',
+            ConversionGoalAdditionalField.INACTIVEDUETOTAGUNAVAILABLE: 'InactiveDueToTagUnavailable',
+            ConversionGoalAdditionalField.ATTRIBUTIONMODELTYPE: 'AttributionModelType',
+            ConversionGoalAdditionalField.ISENHANCEDCONVERSIONSENABLED: 'IsEnhancedConversionsEnabled',
+            ConversionGoalAdditionalField.ISAUTOGOAL: 'IsAutoGoal',
+            ConversionGoalAdditionalField.DATADRIVENATTRIBUTE: 'DataDrivenAttribute',
+            ConversionGoalAdditionalField.APPLICATIONDOWNLOADGOAL: 'ApplicationDownloadGoal',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in ConversionGoalAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in ConversionGoalAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

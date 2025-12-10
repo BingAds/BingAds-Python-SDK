@@ -26,17 +26,18 @@ from openapi_client.models.campaign.conversion_goal_count_type import Conversion
 from openapi_client.models.campaign.conversion_goal_revenue import ConversionGoalRevenue
 from openapi_client.models.campaign.conversion_goal_status import ConversionGoalStatus
 from openapi_client.models.campaign.conversion_goal_tracking_status import ConversionGoalTrackingStatus
+from openapi_client.models.campaign.conversion_goal_type import ConversionGoalType
 from openapi_client.models.campaign.entity_scope import EntityScope
 from typing_extensions import Self
-
-class InStoreTransactionGoal(BaseModel):
+from openapi_client.models.campaign.conversion_goal import ConversionGoal
+class InStoreTransactionGoal(ConversionGoal):
     """
     InStoreTransactionGoal
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[ConversionGoalStatus] = Field(default=None, alias="Status")
-    type: Optional[StrictStr] = Field(default='InStoreTransaction', alias="Type")
+    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     count_type: Optional[ConversionGoalCountType] = Field(default=None, alias="CountType")
     revenue: Optional[ConversionGoalRevenue] = Field(default=None, alias="Revenue")
@@ -57,6 +58,9 @@ class InStoreTransactionGoal(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -184,7 +188,7 @@ class InStoreTransactionGoal(BaseModel):
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'InStoreTransaction',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "CountType": obj.get("CountType") if obj.get("CountType") is not None else None,
                         "Revenue": ConversionGoalRevenue.from_dict(obj["Revenue"]) if obj.get("Revenue") is not None else None,

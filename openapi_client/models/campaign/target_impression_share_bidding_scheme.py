@@ -22,16 +22,16 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.bid import Bid
 from typing_extensions import Self
-
-class TargetImpressionShareBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class TargetImpressionShareBiddingScheme(BiddingScheme):
     """
     TargetImpressionShareBiddingScheme
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     target_impression_share: Optional[StrictFloat] = Field(default=None, alias="TargetImpressionShare")
     target_ad_position: Optional[StrictStr] = Field(default=None, alias="TargetAdPosition")
     max_cpc: Optional[Bid] = Field(default=None, alias="MaxCpc")
-    type: Optional[StrictStr] = Field(default='TargetImpressionShareBiddingScheme', alias="Type")
-    __properties: ClassVar[List[str]] = ["TargetImpressionShare", "TargetAdPosition", "MaxCpc", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "TargetImpressionShare", "TargetAdPosition", "MaxCpc"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class TargetImpressionShareBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -71,6 +74,11 @@ class TargetImpressionShareBiddingScheme(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of max_cpc
         if self.max_cpc:
             _dict['MaxCpc'] = self.max_cpc.to_dict()
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if target_impression_share (nullable) is None
         # and model_fields_set contains the field
         if self.target_impression_share is None and "target_impression_share" in self.model_fields_set:
@@ -86,11 +94,6 @@ class TargetImpressionShareBiddingScheme(BaseModel):
         if self.max_cpc is None and "max_cpc" in self.model_fields_set:
             _dict['MaxCpc'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -103,9 +106,9 @@ class TargetImpressionShareBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "TargetImpressionShare": obj.get("TargetImpressionShare") if obj.get("TargetImpressionShare") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "TargetImpressionShare": obj.get("TargetImpressionShare") if obj.get("TargetImpressionShare") is not None else None,
                         "TargetAdPosition": obj.get("TargetAdPosition") if obj.get("TargetAdPosition") is not None else None,
-                        "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'TargetImpressionShareBiddingScheme'
+                        "MaxCpc": Bid.from_dict(obj["MaxCpc"]) if obj.get("MaxCpc") is not None else None
         })
         return _obj

@@ -21,11 +21,14 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class ImageAsset(BaseModel):
+from openapi_client.models.campaign.asset import Asset
+class ImageAsset(Asset):
     """
     ImageAsset
     """ # noqa: E501
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    name: Optional[StrictStr] = Field(default=None, alias="Name")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     sub_type: Optional[StrictStr] = Field(default=None, alias="SubType")
     crop_x: Optional[StrictInt] = Field(default=None, alias="CropX")
     crop_y: Optional[StrictInt] = Field(default=None, alias="CropY")
@@ -33,10 +36,7 @@ class ImageAsset(BaseModel):
     crop_height: Optional[StrictInt] = Field(default=None, alias="CropHeight")
     target_width: Optional[StrictInt] = Field(default=None, alias="TargetWidth")
     target_height: Optional[StrictInt] = Field(default=None, alias="TargetHeight")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    name: Optional[StrictStr] = Field(default=None, alias="Name")
-    type: Optional[StrictStr] = Field(default='ImageAsset', alias="Type")
-    __properties: ClassVar[List[str]] = ["SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight", "Id", "Name", "Type"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -44,6 +44,9 @@ class ImageAsset(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -73,6 +76,21 @@ class ImageAsset(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['Name'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if sub_type (nullable) is None
         # and model_fields_set contains the field
         if self.sub_type is None and "sub_type" in self.model_fields_set:
@@ -108,21 +126,6 @@ class ImageAsset(BaseModel):
         if self.target_height is None and "target_height" in self.model_fields_set:
             _dict['TargetHeight'] = None
 
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['Name'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -135,15 +138,15 @@ class ImageAsset(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "SubType": obj.get("SubType") if obj.get("SubType") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "SubType": obj.get("SubType") if obj.get("SubType") is not None else None,
                         "CropX": obj.get("CropX") if obj.get("CropX") is not None else None,
                         "CropY": obj.get("CropY") if obj.get("CropY") is not None else None,
                         "CropWidth": obj.get("CropWidth") if obj.get("CropWidth") is not None else None,
                         "CropHeight": obj.get("CropHeight") if obj.get("CropHeight") is not None else None,
                         "TargetWidth": obj.get("TargetWidth") if obj.get("TargetWidth") is not None else None,
-                        "TargetHeight": obj.get("TargetHeight") if obj.get("TargetHeight") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ImageAsset'
+                        "TargetHeight": obj.get("TargetHeight") if obj.get("TargetHeight") is not None else None
         })
         return _obj

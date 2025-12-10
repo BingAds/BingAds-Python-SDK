@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.day import Day
 from typing_extensions import Self
-
-class HotelCheckInDayCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class HotelCheckInDayCriterion(Criterion):
     """
     HotelCheckInDayCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     check_in_day: Optional[Day] = Field(default=None, alias="CheckInDay")
-    type: Optional[StrictStr] = Field(default='HotelCheckInDayCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["CheckInDay", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "CheckInDay"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class HotelCheckInDayCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,15 +69,15 @@ class HotelCheckInDayCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if check_in_day (nullable) is None
-        # and model_fields_set contains the field
-        if self.check_in_day is None and "check_in_day" in self.model_fields_set:
-            _dict['CheckInDay'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if check_in_day (nullable) is None
+        # and model_fields_set contains the field
+        if self.check_in_day is None and "check_in_day" in self.model_fields_set:
+            _dict['CheckInDay'] = None
 
         return _dict
 
@@ -88,7 +91,7 @@ class HotelCheckInDayCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CheckInDay": obj.get("CheckInDay") if obj.get("CheckInDay") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'HotelCheckInDayCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "CheckInDay": obj.get("CheckInDay") if obj.get("CheckInDay") is not None else None
         })
         return _obj

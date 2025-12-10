@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class BrandItem(BaseModel):
+from openapi_client.models.campaign.shared_list_item import SharedListItem
+class BrandItem(SharedListItem):
     """
     BrandItem
     """ # noqa: E501
-    brand_id: Optional[StrictStr] = Field(default=None, alias="BrandId")
-    type: Optional[StrictStr] = Field(default='BrandItem', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["BrandId", "Type", "ForwardCompatibilityMap"]
+    brand_id: Optional[StrictStr] = Field(default=None, alias="BrandId")
+    __properties: ClassVar[List[str]] = ["Type", "ForwardCompatibilityMap", "BrandId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class BrandItem(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -74,11 +77,6 @@ class BrandItem(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if brand_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.brand_id is None and "brand_id" in self.model_fields_set:
-            _dict['BrandId'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -88,6 +86,11 @@ class BrandItem(BaseModel):
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
+
+        # set to None if brand_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_id is None and "brand_id" in self.model_fields_set:
+            _dict['BrandId'] = None
 
         return _dict
 
@@ -101,8 +104,8 @@ class BrandItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "BrandId": obj.get("BrandId") if obj.get("BrandId") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'BrandItem',
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "BrandId": obj.get("BrandId") if obj.get("BrandId") is not None else None
         })
         return _obj

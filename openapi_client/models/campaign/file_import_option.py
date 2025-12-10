@@ -22,13 +22,13 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class FileImportOption(BaseModel):
+from openapi_client.models.campaign.import_option import ImportOption
+class FileImportOption(ImportOption):
     """
     FileImportOption
     """ # noqa: E501
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    type: Optional[StrictStr] = Field(default='FileImportOption', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     __properties: ClassVar[List[str]] = ["ForwardCompatibilityMap", "Type"]
 
     model_config = ConfigDict(
@@ -37,6 +37,9 @@ class FileImportOption(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -96,6 +99,6 @@ class FileImportOption(BaseModel):
 
         _obj = cls.model_validate({
             "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'FileImportOption'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

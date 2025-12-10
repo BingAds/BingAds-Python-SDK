@@ -17,169 +17,93 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.number_operator import NumberOperator
-from openapi_client.models.campaign.number_rule_item import NumberRuleItem
-from openapi_client.models.campaign.string_rule_item import StringRuleItem
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-RuleItem_ONE_OF_SCHEMAS = ["NumberRuleItem", "StringRuleItem"]
 
 class RuleItem(BaseModel):
     """
     RuleItem
     """
-    # data type: NumberRuleItem
-    oneof_schema_number_rule_item_validator: Optional[NumberRuleItem] = None
-    # data type: StringRuleItem
-    oneof_schema_string_rule_item_validator: Optional[StringRuleItem] = None
-    actual_instance: Optional[Union[NumberRuleItem, StringRuleItem]] = None
-    one_of_schemas: Set[str] = { "NumberRuleItem", "StringRuleItem" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('NumberRuleItem', 'Number'),
+                ('StringRuleItem', 'String'),
+                ('NumberRuleItem', 'NumberRuleItem'),
+                ('StringRuleItem', 'StringRuleItem'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = RuleItem.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: NumberRuleItem
-        if not isinstance(v, NumberRuleItem):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `NumberRuleItem`")
-        else:
-            match += 1
-        # validate data type: StringRuleItem
-        if not isinstance(v, StringRuleItem):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `StringRuleItem`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in RuleItem with oneOf schemas: NumberRuleItem, StringRuleItem. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in RuleItem with oneOf schemas: NumberRuleItem, StringRuleItem. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of RuleItem from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `NumberRuleItem`
-        if _data_type == "Number":
-            instance.actual_instance = NumberRuleItem.from_json(json_str)
-            return instance
-			
-		# check if data type is `StringRuleItem`
-        if _data_type == "String":
-            instance.actual_instance = StringRuleItem.from_json(json_str)
-            return instance
-			
-		# check if data type is `NumberRuleItem`
-        if _data_type == "NumberRuleItem":
-            instance.actual_instance = NumberRuleItem.from_json(json_str)
-            return instance
-			
-		# check if data type is `StringRuleItem`
-        if _data_type == "StringRuleItem":
-            instance.actual_instance = StringRuleItem.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into NumberRuleItem
-        try:
-            instance.actual_instance = NumberRuleItem.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into StringRuleItem
-        try:
-            instance.actual_instance = StringRuleItem.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into RuleItem with oneOf schemas: NumberRuleItem, StringRuleItem. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into RuleItem with oneOf schemas: NumberRuleItem, StringRuleItem. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], NumberRuleItem, StringRuleItem]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of RuleItem from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_number_rule_item_validator', 'oneof_schema_string_rule_item_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "Number":
+            from openapi_client.models.campaign.number_rule_item import NumberRuleItem
+            return NumberRuleItem.from_dict(obj)
+        
+        if type == "String":
+            from openapi_client.models.campaign.string_rule_item import StringRuleItem
+            return StringRuleItem.from_dict(obj)
+        
+        if type == "NumberRuleItem":
+            from openapi_client.models.campaign.number_rule_item import NumberRuleItem
+            return NumberRuleItem.from_dict(obj)
+        
+        if type == "StringRuleItem":
+            from openapi_client.models.campaign.string_rule_item import StringRuleItem
+            return StringRuleItem.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

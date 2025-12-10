@@ -26,6 +26,7 @@ from openapi_client.models.campaign.ad import Ad
 from openapi_client.models.campaign.ad_additional_field import AdAdditionalField
 from openapi_client.models.campaign.ad_api_error import AdApiError
 from openapi_client.models.campaign.ad_api_fault_detail import AdApiFaultDetail
+from openapi_client.models.campaign.ad_base import AdBase
 from openapi_client.models.campaign.ad_center_authentication_fault import AdCenterAuthenticationFault
 from openapi_client.models.campaign.ad_center_authorization_fault import AdCenterAuthorizationFault
 from openapi_client.models.campaign.ad_center_fault import AdCenterFault
@@ -36,6 +37,7 @@ from openapi_client.models.campaign.ad_extension import AdExtension
 from openapi_client.models.campaign.ad_extension_additional_field import AdExtensionAdditionalField
 from openapi_client.models.campaign.ad_extension_association import AdExtensionAssociation
 from openapi_client.models.campaign.ad_extension_association_collection import AdExtensionAssociationCollection
+from openapi_client.models.campaign.ad_extension_base import AdExtensionBase
 from openapi_client.models.campaign.ad_extension_editorial_reason import AdExtensionEditorialReason
 from openapi_client.models.campaign.ad_extension_editorial_reason_collection import AdExtensionEditorialReasonCollection
 from openapi_client.models.campaign.ad_extension_editorial_status import AdExtensionEditorialStatus
@@ -48,6 +50,7 @@ from openapi_client.models.campaign.ad_group import AdGroup
 from openapi_client.models.campaign.ad_group_additional_field import AdGroupAdditionalField
 from openapi_client.models.campaign.ad_group_criterion import AdGroupCriterion
 from openapi_client.models.campaign.ad_group_criterion_action import AdGroupCriterionAction
+from openapi_client.models.campaign.ad_group_criterion_base import AdGroupCriterionBase
 from openapi_client.models.campaign.ad_group_criterion_editorial_status import AdGroupCriterionEditorialStatus
 from openapi_client.models.campaign.ad_group_criterion_status import AdGroupCriterionStatus
 from openapi_client.models.campaign.ad_group_criterion_type import AdGroupCriterionType
@@ -111,6 +114,8 @@ from openapi_client.models.campaign.add_data_exclusions_request import AddDataEx
 from openapi_client.models.campaign.add_data_exclusions_response import AddDataExclusionsResponse
 from openapi_client.models.campaign.add_experiments_request import AddExperimentsRequest
 from openapi_client.models.campaign.add_experiments_response import AddExperimentsResponse
+from openapi_client.models.campaign.add_html5s_request import AddHTML5sRequest
+from openapi_client.models.campaign.add_html5s_response import AddHTML5sResponse
 from openapi_client.models.campaign.add_import_jobs_request import AddImportJobsRequest
 from openapi_client.models.campaign.add_import_jobs_response import AddImportJobsResponse
 from openapi_client.models.campaign.add_keywords_request import AddKeywordsRequest
@@ -140,6 +145,7 @@ from openapi_client.models.campaign.age_range import AgeRange
 from openapi_client.models.campaign.annotation_opt_out import AnnotationOptOut
 from openapi_client.models.campaign.api_fault_detail import ApiFaultDetail
 from openapi_client.models.campaign.app_ad_extension import AppAdExtension
+from openapi_client.models.campaign.app_download_goal import AppDownloadGoal
 from openapi_client.models.campaign.app_install_ad import AppInstallAd
 from openapi_client.models.campaign.app_install_goal import AppInstallGoal
 from openapi_client.models.campaign.app_setting import AppSetting
@@ -149,6 +155,7 @@ from openapi_client.models.campaign.appeal_editorial_rejections_request import A
 from openapi_client.models.campaign.appeal_editorial_rejections_response import AppealEditorialRejectionsResponse
 from openapi_client.models.campaign.appeal_status import AppealStatus
 from openapi_client.models.campaign.application_fault import ApplicationFault
+from openapi_client.models.campaign.application_fault_base import ApplicationFaultBase
 from openapi_client.models.campaign.apply_asset_group_listing_group_actions_request import ApplyAssetGroupListingGroupActionsRequest
 from openapi_client.models.campaign.apply_asset_group_listing_group_actions_response import ApplyAssetGroupListingGroupActionsResponse
 from openapi_client.models.campaign.apply_customer_list_items_request import ApplyCustomerListItemsRequest
@@ -166,6 +173,7 @@ from openapi_client.models.campaign.apply_online_conversion_adjustments_response
 from openapi_client.models.campaign.apply_product_partition_actions_request import ApplyProductPartitionActionsRequest
 from openapi_client.models.campaign.apply_product_partition_actions_response import ApplyProductPartitionActionsResponse
 from openapi_client.models.campaign.asset import Asset
+from openapi_client.models.campaign.asset_base import AssetBase
 from openapi_client.models.campaign.asset_group import AssetGroup
 from openapi_client.models.campaign.asset_group_additional_field import AssetGroupAdditionalField
 from openapi_client.models.campaign.asset_group_editorial_reason import AssetGroupEditorialReason
@@ -184,6 +192,7 @@ from openapi_client.models.campaign.association_type import AssociationType
 from openapi_client.models.campaign.attribution_model_type import AttributionModelType
 from openapi_client.models.campaign.audience import Audience
 from openapi_client.models.campaign.audience_additional_field import AudienceAdditionalField
+from openapi_client.models.campaign.audience_base import AudienceBase
 from openapi_client.models.campaign.audience_condition import AudienceCondition
 from openapi_client.models.campaign.audience_condition_item import AudienceConditionItem
 from openapi_client.models.campaign.audience_criterion import AudienceCriterion
@@ -192,11 +201,13 @@ from openapi_client.models.campaign.audience_group import AudienceGroup
 from openapi_client.models.campaign.audience_group_additional_field import AudienceGroupAdditionalField
 from openapi_client.models.campaign.audience_group_asset_group_association import AudienceGroupAssetGroupAssociation
 from openapi_client.models.campaign.audience_group_dimension import AudienceGroupDimension
+from openapi_client.models.campaign.audience_group_dimension_base import AudienceGroupDimensionBase
 from openapi_client.models.campaign.audience_group_dimension_type import AudienceGroupDimensionType
 from openapi_client.models.campaign.audience_id_name import AudienceIdName
 from openapi_client.models.campaign.audience_info import AudienceInfo
 from openapi_client.models.campaign.audience_type import AudienceType
 from openapi_client.models.campaign.audio_filter import AudioFilter
+from openapi_client.models.campaign.audit_point_result import AuditPointResult
 from openapi_client.models.campaign.authentication_fault_code import AuthenticationFaultCode
 from openapi_client.models.campaign.bmc_store import BMCStore
 from openapi_client.models.campaign.bmc_store_additional_field import BMCStoreAdditionalField
@@ -212,6 +223,7 @@ from openapi_client.models.campaign.bid_strategy import BidStrategy
 from openapi_client.models.campaign.biddable_ad_group_criterion import BiddableAdGroupCriterion
 from openapi_client.models.campaign.biddable_campaign_criterion import BiddableCampaignCriterion
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+from openapi_client.models.campaign.bidding_scheme_base import BiddingSchemeBase
 from openapi_client.models.campaign.brand_item import BrandItem
 from openapi_client.models.campaign.brand_kit import BrandKit
 from openapi_client.models.campaign.brand_kit_color import BrandKitColor
@@ -233,6 +245,7 @@ from openapi_client.models.campaign.campaign_additional_field import CampaignAdd
 from openapi_client.models.campaign.campaign_association import CampaignAssociation
 from openapi_client.models.campaign.campaign_conversion_goal import CampaignConversionGoal
 from openapi_client.models.campaign.campaign_criterion import CampaignCriterion
+from openapi_client.models.campaign.campaign_criterion_base import CampaignCriterionBase
 from openapi_client.models.campaign.campaign_criterion_status import CampaignCriterionStatus
 from openapi_client.models.campaign.campaign_criterion_type import CampaignCriterionType
 from openapi_client.models.campaign.campaign_negative_sites import CampaignNegativeSites
@@ -240,6 +253,7 @@ from openapi_client.models.campaign.campaign_size import CampaignSize
 from openapi_client.models.campaign.campaign_status import CampaignStatus
 from openapi_client.models.campaign.campaign_type import CampaignType
 from openapi_client.models.campaign.cashback_adjustment import CashbackAdjustment
+from openapi_client.models.campaign.category_result import CategoryResult
 from openapi_client.models.campaign.clipchamp_template_info import ClipchampTemplateInfo
 from openapi_client.models.campaign.co_op_setting import CoOpSetting
 from openapi_client.models.campaign.combination_rule import CombinationRule
@@ -250,6 +264,7 @@ from openapi_client.models.campaign.compression_type import CompressionType
 from openapi_client.models.campaign.confirmation_action import ConfirmationAction
 from openapi_client.models.campaign.conversion_goal import ConversionGoal
 from openapi_client.models.campaign.conversion_goal_additional_field import ConversionGoalAdditionalField
+from openapi_client.models.campaign.conversion_goal_base import ConversionGoalBase
 from openapi_client.models.campaign.conversion_goal_category import ConversionGoalCategory
 from openapi_client.models.campaign.conversion_goal_count_type import ConversionGoalCountType
 from openapi_client.models.campaign.conversion_goal_revenue import ConversionGoalRevenue
@@ -271,8 +286,11 @@ from openapi_client.models.campaign.create_responsive_search_ad_recommendation_r
 from openapi_client.models.campaign.create_responsive_search_ad_recommendation_response import CreateResponsiveSearchAdRecommendationResponse
 from openapi_client.models.campaign.criterion import Criterion
 from openapi_client.models.campaign.criterion_additional_field import CriterionAdditionalField
+from openapi_client.models.campaign.criterion_base import CriterionBase
 from openapi_client.models.campaign.criterion_bid import CriterionBid
+from openapi_client.models.campaign.criterion_bid_base import CriterionBidBase
 from openapi_client.models.campaign.criterion_cashback import CriterionCashback
+from openapi_client.models.campaign.criterion_cashback_base import CriterionCashbackBase
 from openapi_client.models.campaign.criterion_type_group import CriterionTypeGroup
 from openapi_client.models.campaign.custom_audience import CustomAudience
 from openapi_client.models.campaign.custom_events_rule import CustomEventsRule
@@ -326,6 +344,8 @@ from openapi_client.models.campaign.delete_data_exclusions_request import Delete
 from openapi_client.models.campaign.delete_data_exclusions_response import DeleteDataExclusionsResponse
 from openapi_client.models.campaign.delete_experiments_request import DeleteExperimentsRequest
 from openapi_client.models.campaign.delete_experiments_response import DeleteExperimentsResponse
+from openapi_client.models.campaign.delete_html5s_request import DeleteHTML5sRequest
+from openapi_client.models.campaign.delete_html5s_response import DeleteHTML5sResponse
 from openapi_client.models.campaign.delete_import_jobs_request import DeleteImportJobsRequest
 from openapi_client.models.campaign.delete_import_jobs_response import DeleteImportJobsResponse
 from openapi_client.models.campaign.delete_keywords_request import DeleteKeywordsRequest
@@ -351,9 +371,10 @@ from openapi_client.models.campaign.delete_videos_response import DeleteVideosRe
 from openapi_client.models.campaign.device_condition import DeviceCondition
 from openapi_client.models.campaign.device_criterion import DeviceCriterion
 from openapi_client.models.campaign.device_type import DeviceType
-from openapi_client.models.campaign.diagnostic_card_data import DiagnosticCardData
-from openapi_client.models.campaign.diagnostic_category_data import DiagnosticCategoryData
-from openapi_client.models.campaign.diagnostic_tile_data import DiagnosticTileData
+from openapi_client.models.campaign.diagnostics_entity import DiagnosticsEntity
+from openapi_client.models.campaign.diagnostics_filter import DiagnosticsFilter
+from openapi_client.models.campaign.diagnostics_request_status import DiagnosticsRequestStatus
+from openapi_client.models.campaign.diagnostics_settings import DiagnosticsSettings
 from openapi_client.models.campaign.disclaimer_ad_extension import DisclaimerAdExtension
 from openapi_client.models.campaign.disclaimer_setting import DisclaimerSetting
 from openapi_client.models.campaign.distance_unit import DistanceUnit
@@ -370,6 +391,7 @@ from openapi_client.models.campaign.editorial_reason_collection import Editorial
 from openapi_client.models.campaign.enhanced_cpc_bidding_scheme import EnhancedCpcBiddingScheme
 from openapi_client.models.campaign.entity_id_to_parent_id_association import EntityIdToParentIdAssociation
 from openapi_client.models.campaign.entity_negative_keyword import EntityNegativeKeyword
+from openapi_client.models.campaign.entity_result import EntityResult
 from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.entity_type import EntityType
 from openapi_client.models.campaign.event_goal import EventGoal
@@ -480,6 +502,8 @@ from openapi_client.models.campaign.get_experiments_by_ids_response import GetEx
 from openapi_client.models.campaign.get_file_import_upload_url_response import GetFileImportUploadUrlResponse
 from openapi_client.models.campaign.get_geo_locations_file_url_request import GetGeoLocationsFileUrlRequest
 from openapi_client.models.campaign.get_geo_locations_file_url_response import GetGeoLocationsFileUrlResponse
+from openapi_client.models.campaign.get_html5s_by_ids_request import GetHTML5sByIdsRequest
+from openapi_client.models.campaign.get_html5s_by_ids_response import GetHTML5sByIdsResponse
 from openapi_client.models.campaign.get_health_check_request import GetHealthCheckRequest
 from openapi_client.models.campaign.get_health_check_response import GetHealthCheckResponse
 from openapi_client.models.campaign.get_import_entity_ids_mapping_request import GetImportEntityIdsMappingRequest
@@ -544,6 +568,7 @@ from openapi_client.models.campaign.get_videos_by_ids_request import GetVideosBy
 from openapi_client.models.campaign.get_videos_by_ids_response import GetVideosByIdsResponse
 from openapi_client.models.campaign.google_import_job import GoogleImportJob
 from openapi_client.models.campaign.google_import_option import GoogleImportOption
+from openapi_client.models.campaign.html5 import HTML5
 from openapi_client.models.campaign.health_check_action_link_metadata import HealthCheckActionLinkMetadata
 from openapi_client.models.campaign.health_check_column_metadata import HealthCheckColumnMetadata
 from openapi_client.models.campaign.health_check_data import HealthCheckData
@@ -572,7 +597,9 @@ from openapi_client.models.campaign.import_additional_field import ImportAdditio
 from openapi_client.models.campaign.import_entity_statistics import ImportEntityStatistics
 from openapi_client.models.campaign.import_entity_type import ImportEntityType
 from openapi_client.models.campaign.import_job import ImportJob
+from openapi_client.models.campaign.import_job_base import ImportJobBase
 from openapi_client.models.campaign.import_option import ImportOption
+from openapi_client.models.campaign.import_option_base import ImportOptionBase
 from openapi_client.models.campaign.import_result import ImportResult
 from openapi_client.models.campaign.import_search_and_replace_for_string_property import ImportSearchAndReplaceForStringProperty
 from openapi_client.models.campaign.impression_based_entity_type import ImpressionBasedEntityType
@@ -616,6 +643,7 @@ from openapi_client.models.campaign.max_roas_bidding_scheme import MaxRoasBiddin
 from openapi_client.models.campaign.media import Media
 from openapi_client.models.campaign.media_additional_field import MediaAdditionalField
 from openapi_client.models.campaign.media_association import MediaAssociation
+from openapi_client.models.campaign.media_base import MediaBase
 from openapi_client.models.campaign.media_enabled_entity_filter import MediaEnabledEntityFilter
 from openapi_client.models.campaign.media_meta_data import MediaMetaData
 from openapi_client.models.campaign.media_representation import MediaRepresentation
@@ -694,11 +722,13 @@ from openapi_client.models.campaign.refine_responsive_search_ad_recommendation_r
 from openapi_client.models.campaign.refine_responsive_search_ad_recommendation_response import RefineResponsiveSearchAdRecommendationResponse
 from openapi_client.models.campaign.remarketing_list import RemarketingList
 from openapi_client.models.campaign.remarketing_rule import RemarketingRule
+from openapi_client.models.campaign.remarketing_rule_base import RemarketingRuleBase
 from openapi_client.models.campaign.responsive_ad import ResponsiveAd
 from openapi_client.models.campaign.responsive_search_ad import ResponsiveSearchAd
 from openapi_client.models.campaign.responsive_search_ads_setting import ResponsiveSearchAdsSetting
 from openapi_client.models.campaign.review_ad_extension import ReviewAdExtension
 from openapi_client.models.campaign.rule_item import RuleItem
+from openapi_client.models.campaign.rule_item_base import RuleItemBase
 from openapi_client.models.campaign.rule_item_group import RuleItemGroup
 from openapi_client.models.campaign.schedule import Schedule
 from openapi_client.models.campaign.search_companies_request import SearchCompaniesRequest
@@ -718,10 +748,13 @@ from openapi_client.models.campaign.set_negative_sites_to_campaigns_response imp
 from openapi_client.models.campaign.set_shared_entity_associations_request import SetSharedEntityAssociationsRequest
 from openapi_client.models.campaign.set_shared_entity_associations_response import SetSharedEntityAssociationsResponse
 from openapi_client.models.campaign.setting import Setting
+from openapi_client.models.campaign.setting_base import SettingBase
 from openapi_client.models.campaign.shared_entity import SharedEntity
 from openapi_client.models.campaign.shared_entity_association import SharedEntityAssociation
 from openapi_client.models.campaign.shared_list import SharedList
+from openapi_client.models.campaign.shared_list_base import SharedListBase
 from openapi_client.models.campaign.shared_list_item import SharedListItem
+from openapi_client.models.campaign.shared_list_item_base import SharedListItemBase
 from openapi_client.models.campaign.shopping_setting import ShoppingSetting
 from openapi_client.models.campaign.similar_remarketing_list import SimilarRemarketingList
 from openapi_client.models.campaign.site import Site
@@ -808,6 +841,7 @@ from openapi_client.models.campaign.verified_tracking_setting import VerifiedTra
 from openapi_client.models.campaign.video import Video
 from openapi_client.models.campaign.video_ad_extension import VideoAdExtension
 from openapi_client.models.campaign.video_asset import VideoAsset
+from openapi_client.models.campaign.video_recommendation_color_data import VideoRecommendationColorData
 from openapi_client.models.campaign.video_recommendation_image_data import VideoRecommendationImageData
 from openapi_client.models.campaign.video_recommendation_text_data import VideoRecommendationTextData
 from openapi_client.models.campaign.video_template_filter import VideoTemplateFilter

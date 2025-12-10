@@ -27,25 +27,25 @@ from openapi_client.models.campaign.price_extension_type import PriceExtensionTy
 from openapi_client.models.campaign.price_table_row import PriceTableRow
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class PriceAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class PriceAdExtension(AdExtension):
     """
     PriceAdExtension
     """ # noqa: E501
+    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
+    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    version: Optional[StrictInt] = Field(default=None, alias="Version")
     price_extension_type: Optional[PriceExtensionType] = Field(default=None, alias="PriceExtensionType")
     tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
     final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
     url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
     language: Optional[StrictStr] = Field(default=None, alias="Language")
     table_rows: Optional[List[Optional[PriceTableRow]]] = Field(default=None, alias="TableRows")
-    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
-    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='PriceAdExtension', alias="Type")
-    version: Optional[StrictInt] = Field(default=None, alias="Version")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["PriceExtensionType", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "Language", "TableRows", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "PriceExtensionType", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "Language", "TableRows", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,6 +53,9 @@ class PriceAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -82,6 +85,9 @@ class PriceAdExtension(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of scheduling
+        if self.scheduling:
+            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
         if self.url_custom_parameters:
             _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
@@ -92,9 +98,6 @@ class PriceAdExtension(BaseModel):
                 if _item_table_rows:
                     _items.append(_item_table_rows.to_dict())
             _dict['TableRows'] = _items
-        # override the default output from pydantic by calling `to_dict()` of scheduling
-        if self.scheduling:
-            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
         _items = []
         if self.forward_compatibility_map:
@@ -102,36 +105,6 @@ class PriceAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if price_extension_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.price_extension_type is None and "price_extension_type" in self.model_fields_set:
-            _dict['PriceExtensionType'] = None
-
-        # set to None if tracking_url_template (nullable) is None
-        # and model_fields_set contains the field
-        if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
-            _dict['TrackingUrlTemplate'] = None
-
-        # set to None if final_url_suffix (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
-            _dict['FinalUrlSuffix'] = None
-
-        # set to None if url_custom_parameters (nullable) is None
-        # and model_fields_set contains the field
-        if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
-            _dict['UrlCustomParameters'] = None
-
-        # set to None if language (nullable) is None
-        # and model_fields_set contains the field
-        if self.language is None and "language" in self.model_fields_set:
-            _dict['Language'] = None
-
-        # set to None if table_rows (nullable) is None
-        # and model_fields_set contains the field
-        if self.table_rows is None and "table_rows" in self.model_fields_set:
-            _dict['TableRows'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -162,6 +135,36 @@ class PriceAdExtension(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['Version'] = None
 
+        # set to None if price_extension_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.price_extension_type is None and "price_extension_type" in self.model_fields_set:
+            _dict['PriceExtensionType'] = None
+
+        # set to None if tracking_url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
+            _dict['TrackingUrlTemplate'] = None
+
+        # set to None if final_url_suffix (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
+            _dict['FinalUrlSuffix'] = None
+
+        # set to None if url_custom_parameters (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
+            _dict['UrlCustomParameters'] = None
+
+        # set to None if language (nullable) is None
+        # and model_fields_set contains the field
+        if self.language is None and "language" in self.model_fields_set:
+            _dict['Language'] = None
+
+        # set to None if table_rows (nullable) is None
+        # and model_fields_set contains the field
+        if self.table_rows is None and "table_rows" in self.model_fields_set:
+            _dict['TableRows'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -179,18 +182,18 @@ class PriceAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "PriceExtensionType": obj.get("PriceExtensionType") if obj.get("PriceExtensionType") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "PriceExtensionType": obj.get("PriceExtensionType") if obj.get("PriceExtensionType") is not None else None,
                         "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
                         "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
                         "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
                         "Language": obj.get("Language") if obj.get("Language") is not None else None,
                         "TableRows": [PriceTableRow.from_dict(_item) for _item in obj["TableRows"]] if obj.get("TableRows") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'PriceAdExtension',
-                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

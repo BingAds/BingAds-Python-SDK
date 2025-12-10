@@ -21,19 +21,19 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class ShoppingSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class ShoppingSetting(Setting):
     """
     ShoppingSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     priority: Optional[StrictInt] = Field(default=None, alias="Priority")
     sales_country_code: Optional[StrictStr] = Field(default=None, alias="SalesCountryCode")
     store_id: Optional[StrictStr] = Field(default=None, alias="StoreId")
     local_inventory_ads_enabled: Optional[StrictBool] = Field(default=None, alias="LocalInventoryAdsEnabled")
     shoppable_ads_enabled: Optional[StrictBool] = Field(default=None, alias="ShoppableAdsEnabled")
     feed_label: Optional[StrictStr] = Field(default=None, alias="FeedLabel")
-    type: Optional[StrictStr] = Field(default='ShoppingSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["Priority", "SalesCountryCode", "StoreId", "LocalInventoryAdsEnabled", "ShoppableAdsEnabled", "FeedLabel", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Priority", "SalesCountryCode", "StoreId", "LocalInventoryAdsEnabled", "ShoppableAdsEnabled", "FeedLabel"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -41,6 +41,9 @@ class ShoppingSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -70,6 +73,11 @@ class ShoppingSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if priority (nullable) is None
         # and model_fields_set contains the field
         if self.priority is None and "priority" in self.model_fields_set:
@@ -100,11 +108,6 @@ class ShoppingSetting(BaseModel):
         if self.feed_label is None and "feed_label" in self.model_fields_set:
             _dict['FeedLabel'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -117,12 +120,12 @@ class ShoppingSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Priority": obj.get("Priority") if obj.get("Priority") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Priority": obj.get("Priority") if obj.get("Priority") is not None else None,
                         "SalesCountryCode": obj.get("SalesCountryCode") if obj.get("SalesCountryCode") is not None else None,
                         "StoreId": obj.get("StoreId") if obj.get("StoreId") is not None else None,
                         "LocalInventoryAdsEnabled": obj.get("LocalInventoryAdsEnabled") if obj.get("LocalInventoryAdsEnabled") is not None else None,
                         "ShoppableAdsEnabled": obj.get("ShoppableAdsEnabled") if obj.get("ShoppableAdsEnabled") is not None else None,
-                        "FeedLabel": obj.get("FeedLabel") if obj.get("FeedLabel") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ShoppingSetting'
+                        "FeedLabel": obj.get("FeedLabel") if obj.get("FeedLabel") is not None else None
         })
         return _obj

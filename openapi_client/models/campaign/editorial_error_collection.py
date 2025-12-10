@@ -23,16 +23,11 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.batch_error import BatchError
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class EditorialErrorCollection(BaseModel):
+from openapi_client.models.campaign.batch_error_collection import BatchErrorCollection
+class EditorialErrorCollection(BatchErrorCollection):
     """
     EditorialErrorCollection
     """ # noqa: E501
-    disapproved_text: Optional[StrictStr] = Field(default=None, alias="DisapprovedText")
-    reason_code: Optional[StrictInt] = Field(default=None, alias="ReasonCode")
-    location: Optional[StrictStr] = Field(default=None, alias="Location")
-    appealable: Optional[StrictBool] = Field(default=None, alias="Appealable")
-    publisher_country: Optional[StrictStr] = Field(default=None, alias="PublisherCountry")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     field_path: Optional[StrictStr] = Field(default=None, alias="FieldPath")
     batch_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="BatchErrors")
@@ -41,8 +36,13 @@ class EditorialErrorCollection(BaseModel):
     code: Optional[StrictInt] = Field(default=None, alias="Code")
     details: Optional[StrictStr] = Field(default=None, alias="Details")
     index: Optional[StrictInt] = Field(default=None, alias="Index")
-    type: Optional[StrictStr] = Field(default='EditorialErrorCollection', alias="Type")
-    __properties: ClassVar[List[str]] = ["DisapprovedText", "ReasonCode", "Location", "Appealable", "PublisherCountry", "ForwardCompatibilityMap", "FieldPath", "BatchErrors", "Message", "ErrorCode", "Code", "Details", "Index", "Type"]
+    type: Optional[StrictStr] = Field(default='BatchErrorCollection', alias="Type")
+    disapproved_text: Optional[StrictStr] = Field(default=None, alias="DisapprovedText")
+    reason_code: Optional[StrictInt] = Field(default=None, alias="ReasonCode")
+    location: Optional[StrictStr] = Field(default=None, alias="Location")
+    appealable: Optional[StrictBool] = Field(default=None, alias="Appealable")
+    publisher_country: Optional[StrictStr] = Field(default=None, alias="PublisherCountry")
+    __properties: ClassVar[List[str]] = ["ForwardCompatibilityMap", "FieldPath", "BatchErrors", "Message", "ErrorCode", "Code", "Details", "Index", "Type", "DisapprovedText", "ReasonCode", "Location", "Appealable", "PublisherCountry"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,6 +50,9 @@ class EditorialErrorCollection(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -93,31 +96,6 @@ class EditorialErrorCollection(BaseModel):
                 if _item_batch_errors:
                     _items.append(_item_batch_errors.to_dict())
             _dict['BatchErrors'] = _items
-        # set to None if disapproved_text (nullable) is None
-        # and model_fields_set contains the field
-        if self.disapproved_text is None and "disapproved_text" in self.model_fields_set:
-            _dict['DisapprovedText'] = None
-
-        # set to None if reason_code (nullable) is None
-        # and model_fields_set contains the field
-        if self.reason_code is None and "reason_code" in self.model_fields_set:
-            _dict['ReasonCode'] = None
-
-        # set to None if location (nullable) is None
-        # and model_fields_set contains the field
-        if self.location is None and "location" in self.model_fields_set:
-            _dict['Location'] = None
-
-        # set to None if appealable (nullable) is None
-        # and model_fields_set contains the field
-        if self.appealable is None and "appealable" in self.model_fields_set:
-            _dict['Appealable'] = None
-
-        # set to None if publisher_country (nullable) is None
-        # and model_fields_set contains the field
-        if self.publisher_country is None and "publisher_country" in self.model_fields_set:
-            _dict['PublisherCountry'] = None
-
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -163,6 +141,31 @@ class EditorialErrorCollection(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
+        # set to None if disapproved_text (nullable) is None
+        # and model_fields_set contains the field
+        if self.disapproved_text is None and "disapproved_text" in self.model_fields_set:
+            _dict['DisapprovedText'] = None
+
+        # set to None if reason_code (nullable) is None
+        # and model_fields_set contains the field
+        if self.reason_code is None and "reason_code" in self.model_fields_set:
+            _dict['ReasonCode'] = None
+
+        # set to None if location (nullable) is None
+        # and model_fields_set contains the field
+        if self.location is None and "location" in self.model_fields_set:
+            _dict['Location'] = None
+
+        # set to None if appealable (nullable) is None
+        # and model_fields_set contains the field
+        if self.appealable is None and "appealable" in self.model_fields_set:
+            _dict['Appealable'] = None
+
+        # set to None if publisher_country (nullable) is None
+        # and model_fields_set contains the field
+        if self.publisher_country is None and "publisher_country" in self.model_fields_set:
+            _dict['PublisherCountry'] = None
+
         return _dict
 
     @classmethod
@@ -175,12 +178,7 @@ class EditorialErrorCollection(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DisapprovedText": obj.get("DisapprovedText") if obj.get("DisapprovedText") is not None else None,
-                        "ReasonCode": obj.get("ReasonCode") if obj.get("ReasonCode") is not None else None,
-                        "Location": obj.get("Location") if obj.get("Location") is not None else None,
-                        "Appealable": obj.get("Appealable") if obj.get("Appealable") is not None else None,
-                        "PublisherCountry": obj.get("PublisherCountry") if obj.get("PublisherCountry") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+            "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
                         "FieldPath": obj.get("FieldPath") if obj.get("FieldPath") is not None else None,
                         "BatchErrors": [BatchError.from_dict(_item) for _item in obj["BatchErrors"]] if obj.get("BatchErrors") is not None else None,
                         "Message": obj.get("Message") if obj.get("Message") is not None else None,
@@ -188,6 +186,11 @@ class EditorialErrorCollection(BaseModel):
                         "Code": obj.get("Code") if obj.get("Code") is not None else None,
                         "Details": obj.get("Details") if obj.get("Details") is not None else None,
                         "Index": obj.get("Index") if obj.get("Index") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'EditorialErrorCollection'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else 'BatchErrorCollection',
+                        "DisapprovedText": obj.get("DisapprovedText") if obj.get("DisapprovedText") is not None else None,
+                        "ReasonCode": obj.get("ReasonCode") if obj.get("ReasonCode") is not None else None,
+                        "Location": obj.get("Location") if obj.get("Location") is not None else None,
+                        "Appealable": obj.get("Appealable") if obj.get("Appealable") is not None else None,
+                        "PublisherCountry": obj.get("PublisherCountry") if obj.get("PublisherCountry") is not None else None
         })
         return _obj

@@ -52,6 +52,7 @@ from openapi_client.models.reporting.age_gender_audience_report_filter import Ag
 from openapi_client.models.reporting.age_gender_audience_report_request import AgeGenderAudienceReportRequest
 from openapi_client.models.reporting.api_fault_detail import ApiFaultDetail
 from openapi_client.models.reporting.application_fault import ApplicationFault
+from openapi_client.models.reporting.application_fault_base import ApplicationFaultBase
 from openapi_client.models.reporting.apps_performance_report_column import AppsPerformanceReportColumn
 from openapi_client.models.reporting.apps_performance_report_filter import AppsPerformanceReportFilter
 from openapi_client.models.reporting.apps_performance_report_request import AppsPerformanceReportRequest
@@ -67,6 +68,8 @@ from openapi_client.models.reporting.audience_performance_report_filter import A
 from openapi_client.models.reporting.audience_performance_report_request import AudiencePerformanceReportRequest
 from openapi_client.models.reporting.batch_error import BatchError
 from openapi_client.models.reporting.bid_match_type_report_filter import BidMatchTypeReportFilter
+from openapi_client.models.reporting.bid_strategy_report_column import BidStrategyReportColumn
+from openapi_client.models.reporting.bid_strategy_report_request import BidStrategyReportRequest
 from openapi_client.models.reporting.bid_strategy_type_report_filter import BidStrategyTypeReportFilter
 from openapi_client.models.reporting.budget_summary_report_column import BudgetSummaryReportColumn
 from openapi_client.models.reporting.budget_summary_report_request import BudgetSummaryReportRequest
@@ -161,6 +164,7 @@ from openapi_client.models.reporting.publisher_usage_performance_report_request 
 from openapi_client.models.reporting.report_aggregation import ReportAggregation
 from openapi_client.models.reporting.report_format import ReportFormat
 from openapi_client.models.reporting.report_request import ReportRequest
+from openapi_client.models.reporting.report_request_base import ReportRequestBase
 from openapi_client.models.reporting.report_request_status import ReportRequestStatus
 from openapi_client.models.reporting.report_request_status_type import ReportRequestStatusType
 from openapi_client.models.reporting.report_time import ReportTime

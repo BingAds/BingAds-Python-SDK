@@ -24,18 +24,14 @@ from openapi_client.models.campaign.campaign_ad_group_ids import CampaignAdGroup
 from openapi_client.models.campaign.frequency import Frequency
 from openapi_client.models.campaign.import_option import ImportOption
 from typing_extensions import Self
-
-class GoogleImportJob(BaseModel):
+from openapi_client.models.campaign.import_job import ImportJob
+class GoogleImportJob(ImportJob):
     """
     GoogleImportJob
     """ # noqa: E501
-    credential_id: Optional[StrictStr] = Field(default=None, alias="CredentialId")
-    google_account_id: Optional[StrictStr] = Field(default=None, alias="GoogleAccountId")
-    campaign_ad_group_ids: Optional[List[Optional[CampaignAdGroupIds]]] = Field(default=None, alias="CampaignAdGroupIds")
-    google_user_name: Optional[StrictStr] = Field(default=None, alias="GoogleUserName")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='GoogleImportJob', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     status: Optional[StrictStr] = Field(default=None, alias="Status")
     notification_type: Optional[StrictStr] = Field(default=None, alias="NotificationType")
     created_by_user_id: Optional[StrictStr] = Field(default=None, alias="CreatedByUserId")
@@ -45,7 +41,11 @@ class GoogleImportJob(BaseModel):
     created_date_time_in_utc: Optional[datetime] = Field(default=None, alias="CreatedDateTimeInUTC")
     import_option: Optional[ImportOption] = Field(default=None, alias="ImportOption")
     notification_email: Optional[StrictStr] = Field(default=None, alias="NotificationEmail")
-    __properties: ClassVar[List[str]] = ["CredentialId", "GoogleAccountId", "CampaignAdGroupIds", "GoogleUserName", "Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail"]
+    credential_id: Optional[StrictStr] = Field(default=None, alias="CredentialId")
+    google_account_id: Optional[StrictStr] = Field(default=None, alias="GoogleAccountId")
+    campaign_ad_group_ids: Optional[List[Optional[CampaignAdGroupIds]]] = Field(default=None, alias="CampaignAdGroupIds")
+    google_user_name: Optional[StrictStr] = Field(default=None, alias="GoogleUserName")
+    __properties: ClassVar[List[str]] = ["Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail", "CredentialId", "GoogleAccountId", "CampaignAdGroupIds", "GoogleUserName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -53,6 +53,9 @@ class GoogleImportJob(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -82,6 +85,12 @@ class GoogleImportJob(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of frequency
+        if self.frequency:
+            _dict['Frequency'] = self.frequency.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of import_option
+        if self.import_option:
+            _dict['ImportOption'] = self.import_option.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in campaign_ad_group_ids (list)
         _items = []
         if self.campaign_ad_group_ids:
@@ -89,32 +98,6 @@ class GoogleImportJob(BaseModel):
                 if _item_campaign_ad_group_ids:
                     _items.append(_item_campaign_ad_group_ids.to_dict())
             _dict['CampaignAdGroupIds'] = _items
-        # override the default output from pydantic by calling `to_dict()` of frequency
-        if self.frequency:
-            _dict['Frequency'] = self.frequency.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of import_option
-        if self.import_option:
-            _dict['ImportOption'] = self.import_option.to_dict()
-        # set to None if credential_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.credential_id is None and "credential_id" in self.model_fields_set:
-            _dict['CredentialId'] = None
-
-        # set to None if google_account_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.google_account_id is None and "google_account_id" in self.model_fields_set:
-            _dict['GoogleAccountId'] = None
-
-        # set to None if campaign_ad_group_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_ad_group_ids is None and "campaign_ad_group_ids" in self.model_fields_set:
-            _dict['CampaignAdGroupIds'] = None
-
-        # set to None if google_user_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.google_user_name is None and "google_user_name" in self.model_fields_set:
-            _dict['GoogleUserName'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -175,6 +158,26 @@ class GoogleImportJob(BaseModel):
         if self.notification_email is None and "notification_email" in self.model_fields_set:
             _dict['NotificationEmail'] = None
 
+        # set to None if credential_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.credential_id is None and "credential_id" in self.model_fields_set:
+            _dict['CredentialId'] = None
+
+        # set to None if google_account_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.google_account_id is None and "google_account_id" in self.model_fields_set:
+            _dict['GoogleAccountId'] = None
+
+        # set to None if campaign_ad_group_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_ad_group_ids is None and "campaign_ad_group_ids" in self.model_fields_set:
+            _dict['CampaignAdGroupIds'] = None
+
+        # set to None if google_user_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.google_user_name is None and "google_user_name" in self.model_fields_set:
+            _dict['GoogleUserName'] = None
+
         return _dict
 
     @classmethod
@@ -187,13 +190,9 @@ class GoogleImportJob(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CredentialId": obj.get("CredentialId") if obj.get("CredentialId") is not None else None,
-                        "GoogleAccountId": obj.get("GoogleAccountId") if obj.get("GoogleAccountId") is not None else None,
-                        "CampaignAdGroupIds": [CampaignAdGroupIds.from_dict(_item) for _item in obj["CampaignAdGroupIds"]] if obj.get("CampaignAdGroupIds") is not None else None,
-                        "GoogleUserName": obj.get("GoogleUserName") if obj.get("GoogleUserName") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'GoogleImportJob',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "NotificationType": obj.get("NotificationType") if obj.get("NotificationType") is not None else None,
                         "CreatedByUserId": obj.get("CreatedByUserId") if obj.get("CreatedByUserId") is not None else None,
@@ -202,6 +201,10 @@ class GoogleImportJob(BaseModel):
                         "LastRunTimeInUTC": obj.get("LastRunTimeInUTC") if obj.get("LastRunTimeInUTC") is not None else None,
                         "CreatedDateTimeInUTC": obj.get("CreatedDateTimeInUTC") if obj.get("CreatedDateTimeInUTC") is not None else None,
                         "ImportOption": ImportOption.from_dict(obj["ImportOption"]) if obj.get("ImportOption") is not None else None,
-                        "NotificationEmail": obj.get("NotificationEmail") if obj.get("NotificationEmail") is not None else None
+                        "NotificationEmail": obj.get("NotificationEmail") if obj.get("NotificationEmail") is not None else None,
+                        "CredentialId": obj.get("CredentialId") if obj.get("CredentialId") is not None else None,
+                        "GoogleAccountId": obj.get("GoogleAccountId") if obj.get("GoogleAccountId") is not None else None,
+                        "CampaignAdGroupIds": [CampaignAdGroupIds.from_dict(_item) for _item in obj["CampaignAdGroupIds"]] if obj.get("CampaignAdGroupIds") is not None else None,
+                        "GoogleUserName": obj.get("GoogleUserName") if obj.get("GoogleUserName") is not None else None
         })
         return _obj

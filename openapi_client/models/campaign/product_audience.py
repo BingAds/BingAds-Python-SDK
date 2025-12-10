@@ -20,31 +20,32 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.audience_type import AudienceType
 from openapi_client.models.campaign.customer_share import CustomerShare
 from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.product_audience_type import ProductAudienceType
 from typing_extensions import Self
-
-class ProductAudience(BaseModel):
+from openapi_client.models.campaign.audience import Audience
+class ProductAudience(Audience):
     """
     ProductAudience
     """ # noqa: E501
-    tag_id: Optional[StrictStr] = Field(default=None, alias="TagId")
-    product_audience_type: Optional[ProductAudienceType] = Field(default=None, alias="ProductAudienceType")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     parent_id: Optional[StrictStr] = Field(default=None, alias="ParentId")
     membership_duration: Optional[StrictInt] = Field(default=None, alias="MembershipDuration")
-    type: Optional[StrictStr] = Field(default='Product', alias="Type")
+    type: Optional[AudienceType] = Field(default=None, alias="Type")
     search_size: Optional[StrictStr] = Field(default=None, alias="SearchSize")
     audience_network_size: Optional[StrictStr] = Field(default=None, alias="AudienceNetworkSize")
     supported_campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="SupportedCampaignTypes")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["TagId", "ProductAudienceType", "Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap"]
+    tag_id: Optional[StrictStr] = Field(default=None, alias="TagId")
+    product_audience_type: Optional[ProductAudienceType] = Field(default=None, alias="ProductAudienceType")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap", "TagId", "ProductAudienceType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,6 +53,9 @@ class ProductAudience(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -91,16 +95,6 @@ class ProductAudience(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if tag_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.tag_id is None and "tag_id" in self.model_fields_set:
-            _dict['TagId'] = None
-
-        # set to None if product_audience_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.product_audience_type is None and "product_audience_type" in self.model_fields_set:
-            _dict['ProductAudienceType'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -161,6 +155,16 @@ class ProductAudience(BaseModel):
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
 
+        # set to None if tag_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.tag_id is None and "tag_id" in self.model_fields_set:
+            _dict['TagId'] = None
+
+        # set to None if product_audience_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.product_audience_type is None and "product_audience_type" in self.model_fields_set:
+            _dict['ProductAudienceType'] = None
+
         return _dict
 
     @classmethod
@@ -173,19 +177,19 @@ class ProductAudience(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "TagId": obj.get("TagId") if obj.get("TagId") is not None else None,
-                        "ProductAudienceType": obj.get("ProductAudienceType") if obj.get("ProductAudienceType") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "ParentId": obj.get("ParentId") if obj.get("ParentId") is not None else None,
                         "MembershipDuration": obj.get("MembershipDuration") if obj.get("MembershipDuration") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Product',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "SearchSize": obj.get("SearchSize") if obj.get("SearchSize") is not None else None,
                         "AudienceNetworkSize": obj.get("AudienceNetworkSize") if obj.get("AudienceNetworkSize") is not None else None,
                         "SupportedCampaignTypes": obj.get("SupportedCampaignTypes"),
                         "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "TagId": obj.get("TagId") if obj.get("TagId") is not None else None,
+                        "ProductAudienceType": obj.get("ProductAudienceType") if obj.get("ProductAudienceType") is not None else None
         })
         return _obj

@@ -23,6 +23,7 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_editorial_status import AdEditorialStatus
 from openapi_client.models.campaign.ad_status import AdStatus
 from openapi_client.models.campaign.ad_sub_type import AdSubType
+from openapi_client.models.campaign.ad_type import AdType
 from openapi_client.models.campaign.app_url import AppUrl
 from openapi_client.models.campaign.asset_link import AssetLink
 from openapi_client.models.campaign.call_to_action import CallToAction
@@ -31,11 +32,24 @@ from openapi_client.models.campaign.key_value_pair_ofstring_andstring import Key
 from openapi_client.models.campaign.language_name import LanguageName
 from openapi_client.models.campaign.verified_tracking_setting import VerifiedTrackingSetting
 from typing_extensions import Self
-
-class ResponsiveAd(BaseModel):
+from openapi_client.models.campaign.ad import Ad
+class ResponsiveAd(Ad):
     """
     ResponsiveAd
     """ # noqa: E501
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[AdType] = Field(default=None, alias="Type")
+    status: Optional[AdStatus] = Field(default=None, alias="Status")
+    editorial_status: Optional[AdEditorialStatus] = Field(default=None, alias="EditorialStatus")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    ad_format_preference: Optional[StrictStr] = Field(default=None, alias="AdFormatPreference")
+    tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
+    final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
+    url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
+    final_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalUrls")
+    final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
+    final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
+    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     headline: Optional[StrictStr] = Field(default=None, alias="Headline")
     long_headline_string: Optional[StrictStr] = Field(default=None, alias="LongHeadlineString")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
@@ -51,20 +65,7 @@ class ResponsiveAd(BaseModel):
     impression_tracking_urls: Optional[List[StrictStr]] = Field(default=None, alias="ImpressionTrackingUrls")
     verified_tracking_settings: Optional[VerifiedTrackingSetting] = Field(default=None, alias="VerifiedTrackingSettings")
     ad_sub_type: Optional[AdSubType] = Field(default=None, alias="AdSubType")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='ResponsiveAd', alias="Type")
-    status: Optional[AdStatus] = Field(default=None, alias="Status")
-    editorial_status: Optional[AdEditorialStatus] = Field(default=None, alias="EditorialStatus")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    ad_format_preference: Optional[StrictStr] = Field(default=None, alias="AdFormatPreference")
-    tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
-    final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
-    url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
-    final_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalUrls")
-    final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
-    final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
-    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Headline", "LongHeadlineString", "Text", "BusinessName", "CallToAction", "CallToActionLanguage", "Images", "Videos", "Headlines", "LongHeadline", "LongHeadlines", "Descriptions", "ImpressionTrackingUrls", "VerifiedTrackingSettings", "AdSubType", "Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap", "Headline", "LongHeadlineString", "Text", "BusinessName", "CallToAction", "CallToActionLanguage", "Images", "Videos", "Headlines", "LongHeadline", "LongHeadlines", "Descriptions", "ImpressionTrackingUrls", "VerifiedTrackingSettings", "AdSubType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,9 @@ class ResponsiveAd(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -101,6 +105,23 @@ class ResponsiveAd(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
+        if self.url_custom_parameters:
+            _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in final_app_urls (list)
+        _items = []
+        if self.final_app_urls:
+            for _item_final_app_urls in self.final_app_urls:
+                if _item_final_app_urls:
+                    _items.append(_item_final_app_urls.to_dict())
+            _dict['FinalAppUrls'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
+        _items = []
+        if self.forward_compatibility_map:
+            for _item_forward_compatibility_map in self.forward_compatibility_map:
+                if _item_forward_compatibility_map:
+                    _items.append(_item_forward_compatibility_map.to_dict())
+            _dict['ForwardCompatibilityMap'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in images (list)
         _items = []
         if self.images:
@@ -142,23 +163,71 @@ class ResponsiveAd(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of verified_tracking_settings
         if self.verified_tracking_settings:
             _dict['VerifiedTrackingSettings'] = self.verified_tracking_settings.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
-        if self.url_custom_parameters:
-            _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in final_app_urls (list)
-        _items = []
-        if self.final_app_urls:
-            for _item_final_app_urls in self.final_app_urls:
-                if _item_final_app_urls:
-                    _items.append(_item_final_app_urls.to_dict())
-            _dict['FinalAppUrls'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
-        _items = []
-        if self.forward_compatibility_map:
-            for _item_forward_compatibility_map in self.forward_compatibility_map:
-                if _item_forward_compatibility_map:
-                    _items.append(_item_forward_compatibility_map.to_dict())
-            _dict['ForwardCompatibilityMap'] = _items
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['Status'] = None
+
+        # set to None if editorial_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.editorial_status is None and "editorial_status" in self.model_fields_set:
+            _dict['EditorialStatus'] = None
+
+        # set to None if device_preference (nullable) is None
+        # and model_fields_set contains the field
+        if self.device_preference is None and "device_preference" in self.model_fields_set:
+            _dict['DevicePreference'] = None
+
+        # set to None if ad_format_preference (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_format_preference is None and "ad_format_preference" in self.model_fields_set:
+            _dict['AdFormatPreference'] = None
+
+        # set to None if tracking_url_template (nullable) is None
+        # and model_fields_set contains the field
+        if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
+            _dict['TrackingUrlTemplate'] = None
+
+        # set to None if final_url_suffix (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
+            _dict['FinalUrlSuffix'] = None
+
+        # set to None if url_custom_parameters (nullable) is None
+        # and model_fields_set contains the field
+        if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
+            _dict['UrlCustomParameters'] = None
+
+        # set to None if final_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_urls is None and "final_urls" in self.model_fields_set:
+            _dict['FinalUrls'] = None
+
+        # set to None if final_mobile_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_mobile_urls is None and "final_mobile_urls" in self.model_fields_set:
+            _dict['FinalMobileUrls'] = None
+
+        # set to None if final_app_urls (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_app_urls is None and "final_app_urls" in self.model_fields_set:
+            _dict['FinalAppUrls'] = None
+
+        # set to None if forward_compatibility_map (nullable) is None
+        # and model_fields_set contains the field
+        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
+            _dict['ForwardCompatibilityMap'] = None
+
         # set to None if headline (nullable) is None
         # and model_fields_set contains the field
         if self.headline is None and "headline" in self.model_fields_set:
@@ -234,71 +303,6 @@ class ResponsiveAd(BaseModel):
         if self.ad_sub_type is None and "ad_sub_type" in self.model_fields_set:
             _dict['AdSubType'] = None
 
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
-        # set to None if status (nullable) is None
-        # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['Status'] = None
-
-        # set to None if editorial_status (nullable) is None
-        # and model_fields_set contains the field
-        if self.editorial_status is None and "editorial_status" in self.model_fields_set:
-            _dict['EditorialStatus'] = None
-
-        # set to None if device_preference (nullable) is None
-        # and model_fields_set contains the field
-        if self.device_preference is None and "device_preference" in self.model_fields_set:
-            _dict['DevicePreference'] = None
-
-        # set to None if ad_format_preference (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_format_preference is None and "ad_format_preference" in self.model_fields_set:
-            _dict['AdFormatPreference'] = None
-
-        # set to None if tracking_url_template (nullable) is None
-        # and model_fields_set contains the field
-        if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
-            _dict['TrackingUrlTemplate'] = None
-
-        # set to None if final_url_suffix (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
-            _dict['FinalUrlSuffix'] = None
-
-        # set to None if url_custom_parameters (nullable) is None
-        # and model_fields_set contains the field
-        if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
-            _dict['UrlCustomParameters'] = None
-
-        # set to None if final_urls (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_urls is None and "final_urls" in self.model_fields_set:
-            _dict['FinalUrls'] = None
-
-        # set to None if final_mobile_urls (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_mobile_urls is None and "final_mobile_urls" in self.model_fields_set:
-            _dict['FinalMobileUrls'] = None
-
-        # set to None if final_app_urls (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_app_urls is None and "final_app_urls" in self.model_fields_set:
-            _dict['FinalAppUrls'] = None
-
-        # set to None if forward_compatibility_map (nullable) is None
-        # and model_fields_set contains the field
-        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
-            _dict['ForwardCompatibilityMap'] = None
-
         return _dict
 
     @classmethod
@@ -311,7 +315,20 @@ class ResponsiveAd(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Headline": obj.get("Headline") if obj.get("Headline") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "AdFormatPreference": obj.get("AdFormatPreference") if obj.get("AdFormatPreference") is not None else None,
+                        "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
+                        "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
+                        "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
+                        "FinalUrls": obj.get("FinalUrls"),
+                        "FinalMobileUrls": obj.get("FinalMobileUrls"),
+                        "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "Headline": obj.get("Headline") if obj.get("Headline") is not None else None,
                         "LongHeadlineString": obj.get("LongHeadlineString") if obj.get("LongHeadlineString") is not None else None,
                         "Text": obj.get("Text") if obj.get("Text") is not None else None,
                         "BusinessName": obj.get("BusinessName") if obj.get("BusinessName") is not None else None,
@@ -325,19 +342,6 @@ class ResponsiveAd(BaseModel):
                         "Descriptions": [AssetLink.from_dict(_item) for _item in obj["Descriptions"]] if obj.get("Descriptions") is not None else None,
                         "ImpressionTrackingUrls": obj.get("ImpressionTrackingUrls"),
                         "VerifiedTrackingSettings": VerifiedTrackingSetting.from_dict(obj["VerifiedTrackingSettings"]) if obj.get("VerifiedTrackingSettings") is not None else None,
-                        "AdSubType": obj.get("AdSubType") if obj.get("AdSubType") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ResponsiveAd',
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "AdFormatPreference": obj.get("AdFormatPreference") if obj.get("AdFormatPreference") is not None else None,
-                        "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
-                        "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
-                        "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
-                        "FinalUrls": obj.get("FinalUrls"),
-                        "FinalMobileUrls": obj.get("FinalMobileUrls"),
-                        "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "AdSubType": obj.get("AdSubType") if obj.get("AdSubType") is not None else None
         })
         return _obj

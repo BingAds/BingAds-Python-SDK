@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.product_condition import ProductCondition
 from typing_extensions import Self
-
-class ProductScope(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class ProductScope(Criterion):
     """
     ProductScope
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     conditions: Optional[List[Optional[ProductCondition]]] = Field(default=None, alias="Conditions")
-    type: Optional[StrictStr] = Field(default='ProductScope', alias="Type")
-    __properties: ClassVar[List[str]] = ["Conditions", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Conditions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class ProductScope(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -73,15 +76,15 @@ class ProductScope(BaseModel):
                 if _item_conditions:
                     _items.append(_item_conditions.to_dict())
             _dict['Conditions'] = _items
-        # set to None if conditions (nullable) is None
-        # and model_fields_set contains the field
-        if self.conditions is None and "conditions" in self.model_fields_set:
-            _dict['Conditions'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if conditions (nullable) is None
+        # and model_fields_set contains the field
+        if self.conditions is None and "conditions" in self.model_fields_set:
+            _dict['Conditions'] = None
 
         return _dict
 
@@ -95,7 +98,7 @@ class ProductScope(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Conditions": [ProductCondition.from_dict(_item) for _item in obj["Conditions"]] if obj.get("Conditions") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ProductScope'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Conditions": [ProductCondition.from_dict(_item) for _item in obj["Conditions"]] if obj.get("Conditions") is not None else None
         })
         return _obj

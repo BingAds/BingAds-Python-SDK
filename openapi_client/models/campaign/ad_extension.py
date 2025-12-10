@@ -17,502 +17,168 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.action_ad_extension import ActionAdExtension
-from openapi_client.models.campaign.action_ad_extension_action_type import ActionAdExtensionActionType
-from openapi_client.models.campaign.ad_extension_header_type import AdExtensionHeaderType
-from openapi_client.models.campaign.ad_extension_status import AdExtensionStatus
-from openapi_client.models.campaign.address import Address
-from openapi_client.models.campaign.app_ad_extension import AppAdExtension
-from openapi_client.models.campaign.app_url import AppUrl
-from openapi_client.models.campaign.asset_link import AssetLink
-from openapi_client.models.campaign.business_geo_code_status import BusinessGeoCodeStatus
-from openapi_client.models.campaign.call_ad_extension import CallAdExtension
-from openapi_client.models.campaign.callout_ad_extension import CalloutAdExtension
-from openapi_client.models.campaign.confirmation_action import ConfirmationAction
-from openapi_client.models.campaign.custom_parameters import CustomParameters
-from openapi_client.models.campaign.data_table_ad_extension import DataTableAdExtension
-from openapi_client.models.campaign.disclaimer_ad_extension import DisclaimerAdExtension
-from openapi_client.models.campaign.filter_link_ad_extension import FilterLinkAdExtension
-from openapi_client.models.campaign.flyer_ad_extension import FlyerAdExtension
-from openapi_client.models.campaign.geo_point import GeoPoint
-from openapi_client.models.campaign.image_ad_extension import ImageAdExtension
-from openapi_client.models.campaign.image_asset import ImageAsset
-from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.lead_delivery import LeadDelivery
-from openapi_client.models.campaign.lead_form_ad_extension import LeadFormAdExtension
-from openapi_client.models.campaign.lead_form_call_to_action import LeadFormCallToAction
-from openapi_client.models.campaign.lead_form_question_definition import LeadFormQuestionDefinition
-from openapi_client.models.campaign.location_ad_extension import LocationAdExtension
-from openapi_client.models.campaign.logo_ad_extension import LogoAdExtension
-from openapi_client.models.campaign.model_date import ModelDate
-from openapi_client.models.campaign.news_ad_extension import NewsAdExtension
-from openapi_client.models.campaign.price_ad_extension import PriceAdExtension
-from openapi_client.models.campaign.price_extension_type import PriceExtensionType
-from openapi_client.models.campaign.price_table_row import PriceTableRow
-from openapi_client.models.campaign.promotion_ad_extension import PromotionAdExtension
-from openapi_client.models.campaign.promotion_discount_modifier import PromotionDiscountModifier
-from openapi_client.models.campaign.promotion_occasion import PromotionOccasion
-from openapi_client.models.campaign.review_ad_extension import ReviewAdExtension
-from openapi_client.models.campaign.schedule import Schedule
-from openapi_client.models.campaign.sitelink_ad_extension import SitelinkAdExtension
-from openapi_client.models.campaign.structured_snippet_ad_extension import StructuredSnippetAdExtension
-from openapi_client.models.campaign.video_ad_extension import VideoAdExtension
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-AdExtension_ONE_OF_SCHEMAS = ["ActionAdExtension", "AppAdExtension", "CallAdExtension", "CalloutAdExtension", "DataTableAdExtension", "DisclaimerAdExtension", "FilterLinkAdExtension", "FlyerAdExtension", "ImageAdExtension", "LeadFormAdExtension", "LocationAdExtension", "LogoAdExtension", "NewsAdExtension", "PriceAdExtension", "PromotionAdExtension", "ReviewAdExtension", "SitelinkAdExtension", "StructuredSnippetAdExtension", "VideoAdExtension"]
 
 class AdExtension(BaseModel):
     """
     AdExtension
     """
-    # data type: ActionAdExtension
-    oneof_schema_action_ad_extension_validator: Optional[ActionAdExtension] = None
-    # data type: AppAdExtension
-    oneof_schema_app_ad_extension_validator: Optional[AppAdExtension] = None
-    # data type: CallAdExtension
-    oneof_schema_call_ad_extension_validator: Optional[CallAdExtension] = None
-    # data type: CalloutAdExtension
-    oneof_schema_callout_ad_extension_validator: Optional[CalloutAdExtension] = None
-    # data type: DataTableAdExtension
-    oneof_schema_data_table_ad_extension_validator: Optional[DataTableAdExtension] = None
-    # data type: DisclaimerAdExtension
-    oneof_schema_disclaimer_ad_extension_validator: Optional[DisclaimerAdExtension] = None
-    # data type: FilterLinkAdExtension
-    oneof_schema_filter_link_ad_extension_validator: Optional[FilterLinkAdExtension] = None
-    # data type: FlyerAdExtension
-    oneof_schema_flyer_ad_extension_validator: Optional[FlyerAdExtension] = None
-    # data type: ImageAdExtension
-    oneof_schema_image_ad_extension_validator: Optional[ImageAdExtension] = None
-    # data type: LeadFormAdExtension
-    oneof_schema_lead_form_ad_extension_validator: Optional[LeadFormAdExtension] = None
-    # data type: LocationAdExtension
-    oneof_schema_location_ad_extension_validator: Optional[LocationAdExtension] = None
-    # data type: LogoAdExtension
-    oneof_schema_logo_ad_extension_validator: Optional[LogoAdExtension] = None
-    # data type: NewsAdExtension
-    oneof_schema_news_ad_extension_validator: Optional[NewsAdExtension] = None
-    # data type: PriceAdExtension
-    oneof_schema_price_ad_extension_validator: Optional[PriceAdExtension] = None
-    # data type: PromotionAdExtension
-    oneof_schema_promotion_ad_extension_validator: Optional[PromotionAdExtension] = None
-    # data type: ReviewAdExtension
-    oneof_schema_review_ad_extension_validator: Optional[ReviewAdExtension] = None
-    # data type: SitelinkAdExtension
-    oneof_schema_sitelink_ad_extension_validator: Optional[SitelinkAdExtension] = None
-    # data type: StructuredSnippetAdExtension
-    oneof_schema_structured_snippet_ad_extension_validator: Optional[StructuredSnippetAdExtension] = None
-    # data type: VideoAdExtension
-    oneof_schema_video_ad_extension_validator: Optional[VideoAdExtension] = None
-    actual_instance: Optional[Union[ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension]] = None
-    one_of_schemas: Set[str] = { "ActionAdExtension", "AppAdExtension", "CallAdExtension", "CalloutAdExtension", "DataTableAdExtension", "DisclaimerAdExtension", "FilterLinkAdExtension", "FlyerAdExtension", "ImageAdExtension", "LeadFormAdExtension", "LocationAdExtension", "LogoAdExtension", "NewsAdExtension", "PriceAdExtension", "PromotionAdExtension", "ReviewAdExtension", "SitelinkAdExtension", "StructuredSnippetAdExtension", "VideoAdExtension" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('ActionAdExtension', 'ActionAdExtension'),
+                ('AppAdExtension', 'AppAdExtension'),
+                ('CallAdExtension', 'CallAdExtension'),
+                ('CalloutAdExtension', 'CalloutAdExtension'),
+                ('DataTableAdExtension', 'DataTableAdExtension'),
+                ('DisclaimerAdExtension', 'DisclaimerAdExtension'),
+                ('FilterLinkAdExtension', 'FilterLinkAdExtension'),
+                ('FlyerAdExtension', 'FlyerAdExtension'),
+                ('ImageAdExtension', 'ImageAdExtension'),
+                ('LeadFormAdExtension', 'LeadFormAdExtension'),
+                ('LocationAdExtension', 'LocationAdExtension'),
+                ('LogoAdExtension', 'LogoAdExtension'),
+                ('NewsAdExtension', 'NewsAdExtension'),
+                ('PriceAdExtension', 'PriceAdExtension'),
+                ('PromotionAdExtension', 'PromotionAdExtension'),
+                ('ReviewAdExtension', 'ReviewAdExtension'),
+                ('SitelinkAdExtension', 'SitelinkAdExtension'),
+                ('StructuredSnippetAdExtension', 'StructuredSnippetAdExtension'),
+                ('VideoAdExtension', 'VideoAdExtension'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = AdExtension.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: ActionAdExtension
-        if not isinstance(v, ActionAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ActionAdExtension`")
-        else:
-            match += 1
-        # validate data type: AppAdExtension
-        if not isinstance(v, AppAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AppAdExtension`")
-        else:
-            match += 1
-        # validate data type: CallAdExtension
-        if not isinstance(v, CallAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CallAdExtension`")
-        else:
-            match += 1
-        # validate data type: CalloutAdExtension
-        if not isinstance(v, CalloutAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CalloutAdExtension`")
-        else:
-            match += 1
-        # validate data type: DataTableAdExtension
-        if not isinstance(v, DataTableAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DataTableAdExtension`")
-        else:
-            match += 1
-        # validate data type: DisclaimerAdExtension
-        if not isinstance(v, DisclaimerAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DisclaimerAdExtension`")
-        else:
-            match += 1
-        # validate data type: FilterLinkAdExtension
-        if not isinstance(v, FilterLinkAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `FilterLinkAdExtension`")
-        else:
-            match += 1
-        # validate data type: FlyerAdExtension
-        if not isinstance(v, FlyerAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `FlyerAdExtension`")
-        else:
-            match += 1
-        # validate data type: ImageAdExtension
-        if not isinstance(v, ImageAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ImageAdExtension`")
-        else:
-            match += 1
-        # validate data type: LeadFormAdExtension
-        if not isinstance(v, LeadFormAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `LeadFormAdExtension`")
-        else:
-            match += 1
-        # validate data type: LocationAdExtension
-        if not isinstance(v, LocationAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `LocationAdExtension`")
-        else:
-            match += 1
-        # validate data type: LogoAdExtension
-        if not isinstance(v, LogoAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `LogoAdExtension`")
-        else:
-            match += 1
-        # validate data type: NewsAdExtension
-        if not isinstance(v, NewsAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `NewsAdExtension`")
-        else:
-            match += 1
-        # validate data type: PriceAdExtension
-        if not isinstance(v, PriceAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PriceAdExtension`")
-        else:
-            match += 1
-        # validate data type: PromotionAdExtension
-        if not isinstance(v, PromotionAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PromotionAdExtension`")
-        else:
-            match += 1
-        # validate data type: ReviewAdExtension
-        if not isinstance(v, ReviewAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ReviewAdExtension`")
-        else:
-            match += 1
-        # validate data type: SitelinkAdExtension
-        if not isinstance(v, SitelinkAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `SitelinkAdExtension`")
-        else:
-            match += 1
-        # validate data type: StructuredSnippetAdExtension
-        if not isinstance(v, StructuredSnippetAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `StructuredSnippetAdExtension`")
-        else:
-            match += 1
-        # validate data type: VideoAdExtension
-        if not isinstance(v, VideoAdExtension):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `VideoAdExtension`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in AdExtension with oneOf schemas: ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in AdExtension with oneOf schemas: ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of AdExtension from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `ActionAdExtension`
-        if _data_type == "ActionAdExtension":
-            instance.actual_instance = ActionAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `AppAdExtension`
-        if _data_type == "AppAdExtension":
-            instance.actual_instance = AppAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `CallAdExtension`
-        if _data_type == "CallAdExtension":
-            instance.actual_instance = CallAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `CalloutAdExtension`
-        if _data_type == "CalloutAdExtension":
-            instance.actual_instance = CalloutAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `DataTableAdExtension`
-        if _data_type == "DataTableAdExtension":
-            instance.actual_instance = DataTableAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `DisclaimerAdExtension`
-        if _data_type == "DisclaimerAdExtension":
-            instance.actual_instance = DisclaimerAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `FilterLinkAdExtension`
-        if _data_type == "FilterLinkAdExtension":
-            instance.actual_instance = FilterLinkAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `FlyerAdExtension`
-        if _data_type == "FlyerAdExtension":
-            instance.actual_instance = FlyerAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `ImageAdExtension`
-        if _data_type == "ImageAdExtension":
-            instance.actual_instance = ImageAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `LeadFormAdExtension`
-        if _data_type == "LeadFormAdExtension":
-            instance.actual_instance = LeadFormAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `LocationAdExtension`
-        if _data_type == "LocationAdExtension":
-            instance.actual_instance = LocationAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `LogoAdExtension`
-        if _data_type == "LogoAdExtension":
-            instance.actual_instance = LogoAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `NewsAdExtension`
-        if _data_type == "NewsAdExtension":
-            instance.actual_instance = NewsAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `PriceAdExtension`
-        if _data_type == "PriceAdExtension":
-            instance.actual_instance = PriceAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `PromotionAdExtension`
-        if _data_type == "PromotionAdExtension":
-            instance.actual_instance = PromotionAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `ReviewAdExtension`
-        if _data_type == "ReviewAdExtension":
-            instance.actual_instance = ReviewAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `SitelinkAdExtension`
-        if _data_type == "SitelinkAdExtension":
-            instance.actual_instance = SitelinkAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `StructuredSnippetAdExtension`
-        if _data_type == "StructuredSnippetAdExtension":
-            instance.actual_instance = StructuredSnippetAdExtension.from_json(json_str)
-            return instance
-			
-		# check if data type is `VideoAdExtension`
-        if _data_type == "VideoAdExtension":
-            instance.actual_instance = VideoAdExtension.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into ActionAdExtension
-        try:
-            instance.actual_instance = ActionAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AppAdExtension
-        try:
-            instance.actual_instance = AppAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CallAdExtension
-        try:
-            instance.actual_instance = CallAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CalloutAdExtension
-        try:
-            instance.actual_instance = CalloutAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DataTableAdExtension
-        try:
-            instance.actual_instance = DataTableAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DisclaimerAdExtension
-        try:
-            instance.actual_instance = DisclaimerAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into FilterLinkAdExtension
-        try:
-            instance.actual_instance = FilterLinkAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into FlyerAdExtension
-        try:
-            instance.actual_instance = FlyerAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ImageAdExtension
-        try:
-            instance.actual_instance = ImageAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into LeadFormAdExtension
-        try:
-            instance.actual_instance = LeadFormAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into LocationAdExtension
-        try:
-            instance.actual_instance = LocationAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into LogoAdExtension
-        try:
-            instance.actual_instance = LogoAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into NewsAdExtension
-        try:
-            instance.actual_instance = NewsAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PriceAdExtension
-        try:
-            instance.actual_instance = PriceAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PromotionAdExtension
-        try:
-            instance.actual_instance = PromotionAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ReviewAdExtension
-        try:
-            instance.actual_instance = ReviewAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into SitelinkAdExtension
-        try:
-            instance.actual_instance = SitelinkAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into StructuredSnippetAdExtension
-        try:
-            instance.actual_instance = StructuredSnippetAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into VideoAdExtension
-        try:
-            instance.actual_instance = VideoAdExtension.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into AdExtension with oneOf schemas: ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into AdExtension with oneOf schemas: ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], ActionAdExtension, AppAdExtension, CallAdExtension, CalloutAdExtension, DataTableAdExtension, DisclaimerAdExtension, FilterLinkAdExtension, FlyerAdExtension, ImageAdExtension, LeadFormAdExtension, LocationAdExtension, LogoAdExtension, NewsAdExtension, PriceAdExtension, PromotionAdExtension, ReviewAdExtension, SitelinkAdExtension, StructuredSnippetAdExtension, VideoAdExtension]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of AdExtension from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_action_ad_extension_validator', 'oneof_schema_app_ad_extension_validator', 'oneof_schema_call_ad_extension_validator', 'oneof_schema_callout_ad_extension_validator', 'oneof_schema_data_table_ad_extension_validator', 'oneof_schema_disclaimer_ad_extension_validator', 'oneof_schema_filter_link_ad_extension_validator', 'oneof_schema_flyer_ad_extension_validator', 'oneof_schema_image_ad_extension_validator', 'oneof_schema_lead_form_ad_extension_validator', 'oneof_schema_location_ad_extension_validator', 'oneof_schema_logo_ad_extension_validator', 'oneof_schema_news_ad_extension_validator', 'oneof_schema_price_ad_extension_validator', 'oneof_schema_promotion_ad_extension_validator', 'oneof_schema_review_ad_extension_validator', 'oneof_schema_sitelink_ad_extension_validator', 'oneof_schema_structured_snippet_ad_extension_validator', 'oneof_schema_video_ad_extension_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "ActionAdExtension":
+            from openapi_client.models.campaign.action_ad_extension import ActionAdExtension
+            return ActionAdExtension.from_dict(obj)
+        
+        if type == "AppAdExtension":
+            from openapi_client.models.campaign.app_ad_extension import AppAdExtension
+            return AppAdExtension.from_dict(obj)
+        
+        if type == "CallAdExtension":
+            from openapi_client.models.campaign.call_ad_extension import CallAdExtension
+            return CallAdExtension.from_dict(obj)
+        
+        if type == "CalloutAdExtension":
+            from openapi_client.models.campaign.callout_ad_extension import CalloutAdExtension
+            return CalloutAdExtension.from_dict(obj)
+        
+        if type == "DataTableAdExtension":
+            from openapi_client.models.campaign.data_table_ad_extension import DataTableAdExtension
+            return DataTableAdExtension.from_dict(obj)
+        
+        if type == "DisclaimerAdExtension":
+            from openapi_client.models.campaign.disclaimer_ad_extension import DisclaimerAdExtension
+            return DisclaimerAdExtension.from_dict(obj)
+        
+        if type == "FilterLinkAdExtension":
+            from openapi_client.models.campaign.filter_link_ad_extension import FilterLinkAdExtension
+            return FilterLinkAdExtension.from_dict(obj)
+        
+        if type == "FlyerAdExtension":
+            from openapi_client.models.campaign.flyer_ad_extension import FlyerAdExtension
+            return FlyerAdExtension.from_dict(obj)
+        
+        if type == "ImageAdExtension":
+            from openapi_client.models.campaign.image_ad_extension import ImageAdExtension
+            return ImageAdExtension.from_dict(obj)
+        
+        if type == "LeadFormAdExtension":
+            from openapi_client.models.campaign.lead_form_ad_extension import LeadFormAdExtension
+            return LeadFormAdExtension.from_dict(obj)
+        
+        if type == "LocationAdExtension":
+            from openapi_client.models.campaign.location_ad_extension import LocationAdExtension
+            return LocationAdExtension.from_dict(obj)
+        
+        if type == "LogoAdExtension":
+            from openapi_client.models.campaign.logo_ad_extension import LogoAdExtension
+            return LogoAdExtension.from_dict(obj)
+        
+        if type == "NewsAdExtension":
+            from openapi_client.models.campaign.news_ad_extension import NewsAdExtension
+            return NewsAdExtension.from_dict(obj)
+        
+        if type == "PriceAdExtension":
+            from openapi_client.models.campaign.price_ad_extension import PriceAdExtension
+            return PriceAdExtension.from_dict(obj)
+        
+        if type == "PromotionAdExtension":
+            from openapi_client.models.campaign.promotion_ad_extension import PromotionAdExtension
+            return PromotionAdExtension.from_dict(obj)
+        
+        if type == "ReviewAdExtension":
+            from openapi_client.models.campaign.review_ad_extension import ReviewAdExtension
+            return ReviewAdExtension.from_dict(obj)
+        
+        if type == "SitelinkAdExtension":
+            from openapi_client.models.campaign.sitelink_ad_extension import SitelinkAdExtension
+            return SitelinkAdExtension.from_dict(obj)
+        
+        if type == "StructuredSnippetAdExtension":
+            from openapi_client.models.campaign.structured_snippet_ad_extension import StructuredSnippetAdExtension
+            return StructuredSnippetAdExtension.from_dict(obj)
+        
+        if type == "VideoAdExtension":
+            from openapi_client.models.campaign.video_ad_extension import VideoAdExtension
+            return VideoAdExtension.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

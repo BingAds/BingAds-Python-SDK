@@ -13,167 +13,78 @@
 
 
 from __future__ import annotations
-import json
 import pprint
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
-from typing import Any, List, Optional
-from openapi_client.models.adinsight.rsa_recommendation_info import RSARecommendationInfo
-from openapi_client.models.adinsight.recommendation_info_base import RecommendationInfoBase
-from pydantic import StrictStr, Field
-from typing import Union, List, Set, Optional, Dict
-from typing_extensions import Literal, Self
+import re  # noqa: F401
+import json
 
-RecommendationInfo_ONE_OF_SCHEMAS = ["RSARecommendationInfo", "RecommendationInfoBase"]
+from datetime import datetime
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from typing_extensions import Self
 
 class RecommendationInfo(BaseModel):
     """
     RecommendationInfo
-    """
-    # data type: RSARecommendationInfo
-    oneof_schema_rsa_recommendation_info_validator: Optional[RSARecommendationInfo] = None
-    # data type: RecommendationInfoBase
-    oneof_schema_recommendation_info_base_validator: Optional[RecommendationInfoBase] = None
-    actual_instance: Optional[Union[RSARecommendationInfo, RecommendationInfoBase]] = None
-    one_of_schemas: Set[str] = { "RSARecommendationInfo", "RecommendationInfoBase" }
+    """ # noqa: E501
+    recommendation_id: Optional[StrictStr] = Field(default=None, alias="RecommendationId")
+    recommendation_hash: Optional[StrictStr] = Field(default=None, alias="RecommendationHash")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    __properties: ClassVar[List[str]] = ["RecommendationId", "RecommendationHash", "Type"]
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+	
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias.
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
+        This has the following differences from calling pydantic's
+        `self.model_dump(by_alias=True)`:
 
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
+        * `None` is only added to the output dict for nullable fields that
+          were set at model initialization. Other fields with value `None`
+          are ignored.
+        """
+        excluded_fields: Set[str] = set([
+        ])
 
-        instance = RecommendationInfo.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: RSARecommendationInfo
-        if not isinstance(v, RSARecommendationInfo):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `RSARecommendationInfo`")
-        else:
-            match += 1
-        # validate data type: RecommendationInfoBase
-        if not isinstance(v, RecommendationInfoBase):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `RecommendationInfoBase`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in RecommendationInfo with oneOf schemas: RSARecommendationInfo, RecommendationInfoBase. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in RecommendationInfo with oneOf schemas: RSARecommendationInfo, RecommendationInfoBase. Details: " + ", ".join(error_messages))
-        else:
-            return v
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        # set to None if recommendation_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.recommendation_id is None and "recommendation_id" in self.model_fields_set:
+            _dict['RecommendationId'] = None
+
+        # set to None if recommendation_hash (nullable) is None
+        # and model_fields_set contains the field
+        if self.recommendation_hash is None and "recommendation_hash" in self.model_fields_set:
+            _dict['RecommendationHash'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        return _dict
 
     @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
-
-    @classmethod
-    def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
-
-        error_messages = []
-        match = 0
-
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
-
-		# check if data type is `RSARecommendationInfo`
-        if _data_type == "RSARecommendationInfo":
-            instance.actual_instance = RSARecommendationInfo.from_json(json_str)
-            return instance
-			
-		# check if data type is `RecommendationInfoBase`
-        if _data_type == "RecommendationInfo":
-            instance.actual_instance = RecommendationInfoBase.from_json(json_str)
-            return instance
-			
-		# check if data type is `RecommendationInfoBase`
-        if _data_type == "RecommendationInfoBase":
-            instance.actual_instance = RecommendationInfoBase.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into RSARecommendationInfo
-        try:
-            instance.actual_instance = RSARecommendationInfo.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into RecommendationInfoBase
-        try:
-            instance.actual_instance = RecommendationInfoBase.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into RecommendationInfo with oneOf schemas: RSARecommendationInfo, RecommendationInfoBase. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into RecommendationInfo with oneOf schemas: RSARecommendationInfo, RecommendationInfoBase. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], RSARecommendationInfo, RecommendationInfoBase]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of RecommendationInfo from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_rsa_recommendation_info_validator', 'oneof_schema_recommendation_info_base_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        _obj = cls.model_validate({
+            "RecommendationId": obj.get("RecommendationId") if obj.get("RecommendationId") is not None else None,
+                        "RecommendationHash": obj.get("RecommendationHash") if obj.get("RecommendationHash") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

@@ -26,11 +26,17 @@ from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class DisclaimerAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class DisclaimerAdExtension(AdExtension):
     """
     DisclaimerAdExtension
     """ # noqa: E501
+    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
+    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    version: Optional[StrictInt] = Field(default=None, alias="Version")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     title: Optional[StrictStr] = Field(default=None, alias="Title")
     popup_text: Optional[StrictStr] = Field(default=None, alias="PopupText")
@@ -42,14 +48,8 @@ class DisclaimerAdExtension(BaseModel):
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
     tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
-    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
-    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='DisclaimerAdExtension', alias="Type")
-    version: Optional[StrictInt] = Field(default=None, alias="Version")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Name", "Title", "PopupText", "LineText", "DisclaimerLayout", "FinalUrlSuffix", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "UrlCustomParameters", "TrackingUrlTemplate", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "Name", "Title", "PopupText", "LineText", "DisclaimerLayout", "FinalUrlSuffix", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "UrlCustomParameters", "TrackingUrlTemplate", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,6 +57,9 @@ class DisclaimerAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -86,6 +89,9 @@ class DisclaimerAdExtension(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of scheduling
+        if self.scheduling:
+            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in final_app_urls (list)
         _items = []
         if self.final_app_urls:
@@ -96,9 +102,6 @@ class DisclaimerAdExtension(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
         if self.url_custom_parameters:
             _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of scheduling
-        if self.scheduling:
-            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
         _items = []
         if self.forward_compatibility_map:
@@ -106,6 +109,36 @@ class DisclaimerAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['Status'] = None
+
+        # set to None if scheduling (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduling is None and "scheduling" in self.model_fields_set:
+            _dict['Scheduling'] = None
+
+        # set to None if device_preference (nullable) is None
+        # and model_fields_set contains the field
+        if self.device_preference is None and "device_preference" in self.model_fields_set:
+            _dict['DevicePreference'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if version (nullable) is None
+        # and model_fields_set contains the field
+        if self.version is None and "version" in self.model_fields_set:
+            _dict['Version'] = None
+
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -161,36 +194,6 @@ class DisclaimerAdExtension(BaseModel):
         if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
             _dict['TrackingUrlTemplate'] = None
 
-        # set to None if status (nullable) is None
-        # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['Status'] = None
-
-        # set to None if scheduling (nullable) is None
-        # and model_fields_set contains the field
-        if self.scheduling is None and "scheduling" in self.model_fields_set:
-            _dict['Scheduling'] = None
-
-        # set to None if device_preference (nullable) is None
-        # and model_fields_set contains the field
-        if self.device_preference is None and "device_preference" in self.model_fields_set:
-            _dict['DevicePreference'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
-        # set to None if version (nullable) is None
-        # and model_fields_set contains the field
-        if self.version is None and "version" in self.model_fields_set:
-            _dict['Version'] = None
-
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -208,7 +211,13 @@ class DisclaimerAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Title": obj.get("Title") if obj.get("Title") is not None else None,
                         "PopupText": obj.get("PopupText") if obj.get("PopupText") is not None else None,
                         "LineText": obj.get("LineText") if obj.get("LineText") is not None else None,
@@ -219,12 +228,6 @@ class DisclaimerAdExtension(BaseModel):
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
                         "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
                         "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'DisclaimerAdExtension',
-                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

@@ -21,15 +21,15 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class HotelCheckInDateCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class HotelCheckInDateCriterion(Criterion):
     """
     HotelCheckInDateCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     start_date: Optional[datetime] = Field(default=None, alias="StartDate")
     end_date: Optional[datetime] = Field(default=None, alias="EndDate")
-    type: Optional[StrictStr] = Field(default='HotelCheckInDateCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["StartDate", "EndDate", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "StartDate", "EndDate"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class HotelCheckInDateCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,6 +69,11 @@ class HotelCheckInDateCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if start_date (nullable) is None
         # and model_fields_set contains the field
         if self.start_date is None and "start_date" in self.model_fields_set:
@@ -75,11 +83,6 @@ class HotelCheckInDateCriterion(BaseModel):
         # and model_fields_set contains the field
         if self.end_date is None and "end_date" in self.model_fields_set:
             _dict['EndDate'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -93,8 +96,8 @@ class HotelCheckInDateCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
-                        "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'HotelCheckInDateCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
+                        "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None
         })
         return _obj

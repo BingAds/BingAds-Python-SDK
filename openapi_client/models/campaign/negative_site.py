@@ -22,16 +22,16 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class NegativeSite(BaseModel):
+from openapi_client.models.campaign.shared_list_item import SharedListItem
+class NegativeSite(SharedListItem):
     """
     NegativeSite
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     url: Optional[StrictStr] = Field(default=None, alias="Url")
-    type: Optional[StrictStr] = Field(default='NegativeSite', alias="Type")
-    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Url", "Type", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Type", "ForwardCompatibilityMap", "Id", "Url"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class NegativeSite(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -75,16 +78,6 @@ class NegativeSite(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if url (nullable) is None
-        # and model_fields_set contains the field
-        if self.url is None and "url" in self.model_fields_set:
-            _dict['Url'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -94,6 +87,16 @@ class NegativeSite(BaseModel):
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if url (nullable) is None
+        # and model_fields_set contains the field
+        if self.url is None and "url" in self.model_fields_set:
+            _dict['Url'] = None
 
         return _dict
 
@@ -107,9 +110,9 @@ class NegativeSite(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Url": obj.get("Url") if obj.get("Url") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NegativeSite',
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Url": obj.get("Url") if obj.get("Url") is not None else None
         })
         return _obj

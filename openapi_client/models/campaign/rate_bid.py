@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.rate_amount import RateAmount
 from typing_extensions import Self
-
-class RateBid(BaseModel):
+from openapi_client.models.campaign.criterion_bid import CriterionBid
+class RateBid(CriterionBid):
     """
     RateBid
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     rate_amount: Optional[RateAmount] = Field(default=None, alias="RateAmount")
-    type: Optional[StrictStr] = Field(default='RateBid', alias="Type")
-    __properties: ClassVar[List[str]] = ["RateAmount", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "RateAmount"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class RateBid(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -69,15 +72,15 @@ class RateBid(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of rate_amount
         if self.rate_amount:
             _dict['RateAmount'] = self.rate_amount.to_dict()
-        # set to None if rate_amount (nullable) is None
-        # and model_fields_set contains the field
-        if self.rate_amount is None and "rate_amount" in self.model_fields_set:
-            _dict['RateAmount'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if rate_amount (nullable) is None
+        # and model_fields_set contains the field
+        if self.rate_amount is None and "rate_amount" in self.model_fields_set:
+            _dict['RateAmount'] = None
 
         return _dict
 
@@ -91,7 +94,7 @@ class RateBid(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "RateAmount": RateAmount.from_dict(obj["RateAmount"]) if obj.get("RateAmount") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'RateBid'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "RateAmount": RateAmount.from_dict(obj["RateAmount"]) if obj.get("RateAmount") is not None else None
         })
         return _obj

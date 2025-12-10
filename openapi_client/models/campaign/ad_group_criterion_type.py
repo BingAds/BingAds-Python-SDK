@@ -92,8 +92,42 @@ class AdGroupCriterionType(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AdGroupCriterionType.NONE: 'None',
+            AdGroupCriterionType.PRODUCTPARTITION: 'ProductPartition',
+            AdGroupCriterionType.WEBPAGE: 'Webpage',
+            AdGroupCriterionType.TARGETS: 'Targets',
+            AdGroupCriterionType.AGE: 'Age',
+            AdGroupCriterionType.GENDER: 'Gender',
+            AdGroupCriterionType.DAYTIME: 'DayTime',
+            AdGroupCriterionType.DEVICE: 'Device',
+            AdGroupCriterionType.LOCATION: 'Location',
+            AdGroupCriterionType.LOCATIONINTENT: 'LocationIntent',
+            AdGroupCriterionType.RADIUS: 'Radius',
+            AdGroupCriterionType.AUDIENCE: 'Audience',
+            AdGroupCriterionType.CUSTOMAUDIENCE: 'CustomAudience',
+            AdGroupCriterionType.INMARKETAUDIENCE: 'InMarketAudience',
+            AdGroupCriterionType.REMARKETINGLIST: 'RemarketingList',
+            AdGroupCriterionType.COMPANYNAME: 'CompanyName',
+            AdGroupCriterionType.JOBFUNCTION: 'JobFunction',
+            AdGroupCriterionType.INDUSTRY: 'Industry',
+            AdGroupCriterionType.PRODUCTAUDIENCE: 'ProductAudience',
+            AdGroupCriterionType.SIMILARREMARKETINGLIST: 'SimilarRemarketingList',
+            AdGroupCriterionType.COMBINEDLIST: 'CombinedList',
+            AdGroupCriterionType.HOTELGROUP: 'HotelGroup',
+            AdGroupCriterionType.HOTELADVANCEBOOKINGWINDOW: 'HotelAdvanceBookingWindow',
+            AdGroupCriterionType.HOTELCHECKINDAY: 'HotelCheckInDay',
+            AdGroupCriterionType.HOTELLENGTHOFSTAY: 'HotelLengthOfStay',
+            AdGroupCriterionType.HOTELDATESELECTIONTYPE: 'HotelDateSelectionType',
+            AdGroupCriterionType.HOTELCHECKINDATE: 'HotelCheckInDate',
+            AdGroupCriterionType.GENRE: 'Genre',
+            AdGroupCriterionType.CUSTOMERLIST: 'CustomerList',
+            AdGroupCriterionType.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
+            AdGroupCriterionType.PLACEMENT: 'Placement',
+            AdGroupCriterionType.TOPIC: 'Topic',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AdGroupCriterionType if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AdGroupCriterionType if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

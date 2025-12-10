@@ -38,8 +38,15 @@ class DeviceType(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            DeviceType.NONE: 'None',
+            DeviceType.COMPUTERS: 'Computers',
+            DeviceType.SMARTPHONES: 'Smartphones',
+            DeviceType.TABLETS: 'Tablets',
+            DeviceType.ALL: 'All',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in DeviceType if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in DeviceType if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

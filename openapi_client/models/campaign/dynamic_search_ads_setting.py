@@ -22,18 +22,18 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.dynamic_search_ads_source import DynamicSearchAdsSource
 from typing_extensions import Self
-
-class DynamicSearchAdsSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class DynamicSearchAdsSetting(Setting):
     """
     DynamicSearchAdsSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     domain_name: Optional[StrictStr] = Field(default=None, alias="DomainName")
     language: Optional[StrictStr] = Field(default=None, alias="Language")
     source: Optional[DynamicSearchAdsSource] = Field(default=None, alias="Source")
     page_feed_ids: Optional[List[StrictStr]] = Field(default=None, alias="PageFeedIds")
     dynamic_description_enabled: Optional[StrictBool] = Field(default=None, alias="DynamicDescriptionEnabled")
-    type: Optional[StrictStr] = Field(default='DynamicSearchAdsSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["DomainName", "Language", "Source", "PageFeedIds", "DynamicDescriptionEnabled", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "DomainName", "Language", "Source", "PageFeedIds", "DynamicDescriptionEnabled"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -41,6 +41,9 @@ class DynamicSearchAdsSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -70,6 +73,11 @@ class DynamicSearchAdsSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if domain_name (nullable) is None
         # and model_fields_set contains the field
         if self.domain_name is None and "domain_name" in self.model_fields_set:
@@ -95,11 +103,6 @@ class DynamicSearchAdsSetting(BaseModel):
         if self.dynamic_description_enabled is None and "dynamic_description_enabled" in self.model_fields_set:
             _dict['DynamicDescriptionEnabled'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -112,11 +115,11 @@ class DynamicSearchAdsSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DomainName": obj.get("DomainName") if obj.get("DomainName") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "DomainName": obj.get("DomainName") if obj.get("DomainName") is not None else None,
                         "Language": obj.get("Language") if obj.get("Language") is not None else None,
                         "Source": obj.get("Source") if obj.get("Source") is not None else None,
                         "PageFeedIds": obj.get("PageFeedIds"),
-                        "DynamicDescriptionEnabled": obj.get("DynamicDescriptionEnabled") if obj.get("DynamicDescriptionEnabled") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'DynamicSearchAdsSetting'
+                        "DynamicDescriptionEnabled": obj.get("DynamicDescriptionEnabled") if obj.get("DynamicDescriptionEnabled") is not None else None
         })
         return _obj

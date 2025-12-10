@@ -21,15 +21,15 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class DeviceCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class DeviceCriterion(Criterion):
     """
     DeviceCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     device_name: Optional[StrictStr] = Field(default=None, alias="DeviceName")
     os_name: Optional[StrictStr] = Field(default=None, alias="OSName")
-    type: Optional[StrictStr] = Field(default='DeviceCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["DeviceName", "OSName", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "DeviceName", "OSName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class DeviceCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,6 +69,11 @@ class DeviceCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if device_name (nullable) is None
         # and model_fields_set contains the field
         if self.device_name is None and "device_name" in self.model_fields_set:
@@ -75,11 +83,6 @@ class DeviceCriterion(BaseModel):
         # and model_fields_set contains the field
         if self.os_name is None and "os_name" in self.model_fields_set:
             _dict['OSName'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -93,8 +96,8 @@ class DeviceCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DeviceName": obj.get("DeviceName") if obj.get("DeviceName") is not None else None,
-                        "OSName": obj.get("OSName") if obj.get("OSName") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'DeviceCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "DeviceName": obj.get("DeviceName") if obj.get("DeviceName") is not None else None,
+                        "OSName": obj.get("OSName") if obj.get("OSName") is not None else None
         })
         return _obj

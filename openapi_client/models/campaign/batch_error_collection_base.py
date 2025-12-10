@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.batch_error import BatchError
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class BatchErrorCollectionBase(BaseModel):
+from openapi_client.models.campaign.batch_error_collection import BatchErrorCollection
+class BatchErrorCollectionBase(BatchErrorCollection):
     """
     BatchErrorCollectionBase
     """ # noqa: E501
@@ -45,6 +45,9 @@ class BatchErrorCollectionBase(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead

@@ -21,16 +21,16 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class NewCustomerAcquisitionGoalSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class NewCustomerAcquisitionGoalSetting(Setting):
     """
     NewCustomerAcquisitionGoalSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     new_customer_acquisition_goal_id: Optional[StrictStr] = Field(default=None, alias="NewCustomerAcquisitionGoalId")
     new_customer_acquisition_bid_only_mode: Optional[StrictBool] = Field(default=None, alias="NewCustomerAcquisitionBidOnlyMode")
     additional_conversion_value: Optional[StrictFloat] = Field(default=None, alias="AdditionalConversionValue")
-    type: Optional[StrictStr] = Field(default='NewCustomerAcquisitionGoalSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["NewCustomerAcquisitionGoalId", "NewCustomerAcquisitionBidOnlyMode", "AdditionalConversionValue", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "NewCustomerAcquisitionGoalId", "NewCustomerAcquisitionBidOnlyMode", "AdditionalConversionValue"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class NewCustomerAcquisitionGoalSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -67,6 +70,11 @@ class NewCustomerAcquisitionGoalSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if new_customer_acquisition_goal_id (nullable) is None
         # and model_fields_set contains the field
         if self.new_customer_acquisition_goal_id is None and "new_customer_acquisition_goal_id" in self.model_fields_set:
@@ -82,11 +90,6 @@ class NewCustomerAcquisitionGoalSetting(BaseModel):
         if self.additional_conversion_value is None and "additional_conversion_value" in self.model_fields_set:
             _dict['AdditionalConversionValue'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -99,9 +102,9 @@ class NewCustomerAcquisitionGoalSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "NewCustomerAcquisitionGoalId": obj.get("NewCustomerAcquisitionGoalId") if obj.get("NewCustomerAcquisitionGoalId") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "NewCustomerAcquisitionGoalId": obj.get("NewCustomerAcquisitionGoalId") if obj.get("NewCustomerAcquisitionGoalId") is not None else None,
                         "NewCustomerAcquisitionBidOnlyMode": obj.get("NewCustomerAcquisitionBidOnlyMode") if obj.get("NewCustomerAcquisitionBidOnlyMode") is not None else None,
-                        "AdditionalConversionValue": obj.get("AdditionalConversionValue") if obj.get("AdditionalConversionValue") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NewCustomerAcquisitionGoalSetting'
+                        "AdditionalConversionValue": obj.get("AdditionalConversionValue") if obj.get("AdditionalConversionValue") is not None else None
         })
         return _obj

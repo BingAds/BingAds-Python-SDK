@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.audience_type import AudienceType
 from typing_extensions import Self
-
-class AudienceCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class AudienceCriterion(Criterion):
     """
     AudienceCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     audience_id: Optional[StrictStr] = Field(default=None, alias="AudienceId")
     audience_type: Optional[AudienceType] = Field(default=None, alias="AudienceType")
-    type: Optional[StrictStr] = Field(default='AudienceCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["AudienceId", "AudienceType", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "AudienceId", "AudienceType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -38,6 +38,9 @@ class AudienceCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -67,6 +70,11 @@ class AudienceCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if audience_id (nullable) is None
         # and model_fields_set contains the field
         if self.audience_id is None and "audience_id" in self.model_fields_set:
@@ -76,11 +84,6 @@ class AudienceCriterion(BaseModel):
         # and model_fields_set contains the field
         if self.audience_type is None and "audience_type" in self.model_fields_set:
             _dict['AudienceType'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -94,8 +97,8 @@ class AudienceCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AudienceId": obj.get("AudienceId") if obj.get("AudienceId") is not None else None,
-                        "AudienceType": obj.get("AudienceType") if obj.get("AudienceType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'AudienceCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "AudienceId": obj.get("AudienceId") if obj.get("AudienceId") is not None else None,
+                        "AudienceType": obj.get("AudienceType") if obj.get("AudienceType") is not None else None
         })
         return _obj

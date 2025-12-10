@@ -66,6 +66,12 @@ class ImportAdditionalField(Flag):
 
     UPDATEASSETAUTOMATIONCAMPAIGNSETTING = auto()
 
+    ENABLECOPILOT = auto()
+
+    NEWTOPICTARGETS = auto()
+
+    UPDATETOPICTARGETS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -78,8 +84,38 @@ class ImportAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            ImportAdditionalField.NONE: 'None',
+            ImportAdditionalField.NOTIFICATIONEMAIL: 'NotificationEmail',
+            ImportAdditionalField.AUTODEVICEBIDOPTIMIZATION: 'AutoDeviceBidOptimization',
+            ImportAdditionalField.ACTIVEADGROUPSONLY: 'ActiveAdGroupsOnly',
+            ImportAdditionalField.SEARCHANDREPLACEFORCUSTOMPARAMETERS: 'SearchAndReplaceForCustomParameters',
+            ImportAdditionalField.ADSCHEDULEUSESEARCHERTIMEZONE: 'AdScheduleUseSearcherTimezone',
+            ImportAdditionalField.NEWIMAGEADEXTENSIONS: 'NewImageAdExtensions',
+            ImportAdditionalField.UPDATEIMAGEADEXTENSIONS: 'UpdateImageAdExtensions',
+            ImportAdditionalField.SEARCHANDREPLACEFORFINALURLSUFFIX: 'SearchAndReplaceForFinalURLSuffix',
+            ImportAdditionalField.RENAMECAMPAIGNNAMEWITHSUFFIX: 'RenameCampaignNameWithSuffix',
+            ImportAdditionalField.UPDATEADURLS: 'UpdateAdUrls',
+            ImportAdditionalField.NEWLOGOADEXTENSIONS: 'NewLogoAdExtensions',
+            ImportAdditionalField.UPDATELOGOADEXTENSIONS: 'UpdateLogoAdExtensions',
+            ImportAdditionalField.UPDATESITELINKURLS: 'UpdateSitelinkUrls',
+            ImportAdditionalField.NEWLEADFORMADEXTENSIONS: 'NewLeadFormAdExtensions',
+            ImportAdditionalField.UPDATELEADFORMADEXTENSIONS: 'UpdateLeadFormAdExtensions',
+            ImportAdditionalField.NEWACCOUNTNEGATIVEKEYWORDS: 'NewAccountNegativeKeywords',
+            ImportAdditionalField.UPDATEACCOUNTNEGATIVEKEYWORDS: 'UpdateAccountNegativeKeywords',
+            ImportAdditionalField.UPDATEADCUSTOMIZERATTRIBUTES: 'UpdateAdCustomizerAttributes',
+            ImportAdditionalField.NEWCONVERSIONGOALS: 'NewConversionGoals',
+            ImportAdditionalField.UPDATECONVERSIONGOALS: 'UpdateConversionGoals',
+            ImportAdditionalField.NEWBRANDSUITABILITY: 'NewBrandSuitability',
+            ImportAdditionalField.UPDATEBRANDSUITABILITY: 'UpdateBrandSuitability',
+            ImportAdditionalField.NEWCAROUSELAD: 'NewCarouselAd',
+            ImportAdditionalField.UPDATEASSETAUTOMATIONCAMPAIGNSETTING: 'UpdateAssetAutomationCampaignSetting',
+            ImportAdditionalField.ENABLECOPILOT: 'EnableCopilot',
+            ImportAdditionalField.NEWTOPICTARGETS: 'NewTopicTargets',
+            ImportAdditionalField.UPDATETOPICTARGETS: 'UpdateTopicTargets',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in ImportAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in ImportAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

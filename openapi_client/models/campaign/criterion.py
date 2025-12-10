@@ -17,571 +17,188 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.age_criterion import AgeCriterion
-from openapi_client.models.campaign.age_range import AgeRange
-from openapi_client.models.campaign.audience_criterion import AudienceCriterion
-from openapi_client.models.campaign.audience_type import AudienceType
-from openapi_client.models.campaign.day import Day
-from openapi_client.models.campaign.day_time_criterion import DayTimeCriterion
-from openapi_client.models.campaign.deal_criterion import DealCriterion
-from openapi_client.models.campaign.device_criterion import DeviceCriterion
-from openapi_client.models.campaign.distance_unit import DistanceUnit
-from openapi_client.models.campaign.gender_criterion import GenderCriterion
-from openapi_client.models.campaign.gender_type import GenderType
-from openapi_client.models.campaign.genre_criterion import GenreCriterion
-from openapi_client.models.campaign.hotel_advance_booking_window_criterion import HotelAdvanceBookingWindowCriterion
-from openapi_client.models.campaign.hotel_check_in_date_criterion import HotelCheckInDateCriterion
-from openapi_client.models.campaign.hotel_check_in_day_criterion import HotelCheckInDayCriterion
-from openapi_client.models.campaign.hotel_date_selection_type import HotelDateSelectionType
-from openapi_client.models.campaign.hotel_date_selection_type_criterion import HotelDateSelectionTypeCriterion
-from openapi_client.models.campaign.hotel_group import HotelGroup
-from openapi_client.models.campaign.hotel_length_of_stay_criterion import HotelLengthOfStayCriterion
-from openapi_client.models.campaign.hotel_listing import HotelListing
-from openapi_client.models.campaign.hotel_listing_type import HotelListingType
-from openapi_client.models.campaign.intent_option import IntentOption
-from openapi_client.models.campaign.location_criterion import LocationCriterion
-from openapi_client.models.campaign.location_intent_criterion import LocationIntentCriterion
-from openapi_client.models.campaign.minute import Minute
-from openapi_client.models.campaign.placement_criterion import PlacementCriterion
-from openapi_client.models.campaign.product_condition import ProductCondition
-from openapi_client.models.campaign.product_partition import ProductPartition
-from openapi_client.models.campaign.product_partition_type import ProductPartitionType
-from openapi_client.models.campaign.product_scope import ProductScope
-from openapi_client.models.campaign.profile_criterion import ProfileCriterion
-from openapi_client.models.campaign.profile_type import ProfileType
-from openapi_client.models.campaign.radius_criterion import RadiusCriterion
-from openapi_client.models.campaign.store_criterion import StoreCriterion
-from openapi_client.models.campaign.topic_criterion import TopicCriterion
-from openapi_client.models.campaign.webpage import Webpage
-from openapi_client.models.campaign.webpage_parameter import WebpageParameter
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-Criterion_ONE_OF_SCHEMAS = ["AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "TopicCriterion", "Webpage"]
 
 class Criterion(BaseModel):
     """
     Criterion
     """
-    # data type: AgeCriterion
-    oneof_schema_age_criterion_validator: Optional[AgeCriterion] = None
-    # data type: AudienceCriterion
-    oneof_schema_audience_criterion_validator: Optional[AudienceCriterion] = None
-    # data type: DayTimeCriterion
-    oneof_schema_day_time_criterion_validator: Optional[DayTimeCriterion] = None
-    # data type: DealCriterion
-    oneof_schema_deal_criterion_validator: Optional[DealCriterion] = None
-    # data type: DeviceCriterion
-    oneof_schema_device_criterion_validator: Optional[DeviceCriterion] = None
-    # data type: GenderCriterion
-    oneof_schema_gender_criterion_validator: Optional[GenderCriterion] = None
-    # data type: GenreCriterion
-    oneof_schema_genre_criterion_validator: Optional[GenreCriterion] = None
-    # data type: HotelAdvanceBookingWindowCriterion
-    oneof_schema_hotel_advance_booking_window_criterion_validator: Optional[HotelAdvanceBookingWindowCriterion] = None
-    # data type: HotelCheckInDateCriterion
-    oneof_schema_hotel_check_in_date_criterion_validator: Optional[HotelCheckInDateCriterion] = None
-    # data type: HotelCheckInDayCriterion
-    oneof_schema_hotel_check_in_day_criterion_validator: Optional[HotelCheckInDayCriterion] = None
-    # data type: HotelDateSelectionTypeCriterion
-    oneof_schema_hotel_date_selection_type_criterion_validator: Optional[HotelDateSelectionTypeCriterion] = None
-    # data type: HotelGroup
-    oneof_schema_hotel_group_validator: Optional[HotelGroup] = None
-    # data type: HotelLengthOfStayCriterion
-    oneof_schema_hotel_length_of_stay_criterion_validator: Optional[HotelLengthOfStayCriterion] = None
-    # data type: LocationCriterion
-    oneof_schema_location_criterion_validator: Optional[LocationCriterion] = None
-    # data type: LocationIntentCriterion
-    oneof_schema_location_intent_criterion_validator: Optional[LocationIntentCriterion] = None
-    # data type: PlacementCriterion
-    oneof_schema_placement_criterion_validator: Optional[PlacementCriterion] = None
-    # data type: ProductPartition
-    oneof_schema_product_partition_validator: Optional[ProductPartition] = None
-    # data type: ProductScope
-    oneof_schema_product_scope_validator: Optional[ProductScope] = None
-    # data type: ProfileCriterion
-    oneof_schema_profile_criterion_validator: Optional[ProfileCriterion] = None
-    # data type: RadiusCriterion
-    oneof_schema_radius_criterion_validator: Optional[RadiusCriterion] = None
-    # data type: StoreCriterion
-    oneof_schema_store_criterion_validator: Optional[StoreCriterion] = None
-    # data type: TopicCriterion
-    oneof_schema_topic_criterion_validator: Optional[TopicCriterion] = None
-    # data type: Webpage
-    oneof_schema_webpage_validator: Optional[Webpage] = None
-    actual_instance: Optional[Union[AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage]] = None
-    one_of_schemas: Set[str] = { "AgeCriterion", "AudienceCriterion", "DayTimeCriterion", "DealCriterion", "DeviceCriterion", "GenderCriterion", "GenreCriterion", "HotelAdvanceBookingWindowCriterion", "HotelCheckInDateCriterion", "HotelCheckInDayCriterion", "HotelDateSelectionTypeCriterion", "HotelGroup", "HotelLengthOfStayCriterion", "LocationCriterion", "LocationIntentCriterion", "PlacementCriterion", "ProductPartition", "ProductScope", "ProfileCriterion", "RadiusCriterion", "StoreCriterion", "TopicCriterion", "Webpage" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AgeCriterion', 'AgeCriterion'),
+                ('AudienceCriterion', 'AudienceCriterion'),
+                ('DayTimeCriterion', 'DayTimeCriterion'),
+                ('DealCriterion', 'DealCriterion'),
+                ('DeviceCriterion', 'DeviceCriterion'),
+                ('GenderCriterion', 'GenderCriterion'),
+                ('GenreCriterion', 'GenreCriterion'),
+                ('HotelAdvanceBookingWindowCriterion', 'HotelAdvanceBookingWindowCriterion'),
+                ('HotelCheckInDateCriterion', 'HotelCheckInDateCriterion'),
+                ('HotelCheckInDayCriterion', 'HotelCheckInDayCriterion'),
+                ('HotelDateSelectionTypeCriterion', 'HotelDateSelectionTypeCriterion'),
+                ('HotelGroup', 'HotelGroup'),
+                ('HotelLengthOfStayCriterion', 'HotelLengthOfStayCriterion'),
+                ('LocationCriterion', 'LocationCriterion'),
+                ('LocationIntentCriterion', 'LocationIntentCriterion'),
+                ('PlacementCriterion', 'PlacementCriterion'),
+                ('ProductPartition', 'ProductPartition'),
+                ('ProductScope', 'ProductScope'),
+                ('ProfileCriterion', 'ProfileCriterion'),
+                ('RadiusCriterion', 'RadiusCriterion'),
+                ('StoreCriterion', 'StoreCriterion'),
+                ('TopicCriterion', 'TopicCriterion'),
+                ('Webpage', 'Webpage'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = Criterion.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AgeCriterion
-        if not isinstance(v, AgeCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AgeCriterion`")
-        else:
-            match += 1
-        # validate data type: AudienceCriterion
-        if not isinstance(v, AudienceCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AudienceCriterion`")
-        else:
-            match += 1
-        # validate data type: DayTimeCriterion
-        if not isinstance(v, DayTimeCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DayTimeCriterion`")
-        else:
-            match += 1
-        # validate data type: DealCriterion
-        if not isinstance(v, DealCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DealCriterion`")
-        else:
-            match += 1
-        # validate data type: DeviceCriterion
-        if not isinstance(v, DeviceCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DeviceCriterion`")
-        else:
-            match += 1
-        # validate data type: GenderCriterion
-        if not isinstance(v, GenderCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `GenderCriterion`")
-        else:
-            match += 1
-        # validate data type: GenreCriterion
-        if not isinstance(v, GenreCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `GenreCriterion`")
-        else:
-            match += 1
-        # validate data type: HotelAdvanceBookingWindowCriterion
-        if not isinstance(v, HotelAdvanceBookingWindowCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelAdvanceBookingWindowCriterion`")
-        else:
-            match += 1
-        # validate data type: HotelCheckInDateCriterion
-        if not isinstance(v, HotelCheckInDateCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelCheckInDateCriterion`")
-        else:
-            match += 1
-        # validate data type: HotelCheckInDayCriterion
-        if not isinstance(v, HotelCheckInDayCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelCheckInDayCriterion`")
-        else:
-            match += 1
-        # validate data type: HotelDateSelectionTypeCriterion
-        if not isinstance(v, HotelDateSelectionTypeCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelDateSelectionTypeCriterion`")
-        else:
-            match += 1
-        # validate data type: HotelGroup
-        if not isinstance(v, HotelGroup):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelGroup`")
-        else:
-            match += 1
-        # validate data type: HotelLengthOfStayCriterion
-        if not isinstance(v, HotelLengthOfStayCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelLengthOfStayCriterion`")
-        else:
-            match += 1
-        # validate data type: LocationCriterion
-        if not isinstance(v, LocationCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `LocationCriterion`")
-        else:
-            match += 1
-        # validate data type: LocationIntentCriterion
-        if not isinstance(v, LocationIntentCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `LocationIntentCriterion`")
-        else:
-            match += 1
-        # validate data type: PlacementCriterion
-        if not isinstance(v, PlacementCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PlacementCriterion`")
-        else:
-            match += 1
-        # validate data type: ProductPartition
-        if not isinstance(v, ProductPartition):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductPartition`")
-        else:
-            match += 1
-        # validate data type: ProductScope
-        if not isinstance(v, ProductScope):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductScope`")
-        else:
-            match += 1
-        # validate data type: ProfileCriterion
-        if not isinstance(v, ProfileCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProfileCriterion`")
-        else:
-            match += 1
-        # validate data type: RadiusCriterion
-        if not isinstance(v, RadiusCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `RadiusCriterion`")
-        else:
-            match += 1
-        # validate data type: StoreCriterion
-        if not isinstance(v, StoreCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `StoreCriterion`")
-        else:
-            match += 1
-        # validate data type: TopicCriterion
-        if not isinstance(v, TopicCriterion):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `TopicCriterion`")
-        else:
-            match += 1
-        # validate data type: Webpage
-        if not isinstance(v, Webpage):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `Webpage`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of Criterion from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AgeCriterion`
-        if _data_type == "AgeCriterion":
-            instance.actual_instance = AgeCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `AudienceCriterion`
-        if _data_type == "AudienceCriterion":
-            instance.actual_instance = AudienceCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `DayTimeCriterion`
-        if _data_type == "DayTimeCriterion":
-            instance.actual_instance = DayTimeCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `DealCriterion`
-        if _data_type == "DealCriterion":
-            instance.actual_instance = DealCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `DeviceCriterion`
-        if _data_type == "DeviceCriterion":
-            instance.actual_instance = DeviceCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `GenderCriterion`
-        if _data_type == "GenderCriterion":
-            instance.actual_instance = GenderCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `GenreCriterion`
-        if _data_type == "GenreCriterion":
-            instance.actual_instance = GenreCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelAdvanceBookingWindowCriterion`
-        if _data_type == "HotelAdvanceBookingWindowCriterion":
-            instance.actual_instance = HotelAdvanceBookingWindowCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelCheckInDateCriterion`
-        if _data_type == "HotelCheckInDateCriterion":
-            instance.actual_instance = HotelCheckInDateCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelCheckInDayCriterion`
-        if _data_type == "HotelCheckInDayCriterion":
-            instance.actual_instance = HotelCheckInDayCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelDateSelectionTypeCriterion`
-        if _data_type == "HotelDateSelectionTypeCriterion":
-            instance.actual_instance = HotelDateSelectionTypeCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelGroup`
-        if _data_type == "HotelGroup":
-            instance.actual_instance = HotelGroup.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelLengthOfStayCriterion`
-        if _data_type == "HotelLengthOfStayCriterion":
-            instance.actual_instance = HotelLengthOfStayCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `LocationCriterion`
-        if _data_type == "LocationCriterion":
-            instance.actual_instance = LocationCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `LocationIntentCriterion`
-        if _data_type == "LocationIntentCriterion":
-            instance.actual_instance = LocationIntentCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `PlacementCriterion`
-        if _data_type == "PlacementCriterion":
-            instance.actual_instance = PlacementCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductPartition`
-        if _data_type == "ProductPartition":
-            instance.actual_instance = ProductPartition.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductScope`
-        if _data_type == "ProductScope":
-            instance.actual_instance = ProductScope.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProfileCriterion`
-        if _data_type == "ProfileCriterion":
-            instance.actual_instance = ProfileCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `RadiusCriterion`
-        if _data_type == "RadiusCriterion":
-            instance.actual_instance = RadiusCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `StoreCriterion`
-        if _data_type == "StoreCriterion":
-            instance.actual_instance = StoreCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `TopicCriterion`
-        if _data_type == "TopicCriterion":
-            instance.actual_instance = TopicCriterion.from_json(json_str)
-            return instance
-			
-		# check if data type is `Webpage`
-        if _data_type == "Webpage":
-            instance.actual_instance = Webpage.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AgeCriterion
-        try:
-            instance.actual_instance = AgeCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AudienceCriterion
-        try:
-            instance.actual_instance = AudienceCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DayTimeCriterion
-        try:
-            instance.actual_instance = DayTimeCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DealCriterion
-        try:
-            instance.actual_instance = DealCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DeviceCriterion
-        try:
-            instance.actual_instance = DeviceCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into GenderCriterion
-        try:
-            instance.actual_instance = GenderCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into GenreCriterion
-        try:
-            instance.actual_instance = GenreCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelAdvanceBookingWindowCriterion
-        try:
-            instance.actual_instance = HotelAdvanceBookingWindowCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelCheckInDateCriterion
-        try:
-            instance.actual_instance = HotelCheckInDateCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelCheckInDayCriterion
-        try:
-            instance.actual_instance = HotelCheckInDayCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelDateSelectionTypeCriterion
-        try:
-            instance.actual_instance = HotelDateSelectionTypeCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelGroup
-        try:
-            instance.actual_instance = HotelGroup.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelLengthOfStayCriterion
-        try:
-            instance.actual_instance = HotelLengthOfStayCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into LocationCriterion
-        try:
-            instance.actual_instance = LocationCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into LocationIntentCriterion
-        try:
-            instance.actual_instance = LocationIntentCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PlacementCriterion
-        try:
-            instance.actual_instance = PlacementCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductPartition
-        try:
-            instance.actual_instance = ProductPartition.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductScope
-        try:
-            instance.actual_instance = ProductScope.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProfileCriterion
-        try:
-            instance.actual_instance = ProfileCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into RadiusCriterion
-        try:
-            instance.actual_instance = RadiusCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into StoreCriterion
-        try:
-            instance.actual_instance = StoreCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into TopicCriterion
-        try:
-            instance.actual_instance = TopicCriterion.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into Webpage
-        try:
-            instance.actual_instance = Webpage.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into Criterion with oneOf schemas: AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AgeCriterion, AudienceCriterion, DayTimeCriterion, DealCriterion, DeviceCriterion, GenderCriterion, GenreCriterion, HotelAdvanceBookingWindowCriterion, HotelCheckInDateCriterion, HotelCheckInDayCriterion, HotelDateSelectionTypeCriterion, HotelGroup, HotelLengthOfStayCriterion, LocationCriterion, LocationIntentCriterion, PlacementCriterion, ProductPartition, ProductScope, ProfileCriterion, RadiusCriterion, StoreCriterion, TopicCriterion, Webpage]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of Criterion from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_age_criterion_validator', 'oneof_schema_audience_criterion_validator', 'oneof_schema_day_time_criterion_validator', 'oneof_schema_deal_criterion_validator', 'oneof_schema_device_criterion_validator', 'oneof_schema_gender_criterion_validator', 'oneof_schema_genre_criterion_validator', 'oneof_schema_hotel_advance_booking_window_criterion_validator', 'oneof_schema_hotel_check_in_date_criterion_validator', 'oneof_schema_hotel_check_in_day_criterion_validator', 'oneof_schema_hotel_date_selection_type_criterion_validator', 'oneof_schema_hotel_group_validator', 'oneof_schema_hotel_length_of_stay_criterion_validator', 'oneof_schema_location_criterion_validator', 'oneof_schema_location_intent_criterion_validator', 'oneof_schema_placement_criterion_validator', 'oneof_schema_product_partition_validator', 'oneof_schema_product_scope_validator', 'oneof_schema_profile_criterion_validator', 'oneof_schema_radius_criterion_validator', 'oneof_schema_store_criterion_validator', 'oneof_schema_topic_criterion_validator', 'oneof_schema_webpage_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AgeCriterion":
+            from openapi_client.models.campaign.age_criterion import AgeCriterion
+            return AgeCriterion.from_dict(obj)
+        
+        if type == "AudienceCriterion":
+            from openapi_client.models.campaign.audience_criterion import AudienceCriterion
+            return AudienceCriterion.from_dict(obj)
+        
+        if type == "DayTimeCriterion":
+            from openapi_client.models.campaign.day_time_criterion import DayTimeCriterion
+            return DayTimeCriterion.from_dict(obj)
+        
+        if type == "DealCriterion":
+            from openapi_client.models.campaign.deal_criterion import DealCriterion
+            return DealCriterion.from_dict(obj)
+        
+        if type == "DeviceCriterion":
+            from openapi_client.models.campaign.device_criterion import DeviceCriterion
+            return DeviceCriterion.from_dict(obj)
+        
+        if type == "GenderCriterion":
+            from openapi_client.models.campaign.gender_criterion import GenderCriterion
+            return GenderCriterion.from_dict(obj)
+        
+        if type == "GenreCriterion":
+            from openapi_client.models.campaign.genre_criterion import GenreCriterion
+            return GenreCriterion.from_dict(obj)
+        
+        if type == "HotelAdvanceBookingWindowCriterion":
+            from openapi_client.models.campaign.hotel_advance_booking_window_criterion import HotelAdvanceBookingWindowCriterion
+            return HotelAdvanceBookingWindowCriterion.from_dict(obj)
+        
+        if type == "HotelCheckInDateCriterion":
+            from openapi_client.models.campaign.hotel_check_in_date_criterion import HotelCheckInDateCriterion
+            return HotelCheckInDateCriterion.from_dict(obj)
+        
+        if type == "HotelCheckInDayCriterion":
+            from openapi_client.models.campaign.hotel_check_in_day_criterion import HotelCheckInDayCriterion
+            return HotelCheckInDayCriterion.from_dict(obj)
+        
+        if type == "HotelDateSelectionTypeCriterion":
+            from openapi_client.models.campaign.hotel_date_selection_type_criterion import HotelDateSelectionTypeCriterion
+            return HotelDateSelectionTypeCriterion.from_dict(obj)
+        
+        if type == "HotelGroup":
+            from openapi_client.models.campaign.hotel_group import HotelGroup
+            return HotelGroup.from_dict(obj)
+        
+        if type == "HotelLengthOfStayCriterion":
+            from openapi_client.models.campaign.hotel_length_of_stay_criterion import HotelLengthOfStayCriterion
+            return HotelLengthOfStayCriterion.from_dict(obj)
+        
+        if type == "LocationCriterion":
+            from openapi_client.models.campaign.location_criterion import LocationCriterion
+            return LocationCriterion.from_dict(obj)
+        
+        if type == "LocationIntentCriterion":
+            from openapi_client.models.campaign.location_intent_criterion import LocationIntentCriterion
+            return LocationIntentCriterion.from_dict(obj)
+        
+        if type == "PlacementCriterion":
+            from openapi_client.models.campaign.placement_criterion import PlacementCriterion
+            return PlacementCriterion.from_dict(obj)
+        
+        if type == "ProductPartition":
+            from openapi_client.models.campaign.product_partition import ProductPartition
+            return ProductPartition.from_dict(obj)
+        
+        if type == "ProductScope":
+            from openapi_client.models.campaign.product_scope import ProductScope
+            return ProductScope.from_dict(obj)
+        
+        if type == "ProfileCriterion":
+            from openapi_client.models.campaign.profile_criterion import ProfileCriterion
+            return ProfileCriterion.from_dict(obj)
+        
+        if type == "RadiusCriterion":
+            from openapi_client.models.campaign.radius_criterion import RadiusCriterion
+            return RadiusCriterion.from_dict(obj)
+        
+        if type == "StoreCriterion":
+            from openapi_client.models.campaign.store_criterion import StoreCriterion
+            return StoreCriterion.from_dict(obj)
+        
+        if type == "TopicCriterion":
+            from openapi_client.models.campaign.topic_criterion import TopicCriterion
+            return TopicCriterion.from_dict(obj)
+        
+        if type == "Webpage":
+            from openapi_client.models.campaign.webpage import Webpage
+            return Webpage.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

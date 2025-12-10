@@ -26,20 +26,20 @@ from openapi_client.models.campaign.criterion_bid import CriterionBid
 from openapi_client.models.campaign.criterion_cashback import CriterionCashback
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class BiddableCampaignCriterion(BaseModel):
+from openapi_client.models.campaign.campaign_criterion import CampaignCriterion
+class BiddableCampaignCriterion(CampaignCriterion):
     """
     BiddableCampaignCriterion
     """ # noqa: E501
-    criterion_bid: Optional[CriterionBid] = Field(default=None, alias="CriterionBid")
-    criterion_cashback: Optional[CriterionCashback] = Field(default=None, alias="CriterionCashback")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     status: Optional[CampaignCriterionStatus] = Field(default=None, alias="Status")
-    type: Optional[StrictStr] = Field(default='BiddableCampaignCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["CriterionBid", "CriterionCashback", "Id", "CampaignId", "Criterion", "ForwardCompatibilityMap", "Status", "Type"]
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    criterion_bid: Optional[CriterionBid] = Field(default=None, alias="CriterionBid")
+    criterion_cashback: Optional[CriterionCashback] = Field(default=None, alias="CriterionCashback")
+    __properties: ClassVar[List[str]] = ["Id", "CampaignId", "Criterion", "ForwardCompatibilityMap", "Status", "Type", "CriterionBid", "CriterionCashback"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -47,6 +47,9 @@ class BiddableCampaignCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -76,12 +79,6 @@ class BiddableCampaignCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of criterion_bid
-        if self.criterion_bid:
-            _dict['CriterionBid'] = self.criterion_bid.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of criterion_cashback
-        if self.criterion_cashback:
-            _dict['CriterionCashback'] = self.criterion_cashback.to_dict()
         # override the default output from pydantic by calling `to_dict()` of criterion
         if self.criterion:
             _dict['Criterion'] = self.criterion.to_dict()
@@ -92,16 +89,12 @@ class BiddableCampaignCriterion(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if criterion_bid (nullable) is None
-        # and model_fields_set contains the field
-        if self.criterion_bid is None and "criterion_bid" in self.model_fields_set:
-            _dict['CriterionBid'] = None
-
-        # set to None if criterion_cashback (nullable) is None
-        # and model_fields_set contains the field
-        if self.criterion_cashback is None and "criterion_cashback" in self.model_fields_set:
-            _dict['CriterionCashback'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of criterion_bid
+        if self.criterion_bid:
+            _dict['CriterionBid'] = self.criterion_bid.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of criterion_cashback
+        if self.criterion_cashback:
+            _dict['CriterionCashback'] = self.criterion_cashback.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -132,6 +125,16 @@ class BiddableCampaignCriterion(BaseModel):
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
+        # set to None if criterion_bid (nullable) is None
+        # and model_fields_set contains the field
+        if self.criterion_bid is None and "criterion_bid" in self.model_fields_set:
+            _dict['CriterionBid'] = None
+
+        # set to None if criterion_cashback (nullable) is None
+        # and model_fields_set contains the field
+        if self.criterion_cashback is None and "criterion_cashback" in self.model_fields_set:
+            _dict['CriterionCashback'] = None
+
         return _dict
 
     @classmethod
@@ -144,13 +147,13 @@ class BiddableCampaignCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CriterionBid": CriterionBid.from_dict(obj["CriterionBid"]) if obj.get("CriterionBid") is not None else None,
-                        "CriterionCashback": CriterionCashback.from_dict(obj["CriterionCashback"]) if obj.get("CriterionCashback") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'BiddableCampaignCriterion'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "CriterionBid": CriterionBid.from_dict(obj["CriterionBid"]) if obj.get("CriterionBid") is not None else None,
+                        "CriterionCashback": CriterionCashback.from_dict(obj["CriterionCashback"]) if obj.get("CriterionCashback") is not None else None
         })
         return _obj

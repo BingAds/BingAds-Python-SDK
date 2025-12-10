@@ -22,21 +22,18 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_editorial_status import AdEditorialStatus
 from openapi_client.models.campaign.ad_status import AdStatus
+from openapi_client.models.campaign.ad_type import AdType
 from openapi_client.models.campaign.app_url import AppUrl
 from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class TextAd(BaseModel):
+from openapi_client.models.campaign.ad import Ad
+class TextAd(Ad):
     """
     TextAd
     """ # noqa: E501
-    destination_url: Optional[StrictStr] = Field(default=None, alias="DestinationUrl")
-    title: Optional[StrictStr] = Field(default=None, alias="Title")
-    text: Optional[StrictStr] = Field(default=None, alias="Text")
-    display_url: Optional[StrictStr] = Field(default=None, alias="DisplayUrl")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='Text', alias="Type")
+    type: Optional[AdType] = Field(default=None, alias="Type")
     status: Optional[AdStatus] = Field(default=None, alias="Status")
     editorial_status: Optional[AdEditorialStatus] = Field(default=None, alias="EditorialStatus")
     device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
@@ -48,7 +45,11 @@ class TextAd(BaseModel):
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["DestinationUrl", "Title", "Text", "DisplayUrl", "Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap"]
+    destination_url: Optional[StrictStr] = Field(default=None, alias="DestinationUrl")
+    title: Optional[StrictStr] = Field(default=None, alias="Title")
+    text: Optional[StrictStr] = Field(default=None, alias="Text")
+    display_url: Optional[StrictStr] = Field(default=None, alias="DisplayUrl")
+    __properties: ClassVar[List[str]] = ["Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap", "DestinationUrl", "Title", "Text", "DisplayUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,6 +57,9 @@ class TextAd(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -102,26 +106,6 @@ class TextAd(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if destination_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.destination_url is None and "destination_url" in self.model_fields_set:
-            _dict['DestinationUrl'] = None
-
-        # set to None if title (nullable) is None
-        # and model_fields_set contains the field
-        if self.title is None and "title" in self.model_fields_set:
-            _dict['Title'] = None
-
-        # set to None if text (nullable) is None
-        # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['Text'] = None
-
-        # set to None if display_url (nullable) is None
-        # and model_fields_set contains the field
-        if self.display_url is None and "display_url" in self.model_fields_set:
-            _dict['DisplayUrl'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -187,6 +171,26 @@ class TextAd(BaseModel):
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
 
+        # set to None if destination_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.destination_url is None and "destination_url" in self.model_fields_set:
+            _dict['DestinationUrl'] = None
+
+        # set to None if title (nullable) is None
+        # and model_fields_set contains the field
+        if self.title is None and "title" in self.model_fields_set:
+            _dict['Title'] = None
+
+        # set to None if text (nullable) is None
+        # and model_fields_set contains the field
+        if self.text is None and "text" in self.model_fields_set:
+            _dict['Text'] = None
+
+        # set to None if display_url (nullable) is None
+        # and model_fields_set contains the field
+        if self.display_url is None and "display_url" in self.model_fields_set:
+            _dict['DisplayUrl'] = None
+
         return _dict
 
     @classmethod
@@ -199,12 +203,8 @@ class TextAd(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
-                        "Title": obj.get("Title") if obj.get("Title") is not None else None,
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
-                        "DisplayUrl": obj.get("DisplayUrl") if obj.get("DisplayUrl") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Text',
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
@@ -215,6 +215,10 @@ class TextAd(BaseModel):
                         "FinalUrls": obj.get("FinalUrls"),
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
+                        "Title": obj.get("Title") if obj.get("Title") is not None else None,
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "DisplayUrl": obj.get("DisplayUrl") if obj.get("DisplayUrl") is not None else None
         })
         return _obj

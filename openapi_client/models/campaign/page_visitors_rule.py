@@ -23,12 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.normal_form import NormalForm
 from openapi_client.models.campaign.rule_item_group import RuleItemGroup
 from typing_extensions import Self
-
-class PageVisitorsRule(BaseModel):
+from openapi_client.models.campaign.remarketing_rule import RemarketingRule
+class PageVisitorsRule(RemarketingRule):
     """
     PageVisitorsRule
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='PageVisitors', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     rule_item_groups: Optional[List[Optional[RuleItemGroup]]] = Field(default=None, alias="RuleItemGroups")
     normal_form: Optional[NormalForm] = Field(default=None, alias="NormalForm")
     __properties: ClassVar[List[str]] = ["Type", "RuleItemGroups", "NormalForm"]
@@ -39,6 +39,9 @@ class PageVisitorsRule(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -102,7 +105,7 @@ class PageVisitorsRule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'PageVisitors',
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "RuleItemGroups": [RuleItemGroup.from_dict(_item) for _item in obj["RuleItemGroups"]] if obj.get("RuleItemGroups") is not None else None,
                         "NormalForm": obj.get("NormalForm") if obj.get("NormalForm") is not None else None
         })

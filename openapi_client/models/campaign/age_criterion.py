@@ -22,14 +22,14 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.age_range import AgeRange
 from typing_extensions import Self
-
-class AgeCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class AgeCriterion(Criterion):
     """
     AgeCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     age_range: Optional[AgeRange] = Field(default=None, alias="AgeRange")
-    type: Optional[StrictStr] = Field(default='AgeCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["AgeRange", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "AgeRange"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class AgeCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,15 +69,15 @@ class AgeCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if age_range (nullable) is None
-        # and model_fields_set contains the field
-        if self.age_range is None and "age_range" in self.model_fields_set:
-            _dict['AgeRange'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if age_range (nullable) is None
+        # and model_fields_set contains the field
+        if self.age_range is None and "age_range" in self.model_fields_set:
+            _dict['AgeRange'] = None
 
         return _dict
 
@@ -88,7 +91,7 @@ class AgeCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AgeRange": obj.get("AgeRange") if obj.get("AgeRange") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'AgeCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "AgeRange": obj.get("AgeRange") if obj.get("AgeRange") is not None else None
         })
         return _obj

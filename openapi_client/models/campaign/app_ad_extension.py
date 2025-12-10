@@ -26,11 +26,17 @@ from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class AppAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class AppAdExtension(AdExtension):
     """
     AppAdExtension
     """ # noqa: E501
+    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
+    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    version: Optional[StrictInt] = Field(default=None, alias="Version")
     app_platform: Optional[StrictStr] = Field(default=None, alias="AppPlatform")
     app_store_id: Optional[StrictStr] = Field(default=None, alias="AppStoreId")
     display_text: Optional[StrictStr] = Field(default=None, alias="DisplayText")
@@ -41,14 +47,8 @@ class AppAdExtension(BaseModel):
     final_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalUrls")
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
-    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
-    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='AppAdExtension', alias="Type")
-    version: Optional[StrictInt] = Field(default=None, alias="Version")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["AppPlatform", "AppStoreId", "DisplayText", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "AppPlatform", "AppStoreId", "DisplayText", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,6 +56,9 @@ class AppAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -85,6 +88,9 @@ class AppAdExtension(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of scheduling
+        if self.scheduling:
+            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of url_custom_parameters
         if self.url_custom_parameters:
             _dict['UrlCustomParameters'] = self.url_custom_parameters.to_dict()
@@ -95,9 +101,6 @@ class AppAdExtension(BaseModel):
                 if _item_final_app_urls:
                     _items.append(_item_final_app_urls.to_dict())
             _dict['FinalAppUrls'] = _items
-        # override the default output from pydantic by calling `to_dict()` of scheduling
-        if self.scheduling:
-            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
         _items = []
         if self.forward_compatibility_map:
@@ -105,6 +108,36 @@ class AppAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['Status'] = None
+
+        # set to None if scheduling (nullable) is None
+        # and model_fields_set contains the field
+        if self.scheduling is None and "scheduling" in self.model_fields_set:
+            _dict['Scheduling'] = None
+
+        # set to None if device_preference (nullable) is None
+        # and model_fields_set contains the field
+        if self.device_preference is None and "device_preference" in self.model_fields_set:
+            _dict['DevicePreference'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if version (nullable) is None
+        # and model_fields_set contains the field
+        if self.version is None and "version" in self.model_fields_set:
+            _dict['Version'] = None
+
         # set to None if app_platform (nullable) is None
         # and model_fields_set contains the field
         if self.app_platform is None and "app_platform" in self.model_fields_set:
@@ -155,36 +188,6 @@ class AppAdExtension(BaseModel):
         if self.final_app_urls is None and "final_app_urls" in self.model_fields_set:
             _dict['FinalAppUrls'] = None
 
-        # set to None if status (nullable) is None
-        # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['Status'] = None
-
-        # set to None if scheduling (nullable) is None
-        # and model_fields_set contains the field
-        if self.scheduling is None and "scheduling" in self.model_fields_set:
-            _dict['Scheduling'] = None
-
-        # set to None if device_preference (nullable) is None
-        # and model_fields_set contains the field
-        if self.device_preference is None and "device_preference" in self.model_fields_set:
-            _dict['DevicePreference'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
-        # set to None if version (nullable) is None
-        # and model_fields_set contains the field
-        if self.version is None and "version" in self.model_fields_set:
-            _dict['Version'] = None
-
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -202,7 +205,13 @@ class AppAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AppPlatform": obj.get("AppPlatform") if obj.get("AppPlatform") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "AppPlatform": obj.get("AppPlatform") if obj.get("AppPlatform") is not None else None,
                         "AppStoreId": obj.get("AppStoreId") if obj.get("AppStoreId") is not None else None,
                         "DisplayText": obj.get("DisplayText") if obj.get("DisplayText") is not None else None,
                         "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
@@ -212,12 +221,6 @@ class AppAdExtension(BaseModel):
                         "FinalUrls": obj.get("FinalUrls"),
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'AppAdExtension',
-                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

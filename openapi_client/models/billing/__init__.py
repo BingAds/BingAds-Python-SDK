@@ -22,6 +22,7 @@ from openapi_client.models.billing.add_insertion_order_response import AddInsert
 from openapi_client.models.billing.api_batch_fault import ApiBatchFault
 from openapi_client.models.billing.api_fault import ApiFault
 from openapi_client.models.billing.application_fault import ApplicationFault
+from openapi_client.models.billing.application_fault_base import ApplicationFaultBase
 from openapi_client.models.billing.batch_error import BatchError
 from openapi_client.models.billing.billing_document import BillingDocument
 from openapi_client.models.billing.billing_document_info import BillingDocumentInfo
@@ -36,6 +37,8 @@ from openapi_client.models.billing.coupon_redemption import CouponRedemption
 from openapi_client.models.billing.data_type import DataType
 from openapi_client.models.billing.dispatch_coupons_request import DispatchCouponsRequest
 from openapi_client.models.billing.dispatch_coupons_response import DispatchCouponsResponse
+from openapi_client.models.billing.distribute_coupons_request import DistributeCouponsRequest
+from openapi_client.models.billing.distribute_coupons_response import DistributeCouponsResponse
 from openapi_client.models.billing.get_account_monthly_spend_request import GetAccountMonthlySpendRequest
 from openapi_client.models.billing.get_account_monthly_spend_response import GetAccountMonthlySpendResponse
 from openapi_client.models.billing.get_billing_documents_info_request import GetBillingDocumentsInfoRequest

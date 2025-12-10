@@ -23,6 +23,7 @@ from openapi_client.models.bulk.ad_center_internal_error_fault import AdCenterIn
 from openapi_client.models.bulk.ad_center_system_fault import AdCenterSystemFault
 from openapi_client.models.bulk.api_fault_detail import ApiFaultDetail
 from openapi_client.models.bulk.application_fault import ApplicationFault
+from openapi_client.models.bulk.application_fault_base import ApplicationFaultBase
 from openapi_client.models.bulk.authentication_fault_code import AuthenticationFaultCode
 from openapi_client.models.bulk.batch_error import BatchError
 from openapi_client.models.bulk.batch_error_base import BatchErrorBase

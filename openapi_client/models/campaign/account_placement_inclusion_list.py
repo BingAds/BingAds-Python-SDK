@@ -22,15 +22,15 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class AccountPlacementInclusionList(BaseModel):
+from openapi_client.models.campaign.shared_list import SharedList
+class AccountPlacementInclusionList(SharedList):
     """
     AccountPlacementInclusionList
     """ # noqa: E501
     item_count: Optional[StrictInt] = Field(default=None, alias="ItemCount")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
-    type: Optional[StrictStr] = Field(default='AccountPlacementInclusionList', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     association_count: Optional[StrictInt] = Field(default=None, alias="AssociationCount")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     __properties: ClassVar[List[str]] = ["ItemCount", "Id", "Name", "Type", "AssociationCount", "ForwardCompatibilityMap"]
@@ -41,6 +41,9 @@ class AccountPlacementInclusionList(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -122,7 +125,7 @@ class AccountPlacementInclusionList(BaseModel):
             "ItemCount": obj.get("ItemCount") if obj.get("ItemCount") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'AccountPlacementInclusionList',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })

@@ -22,18 +22,18 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.distance_unit import DistanceUnit
 from typing_extensions import Self
-
-class RadiusCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class RadiusCriterion(Criterion):
     """
     RadiusCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     radius: Optional[StrictStr] = Field(default=None, alias="Radius")
     radius_unit: Optional[DistanceUnit] = Field(default=None, alias="RadiusUnit")
     latitude_degrees: Optional[StrictFloat] = Field(default=None, alias="LatitudeDegrees")
     longitude_degrees: Optional[StrictFloat] = Field(default=None, alias="LongitudeDegrees")
-    type: Optional[StrictStr] = Field(default='RadiusCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["Name", "Radius", "RadiusUnit", "LatitudeDegrees", "LongitudeDegrees", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Name", "Radius", "RadiusUnit", "LatitudeDegrees", "LongitudeDegrees"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -41,6 +41,9 @@ class RadiusCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -70,6 +73,11 @@ class RadiusCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -95,11 +103,6 @@ class RadiusCriterion(BaseModel):
         if self.longitude_degrees is None and "longitude_degrees" in self.model_fields_set:
             _dict['LongitudeDegrees'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -112,11 +115,11 @@ class RadiusCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Radius": obj.get("Radius") if obj.get("Radius") is not None else None,
                         "RadiusUnit": obj.get("RadiusUnit") if obj.get("RadiusUnit") is not None else None,
                         "LatitudeDegrees": obj.get("LatitudeDegrees") if obj.get("LatitudeDegrees") is not None else None,
-                        "LongitudeDegrees": obj.get("LongitudeDegrees") if obj.get("LongitudeDegrees") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'RadiusCriterion'
+                        "LongitudeDegrees": obj.get("LongitudeDegrees") if obj.get("LongitudeDegrees") is not None else None
         })
         return _obj

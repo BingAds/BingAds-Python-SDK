@@ -22,12 +22,12 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.number_operator import NumberOperator
 from typing_extensions import Self
-
-class NumberRuleItem(BaseModel):
+from openapi_client.models.campaign.rule_item import RuleItem
+class NumberRuleItem(RuleItem):
     """
     NumberRuleItem
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='Number', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     operand: Optional[StrictStr] = Field(default=None, alias="Operand")
     operator: Optional[NumberOperator] = Field(default=None, alias="Operator")
     value: Optional[StrictStr] = Field(default=None, alias="Value")
@@ -39,6 +39,9 @@ class NumberRuleItem(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -100,7 +103,7 @@ class NumberRuleItem(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'Number',
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Operand": obj.get("Operand") if obj.get("Operand") is not None else None,
                         "Operator": obj.get("Operator") if obj.get("Operator") is not None else None,
                         "Value": obj.get("Value") if obj.get("Value") is not None else None

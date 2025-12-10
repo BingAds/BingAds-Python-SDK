@@ -20,29 +20,30 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.audience_type import AudienceType
 from openapi_client.models.campaign.customer_share import CustomerShare
 from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class SimilarRemarketingList(BaseModel):
+from openapi_client.models.campaign.audience import Audience
+class SimilarRemarketingList(Audience):
     """
     SimilarRemarketingList
     """ # noqa: E501
-    source_id: Optional[StrictStr] = Field(default=None, alias="SourceId")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     parent_id: Optional[StrictStr] = Field(default=None, alias="ParentId")
     membership_duration: Optional[StrictInt] = Field(default=None, alias="MembershipDuration")
-    type: Optional[StrictStr] = Field(default='SimilarRemarketingList', alias="Type")
+    type: Optional[AudienceType] = Field(default=None, alias="Type")
     search_size: Optional[StrictStr] = Field(default=None, alias="SearchSize")
     audience_network_size: Optional[StrictStr] = Field(default=None, alias="AudienceNetworkSize")
     supported_campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="SupportedCampaignTypes")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["SourceId", "Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap"]
+    source_id: Optional[StrictStr] = Field(default=None, alias="SourceId")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap", "SourceId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -50,6 +51,9 @@ class SimilarRemarketingList(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -89,11 +93,6 @@ class SimilarRemarketingList(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if source_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.source_id is None and "source_id" in self.model_fields_set:
-            _dict['SourceId'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -154,6 +153,11 @@ class SimilarRemarketingList(BaseModel):
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
 
+        # set to None if source_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.source_id is None and "source_id" in self.model_fields_set:
+            _dict['SourceId'] = None
+
         return _dict
 
     @classmethod
@@ -166,18 +170,18 @@ class SimilarRemarketingList(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "SourceId": obj.get("SourceId") if obj.get("SourceId") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "ParentId": obj.get("ParentId") if obj.get("ParentId") is not None else None,
                         "MembershipDuration": obj.get("MembershipDuration") if obj.get("MembershipDuration") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'SimilarRemarketingList',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "SearchSize": obj.get("SearchSize") if obj.get("SearchSize") is not None else None,
                         "AudienceNetworkSize": obj.get("AudienceNetworkSize") if obj.get("AudienceNetworkSize") is not None else None,
                         "SupportedCampaignTypes": obj.get("SupportedCampaignTypes"),
                         "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "SourceId": obj.get("SourceId") if obj.get("SourceId") is not None else None
         })
         return _obj

@@ -25,6 +25,7 @@ from openapi_client.models.campaign.budget_limit_type import BudgetLimitType
 from openapi_client.models.campaign.campaign_status import CampaignStatus
 from openapi_client.models.campaign.campaign_type import CampaignType
 from openapi_client.models.campaign.custom_parameters import CustomParameters
+from openapi_client.models.campaign.entity_scope import EntityScope
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.setting import Setting
 from typing_extensions import Self
@@ -52,6 +53,7 @@ class Campaign(BaseModel):
     experiment_id: Optional[StrictStr] = Field(default=None, alias="ExperimentId")
     ad_schedule_use_searcher_time_zone: Optional[StrictBool] = Field(default=None, alias="AdScheduleUseSearcherTimeZone")
     bid_strategy_id: Optional[StrictStr] = Field(default=None, alias="BidStrategyId")
+    bid_strategy_scope: Optional[EntityScope] = Field(default=None, alias="BidStrategyScope")
     multimedia_ads_bid_adjustment: Optional[StrictInt] = Field(default=None, alias="MultimediaAdsBidAdjustment")
     goal_ids: Optional[List[StrictStr]] = Field(default=None, alias="GoalIds")
     deal_ids: Optional[List[StrictStr]] = Field(default=None, alias="DealIds")
@@ -59,8 +61,9 @@ class Campaign(BaseModel):
     start_date: Optional[datetime] = Field(default=None, alias="StartDate")
     end_date: Optional[datetime] = Field(default=None, alias="EndDate")
     use_campaign_level_dates: Optional[StrictBool] = Field(default=None, alias="UseCampaignLevelDates")
+    is_political: Optional[StrictBool] = Field(default=None, alias="IsPolitical")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "BidStrategyScope", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "IsPolitical", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -202,6 +205,11 @@ class Campaign(BaseModel):
         if self.bid_strategy_id is None and "bid_strategy_id" in self.model_fields_set:
             _dict['BidStrategyId'] = None
 
+        # set to None if bid_strategy_scope (nullable) is None
+        # and model_fields_set contains the field
+        if self.bid_strategy_scope is None and "bid_strategy_scope" in self.model_fields_set:
+            _dict['BidStrategyScope'] = None
+
         # set to None if multimedia_ads_bid_adjustment (nullable) is None
         # and model_fields_set contains the field
         if self.multimedia_ads_bid_adjustment is None and "multimedia_ads_bid_adjustment" in self.model_fields_set:
@@ -236,6 +244,11 @@ class Campaign(BaseModel):
         # and model_fields_set contains the field
         if self.use_campaign_level_dates is None and "use_campaign_level_dates" in self.model_fields_set:
             _dict['UseCampaignLevelDates'] = None
+
+        # set to None if is_political (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_political is None and "is_political" in self.model_fields_set:
+            _dict['IsPolitical'] = None
 
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
@@ -273,6 +286,7 @@ class Campaign(BaseModel):
                         "ExperimentId": obj.get("ExperimentId") if obj.get("ExperimentId") is not None else None,
                         "AdScheduleUseSearcherTimeZone": obj.get("AdScheduleUseSearcherTimeZone") if obj.get("AdScheduleUseSearcherTimeZone") is not None else None,
                         "BidStrategyId": obj.get("BidStrategyId") if obj.get("BidStrategyId") is not None else None,
+                        "BidStrategyScope": obj.get("BidStrategyScope") if obj.get("BidStrategyScope") is not None else None,
                         "MultimediaAdsBidAdjustment": obj.get("MultimediaAdsBidAdjustment") if obj.get("MultimediaAdsBidAdjustment") is not None else None,
                         "GoalIds": obj.get("GoalIds"),
                         "DealIds": obj.get("DealIds"),
@@ -280,6 +294,7 @@ class Campaign(BaseModel):
                         "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
                         "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
                         "UseCampaignLevelDates": obj.get("UseCampaignLevelDates") if obj.get("UseCampaignLevelDates") is not None else None,
+                        "IsPolitical": obj.get("IsPolitical") if obj.get("IsPolitical") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

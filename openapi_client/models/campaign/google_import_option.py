@@ -23,11 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.import_search_and_replace_for_string_property import ImportSearchAndReplaceForStringProperty
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class GoogleImportOption(BaseModel):
+from openapi_client.models.campaign.import_option import ImportOption
+class GoogleImportOption(ImportOption):
     """
     GoogleImportOption
     """ # noqa: E501
+    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     new_entities: Optional[StrictBool] = Field(default=None, alias="NewEntities")
     new_paused_campaigns_and_child_entities: Optional[StrictBool] = Field(default=None, alias="NewPausedCampaignsAndChildEntities")
     new_active_campaigns_and_child_entities: Optional[StrictBool] = Field(default=None, alias="NewActiveCampaignsAndChildEntities")
@@ -49,6 +51,7 @@ class GoogleImportOption(BaseModel):
     new_device_targets: Optional[StrictBool] = Field(default=None, alias="NewDeviceTargets")
     new_demographic_targets: Optional[StrictBool] = Field(default=None, alias="NewDemographicTargets")
     new_audience_targets: Optional[StrictBool] = Field(default=None, alias="NewAudienceTargets")
+    new_topic_targets: Optional[StrictBool] = Field(default=None, alias="NewTopicTargets")
     new_app_ad_extensions: Optional[StrictBool] = Field(default=None, alias="NewAppAdExtensions")
     new_call_ad_extensions: Optional[StrictBool] = Field(default=None, alias="NewCallAdExtensions")
     new_callout_ad_extensions: Optional[StrictBool] = Field(default=None, alias="NewCalloutAdExtensions")
@@ -84,6 +87,7 @@ class GoogleImportOption(BaseModel):
     update_demographic_targets: Optional[StrictBool] = Field(default=None, alias="UpdateDemographicTargets")
     update_campaign_ad_group_languages: Optional[StrictBool] = Field(default=None, alias="UpdateCampaignAdGroupLanguages")
     update_audience_targets: Optional[StrictBool] = Field(default=None, alias="UpdateAudienceTargets")
+    update_topic_targets: Optional[StrictBool] = Field(default=None, alias="UpdateTopicTargets")
     update_app_ad_extensions: Optional[StrictBool] = Field(default=None, alias="UpdateAppAdExtensions")
     update_call_ad_extensions: Optional[StrictBool] = Field(default=None, alias="UpdateCallAdExtensions")
     update_callout_ad_extensions: Optional[StrictBool] = Field(default=None, alias="UpdateCalloutAdExtensions")
@@ -105,6 +109,7 @@ class GoogleImportOption(BaseModel):
     update_ad_customizer_feeds: Optional[StrictBool] = Field(default=None, alias="UpdateAdCustomizerFeeds")
     update_brand_suitability: Optional[StrictBool] = Field(default=None, alias="UpdateBrandSuitability")
     update_ad_customizer_attributes: Optional[StrictBool] = Field(default=None, alias="UpdateAdCustomizerAttributes")
+    enable_copilot: Optional[StrictBool] = Field(default=None, alias="EnableCopilot")
     delete_removed_entities: Optional[StrictBool] = Field(default=None, alias="DeleteRemovedEntities")
     raise_bids_to_minimum: Optional[StrictBool] = Field(default=None, alias="RaiseBidsToMinimum")
     raise_campaign_budgets_to_minimum: Optional[StrictBool] = Field(default=None, alias="RaiseCampaignBudgetsToMinimum")
@@ -134,9 +139,7 @@ class GoogleImportOption(BaseModel):
     update_ad_urls: Optional[StrictBool] = Field(default=None, alias="UpdateAdUrls")
     update_sitelink_urls: Optional[StrictBool] = Field(default=None, alias="UpdateSitelinkUrls")
     update_asset_automation_campaign_setting: Optional[StrictBool] = Field(default=None, alias="UpdateAssetAutomationCampaignSetting")
-    forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    type: Optional[StrictStr] = Field(default='GoogleImportOption', alias="Type")
-    __properties: ClassVar[List[str]] = ["NewEntities", "NewPausedCampaignsAndChildEntities", "NewActiveCampaignsAndChildEntities", "NewAdGroupsAndChildEntitiesForExistingCampaigns", "NewActiveAdsForExistingAdGroups", "NewKeywordsForExistingAdGroups", "NewNegativeKeywordsForExistingParents", "NewNegativeKeywordLists", "NewAccountNegativeKeywords", "PauseNewCampaigns", "NewKeywordUrls", "NewUrlOptions", "NewNegativeSites", "NewPausedAdsForExistingAdGroups", "NewLabels", "NewProductFilters", "NewLocationTargets", "NewAdSchedules", "NewDeviceTargets", "NewDemographicTargets", "NewAudienceTargets", "NewAppAdExtensions", "NewCallAdExtensions", "NewCalloutAdExtensions", "NewPriceAdExtensions", "NewLocationAdExtensions", "NewReviewAdExtensions", "NewSitelinkAdExtensions", "NewStructuredSnippetAdExtensions", "NewPromotionAdExtensions", "NewImageAdExtensions", "NewLogoAdExtensions", "NewLeadFormAdExtensions", "NewPageFeeds", "NewAdCustomizerFeeds", "NewBrandSuitability", "NewConversionGoals", "NewCarouselAd", "UpdateEntities", "UpdateCampaignBudgets", "UpdateBids", "UpdateNegativeKeywordLists", "UpdateAccountNegativeKeywords", "UpdateNegativeSites", "UpdateKeywordUrls", "UpdateUrlOptions", "UpdateCampaignNames", "UpdateLabels", "UpdateProductFilters", "UpdateConversionGoals", "UpdateLocationTargets", "UpdateAdSchedules", "UpdateDeviceTargets", "UpdateDemographicTargets", "UpdateCampaignAdGroupLanguages", "UpdateAudienceTargets", "UpdateAppAdExtensions", "UpdateCallAdExtensions", "UpdateCalloutAdExtensions", "UpdatePriceAdExtensions", "UpdateLocationAdExtensions", "UpdateReviewAdExtensions", "UpdateSitelinkAdExtensions", "UpdateStructuredSnippetAdExtensions", "UpdatePromotionAdExtensions", "UpdateImageAdExtensions", "UpdateLogoAdExtensions", "UpdateLeadFormAdExtensions", "UpdateStatusForCampaigns", "UpdateStatusForAdGroups", "UpdateStatusForAds", "UpdateStatusForKeywords", "UpdateAdGroupNetwork", "UpdatePageFeeds", "UpdateAdCustomizerFeeds", "UpdateBrandSuitability", "UpdateAdCustomizerAttributes", "DeleteRemovedEntities", "RaiseBidsToMinimum", "RaiseCampaignBudgetsToMinimum", "AdjustmentForCampaignBudgets", "AdjustmentForBids", "SuffixForUrls", "SearchAndReplaceForUrls", "SuffixForTrackingTemplates", "SearchAndReplaceForTrackingTemplates", "SuffixForCampaignNames", "SearchAndReplaceForCampaignNames", "SearchAndReplaceForCustomParameters", "SearchAndReplaceForFinalURLSuffix", "PauseCampaignsWithoutSupportedLocations", "EnableParentLocationMapping", "AssociatedStoreId", "RaiseProductGroupBidsToMinimum", "SearchAndDsaMixedCampaignAsSearchCampaign", "AccountUrlOptions", "EnableAutoCurrencyConversion", "UpdateBiddingStrategies", "AssociatedUetTagId", "AutoDeviceBidOptimization", "AdScheduleUseSearcherTimezone", "PauseAIMAdGroupIfAllAudienceCriterionNotImported", "RenameCampaignNameWithSuffix", "UpdateAdUrls", "UpdateSitelinkUrls", "UpdateAssetAutomationCampaignSetting", "ForwardCompatibilityMap", "Type"]
+    __properties: ClassVar[List[str]] = ["ForwardCompatibilityMap", "Type", "NewEntities", "NewPausedCampaignsAndChildEntities", "NewActiveCampaignsAndChildEntities", "NewAdGroupsAndChildEntitiesForExistingCampaigns", "NewActiveAdsForExistingAdGroups", "NewKeywordsForExistingAdGroups", "NewNegativeKeywordsForExistingParents", "NewNegativeKeywordLists", "NewAccountNegativeKeywords", "PauseNewCampaigns", "NewKeywordUrls", "NewUrlOptions", "NewNegativeSites", "NewPausedAdsForExistingAdGroups", "NewLabels", "NewProductFilters", "NewLocationTargets", "NewAdSchedules", "NewDeviceTargets", "NewDemographicTargets", "NewAudienceTargets", "NewTopicTargets", "NewAppAdExtensions", "NewCallAdExtensions", "NewCalloutAdExtensions", "NewPriceAdExtensions", "NewLocationAdExtensions", "NewReviewAdExtensions", "NewSitelinkAdExtensions", "NewStructuredSnippetAdExtensions", "NewPromotionAdExtensions", "NewImageAdExtensions", "NewLogoAdExtensions", "NewLeadFormAdExtensions", "NewPageFeeds", "NewAdCustomizerFeeds", "NewBrandSuitability", "NewConversionGoals", "NewCarouselAd", "UpdateEntities", "UpdateCampaignBudgets", "UpdateBids", "UpdateNegativeKeywordLists", "UpdateAccountNegativeKeywords", "UpdateNegativeSites", "UpdateKeywordUrls", "UpdateUrlOptions", "UpdateCampaignNames", "UpdateLabels", "UpdateProductFilters", "UpdateConversionGoals", "UpdateLocationTargets", "UpdateAdSchedules", "UpdateDeviceTargets", "UpdateDemographicTargets", "UpdateCampaignAdGroupLanguages", "UpdateAudienceTargets", "UpdateTopicTargets", "UpdateAppAdExtensions", "UpdateCallAdExtensions", "UpdateCalloutAdExtensions", "UpdatePriceAdExtensions", "UpdateLocationAdExtensions", "UpdateReviewAdExtensions", "UpdateSitelinkAdExtensions", "UpdateStructuredSnippetAdExtensions", "UpdatePromotionAdExtensions", "UpdateImageAdExtensions", "UpdateLogoAdExtensions", "UpdateLeadFormAdExtensions", "UpdateStatusForCampaigns", "UpdateStatusForAdGroups", "UpdateStatusForAds", "UpdateStatusForKeywords", "UpdateAdGroupNetwork", "UpdatePageFeeds", "UpdateAdCustomizerFeeds", "UpdateBrandSuitability", "UpdateAdCustomizerAttributes", "EnableCopilot", "DeleteRemovedEntities", "RaiseBidsToMinimum", "RaiseCampaignBudgetsToMinimum", "AdjustmentForCampaignBudgets", "AdjustmentForBids", "SuffixForUrls", "SearchAndReplaceForUrls", "SuffixForTrackingTemplates", "SearchAndReplaceForTrackingTemplates", "SuffixForCampaignNames", "SearchAndReplaceForCampaignNames", "SearchAndReplaceForCustomParameters", "SearchAndReplaceForFinalURLSuffix", "PauseCampaignsWithoutSupportedLocations", "EnableParentLocationMapping", "AssociatedStoreId", "RaiseProductGroupBidsToMinimum", "SearchAndDsaMixedCampaignAsSearchCampaign", "AccountUrlOptions", "EnableAutoCurrencyConversion", "UpdateBiddingStrategies", "AssociatedUetTagId", "AutoDeviceBidOptimization", "AdScheduleUseSearcherTimezone", "PauseAIMAdGroupIfAllAudienceCriterionNotImported", "RenameCampaignNameWithSuffix", "UpdateAdUrls", "UpdateSitelinkUrls", "UpdateAssetAutomationCampaignSetting"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -144,6 +147,9 @@ class GoogleImportOption(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -173,6 +179,13 @@ class GoogleImportOption(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
+        _items = []
+        if self.forward_compatibility_map:
+            for _item_forward_compatibility_map in self.forward_compatibility_map:
+                if _item_forward_compatibility_map:
+                    _items.append(_item_forward_compatibility_map.to_dict())
+            _dict['ForwardCompatibilityMap'] = _items
         # override the default output from pydantic by calling `to_dict()` of search_and_replace_for_urls
         if self.search_and_replace_for_urls:
             _dict['SearchAndReplaceForUrls'] = self.search_and_replace_for_urls.to_dict()
@@ -188,13 +201,16 @@ class GoogleImportOption(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of search_and_replace_for_final_url_suffix
         if self.search_and_replace_for_final_url_suffix:
             _dict['SearchAndReplaceForFinalURLSuffix'] = self.search_and_replace_for_final_url_suffix.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
-        _items = []
-        if self.forward_compatibility_map:
-            for _item_forward_compatibility_map in self.forward_compatibility_map:
-                if _item_forward_compatibility_map:
-                    _items.append(_item_forward_compatibility_map.to_dict())
-            _dict['ForwardCompatibilityMap'] = _items
+        # set to None if forward_compatibility_map (nullable) is None
+        # and model_fields_set contains the field
+        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
+            _dict['ForwardCompatibilityMap'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if new_entities (nullable) is None
         # and model_fields_set contains the field
         if self.new_entities is None and "new_entities" in self.model_fields_set:
@@ -299,6 +315,11 @@ class GoogleImportOption(BaseModel):
         # and model_fields_set contains the field
         if self.new_audience_targets is None and "new_audience_targets" in self.model_fields_set:
             _dict['NewAudienceTargets'] = None
+
+        # set to None if new_topic_targets (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_topic_targets is None and "new_topic_targets" in self.model_fields_set:
+            _dict['NewTopicTargets'] = None
 
         # set to None if new_app_ad_extensions (nullable) is None
         # and model_fields_set contains the field
@@ -475,6 +496,11 @@ class GoogleImportOption(BaseModel):
         if self.update_audience_targets is None and "update_audience_targets" in self.model_fields_set:
             _dict['UpdateAudienceTargets'] = None
 
+        # set to None if update_topic_targets (nullable) is None
+        # and model_fields_set contains the field
+        if self.update_topic_targets is None and "update_topic_targets" in self.model_fields_set:
+            _dict['UpdateTopicTargets'] = None
+
         # set to None if update_app_ad_extensions (nullable) is None
         # and model_fields_set contains the field
         if self.update_app_ad_extensions is None and "update_app_ad_extensions" in self.model_fields_set:
@@ -579,6 +605,11 @@ class GoogleImportOption(BaseModel):
         # and model_fields_set contains the field
         if self.update_ad_customizer_attributes is None and "update_ad_customizer_attributes" in self.model_fields_set:
             _dict['UpdateAdCustomizerAttributes'] = None
+
+        # set to None if enable_copilot (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_copilot is None and "enable_copilot" in self.model_fields_set:
+            _dict['EnableCopilot'] = None
 
         # set to None if delete_removed_entities (nullable) is None
         # and model_fields_set contains the field
@@ -725,16 +756,6 @@ class GoogleImportOption(BaseModel):
         if self.update_asset_automation_campaign_setting is None and "update_asset_automation_campaign_setting" in self.model_fields_set:
             _dict['UpdateAssetAutomationCampaignSetting'] = None
 
-        # set to None if forward_compatibility_map (nullable) is None
-        # and model_fields_set contains the field
-        if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
-            _dict['ForwardCompatibilityMap'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -747,7 +768,9 @@ class GoogleImportOption(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "NewEntities": obj.get("NewEntities") if obj.get("NewEntities") is not None else None,
+            "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "NewEntities": obj.get("NewEntities") if obj.get("NewEntities") is not None else None,
                         "NewPausedCampaignsAndChildEntities": obj.get("NewPausedCampaignsAndChildEntities") if obj.get("NewPausedCampaignsAndChildEntities") is not None else None,
                         "NewActiveCampaignsAndChildEntities": obj.get("NewActiveCampaignsAndChildEntities") if obj.get("NewActiveCampaignsAndChildEntities") is not None else None,
                         "NewAdGroupsAndChildEntitiesForExistingCampaigns": obj.get("NewAdGroupsAndChildEntitiesForExistingCampaigns") if obj.get("NewAdGroupsAndChildEntitiesForExistingCampaigns") is not None else None,
@@ -768,6 +791,7 @@ class GoogleImportOption(BaseModel):
                         "NewDeviceTargets": obj.get("NewDeviceTargets") if obj.get("NewDeviceTargets") is not None else None,
                         "NewDemographicTargets": obj.get("NewDemographicTargets") if obj.get("NewDemographicTargets") is not None else None,
                         "NewAudienceTargets": obj.get("NewAudienceTargets") if obj.get("NewAudienceTargets") is not None else None,
+                        "NewTopicTargets": obj.get("NewTopicTargets") if obj.get("NewTopicTargets") is not None else None,
                         "NewAppAdExtensions": obj.get("NewAppAdExtensions") if obj.get("NewAppAdExtensions") is not None else None,
                         "NewCallAdExtensions": obj.get("NewCallAdExtensions") if obj.get("NewCallAdExtensions") is not None else None,
                         "NewCalloutAdExtensions": obj.get("NewCalloutAdExtensions") if obj.get("NewCalloutAdExtensions") is not None else None,
@@ -803,6 +827,7 @@ class GoogleImportOption(BaseModel):
                         "UpdateDemographicTargets": obj.get("UpdateDemographicTargets") if obj.get("UpdateDemographicTargets") is not None else None,
                         "UpdateCampaignAdGroupLanguages": obj.get("UpdateCampaignAdGroupLanguages") if obj.get("UpdateCampaignAdGroupLanguages") is not None else None,
                         "UpdateAudienceTargets": obj.get("UpdateAudienceTargets") if obj.get("UpdateAudienceTargets") is not None else None,
+                        "UpdateTopicTargets": obj.get("UpdateTopicTargets") if obj.get("UpdateTopicTargets") is not None else None,
                         "UpdateAppAdExtensions": obj.get("UpdateAppAdExtensions") if obj.get("UpdateAppAdExtensions") is not None else None,
                         "UpdateCallAdExtensions": obj.get("UpdateCallAdExtensions") if obj.get("UpdateCallAdExtensions") is not None else None,
                         "UpdateCalloutAdExtensions": obj.get("UpdateCalloutAdExtensions") if obj.get("UpdateCalloutAdExtensions") is not None else None,
@@ -824,6 +849,7 @@ class GoogleImportOption(BaseModel):
                         "UpdateAdCustomizerFeeds": obj.get("UpdateAdCustomizerFeeds") if obj.get("UpdateAdCustomizerFeeds") is not None else None,
                         "UpdateBrandSuitability": obj.get("UpdateBrandSuitability") if obj.get("UpdateBrandSuitability") is not None else None,
                         "UpdateAdCustomizerAttributes": obj.get("UpdateAdCustomizerAttributes") if obj.get("UpdateAdCustomizerAttributes") is not None else None,
+                        "EnableCopilot": obj.get("EnableCopilot") if obj.get("EnableCopilot") is not None else None,
                         "DeleteRemovedEntities": obj.get("DeleteRemovedEntities") if obj.get("DeleteRemovedEntities") is not None else None,
                         "RaiseBidsToMinimum": obj.get("RaiseBidsToMinimum") if obj.get("RaiseBidsToMinimum") is not None else None,
                         "RaiseCampaignBudgetsToMinimum": obj.get("RaiseCampaignBudgetsToMinimum") if obj.get("RaiseCampaignBudgetsToMinimum") is not None else None,
@@ -852,8 +878,6 @@ class GoogleImportOption(BaseModel):
                         "RenameCampaignNameWithSuffix": obj.get("RenameCampaignNameWithSuffix") if obj.get("RenameCampaignNameWithSuffix") is not None else None,
                         "UpdateAdUrls": obj.get("UpdateAdUrls") if obj.get("UpdateAdUrls") is not None else None,
                         "UpdateSitelinkUrls": obj.get("UpdateSitelinkUrls") if obj.get("UpdateSitelinkUrls") is not None else None,
-                        "UpdateAssetAutomationCampaignSetting": obj.get("UpdateAssetAutomationCampaignSetting") if obj.get("UpdateAssetAutomationCampaignSetting") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'GoogleImportOption'
+                        "UpdateAssetAutomationCampaignSetting": obj.get("UpdateAssetAutomationCampaignSetting") if obj.get("UpdateAssetAutomationCampaignSetting") is not None else None
         })
         return _obj

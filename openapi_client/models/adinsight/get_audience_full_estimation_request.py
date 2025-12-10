@@ -24,6 +24,7 @@ from openapi_client.models.adinsight.currency import Currency
 from openapi_client.models.adinsight.feed import Feed
 from openapi_client.models.adinsight.radius_target import RadiusTarget
 from openapi_client.models.adinsight.selection_of_age_enum import SelectionOfAgeEnum
+from openapi_client.models.adinsight.selection_of_device_enum import SelectionOfDeviceEnum
 from openapi_client.models.adinsight.selection_of_gender_enum import SelectionOfGenderEnum
 from openapi_client.models.adinsight.selection_oflong import SelectionOflong
 from typing_extensions import Self
@@ -39,6 +40,9 @@ class GetAudienceFullEstimationRequest(BaseModel):
     industry: Optional[SelectionOflong] = Field(default=None, alias="Industry")
     job_function: Optional[SelectionOflong] = Field(default=None, alias="JobFunction")
     location: Optional[SelectionOflong] = Field(default=None, alias="Location")
+    placement: Optional[SelectionOflong] = Field(default=None, alias="Placement")
+    device: Optional[SelectionOfDeviceEnum] = Field(default=None, alias="Device")
+    topic: Optional[SelectionOflong] = Field(default=None, alias="Topic")
     radius_targets: Optional[List[Optional[RadiusTarget]]] = Field(default=None, alias="RadiusTargets")
     campaign_bidding_strategy: Optional[StrictInt] = Field(default=None, alias="CampaignBiddingStrategy")
     campaign_sub_type: Optional[StrictInt] = Field(default=None, alias="CampaignSubType")
@@ -46,7 +50,12 @@ class GetAudienceFullEstimationRequest(BaseModel):
     daily_budget: Optional[StrictFloat] = Field(default=None, alias="DailyBudget")
     bid: Optional[StrictFloat] = Field(default=None, alias="Bid")
     currency: Optional[Currency] = Field(default=None, alias="Currency")
-    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency"]
+    multi_ad_types: Optional[StrictInt] = Field(default=None, alias="MultiAdTypes")
+    start_date: Optional[datetime] = Field(default=None, alias="StartDate")
+    end_date: Optional[datetime] = Field(default=None, alias="EndDate")
+    total_budget: Optional[StrictFloat] = Field(default=None, alias="TotalBudget")
+    include_impressions_breakdown: Optional[StrictBool] = Field(default=None, alias="IncludeImpressionsBreakdown")
+    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "Placement", "Device", "Topic", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency", "MultiAdTypes", "StartDate", "EndDate", "TotalBudget", "IncludeImpressionsBreakdown"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -94,6 +103,15 @@ class GetAudienceFullEstimationRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of location
         if self.location:
             _dict['Location'] = self.location.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of placement
+        if self.placement:
+            _dict['Placement'] = self.placement.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of device
+        if self.device:
+            _dict['Device'] = self.device.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of topic
+        if self.topic:
+            _dict['Topic'] = self.topic.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in radius_targets (list)
         _items = []
         if self.radius_targets:
@@ -139,6 +157,21 @@ class GetAudienceFullEstimationRequest(BaseModel):
         if self.location is None and "location" in self.model_fields_set:
             _dict['Location'] = None
 
+        # set to None if placement (nullable) is None
+        # and model_fields_set contains the field
+        if self.placement is None and "placement" in self.model_fields_set:
+            _dict['Placement'] = None
+
+        # set to None if device (nullable) is None
+        # and model_fields_set contains the field
+        if self.device is None and "device" in self.model_fields_set:
+            _dict['Device'] = None
+
+        # set to None if topic (nullable) is None
+        # and model_fields_set contains the field
+        if self.topic is None and "topic" in self.model_fields_set:
+            _dict['Topic'] = None
+
         # set to None if radius_targets (nullable) is None
         # and model_fields_set contains the field
         if self.radius_targets is None and "radius_targets" in self.model_fields_set:
@@ -174,6 +207,31 @@ class GetAudienceFullEstimationRequest(BaseModel):
         if self.currency is None and "currency" in self.model_fields_set:
             _dict['Currency'] = None
 
+        # set to None if multi_ad_types (nullable) is None
+        # and model_fields_set contains the field
+        if self.multi_ad_types is None and "multi_ad_types" in self.model_fields_set:
+            _dict['MultiAdTypes'] = None
+
+        # set to None if start_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_date is None and "start_date" in self.model_fields_set:
+            _dict['StartDate'] = None
+
+        # set to None if end_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.end_date is None and "end_date" in self.model_fields_set:
+            _dict['EndDate'] = None
+
+        # set to None if total_budget (nullable) is None
+        # and model_fields_set contains the field
+        if self.total_budget is None and "total_budget" in self.model_fields_set:
+            _dict['TotalBudget'] = None
+
+        # set to None if include_impressions_breakdown (nullable) is None
+        # and model_fields_set contains the field
+        if self.include_impressions_breakdown is None and "include_impressions_breakdown" in self.model_fields_set:
+            _dict['IncludeImpressionsBreakdown'] = None
+
         return _dict
 
     @classmethod
@@ -193,12 +251,20 @@ class GetAudienceFullEstimationRequest(BaseModel):
                         "Industry": SelectionOflong.from_dict(obj["Industry"]) if obj.get("Industry") is not None else None,
                         "JobFunction": SelectionOflong.from_dict(obj["JobFunction"]) if obj.get("JobFunction") is not None else None,
                         "Location": SelectionOflong.from_dict(obj["Location"]) if obj.get("Location") is not None else None,
+                        "Placement": SelectionOflong.from_dict(obj["Placement"]) if obj.get("Placement") is not None else None,
+                        "Device": SelectionOfDeviceEnum.from_dict(obj["Device"]) if obj.get("Device") is not None else None,
+                        "Topic": SelectionOflong.from_dict(obj["Topic"]) if obj.get("Topic") is not None else None,
                         "RadiusTargets": [RadiusTarget.from_dict(_item) for _item in obj["RadiusTargets"]] if obj.get("RadiusTargets") is not None else None,
                         "CampaignBiddingStrategy": obj.get("CampaignBiddingStrategy") if obj.get("CampaignBiddingStrategy") is not None else None,
                         "CampaignSubType": obj.get("CampaignSubType") if obj.get("CampaignSubType") is not None else None,
                         "Feed": Feed.from_dict(obj["Feed"]) if obj.get("Feed") is not None else None,
                         "DailyBudget": obj.get("DailyBudget") if obj.get("DailyBudget") is not None else None,
                         "Bid": obj.get("Bid") if obj.get("Bid") is not None else None,
-                        "Currency": obj.get("Currency") if obj.get("Currency") is not None else None
+                        "Currency": obj.get("Currency") if obj.get("Currency") is not None else None,
+                        "MultiAdTypes": obj.get("MultiAdTypes") if obj.get("MultiAdTypes") is not None else None,
+                        "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
+                        "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
+                        "TotalBudget": obj.get("TotalBudget") if obj.get("TotalBudget") is not None else None,
+                        "IncludeImpressionsBreakdown": obj.get("IncludeImpressionsBreakdown") if obj.get("IncludeImpressionsBreakdown") is not None else None
         })
         return _obj

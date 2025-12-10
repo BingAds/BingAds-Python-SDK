@@ -22,25 +22,18 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_editorial_status import AdEditorialStatus
 from openapi_client.models.campaign.ad_status import AdStatus
+from openapi_client.models.campaign.ad_type import AdType
 from openapi_client.models.campaign.app_url import AppUrl
 from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class ExpandedTextAd(BaseModel):
+from openapi_client.models.campaign.ad import Ad
+class ExpandedTextAd(Ad):
     """
     ExpandedTextAd
     """ # noqa: E501
-    title_part1: Optional[StrictStr] = Field(default=None, alias="TitlePart1")
-    title_part2: Optional[StrictStr] = Field(default=None, alias="TitlePart2")
-    text: Optional[StrictStr] = Field(default=None, alias="Text")
-    path1: Optional[StrictStr] = Field(default=None, alias="Path1")
-    path2: Optional[StrictStr] = Field(default=None, alias="Path2")
-    domain: Optional[StrictStr] = Field(default=None, alias="Domain")
-    title_part3: Optional[StrictStr] = Field(default=None, alias="TitlePart3")
-    text_part2: Optional[StrictStr] = Field(default=None, alias="TextPart2")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='ExpandedText', alias="Type")
+    type: Optional[AdType] = Field(default=None, alias="Type")
     status: Optional[AdStatus] = Field(default=None, alias="Status")
     editorial_status: Optional[AdEditorialStatus] = Field(default=None, alias="EditorialStatus")
     device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
@@ -52,7 +45,15 @@ class ExpandedTextAd(BaseModel):
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["TitlePart1", "TitlePart2", "Text", "Path1", "Path2", "Domain", "TitlePart3", "TextPart2", "Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap"]
+    title_part1: Optional[StrictStr] = Field(default=None, alias="TitlePart1")
+    title_part2: Optional[StrictStr] = Field(default=None, alias="TitlePart2")
+    text: Optional[StrictStr] = Field(default=None, alias="Text")
+    path1: Optional[StrictStr] = Field(default=None, alias="Path1")
+    path2: Optional[StrictStr] = Field(default=None, alias="Path2")
+    domain: Optional[StrictStr] = Field(default=None, alias="Domain")
+    title_part3: Optional[StrictStr] = Field(default=None, alias="TitlePart3")
+    text_part2: Optional[StrictStr] = Field(default=None, alias="TextPart2")
+    __properties: ClassVar[List[str]] = ["Id", "Type", "Status", "EditorialStatus", "DevicePreference", "AdFormatPreference", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "ForwardCompatibilityMap", "TitlePart1", "TitlePart2", "Text", "Path1", "Path2", "Domain", "TitlePart3", "TextPart2"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -60,6 +61,9 @@ class ExpandedTextAd(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -106,46 +110,6 @@ class ExpandedTextAd(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if title_part1 (nullable) is None
-        # and model_fields_set contains the field
-        if self.title_part1 is None and "title_part1" in self.model_fields_set:
-            _dict['TitlePart1'] = None
-
-        # set to None if title_part2 (nullable) is None
-        # and model_fields_set contains the field
-        if self.title_part2 is None and "title_part2" in self.model_fields_set:
-            _dict['TitlePart2'] = None
-
-        # set to None if text (nullable) is None
-        # and model_fields_set contains the field
-        if self.text is None and "text" in self.model_fields_set:
-            _dict['Text'] = None
-
-        # set to None if path1 (nullable) is None
-        # and model_fields_set contains the field
-        if self.path1 is None and "path1" in self.model_fields_set:
-            _dict['Path1'] = None
-
-        # set to None if path2 (nullable) is None
-        # and model_fields_set contains the field
-        if self.path2 is None and "path2" in self.model_fields_set:
-            _dict['Path2'] = None
-
-        # set to None if domain (nullable) is None
-        # and model_fields_set contains the field
-        if self.domain is None and "domain" in self.model_fields_set:
-            _dict['Domain'] = None
-
-        # set to None if title_part3 (nullable) is None
-        # and model_fields_set contains the field
-        if self.title_part3 is None and "title_part3" in self.model_fields_set:
-            _dict['TitlePart3'] = None
-
-        # set to None if text_part2 (nullable) is None
-        # and model_fields_set contains the field
-        if self.text_part2 is None and "text_part2" in self.model_fields_set:
-            _dict['TextPart2'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -211,6 +175,46 @@ class ExpandedTextAd(BaseModel):
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
             _dict['ForwardCompatibilityMap'] = None
 
+        # set to None if title_part1 (nullable) is None
+        # and model_fields_set contains the field
+        if self.title_part1 is None and "title_part1" in self.model_fields_set:
+            _dict['TitlePart1'] = None
+
+        # set to None if title_part2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.title_part2 is None and "title_part2" in self.model_fields_set:
+            _dict['TitlePart2'] = None
+
+        # set to None if text (nullable) is None
+        # and model_fields_set contains the field
+        if self.text is None and "text" in self.model_fields_set:
+            _dict['Text'] = None
+
+        # set to None if path1 (nullable) is None
+        # and model_fields_set contains the field
+        if self.path1 is None and "path1" in self.model_fields_set:
+            _dict['Path1'] = None
+
+        # set to None if path2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.path2 is None and "path2" in self.model_fields_set:
+            _dict['Path2'] = None
+
+        # set to None if domain (nullable) is None
+        # and model_fields_set contains the field
+        if self.domain is None and "domain" in self.model_fields_set:
+            _dict['Domain'] = None
+
+        # set to None if title_part3 (nullable) is None
+        # and model_fields_set contains the field
+        if self.title_part3 is None and "title_part3" in self.model_fields_set:
+            _dict['TitlePart3'] = None
+
+        # set to None if text_part2 (nullable) is None
+        # and model_fields_set contains the field
+        if self.text_part2 is None and "text_part2" in self.model_fields_set:
+            _dict['TextPart2'] = None
+
         return _dict
 
     @classmethod
@@ -223,16 +227,8 @@ class ExpandedTextAd(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "TitlePart1": obj.get("TitlePart1") if obj.get("TitlePart1") is not None else None,
-                        "TitlePart2": obj.get("TitlePart2") if obj.get("TitlePart2") is not None else None,
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
-                        "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
-                        "Path2": obj.get("Path2") if obj.get("Path2") is not None else None,
-                        "Domain": obj.get("Domain") if obj.get("Domain") is not None else None,
-                        "TitlePart3": obj.get("TitlePart3") if obj.get("TitlePart3") is not None else None,
-                        "TextPart2": obj.get("TextPart2") if obj.get("TextPart2") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ExpandedText',
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
@@ -243,6 +239,14 @@ class ExpandedTextAd(BaseModel):
                         "FinalUrls": obj.get("FinalUrls"),
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
-                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
+                        "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
+                        "TitlePart1": obj.get("TitlePart1") if obj.get("TitlePart1") is not None else None,
+                        "TitlePart2": obj.get("TitlePart2") if obj.get("TitlePart2") is not None else None,
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
+                        "Path2": obj.get("Path2") if obj.get("Path2") is not None else None,
+                        "Domain": obj.get("Domain") if obj.get("Domain") is not None else None,
+                        "TitlePart3": obj.get("TitlePart3") if obj.get("TitlePart3") is not None else None,
+                        "TextPart2": obj.get("TextPart2") if obj.get("TextPart2") is not None else None
         })
         return _obj

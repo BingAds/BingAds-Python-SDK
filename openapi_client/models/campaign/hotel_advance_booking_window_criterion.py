@@ -21,15 +21,15 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class HotelAdvanceBookingWindowCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class HotelAdvanceBookingWindowCriterion(Criterion):
     """
     HotelAdvanceBookingWindowCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     min_days: Optional[StrictInt] = Field(default=None, alias="MinDays")
     max_days: Optional[StrictInt] = Field(default=None, alias="MaxDays")
-    type: Optional[StrictStr] = Field(default='HotelAdvanceBookingWindowCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["MinDays", "MaxDays", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "MinDays", "MaxDays"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -37,6 +37,9 @@ class HotelAdvanceBookingWindowCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -66,6 +69,11 @@ class HotelAdvanceBookingWindowCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if min_days (nullable) is None
         # and model_fields_set contains the field
         if self.min_days is None and "min_days" in self.model_fields_set:
@@ -75,11 +83,6 @@ class HotelAdvanceBookingWindowCriterion(BaseModel):
         # and model_fields_set contains the field
         if self.max_days is None and "max_days" in self.model_fields_set:
             _dict['MaxDays'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -93,8 +96,8 @@ class HotelAdvanceBookingWindowCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "MinDays": obj.get("MinDays") if obj.get("MinDays") is not None else None,
-                        "MaxDays": obj.get("MaxDays") if obj.get("MaxDays") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'HotelAdvanceBookingWindowCriterion'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "MinDays": obj.get("MinDays") if obj.get("MinDays") is not None else None,
+                        "MaxDays": obj.get("MaxDays") if obj.get("MaxDays") is not None else None
         })
         return _obj

@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.key_frame import KeyFrame
+from openapi_client.models.campaign.video_recommendation_color_data import VideoRecommendationColorData
 from openapi_client.models.campaign.video_recommendation_image_data import VideoRecommendationImageData
 from openapi_client.models.campaign.video_recommendation_text_data import VideoRecommendationTextData
 from typing_extensions import Self
@@ -37,7 +38,9 @@ class RecommendationScene(BaseModel):
     logos: Optional[List[StrictStr]] = Field(default=None, alias="logos")
     logo_data: Optional[List[Optional[VideoRecommendationImageData]]] = Field(default=None, alias="logoData")
     key_frame: Optional[KeyFrame] = Field(default=None, alias="keyFrame")
-    __properties: ClassVar[List[str]] = ["image", "images", "imageData", "text", "textData", "logos", "logoData", "keyFrame"]
+    colors: Optional[List[StrictStr]] = Field(default=None, alias="colors")
+    color_data: Optional[List[Optional[VideoRecommendationColorData]]] = Field(default=None, alias="colorData")
+    __properties: ClassVar[List[str]] = ["image", "images", "imageData", "text", "textData", "logos", "logoData", "keyFrame", "colors", "colorData"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -88,6 +91,13 @@ class RecommendationScene(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of key_frame
         if self.key_frame:
             _dict['keyFrame'] = self.key_frame.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in color_data (list)
+        _items = []
+        if self.color_data:
+            for _item_color_data in self.color_data:
+                if _item_color_data:
+                    _items.append(_item_color_data.to_dict())
+            _dict['ColorData'] = _items
         # set to None if image (nullable) is None
         # and model_fields_set contains the field
         if self.image is None and "image" in self.model_fields_set:
@@ -128,6 +138,16 @@ class RecommendationScene(BaseModel):
         if self.key_frame is None and "key_frame" in self.model_fields_set:
             _dict['keyFrame'] = None
 
+        # set to None if colors (nullable) is None
+        # and model_fields_set contains the field
+        if self.colors is None and "colors" in self.model_fields_set:
+            _dict['colors'] = None
+
+        # set to None if color_data (nullable) is None
+        # and model_fields_set contains the field
+        if self.color_data is None and "color_data" in self.model_fields_set:
+            _dict['colorData'] = None
+
         return _dict
 
     @classmethod
@@ -147,6 +167,8 @@ class RecommendationScene(BaseModel):
                         "textData": [VideoRecommendationTextData.from_dict(_item) for _item in obj["TextData"]] if obj.get("TextData") is not None else None,
                         "logos": obj.get("Logos"),
                         "logoData": [VideoRecommendationImageData.from_dict(_item) for _item in obj["LogoData"]] if obj.get("LogoData") is not None else None,
-                        "keyFrame": KeyFrame.from_dict(obj["KeyFrame"]) if obj.get("KeyFrame") is not None else None
+                        "keyFrame": KeyFrame.from_dict(obj["KeyFrame"]) if obj.get("KeyFrame") is not None else None,
+                        "colors": obj.get("Colors"),
+                        "colorData": [VideoRecommendationColorData.from_dict(_item) for _item in obj["ColorData"]] if obj.get("ColorData") is not None else None
         })
         return _obj

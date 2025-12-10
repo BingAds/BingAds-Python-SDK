@@ -27,24 +27,24 @@ from openapi_client.models.campaign.geo_point import GeoPoint
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from openapi_client.models.campaign.schedule import Schedule
 from typing_extensions import Self
-
-class LocationAdExtension(BaseModel):
+from openapi_client.models.campaign.ad_extension import AdExtension
+class LocationAdExtension(AdExtension):
     """
     LocationAdExtension
     """ # noqa: E501
+    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
+    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
+    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    version: Optional[StrictInt] = Field(default=None, alias="Version")
     address: Optional[Address] = Field(default=None, alias="Address")
     geo_point: Optional[GeoPoint] = Field(default=None, alias="GeoPoint")
     geo_code_status: Optional[BusinessGeoCodeStatus] = Field(default=None, alias="GeoCodeStatus")
     company_name: Optional[StrictStr] = Field(default=None, alias="CompanyName")
     phone_number: Optional[StrictStr] = Field(default=None, alias="PhoneNumber")
-    status: Optional[AdExtensionStatus] = Field(default=None, alias="Status")
-    scheduling: Optional[Schedule] = Field(default=None, alias="Scheduling")
-    device_preference: Optional[StrictStr] = Field(default=None, alias="DevicePreference")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    type: Optional[StrictStr] = Field(default='LocationAdExtension', alias="Type")
-    version: Optional[StrictInt] = Field(default=None, alias="Version")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Address", "GeoPoint", "GeoCodeStatus", "CompanyName", "PhoneNumber", "Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Status", "Scheduling", "DevicePreference", "Id", "Type", "Version", "Address", "GeoPoint", "GeoCodeStatus", "CompanyName", "PhoneNumber", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -52,6 +52,9 @@ class LocationAdExtension(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -81,15 +84,15 @@ class LocationAdExtension(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of scheduling
+        if self.scheduling:
+            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of address
         if self.address:
             _dict['Address'] = self.address.to_dict()
         # override the default output from pydantic by calling `to_dict()` of geo_point
         if self.geo_point:
             _dict['GeoPoint'] = self.geo_point.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of scheduling
-        if self.scheduling:
-            _dict['Scheduling'] = self.scheduling.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
         _items = []
         if self.forward_compatibility_map:
@@ -97,31 +100,6 @@ class LocationAdExtension(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if address (nullable) is None
-        # and model_fields_set contains the field
-        if self.address is None and "address" in self.model_fields_set:
-            _dict['Address'] = None
-
-        # set to None if geo_point (nullable) is None
-        # and model_fields_set contains the field
-        if self.geo_point is None and "geo_point" in self.model_fields_set:
-            _dict['GeoPoint'] = None
-
-        # set to None if geo_code_status (nullable) is None
-        # and model_fields_set contains the field
-        if self.geo_code_status is None and "geo_code_status" in self.model_fields_set:
-            _dict['GeoCodeStatus'] = None
-
-        # set to None if company_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.company_name is None and "company_name" in self.model_fields_set:
-            _dict['CompanyName'] = None
-
-        # set to None if phone_number (nullable) is None
-        # and model_fields_set contains the field
-        if self.phone_number is None and "phone_number" in self.model_fields_set:
-            _dict['PhoneNumber'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -152,6 +130,31 @@ class LocationAdExtension(BaseModel):
         if self.version is None and "version" in self.model_fields_set:
             _dict['Version'] = None
 
+        # set to None if address (nullable) is None
+        # and model_fields_set contains the field
+        if self.address is None and "address" in self.model_fields_set:
+            _dict['Address'] = None
+
+        # set to None if geo_point (nullable) is None
+        # and model_fields_set contains the field
+        if self.geo_point is None and "geo_point" in self.model_fields_set:
+            _dict['GeoPoint'] = None
+
+        # set to None if geo_code_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.geo_code_status is None and "geo_code_status" in self.model_fields_set:
+            _dict['GeoCodeStatus'] = None
+
+        # set to None if company_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.company_name is None and "company_name" in self.model_fields_set:
+            _dict['CompanyName'] = None
+
+        # set to None if phone_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.phone_number is None and "phone_number" in self.model_fields_set:
+            _dict['PhoneNumber'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -169,17 +172,17 @@ class LocationAdExtension(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Address": Address.from_dict(obj["Address"]) if obj.get("Address") is not None else None,
+            "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
+                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
+                        "Address": Address.from_dict(obj["Address"]) if obj.get("Address") is not None else None,
                         "GeoPoint": GeoPoint.from_dict(obj["GeoPoint"]) if obj.get("GeoPoint") is not None else None,
                         "GeoCodeStatus": obj.get("GeoCodeStatus") if obj.get("GeoCodeStatus") is not None else None,
                         "CompanyName": obj.get("CompanyName") if obj.get("CompanyName") is not None else None,
                         "PhoneNumber": obj.get("PhoneNumber") if obj.get("PhoneNumber") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Scheduling": Schedule.from_dict(obj["Scheduling"]) if obj.get("Scheduling") is not None else None,
-                        "DevicePreference": obj.get("DevicePreference") if obj.get("DevicePreference") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'LocationAdExtension',
-                        "Version": obj.get("Version") if obj.get("Version") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

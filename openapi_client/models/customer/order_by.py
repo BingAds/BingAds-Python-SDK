@@ -28,7 +28,7 @@ class OrderBy(BaseModel):
     """
     OrderBy
     """ # noqa: E501
-    var_field: Optional[OrderByField] = Field(default=None, alias="Field")
+    field: Optional[OrderByField] = Field(default=None, alias="Field")
     order: Optional[SortOrder] = Field(default=None, alias="Order")
     __properties: ClassVar[List[str]] = ["Field", "Order"]
 
@@ -57,9 +57,9 @@ class OrderBy(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if var_field (nullable) is None
+        # set to None if field (nullable) is None
         # and model_fields_set contains the field
-        if self.var_field is None and "var_field" in self.model_fields_set:
+        if self.field is None and "field" in self.model_fields_set:
             _dict['Field'] = None
 
         # set to None if order (nullable) is None

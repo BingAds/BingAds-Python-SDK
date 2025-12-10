@@ -44,8 +44,18 @@ class AdTypeReportFilter(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AdTypeReportFilter.TEXT: 'Text',
+            AdTypeReportFilter.LOCAL: 'Local',
+            AdTypeReportFilter.PRODUCT: 'Product',
+            AdTypeReportFilter.APPINSTALL: 'AppInstall',
+            AdTypeReportFilter.DYNAMICSEARCHAD: 'DynamicSearchAd',
+            AdTypeReportFilter.EXPANDEDTEXT: 'ExpandedText',
+            AdTypeReportFilter.RESPONSIVEAD: 'ResponsiveAd',
+            AdTypeReportFilter.RESPONSIVESEARCHAD: 'ResponsiveSearchAd',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AdTypeReportFilter if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AdTypeReportFilter if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

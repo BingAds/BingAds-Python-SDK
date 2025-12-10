@@ -20,16 +20,20 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.health_check_entity import HealthCheckEntity
+from openapi_client.models.campaign.diagnostics_entity import DiagnosticsEntity
+from openapi_client.models.campaign.diagnostics_filter import DiagnosticsFilter
+from openapi_client.models.campaign.diagnostics_settings import DiagnosticsSettings
 from typing_extensions import Self
 
 class GetDiagnosticsRequest(BaseModel):
     """
     GetDiagnosticsRequest
     """ # noqa: E501
-    health_check_entities: Optional[List[Optional[HealthCheckEntity]]] = Field(default=None, alias="HealthCheckEntities")
-    health_check_types: Optional[List[StrictStr]] = Field(default=None, alias="HealthCheckTypes")
-    __properties: ClassVar[List[str]] = ["HealthCheckEntities", "HealthCheckTypes"]
+    entities: Optional[List[Optional[DiagnosticsEntity]]] = Field(default=None, alias="Entities")
+    checks: Optional[List[Optional[DiagnosticsFilter]]] = Field(default=None, alias="Checks")
+    settings: Optional[DiagnosticsSettings] = Field(default=None, alias="Settings")
+    caller_name: Optional[StrictStr] = Field(default=None, alias="CallerName")
+    __properties: ClassVar[List[str]] = ["Entities", "Checks", "Settings", "CallerName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,22 +60,42 @@ class GetDiagnosticsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in health_check_entities (list)
+        # override the default output from pydantic by calling `to_dict()` of each item in entities (list)
         _items = []
-        if self.health_check_entities:
-            for _item_health_check_entities in self.health_check_entities:
-                if _item_health_check_entities:
-                    _items.append(_item_health_check_entities.to_dict())
-            _dict['HealthCheckEntities'] = _items
-        # set to None if health_check_entities (nullable) is None
+        if self.entities:
+            for _item_entities in self.entities:
+                if _item_entities:
+                    _items.append(_item_entities.to_dict())
+            _dict['Entities'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in checks (list)
+        _items = []
+        if self.checks:
+            for _item_checks in self.checks:
+                if _item_checks:
+                    _items.append(_item_checks.to_dict())
+            _dict['Checks'] = _items
+        # override the default output from pydantic by calling `to_dict()` of settings
+        if self.settings:
+            _dict['Settings'] = self.settings.to_dict()
+        # set to None if entities (nullable) is None
         # and model_fields_set contains the field
-        if self.health_check_entities is None and "health_check_entities" in self.model_fields_set:
-            _dict['HealthCheckEntities'] = None
+        if self.entities is None and "entities" in self.model_fields_set:
+            _dict['Entities'] = None
 
-        # set to None if health_check_types (nullable) is None
+        # set to None if checks (nullable) is None
         # and model_fields_set contains the field
-        if self.health_check_types is None and "health_check_types" in self.model_fields_set:
-            _dict['HealthCheckTypes'] = None
+        if self.checks is None and "checks" in self.model_fields_set:
+            _dict['Checks'] = None
+
+        # set to None if settings (nullable) is None
+        # and model_fields_set contains the field
+        if self.settings is None and "settings" in self.model_fields_set:
+            _dict['Settings'] = None
+
+        # set to None if caller_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.caller_name is None and "caller_name" in self.model_fields_set:
+            _dict['CallerName'] = None
 
         return _dict
 
@@ -85,7 +109,9 @@ class GetDiagnosticsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "HealthCheckEntities": [HealthCheckEntity.from_dict(_item) for _item in obj["HealthCheckEntities"]] if obj.get("HealthCheckEntities") is not None else None,
-                        "HealthCheckTypes": obj.get("HealthCheckTypes")
+            "Entities": [DiagnosticsEntity.from_dict(_item) for _item in obj["Entities"]] if obj.get("Entities") is not None else None,
+                        "Checks": [DiagnosticsFilter.from_dict(_item) for _item in obj["Checks"]] if obj.get("Checks") is not None else None,
+                        "Settings": DiagnosticsSettings.from_dict(obj["Settings"]) if obj.get("Settings") is not None else None,
+                        "CallerName": obj.get("CallerName") if obj.get("CallerName") is not None else None
         })
         return _obj

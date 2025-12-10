@@ -17,220 +17,113 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.custom_events_rule import CustomEventsRule
-from openapi_client.models.campaign.normal_form import NormalForm
-from openapi_client.models.campaign.number_operator import NumberOperator
-from openapi_client.models.campaign.page_visitors_rule import PageVisitorsRule
-from openapi_client.models.campaign.page_visitors_who_did_not_visit_another_page_rule import PageVisitorsWhoDidNotVisitAnotherPageRule
-from openapi_client.models.campaign.page_visitors_who_visited_another_page_rule import PageVisitorsWhoVisitedAnotherPageRule
-from openapi_client.models.campaign.rule_item_group import RuleItemGroup
-from openapi_client.models.campaign.string_operator import StringOperator
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-RemarketingRule_ONE_OF_SCHEMAS = ["CustomEventsRule", "PageVisitorsRule", "PageVisitorsWhoDidNotVisitAnotherPageRule", "PageVisitorsWhoVisitedAnotherPageRule"]
 
 class RemarketingRule(BaseModel):
     """
     RemarketingRule
     """
-    # data type: CustomEventsRule
-    oneof_schema_custom_events_rule_validator: Optional[CustomEventsRule] = None
-    # data type: PageVisitorsRule
-    oneof_schema_page_visitors_rule_validator: Optional[PageVisitorsRule] = None
-    # data type: PageVisitorsWhoDidNotVisitAnotherPageRule
-    oneof_schema_page_visitors_who_did_not_visit_another_page_rule_validator: Optional[PageVisitorsWhoDidNotVisitAnotherPageRule] = None
-    # data type: PageVisitorsWhoVisitedAnotherPageRule
-    oneof_schema_page_visitors_who_visited_another_page_rule_validator: Optional[PageVisitorsWhoVisitedAnotherPageRule] = None
-    actual_instance: Optional[Union[CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule]] = None
-    one_of_schemas: Set[str] = { "CustomEventsRule", "PageVisitorsRule", "PageVisitorsWhoDidNotVisitAnotherPageRule", "PageVisitorsWhoVisitedAnotherPageRule" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('CustomEventsRule', 'CustomEvents'),
+                ('PageVisitorsRule', 'PageVisitors'),
+                ('PageVisitorsWhoDidNotVisitAnotherPageRule', 'PageVisitorsWhoDidNotVisitAnotherPage'),
+                ('PageVisitorsWhoVisitedAnotherPageRule', 'PageVisitorsWhoVisitedAnotherPage'),
+                ('CustomEventsRule', 'CustomEventsRule'),
+                ('PageVisitorsRule', 'PageVisitorsRule'),
+                ('PageVisitorsWhoDidNotVisitAnotherPageRule', 'PageVisitorsWhoDidNotVisitAnotherPageRule'),
+                ('PageVisitorsWhoVisitedAnotherPageRule', 'PageVisitorsWhoVisitedAnotherPageRule'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = RemarketingRule.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: CustomEventsRule
-        if not isinstance(v, CustomEventsRule):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CustomEventsRule`")
-        else:
-            match += 1
-        # validate data type: PageVisitorsRule
-        if not isinstance(v, PageVisitorsRule):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PageVisitorsRule`")
-        else:
-            match += 1
-        # validate data type: PageVisitorsWhoDidNotVisitAnotherPageRule
-        if not isinstance(v, PageVisitorsWhoDidNotVisitAnotherPageRule):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PageVisitorsWhoDidNotVisitAnotherPageRule`")
-        else:
-            match += 1
-        # validate data type: PageVisitorsWhoVisitedAnotherPageRule
-        if not isinstance(v, PageVisitorsWhoVisitedAnotherPageRule):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PageVisitorsWhoVisitedAnotherPageRule`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in RemarketingRule with oneOf schemas: CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in RemarketingRule with oneOf schemas: CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of RemarketingRule from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `CustomEventsRule`
-        if _data_type == "CustomEvents":
-            instance.actual_instance = CustomEventsRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsRule`
-        if _data_type == "PageVisitors":
-            instance.actual_instance = PageVisitorsRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsWhoDidNotVisitAnotherPageRule`
-        if _data_type == "PageVisitorsWhoDidNotVisitAnotherPage":
-            instance.actual_instance = PageVisitorsWhoDidNotVisitAnotherPageRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsWhoVisitedAnotherPageRule`
-        if _data_type == "PageVisitorsWhoVisitedAnotherPage":
-            instance.actual_instance = PageVisitorsWhoVisitedAnotherPageRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `CustomEventsRule`
-        if _data_type == "CustomEventsRule":
-            instance.actual_instance = CustomEventsRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsRule`
-        if _data_type == "PageVisitorsRule":
-            instance.actual_instance = PageVisitorsRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsWhoDidNotVisitAnotherPageRule`
-        if _data_type == "PageVisitorsWhoDidNotVisitAnotherPageRule":
-            instance.actual_instance = PageVisitorsWhoDidNotVisitAnotherPageRule.from_json(json_str)
-            return instance
-			
-		# check if data type is `PageVisitorsWhoVisitedAnotherPageRule`
-        if _data_type == "PageVisitorsWhoVisitedAnotherPageRule":
-            instance.actual_instance = PageVisitorsWhoVisitedAnotherPageRule.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into CustomEventsRule
-        try:
-            instance.actual_instance = CustomEventsRule.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PageVisitorsRule
-        try:
-            instance.actual_instance = PageVisitorsRule.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PageVisitorsWhoDidNotVisitAnotherPageRule
-        try:
-            instance.actual_instance = PageVisitorsWhoDidNotVisitAnotherPageRule.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PageVisitorsWhoVisitedAnotherPageRule
-        try:
-            instance.actual_instance = PageVisitorsWhoVisitedAnotherPageRule.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into RemarketingRule with oneOf schemas: CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into RemarketingRule with oneOf schemas: CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], CustomEventsRule, PageVisitorsRule, PageVisitorsWhoDidNotVisitAnotherPageRule, PageVisitorsWhoVisitedAnotherPageRule]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of RemarketingRule from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_custom_events_rule_validator', 'oneof_schema_page_visitors_rule_validator', 'oneof_schema_page_visitors_who_did_not_visit_another_page_rule_validator', 'oneof_schema_page_visitors_who_visited_another_page_rule_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "CustomEvents":
+            from openapi_client.models.campaign.custom_events_rule import CustomEventsRule
+            return CustomEventsRule.from_dict(obj)
+        
+        if type == "PageVisitors":
+            from openapi_client.models.campaign.page_visitors_rule import PageVisitorsRule
+            return PageVisitorsRule.from_dict(obj)
+        
+        if type == "PageVisitorsWhoDidNotVisitAnotherPage":
+            from openapi_client.models.campaign.page_visitors_who_did_not_visit_another_page_rule import PageVisitorsWhoDidNotVisitAnotherPageRule
+            return PageVisitorsWhoDidNotVisitAnotherPageRule.from_dict(obj)
+        
+        if type == "PageVisitorsWhoVisitedAnotherPage":
+            from openapi_client.models.campaign.page_visitors_who_visited_another_page_rule import PageVisitorsWhoVisitedAnotherPageRule
+            return PageVisitorsWhoVisitedAnotherPageRule.from_dict(obj)
+        
+        if type == "CustomEventsRule":
+            from openapi_client.models.campaign.custom_events_rule import CustomEventsRule
+            return CustomEventsRule.from_dict(obj)
+        
+        if type == "PageVisitorsRule":
+            from openapi_client.models.campaign.page_visitors_rule import PageVisitorsRule
+            return PageVisitorsRule.from_dict(obj)
+        
+        if type == "PageVisitorsWhoDidNotVisitAnotherPageRule":
+            from openapi_client.models.campaign.page_visitors_who_did_not_visit_another_page_rule import PageVisitorsWhoDidNotVisitAnotherPageRule
+            return PageVisitorsWhoDidNotVisitAnotherPageRule.from_dict(obj)
+        
+        if type == "PageVisitorsWhoVisitedAnotherPageRule":
+            from openapi_client.models.campaign.page_visitors_who_visited_another_page_rule import PageVisitorsWhoVisitedAnotherPageRule
+            return PageVisitorsWhoVisitedAnotherPageRule.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

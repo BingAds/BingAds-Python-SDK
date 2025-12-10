@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.adinsight.recommendation_type import RecommendationType
 from typing_extensions import Self
 
 class RecommendationBase(BaseModel):
@@ -27,9 +28,13 @@ class RecommendationBase(BaseModel):
     RecommendationBase
     """ # noqa: E501
     account_id: Optional[StrictStr] = Field(default=None, alias="AccountId")
+    account_name: Optional[StrictStr] = Field(default=None, alias="AccountName")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
+    campaign_name: Optional[StrictStr] = Field(default=None, alias="CampaignName")
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
+    ad_group_name: Optional[StrictStr] = Field(default=None, alias="AdGroupName")
     recommendation_type: Optional[StrictStr] = Field(default=None, alias="RecommendationType")
+    type: Optional[RecommendationType] = Field(default=None, alias="Type")
     recommendation_id: Optional[StrictStr] = Field(default=None, alias="RecommendationId")
     recommendation_hash: Optional[StrictStr] = Field(default=None, alias="RecommendationHash")
     current_clicks: Optional[StrictStr] = Field(default=None, alias="CurrentClicks")
@@ -40,24 +45,14 @@ class RecommendationBase(BaseModel):
     estimated_increase_in_impressions: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInImpressions")
     current_conversions: Optional[StrictStr] = Field(default=None, alias="CurrentConversions")
     estimated_increase_in_conversions: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInConversions")
-    type: Optional[StrictStr] = Field(default='Recommendation', alias="Type")
-    __properties: ClassVar[List[str]] = ["AccountId", "CampaignId", "AdGroupId", "RecommendationType", "RecommendationId", "RecommendationHash", "CurrentClicks", "EstimatedIncreaseInClicks", "CurrentCost", "EstimatedIncreaseInCost", "CurrentImpressions", "EstimatedIncreaseInImpressions", "CurrentConversions", "EstimatedIncreaseInConversions", "Type"]
+    dismissed: Optional[StrictBool] = Field(default=None, alias="Dismissed")
+    __properties: ClassVar[List[str]] = ["AccountId", "AccountName", "CampaignId", "CampaignName", "AdGroupId", "AdGroupName", "RecommendationType", "Type", "RecommendationId", "RecommendationHash", "CurrentClicks", "EstimatedIncreaseInClicks", "CurrentCost", "EstimatedIncreaseInCost", "CurrentImpressions", "EstimatedIncreaseInImpressions", "CurrentConversions", "EstimatedIncreaseInConversions", "Dismissed"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-	
-    def to_json(self) -> str:
-        """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
-	
-    @classmethod
-    def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of RecommendationBase from a JSON string"""
-        return cls.from_dict(json.loads(json_str))
 	
 
     def to_dict(self) -> Dict[str, Any]:
@@ -83,20 +78,40 @@ class RecommendationBase(BaseModel):
         if self.account_id is None and "account_id" in self.model_fields_set:
             _dict['AccountId'] = None
 
+        # set to None if account_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.account_name is None and "account_name" in self.model_fields_set:
+            _dict['AccountName'] = None
+
         # set to None if campaign_id (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
             _dict['CampaignId'] = None
+
+        # set to None if campaign_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_name is None and "campaign_name" in self.model_fields_set:
+            _dict['CampaignName'] = None
 
         # set to None if ad_group_id (nullable) is None
         # and model_fields_set contains the field
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
 
+        # set to None if ad_group_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_name is None and "ad_group_name" in self.model_fields_set:
+            _dict['AdGroupName'] = None
+
         # set to None if recommendation_type (nullable) is None
         # and model_fields_set contains the field
         if self.recommendation_type is None and "recommendation_type" in self.model_fields_set:
             _dict['RecommendationType'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
         # set to None if recommendation_id (nullable) is None
         # and model_fields_set contains the field
@@ -148,10 +163,10 @@ class RecommendationBase(BaseModel):
         if self.estimated_increase_in_conversions is None and "estimated_increase_in_conversions" in self.model_fields_set:
             _dict['EstimatedIncreaseInConversions'] = None
 
-        # set to None if type (nullable) is None
+        # set to None if dismissed (nullable) is None
         # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
+        if self.dismissed is None and "dismissed" in self.model_fields_set:
+            _dict['Dismissed'] = None
 
         return _dict
 
@@ -166,9 +181,13 @@ class RecommendationBase(BaseModel):
 
         _obj = cls.model_validate({
             "AccountId": obj.get("AccountId") if obj.get("AccountId") is not None else None,
+                        "AccountName": obj.get("AccountName") if obj.get("AccountName") is not None else None,
                         "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+                        "CampaignName": obj.get("CampaignName") if obj.get("CampaignName") is not None else None,
                         "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "AdGroupName": obj.get("AdGroupName") if obj.get("AdGroupName") is not None else None,
                         "RecommendationType": obj.get("RecommendationType") if obj.get("RecommendationType") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "RecommendationId": obj.get("RecommendationId") if obj.get("RecommendationId") is not None else None,
                         "RecommendationHash": obj.get("RecommendationHash") if obj.get("RecommendationHash") is not None else None,
                         "CurrentClicks": obj.get("CurrentClicks") if obj.get("CurrentClicks") is not None else None,
@@ -179,6 +198,6 @@ class RecommendationBase(BaseModel):
                         "EstimatedIncreaseInImpressions": obj.get("EstimatedIncreaseInImpressions") if obj.get("EstimatedIncreaseInImpressions") is not None else None,
                         "CurrentConversions": obj.get("CurrentConversions") if obj.get("CurrentConversions") is not None else None,
                         "EstimatedIncreaseInConversions": obj.get("EstimatedIncreaseInConversions") if obj.get("EstimatedIncreaseInConversions") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Recommendation'
+                        "Dismissed": obj.get("Dismissed") if obj.get("Dismissed") is not None else None
         })
         return _obj

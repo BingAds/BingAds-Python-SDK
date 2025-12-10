@@ -23,15 +23,15 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.vanity_pharma_display_url_mode import VanityPharmaDisplayUrlMode
 from openapi_client.models.campaign.vanity_pharma_website_description import VanityPharmaWebsiteDescription
 from typing_extensions import Self
-
-class VanityPharmaSetting(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class VanityPharmaSetting(Setting):
     """
     VanityPharmaSetting
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     display_url_mode: Optional[VanityPharmaDisplayUrlMode] = Field(default=None, alias="DisplayUrlMode")
     website_description: Optional[VanityPharmaWebsiteDescription] = Field(default=None, alias="WebsiteDescription")
-    type: Optional[StrictStr] = Field(default='VanityPharmaSetting', alias="Type")
-    __properties: ClassVar[List[str]] = ["DisplayUrlMode", "WebsiteDescription", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "DisplayUrlMode", "WebsiteDescription"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class VanityPharmaSetting(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -68,6 +71,11 @@ class VanityPharmaSetting(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if display_url_mode (nullable) is None
         # and model_fields_set contains the field
         if self.display_url_mode is None and "display_url_mode" in self.model_fields_set:
@@ -77,11 +85,6 @@ class VanityPharmaSetting(BaseModel):
         # and model_fields_set contains the field
         if self.website_description is None and "website_description" in self.model_fields_set:
             _dict['WebsiteDescription'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         return _dict
 
@@ -95,8 +98,8 @@ class VanityPharmaSetting(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DisplayUrlMode": obj.get("DisplayUrlMode") if obj.get("DisplayUrlMode") is not None else None,
-                        "WebsiteDescription": obj.get("WebsiteDescription") if obj.get("WebsiteDescription") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'VanityPharmaSetting'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "DisplayUrlMode": obj.get("DisplayUrlMode") if obj.get("DisplayUrlMode") is not None else None,
+                        "WebsiteDescription": obj.get("WebsiteDescription") if obj.get("WebsiteDescription") is not None else None
         })
         return _obj

@@ -26,18 +26,18 @@ from openapi_client.models.campaign.conversion_goal_count_type import Conversion
 from openapi_client.models.campaign.conversion_goal_revenue import ConversionGoalRevenue
 from openapi_client.models.campaign.conversion_goal_status import ConversionGoalStatus
 from openapi_client.models.campaign.conversion_goal_tracking_status import ConversionGoalTrackingStatus
+from openapi_client.models.campaign.conversion_goal_type import ConversionGoalType
 from openapi_client.models.campaign.entity_scope import EntityScope
 from typing_extensions import Self
-
-class DurationGoal(BaseModel):
+from openapi_client.models.campaign.conversion_goal import ConversionGoal
+class DurationGoal(ConversionGoal):
     """
     DurationGoal
     """ # noqa: E501
-    minimum_duration_in_seconds: Optional[StrictInt] = Field(default=None, alias="MinimumDurationInSeconds")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[ConversionGoalStatus] = Field(default=None, alias="Status")
-    type: Optional[StrictStr] = Field(default='Duration', alias="Type")
+    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     count_type: Optional[ConversionGoalCountType] = Field(default=None, alias="CountType")
     revenue: Optional[ConversionGoalRevenue] = Field(default=None, alias="Revenue")
@@ -50,7 +50,8 @@ class DurationGoal(BaseModel):
     attribution_model_type: Optional[AttributionModelType] = Field(default=None, alias="AttributionModelType")
     is_enhanced_conversions_enabled: Optional[StrictBool] = Field(default=None, alias="IsEnhancedConversionsEnabled")
     is_auto_goal: Optional[StrictBool] = Field(default=None, alias="IsAutoGoal")
-    __properties: ClassVar[List[str]] = ["MinimumDurationInSeconds", "Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal"]
+    minimum_duration_in_seconds: Optional[StrictInt] = Field(default=None, alias="MinimumDurationInSeconds")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal", "MinimumDurationInSeconds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,6 +59,9 @@ class DurationGoal(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -90,11 +94,6 @@ class DurationGoal(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of revenue
         if self.revenue:
             _dict['Revenue'] = self.revenue.to_dict()
-        # set to None if minimum_duration_in_seconds (nullable) is None
-        # and model_fields_set contains the field
-        if self.minimum_duration_in_seconds is None and "minimum_duration_in_seconds" in self.model_fields_set:
-            _dict['MinimumDurationInSeconds'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -175,6 +174,11 @@ class DurationGoal(BaseModel):
         if self.is_auto_goal is None and "is_auto_goal" in self.model_fields_set:
             _dict['IsAutoGoal'] = None
 
+        # set to None if minimum_duration_in_seconds (nullable) is None
+        # and model_fields_set contains the field
+        if self.minimum_duration_in_seconds is None and "minimum_duration_in_seconds" in self.model_fields_set:
+            _dict['MinimumDurationInSeconds'] = None
+
         return _dict
 
     @classmethod
@@ -187,11 +191,10 @@ class DurationGoal(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "MinimumDurationInSeconds": obj.get("MinimumDurationInSeconds") if obj.get("MinimumDurationInSeconds") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Duration',
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "CountType": obj.get("CountType") if obj.get("CountType") is not None else None,
                         "Revenue": ConversionGoalRevenue.from_dict(obj["Revenue"]) if obj.get("Revenue") is not None else None,
@@ -203,6 +206,7 @@ class DurationGoal(BaseModel):
                         "GoalCategory": obj.get("GoalCategory") if obj.get("GoalCategory") is not None else None,
                         "AttributionModelType": obj.get("AttributionModelType") if obj.get("AttributionModelType") is not None else None,
                         "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None,
-                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None
+                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None,
+                        "MinimumDurationInSeconds": obj.get("MinimumDurationInSeconds") if obj.get("MinimumDurationInSeconds") is not None else None
         })
         return _obj

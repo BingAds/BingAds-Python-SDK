@@ -21,14 +21,14 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class CashbackAdjustment(BaseModel):
+from openapi_client.models.campaign.criterion_cashback import CriterionCashback
+class CashbackAdjustment(CriterionCashback):
     """
     CashbackAdjustment
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     cashback_percent: Optional[StrictFloat] = Field(default=None, alias="CashbackPercent")
-    type: Optional[StrictStr] = Field(default='CashbackAdjustment', alias="Type")
-    __properties: ClassVar[List[str]] = ["CashbackPercent", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "CashbackPercent"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -36,6 +36,9 @@ class CashbackAdjustment(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -65,15 +68,15 @@ class CashbackAdjustment(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if cashback_percent (nullable) is None
-        # and model_fields_set contains the field
-        if self.cashback_percent is None and "cashback_percent" in self.model_fields_set:
-            _dict['CashbackPercent'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
+
+        # set to None if cashback_percent (nullable) is None
+        # and model_fields_set contains the field
+        if self.cashback_percent is None and "cashback_percent" in self.model_fields_set:
+            _dict['CashbackPercent'] = None
 
         return _dict
 
@@ -87,7 +90,7 @@ class CashbackAdjustment(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CashbackPercent": obj.get("CashbackPercent") if obj.get("CashbackPercent") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'CashbackAdjustment'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "CashbackPercent": obj.get("CashbackPercent") if obj.get("CashbackPercent") is not None else None
         })
         return _obj

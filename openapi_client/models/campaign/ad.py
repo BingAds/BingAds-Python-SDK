@@ -17,317 +17,148 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.ad_editorial_status import AdEditorialStatus
-from openapi_client.models.campaign.ad_status import AdStatus
-from openapi_client.models.campaign.ad_sub_type import AdSubType
-from openapi_client.models.campaign.app_install_ad import AppInstallAd
-from openapi_client.models.campaign.app_url import AppUrl
-from openapi_client.models.campaign.asset_link import AssetLink
-from openapi_client.models.campaign.call_to_action import CallToAction
-from openapi_client.models.campaign.custom_parameters import CustomParameters
-from openapi_client.models.campaign.dynamic_search_ad import DynamicSearchAd
-from openapi_client.models.campaign.expanded_text_ad import ExpandedTextAd
-from openapi_client.models.campaign.hotel_ad import HotelAd
-from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.language_name import LanguageName
-from openapi_client.models.campaign.product_ad import ProductAd
-from openapi_client.models.campaign.responsive_ad import ResponsiveAd
-from openapi_client.models.campaign.responsive_search_ad import ResponsiveSearchAd
-from openapi_client.models.campaign.text_ad import TextAd
-from openapi_client.models.campaign.verified_tracking_setting import VerifiedTrackingSetting
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-Ad_ONE_OF_SCHEMAS = ["AppInstallAd", "DynamicSearchAd", "ExpandedTextAd", "HotelAd", "ProductAd", "ResponsiveAd", "ResponsiveSearchAd", "TextAd"]
 
 class Ad(BaseModel):
     """
     Ad
     """
-    # data type: AppInstallAd
-    oneof_schema_app_install_ad_validator: Optional[AppInstallAd] = None
-    # data type: DynamicSearchAd
-    oneof_schema_dynamic_search_ad_validator: Optional[DynamicSearchAd] = None
-    # data type: ExpandedTextAd
-    oneof_schema_expanded_text_ad_validator: Optional[ExpandedTextAd] = None
-    # data type: HotelAd
-    oneof_schema_hotel_ad_validator: Optional[HotelAd] = None
-    # data type: ProductAd
-    oneof_schema_product_ad_validator: Optional[ProductAd] = None
-    # data type: ResponsiveAd
-    oneof_schema_responsive_ad_validator: Optional[ResponsiveAd] = None
-    # data type: ResponsiveSearchAd
-    oneof_schema_responsive_search_ad_validator: Optional[ResponsiveSearchAd] = None
-    # data type: TextAd
-    oneof_schema_text_ad_validator: Optional[TextAd] = None
-    actual_instance: Optional[Union[AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd]] = None
-    one_of_schemas: Set[str] = { "AppInstallAd", "DynamicSearchAd", "ExpandedTextAd", "HotelAd", "ProductAd", "ResponsiveAd", "ResponsiveSearchAd", "TextAd" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AppInstallAd', 'AppInstall'),
+                ('DynamicSearchAd', 'DynamicSearch'),
+                ('ExpandedTextAd', 'ExpandedText'),
+                ('HotelAd', 'Hotel'),
+                ('ProductAd', 'Product'),
+                ('ResponsiveAd', 'ResponsiveAd'),
+                ('ResponsiveSearchAd', 'ResponsiveSearch'),
+                ('TextAd', 'Text'),
+                ('AppInstallAd', 'AppInstallAd'),
+                ('DynamicSearchAd', 'DynamicSearchAd'),
+                ('ExpandedTextAd', 'ExpandedTextAd'),
+                ('HotelAd', 'HotelAd'),
+                ('ProductAd', 'ProductAd'),
+                ('ResponsiveSearchAd', 'ResponsiveSearchAd'),
+                ('TextAd', 'TextAd'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = Ad.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AppInstallAd
-        if not isinstance(v, AppInstallAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AppInstallAd`")
-        else:
-            match += 1
-        # validate data type: DynamicSearchAd
-        if not isinstance(v, DynamicSearchAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DynamicSearchAd`")
-        else:
-            match += 1
-        # validate data type: ExpandedTextAd
-        if not isinstance(v, ExpandedTextAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ExpandedTextAd`")
-        else:
-            match += 1
-        # validate data type: HotelAd
-        if not isinstance(v, HotelAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelAd`")
-        else:
-            match += 1
-        # validate data type: ProductAd
-        if not isinstance(v, ProductAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductAd`")
-        else:
-            match += 1
-        # validate data type: ResponsiveAd
-        if not isinstance(v, ResponsiveAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ResponsiveAd`")
-        else:
-            match += 1
-        # validate data type: ResponsiveSearchAd
-        if not isinstance(v, ResponsiveSearchAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ResponsiveSearchAd`")
-        else:
-            match += 1
-        # validate data type: TextAd
-        if not isinstance(v, TextAd):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `TextAd`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in Ad with oneOf schemas: AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in Ad with oneOf schemas: AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of Ad from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AppInstallAd`
-        if _data_type == "AppInstall":
-            instance.actual_instance = AppInstallAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `DynamicSearchAd`
-        if _data_type == "DynamicSearch":
-            instance.actual_instance = DynamicSearchAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ExpandedTextAd`
-        if _data_type == "ExpandedText":
-            instance.actual_instance = ExpandedTextAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelAd`
-        if _data_type == "Hotel":
-            instance.actual_instance = HotelAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductAd`
-        if _data_type == "Product":
-            instance.actual_instance = ProductAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ResponsiveAd`
-        if _data_type == "ResponsiveAd":
-            instance.actual_instance = ResponsiveAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ResponsiveSearchAd`
-        if _data_type == "ResponsiveSearch":
-            instance.actual_instance = ResponsiveSearchAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `TextAd`
-        if _data_type == "Text":
-            instance.actual_instance = TextAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `AppInstallAd`
-        if _data_type == "AppInstallAd":
-            instance.actual_instance = AppInstallAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `DynamicSearchAd`
-        if _data_type == "DynamicSearchAd":
-            instance.actual_instance = DynamicSearchAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ExpandedTextAd`
-        if _data_type == "ExpandedTextAd":
-            instance.actual_instance = ExpandedTextAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelAd`
-        if _data_type == "HotelAd":
-            instance.actual_instance = HotelAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductAd`
-        if _data_type == "ProductAd":
-            instance.actual_instance = ProductAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `ResponsiveSearchAd`
-        if _data_type == "ResponsiveSearchAd":
-            instance.actual_instance = ResponsiveSearchAd.from_json(json_str)
-            return instance
-			
-		# check if data type is `TextAd`
-        if _data_type == "TextAd":
-            instance.actual_instance = TextAd.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AppInstallAd
-        try:
-            instance.actual_instance = AppInstallAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DynamicSearchAd
-        try:
-            instance.actual_instance = DynamicSearchAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ExpandedTextAd
-        try:
-            instance.actual_instance = ExpandedTextAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelAd
-        try:
-            instance.actual_instance = HotelAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductAd
-        try:
-            instance.actual_instance = ProductAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ResponsiveAd
-        try:
-            instance.actual_instance = ResponsiveAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ResponsiveSearchAd
-        try:
-            instance.actual_instance = ResponsiveSearchAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into TextAd
-        try:
-            instance.actual_instance = TextAd.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into Ad with oneOf schemas: AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into Ad with oneOf schemas: AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AppInstallAd, DynamicSearchAd, ExpandedTextAd, HotelAd, ProductAd, ResponsiveAd, ResponsiveSearchAd, TextAd]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of Ad from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_app_install_ad_validator', 'oneof_schema_dynamic_search_ad_validator', 'oneof_schema_expanded_text_ad_validator', 'oneof_schema_hotel_ad_validator', 'oneof_schema_product_ad_validator', 'oneof_schema_responsive_ad_validator', 'oneof_schema_responsive_search_ad_validator', 'oneof_schema_text_ad_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AppInstall":
+            from openapi_client.models.campaign.app_install_ad import AppInstallAd
+            return AppInstallAd.from_dict(obj)
+        
+        if type == "DynamicSearch":
+            from openapi_client.models.campaign.dynamic_search_ad import DynamicSearchAd
+            return DynamicSearchAd.from_dict(obj)
+        
+        if type == "ExpandedText":
+            from openapi_client.models.campaign.expanded_text_ad import ExpandedTextAd
+            return ExpandedTextAd.from_dict(obj)
+        
+        if type == "Hotel":
+            from openapi_client.models.campaign.hotel_ad import HotelAd
+            return HotelAd.from_dict(obj)
+        
+        if type == "Product":
+            from openapi_client.models.campaign.product_ad import ProductAd
+            return ProductAd.from_dict(obj)
+        
+        if type == "ResponsiveAd":
+            from openapi_client.models.campaign.responsive_ad import ResponsiveAd
+            return ResponsiveAd.from_dict(obj)
+        
+        if type == "ResponsiveSearch":
+            from openapi_client.models.campaign.responsive_search_ad import ResponsiveSearchAd
+            return ResponsiveSearchAd.from_dict(obj)
+        
+        if type == "Text":
+            from openapi_client.models.campaign.text_ad import TextAd
+            return TextAd.from_dict(obj)
+        
+        if type == "AppInstallAd":
+            from openapi_client.models.campaign.app_install_ad import AppInstallAd
+            return AppInstallAd.from_dict(obj)
+        
+        if type == "DynamicSearchAd":
+            from openapi_client.models.campaign.dynamic_search_ad import DynamicSearchAd
+            return DynamicSearchAd.from_dict(obj)
+        
+        if type == "ExpandedTextAd":
+            from openapi_client.models.campaign.expanded_text_ad import ExpandedTextAd
+            return ExpandedTextAd.from_dict(obj)
+        
+        if type == "HotelAd":
+            from openapi_client.models.campaign.hotel_ad import HotelAd
+            return HotelAd.from_dict(obj)
+        
+        if type == "ProductAd":
+            from openapi_client.models.campaign.product_ad import ProductAd
+            return ProductAd.from_dict(obj)
+        
+        if type == "ResponsiveSearchAd":
+            from openapi_client.models.campaign.responsive_search_ad import ResponsiveSearchAd
+            return ResponsiveSearchAd.from_dict(obj)
+        
+        if type == "TextAd":
+            from openapi_client.models.campaign.text_ad import TextAd
+            return TextAd.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

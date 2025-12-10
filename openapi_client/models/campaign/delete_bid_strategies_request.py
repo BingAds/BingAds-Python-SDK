@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.entity_scope import EntityScope
 from typing_extensions import Self
 
 class DeleteBidStrategiesRequest(BaseModel):
@@ -27,7 +28,8 @@ class DeleteBidStrategiesRequest(BaseModel):
     DeleteBidStrategiesRequest
     """ # noqa: E501
     bid_strategy_ids: Optional[List[StrictStr]] = Field(default=None, alias="BidStrategyIds")
-    __properties: ClassVar[List[str]] = ["BidStrategyIds"]
+    scope: Optional[EntityScope] = Field(default=None, alias="Scope")
+    __properties: ClassVar[List[str]] = ["BidStrategyIds", "Scope"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,6 +61,11 @@ class DeleteBidStrategiesRequest(BaseModel):
         if self.bid_strategy_ids is None and "bid_strategy_ids" in self.model_fields_set:
             _dict['BidStrategyIds'] = None
 
+        # set to None if scope (nullable) is None
+        # and model_fields_set contains the field
+        if self.scope is None and "scope" in self.model_fields_set:
+            _dict['Scope'] = None
+
         return _dict
 
     @classmethod
@@ -71,6 +78,7 @@ class DeleteBidStrategiesRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "BidStrategyIds": obj.get("BidStrategyIds")
+            "BidStrategyIds": obj.get("BidStrategyIds"),
+                        "Scope": obj.get("Scope") if obj.get("Scope") is not None else None
         })
         return _obj

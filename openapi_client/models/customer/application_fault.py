@@ -17,180 +17,88 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.customer.ad_api_error import AdApiError
-from openapi_client.models.customer.ad_api_fault_detail import AdApiFaultDetail
-from openapi_client.models.customer.api_batch_fault import ApiBatchFault
-from openapi_client.models.customer.api_fault import ApiFault
-from openapi_client.models.customer.batch_error import BatchError
-from openapi_client.models.customer.operation_error import OperationError
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-ApplicationFault_ONE_OF_SCHEMAS = ["AdApiFaultDetail", "ApiBatchFault", "ApiFault"]
 
 class ApplicationFault(BaseModel):
     """
     ApplicationFault
     """
-    # data type: AdApiFaultDetail
-    oneof_schema_ad_api_fault_detail_validator: Optional[AdApiFaultDetail] = None
-    # data type: ApiBatchFault
-    oneof_schema_api_batch_fault_validator: Optional[ApiBatchFault] = None
-    # data type: ApiFault
-    oneof_schema_api_fault_validator: Optional[ApiFault] = None
-    actual_instance: Optional[Union[AdApiFaultDetail, ApiBatchFault, ApiFault]] = None
-    one_of_schemas: Set[str] = { "AdApiFaultDetail", "ApiBatchFault", "ApiFault" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AdApiFaultDetail', 'AdApiFaultDetail'),
+                ('ApiBatchFault', 'ApiBatchFault'),
+                ('ApiFault', 'ApiFault'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = ApplicationFault.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AdApiFaultDetail
-        if not isinstance(v, AdApiFaultDetail):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdApiFaultDetail`")
-        else:
-            match += 1
-        # validate data type: ApiBatchFault
-        if not isinstance(v, ApiBatchFault):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ApiBatchFault`")
-        else:
-            match += 1
-        # validate data type: ApiFault
-        if not isinstance(v, ApiFault):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ApiFault`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in ApplicationFault with oneOf schemas: AdApiFaultDetail, ApiBatchFault, ApiFault. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in ApplicationFault with oneOf schemas: AdApiFaultDetail, ApiBatchFault, ApiFault. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of ApplicationFault from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AdApiFaultDetail`
-        if _data_type == "AdApiFaultDetail":
-            instance.actual_instance = AdApiFaultDetail.from_json(json_str)
-            return instance
-			
-		# check if data type is `ApiBatchFault`
-        if _data_type == "ApiBatchFault":
-            instance.actual_instance = ApiBatchFault.from_json(json_str)
-            return instance
-			
-		# check if data type is `ApiFault`
-        if _data_type == "ApiFault":
-            instance.actual_instance = ApiFault.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AdApiFaultDetail
-        try:
-            instance.actual_instance = AdApiFaultDetail.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ApiBatchFault
-        try:
-            instance.actual_instance = ApiBatchFault.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ApiFault
-        try:
-            instance.actual_instance = ApiFault.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into ApplicationFault with oneOf schemas: AdApiFaultDetail, ApiBatchFault, ApiFault. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into ApplicationFault with oneOf schemas: AdApiFaultDetail, ApiBatchFault, ApiFault. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AdApiFaultDetail, ApiBatchFault, ApiFault]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ApplicationFault from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_ad_api_fault_detail_validator', 'oneof_schema_api_batch_fault_validator', 'oneof_schema_api_fault_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AdApiFaultDetail":
+            from openapi_client.models.customer.ad_api_fault_detail import AdApiFaultDetail
+            return AdApiFaultDetail.from_dict(obj)
+        
+        if type == "ApiBatchFault":
+            from openapi_client.models.customer.api_batch_fault import ApiBatchFault
+            return ApiBatchFault.from_dict(obj)
+        
+        if type == "ApiFault":
+            from openapi_client.models.customer.api_fault import ApiFault
+            return ApiFault.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

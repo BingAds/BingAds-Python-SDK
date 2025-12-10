@@ -24,8 +24,8 @@ from openapi_client.models.campaign.campaign_criterion_status import CampaignCri
 from openapi_client.models.campaign.criterion import Criterion
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
 from typing_extensions import Self
-
-class NegativeCampaignCriterion(BaseModel):
+from openapi_client.models.campaign.campaign_criterion import CampaignCriterion
+class NegativeCampaignCriterion(CampaignCriterion):
     """
     NegativeCampaignCriterion
     """ # noqa: E501
@@ -34,7 +34,7 @@ class NegativeCampaignCriterion(BaseModel):
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     status: Optional[CampaignCriterionStatus] = Field(default=None, alias="Status")
-    type: Optional[StrictStr] = Field(default='NegativeCampaignCriterion', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     __properties: ClassVar[List[str]] = ["Id", "CampaignId", "Criterion", "ForwardCompatibilityMap", "Status", "Type"]
 
     model_config = ConfigDict(
@@ -43,6 +43,9 @@ class NegativeCampaignCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -129,6 +132,6 @@ class NegativeCampaignCriterion(BaseModel):
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'NegativeCampaignCriterion'
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

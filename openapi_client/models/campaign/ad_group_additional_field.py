@@ -54,8 +54,23 @@ class AdGroupAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            AdGroupAdditionalField.NONE: 'None',
+            AdGroupAdditionalField.ADSCHEDULEUSESEARCHERTIMEZONE: 'AdScheduleUseSearcherTimeZone',
+            AdGroupAdditionalField.ADGROUPTYPE: 'AdGroupType',
+            AdGroupAdditionalField.CPVBID: 'CpvBid',
+            AdGroupAdditionalField.CPMBID: 'CpmBid',
+            AdGroupAdditionalField.MULTIMEDIAADSBIDADJUSTMENT: 'MultimediaAdsBidAdjustment',
+            AdGroupAdditionalField.COMMISSIONRATE: 'CommissionRate',
+            AdGroupAdditionalField.PERCENTCPCBID: 'PercentCpcBid',
+            AdGroupAdditionalField.MCPABID: 'McpaBid',
+            AdGroupAdditionalField.USEOPTIMIZEDTARGETING: 'UseOptimizedTargeting',
+            AdGroupAdditionalField.FREQUENCYCAPSETTINGS: 'FrequencyCapSettings',
+            AdGroupAdditionalField.USEPREDICTIVETARGETING: 'UsePredictiveTargeting',
+            AdGroupAdditionalField.MAXCONVERSIONVALUEWITHMAXCPC: 'MaxConversionValueWithMaxCpc',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in AdGroupAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in AdGroupAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

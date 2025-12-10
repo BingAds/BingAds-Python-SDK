@@ -21,17 +21,17 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class LocationCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class LocationCriterion(Criterion):
     """
     LocationCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     location_id: Optional[StrictStr] = Field(default=None, alias="LocationId")
     location_type: Optional[StrictStr] = Field(default=None, alias="LocationType")
     display_name: Optional[StrictStr] = Field(default=None, alias="DisplayName")
     enclosed_location_ids: Optional[List[StrictStr]] = Field(default=None, alias="EnclosedLocationIds")
-    type: Optional[StrictStr] = Field(default='LocationCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["LocationId", "LocationType", "DisplayName", "EnclosedLocationIds", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "LocationId", "LocationType", "DisplayName", "EnclosedLocationIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class LocationCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -68,6 +71,11 @@ class LocationCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if location_id (nullable) is None
         # and model_fields_set contains the field
         if self.location_id is None and "location_id" in self.model_fields_set:
@@ -88,11 +96,6 @@ class LocationCriterion(BaseModel):
         if self.enclosed_location_ids is None and "enclosed_location_ids" in self.model_fields_set:
             _dict['EnclosedLocationIds'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -105,10 +108,10 @@ class LocationCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "LocationId": obj.get("LocationId") if obj.get("LocationId") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "LocationId": obj.get("LocationId") if obj.get("LocationId") is not None else None,
                         "LocationType": obj.get("LocationType") if obj.get("LocationType") is not None else None,
                         "DisplayName": obj.get("DisplayName") if obj.get("DisplayName") is not None else None,
-                        "EnclosedLocationIds": obj.get("EnclosedLocationIds"),
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'LocationCriterion'
+                        "EnclosedLocationIds": obj.get("EnclosedLocationIds")
         })
         return _obj

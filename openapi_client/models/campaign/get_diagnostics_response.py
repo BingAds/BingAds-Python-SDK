@@ -20,21 +20,17 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.diagnostic_card_data import DiagnosticCardData
-from openapi_client.models.campaign.diagnostic_category_data import DiagnosticCategoryData
-from openapi_client.models.campaign.diagnostic_tile_data import DiagnosticTileData
-from openapi_client.models.campaign.health_check_error import HealthCheckError
+from openapi_client.models.campaign.diagnostics_request_status import DiagnosticsRequestStatus
+from openapi_client.models.campaign.entity_result import EntityResult
 from typing_extensions import Self
 
 class GetDiagnosticsResponse(BaseModel):
     """
     GetDiagnosticsResponse
     """ # noqa: E501
-    diagnostic_tile_data: Optional[DiagnosticTileData] = Field(default=None, alias="DiagnosticTileData")
-    diagnostic_category_data: Optional[List[Optional[DiagnosticCategoryData]]] = Field(default=None, alias="DiagnosticCategoryData")
-    diagnostic_card_data: Optional[List[Optional[DiagnosticCardData]]] = Field(default=None, alias="DiagnosticCardData")
-    diagnostic_errors: Optional[List[Optional[HealthCheckError]]] = Field(default=None, alias="DiagnosticErrors")
-    __properties: ClassVar[List[str]] = ["DiagnosticTileData", "DiagnosticCategoryData", "DiagnosticCardData", "DiagnosticErrors"]
+    request_status: Optional[DiagnosticsRequestStatus] = Field(default=None, alias="RequestStatus")
+    entities: Optional[List[Optional[EntityResult]]] = Field(default=None, alias="Entities")
+    __properties: ClassVar[List[str]] = ["RequestStatus", "Entities"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,49 +57,25 @@ class GetDiagnosticsResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of diagnostic_tile_data
-        if self.diagnostic_tile_data:
-            _dict['DiagnosticTileData'] = self.diagnostic_tile_data.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of each item in diagnostic_category_data (list)
+        # override the default output from pydantic by calling `to_dict()` of request_status
+        if self.request_status:
+            _dict['RequestStatus'] = self.request_status.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in entities (list)
         _items = []
-        if self.diagnostic_category_data:
-            for _item_diagnostic_category_data in self.diagnostic_category_data:
-                if _item_diagnostic_category_data:
-                    _items.append(_item_diagnostic_category_data.to_dict())
-            _dict['DiagnosticCategoryData'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in diagnostic_card_data (list)
-        _items = []
-        if self.diagnostic_card_data:
-            for _item_diagnostic_card_data in self.diagnostic_card_data:
-                if _item_diagnostic_card_data:
-                    _items.append(_item_diagnostic_card_data.to_dict())
-            _dict['DiagnosticCardData'] = _items
-        # override the default output from pydantic by calling `to_dict()` of each item in diagnostic_errors (list)
-        _items = []
-        if self.diagnostic_errors:
-            for _item_diagnostic_errors in self.diagnostic_errors:
-                if _item_diagnostic_errors:
-                    _items.append(_item_diagnostic_errors.to_dict())
-            _dict['DiagnosticErrors'] = _items
-        # set to None if diagnostic_tile_data (nullable) is None
+        if self.entities:
+            for _item_entities in self.entities:
+                if _item_entities:
+                    _items.append(_item_entities.to_dict())
+            _dict['Entities'] = _items
+        # set to None if request_status (nullable) is None
         # and model_fields_set contains the field
-        if self.diagnostic_tile_data is None and "diagnostic_tile_data" in self.model_fields_set:
-            _dict['DiagnosticTileData'] = None
+        if self.request_status is None and "request_status" in self.model_fields_set:
+            _dict['RequestStatus'] = None
 
-        # set to None if diagnostic_category_data (nullable) is None
+        # set to None if entities (nullable) is None
         # and model_fields_set contains the field
-        if self.diagnostic_category_data is None and "diagnostic_category_data" in self.model_fields_set:
-            _dict['DiagnosticCategoryData'] = None
-
-        # set to None if diagnostic_card_data (nullable) is None
-        # and model_fields_set contains the field
-        if self.diagnostic_card_data is None and "diagnostic_card_data" in self.model_fields_set:
-            _dict['DiagnosticCardData'] = None
-
-        # set to None if diagnostic_errors (nullable) is None
-        # and model_fields_set contains the field
-        if self.diagnostic_errors is None and "diagnostic_errors" in self.model_fields_set:
-            _dict['DiagnosticErrors'] = None
+        if self.entities is None and "entities" in self.model_fields_set:
+            _dict['Entities'] = None
 
         return _dict
 
@@ -117,9 +89,7 @@ class GetDiagnosticsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "DiagnosticTileData": DiagnosticTileData.from_dict(obj["DiagnosticTileData"]) if obj.get("DiagnosticTileData") is not None else None,
-                        "DiagnosticCategoryData": [DiagnosticCategoryData.from_dict(_item) for _item in obj["DiagnosticCategoryData"]] if obj.get("DiagnosticCategoryData") is not None else None,
-                        "DiagnosticCardData": [DiagnosticCardData.from_dict(_item) for _item in obj["DiagnosticCardData"]] if obj.get("DiagnosticCardData") is not None else None,
-                        "DiagnosticErrors": [HealthCheckError.from_dict(_item) for _item in obj["DiagnosticErrors"]] if obj.get("DiagnosticErrors") is not None else None
+            "RequestStatus": DiagnosticsRequestStatus.from_dict(obj["RequestStatus"]) if obj.get("RequestStatus") is not None else None,
+                        "Entities": [EntityResult.from_dict(_item) for _item in obj["Entities"]] if obj.get("Entities") is not None else None
         })
         return _obj

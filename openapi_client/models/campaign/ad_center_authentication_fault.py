@@ -23,19 +23,19 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.authentication_fault_code import AuthenticationFaultCode
 from openapi_client.models.campaign.fault_source import FaultSource
 from typing_extensions import Self
-
-class AdCenterAuthenticationFault(BaseModel):
+from openapi_client.models.campaign.application_fault import ApplicationFault
+class AdCenterAuthenticationFault(ApplicationFault):
     """
     AdCenterAuthenticationFault
     """ # noqa: E501
+    tracking_id: Optional[StrictStr] = Field(default=None, alias="TrackingId")
     error_code: Optional[AuthenticationFaultCode] = Field(default=None, alias="ErrorCode")
     error_message: Optional[StrictStr] = Field(default=None, alias="ErrorMessage")
     mt_server_name: Optional[StrictStr] = Field(default=None, alias="MTServerName")
     faulting_layer: Optional[FaultSource] = Field(default=None, alias="FaultingLayer")
     error_source_system: Optional[StrictStr] = Field(default=None, alias="ErrorSourceSystem")
-    tracking_id: Optional[StrictStr] = Field(default=None, alias="TrackingId")
     type: Optional[StrictStr] = Field(default='AdCenterAuthenticationFault', alias="Type")
-    __properties: ClassVar[List[str]] = ["ErrorCode", "ErrorMessage", "MTServerName", "FaultingLayer", "ErrorSourceSystem", "TrackingId", "Type"]
+    __properties: ClassVar[List[str]] = ["TrackingId", "ErrorCode", "ErrorMessage", "MTServerName", "FaultingLayer", "ErrorSourceSystem", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -43,6 +43,9 @@ class AdCenterAuthenticationFault(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -72,6 +75,11 @@ class AdCenterAuthenticationFault(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if tracking_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.tracking_id is None and "tracking_id" in self.model_fields_set:
+            _dict['TrackingId'] = None
+
         # set to None if error_code (nullable) is None
         # and model_fields_set contains the field
         if self.error_code is None and "error_code" in self.model_fields_set:
@@ -97,11 +105,6 @@ class AdCenterAuthenticationFault(BaseModel):
         if self.error_source_system is None and "error_source_system" in self.model_fields_set:
             _dict['ErrorSourceSystem'] = None
 
-        # set to None if tracking_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.tracking_id is None and "tracking_id" in self.model_fields_set:
-            _dict['TrackingId'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -119,12 +122,12 @@ class AdCenterAuthenticationFault(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ErrorCode": obj.get("ErrorCode") if obj.get("ErrorCode") is not None else None,
+            "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
+                        "ErrorCode": obj.get("ErrorCode") if obj.get("ErrorCode") is not None else None,
                         "ErrorMessage": obj.get("ErrorMessage") if obj.get("ErrorMessage") is not None else None,
                         "MTServerName": obj.get("MTServerName") if obj.get("MTServerName") is not None else None,
                         "FaultingLayer": obj.get("FaultingLayer") if obj.get("FaultingLayer") is not None else None,
                         "ErrorSourceSystem": obj.get("ErrorSourceSystem") if obj.get("ErrorSourceSystem") is not None else None,
-                        "TrackingId": obj.get("TrackingId") if obj.get("TrackingId") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else 'AdCenterAuthenticationFault'
         })
         return _obj

@@ -20,6 +20,12 @@ class PortfolioBidStrategyAdditionalField(Flag):
 
     MAXCONVERSIONVALUEWITHMAXCPC = auto()
 
+    SCOPE = auto()
+
+    CURRENCYCODE = auto()
+
+    REPORTINGTIMEZONE = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -32,8 +38,15 @@ class PortfolioBidStrategyAdditionalField(Flag):
         return self._to_str()
 
     def _to_str(self) -> str:
+        _NAME_MAPPING = {
+            PortfolioBidStrategyAdditionalField.NONE: 'None',
+            PortfolioBidStrategyAdditionalField.MAXCONVERSIONVALUEWITHMAXCPC: 'MaxConversionValueWithMaxCpc',
+            PortfolioBidStrategyAdditionalField.SCOPE: 'Scope',
+            PortfolioBidStrategyAdditionalField.CURRENCYCODE: 'CurrencyCode',
+            PortfolioBidStrategyAdditionalField.REPORTINGTIMEZONE: 'ReportingTimeZone',
+        }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [flag.name.title() for flag in PortfolioBidStrategyAdditionalField if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in PortfolioBidStrategyAdditionalField if flag & self]
         if not names:
             return "None"
         if len(names) == 1:

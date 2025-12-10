@@ -21,17 +21,17 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class Image(BaseModel):
+from openapi_client.models.campaign.media import Media
+class Image(Media):
     """
     Image
     """ # noqa: E501
-    data: Optional[StrictStr] = Field(default=None, alias="Data")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     media_type: Optional[StrictStr] = Field(default=None, alias="MediaType")
-    type: Optional[StrictStr] = Field(default='Image', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
-    __properties: ClassVar[List[str]] = ["Data", "Id", "MediaType", "Type", "Text"]
+    data: Optional[StrictStr] = Field(default=None, alias="Data")
+    __properties: ClassVar[List[str]] = ["Id", "MediaType", "Type", "Text", "Data"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -39,6 +39,9 @@ class Image(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -68,11 +71,6 @@ class Image(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if data (nullable) is None
-        # and model_fields_set contains the field
-        if self.data is None and "data" in self.model_fields_set:
-            _dict['Data'] = None
-
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -93,6 +91,11 @@ class Image(BaseModel):
         if self.text is None and "text" in self.model_fields_set:
             _dict['Text'] = None
 
+        # set to None if data (nullable) is None
+        # and model_fields_set contains the field
+        if self.data is None and "data" in self.model_fields_set:
+            _dict['Data'] = None
+
         return _dict
 
     @classmethod
@@ -105,10 +108,10 @@ class Image(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Data": obj.get("Data") if obj.get("Data") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+            "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "MediaType": obj.get("MediaType") if obj.get("MediaType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'Image',
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "Data": obj.get("Data") if obj.get("Data") is not None else None
         })
         return _obj

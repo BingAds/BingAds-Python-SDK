@@ -17,962 +17,298 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.reporting.account_performance_report_request import AccountPerformanceReportRequest
-from openapi_client.models.reporting.account_report_scope import AccountReportScope
-from openapi_client.models.reporting.ad_dynamic_text_performance_report_request import AdDynamicTextPerformanceReportRequest
-from openapi_client.models.reporting.ad_extension_by_ad_report_request import AdExtensionByAdReportRequest
-from openapi_client.models.reporting.ad_extension_by_keyword_report_request import AdExtensionByKeywordReportRequest
-from openapi_client.models.reporting.ad_extension_detail_report_request import AdExtensionDetailReportRequest
-from openapi_client.models.reporting.ad_group_performance_report_request import AdGroupPerformanceReportRequest
-from openapi_client.models.reporting.ad_performance_report_request import AdPerformanceReportRequest
-from openapi_client.models.reporting.age_gender_audience_report_request import AgeGenderAudienceReportRequest
-from openapi_client.models.reporting.apps_performance_report_request import AppsPerformanceReportRequest
-from openapi_client.models.reporting.asset_group_performance_report_request import AssetGroupPerformanceReportRequest
-from openapi_client.models.reporting.asset_performance_report_request import AssetPerformanceReportRequest
-from openapi_client.models.reporting.audience_performance_report_request import AudiencePerformanceReportRequest
-from openapi_client.models.reporting.budget_summary_report_request import BudgetSummaryReportRequest
-from openapi_client.models.reporting.call_detail_report_request import CallDetailReportRequest
-from openapi_client.models.reporting.campaign_performance_report_request import CampaignPerformanceReportRequest
-from openapi_client.models.reporting.category_click_coverage_report_request import CategoryClickCoverageReportRequest
-from openapi_client.models.reporting.category_insights_report_request import CategoryInsightsReportRequest
-from openapi_client.models.reporting.combination_performance_report_request import CombinationPerformanceReportRequest
-from openapi_client.models.reporting.conversion_performance_report_request import ConversionPerformanceReportRequest
-from openapi_client.models.reporting.dsa_auto_target_performance_report_request import DSAAutoTargetPerformanceReportRequest
-from openapi_client.models.reporting.dsa_category_performance_report_request import DSACategoryPerformanceReportRequest
-from openapi_client.models.reporting.dsa_search_query_performance_report_request import DSASearchQueryPerformanceReportRequest
-from openapi_client.models.reporting.destination_url_performance_report_request import DestinationUrlPerformanceReportRequest
-from openapi_client.models.reporting.feed_item_performance_report_request import FeedItemPerformanceReportRequest
-from openapi_client.models.reporting.geographic_performance_report_request import GeographicPerformanceReportRequest
-from openapi_client.models.reporting.goals_and_funnels_report_request import GoalsAndFunnelsReportRequest
-from openapi_client.models.reporting.hotel_dimension_performance_report_request import HotelDimensionPerformanceReportRequest
-from openapi_client.models.reporting.hotel_group_performance_report_request import HotelGroupPerformanceReportRequest
-from openapi_client.models.reporting.keyword_performance_report_request import KeywordPerformanceReportRequest
-from openapi_client.models.reporting.keyword_performance_report_sort import KeywordPerformanceReportSort
-from openapi_client.models.reporting.negative_keyword_conflict_report_request import NegativeKeywordConflictReportRequest
-from openapi_client.models.reporting.product_dimension_performance_report_request import ProductDimensionPerformanceReportRequest
-from openapi_client.models.reporting.product_match_count_report_request import ProductMatchCountReportRequest
-from openapi_client.models.reporting.product_negative_keyword_conflict_report_request import ProductNegativeKeywordConflictReportRequest
-from openapi_client.models.reporting.product_partition_performance_report_request import ProductPartitionPerformanceReportRequest
-from openapi_client.models.reporting.product_partition_unit_performance_report_request import ProductPartitionUnitPerformanceReportRequest
-from openapi_client.models.reporting.product_search_query_performance_report_request import ProductSearchQueryPerformanceReportRequest
-from openapi_client.models.reporting.professional_demographics_audience_report_request import ProfessionalDemographicsAudienceReportRequest
-from openapi_client.models.reporting.publisher_usage_performance_report_request import PublisherUsagePerformanceReportRequest
-from openapi_client.models.reporting.report_aggregation import ReportAggregation
-from openapi_client.models.reporting.report_format import ReportFormat
-from openapi_client.models.reporting.report_time import ReportTime
-from openapi_client.models.reporting.search_campaign_change_history_report_request import SearchCampaignChangeHistoryReportRequest
-from openapi_client.models.reporting.search_insight_performance_report_request import SearchInsightPerformanceReportRequest
-from openapi_client.models.reporting.search_query_performance_report_request import SearchQueryPerformanceReportRequest
-from openapi_client.models.reporting.share_of_voice_report_request import ShareOfVoiceReportRequest
-from openapi_client.models.reporting.travel_query_insight_report_column import TravelQueryInsightReportColumn
-from openapi_client.models.reporting.travel_query_insight_report_request import TravelQueryInsightReportRequest
-from openapi_client.models.reporting.user_location_performance_report_request import UserLocationPerformanceReportRequest
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-ReportRequest_ONE_OF_SCHEMAS = ["AccountPerformanceReportRequest", "AdDynamicTextPerformanceReportRequest", "AdExtensionByAdReportRequest", "AdExtensionByKeywordReportRequest", "AdExtensionDetailReportRequest", "AdGroupPerformanceReportRequest", "AdPerformanceReportRequest", "AgeGenderAudienceReportRequest", "AppsPerformanceReportRequest", "AssetGroupPerformanceReportRequest", "AssetPerformanceReportRequest", "AudiencePerformanceReportRequest", "BudgetSummaryReportRequest", "CallDetailReportRequest", "CampaignPerformanceReportRequest", "CategoryClickCoverageReportRequest", "CategoryInsightsReportRequest", "CombinationPerformanceReportRequest", "ConversionPerformanceReportRequest", "DSAAutoTargetPerformanceReportRequest", "DSACategoryPerformanceReportRequest", "DSASearchQueryPerformanceReportRequest", "DestinationUrlPerformanceReportRequest", "FeedItemPerformanceReportRequest", "GeographicPerformanceReportRequest", "GoalsAndFunnelsReportRequest", "HotelDimensionPerformanceReportRequest", "HotelGroupPerformanceReportRequest", "KeywordPerformanceReportRequest", "NegativeKeywordConflictReportRequest", "ProductDimensionPerformanceReportRequest", "ProductMatchCountReportRequest", "ProductNegativeKeywordConflictReportRequest", "ProductPartitionPerformanceReportRequest", "ProductPartitionUnitPerformanceReportRequest", "ProductSearchQueryPerformanceReportRequest", "ProfessionalDemographicsAudienceReportRequest", "PublisherUsagePerformanceReportRequest", "SearchCampaignChangeHistoryReportRequest", "SearchInsightPerformanceReportRequest", "SearchQueryPerformanceReportRequest", "ShareOfVoiceReportRequest", "TravelQueryInsightReportRequest", "UserLocationPerformanceReportRequest"]
 
 class ReportRequest(BaseModel):
     """
     ReportRequest
     """
-    # data type: AccountPerformanceReportRequest
-    oneof_schema_account_performance_report_request_validator: Optional[AccountPerformanceReportRequest] = None
-    # data type: AdDynamicTextPerformanceReportRequest
-    oneof_schema_ad_dynamic_text_performance_report_request_validator: Optional[AdDynamicTextPerformanceReportRequest] = None
-    # data type: AdExtensionByAdReportRequest
-    oneof_schema_ad_extension_by_ad_report_request_validator: Optional[AdExtensionByAdReportRequest] = None
-    # data type: AdExtensionByKeywordReportRequest
-    oneof_schema_ad_extension_by_keyword_report_request_validator: Optional[AdExtensionByKeywordReportRequest] = None
-    # data type: AdExtensionDetailReportRequest
-    oneof_schema_ad_extension_detail_report_request_validator: Optional[AdExtensionDetailReportRequest] = None
-    # data type: AdGroupPerformanceReportRequest
-    oneof_schema_ad_group_performance_report_request_validator: Optional[AdGroupPerformanceReportRequest] = None
-    # data type: AdPerformanceReportRequest
-    oneof_schema_ad_performance_report_request_validator: Optional[AdPerformanceReportRequest] = None
-    # data type: AgeGenderAudienceReportRequest
-    oneof_schema_age_gender_audience_report_request_validator: Optional[AgeGenderAudienceReportRequest] = None
-    # data type: AppsPerformanceReportRequest
-    oneof_schema_apps_performance_report_request_validator: Optional[AppsPerformanceReportRequest] = None
-    # data type: AssetGroupPerformanceReportRequest
-    oneof_schema_asset_group_performance_report_request_validator: Optional[AssetGroupPerformanceReportRequest] = None
-    # data type: AssetPerformanceReportRequest
-    oneof_schema_asset_performance_report_request_validator: Optional[AssetPerformanceReportRequest] = None
-    # data type: AudiencePerformanceReportRequest
-    oneof_schema_audience_performance_report_request_validator: Optional[AudiencePerformanceReportRequest] = None
-    # data type: BudgetSummaryReportRequest
-    oneof_schema_budget_summary_report_request_validator: Optional[BudgetSummaryReportRequest] = None
-    # data type: CallDetailReportRequest
-    oneof_schema_call_detail_report_request_validator: Optional[CallDetailReportRequest] = None
-    # data type: CampaignPerformanceReportRequest
-    oneof_schema_campaign_performance_report_request_validator: Optional[CampaignPerformanceReportRequest] = None
-    # data type: CategoryClickCoverageReportRequest
-    oneof_schema_category_click_coverage_report_request_validator: Optional[CategoryClickCoverageReportRequest] = None
-    # data type: CategoryInsightsReportRequest
-    oneof_schema_category_insights_report_request_validator: Optional[CategoryInsightsReportRequest] = None
-    # data type: CombinationPerformanceReportRequest
-    oneof_schema_combination_performance_report_request_validator: Optional[CombinationPerformanceReportRequest] = None
-    # data type: ConversionPerformanceReportRequest
-    oneof_schema_conversion_performance_report_request_validator: Optional[ConversionPerformanceReportRequest] = None
-    # data type: DSAAutoTargetPerformanceReportRequest
-    oneof_schema_dsa_auto_target_performance_report_request_validator: Optional[DSAAutoTargetPerformanceReportRequest] = None
-    # data type: DSACategoryPerformanceReportRequest
-    oneof_schema_dsa_category_performance_report_request_validator: Optional[DSACategoryPerformanceReportRequest] = None
-    # data type: DSASearchQueryPerformanceReportRequest
-    oneof_schema_dsa_search_query_performance_report_request_validator: Optional[DSASearchQueryPerformanceReportRequest] = None
-    # data type: DestinationUrlPerformanceReportRequest
-    oneof_schema_destination_url_performance_report_request_validator: Optional[DestinationUrlPerformanceReportRequest] = None
-    # data type: FeedItemPerformanceReportRequest
-    oneof_schema_feed_item_performance_report_request_validator: Optional[FeedItemPerformanceReportRequest] = None
-    # data type: GeographicPerformanceReportRequest
-    oneof_schema_geographic_performance_report_request_validator: Optional[GeographicPerformanceReportRequest] = None
-    # data type: GoalsAndFunnelsReportRequest
-    oneof_schema_goals_and_funnels_report_request_validator: Optional[GoalsAndFunnelsReportRequest] = None
-    # data type: HotelDimensionPerformanceReportRequest
-    oneof_schema_hotel_dimension_performance_report_request_validator: Optional[HotelDimensionPerformanceReportRequest] = None
-    # data type: HotelGroupPerformanceReportRequest
-    oneof_schema_hotel_group_performance_report_request_validator: Optional[HotelGroupPerformanceReportRequest] = None
-    # data type: KeywordPerformanceReportRequest
-    oneof_schema_keyword_performance_report_request_validator: Optional[KeywordPerformanceReportRequest] = None
-    # data type: NegativeKeywordConflictReportRequest
-    oneof_schema_negative_keyword_conflict_report_request_validator: Optional[NegativeKeywordConflictReportRequest] = None
-    # data type: ProductDimensionPerformanceReportRequest
-    oneof_schema_product_dimension_performance_report_request_validator: Optional[ProductDimensionPerformanceReportRequest] = None
-    # data type: ProductMatchCountReportRequest
-    oneof_schema_product_match_count_report_request_validator: Optional[ProductMatchCountReportRequest] = None
-    # data type: ProductNegativeKeywordConflictReportRequest
-    oneof_schema_product_negative_keyword_conflict_report_request_validator: Optional[ProductNegativeKeywordConflictReportRequest] = None
-    # data type: ProductPartitionPerformanceReportRequest
-    oneof_schema_product_partition_performance_report_request_validator: Optional[ProductPartitionPerformanceReportRequest] = None
-    # data type: ProductPartitionUnitPerformanceReportRequest
-    oneof_schema_product_partition_unit_performance_report_request_validator: Optional[ProductPartitionUnitPerformanceReportRequest] = None
-    # data type: ProductSearchQueryPerformanceReportRequest
-    oneof_schema_product_search_query_performance_report_request_validator: Optional[ProductSearchQueryPerformanceReportRequest] = None
-    # data type: ProfessionalDemographicsAudienceReportRequest
-    oneof_schema_professional_demographics_audience_report_request_validator: Optional[ProfessionalDemographicsAudienceReportRequest] = None
-    # data type: PublisherUsagePerformanceReportRequest
-    oneof_schema_publisher_usage_performance_report_request_validator: Optional[PublisherUsagePerformanceReportRequest] = None
-    # data type: SearchCampaignChangeHistoryReportRequest
-    oneof_schema_search_campaign_change_history_report_request_validator: Optional[SearchCampaignChangeHistoryReportRequest] = None
-    # data type: SearchInsightPerformanceReportRequest
-    oneof_schema_search_insight_performance_report_request_validator: Optional[SearchInsightPerformanceReportRequest] = None
-    # data type: SearchQueryPerformanceReportRequest
-    oneof_schema_search_query_performance_report_request_validator: Optional[SearchQueryPerformanceReportRequest] = None
-    # data type: ShareOfVoiceReportRequest
-    oneof_schema_share_of_voice_report_request_validator: Optional[ShareOfVoiceReportRequest] = None
-    # data type: TravelQueryInsightReportRequest
-    oneof_schema_travel_query_insight_report_request_validator: Optional[TravelQueryInsightReportRequest] = None
-    # data type: UserLocationPerformanceReportRequest
-    oneof_schema_user_location_performance_report_request_validator: Optional[UserLocationPerformanceReportRequest] = None
-    actual_instance: Optional[Union[AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest]] = None
-    one_of_schemas: Set[str] = { "AccountPerformanceReportRequest", "AdDynamicTextPerformanceReportRequest", "AdExtensionByAdReportRequest", "AdExtensionByKeywordReportRequest", "AdExtensionDetailReportRequest", "AdGroupPerformanceReportRequest", "AdPerformanceReportRequest", "AgeGenderAudienceReportRequest", "AppsPerformanceReportRequest", "AssetGroupPerformanceReportRequest", "AssetPerformanceReportRequest", "AudiencePerformanceReportRequest", "BudgetSummaryReportRequest", "CallDetailReportRequest", "CampaignPerformanceReportRequest", "CategoryClickCoverageReportRequest", "CategoryInsightsReportRequest", "CombinationPerformanceReportRequest", "ConversionPerformanceReportRequest", "DSAAutoTargetPerformanceReportRequest", "DSACategoryPerformanceReportRequest", "DSASearchQueryPerformanceReportRequest", "DestinationUrlPerformanceReportRequest", "FeedItemPerformanceReportRequest", "GeographicPerformanceReportRequest", "GoalsAndFunnelsReportRequest", "HotelDimensionPerformanceReportRequest", "HotelGroupPerformanceReportRequest", "KeywordPerformanceReportRequest", "NegativeKeywordConflictReportRequest", "ProductDimensionPerformanceReportRequest", "ProductMatchCountReportRequest", "ProductNegativeKeywordConflictReportRequest", "ProductPartitionPerformanceReportRequest", "ProductPartitionUnitPerformanceReportRequest", "ProductSearchQueryPerformanceReportRequest", "ProfessionalDemographicsAudienceReportRequest", "PublisherUsagePerformanceReportRequest", "SearchCampaignChangeHistoryReportRequest", "SearchInsightPerformanceReportRequest", "SearchQueryPerformanceReportRequest", "ShareOfVoiceReportRequest", "TravelQueryInsightReportRequest", "UserLocationPerformanceReportRequest" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AccountPerformanceReportRequest', 'AccountPerformanceReportRequest'),
+                ('AdDynamicTextPerformanceReportRequest', 'AdDynamicTextPerformanceReportRequest'),
+                ('AdExtensionByAdReportRequest', 'AdExtensionByAdReportRequest'),
+                ('AdExtensionByKeywordReportRequest', 'AdExtensionByKeywordReportRequest'),
+                ('AdExtensionDetailReportRequest', 'AdExtensionDetailReportRequest'),
+                ('AdGroupPerformanceReportRequest', 'AdGroupPerformanceReportRequest'),
+                ('AdPerformanceReportRequest', 'AdPerformanceReportRequest'),
+                ('AgeGenderAudienceReportRequest', 'AgeGenderAudienceReportRequest'),
+                ('AppsPerformanceReportRequest', 'AppsPerformanceReportRequest'),
+                ('AssetGroupPerformanceReportRequest', 'AssetGroupPerformanceReportRequest'),
+                ('AssetPerformanceReportRequest', 'AssetPerformanceReportRequest'),
+                ('AudiencePerformanceReportRequest', 'AudiencePerformanceReportRequest'),
+                ('BidStrategyReportRequest', 'BidStrategyReportRequest'),
+                ('BudgetSummaryReportRequest', 'BudgetSummaryReportRequest'),
+                ('CallDetailReportRequest', 'CallDetailReportRequest'),
+                ('CampaignPerformanceReportRequest', 'CampaignPerformanceReportRequest'),
+                ('CategoryClickCoverageReportRequest', 'CategoryClickCoverageReportRequest'),
+                ('CategoryInsightsReportRequest', 'CategoryInsightsReportRequest'),
+                ('CombinationPerformanceReportRequest', 'CombinationPerformanceReportRequest'),
+                ('ConversionPerformanceReportRequest', 'ConversionPerformanceReportRequest'),
+                ('DSAAutoTargetPerformanceReportRequest', 'DSAAutoTargetPerformanceReportRequest'),
+                ('DSACategoryPerformanceReportRequest', 'DSACategoryPerformanceReportRequest'),
+                ('DSASearchQueryPerformanceReportRequest', 'DSASearchQueryPerformanceReportRequest'),
+                ('DestinationUrlPerformanceReportRequest', 'DestinationUrlPerformanceReportRequest'),
+                ('FeedItemPerformanceReportRequest', 'FeedItemPerformanceReportRequest'),
+                ('GeographicPerformanceReportRequest', 'GeographicPerformanceReportRequest'),
+                ('GoalsAndFunnelsReportRequest', 'GoalsAndFunnelsReportRequest'),
+                ('HotelDimensionPerformanceReportRequest', 'HotelDimensionPerformanceReportRequest'),
+                ('HotelGroupPerformanceReportRequest', 'HotelGroupPerformanceReportRequest'),
+                ('KeywordPerformanceReportRequest', 'KeywordPerformanceReportRequest'),
+                ('NegativeKeywordConflictReportRequest', 'NegativeKeywordConflictReportRequest'),
+                ('ProductDimensionPerformanceReportRequest', 'ProductDimensionPerformanceReportRequest'),
+                ('ProductMatchCountReportRequest', 'ProductMatchCountReportRequest'),
+                ('ProductNegativeKeywordConflictReportRequest', 'ProductNegativeKeywordConflictReportRequest'),
+                ('ProductPartitionPerformanceReportRequest', 'ProductPartitionPerformanceReportRequest'),
+                ('ProductPartitionUnitPerformanceReportRequest', 'ProductPartitionUnitPerformanceReportRequest'),
+                ('ProductSearchQueryPerformanceReportRequest', 'ProductSearchQueryPerformanceReportRequest'),
+                ('ProfessionalDemographicsAudienceReportRequest', 'ProfessionalDemographicsAudienceReportRequest'),
+                ('PublisherUsagePerformanceReportRequest', 'PublisherUsagePerformanceReportRequest'),
+                ('SearchCampaignChangeHistoryReportRequest', 'SearchCampaignChangeHistoryReportRequest'),
+                ('SearchInsightPerformanceReportRequest', 'SearchInsightPerformanceReportRequest'),
+                ('SearchQueryPerformanceReportRequest', 'SearchQueryPerformanceReportRequest'),
+                ('ShareOfVoiceReportRequest', 'ShareOfVoiceReportRequest'),
+                ('TravelQueryInsightReportRequest', 'TravelQueryInsightReportRequest'),
+                ('UserLocationPerformanceReportRequest', 'UserLocationPerformanceReportRequest'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = ReportRequest.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AccountPerformanceReportRequest
-        if not isinstance(v, AccountPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AccountPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdDynamicTextPerformanceReportRequest
-        if not isinstance(v, AdDynamicTextPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdDynamicTextPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdExtensionByAdReportRequest
-        if not isinstance(v, AdExtensionByAdReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdExtensionByAdReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdExtensionByKeywordReportRequest
-        if not isinstance(v, AdExtensionByKeywordReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdExtensionByKeywordReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdExtensionDetailReportRequest
-        if not isinstance(v, AdExtensionDetailReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdExtensionDetailReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdGroupPerformanceReportRequest
-        if not isinstance(v, AdGroupPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdGroupPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AdPerformanceReportRequest
-        if not isinstance(v, AdPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AdPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AgeGenderAudienceReportRequest
-        if not isinstance(v, AgeGenderAudienceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AgeGenderAudienceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AppsPerformanceReportRequest
-        if not isinstance(v, AppsPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AppsPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AssetGroupPerformanceReportRequest
-        if not isinstance(v, AssetGroupPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AssetGroupPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AssetPerformanceReportRequest
-        if not isinstance(v, AssetPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AssetPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: AudiencePerformanceReportRequest
-        if not isinstance(v, AudiencePerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AudiencePerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: BudgetSummaryReportRequest
-        if not isinstance(v, BudgetSummaryReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `BudgetSummaryReportRequest`")
-        else:
-            match += 1
-        # validate data type: CallDetailReportRequest
-        if not isinstance(v, CallDetailReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CallDetailReportRequest`")
-        else:
-            match += 1
-        # validate data type: CampaignPerformanceReportRequest
-        if not isinstance(v, CampaignPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CampaignPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: CategoryClickCoverageReportRequest
-        if not isinstance(v, CategoryClickCoverageReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CategoryClickCoverageReportRequest`")
-        else:
-            match += 1
-        # validate data type: CategoryInsightsReportRequest
-        if not isinstance(v, CategoryInsightsReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CategoryInsightsReportRequest`")
-        else:
-            match += 1
-        # validate data type: CombinationPerformanceReportRequest
-        if not isinstance(v, CombinationPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `CombinationPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ConversionPerformanceReportRequest
-        if not isinstance(v, ConversionPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ConversionPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: DSAAutoTargetPerformanceReportRequest
-        if not isinstance(v, DSAAutoTargetPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DSAAutoTargetPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: DSACategoryPerformanceReportRequest
-        if not isinstance(v, DSACategoryPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DSACategoryPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: DSASearchQueryPerformanceReportRequest
-        if not isinstance(v, DSASearchQueryPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DSASearchQueryPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: DestinationUrlPerformanceReportRequest
-        if not isinstance(v, DestinationUrlPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DestinationUrlPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: FeedItemPerformanceReportRequest
-        if not isinstance(v, FeedItemPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `FeedItemPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: GeographicPerformanceReportRequest
-        if not isinstance(v, GeographicPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `GeographicPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: GoalsAndFunnelsReportRequest
-        if not isinstance(v, GoalsAndFunnelsReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `GoalsAndFunnelsReportRequest`")
-        else:
-            match += 1
-        # validate data type: HotelDimensionPerformanceReportRequest
-        if not isinstance(v, HotelDimensionPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelDimensionPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: HotelGroupPerformanceReportRequest
-        if not isinstance(v, HotelGroupPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `HotelGroupPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: KeywordPerformanceReportRequest
-        if not isinstance(v, KeywordPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `KeywordPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: NegativeKeywordConflictReportRequest
-        if not isinstance(v, NegativeKeywordConflictReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `NegativeKeywordConflictReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductDimensionPerformanceReportRequest
-        if not isinstance(v, ProductDimensionPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductDimensionPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductMatchCountReportRequest
-        if not isinstance(v, ProductMatchCountReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductMatchCountReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductNegativeKeywordConflictReportRequest
-        if not isinstance(v, ProductNegativeKeywordConflictReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductNegativeKeywordConflictReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductPartitionPerformanceReportRequest
-        if not isinstance(v, ProductPartitionPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductPartitionPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductPartitionUnitPerformanceReportRequest
-        if not isinstance(v, ProductPartitionUnitPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductPartitionUnitPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProductSearchQueryPerformanceReportRequest
-        if not isinstance(v, ProductSearchQueryPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProductSearchQueryPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ProfessionalDemographicsAudienceReportRequest
-        if not isinstance(v, ProfessionalDemographicsAudienceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ProfessionalDemographicsAudienceReportRequest`")
-        else:
-            match += 1
-        # validate data type: PublisherUsagePerformanceReportRequest
-        if not isinstance(v, PublisherUsagePerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PublisherUsagePerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: SearchCampaignChangeHistoryReportRequest
-        if not isinstance(v, SearchCampaignChangeHistoryReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `SearchCampaignChangeHistoryReportRequest`")
-        else:
-            match += 1
-        # validate data type: SearchInsightPerformanceReportRequest
-        if not isinstance(v, SearchInsightPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `SearchInsightPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: SearchQueryPerformanceReportRequest
-        if not isinstance(v, SearchQueryPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `SearchQueryPerformanceReportRequest`")
-        else:
-            match += 1
-        # validate data type: ShareOfVoiceReportRequest
-        if not isinstance(v, ShareOfVoiceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `ShareOfVoiceReportRequest`")
-        else:
-            match += 1
-        # validate data type: TravelQueryInsightReportRequest
-        if not isinstance(v, TravelQueryInsightReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `TravelQueryInsightReportRequest`")
-        else:
-            match += 1
-        # validate data type: UserLocationPerformanceReportRequest
-        if not isinstance(v, UserLocationPerformanceReportRequest):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `UserLocationPerformanceReportRequest`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in ReportRequest with oneOf schemas: AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in ReportRequest with oneOf schemas: AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of ReportRequest from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AccountPerformanceReportRequest`
-        if _data_type == "AccountPerformanceReportRequest":
-            instance.actual_instance = AccountPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdDynamicTextPerformanceReportRequest`
-        if _data_type == "AdDynamicTextPerformanceReportRequest":
-            instance.actual_instance = AdDynamicTextPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdExtensionByAdReportRequest`
-        if _data_type == "AdExtensionByAdReportRequest":
-            instance.actual_instance = AdExtensionByAdReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdExtensionByKeywordReportRequest`
-        if _data_type == "AdExtensionByKeywordReportRequest":
-            instance.actual_instance = AdExtensionByKeywordReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdExtensionDetailReportRequest`
-        if _data_type == "AdExtensionDetailReportRequest":
-            instance.actual_instance = AdExtensionDetailReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdGroupPerformanceReportRequest`
-        if _data_type == "AdGroupPerformanceReportRequest":
-            instance.actual_instance = AdGroupPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AdPerformanceReportRequest`
-        if _data_type == "AdPerformanceReportRequest":
-            instance.actual_instance = AdPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AgeGenderAudienceReportRequest`
-        if _data_type == "AgeGenderAudienceReportRequest":
-            instance.actual_instance = AgeGenderAudienceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AppsPerformanceReportRequest`
-        if _data_type == "AppsPerformanceReportRequest":
-            instance.actual_instance = AppsPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AssetGroupPerformanceReportRequest`
-        if _data_type == "AssetGroupPerformanceReportRequest":
-            instance.actual_instance = AssetGroupPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AssetPerformanceReportRequest`
-        if _data_type == "AssetPerformanceReportRequest":
-            instance.actual_instance = AssetPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `AudiencePerformanceReportRequest`
-        if _data_type == "AudiencePerformanceReportRequest":
-            instance.actual_instance = AudiencePerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `BudgetSummaryReportRequest`
-        if _data_type == "BudgetSummaryReportRequest":
-            instance.actual_instance = BudgetSummaryReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `CallDetailReportRequest`
-        if _data_type == "CallDetailReportRequest":
-            instance.actual_instance = CallDetailReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `CampaignPerformanceReportRequest`
-        if _data_type == "CampaignPerformanceReportRequest":
-            instance.actual_instance = CampaignPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `CategoryClickCoverageReportRequest`
-        if _data_type == "CategoryClickCoverageReportRequest":
-            instance.actual_instance = CategoryClickCoverageReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `CategoryInsightsReportRequest`
-        if _data_type == "CategoryInsightsReportRequest":
-            instance.actual_instance = CategoryInsightsReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `CombinationPerformanceReportRequest`
-        if _data_type == "CombinationPerformanceReportRequest":
-            instance.actual_instance = CombinationPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ConversionPerformanceReportRequest`
-        if _data_type == "ConversionPerformanceReportRequest":
-            instance.actual_instance = ConversionPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `DSAAutoTargetPerformanceReportRequest`
-        if _data_type == "DSAAutoTargetPerformanceReportRequest":
-            instance.actual_instance = DSAAutoTargetPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `DSACategoryPerformanceReportRequest`
-        if _data_type == "DSACategoryPerformanceReportRequest":
-            instance.actual_instance = DSACategoryPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `DSASearchQueryPerformanceReportRequest`
-        if _data_type == "DSASearchQueryPerformanceReportRequest":
-            instance.actual_instance = DSASearchQueryPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `DestinationUrlPerformanceReportRequest`
-        if _data_type == "DestinationUrlPerformanceReportRequest":
-            instance.actual_instance = DestinationUrlPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `FeedItemPerformanceReportRequest`
-        if _data_type == "FeedItemPerformanceReportRequest":
-            instance.actual_instance = FeedItemPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `GeographicPerformanceReportRequest`
-        if _data_type == "GeographicPerformanceReportRequest":
-            instance.actual_instance = GeographicPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `GoalsAndFunnelsReportRequest`
-        if _data_type == "GoalsAndFunnelsReportRequest":
-            instance.actual_instance = GoalsAndFunnelsReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelDimensionPerformanceReportRequest`
-        if _data_type == "HotelDimensionPerformanceReportRequest":
-            instance.actual_instance = HotelDimensionPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `HotelGroupPerformanceReportRequest`
-        if _data_type == "HotelGroupPerformanceReportRequest":
-            instance.actual_instance = HotelGroupPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `KeywordPerformanceReportRequest`
-        if _data_type == "KeywordPerformanceReportRequest":
-            instance.actual_instance = KeywordPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `NegativeKeywordConflictReportRequest`
-        if _data_type == "NegativeKeywordConflictReportRequest":
-            instance.actual_instance = NegativeKeywordConflictReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductDimensionPerformanceReportRequest`
-        if _data_type == "ProductDimensionPerformanceReportRequest":
-            instance.actual_instance = ProductDimensionPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductMatchCountReportRequest`
-        if _data_type == "ProductMatchCountReportRequest":
-            instance.actual_instance = ProductMatchCountReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductNegativeKeywordConflictReportRequest`
-        if _data_type == "ProductNegativeKeywordConflictReportRequest":
-            instance.actual_instance = ProductNegativeKeywordConflictReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductPartitionPerformanceReportRequest`
-        if _data_type == "ProductPartitionPerformanceReportRequest":
-            instance.actual_instance = ProductPartitionPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductPartitionUnitPerformanceReportRequest`
-        if _data_type == "ProductPartitionUnitPerformanceReportRequest":
-            instance.actual_instance = ProductPartitionUnitPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProductSearchQueryPerformanceReportRequest`
-        if _data_type == "ProductSearchQueryPerformanceReportRequest":
-            instance.actual_instance = ProductSearchQueryPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ProfessionalDemographicsAudienceReportRequest`
-        if _data_type == "ProfessionalDemographicsAudienceReportRequest":
-            instance.actual_instance = ProfessionalDemographicsAudienceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `PublisherUsagePerformanceReportRequest`
-        if _data_type == "PublisherUsagePerformanceReportRequest":
-            instance.actual_instance = PublisherUsagePerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `SearchCampaignChangeHistoryReportRequest`
-        if _data_type == "SearchCampaignChangeHistoryReportRequest":
-            instance.actual_instance = SearchCampaignChangeHistoryReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `SearchInsightPerformanceReportRequest`
-        if _data_type == "SearchInsightPerformanceReportRequest":
-            instance.actual_instance = SearchInsightPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `SearchQueryPerformanceReportRequest`
-        if _data_type == "SearchQueryPerformanceReportRequest":
-            instance.actual_instance = SearchQueryPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `ShareOfVoiceReportRequest`
-        if _data_type == "ShareOfVoiceReportRequest":
-            instance.actual_instance = ShareOfVoiceReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `TravelQueryInsightReportRequest`
-        if _data_type == "TravelQueryInsightReportRequest":
-            instance.actual_instance = TravelQueryInsightReportRequest.from_json(json_str)
-            return instance
-			
-		# check if data type is `UserLocationPerformanceReportRequest`
-        if _data_type == "UserLocationPerformanceReportRequest":
-            instance.actual_instance = UserLocationPerformanceReportRequest.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AccountPerformanceReportRequest
-        try:
-            instance.actual_instance = AccountPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdDynamicTextPerformanceReportRequest
-        try:
-            instance.actual_instance = AdDynamicTextPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdExtensionByAdReportRequest
-        try:
-            instance.actual_instance = AdExtensionByAdReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdExtensionByKeywordReportRequest
-        try:
-            instance.actual_instance = AdExtensionByKeywordReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdExtensionDetailReportRequest
-        try:
-            instance.actual_instance = AdExtensionDetailReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdGroupPerformanceReportRequest
-        try:
-            instance.actual_instance = AdGroupPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AdPerformanceReportRequest
-        try:
-            instance.actual_instance = AdPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AgeGenderAudienceReportRequest
-        try:
-            instance.actual_instance = AgeGenderAudienceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AppsPerformanceReportRequest
-        try:
-            instance.actual_instance = AppsPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AssetGroupPerformanceReportRequest
-        try:
-            instance.actual_instance = AssetGroupPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AssetPerformanceReportRequest
-        try:
-            instance.actual_instance = AssetPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into AudiencePerformanceReportRequest
-        try:
-            instance.actual_instance = AudiencePerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into BudgetSummaryReportRequest
-        try:
-            instance.actual_instance = BudgetSummaryReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CallDetailReportRequest
-        try:
-            instance.actual_instance = CallDetailReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CampaignPerformanceReportRequest
-        try:
-            instance.actual_instance = CampaignPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CategoryClickCoverageReportRequest
-        try:
-            instance.actual_instance = CategoryClickCoverageReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CategoryInsightsReportRequest
-        try:
-            instance.actual_instance = CategoryInsightsReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into CombinationPerformanceReportRequest
-        try:
-            instance.actual_instance = CombinationPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ConversionPerformanceReportRequest
-        try:
-            instance.actual_instance = ConversionPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DSAAutoTargetPerformanceReportRequest
-        try:
-            instance.actual_instance = DSAAutoTargetPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DSACategoryPerformanceReportRequest
-        try:
-            instance.actual_instance = DSACategoryPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DSASearchQueryPerformanceReportRequest
-        try:
-            instance.actual_instance = DSASearchQueryPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DestinationUrlPerformanceReportRequest
-        try:
-            instance.actual_instance = DestinationUrlPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into FeedItemPerformanceReportRequest
-        try:
-            instance.actual_instance = FeedItemPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into GeographicPerformanceReportRequest
-        try:
-            instance.actual_instance = GeographicPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into GoalsAndFunnelsReportRequest
-        try:
-            instance.actual_instance = GoalsAndFunnelsReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelDimensionPerformanceReportRequest
-        try:
-            instance.actual_instance = HotelDimensionPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into HotelGroupPerformanceReportRequest
-        try:
-            instance.actual_instance = HotelGroupPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into KeywordPerformanceReportRequest
-        try:
-            instance.actual_instance = KeywordPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into NegativeKeywordConflictReportRequest
-        try:
-            instance.actual_instance = NegativeKeywordConflictReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductDimensionPerformanceReportRequest
-        try:
-            instance.actual_instance = ProductDimensionPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductMatchCountReportRequest
-        try:
-            instance.actual_instance = ProductMatchCountReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductNegativeKeywordConflictReportRequest
-        try:
-            instance.actual_instance = ProductNegativeKeywordConflictReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductPartitionPerformanceReportRequest
-        try:
-            instance.actual_instance = ProductPartitionPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductPartitionUnitPerformanceReportRequest
-        try:
-            instance.actual_instance = ProductPartitionUnitPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProductSearchQueryPerformanceReportRequest
-        try:
-            instance.actual_instance = ProductSearchQueryPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ProfessionalDemographicsAudienceReportRequest
-        try:
-            instance.actual_instance = ProfessionalDemographicsAudienceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PublisherUsagePerformanceReportRequest
-        try:
-            instance.actual_instance = PublisherUsagePerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into SearchCampaignChangeHistoryReportRequest
-        try:
-            instance.actual_instance = SearchCampaignChangeHistoryReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into SearchInsightPerformanceReportRequest
-        try:
-            instance.actual_instance = SearchInsightPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into SearchQueryPerformanceReportRequest
-        try:
-            instance.actual_instance = SearchQueryPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into ShareOfVoiceReportRequest
-        try:
-            instance.actual_instance = ShareOfVoiceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into TravelQueryInsightReportRequest
-        try:
-            instance.actual_instance = TravelQueryInsightReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into UserLocationPerformanceReportRequest
-        try:
-            instance.actual_instance = UserLocationPerformanceReportRequest.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into ReportRequest with oneOf schemas: AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into ReportRequest with oneOf schemas: AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AccountPerformanceReportRequest, AdDynamicTextPerformanceReportRequest, AdExtensionByAdReportRequest, AdExtensionByKeywordReportRequest, AdExtensionDetailReportRequest, AdGroupPerformanceReportRequest, AdPerformanceReportRequest, AgeGenderAudienceReportRequest, AppsPerformanceReportRequest, AssetGroupPerformanceReportRequest, AssetPerformanceReportRequest, AudiencePerformanceReportRequest, BudgetSummaryReportRequest, CallDetailReportRequest, CampaignPerformanceReportRequest, CategoryClickCoverageReportRequest, CategoryInsightsReportRequest, CombinationPerformanceReportRequest, ConversionPerformanceReportRequest, DSAAutoTargetPerformanceReportRequest, DSACategoryPerformanceReportRequest, DSASearchQueryPerformanceReportRequest, DestinationUrlPerformanceReportRequest, FeedItemPerformanceReportRequest, GeographicPerformanceReportRequest, GoalsAndFunnelsReportRequest, HotelDimensionPerformanceReportRequest, HotelGroupPerformanceReportRequest, KeywordPerformanceReportRequest, NegativeKeywordConflictReportRequest, ProductDimensionPerformanceReportRequest, ProductMatchCountReportRequest, ProductNegativeKeywordConflictReportRequest, ProductPartitionPerformanceReportRequest, ProductPartitionUnitPerformanceReportRequest, ProductSearchQueryPerformanceReportRequest, ProfessionalDemographicsAudienceReportRequest, PublisherUsagePerformanceReportRequest, SearchCampaignChangeHistoryReportRequest, SearchInsightPerformanceReportRequest, SearchQueryPerformanceReportRequest, ShareOfVoiceReportRequest, TravelQueryInsightReportRequest, UserLocationPerformanceReportRequest]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ReportRequest from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_account_performance_report_request_validator', 'oneof_schema_ad_dynamic_text_performance_report_request_validator', 'oneof_schema_ad_extension_by_ad_report_request_validator', 'oneof_schema_ad_extension_by_keyword_report_request_validator', 'oneof_schema_ad_extension_detail_report_request_validator', 'oneof_schema_ad_group_performance_report_request_validator', 'oneof_schema_ad_performance_report_request_validator', 'oneof_schema_age_gender_audience_report_request_validator', 'oneof_schema_apps_performance_report_request_validator', 'oneof_schema_asset_group_performance_report_request_validator', 'oneof_schema_asset_performance_report_request_validator', 'oneof_schema_audience_performance_report_request_validator', 'oneof_schema_budget_summary_report_request_validator', 'oneof_schema_call_detail_report_request_validator', 'oneof_schema_campaign_performance_report_request_validator', 'oneof_schema_category_click_coverage_report_request_validator', 'oneof_schema_category_insights_report_request_validator', 'oneof_schema_combination_performance_report_request_validator', 'oneof_schema_conversion_performance_report_request_validator', 'oneof_schema_dsa_auto_target_performance_report_request_validator', 'oneof_schema_dsa_category_performance_report_request_validator', 'oneof_schema_dsa_search_query_performance_report_request_validator', 'oneof_schema_destination_url_performance_report_request_validator', 'oneof_schema_feed_item_performance_report_request_validator', 'oneof_schema_geographic_performance_report_request_validator', 'oneof_schema_goals_and_funnels_report_request_validator', 'oneof_schema_hotel_dimension_performance_report_request_validator', 'oneof_schema_hotel_group_performance_report_request_validator', 'oneof_schema_keyword_performance_report_request_validator', 'oneof_schema_negative_keyword_conflict_report_request_validator', 'oneof_schema_product_dimension_performance_report_request_validator', 'oneof_schema_product_match_count_report_request_validator', 'oneof_schema_product_negative_keyword_conflict_report_request_validator', 'oneof_schema_product_partition_performance_report_request_validator', 'oneof_schema_product_partition_unit_performance_report_request_validator', 'oneof_schema_product_search_query_performance_report_request_validator', 'oneof_schema_professional_demographics_audience_report_request_validator', 'oneof_schema_publisher_usage_performance_report_request_validator', 'oneof_schema_search_campaign_change_history_report_request_validator', 'oneof_schema_search_insight_performance_report_request_validator', 'oneof_schema_search_query_performance_report_request_validator', 'oneof_schema_share_of_voice_report_request_validator', 'oneof_schema_travel_query_insight_report_request_validator', 'oneof_schema_user_location_performance_report_request_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AccountPerformanceReportRequest":
+            from openapi_client.models.reporting.account_performance_report_request import AccountPerformanceReportRequest
+            return AccountPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AdDynamicTextPerformanceReportRequest":
+            from openapi_client.models.reporting.ad_dynamic_text_performance_report_request import AdDynamicTextPerformanceReportRequest
+            return AdDynamicTextPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AdExtensionByAdReportRequest":
+            from openapi_client.models.reporting.ad_extension_by_ad_report_request import AdExtensionByAdReportRequest
+            return AdExtensionByAdReportRequest.from_dict(obj)
+        
+        if type == "AdExtensionByKeywordReportRequest":
+            from openapi_client.models.reporting.ad_extension_by_keyword_report_request import AdExtensionByKeywordReportRequest
+            return AdExtensionByKeywordReportRequest.from_dict(obj)
+        
+        if type == "AdExtensionDetailReportRequest":
+            from openapi_client.models.reporting.ad_extension_detail_report_request import AdExtensionDetailReportRequest
+            return AdExtensionDetailReportRequest.from_dict(obj)
+        
+        if type == "AdGroupPerformanceReportRequest":
+            from openapi_client.models.reporting.ad_group_performance_report_request import AdGroupPerformanceReportRequest
+            return AdGroupPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AdPerformanceReportRequest":
+            from openapi_client.models.reporting.ad_performance_report_request import AdPerformanceReportRequest
+            return AdPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AgeGenderAudienceReportRequest":
+            from openapi_client.models.reporting.age_gender_audience_report_request import AgeGenderAudienceReportRequest
+            return AgeGenderAudienceReportRequest.from_dict(obj)
+        
+        if type == "AppsPerformanceReportRequest":
+            from openapi_client.models.reporting.apps_performance_report_request import AppsPerformanceReportRequest
+            return AppsPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AssetGroupPerformanceReportRequest":
+            from openapi_client.models.reporting.asset_group_performance_report_request import AssetGroupPerformanceReportRequest
+            return AssetGroupPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AssetPerformanceReportRequest":
+            from openapi_client.models.reporting.asset_performance_report_request import AssetPerformanceReportRequest
+            return AssetPerformanceReportRequest.from_dict(obj)
+        
+        if type == "AudiencePerformanceReportRequest":
+            from openapi_client.models.reporting.audience_performance_report_request import AudiencePerformanceReportRequest
+            return AudiencePerformanceReportRequest.from_dict(obj)
+        
+        if type == "BidStrategyReportRequest":
+            from openapi_client.models.reporting.bid_strategy_report_request import BidStrategyReportRequest
+            return BidStrategyReportRequest.from_dict(obj)
+        
+        if type == "BudgetSummaryReportRequest":
+            from openapi_client.models.reporting.budget_summary_report_request import BudgetSummaryReportRequest
+            return BudgetSummaryReportRequest.from_dict(obj)
+        
+        if type == "CallDetailReportRequest":
+            from openapi_client.models.reporting.call_detail_report_request import CallDetailReportRequest
+            return CallDetailReportRequest.from_dict(obj)
+        
+        if type == "CampaignPerformanceReportRequest":
+            from openapi_client.models.reporting.campaign_performance_report_request import CampaignPerformanceReportRequest
+            return CampaignPerformanceReportRequest.from_dict(obj)
+        
+        if type == "CategoryClickCoverageReportRequest":
+            from openapi_client.models.reporting.category_click_coverage_report_request import CategoryClickCoverageReportRequest
+            return CategoryClickCoverageReportRequest.from_dict(obj)
+        
+        if type == "CategoryInsightsReportRequest":
+            from openapi_client.models.reporting.category_insights_report_request import CategoryInsightsReportRequest
+            return CategoryInsightsReportRequest.from_dict(obj)
+        
+        if type == "CombinationPerformanceReportRequest":
+            from openapi_client.models.reporting.combination_performance_report_request import CombinationPerformanceReportRequest
+            return CombinationPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ConversionPerformanceReportRequest":
+            from openapi_client.models.reporting.conversion_performance_report_request import ConversionPerformanceReportRequest
+            return ConversionPerformanceReportRequest.from_dict(obj)
+        
+        if type == "DSAAutoTargetPerformanceReportRequest":
+            from openapi_client.models.reporting.dsa_auto_target_performance_report_request import DSAAutoTargetPerformanceReportRequest
+            return DSAAutoTargetPerformanceReportRequest.from_dict(obj)
+        
+        if type == "DSACategoryPerformanceReportRequest":
+            from openapi_client.models.reporting.dsa_category_performance_report_request import DSACategoryPerformanceReportRequest
+            return DSACategoryPerformanceReportRequest.from_dict(obj)
+        
+        if type == "DSASearchQueryPerformanceReportRequest":
+            from openapi_client.models.reporting.dsa_search_query_performance_report_request import DSASearchQueryPerformanceReportRequest
+            return DSASearchQueryPerformanceReportRequest.from_dict(obj)
+        
+        if type == "DestinationUrlPerformanceReportRequest":
+            from openapi_client.models.reporting.destination_url_performance_report_request import DestinationUrlPerformanceReportRequest
+            return DestinationUrlPerformanceReportRequest.from_dict(obj)
+        
+        if type == "FeedItemPerformanceReportRequest":
+            from openapi_client.models.reporting.feed_item_performance_report_request import FeedItemPerformanceReportRequest
+            return FeedItemPerformanceReportRequest.from_dict(obj)
+        
+        if type == "GeographicPerformanceReportRequest":
+            from openapi_client.models.reporting.geographic_performance_report_request import GeographicPerformanceReportRequest
+            return GeographicPerformanceReportRequest.from_dict(obj)
+        
+        if type == "GoalsAndFunnelsReportRequest":
+            from openapi_client.models.reporting.goals_and_funnels_report_request import GoalsAndFunnelsReportRequest
+            return GoalsAndFunnelsReportRequest.from_dict(obj)
+        
+        if type == "HotelDimensionPerformanceReportRequest":
+            from openapi_client.models.reporting.hotel_dimension_performance_report_request import HotelDimensionPerformanceReportRequest
+            return HotelDimensionPerformanceReportRequest.from_dict(obj)
+        
+        if type == "HotelGroupPerformanceReportRequest":
+            from openapi_client.models.reporting.hotel_group_performance_report_request import HotelGroupPerformanceReportRequest
+            return HotelGroupPerformanceReportRequest.from_dict(obj)
+        
+        if type == "KeywordPerformanceReportRequest":
+            from openapi_client.models.reporting.keyword_performance_report_request import KeywordPerformanceReportRequest
+            return KeywordPerformanceReportRequest.from_dict(obj)
+        
+        if type == "NegativeKeywordConflictReportRequest":
+            from openapi_client.models.reporting.negative_keyword_conflict_report_request import NegativeKeywordConflictReportRequest
+            return NegativeKeywordConflictReportRequest.from_dict(obj)
+        
+        if type == "ProductDimensionPerformanceReportRequest":
+            from openapi_client.models.reporting.product_dimension_performance_report_request import ProductDimensionPerformanceReportRequest
+            return ProductDimensionPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ProductMatchCountReportRequest":
+            from openapi_client.models.reporting.product_match_count_report_request import ProductMatchCountReportRequest
+            return ProductMatchCountReportRequest.from_dict(obj)
+        
+        if type == "ProductNegativeKeywordConflictReportRequest":
+            from openapi_client.models.reporting.product_negative_keyword_conflict_report_request import ProductNegativeKeywordConflictReportRequest
+            return ProductNegativeKeywordConflictReportRequest.from_dict(obj)
+        
+        if type == "ProductPartitionPerformanceReportRequest":
+            from openapi_client.models.reporting.product_partition_performance_report_request import ProductPartitionPerformanceReportRequest
+            return ProductPartitionPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ProductPartitionUnitPerformanceReportRequest":
+            from openapi_client.models.reporting.product_partition_unit_performance_report_request import ProductPartitionUnitPerformanceReportRequest
+            return ProductPartitionUnitPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ProductSearchQueryPerformanceReportRequest":
+            from openapi_client.models.reporting.product_search_query_performance_report_request import ProductSearchQueryPerformanceReportRequest
+            return ProductSearchQueryPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ProfessionalDemographicsAudienceReportRequest":
+            from openapi_client.models.reporting.professional_demographics_audience_report_request import ProfessionalDemographicsAudienceReportRequest
+            return ProfessionalDemographicsAudienceReportRequest.from_dict(obj)
+        
+        if type == "PublisherUsagePerformanceReportRequest":
+            from openapi_client.models.reporting.publisher_usage_performance_report_request import PublisherUsagePerformanceReportRequest
+            return PublisherUsagePerformanceReportRequest.from_dict(obj)
+        
+        if type == "SearchCampaignChangeHistoryReportRequest":
+            from openapi_client.models.reporting.search_campaign_change_history_report_request import SearchCampaignChangeHistoryReportRequest
+            return SearchCampaignChangeHistoryReportRequest.from_dict(obj)
+        
+        if type == "SearchInsightPerformanceReportRequest":
+            from openapi_client.models.reporting.search_insight_performance_report_request import SearchInsightPerformanceReportRequest
+            return SearchInsightPerformanceReportRequest.from_dict(obj)
+        
+        if type == "SearchQueryPerformanceReportRequest":
+            from openapi_client.models.reporting.search_query_performance_report_request import SearchQueryPerformanceReportRequest
+            return SearchQueryPerformanceReportRequest.from_dict(obj)
+        
+        if type == "ShareOfVoiceReportRequest":
+            from openapi_client.models.reporting.share_of_voice_report_request import ShareOfVoiceReportRequest
+            return ShareOfVoiceReportRequest.from_dict(obj)
+        
+        if type == "TravelQueryInsightReportRequest":
+            from openapi_client.models.reporting.travel_query_insight_report_request import TravelQueryInsightReportRequest
+            return TravelQueryInsightReportRequest.from_dict(obj)
+        
+        if type == "UserLocationPerformanceReportRequest":
+            from openapi_client.models.reporting.user_location_performance_report_request import UserLocationPerformanceReportRequest
+            return UserLocationPerformanceReportRequest.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

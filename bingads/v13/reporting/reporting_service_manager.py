@@ -101,7 +101,7 @@ class ReportingServiceManager:
         """
         self.normalize_request(report_request)
         submit_generate_report_request = SubmitGenerateReportRequest(
-            ReportRequest=ReportRequest(report_request)
+            ReportRequest=report_request
         )
         response = self.service_client.SubmitGenerateReport(submit_generate_report_request)
         headers = self.service_client.get_response_header()

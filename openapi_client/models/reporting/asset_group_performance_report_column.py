@@ -56,6 +56,8 @@ class AssetGroupPerformanceReportColumn(str, Enum):
 
     CAMPAIGNTYPE = 'CampaignType'
 
+    COSTPERCONVERSION = 'CostPerConversion'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

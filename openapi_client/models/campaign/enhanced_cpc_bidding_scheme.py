@@ -21,12 +21,12 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class EnhancedCpcBiddingScheme(BaseModel):
+from openapi_client.models.campaign.bidding_scheme import BiddingScheme
+class EnhancedCpcBiddingScheme(BiddingScheme):
     """
     EnhancedCpcBiddingScheme
     """ # noqa: E501
-    type: Optional[StrictStr] = Field(default='EnhancedCpc', alias="Type")
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     __properties: ClassVar[List[str]] = ["Type"]
 
     model_config = ConfigDict(
@@ -35,6 +35,9 @@ class EnhancedCpcBiddingScheme(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -81,6 +84,6 @@ class EnhancedCpcBiddingScheme(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else 'EnhancedCpc'
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

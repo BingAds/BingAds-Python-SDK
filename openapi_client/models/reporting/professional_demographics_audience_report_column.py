@@ -86,6 +86,14 @@ class ProfessionalDemographicsAudienceReportColumn(str, Enum):
 
     VIEWTHROUGHREVENUE = 'ViewThroughRevenue'
 
+    CAMPAIGNTYPE = 'CampaignType'
+
+    ASSETGROUPID = 'AssetGroupId'
+
+    ASSETGROUPNAME = 'AssetGroupName'
+
+    ASSETGROUPSTATUS = 'AssetGroupStatus'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

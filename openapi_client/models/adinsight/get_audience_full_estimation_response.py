@@ -43,7 +43,15 @@ class GetAudienceFullEstimationResponse(BaseModel):
     est_reach_audience_size: Optional[DecimalRoundedResult] = Field(default=None, alias="EstReachAudienceSize")
     est_reach_impression: Optional[DecimalRoundedResult] = Field(default=None, alias="EstReachImpression")
     currency: Optional[Currency] = Field(default=None, alias="Currency")
-    __properties: ClassVar[List[str]] = ["EstImpression", "EstAudienceSize", "EstClick", "EstSpend", "EstCostPerEvent", "EstCTR", "SuggestedBid", "SuggestedBudget", "EventsLostToBid", "EventsLostToBudget", "EstReachAudienceSize", "EstReachImpression", "Currency"]
+    est_impression_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstImpressionByType")
+    est_click_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstClickByType")
+    est_spend_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstSpendByType")
+    est_cost_per_event_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCostPerEventByType")
+    est_cpcby_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCPCByType")
+    est_view_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstViewByType")
+    est_ctrby_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCTRByType")
+    est_reach_impression_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstReachImpressionByType")
+    __properties: ClassVar[List[str]] = ["EstImpression", "EstAudienceSize", "EstClick", "EstSpend", "EstCostPerEvent", "EstCTR", "SuggestedBid", "SuggestedBudget", "EventsLostToBid", "EventsLostToBudget", "EstReachAudienceSize", "EstReachImpression", "Currency", "EstImpressionByType", "EstClickByType", "EstSpendByType", "EstCostPerEventByType", "EstCPCByType", "EstViewByType", "EstCTRByType", "EstReachImpressionByType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -159,6 +167,46 @@ class GetAudienceFullEstimationResponse(BaseModel):
         if self.currency is None and "currency" in self.model_fields_set:
             _dict['Currency'] = None
 
+        # set to None if est_impression_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_impression_by_type is None and "est_impression_by_type" in self.model_fields_set:
+            _dict['EstImpressionByType'] = None
+
+        # set to None if est_click_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_click_by_type is None and "est_click_by_type" in self.model_fields_set:
+            _dict['EstClickByType'] = None
+
+        # set to None if est_spend_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_spend_by_type is None and "est_spend_by_type" in self.model_fields_set:
+            _dict['EstSpendByType'] = None
+
+        # set to None if est_cost_per_event_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_cost_per_event_by_type is None and "est_cost_per_event_by_type" in self.model_fields_set:
+            _dict['EstCostPerEventByType'] = None
+
+        # set to None if est_cpcby_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_cpcby_type is None and "est_cpcby_type" in self.model_fields_set:
+            _dict['EstCPCByType'] = None
+
+        # set to None if est_view_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_view_by_type is None and "est_view_by_type" in self.model_fields_set:
+            _dict['EstViewByType'] = None
+
+        # set to None if est_ctrby_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_ctrby_type is None and "est_ctrby_type" in self.model_fields_set:
+            _dict['EstCTRByType'] = None
+
+        # set to None if est_reach_impression_by_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_reach_impression_by_type is None and "est_reach_impression_by_type" in self.model_fields_set:
+            _dict['EstReachImpressionByType'] = None
+
         return _dict
 
     @classmethod
@@ -183,6 +231,14 @@ class GetAudienceFullEstimationResponse(BaseModel):
                         "EventsLostToBudget": obj.get("EventsLostToBudget") if obj.get("EventsLostToBudget") is not None else None,
                         "EstReachAudienceSize": DecimalRoundedResult.from_dict(obj["EstReachAudienceSize"]) if obj.get("EstReachAudienceSize") is not None else None,
                         "EstReachImpression": DecimalRoundedResult.from_dict(obj["EstReachImpression"]) if obj.get("EstReachImpression") is not None else None,
-                        "Currency": obj.get("Currency") if obj.get("Currency") is not None else None
+                        "Currency": obj.get("Currency") if obj.get("Currency") is not None else None,
+                        "EstImpressionByType": obj.get("EstImpressionByType"),
+                        "EstClickByType": obj.get("EstClickByType"),
+                        "EstSpendByType": obj.get("EstSpendByType"),
+                        "EstCostPerEventByType": obj.get("EstCostPerEventByType"),
+                        "EstCPCByType": obj.get("EstCpcbyType"),
+                        "EstViewByType": obj.get("EstViewByType"),
+                        "EstCTRByType": obj.get("EstCtrbyType"),
+                        "EstReachImpressionByType": obj.get("EstReachImpressionByType")
         })
         return _obj

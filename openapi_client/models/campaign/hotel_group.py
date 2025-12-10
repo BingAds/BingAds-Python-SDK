@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.hotel_listing import HotelListing
 from openapi_client.models.campaign.hotel_listing_type import HotelListingType
 from typing_extensions import Self
-
-class HotelGroup(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class HotelGroup(Criterion):
     """
     HotelGroup
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     listing: Optional[HotelListing] = Field(default=None, alias="Listing")
     listing_type: Optional[HotelListingType] = Field(default=None, alias="ListingType")
     parent_criterion_id: Optional[StrictStr] = Field(default=None, alias="ParentCriterionId")
-    type: Optional[StrictStr] = Field(default='HotelGroup', alias="Type")
-    __properties: ClassVar[List[str]] = ["Listing", "ListingType", "ParentCriterionId", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Listing", "ListingType", "ParentCriterionId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -40,6 +40,9 @@ class HotelGroup(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -72,6 +75,11 @@ class HotelGroup(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of listing
         if self.listing:
             _dict['Listing'] = self.listing.to_dict()
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if listing (nullable) is None
         # and model_fields_set contains the field
         if self.listing is None and "listing" in self.model_fields_set:
@@ -87,11 +95,6 @@ class HotelGroup(BaseModel):
         if self.parent_criterion_id is None and "parent_criterion_id" in self.model_fields_set:
             _dict['ParentCriterionId'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -104,9 +107,9 @@ class HotelGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Listing": HotelListing.from_dict(obj["Listing"]) if obj.get("Listing") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Listing": HotelListing.from_dict(obj["Listing"]) if obj.get("Listing") is not None else None,
                         "ListingType": obj.get("ListingType") if obj.get("ListingType") is not None else None,
-                        "ParentCriterionId": obj.get("ParentCriterionId") if obj.get("ParentCriterionId") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'HotelGroup'
+                        "ParentCriterionId": obj.get("ParentCriterionId") if obj.get("ParentCriterionId") is not None else None
         })
         return _obj

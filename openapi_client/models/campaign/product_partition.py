@@ -23,16 +23,16 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.product_condition import ProductCondition
 from openapi_client.models.campaign.product_partition_type import ProductPartitionType
 from typing_extensions import Self
-
-class ProductPartition(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class ProductPartition(Criterion):
     """
     ProductPartition
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     parent_criterion_id: Optional[StrictStr] = Field(default=None, alias="ParentCriterionId")
     condition: Optional[ProductCondition] = Field(default=None, alias="Condition")
     partition_type: Optional[ProductPartitionType] = Field(default=None, alias="PartitionType")
-    type: Optional[StrictStr] = Field(default='ProductPartition', alias="Type")
-    __properties: ClassVar[List[str]] = ["ParentCriterionId", "Condition", "PartitionType", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "ParentCriterionId", "Condition", "PartitionType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -40,6 +40,9 @@ class ProductPartition(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -72,6 +75,11 @@ class ProductPartition(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of condition
         if self.condition:
             _dict['Condition'] = self.condition.to_dict()
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if parent_criterion_id (nullable) is None
         # and model_fields_set contains the field
         if self.parent_criterion_id is None and "parent_criterion_id" in self.model_fields_set:
@@ -87,11 +95,6 @@ class ProductPartition(BaseModel):
         if self.partition_type is None and "partition_type" in self.model_fields_set:
             _dict['PartitionType'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -104,9 +107,9 @@ class ProductPartition(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "ParentCriterionId": obj.get("ParentCriterionId") if obj.get("ParentCriterionId") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ParentCriterionId": obj.get("ParentCriterionId") if obj.get("ParentCriterionId") is not None else None,
                         "Condition": ProductCondition.from_dict(obj["Condition"]) if obj.get("Condition") is not None else None,
-                        "PartitionType": obj.get("PartitionType") if obj.get("PartitionType") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'ProductPartition'
+                        "PartitionType": obj.get("PartitionType") if obj.get("PartitionType") is not None else None
         })
         return _obj

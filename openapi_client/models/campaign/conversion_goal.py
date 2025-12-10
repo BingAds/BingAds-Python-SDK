@@ -17,297 +17,153 @@ import json
 import pprint
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
 from typing import Any, List, Optional
-from openapi_client.models.campaign.app_install_goal import AppInstallGoal
-from openapi_client.models.campaign.attribution_model_type import AttributionModelType
-from openapi_client.models.campaign.conversion_goal_category import ConversionGoalCategory
-from openapi_client.models.campaign.conversion_goal_count_type import ConversionGoalCountType
-from openapi_client.models.campaign.conversion_goal_revenue import ConversionGoalRevenue
-from openapi_client.models.campaign.conversion_goal_status import ConversionGoalStatus
-from openapi_client.models.campaign.conversion_goal_tracking_status import ConversionGoalTrackingStatus
-from openapi_client.models.campaign.duration_goal import DurationGoal
-from openapi_client.models.campaign.entity_scope import EntityScope
-from openapi_client.models.campaign.event_goal import EventGoal
-from openapi_client.models.campaign.expression_operator import ExpressionOperator
-from openapi_client.models.campaign.in_store_transaction_goal import InStoreTransactionGoal
-from openapi_client.models.campaign.offline_conversion_goal import OfflineConversionGoal
-from openapi_client.models.campaign.pages_viewed_per_visit_goal import PagesViewedPerVisitGoal
-from openapi_client.models.campaign.url_goal import UrlGoal
-from openapi_client.models.campaign.value_operator import ValueOperator
 from pydantic import StrictStr, Field
 from typing import Union, List, Set, Optional, Dict
 from typing_extensions import Literal, Self
-
-ConversionGoal_ONE_OF_SCHEMAS = ["AppInstallGoal", "DurationGoal", "EventGoal", "InStoreTransactionGoal", "OfflineConversionGoal", "PagesViewedPerVisitGoal", "UrlGoal"]
 
 class ConversionGoal(BaseModel):
     """
     ConversionGoal
     """
-    # data type: AppInstallGoal
-    oneof_schema_app_install_goal_validator: Optional[AppInstallGoal] = None
-    # data type: DurationGoal
-    oneof_schema_duration_goal_validator: Optional[DurationGoal] = None
-    # data type: EventGoal
-    oneof_schema_event_goal_validator: Optional[EventGoal] = None
-    # data type: InStoreTransactionGoal
-    oneof_schema_in_store_transaction_goal_validator: Optional[InStoreTransactionGoal] = None
-    # data type: OfflineConversionGoal
-    oneof_schema_offline_conversion_goal_validator: Optional[OfflineConversionGoal] = None
-    # data type: PagesViewedPerVisitGoal
-    oneof_schema_pages_viewed_per_visit_goal_validator: Optional[PagesViewedPerVisitGoal] = None
-    # data type: UrlGoal
-    oneof_schema_url_goal_validator: Optional[UrlGoal] = None
-    actual_instance: Optional[Union[AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal]] = None
-    one_of_schemas: Set[str] = { "AppInstallGoal", "DurationGoal", "EventGoal", "InStoreTransactionGoal", "OfflineConversionGoal", "PagesViewedPerVisitGoal", "UrlGoal" }
 
     model_config = ConfigDict(
+        populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
 
-    discriminator_value_class_map: Dict[str, str] = {
-    }
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('AppDownloadGoal', 'AppDownload'),
+                ('AppInstallGoal', 'AppInstall'),
+                ('DurationGoal', 'Duration'),
+                ('EventGoal', 'Event'),
+                ('InStoreTransactionGoal', 'InStoreTransaction'),
+                ('OfflineConversionGoal', 'OfflineConversion'),
+                ('PagesViewedPerVisitGoal', 'PagesViewedPerVisit'),
+                ('UrlGoal', 'Url'),
+                ('AppDownloadGoal', 'AppDownloadGoal'),
+                ('AppInstallGoal', 'AppInstallGoal'),
+                ('DurationGoal', 'DurationGoal'),
+                ('EventGoal', 'EventGoal'),
+                ('InStoreTransactionGoal', 'InStoreTransactionGoal'),
+                ('OfflineConversionGoal', 'OfflineConversionGoal'),
+                ('PagesViewedPerVisitGoal', 'PagesViewedPerVisitGoal'),
+                ('UrlGoal', 'UrlGoal'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
 
-    def __init__(self, *args, **kwargs) -> None:
-        if args:
-            if len(args) > 1:
-                raise ValueError("If a position argument is used, only 1 is allowed to set `actual_instance`")
-            if kwargs:
-                raise ValueError("If a position argument is used, keyword arguments cannot be used.")
-            super().__init__(actual_instance=args[0])
-        else:
-            super().__init__(**kwargs)
-
-    @field_validator('actual_instance')
-    def actual_instance_must_validate_oneof(cls, v):
-        if v is None:
-            return v
-
-        instance = ConversionGoal.model_construct()
-        error_messages = []
-        match = 0
-        # validate data type: AppInstallGoal
-        if not isinstance(v, AppInstallGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `AppInstallGoal`")
-        else:
-            match += 1
-        # validate data type: DurationGoal
-        if not isinstance(v, DurationGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `DurationGoal`")
-        else:
-            match += 1
-        # validate data type: EventGoal
-        if not isinstance(v, EventGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `EventGoal`")
-        else:
-            match += 1
-        # validate data type: InStoreTransactionGoal
-        if not isinstance(v, InStoreTransactionGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `InStoreTransactionGoal`")
-        else:
-            match += 1
-        # validate data type: OfflineConversionGoal
-        if not isinstance(v, OfflineConversionGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `OfflineConversionGoal`")
-        else:
-            match += 1
-        # validate data type: PagesViewedPerVisitGoal
-        if not isinstance(v, PagesViewedPerVisitGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `PagesViewedPerVisitGoal`")
-        else:
-            match += 1
-        # validate data type: UrlGoal
-        if not isinstance(v, UrlGoal):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `UrlGoal`")
-        else:
-            match += 1
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in ConversionGoal with oneOf schemas: AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when setting `actual_instance` in ConversionGoal with oneOf schemas: AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal. Details: " + ", ".join(error_messages))
-        else:
-            return v
-
-    @classmethod
-    def from_dict(cls, obj: Union[str, Dict[str, Any]]) -> Self:
-        return cls.from_json(json.dumps(obj))
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
 
     @classmethod
     def from_json(cls, json_str: Optional[str]) -> Self:
-        """Returns the object represented by the json string"""
-        instance = cls.model_construct()
-        if json_str is None:
-            return instance
+        """Create an instance of ConversionGoal from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
-        error_messages = []
-        match = 0
+        _dict = self.model_dump(
+            by_alias=True,
+            exclude=excluded_fields,
+            exclude_none=True,
+        )
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # use oneOf discriminator to lookup the data type
-        _data_type = json.loads(json_str).get("Type")
-        if not _data_type:
-            raise ValueError("Failed to lookup data type from the field `Type` in the input.")
+        return _dict
 
-		# check if data type is `AppInstallGoal`
-        if _data_type == "AppInstall":
-            instance.actual_instance = AppInstallGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `DurationGoal`
-        if _data_type == "Duration":
-            instance.actual_instance = DurationGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `EventGoal`
-        if _data_type == "Event":
-            instance.actual_instance = EventGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `InStoreTransactionGoal`
-        if _data_type == "InStoreTransaction":
-            instance.actual_instance = InStoreTransactionGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `OfflineConversionGoal`
-        if _data_type == "OfflineConversion":
-            instance.actual_instance = OfflineConversionGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `PagesViewedPerVisitGoal`
-        if _data_type == "PagesViewedPerVisit":
-            instance.actual_instance = PagesViewedPerVisitGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `UrlGoal`
-        if _data_type == "Url":
-            instance.actual_instance = UrlGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `AppInstallGoal`
-        if _data_type == "AppInstallGoal":
-            instance.actual_instance = AppInstallGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `DurationGoal`
-        if _data_type == "DurationGoal":
-            instance.actual_instance = DurationGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `EventGoal`
-        if _data_type == "EventGoal":
-            instance.actual_instance = EventGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `InStoreTransactionGoal`
-        if _data_type == "InStoreTransactionGoal":
-            instance.actual_instance = InStoreTransactionGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `OfflineConversionGoal`
-        if _data_type == "OfflineConversionGoal":
-            instance.actual_instance = OfflineConversionGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `PagesViewedPerVisitGoal`
-        if _data_type == "PagesViewedPerVisitGoal":
-            instance.actual_instance = PagesViewedPerVisitGoal.from_json(json_str)
-            return instance
-			
-		# check if data type is `UrlGoal`
-        if _data_type == "UrlGoal":
-            instance.actual_instance = UrlGoal.from_json(json_str)
-            return instance
-			
-
-        # deserialize data into AppInstallGoal
-        try:
-            instance.actual_instance = AppInstallGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into DurationGoal
-        try:
-            instance.actual_instance = DurationGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into EventGoal
-        try:
-            instance.actual_instance = EventGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into InStoreTransactionGoal
-        try:
-            instance.actual_instance = InStoreTransactionGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into OfflineConversionGoal
-        try:
-            instance.actual_instance = OfflineConversionGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into PagesViewedPerVisitGoal
-        try:
-            instance.actual_instance = PagesViewedPerVisitGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-        # deserialize data into UrlGoal
-        try:
-            instance.actual_instance = UrlGoal.from_json(json_str)
-            match += 1
-        except (ValidationError, ValueError) as e:
-            error_messages.append(str(e))
-
-        if match > 1:
-            # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into ConversionGoal with oneOf schemas: AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal. Details: " + ", ".join(error_messages))
-        elif match == 0:
-            # no match
-            raise ValueError("No match found when deserializing the JSON string into ConversionGoal with oneOf schemas: AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal. Details: " + ", ".join(error_messages))
-        else:
-            return instance
-
-    def to_json(self) -> str:
-        """Returns the JSON representation of the actual instance"""
-        if self.actual_instance is None:
-            return "null"
-
-        if hasattr(self.actual_instance, "to_json") and callable(self.actual_instance.to_json):
-            return self.actual_instance.to_json()
-        else:
-            return json.dumps(self.actual_instance)
-
-    def to_dict(self) -> Optional[Union[Dict[str, Any], AppInstallGoal, DurationGoal, EventGoal, InStoreTransactionGoal, OfflineConversionGoal, PagesViewedPerVisitGoal, UrlGoal]]:
-        """Returns the dict representation of the actual instance"""
-        if self.actual_instance is None:
+    @classmethod
+    def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
+        """Create an instance of ConversionGoal from a dict"""
+        if obj is None:
             return None
 
-        if hasattr(self.actual_instance, "to_dict") and callable(self.actual_instance.to_dict):
-            return self.actual_instance.to_dict()
-        else:
-            # primitive type
-            return self.actual_instance
+        if not isinstance(obj, dict):
+            return cls.model_validate(obj)
 
-    def to_str(self) -> str:
-        """Returns the string representation of the actual instance"""
-        return pprint.pformat(self.model_dump())
-
-    def __getattr__(self, name):
-        """Forward attribute access to actual_instance"""
-        if self.actual_instance is not None and hasattr(self.actual_instance, name):
-            return getattr(self.actual_instance, name)
-        raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
-
-    def __setattr__(self, name, value):
-        """Forward attribute setting to actual_instance"""
-        if name in ['actual_instance', 'oneof_schema_app_install_goal_validator', 'oneof_schema_duration_goal_validator', 'oneof_schema_event_goal_validator', 'oneof_schema_in_store_transaction_goal_validator', 'oneof_schema_offline_conversion_goal_validator', 'oneof_schema_pages_viewed_per_visit_goal_validator', 'oneof_schema_url_goal_validator', 'one_of_schemas', 'model_config', 'discriminator_value_class_map']:
-            super().__setattr__(name, value)
-        elif self.actual_instance is not None and hasattr(self.actual_instance, name):
-            setattr(self.actual_instance, name, value)
-        else:
-            super().__setattr__(name, value)
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "AppDownload":
+            from openapi_client.models.campaign.app_download_goal import AppDownloadGoal
+            return AppDownloadGoal.from_dict(obj)
+        
+        if type == "AppInstall":
+            from openapi_client.models.campaign.app_install_goal import AppInstallGoal
+            return AppInstallGoal.from_dict(obj)
+        
+        if type == "Duration":
+            from openapi_client.models.campaign.duration_goal import DurationGoal
+            return DurationGoal.from_dict(obj)
+        
+        if type == "Event":
+            from openapi_client.models.campaign.event_goal import EventGoal
+            return EventGoal.from_dict(obj)
+        
+        if type == "InStoreTransaction":
+            from openapi_client.models.campaign.in_store_transaction_goal import InStoreTransactionGoal
+            return InStoreTransactionGoal.from_dict(obj)
+        
+        if type == "OfflineConversion":
+            from openapi_client.models.campaign.offline_conversion_goal import OfflineConversionGoal
+            return OfflineConversionGoal.from_dict(obj)
+        
+        if type == "PagesViewedPerVisit":
+            from openapi_client.models.campaign.pages_viewed_per_visit_goal import PagesViewedPerVisitGoal
+            return PagesViewedPerVisitGoal.from_dict(obj)
+        
+        if type == "Url":
+            from openapi_client.models.campaign.url_goal import UrlGoal
+            return UrlGoal.from_dict(obj)
+        
+        if type == "AppDownloadGoal":
+            from openapi_client.models.campaign.app_download_goal import AppDownloadGoal
+            return AppDownloadGoal.from_dict(obj)
+        
+        if type == "AppInstallGoal":
+            from openapi_client.models.campaign.app_install_goal import AppInstallGoal
+            return AppInstallGoal.from_dict(obj)
+        
+        if type == "DurationGoal":
+            from openapi_client.models.campaign.duration_goal import DurationGoal
+            return DurationGoal.from_dict(obj)
+        
+        if type == "EventGoal":
+            from openapi_client.models.campaign.event_goal import EventGoal
+            return EventGoal.from_dict(obj)
+        
+        if type == "InStoreTransactionGoal":
+            from openapi_client.models.campaign.in_store_transaction_goal import InStoreTransactionGoal
+            return InStoreTransactionGoal.from_dict(obj)
+        
+        if type == "OfflineConversionGoal":
+            from openapi_client.models.campaign.offline_conversion_goal import OfflineConversionGoal
+            return OfflineConversionGoal.from_dict(obj)
+        
+        if type == "PagesViewedPerVisitGoal":
+            from openapi_client.models.campaign.pages_viewed_per_visit_goal import PagesViewedPerVisitGoal
+            return PagesViewedPerVisitGoal.from_dict(obj)
+        
+        if type == "UrlGoal":
+            from openapi_client.models.campaign.url_goal import UrlGoal
+            return UrlGoal.from_dict(obj)
+        
+        
+        # Fallback to base class
+        _obj = cls.model_validate({
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
+        })
+        return _obj

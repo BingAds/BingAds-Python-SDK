@@ -180,6 +180,7 @@ class _BulkObjectFactory():
         _StringTable.AdGroupNegativeIndustryCriterion: _EntityInfo(lambda: BulkAdGroupNegativeIndustryCriterion()),
         _StringTable.AdGroupNegativeJobFunctionCriterion: _EntityInfo(lambda: BulkAdGroupNegativeJobFunctionCriterion()),
         _StringTable.AdGroupGenreCriterion: _EntityInfo(lambda: BulkAdGroupGenreCriterion()),
+        _StringTable.AdGroupTopicCriterion: _EntityInfo(lambda: BulkAdGroupTopicCriterion()),
         _StringTable.Label: _EntityInfo(lambda: BulkLabel()),
         _StringTable.CampaignLabel: _EntityInfo(lambda: BulkCampaignLabel()),
         _StringTable.AdGroupLabel: _EntityInfo(lambda: BulkAdGroupLabel()),
@@ -240,6 +241,8 @@ class _BulkObjectFactory():
         _StringTable.AccountPlacementInclusionList: _EntityInfo(lambda: BulkAccountPlacementInclusionList()),
         _StringTable.AccountPlacementInclusionListItem: _EntityInfo(lambda: BulkSharedSite()),
         _StringTable.CampaignAccountPlacementInclusionListAssociation: _EntityInfo(lambda: BulkAccountPlacementInclusionListAssociation()),
+        _StringTable.Topic: _EntityInfo(lambda: BulkTopic()),
+        _StringTable.ContentPlacement: _EntityInfo(lambda: BulkContentPlacement()),
     }
 
     ADDITIONAL_OBJECT_MAP = {

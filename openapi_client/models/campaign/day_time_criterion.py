@@ -23,18 +23,18 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.day import Day
 from openapi_client.models.campaign.minute import Minute
 from typing_extensions import Self
-
-class DayTimeCriterion(BaseModel):
+from openapi_client.models.campaign.criterion import Criterion
+class DayTimeCriterion(Criterion):
     """
     DayTimeCriterion
     """ # noqa: E501
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
     day: Optional[Day] = Field(default=None, alias="Day")
     from_hour: Optional[StrictInt] = Field(default=None, alias="FromHour")
     from_minute: Optional[Minute] = Field(default=None, alias="FromMinute")
     to_hour: Optional[StrictInt] = Field(default=None, alias="ToHour")
     to_minute: Optional[Minute] = Field(default=None, alias="ToMinute")
-    type: Optional[StrictStr] = Field(default='DayTimeCriterion', alias="Type")
-    __properties: ClassVar[List[str]] = ["Day", "FromHour", "FromMinute", "ToHour", "ToMinute", "Type"]
+    __properties: ClassVar[List[str]] = ["Type", "Day", "FromHour", "FromMinute", "ToHour", "ToMinute"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -42,6 +42,9 @@ class DayTimeCriterion(BaseModel):
         protected_namespaces=(),
     )
 	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
         # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
@@ -71,6 +74,11 @@ class DayTimeCriterion(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if day (nullable) is None
         # and model_fields_set contains the field
         if self.day is None and "day" in self.model_fields_set:
@@ -96,11 +104,6 @@ class DayTimeCriterion(BaseModel):
         if self.to_minute is None and "to_minute" in self.model_fields_set:
             _dict['ToMinute'] = None
 
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
-
         return _dict
 
     @classmethod
@@ -113,11 +116,11 @@ class DayTimeCriterion(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Day": obj.get("Day") if obj.get("Day") is not None else None,
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "Day": obj.get("Day") if obj.get("Day") is not None else None,
                         "FromHour": obj.get("FromHour") if obj.get("FromHour") is not None else None,
                         "FromMinute": obj.get("FromMinute") if obj.get("FromMinute") is not None else None,
                         "ToHour": obj.get("ToHour") if obj.get("ToHour") is not None else None,
-                        "ToMinute": obj.get("ToMinute") if obj.get("ToMinute") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else 'DayTimeCriterion'
+                        "ToMinute": obj.get("ToMinute") if obj.get("ToMinute") is not None else None
         })
         return _obj
