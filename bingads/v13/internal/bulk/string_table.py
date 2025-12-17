@@ -438,6 +438,7 @@ class _StringTable:
     BidStrategyPercentMaxCpc = "Bid Strategy PercentMaxCpc"
     BidStrategyCommissionRate = "Bid Strategy CommissionRate"
     BidStrategyTargetCostPerSale = "Bid Strategy TargetCostPerSale"
+    BidStrategyScope = "Bid Strategy Scope"
 
     # Remarketing
     Audience = "Audience"
@@ -543,6 +544,7 @@ class _StringTable:
     AdGroupNegativeIndustryCriterion = "Ad Group Negative Industry Criterion"
     AdGroupNegativeJobFunctionCriterion = "Ad Group Negative Job Function Criterion"
     AdGroupGenreCriterion = "Ad Group Genre Criterion"
+    AdGroupTopicCriterion = "Ad Group Topic Criterion"
 
     # Responsive Ad
     ResponsiveAd = "Responsive Ad"
@@ -751,3 +753,7 @@ class _StringTable:
     CampaignAccountPlacementInclusionListAssociation = "Campaign Account Placement Inclusion List Association"
     AccountPlacementInclusionListId = "Account Placement Inclusion List Id"
     AccountPlacementInclusionListItemId = "Account Placement Inclusion List Item Id"
+
+    Topic = "Topic"
+    ContentPlacement = "Content Placement"
+    TopicParentId = "Topic Parent Id"

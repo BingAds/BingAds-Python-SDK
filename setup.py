@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.25.3'
+VERSION = '13.0.26'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -14,6 +14,7 @@ requirements = [
     'suds-community>=1.1.0',
     'requests',
     'enum34;python_version<"3.9"',
+    'importlib_resources>=5; python_version<"3.9"',
 ]
 
 setup(

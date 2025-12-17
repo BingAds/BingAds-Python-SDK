@@ -33,3 +33,4 @@ from .bulk_ad_group_hotel_check_in_day_criterion import *
 from .bulk_ad_group_hotel_date_selection_type_criterion import *
 from .bulk_ad_group_hotel_length_of_stay_criterion import *
 from .bulk_ad_group_genre_criterion import *
+from .bulk_ad_group_topic_criterion import *

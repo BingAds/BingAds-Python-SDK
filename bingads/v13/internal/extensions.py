@@ -59,6 +59,7 @@ GenderCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenderCriterion')
 HotelAdvanceBookingWindowCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelAdvanceBookingWindowCriterion')
 HotelCheckInDateCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDateCriterion')
 GenreCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('GenreCriterion')
+TopicCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('TopicCriterion')
 HotelCheckInDayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelCheckInDayCriterion')
 HotelDateSelectionTypeCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelDateSelectionTypeCriterion')
 HotelLengthOfStayCriterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('HotelLengthOfStayCriterion')
@@ -302,7 +303,7 @@ def csv_to_status(c, v):
         c.ad_group.Status = AdGroupStatus.Deleted
     else:
         c.ad_group.Status = None
-        
+
 def parse_bid_option(str):
     if str == "BidValue":
         return BidOption.BidValue
@@ -1097,7 +1098,7 @@ def field_to_csv_UseSearcherTimeZone(bool_value, id):
         return DELETE_VALUE if id and id > 0 else None
     else:
         return str(bool_value)
-    
+
 def csv_to_field_enum(entity, value, attr_name, enum_class):
     """
     Generic method to convert CSV string values to enum fields on an entity.
@@ -1118,7 +1119,7 @@ def csv_to_field_enum(entity, value, attr_name, enum_class):
     except (AttributeError, ValueError):
         # If the value doesn't match any enum value, set to None
         setattr(entity, attr_name, None)
-    
+
 def csv_to_field_CampaignStatus(entity, value):
     if value is None or value == '':
         entity.Status = None
@@ -1135,7 +1136,7 @@ def csv_to_field_CampaignStatus(entity, value):
     elif value == 'Suspended':
         entity.Status = CampaignStatus.Suspended
     else:
-        entity.Status = None 
+        entity.Status = None
 
 def field_to_csv_bool(bool_value):
     if bool_value is None:
@@ -1605,6 +1606,17 @@ def csv_to_field_GenreId(entity, value):
         return
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(GenreCriterion)):
         setattr(entity.Criterion, "GenreId", int(value) if value else None)
+
+def field_to_csv_TopicId(entity):
+    if entity is None or entity.Criterion is None or entity.Criterion.TopicId is None:
+        return None
+    return bulk_str(entity.Criterion.TopicId)
+
+def csv_to_field_TopicId(entity, value):
+    if value is None or value == '':
+        return
+    if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion,type(TopicCriterion)):
+        setattr(entity.Criterion, "TopicId", int(value) if value else None)
 
 def field_to_csv_EndDate(entity):
     if entity is None or entity.Criterion is None or entity.Criterion.EndDate is None:

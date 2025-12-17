@@ -466,6 +466,7 @@
                <xs:enumeration value="YUN" />
                <xs:enumeration value="ZAR" />
                <xs:enumeration value="ZWD" />
+               <xs:enumeration value="UNSPECIFY" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CurrencyCode" nillable="true" type="tns:CurrencyCode" />
@@ -685,10 +686,71 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="BidLandscapePoint" nillable="true" type="tns:BidLandscapePoint" />
+         <xs:element name="GetBidLandscapeByCampaignIdsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="CampaignIds" nillable="true" type="q7:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBidLandscapeByCampaignIdsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="BidLandscape" nillable="true" type="tns:ArrayOfCampaignBidLandscape" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="ArrayOfCampaignBidLandscape">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignBidLandscape" nillable="true" type="tns:CampaignBidLandscape" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCampaignBidLandscape" nillable="true" type="tns:ArrayOfCampaignBidLandscape" />
+         <xs:complexType name="CampaignBidLandscape">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
+               <xs:element minOccurs="0" name="CampaignBidLandscapeType" type="tns:CampaignBidLandscapeType" />
+               <xs:element minOccurs="0" name="StartDate" nillable="true" type="tns:DayMonthAndYear" />
+               <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:DayMonthAndYear" />
+               <xs:element minOccurs="0" name="CampaignBidLandscapePoints" nillable="true" type="tns:ArrayOfCampaignBidLandscapePoint" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CampaignBidLandscape" nillable="true" type="tns:CampaignBidLandscape" />
+         <xs:simpleType name="CampaignBidLandscapeType">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Ecpc_CampaignWideBid" />
+               <xs:enumeration value="Ecpc_BidScaling" />
+               <xs:enumeration value="TargetCpa" />
+               <xs:enumeration value="TargetRoas" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="CampaignBidLandscapeType" nillable="true" type="tns:CampaignBidLandscapeType" />
+         <xs:complexType name="ArrayOfCampaignBidLandscapePoint">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="CampaignBidLandscapePoint" nillable="true" type="tns:CampaignBidLandscapePoint" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfCampaignBidLandscapePoint" nillable="true" type="tns:ArrayOfCampaignBidLandscapePoint" />
+         <xs:complexType name="CampaignBidLandscapePoint">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Bid" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="TargetCpa" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="TargetRoas" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="Clicks" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="Impressions" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="TopImpressions" nillable="true" type="xs:long" />
+               <xs:element minOccurs="0" name="CurrencyCode" type="tns:CurrencyCode" />
+               <xs:element minOccurs="0" name="Cost" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="Conversions" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="ConversionValues" nillable="true" type="xs:double" />
+               <xs:element minOccurs="0" name="MarginalCPC" nillable="true" type="xs:double" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="CampaignBidLandscapePoint" nillable="true" type="tns:CampaignBidLandscapePoint" />
          <xs:element name="GetBidLandscapeByKeywordIdsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="KeywordIds" nillable="true" type="q7:ArrayOflong" />
+                  <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="KeywordIds" nillable="true" type="q8:ArrayOflong" />
                   <xs:element minOccurs="0" name="IncludeCurrentBid" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
@@ -718,13 +780,13 @@
          <xs:element name="GetHistoricalKeywordPerformanceRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q8:ArrayOfstring" />
+                  <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q9:ArrayOfstring" />
                   <xs:element minOccurs="0" name="TimeInterval" nillable="true" type="tns:TimeInterval" />
                   <xs:element minOccurs="0" name="TargetAdPosition" nillable="true" type="tns:AdPosition" />
                   <xs:element minOccurs="0" name="MatchTypes" nillable="true" type="tns:ArrayOfMatchType" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q9:ArrayOfstring" />
-                  <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Devices" nillable="true" type="q10:ArrayOfstring" />
+                  <xs:element xmlns:q10="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q10:ArrayOfstring" />
+                  <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Devices" nillable="true" type="q11:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -800,13 +862,13 @@
          <xs:element name="GetHistoricalSearchCountRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q11="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q11:ArrayOfstring" />
+                  <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q12:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q12:ArrayOfstring" />
+                  <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q13:ArrayOfstring" />
                   <xs:element minOccurs="0" name="StartDate" nillable="true" type="tns:DayMonthAndYear" />
                   <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:DayMonthAndYear" />
                   <xs:element minOccurs="0" name="TimePeriodRollup" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Devices" nillable="true" type="q13:ArrayOfstring" />
+                  <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Devices" nillable="true" type="q14:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -859,7 +921,7 @@
          <xs:element name="GetKeywordCategoriesRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q14:ArrayOfstring" />
+                  <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q15:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="PublisherCountry" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="MaxCategories" nillable="true" type="xs:int" />
@@ -902,10 +964,10 @@
          <xs:element name="GetKeywordDemographicsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q15:ArrayOfstring" />
+                  <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q16:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="PublisherCountry" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q16="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Device" nillable="true" type="q16:ArrayOfstring" />
+                  <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Device" nillable="true" type="q17:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -953,10 +1015,10 @@
          <xs:element name="GetKeywordLocationsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q17:ArrayOfstring" />
+                  <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q18:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="PublisherCountry" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q18="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Device" nillable="true" type="q18:ArrayOfstring" />
+                  <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Device" nillable="true" type="q19:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Level" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="ParentCountry" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="MaxLocations" nillable="true" type="xs:int" />
@@ -1031,9 +1093,9 @@
          <xs:element name="SuggestKeywordsFromExistingKeywordsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q19:ArrayOfstring" />
+                  <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keywords" nillable="true" type="q20:ArrayOfstring" />
                   <xs:element minOccurs="0" name="Language" nillable="true" type="xs:string" />
-                  <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q20:ArrayOfstring" />
+                  <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="PublisherCountries" nillable="true" type="q21:ArrayOfstring" />
                   <xs:element minOccurs="0" name="MaxSuggestionsPerKeyword" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="SuggestionType" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="RemoveDuplicates" nillable="true" type="xs:boolean" />
@@ -1067,7 +1129,7 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="EntityType" type="tns:EntityType" />
-                  <xs:element xmlns:q21="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntityIds" nillable="true" type="q21:ArrayOflong" />
+                  <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EntityIds" nillable="true" type="q22:ArrayOflong" />
                   <xs:element minOccurs="0" name="SearchParameters" nillable="true" type="tns:ArrayOfSearchParameter" />
                   <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:AuctionInsightKpiAdditionalField" />
                </xs:sequence>
@@ -1120,7 +1182,7 @@
             <xs:complexContent mixed="false">
                <xs:extension base="tns:SearchParameter">
                   <xs:sequence>
-                     <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Queries" nillable="true" type="q22:ArrayOfstring" />
+                     <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Queries" nillable="true" type="q23:ArrayOfstring" />
                   </xs:sequence>
                </xs:extension>
             </xs:complexContent>
@@ -1488,7 +1550,7 @@
          <xs:element name="AuctionInsightEntry" nillable="true" type="tns:AuctionInsightEntry" />
          <xs:complexType name="AuctionInsightKpi">
             <xs:sequence>
-               <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Segments" nillable="true" type="q23:ArrayOfstring" />
+               <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Segments" nillable="true" type="q24:ArrayOfstring" />
                <xs:element minOccurs="0" name="ImpressionShare" type="xs:double" />
                <xs:element minOccurs="0" name="OverlapRate" type="xs:double" />
                <xs:element minOccurs="0" name="AveragePosition" type="xs:double" />
@@ -1640,7 +1702,7 @@
                <xs:element minOccurs="0" name="AdImpressionShare" nillable="true" type="xs:double" />
                <xs:element minOccurs="0" name="Competition" nillable="true" type="tns:CompetitionLevel" />
                <xs:element minOccurs="0" name="Keyword" nillable="true" type="xs:string" />
-               <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="MonthlySearchCounts" nillable="true" type="q24:ArrayOflong" />
+               <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="MonthlySearchCounts" nillable="true" type="q25:ArrayOflong" />
                <xs:element minOccurs="0" name="Relevance" nillable="true" type="xs:double" />
                <xs:element minOccurs="0" name="Source" nillable="true" type="tns:SourceType" />
                <xs:element minOccurs="0" name="SuggestedBid" nillable="true" type="xs:double" />
@@ -1788,7 +1850,7 @@
          <xs:element name="GetAutoApplyOptInStatusRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RecommendationTypesInputs" nillable="true" type="q25:ArrayOfstring" />
+                  <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RecommendationTypesInputs" nillable="true" type="q26:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -1815,7 +1877,7 @@
          <xs:element name="SetAutoApplyOptInStatusRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q26="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AutoApplyOptInStatusInputs" nillable="true" type="q26:ArrayOfstring" />
+                  <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AutoApplyOptInStatusInputs" nillable="true" type="q27:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3012,9 +3074,9 @@
          <xs:element name="ResponsiveSearchAdsRecommendation" nillable="true" type="tns:ResponsiveSearchAdsRecommendation" />
          <xs:complexType name="SuggestedResponsiveSearchAd">
             <xs:sequence>
-               <xs:element xmlns:q27="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Descriptions" nillable="true" type="q27:ArrayOfstring" />
+               <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Descriptions" nillable="true" type="q28:ArrayOfstring" />
                <xs:element minOccurs="0" name="FinalUrl" nillable="true" type="xs:string" />
-               <xs:element xmlns:q28="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Headlines" nillable="true" type="q28:ArrayOfstring" />
+               <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Headlines" nillable="true" type="q29:ArrayOfstring" />
                <xs:element minOccurs="0" name="Path1" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="Path2" nillable="true" type="xs:string" />
             </xs:sequence>
@@ -3062,7 +3124,7 @@
          <xs:element name="GetTextAssetSuggestionsByFinalUrlsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q29:ArrayOfstring" />
+                  <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FinalUrls" nillable="true" type="q30:ArrayOfstring" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3083,7 +3145,7 @@
          <xs:complexType name="TextAssetSuggestions">
             <xs:sequence>
                <xs:element minOccurs="0" name="FinalUrl" nillable="true" type="xs:string" />
-               <xs:element xmlns:q30="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TextAssets" nillable="true" type="q30:ArrayOfstring" />
+               <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="TextAssets" nillable="true" type="q31:ArrayOfstring" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="TextAssetSuggestions" nillable="true" type="tns:TextAssetSuggestions" />
@@ -3144,7 +3206,7 @@
          <xs:element name="RetrieveRecommendationsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RecommendationTypes" nillable="true" type="q31:ArrayOfstring" />
+                  <xs:element xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="RecommendationTypes" nillable="true" type="q32:ArrayOfstring" />
                   <xs:element minOccurs="0" name="MaxCount" nillable="true" type="xs:int" />
                </xs:sequence>
             </xs:complexType>
@@ -3322,6 +3384,9 @@
                   <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="JobFunction" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="Location" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Placement" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Device" nillable="true" type="tns:SelectionOfDeviceEnum" />
+                  <xs:element minOccurs="0" name="Topic" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="RadiusTargets" nillable="true" type="tns:ArrayOfRadiusTarget" />
                   <xs:element minOccurs="0" name="CampaignBiddingStrategy" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="CampaignSubType" nillable="true" type="xs:int" />
@@ -3407,11 +3472,57 @@
                </xs:appinfo>
             </xs:annotation>
             <xs:sequence>
-               <xs:element xmlns:q32="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Includes" nillable="true" type="q32:ArrayOflong" />
-               <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Excludes" nillable="true" type="q33:ArrayOflong" />
+               <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Includes" nillable="true" type="q33:ArrayOflong" />
+               <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Excludes" nillable="true" type="q34:ArrayOflong" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="SelectionOflong" nillable="true" type="tns:SelectionOflong" />
+         <xs:complexType name="SelectionOfDeviceEnum">
+            <xs:annotation>
+               <xs:appinfo>
+                  <GenericType Name="SelectionOf{0}" Namespace="https://bingads.microsoft.com/AdInsight/v13" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+                     <GenericParameter Name="DeviceEnum" Namespace="https://bingads.microsoft.com/AdInsight/v13" />
+                  </GenericType>
+               </xs:appinfo>
+            </xs:annotation>
+            <xs:sequence>
+               <xs:element minOccurs="0" name="Includes" nillable="true" type="tns:ArrayOfDeviceEnum" />
+               <xs:element minOccurs="0" name="Excludes" nillable="true" type="tns:ArrayOfDeviceEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="SelectionOfDeviceEnum" nillable="true" type="tns:SelectionOfDeviceEnum" />
+         <xs:complexType name="ArrayOfDeviceEnum">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="DeviceEnum" type="tns:DeviceEnum" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfDeviceEnum" nillable="true" type="tns:ArrayOfDeviceEnum" />
+         <xs:simpleType name="DeviceEnum">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="Desktop">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Smartphone">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="Tablet">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="DeviceEnum" nillable="true" type="tns:DeviceEnum" />
          <xs:complexType name="ArrayOfRadiusTarget">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="RadiusTarget" nillable="true" type="tns:RadiusTarget" />
@@ -3872,6 +3983,9 @@
                   <xs:element minOccurs="0" name="Industry" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="JobFunction" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="Location" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Placement" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Device" nillable="true" type="tns:SelectionOfDeviceEnum" />
+                  <xs:element minOccurs="0" name="Topic" nillable="true" type="tns:SelectionOflong" />
                   <xs:element minOccurs="0" name="RadiusTargets" nillable="true" type="tns:ArrayOfRadiusTarget" />
                   <xs:element minOccurs="0" name="CampaignBiddingStrategy" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="CampaignSubType" nillable="true" type="xs:int" />
@@ -3925,9 +4039,9 @@
          <xs:element name="Breakdowns" nillable="true" type="tns:Breakdowns" />
          <xs:complexType name="Breakdown">
             <xs:sequence>
-               <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keys" nillable="true" type="q34:ArrayOfstring" />
-               <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Values" nillable="true" type="q35:ArrayOfint" />
-               <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GlobalValues" nillable="true" type="q36:ArrayOfint" />
+               <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Keys" nillable="true" type="q35:ArrayOfstring" />
+               <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Values" nillable="true" type="q36:ArrayOfint" />
+               <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GlobalValues" nillable="true" type="q37:ArrayOfint" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="Breakdown" nillable="true" type="tns:Breakdown" />
@@ -4241,6 +4355,30 @@
    <wsdl:message name="IAdInsightService_GetBidLandscapeByAdGroupIds_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetBidLandscapeByCampaignIdsRequest">
+      <wsdl:part name="parameters" element="tns:GetBidLandscapeByCampaignIdsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBidLandscapeByCampaignIdsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBidLandscapeByCampaignIdsResponse">
+      <wsdl:part name="parameters" element="tns:GetBidLandscapeByCampaignIdsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBidLandscapeByCampaignIdsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetBidLandscapeByCampaignIds_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q9="https://adapi.microsoft.com" name="detail" element="q9:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="IAdInsightService_GetBidLandscapeByCampaignIds_ApiFaultDetailFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:message name="GetBidLandscapeByKeywordIdsRequest">
       <wsdl:part name="parameters" element="tns:GetBidLandscapeByKeywordIdsRequest" />
    </wsdl:message>
@@ -4260,7 +4398,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetBidLandscapeByKeywordIds_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q9="https://adapi.microsoft.com" name="detail" element="q9:AdApiFaultDetail" />
+      <wsdl:part xmlns:q10="https://adapi.microsoft.com" name="detail" element="q10:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetBidLandscapeByKeywordIds_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4284,7 +4422,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetHistoricalKeywordPerformance_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q10="https://adapi.microsoft.com" name="detail" element="q10:AdApiFaultDetail" />
+      <wsdl:part xmlns:q11="https://adapi.microsoft.com" name="detail" element="q11:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetHistoricalKeywordPerformance_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4308,7 +4446,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetHistoricalSearchCount_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q11="https://adapi.microsoft.com" name="detail" element="q11:AdApiFaultDetail" />
+      <wsdl:part xmlns:q12="https://adapi.microsoft.com" name="detail" element="q12:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetHistoricalSearchCount_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4332,7 +4470,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordCategories_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q12="https://adapi.microsoft.com" name="detail" element="q12:AdApiFaultDetail" />
+      <wsdl:part xmlns:q13="https://adapi.microsoft.com" name="detail" element="q13:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordCategories_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4356,7 +4494,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordDemographics_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q13="https://adapi.microsoft.com" name="detail" element="q13:AdApiFaultDetail" />
+      <wsdl:part xmlns:q14="https://adapi.microsoft.com" name="detail" element="q14:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordDemographics_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4380,7 +4518,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordLocations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q14="https://adapi.microsoft.com" name="detail" element="q14:AdApiFaultDetail" />
+      <wsdl:part xmlns:q15="https://adapi.microsoft.com" name="detail" element="q15:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordLocations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4404,7 +4542,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SuggestKeywordsForUrl_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q15="https://adapi.microsoft.com" name="detail" element="q15:AdApiFaultDetail" />
+      <wsdl:part xmlns:q16="https://adapi.microsoft.com" name="detail" element="q16:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SuggestKeywordsForUrl_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4428,7 +4566,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SuggestKeywordsFromExistingKeywords_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q16="https://adapi.microsoft.com" name="detail" element="q16:AdApiFaultDetail" />
+      <wsdl:part xmlns:q17="https://adapi.microsoft.com" name="detail" element="q17:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SuggestKeywordsFromExistingKeywords_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4452,7 +4590,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAuctionInsightData_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q17="https://adapi.microsoft.com" name="detail" element="q17:AdApiFaultDetail" />
+      <wsdl:part xmlns:q18="https://adapi.microsoft.com" name="detail" element="q18:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAuctionInsightData_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4476,7 +4614,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetDomainCategories_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q18="https://adapi.microsoft.com" name="detail" element="q18:AdApiFaultDetail" />
+      <wsdl:part xmlns:q19="https://adapi.microsoft.com" name="detail" element="q19:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetDomainCategories_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4500,7 +4638,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_PutMetricData_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q19="https://adapi.microsoft.com" name="detail" element="q19:AdApiFaultDetail" />
+      <wsdl:part xmlns:q20="https://adapi.microsoft.com" name="detail" element="q20:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_PutMetricData_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4524,7 +4662,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordIdeaCategories_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q20="https://adapi.microsoft.com" name="detail" element="q20:AdApiFaultDetail" />
+      <wsdl:part xmlns:q21="https://adapi.microsoft.com" name="detail" element="q21:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordIdeaCategories_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4548,7 +4686,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordIdeas_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q21="https://adapi.microsoft.com" name="detail" element="q21:AdApiFaultDetail" />
+      <wsdl:part xmlns:q22="https://adapi.microsoft.com" name="detail" element="q22:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordIdeas_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4572,7 +4710,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordTrafficEstimates_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q22="https://adapi.microsoft.com" name="detail" element="q22:AdApiFaultDetail" />
+      <wsdl:part xmlns:q23="https://adapi.microsoft.com" name="detail" element="q23:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetKeywordTrafficEstimates_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4596,7 +4734,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q23="https://adapi.microsoft.com" name="detail" element="q23:AdApiFaultDetail" />
+      <wsdl:part xmlns:q24="https://adapi.microsoft.com" name="detail" element="q24:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4620,7 +4758,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SetAutoApplyOptInStatus_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q24="https://adapi.microsoft.com" name="detail" element="q24:AdApiFaultDetail" />
+      <wsdl:part xmlns:q25="https://adapi.microsoft.com" name="detail" element="q25:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_SetAutoApplyOptInStatus_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4644,7 +4782,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q25="https://adapi.microsoft.com" name="detail" element="q25:AdApiFaultDetail" />
+      <wsdl:part xmlns:q26="https://adapi.microsoft.com" name="detail" element="q26:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetPerformanceInsightsDetailDataByAccountId_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4668,7 +4806,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetRecommendations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q26="https://adapi.microsoft.com" name="detail" element="q26:AdApiFaultDetail" />
+      <wsdl:part xmlns:q27="https://adapi.microsoft.com" name="detail" element="q27:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4692,7 +4830,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_TagRecommendations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q27="https://adapi.microsoft.com" name="detail" element="q27:AdApiFaultDetail" />
+      <wsdl:part xmlns:q28="https://adapi.microsoft.com" name="detail" element="q28:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_TagRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4716,7 +4854,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetTextAssetSuggestionsByFinalUrls_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q28="https://adapi.microsoft.com" name="detail" element="q28:AdApiFaultDetail" />
+      <wsdl:part xmlns:q29="https://adapi.microsoft.com" name="detail" element="q29:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetTextAssetSuggestionsByFinalUrls_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4740,7 +4878,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_ApplyRecommendations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q29="https://adapi.microsoft.com" name="detail" element="q29:AdApiFaultDetail" />
+      <wsdl:part xmlns:q30="https://adapi.microsoft.com" name="detail" element="q30:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_ApplyRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4764,7 +4902,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_DismissRecommendations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q30="https://adapi.microsoft.com" name="detail" element="q30:AdApiFaultDetail" />
+      <wsdl:part xmlns:q31="https://adapi.microsoft.com" name="detail" element="q31:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_DismissRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4788,7 +4926,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_RetrieveRecommendations_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q31="https://adapi.microsoft.com" name="detail" element="q31:AdApiFaultDetail" />
+      <wsdl:part xmlns:q32="https://adapi.microsoft.com" name="detail" element="q32:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_RetrieveRecommendations_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4812,7 +4950,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAudienceFullEstimation_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q32="https://adapi.microsoft.com" name="detail" element="q32:AdApiFaultDetail" />
+      <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAudienceFullEstimation_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4836,7 +4974,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAudienceBreakdown_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q33="https://adapi.microsoft.com" name="detail" element="q33:AdApiFaultDetail" />
+      <wsdl:part xmlns:q34="https://adapi.microsoft.com" name="detail" element="q34:AdApiFaultDetail" />
    </wsdl:message>
    <wsdl:message name="IAdInsightService_GetAudienceBreakdown_ApiFaultDetailFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
@@ -4889,6 +5027,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByAdGroupIdsResponse" name="GetBidLandscapeByAdGroupIdsResponse" message="tns:GetBidLandscapeByAdGroupIdsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByAdGroupIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetBidLandscapeByAdGroupIds_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByAdGroupIdsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetBidLandscapeByAdGroupIds_ApiFaultDetailFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBidLandscapeByCampaignIds">
+         <wsdl:input wsaw:Action="GetBidLandscapeByCampaignIds" name="GetBidLandscapeByCampaignIdsRequest" message="tns:GetBidLandscapeByCampaignIdsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByCampaignIdsResponse" name="GetBidLandscapeByCampaignIdsResponse" message="tns:GetBidLandscapeByCampaignIdsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByCampaignIdsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:IAdInsightService_GetBidLandscapeByCampaignIds_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/AdInsight/v13/IAdInsightService/GetBidLandscapeByCampaignIdsApiFaultDetailFault" name="ApiFaultDetailFault" message="tns:IAdInsightService_GetBidLandscapeByCampaignIds_ApiFaultDetailFault_FaultMessage" />
       </wsdl:operation>
       <wsdl:operation name="GetBidLandscapeByKeywordIds">
          <wsdl:input wsaw:Action="GetBidLandscapeByKeywordIds" name="GetBidLandscapeByKeywordIdsRequest" message="tns:GetBidLandscapeByKeywordIdsRequest" />
@@ -5219,6 +5363,29 @@
          </wsdl:input>
          <wsdl:output name="GetBidLandscapeByAdGroupIdsResponse">
             <soap:header message="tns:GetBidLandscapeByAdGroupIdsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetailFault">
+            <soap:fault use="literal" name="ApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBidLandscapeByCampaignIds">
+         <soap:operation soapAction="GetBidLandscapeByCampaignIds" style="document" />
+         <wsdl:input name="GetBidLandscapeByCampaignIdsRequest">
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBidLandscapeByCampaignIdsResponse">
+            <soap:header message="tns:GetBidLandscapeByCampaignIdsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

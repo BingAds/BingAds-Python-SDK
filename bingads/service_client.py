@@ -18,7 +18,7 @@ class BingAdsBuilder (Builder):
         @type resolver: L{resolver.Resolver}
         """
         self.resolver = resolver
-    
+
     def skip_value(self, type):
         """ whether or not to skip setting the value """
         return False
@@ -45,7 +45,7 @@ class ServiceClient:
         self._authorization_data = authorization_data
         self._refresh_oauth_tokens_automatically = True
         self._version = ServiceClient._format_version(version)
-        
+
 
         # Use in-memory cache by default.
         if 'cache' not in suds_options:
@@ -68,7 +68,7 @@ class ServiceClient:
 
         self.set_options(**self._options)
         return _ServiceCall(self, name)
-    
+
     def get_response_header(self):
         return self.hp.get_response_header()
 
@@ -109,7 +109,7 @@ class ServiceClient:
         """
 
         return self.soap_client.factory
-    
+
     @property
     def service_url(self):
         """ The wsdl url of service based on the specific service and environment.
@@ -304,14 +304,18 @@ class _ServiceCall:
         return self._name
 
 
-import pkg_resources
+import sys
+if sys.version_info >= (3, 9):
+    import importlib.resources as importlib_resources
+else:
+    import importlib_resources
 import types
 from suds.sudsobject import Property
 from suds.sax.text import Text
 
 # this is used to create entity only. Given the sandbox should have the same contract, we are good to use sandbox wsdl.
 _CAMPAIGN_MANAGEMENT_SERVICE_V13 = Client(
-    'file:///' + pkg_resources.resource_filename('bingads', 'v13/proxies/sandbox/campaignmanagement_service.xml'), cache=DictCache())
+    'file:///' + str(importlib_resources.files('bingads').joinpath('v13/proxies/sandbox/campaignmanagement_service.xml')), cache=DictCache())
 _CAMPAIGN_OBJECT_FACTORY_V13 = _CAMPAIGN_MANAGEMENT_SERVICE_V13.factory
 _CAMPAIGN_OBJECT_FACTORY_V13.builder = BingAdsBuilder(_CAMPAIGN_OBJECT_FACTORY_V13.builder.resolver)
 
