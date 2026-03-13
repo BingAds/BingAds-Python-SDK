@@ -35,6 +35,7 @@ class GetAudienceFullEstimationResponse(BaseModel):
     est_click: Optional[RangeResultOfDecimalRoundedResult] = Field(default=None, alias="EstClick")
     est_spend: Optional[RangeResultOfDecimalRoundedResult] = Field(default=None, alias="EstSpend")
     est_cost_per_event: Optional[RangeResultOfDecimalRoundedResult] = Field(default=None, alias="EstCostPerEvent")
+    est_cpc: Optional[RangeResultOfDecimalRoundedResult] = Field(default=None, alias="EstCPC")
     est_ctr: Optional[RangeResultOfdouble] = Field(default=None, alias="EstCTR")
     suggested_bid: Optional[StrictFloat] = Field(default=None, alias="SuggestedBid")
     suggested_budget: Optional[StrictFloat] = Field(default=None, alias="SuggestedBudget")
@@ -51,7 +52,7 @@ class GetAudienceFullEstimationResponse(BaseModel):
     est_view_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstViewByType")
     est_ctrby_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCTRByType")
     est_reach_impression_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstReachImpressionByType")
-    __properties: ClassVar[List[str]] = ["EstImpression", "EstAudienceSize", "EstClick", "EstSpend", "EstCostPerEvent", "EstCTR", "SuggestedBid", "SuggestedBudget", "EventsLostToBid", "EventsLostToBudget", "EstReachAudienceSize", "EstReachImpression", "Currency", "EstImpressionByType", "EstClickByType", "EstSpendByType", "EstCostPerEventByType", "EstCPCByType", "EstViewByType", "EstCTRByType", "EstReachImpressionByType"]
+    __properties: ClassVar[List[str]] = ["EstImpression", "EstAudienceSize", "EstClick", "EstSpend", "EstCostPerEvent", "EstCPC", "EstCTR", "SuggestedBid", "SuggestedBudget", "EventsLostToBid", "EventsLostToBudget", "EstReachAudienceSize", "EstReachImpression", "Currency", "EstImpressionByType", "EstClickByType", "EstSpendByType", "EstCostPerEventByType", "EstCPCByType", "EstViewByType", "EstCTRByType", "EstReachImpressionByType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,6 +94,9 @@ class GetAudienceFullEstimationResponse(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of est_cost_per_event
         if self.est_cost_per_event:
             _dict['EstCostPerEvent'] = self.est_cost_per_event.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of est_cpc
+        if self.est_cpc:
+            _dict['EstCPC'] = self.est_cpc.to_dict()
         # override the default output from pydantic by calling `to_dict()` of est_ctr
         if self.est_ctr:
             _dict['EstCTR'] = self.est_ctr.to_dict()
@@ -126,6 +130,11 @@ class GetAudienceFullEstimationResponse(BaseModel):
         # and model_fields_set contains the field
         if self.est_cost_per_event is None and "est_cost_per_event" in self.model_fields_set:
             _dict['EstCostPerEvent'] = None
+
+        # set to None if est_cpc (nullable) is None
+        # and model_fields_set contains the field
+        if self.est_cpc is None and "est_cpc" in self.model_fields_set:
+            _dict['EstCPC'] = None
 
         # set to None if est_ctr (nullable) is None
         # and model_fields_set contains the field
@@ -224,6 +233,7 @@ class GetAudienceFullEstimationResponse(BaseModel):
                         "EstClick": RangeResultOfDecimalRoundedResult.from_dict(obj["EstClick"]) if obj.get("EstClick") is not None else None,
                         "EstSpend": RangeResultOfDecimalRoundedResult.from_dict(obj["EstSpend"]) if obj.get("EstSpend") is not None else None,
                         "EstCostPerEvent": RangeResultOfDecimalRoundedResult.from_dict(obj["EstCostPerEvent"]) if obj.get("EstCostPerEvent") is not None else None,
+                        "EstCPC": RangeResultOfDecimalRoundedResult.from_dict(obj["EstCPC"]) if obj.get("EstCPC") is not None else None,
                         "EstCTR": RangeResultOfdouble.from_dict(obj["EstCTR"]) if obj.get("EstCTR") is not None else None,
                         "SuggestedBid": obj.get("SuggestedBid") if obj.get("SuggestedBid") is not None else None,
                         "SuggestedBudget": obj.get("SuggestedBudget") if obj.get("SuggestedBudget") is not None else None,

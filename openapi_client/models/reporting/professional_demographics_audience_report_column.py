@@ -40,6 +40,10 @@ class ProfessionalDemographicsAudienceReportColumn(str, Enum):
 
     JOBFUNCTIONNAME = 'JobFunctionName'
 
+    JOBSENIORITYNAME = 'JobSeniorityName'
+
+    CUSTOMLINKEDINNAME = 'CustomLinkedInName'
+
     ADDISTRIBUTION = 'AdDistribution'
 
     IMPRESSIONS = 'Impressions'

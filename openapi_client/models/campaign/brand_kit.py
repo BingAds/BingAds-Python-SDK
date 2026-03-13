@@ -39,7 +39,9 @@ class BrandKit(BaseModel):
     palettes: Optional[List[Optional[BrandKitPalette]]] = Field(default=None, alias="Palettes")
     fonts: Optional[List[Optional[BrandKitFont]]] = Field(default=None, alias="Fonts")
     brand_voice: Optional[BrandVoice] = Field(default=None, alias="BrandVoice")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "BusinessName", "Images", "SquareLogos", "LandscapeLogos", "Palettes", "Fonts", "BrandVoice"]
+    term_exclusions: Optional[List[StrictStr]] = Field(default=None, alias="TermExclusions")
+    messaging_restrictions: Optional[List[StrictStr]] = Field(default=None, alias="MessagingRestrictions")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "BusinessName", "Images", "SquareLogos", "LandscapeLogos", "Palettes", "Fonts", "BrandVoice", "TermExclusions", "MessagingRestrictions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -149,6 +151,16 @@ class BrandKit(BaseModel):
         if self.brand_voice is None and "brand_voice" in self.model_fields_set:
             _dict['BrandVoice'] = None
 
+        # set to None if term_exclusions (nullable) is None
+        # and model_fields_set contains the field
+        if self.term_exclusions is None and "term_exclusions" in self.model_fields_set:
+            _dict['TermExclusions'] = None
+
+        # set to None if messaging_restrictions (nullable) is None
+        # and model_fields_set contains the field
+        if self.messaging_restrictions is None and "messaging_restrictions" in self.model_fields_set:
+            _dict['MessagingRestrictions'] = None
+
         return _dict
 
     @classmethod
@@ -169,6 +181,8 @@ class BrandKit(BaseModel):
                         "LandscapeLogos": [BrandKitImage.from_dict(_item) for _item in obj["LandscapeLogos"]] if obj.get("LandscapeLogos") is not None else None,
                         "Palettes": [BrandKitPalette.from_dict(_item) for _item in obj["Palettes"]] if obj.get("Palettes") is not None else None,
                         "Fonts": [BrandKitFont.from_dict(_item) for _item in obj["Fonts"]] if obj.get("Fonts") is not None else None,
-                        "BrandVoice": BrandVoice.from_dict(obj["BrandVoice"]) if obj.get("BrandVoice") is not None else None
+                        "BrandVoice": BrandVoice.from_dict(obj["BrandVoice"]) if obj.get("BrandVoice") is not None else None,
+                        "TermExclusions": obj.get("TermExclusions"),
+                        "MessagingRestrictions": obj.get("MessagingRestrictions")
         })
         return _obj

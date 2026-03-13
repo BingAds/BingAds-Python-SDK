@@ -27,12 +27,12 @@ class Budget(BaseModel):
     """
     Budget
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     amount: Optional[StrictFloat] = Field(default=None, alias="Amount")
     budget_type: Optional[BudgetLimitType] = Field(default=None, alias="BudgetType")
     association_count: Optional[StrictInt] = Field(default=None, alias="AssociationCount")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Amount", "BudgetType", "AssociationCount"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "Amount", "BudgetType", "AssociationCount", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,11 +59,6 @@ class Budget(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -84,6 +79,11 @@ class Budget(BaseModel):
         if self.association_count is None and "association_count" in self.model_fields_set:
             _dict['AssociationCount'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -96,10 +96,10 @@ class Budget(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Amount": obj.get("Amount") if obj.get("Amount") is not None else None,
                         "BudgetType": obj.get("BudgetType") if obj.get("BudgetType") is not None else None,
-                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None
+                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

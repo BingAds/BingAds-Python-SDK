@@ -29,8 +29,9 @@ class AuditPointResult(BaseModel):
     key: Optional[StrictStr] = Field(default=None, alias="Key")
     severity: Optional[StrictStr] = Field(default=None, alias="Severity")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
+    timestamp: Optional[StrictStr] = Field(default=None, alias="Timestamp")
     details: Optional[StrictDict[str, Str]] = Field(default=None, alias="Details")
-    __properties: ClassVar[List[str]] = ["Key", "Severity", "Description", "Details"]
+    __properties: ClassVar[List[str]] = ["Key", "Severity", "Description", "Timestamp", "Details"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,11 @@ class AuditPointResult(BaseModel):
         if self.description is None and "description" in self.model_fields_set:
             _dict['Description'] = None
 
+        # set to None if timestamp (nullable) is None
+        # and model_fields_set contains the field
+        if self.timestamp is None and "timestamp" in self.model_fields_set:
+            _dict['Timestamp'] = None
+
         # set to None if details (nullable) is None
         # and model_fields_set contains the field
         if self.details is None and "details" in self.model_fields_set:
@@ -92,6 +98,7 @@ class AuditPointResult(BaseModel):
             "Key": obj.get("Key") if obj.get("Key") is not None else None,
                         "Severity": obj.get("Severity") if obj.get("Severity") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
+                        "Timestamp": obj.get("Timestamp") if obj.get("Timestamp") is not None else None,
                         "Details": obj.get("Details") if obj.get("Details") is not None else None
         })
         return _obj

@@ -54,6 +54,8 @@ class AccountPropertyName(str, Enum):
 
     ASSETAIENHANCEMENTOPTOUT = 'AssetAIEnhancementOptout'
 
+    ACCEPTNIELSENTERMSANDCONDITIONS = 'AcceptNielsenTermsAndConditions'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

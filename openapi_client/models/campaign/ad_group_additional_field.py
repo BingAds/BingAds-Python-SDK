@@ -42,6 +42,8 @@ class AdGroupAdditionalField(Flag):
 
     MAXCONVERSIONVALUEWITHMAXCPC = auto()
 
+    BASEDOMAIN = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -68,6 +70,7 @@ class AdGroupAdditionalField(Flag):
             AdGroupAdditionalField.FREQUENCYCAPSETTINGS: 'FrequencyCapSettings',
             AdGroupAdditionalField.USEPREDICTIVETARGETING: 'UsePredictiveTargeting',
             AdGroupAdditionalField.MAXCONVERSIONVALUEWITHMAXCPC: 'MaxConversionValueWithMaxCpc',
+            AdGroupAdditionalField.BASEDOMAIN: 'BaseDomain',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AdGroupAdditionalField if flag & self]

@@ -72,6 +72,14 @@ class ImportAdditionalField(Flag):
 
     UPDATETOPICTARGETS = auto()
 
+    NEWPORTFOLIOBIDSTRATEGY = auto()
+
+    NEWAIMAXSETTINGS = auto()
+
+    IMAGEASSETAUTOMATIONOPTOUT = auto()
+
+    UPDATEAIMAXSETTINGS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -113,6 +121,10 @@ class ImportAdditionalField(Flag):
             ImportAdditionalField.ENABLECOPILOT: 'EnableCopilot',
             ImportAdditionalField.NEWTOPICTARGETS: 'NewTopicTargets',
             ImportAdditionalField.UPDATETOPICTARGETS: 'UpdateTopicTargets',
+            ImportAdditionalField.NEWPORTFOLIOBIDSTRATEGY: 'NewPortfolioBidStrategy',
+            ImportAdditionalField.NEWAIMAXSETTINGS: 'NewAIMaxSettings',
+            ImportAdditionalField.IMAGEASSETAUTOMATIONOPTOUT: 'ImageAssetAutomationOptOut',
+            ImportAdditionalField.UPDATEAIMAXSETTINGS: 'UpdateAIMaxSettings',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in ImportAdditionalField if flag & self]

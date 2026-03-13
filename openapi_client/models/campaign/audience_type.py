@@ -32,6 +32,8 @@ class AudienceType(Flag):
 
     IMPRESSIONBASEDREMARKETINGLIST = auto()
 
+    CUSTOMSEGMENT = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -53,6 +55,7 @@ class AudienceType(Flag):
             AudienceType.COMBINEDLIST: 'CombinedList',
             AudienceType.CUSTOMERLIST: 'CustomerList',
             AudienceType.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
+            AudienceType.CUSTOMSEGMENT: 'CustomSegment',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AudienceType if flag & self]

@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.adinsight.auction_insight_kpi_additional_field import AuctionInsightKpiAdditionalField
 from openapi_client.models.adinsight.entity_type import EntityType
+from openapi_client.models.adinsight.search_parameter import SearchParameter
 from typing_extensions import Self
 
 class GetAuctionInsightDataRequest(BaseModel):
@@ -30,7 +31,7 @@ class GetAuctionInsightDataRequest(BaseModel):
     """ # noqa: E501
     entity_type: Optional[EntityType] = Field(default=None, alias="EntityType")
     entity_ids: Optional[List[StrictStr]] = Field(default=None, alias="EntityIds")
-    search_parameters: Optional[List[StrictStr]] = Field(default=None, alias="SearchParameters")
+    search_parameters: Optional[List[Optional[SearchParameter]]] = Field(default=None, alias="SearchParameters")
     return_additional_fields: Optional[AuctionInsightKpiAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
     __properties: ClassVar[List[str]] = ["EntityType", "EntityIds", "SearchParameters", "ReturnAdditionalFields"]
 
@@ -59,6 +60,13 @@ class GetAuctionInsightDataRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in search_parameters (list)
+        _items = []
+        if self.search_parameters:
+            for _item_search_parameters in self.search_parameters:
+                if _item_search_parameters:
+                    _items.append(_item_search_parameters.to_dict())
+            _dict['SearchParameters'] = _items
         # set to None if entity_type (nullable) is None
         # and model_fields_set contains the field
         if self.entity_type is None and "entity_type" in self.model_fields_set:
@@ -93,7 +101,7 @@ class GetAuctionInsightDataRequest(BaseModel):
         _obj = cls.model_validate({
             "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
                         "EntityIds": obj.get("EntityIds"),
-                        "SearchParameters": obj.get("SearchParameters"),
+                        "SearchParameters": [SearchParameter.from_dict(_item) for _item in obj["SearchParameters"]] if obj.get("SearchParameters") is not None else None,
                         "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

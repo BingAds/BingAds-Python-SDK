@@ -26,6 +26,8 @@ class AudienceAdditionalField(Flag):
 
     CAMPAIGNIDSADGROUPIDS = auto()
 
+    CUSTOMSEGMENT = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -44,6 +46,7 @@ class AudienceAdditionalField(Flag):
             AudienceAdditionalField.NUMBERRULEITEM: 'NumberRuleItem',
             AudienceAdditionalField.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
             AudienceAdditionalField.CAMPAIGNIDSADGROUPIDS: 'CampaignIdsAdGroupIds',
+            AudienceAdditionalField.CUSTOMSEGMENT: 'CustomSegment',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AudienceAdditionalField if flag & self]

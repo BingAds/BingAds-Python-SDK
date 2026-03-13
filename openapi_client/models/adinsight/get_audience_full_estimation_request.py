@@ -55,7 +55,8 @@ class GetAudienceFullEstimationRequest(BaseModel):
     end_date: Optional[datetime] = Field(default=None, alias="EndDate")
     total_budget: Optional[StrictFloat] = Field(default=None, alias="TotalBudget")
     include_impressions_breakdown: Optional[StrictBool] = Field(default=None, alias="IncludeImpressionsBreakdown")
-    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "Placement", "Device", "Topic", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency", "MultiAdTypes", "StartDate", "EndDate", "TotalBudget", "IncludeImpressionsBreakdown"]
+    auto_targeting: Optional[StrictBool] = Field(default=None, alias="AutoTargeting")
+    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "Placement", "Device", "Topic", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency", "MultiAdTypes", "StartDate", "EndDate", "TotalBudget", "IncludeImpressionsBreakdown", "AutoTargeting"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -232,6 +233,11 @@ class GetAudienceFullEstimationRequest(BaseModel):
         if self.include_impressions_breakdown is None and "include_impressions_breakdown" in self.model_fields_set:
             _dict['IncludeImpressionsBreakdown'] = None
 
+        # set to None if auto_targeting (nullable) is None
+        # and model_fields_set contains the field
+        if self.auto_targeting is None and "auto_targeting" in self.model_fields_set:
+            _dict['AutoTargeting'] = None
+
         return _dict
 
     @classmethod
@@ -265,6 +271,7 @@ class GetAudienceFullEstimationRequest(BaseModel):
                         "StartDate": obj.get("StartDate") if obj.get("StartDate") is not None else None,
                         "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
                         "TotalBudget": obj.get("TotalBudget") if obj.get("TotalBudget") is not None else None,
-                        "IncludeImpressionsBreakdown": obj.get("IncludeImpressionsBreakdown") if obj.get("IncludeImpressionsBreakdown") is not None else None
+                        "IncludeImpressionsBreakdown": obj.get("IncludeImpressionsBreakdown") if obj.get("IncludeImpressionsBreakdown") is not None else None,
+                        "AutoTargeting": obj.get("AutoTargeting") if obj.get("AutoTargeting") is not None else None
         })
         return _obj

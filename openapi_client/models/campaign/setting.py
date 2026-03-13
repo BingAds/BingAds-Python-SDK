@@ -36,7 +36,9 @@ class Setting(BaseModel):
         if 'type' not in kwargs and 'Type' not in kwargs:
             class_name = self.__class__.__name__
             type_mapping = [
+                ('AISearchSetting', 'AISearchSetting'),
                 ('AppSetting', 'AppSetting'),
+                ('BaseDomainSetting', 'BaseDomainSetting'),
                 ('CallToActionSetting', 'CallToActionSetting'),
                 ('CoOpSetting', 'CoOpSetting'),
                 ('DisclaimerSetting', 'DisclaimerSetting'),
@@ -96,9 +98,17 @@ class Setting(BaseModel):
         type = obj.get("Type")
         
         # Import here to avoid circular imports
+        if type == "AISearchSetting":
+            from openapi_client.models.campaign.ai_search_setting import AISearchSetting
+            return AISearchSetting.from_dict(obj)
+        
         if type == "AppSetting":
             from openapi_client.models.campaign.app_setting import AppSetting
             return AppSetting.from_dict(obj)
+        
+        if type == "BaseDomainSetting":
+            from openapi_client.models.campaign.base_domain_setting import BaseDomainSetting
+            return BaseDomainSetting.from_dict(obj)
         
         if type == "CallToActionSetting":
             from openapi_client.models.campaign.call_to_action_setting import CallToActionSetting

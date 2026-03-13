@@ -202,6 +202,8 @@ class CurrencyCode(str, Enum):
 
     ZWD = 'ZWD'
 
+    UNSPECIFY = 'UNSPECIFY'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

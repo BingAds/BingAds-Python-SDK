@@ -69,6 +69,8 @@ class GoogleImportOption(ImportOption):
     new_brand_suitability: Optional[StrictBool] = Field(default=None, alias="NewBrandSuitability")
     new_conversion_goals: Optional[StrictBool] = Field(default=None, alias="NewConversionGoals")
     new_carousel_ad: Optional[StrictBool] = Field(default=None, alias="NewCarouselAd")
+    new_portfolio_bid_strategy: Optional[StrictBool] = Field(default=None, alias="NewPortfolioBidStrategy")
+    new_ai_max_settings: Optional[StrictBool] = Field(default=None, alias="NewAIMaxSettings")
     update_entities: Optional[StrictBool] = Field(default=None, alias="UpdateEntities")
     update_campaign_budgets: Optional[StrictBool] = Field(default=None, alias="UpdateCampaignBudgets")
     update_bids: Optional[StrictBool] = Field(default=None, alias="UpdateBids")
@@ -109,6 +111,7 @@ class GoogleImportOption(ImportOption):
     update_ad_customizer_feeds: Optional[StrictBool] = Field(default=None, alias="UpdateAdCustomizerFeeds")
     update_brand_suitability: Optional[StrictBool] = Field(default=None, alias="UpdateBrandSuitability")
     update_ad_customizer_attributes: Optional[StrictBool] = Field(default=None, alias="UpdateAdCustomizerAttributes")
+    update_ai_max_settings: Optional[StrictBool] = Field(default=None, alias="UpdateAIMaxSettings")
     enable_copilot: Optional[StrictBool] = Field(default=None, alias="EnableCopilot")
     delete_removed_entities: Optional[StrictBool] = Field(default=None, alias="DeleteRemovedEntities")
     raise_bids_to_minimum: Optional[StrictBool] = Field(default=None, alias="RaiseBidsToMinimum")
@@ -139,7 +142,8 @@ class GoogleImportOption(ImportOption):
     update_ad_urls: Optional[StrictBool] = Field(default=None, alias="UpdateAdUrls")
     update_sitelink_urls: Optional[StrictBool] = Field(default=None, alias="UpdateSitelinkUrls")
     update_asset_automation_campaign_setting: Optional[StrictBool] = Field(default=None, alias="UpdateAssetAutomationCampaignSetting")
-    __properties: ClassVar[List[str]] = ["ForwardCompatibilityMap", "Type", "NewEntities", "NewPausedCampaignsAndChildEntities", "NewActiveCampaignsAndChildEntities", "NewAdGroupsAndChildEntitiesForExistingCampaigns", "NewActiveAdsForExistingAdGroups", "NewKeywordsForExistingAdGroups", "NewNegativeKeywordsForExistingParents", "NewNegativeKeywordLists", "NewAccountNegativeKeywords", "PauseNewCampaigns", "NewKeywordUrls", "NewUrlOptions", "NewNegativeSites", "NewPausedAdsForExistingAdGroups", "NewLabels", "NewProductFilters", "NewLocationTargets", "NewAdSchedules", "NewDeviceTargets", "NewDemographicTargets", "NewAudienceTargets", "NewTopicTargets", "NewAppAdExtensions", "NewCallAdExtensions", "NewCalloutAdExtensions", "NewPriceAdExtensions", "NewLocationAdExtensions", "NewReviewAdExtensions", "NewSitelinkAdExtensions", "NewStructuredSnippetAdExtensions", "NewPromotionAdExtensions", "NewImageAdExtensions", "NewLogoAdExtensions", "NewLeadFormAdExtensions", "NewPageFeeds", "NewAdCustomizerFeeds", "NewBrandSuitability", "NewConversionGoals", "NewCarouselAd", "UpdateEntities", "UpdateCampaignBudgets", "UpdateBids", "UpdateNegativeKeywordLists", "UpdateAccountNegativeKeywords", "UpdateNegativeSites", "UpdateKeywordUrls", "UpdateUrlOptions", "UpdateCampaignNames", "UpdateLabels", "UpdateProductFilters", "UpdateConversionGoals", "UpdateLocationTargets", "UpdateAdSchedules", "UpdateDeviceTargets", "UpdateDemographicTargets", "UpdateCampaignAdGroupLanguages", "UpdateAudienceTargets", "UpdateTopicTargets", "UpdateAppAdExtensions", "UpdateCallAdExtensions", "UpdateCalloutAdExtensions", "UpdatePriceAdExtensions", "UpdateLocationAdExtensions", "UpdateReviewAdExtensions", "UpdateSitelinkAdExtensions", "UpdateStructuredSnippetAdExtensions", "UpdatePromotionAdExtensions", "UpdateImageAdExtensions", "UpdateLogoAdExtensions", "UpdateLeadFormAdExtensions", "UpdateStatusForCampaigns", "UpdateStatusForAdGroups", "UpdateStatusForAds", "UpdateStatusForKeywords", "UpdateAdGroupNetwork", "UpdatePageFeeds", "UpdateAdCustomizerFeeds", "UpdateBrandSuitability", "UpdateAdCustomizerAttributes", "EnableCopilot", "DeleteRemovedEntities", "RaiseBidsToMinimum", "RaiseCampaignBudgetsToMinimum", "AdjustmentForCampaignBudgets", "AdjustmentForBids", "SuffixForUrls", "SearchAndReplaceForUrls", "SuffixForTrackingTemplates", "SearchAndReplaceForTrackingTemplates", "SuffixForCampaignNames", "SearchAndReplaceForCampaignNames", "SearchAndReplaceForCustomParameters", "SearchAndReplaceForFinalURLSuffix", "PauseCampaignsWithoutSupportedLocations", "EnableParentLocationMapping", "AssociatedStoreId", "RaiseProductGroupBidsToMinimum", "SearchAndDsaMixedCampaignAsSearchCampaign", "AccountUrlOptions", "EnableAutoCurrencyConversion", "UpdateBiddingStrategies", "AssociatedUetTagId", "AutoDeviceBidOptimization", "AdScheduleUseSearcherTimezone", "PauseAIMAdGroupIfAllAudienceCriterionNotImported", "RenameCampaignNameWithSuffix", "UpdateAdUrls", "UpdateSitelinkUrls", "UpdateAssetAutomationCampaignSetting"]
+    image_asset_automation_opt_out: Optional[StrictBool] = Field(default=None, alias="ImageAssetAutomationOptOut")
+    __properties: ClassVar[List[str]] = ["ForwardCompatibilityMap", "Type", "NewEntities", "NewPausedCampaignsAndChildEntities", "NewActiveCampaignsAndChildEntities", "NewAdGroupsAndChildEntitiesForExistingCampaigns", "NewActiveAdsForExistingAdGroups", "NewKeywordsForExistingAdGroups", "NewNegativeKeywordsForExistingParents", "NewNegativeKeywordLists", "NewAccountNegativeKeywords", "PauseNewCampaigns", "NewKeywordUrls", "NewUrlOptions", "NewNegativeSites", "NewPausedAdsForExistingAdGroups", "NewLabels", "NewProductFilters", "NewLocationTargets", "NewAdSchedules", "NewDeviceTargets", "NewDemographicTargets", "NewAudienceTargets", "NewTopicTargets", "NewAppAdExtensions", "NewCallAdExtensions", "NewCalloutAdExtensions", "NewPriceAdExtensions", "NewLocationAdExtensions", "NewReviewAdExtensions", "NewSitelinkAdExtensions", "NewStructuredSnippetAdExtensions", "NewPromotionAdExtensions", "NewImageAdExtensions", "NewLogoAdExtensions", "NewLeadFormAdExtensions", "NewPageFeeds", "NewAdCustomizerFeeds", "NewBrandSuitability", "NewConversionGoals", "NewCarouselAd", "NewPortfolioBidStrategy", "NewAIMaxSettings", "UpdateEntities", "UpdateCampaignBudgets", "UpdateBids", "UpdateNegativeKeywordLists", "UpdateAccountNegativeKeywords", "UpdateNegativeSites", "UpdateKeywordUrls", "UpdateUrlOptions", "UpdateCampaignNames", "UpdateLabels", "UpdateProductFilters", "UpdateConversionGoals", "UpdateLocationTargets", "UpdateAdSchedules", "UpdateDeviceTargets", "UpdateDemographicTargets", "UpdateCampaignAdGroupLanguages", "UpdateAudienceTargets", "UpdateTopicTargets", "UpdateAppAdExtensions", "UpdateCallAdExtensions", "UpdateCalloutAdExtensions", "UpdatePriceAdExtensions", "UpdateLocationAdExtensions", "UpdateReviewAdExtensions", "UpdateSitelinkAdExtensions", "UpdateStructuredSnippetAdExtensions", "UpdatePromotionAdExtensions", "UpdateImageAdExtensions", "UpdateLogoAdExtensions", "UpdateLeadFormAdExtensions", "UpdateStatusForCampaigns", "UpdateStatusForAdGroups", "UpdateStatusForAds", "UpdateStatusForKeywords", "UpdateAdGroupNetwork", "UpdatePageFeeds", "UpdateAdCustomizerFeeds", "UpdateBrandSuitability", "UpdateAdCustomizerAttributes", "UpdateAIMaxSettings", "EnableCopilot", "DeleteRemovedEntities", "RaiseBidsToMinimum", "RaiseCampaignBudgetsToMinimum", "AdjustmentForCampaignBudgets", "AdjustmentForBids", "SuffixForUrls", "SearchAndReplaceForUrls", "SuffixForTrackingTemplates", "SearchAndReplaceForTrackingTemplates", "SuffixForCampaignNames", "SearchAndReplaceForCampaignNames", "SearchAndReplaceForCustomParameters", "SearchAndReplaceForFinalURLSuffix", "PauseCampaignsWithoutSupportedLocations", "EnableParentLocationMapping", "AssociatedStoreId", "RaiseProductGroupBidsToMinimum", "SearchAndDsaMixedCampaignAsSearchCampaign", "AccountUrlOptions", "EnableAutoCurrencyConversion", "UpdateBiddingStrategies", "AssociatedUetTagId", "AutoDeviceBidOptimization", "AdScheduleUseSearcherTimezone", "PauseAIMAdGroupIfAllAudienceCriterionNotImported", "RenameCampaignNameWithSuffix", "UpdateAdUrls", "UpdateSitelinkUrls", "UpdateAssetAutomationCampaignSetting", "ImageAssetAutomationOptOut"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -406,6 +410,16 @@ class GoogleImportOption(ImportOption):
         if self.new_carousel_ad is None and "new_carousel_ad" in self.model_fields_set:
             _dict['NewCarouselAd'] = None
 
+        # set to None if new_portfolio_bid_strategy (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_portfolio_bid_strategy is None and "new_portfolio_bid_strategy" in self.model_fields_set:
+            _dict['NewPortfolioBidStrategy'] = None
+
+        # set to None if new_ai_max_settings (nullable) is None
+        # and model_fields_set contains the field
+        if self.new_ai_max_settings is None and "new_ai_max_settings" in self.model_fields_set:
+            _dict['NewAIMaxSettings'] = None
+
         # set to None if update_entities (nullable) is None
         # and model_fields_set contains the field
         if self.update_entities is None and "update_entities" in self.model_fields_set:
@@ -606,6 +620,11 @@ class GoogleImportOption(ImportOption):
         if self.update_ad_customizer_attributes is None and "update_ad_customizer_attributes" in self.model_fields_set:
             _dict['UpdateAdCustomizerAttributes'] = None
 
+        # set to None if update_ai_max_settings (nullable) is None
+        # and model_fields_set contains the field
+        if self.update_ai_max_settings is None and "update_ai_max_settings" in self.model_fields_set:
+            _dict['UpdateAIMaxSettings'] = None
+
         # set to None if enable_copilot (nullable) is None
         # and model_fields_set contains the field
         if self.enable_copilot is None and "enable_copilot" in self.model_fields_set:
@@ -756,6 +775,11 @@ class GoogleImportOption(ImportOption):
         if self.update_asset_automation_campaign_setting is None and "update_asset_automation_campaign_setting" in self.model_fields_set:
             _dict['UpdateAssetAutomationCampaignSetting'] = None
 
+        # set to None if image_asset_automation_opt_out (nullable) is None
+        # and model_fields_set contains the field
+        if self.image_asset_automation_opt_out is None and "image_asset_automation_opt_out" in self.model_fields_set:
+            _dict['ImageAssetAutomationOptOut'] = None
+
         return _dict
 
     @classmethod
@@ -809,6 +833,8 @@ class GoogleImportOption(ImportOption):
                         "NewBrandSuitability": obj.get("NewBrandSuitability") if obj.get("NewBrandSuitability") is not None else None,
                         "NewConversionGoals": obj.get("NewConversionGoals") if obj.get("NewConversionGoals") is not None else None,
                         "NewCarouselAd": obj.get("NewCarouselAd") if obj.get("NewCarouselAd") is not None else None,
+                        "NewPortfolioBidStrategy": obj.get("NewPortfolioBidStrategy") if obj.get("NewPortfolioBidStrategy") is not None else None,
+                        "NewAIMaxSettings": obj.get("NewAIMaxSettings") if obj.get("NewAIMaxSettings") is not None else None,
                         "UpdateEntities": obj.get("UpdateEntities") if obj.get("UpdateEntities") is not None else None,
                         "UpdateCampaignBudgets": obj.get("UpdateCampaignBudgets") if obj.get("UpdateCampaignBudgets") is not None else None,
                         "UpdateBids": obj.get("UpdateBids") if obj.get("UpdateBids") is not None else None,
@@ -849,6 +875,7 @@ class GoogleImportOption(ImportOption):
                         "UpdateAdCustomizerFeeds": obj.get("UpdateAdCustomizerFeeds") if obj.get("UpdateAdCustomizerFeeds") is not None else None,
                         "UpdateBrandSuitability": obj.get("UpdateBrandSuitability") if obj.get("UpdateBrandSuitability") is not None else None,
                         "UpdateAdCustomizerAttributes": obj.get("UpdateAdCustomizerAttributes") if obj.get("UpdateAdCustomizerAttributes") is not None else None,
+                        "UpdateAIMaxSettings": obj.get("UpdateAIMaxSettings") if obj.get("UpdateAIMaxSettings") is not None else None,
                         "EnableCopilot": obj.get("EnableCopilot") if obj.get("EnableCopilot") is not None else None,
                         "DeleteRemovedEntities": obj.get("DeleteRemovedEntities") if obj.get("DeleteRemovedEntities") is not None else None,
                         "RaiseBidsToMinimum": obj.get("RaiseBidsToMinimum") if obj.get("RaiseBidsToMinimum") is not None else None,
@@ -878,6 +905,7 @@ class GoogleImportOption(ImportOption):
                         "RenameCampaignNameWithSuffix": obj.get("RenameCampaignNameWithSuffix") if obj.get("RenameCampaignNameWithSuffix") is not None else None,
                         "UpdateAdUrls": obj.get("UpdateAdUrls") if obj.get("UpdateAdUrls") is not None else None,
                         "UpdateSitelinkUrls": obj.get("UpdateSitelinkUrls") if obj.get("UpdateSitelinkUrls") is not None else None,
-                        "UpdateAssetAutomationCampaignSetting": obj.get("UpdateAssetAutomationCampaignSetting") if obj.get("UpdateAssetAutomationCampaignSetting") is not None else None
+                        "UpdateAssetAutomationCampaignSetting": obj.get("UpdateAssetAutomationCampaignSetting") if obj.get("UpdateAssetAutomationCampaignSetting") is not None else None,
+                        "ImageAssetAutomationOptOut": obj.get("ImageAssetAutomationOptOut") if obj.get("ImageAssetAutomationOptOut") is not None else None
         })
         return _obj

@@ -28,9 +28,9 @@ class GetAssetGroupsByCampaignIdResponse(BaseModel):
     """
     GetAssetGroupsByCampaignIdResponse
     """ # noqa: E501
-    asset_groups: Optional[List[Optional[AssetGroup]]] = Field(default=None, alias="AssetGroups")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
-    __properties: ClassVar[List[str]] = ["AssetGroups", "PartialErrors"]
+    asset_groups: Optional[List[Optional[AssetGroup]]] = Field(default=None, alias="AssetGroups")
+    __properties: ClassVar[List[str]] = ["PartialErrors", "AssetGroups"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,13 +57,6 @@ class GetAssetGroupsByCampaignIdResponse(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in asset_groups (list)
-        _items = []
-        if self.asset_groups:
-            for _item_asset_groups in self.asset_groups:
-                if _item_asset_groups:
-                    _items.append(_item_asset_groups.to_dict())
-            _dict['AssetGroups'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in partial_errors (list)
         _items = []
         if self.partial_errors:
@@ -71,15 +64,22 @@ class GetAssetGroupsByCampaignIdResponse(BaseModel):
                 if _item_partial_errors:
                     _items.append(_item_partial_errors.to_dict())
             _dict['PartialErrors'] = _items
-        # set to None if asset_groups (nullable) is None
-        # and model_fields_set contains the field
-        if self.asset_groups is None and "asset_groups" in self.model_fields_set:
-            _dict['AssetGroups'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in asset_groups (list)
+        _items = []
+        if self.asset_groups:
+            for _item_asset_groups in self.asset_groups:
+                if _item_asset_groups:
+                    _items.append(_item_asset_groups.to_dict())
+            _dict['AssetGroups'] = _items
         # set to None if partial_errors (nullable) is None
         # and model_fields_set contains the field
         if self.partial_errors is None and "partial_errors" in self.model_fields_set:
             _dict['PartialErrors'] = None
+
+        # set to None if asset_groups (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_groups is None and "asset_groups" in self.model_fields_set:
+            _dict['AssetGroups'] = None
 
         return _dict
 
@@ -93,7 +93,7 @@ class GetAssetGroupsByCampaignIdResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AssetGroups": [AssetGroup.from_dict(_item) for _item in obj["AssetGroups"]] if obj.get("AssetGroups") is not None else None,
-                        "PartialErrors": [BatchError.from_dict(_item) for _item in obj["PartialErrors"]] if obj.get("PartialErrors") is not None else None
+            "PartialErrors": [BatchError.from_dict(_item) for _item in obj["PartialErrors"]] if obj.get("PartialErrors") is not None else None,
+                        "AssetGroups": [AssetGroup.from_dict(_item) for _item in obj["AssetGroups"]] if obj.get("AssetGroups") is not None else None
         })
         return _obj

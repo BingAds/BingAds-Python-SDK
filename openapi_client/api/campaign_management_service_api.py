@@ -59,6 +59,8 @@ from openapi_client.models.campaign.add_keywords_request import AddKeywordsReque
 from openapi_client.models.campaign.add_keywords_response import AddKeywordsResponse
 from openapi_client.models.campaign.add_labels_request import AddLabelsRequest
 from openapi_client.models.campaign.add_labels_response import AddLabelsResponse
+from openapi_client.models.campaign.add_linked_in_segments_request import AddLinkedInSegmentsRequest
+from openapi_client.models.campaign.add_linked_in_segments_response import AddLinkedInSegmentsResponse
 from openapi_client.models.campaign.add_list_items_to_shared_list_request import AddListItemsToSharedListRequest
 from openapi_client.models.campaign.add_list_items_to_shared_list_response import AddListItemsToSharedListResponse
 from openapi_client.models.campaign.add_media_request import AddMediaRequest
@@ -145,6 +147,8 @@ from openapi_client.models.campaign.delete_label_associations_request import Del
 from openapi_client.models.campaign.delete_label_associations_response import DeleteLabelAssociationsResponse
 from openapi_client.models.campaign.delete_labels_request import DeleteLabelsRequest
 from openapi_client.models.campaign.delete_labels_response import DeleteLabelsResponse
+from openapi_client.models.campaign.delete_linked_in_segments_request import DeleteLinkedInSegmentsRequest
+from openapi_client.models.campaign.delete_linked_in_segments_response import DeleteLinkedInSegmentsResponse
 from openapi_client.models.campaign.delete_list_items_from_shared_list_request import DeleteListItemsFromSharedListRequest
 from openapi_client.models.campaign.delete_list_items_from_shared_list_response import DeleteListItemsFromSharedListResponse
 from openapi_client.models.campaign.delete_media_request import DeleteMediaRequest
@@ -286,6 +290,8 @@ from openapi_client.models.campaign.get_negative_sites_by_campaign_ids_request i
 from openapi_client.models.campaign.get_negative_sites_by_campaign_ids_response import GetNegativeSitesByCampaignIdsResponse
 from openapi_client.models.campaign.get_new_customer_acquisition_goals_by_account_id_request import GetNewCustomerAcquisitionGoalsByAccountIdRequest
 from openapi_client.models.campaign.get_new_customer_acquisition_goals_by_account_id_response import GetNewCustomerAcquisitionGoalsByAccountIdResponse
+from openapi_client.models.campaign.get_offline_conversion_report_by_goal_ids_request import GetOfflineConversionReportByGoalIdsRequest
+from openapi_client.models.campaign.get_offline_conversion_report_by_goal_ids_response import GetOfflineConversionReportByGoalIdsResponse
 from openapi_client.models.campaign.get_offline_conversion_reports_request import GetOfflineConversionReportsRequest
 from openapi_client.models.campaign.get_offline_conversion_reports_response import GetOfflineConversionReportsResponse
 from openapi_client.models.campaign.get_profile_data_file_url_request import GetProfileDataFileUrlRequest
@@ -374,6 +380,8 @@ from openapi_client.models.campaign.update_keywords_request import UpdateKeyword
 from openapi_client.models.campaign.update_keywords_response import UpdateKeywordsResponse
 from openapi_client.models.campaign.update_labels_request import UpdateLabelsRequest
 from openapi_client.models.campaign.update_labels_response import UpdateLabelsResponse
+from openapi_client.models.campaign.update_linked_in_segments_request import UpdateLinkedInSegmentsRequest
+from openapi_client.models.campaign.update_linked_in_segments_response import UpdateLinkedInSegmentsResponse
 from openapi_client.models.campaign.update_new_customer_acquisition_goals_request import UpdateNewCustomerAcquisitionGoalsRequest
 from openapi_client.models.campaign.update_new_customer_acquisition_goals_response import UpdateNewCustomerAcquisitionGoalsResponse
 from openapi_client.models.campaign.update_seasonality_adjustments_request import UpdateSeasonalityAdjustmentsRequest
@@ -6436,6 +6444,294 @@ class CampaignManagementServiceApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/CampaignManagement/v13/Labels',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def add_linked_in_segments(
+        self,
+        add_linked_in_segments_request: AddLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> AddLinkedInSegmentsResponse:
+        """add_linked_in_segments
+
+
+        :param add_linked_in_segments_request: (required)
+        :type add_linked_in_segments_request: AddLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_linked_in_segments_serialize(
+            add_linked_in_segments_request=add_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AddLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def add_linked_in_segments_with_http_info(
+        self,
+        add_linked_in_segments_request: AddLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[AddLinkedInSegmentsResponse]:
+        """add_linked_in_segments
+
+
+        :param add_linked_in_segments_request: (required)
+        :type add_linked_in_segments_request: AddLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_linked_in_segments_serialize(
+            add_linked_in_segments_request=add_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AddLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def add_linked_in_segments_without_preload_content(
+        self,
+        add_linked_in_segments_request: AddLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """add_linked_in_segments
+
+
+        :param add_linked_in_segments_request: (required)
+        :type add_linked_in_segments_request: AddLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._add_linked_in_segments_serialize(
+            add_linked_in_segments_request=add_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "AddLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _add_linked_in_segments_serialize(
+        self,
+        add_linked_in_segments_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if add_linked_in_segments_request is not None:
+            _body_params = add_linked_in_segments_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/CampaignManagement/v13/LinkedInSegments',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -18820,6 +19116,294 @@ class CampaignManagementServiceApi:
         return self.api_client.param_serialize(
             method='DELETE',
             resource_path='/CampaignManagement/v13/Labels',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def delete_linked_in_segments(
+        self,
+        delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> DeleteLinkedInSegmentsResponse:
+        """delete_linked_in_segments
+
+
+        :param delete_linked_in_segments_request: (required)
+        :type delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_linked_in_segments_serialize(
+            delete_linked_in_segments_request=delete_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DeleteLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def delete_linked_in_segments_with_http_info(
+        self,
+        delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[DeleteLinkedInSegmentsResponse]:
+        """delete_linked_in_segments
+
+
+        :param delete_linked_in_segments_request: (required)
+        :type delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_linked_in_segments_serialize(
+            delete_linked_in_segments_request=delete_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DeleteLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def delete_linked_in_segments_without_preload_content(
+        self,
+        delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """delete_linked_in_segments
+
+
+        :param delete_linked_in_segments_request: (required)
+        :type delete_linked_in_segments_request: DeleteLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._delete_linked_in_segments_serialize(
+            delete_linked_in_segments_request=delete_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "DeleteLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _delete_linked_in_segments_serialize(
+        self,
+        delete_linked_in_segments_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if delete_linked_in_segments_request is not None:
+            _body_params = delete_linked_in_segments_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='DELETE',
+            resource_path='/CampaignManagement/v13/LinkedInSegments',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,
@@ -39572,6 +40156,294 @@ class CampaignManagementServiceApi:
 
 
     @validate_call
+    def get_offline_conversion_report_by_goal_ids(
+        self,
+        get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetOfflineConversionReportByGoalIdsResponse:
+        """get_offline_conversion_report_by_goal_ids
+
+
+        :param get_offline_conversion_report_by_goal_ids_request: (required)
+        :type get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_offline_conversion_report_by_goal_ids_serialize(
+            get_offline_conversion_report_by_goal_ids_request=get_offline_conversion_report_by_goal_ids_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetOfflineConversionReportByGoalIdsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_offline_conversion_report_by_goal_ids_with_http_info(
+        self,
+        get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetOfflineConversionReportByGoalIdsResponse]:
+        """get_offline_conversion_report_by_goal_ids
+
+
+        :param get_offline_conversion_report_by_goal_ids_request: (required)
+        :type get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_offline_conversion_report_by_goal_ids_serialize(
+            get_offline_conversion_report_by_goal_ids_request=get_offline_conversion_report_by_goal_ids_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetOfflineConversionReportByGoalIdsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_offline_conversion_report_by_goal_ids_without_preload_content(
+        self,
+        get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """get_offline_conversion_report_by_goal_ids
+
+
+        :param get_offline_conversion_report_by_goal_ids_request: (required)
+        :type get_offline_conversion_report_by_goal_ids_request: GetOfflineConversionReportByGoalIdsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_offline_conversion_report_by_goal_ids_serialize(
+            get_offline_conversion_report_by_goal_ids_request=get_offline_conversion_report_by_goal_ids_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetOfflineConversionReportByGoalIdsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_offline_conversion_report_by_goal_ids_serialize(
+        self,
+        get_offline_conversion_report_by_goal_ids_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if get_offline_conversion_report_by_goal_ids_request is not None:
+            _body_params = get_offline_conversion_report_by_goal_ids_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/CampaignManagement/v13/OfflineConversionReport/QueryByGoalIds',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_offline_conversion_reports(
         self,
         get_offline_conversion_reports_request: GetOfflineConversionReportsRequest,
@@ -52516,6 +53388,294 @@ class CampaignManagementServiceApi:
         return self.api_client.param_serialize(
             method='PUT',
             resource_path='/CampaignManagement/v13/Labels',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def update_linked_in_segments(
+        self,
+        update_linked_in_segments_request: UpdateLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> UpdateLinkedInSegmentsResponse:
+        """update_linked_in_segments
+
+
+        :param update_linked_in_segments_request: (required)
+        :type update_linked_in_segments_request: UpdateLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_linked_in_segments_serialize(
+            update_linked_in_segments_request=update_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "UpdateLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def update_linked_in_segments_with_http_info(
+        self,
+        update_linked_in_segments_request: UpdateLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[UpdateLinkedInSegmentsResponse]:
+        """update_linked_in_segments
+
+
+        :param update_linked_in_segments_request: (required)
+        :type update_linked_in_segments_request: UpdateLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_linked_in_segments_serialize(
+            update_linked_in_segments_request=update_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "UpdateLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def update_linked_in_segments_without_preload_content(
+        self,
+        update_linked_in_segments_request: UpdateLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """update_linked_in_segments
+
+
+        :param update_linked_in_segments_request: (required)
+        :type update_linked_in_segments_request: UpdateLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._update_linked_in_segments_serialize(
+            update_linked_in_segments_request=update_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "UpdateLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _update_linked_in_segments_serialize(
+        self,
+        update_linked_in_segments_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if update_linked_in_segments_request is not None:
+            _body_params = update_linked_in_segments_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='PUT',
+            resource_path='/CampaignManagement/v13/LinkedInSegments',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

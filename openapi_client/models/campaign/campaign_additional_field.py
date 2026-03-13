@@ -86,6 +86,8 @@ class CampaignAdditionalField(Flag):
 
     CROSSACCOUNTBIDSTRATEGYFIELDS = auto()
 
+    AISEARCHSETTING = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -134,6 +136,7 @@ class CampaignAdditionalField(Flag):
             CampaignAdditionalField.MAXCONVERSIONVALUEWITHMAXCPC: 'MaxConversionValueWithMaxCpc',
             CampaignAdditionalField.PMAXAPPCAMPAIGN: 'PmaxAppCampaign',
             CampaignAdditionalField.CROSSACCOUNTBIDSTRATEGYFIELDS: 'CrossAccountBidStrategyFields',
+            CampaignAdditionalField.AISEARCHSETTING: 'AISearchSetting',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignAdditionalField if flag & self]

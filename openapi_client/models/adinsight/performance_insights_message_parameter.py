@@ -13,50 +13,62 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
-
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.adinsight.parameter_type import ParameterType
-from typing_extensions import Self
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
 class PerformanceInsightsMessageParameter(BaseModel):
     """
     PerformanceInsightsMessageParameter
-    """ # noqa: E501
-    type: Optional[ParameterType] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["Type"]
+    """
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-	
 
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('EntityParameter', 'Entities'),
+                ('TextParameter', 'Text'),
+                ('UrlParameter', 'Url'),
+                ('EntityParameter', 'EntityParameter'),
+                ('TextParameter', 'TextParameter'),
+                ('UrlParameter', 'UrlParameter'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: Optional[str]) -> Self:
+        """Create an instance of PerformanceInsightsMessageParameter from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
     def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
@@ -71,6 +83,36 @@ class PerformanceInsightsMessageParameter(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "Entities":
+            from openapi_client.models.adinsight.entity_parameter import EntityParameter
+            return EntityParameter.from_dict(obj)
+        
+        if type == "Text":
+            from openapi_client.models.adinsight.text_parameter import TextParameter
+            return TextParameter.from_dict(obj)
+        
+        if type == "Url":
+            from openapi_client.models.adinsight.url_parameter import UrlParameter
+            return UrlParameter.from_dict(obj)
+        
+        if type == "EntityParameter":
+            from openapi_client.models.adinsight.entity_parameter import EntityParameter
+            return EntityParameter.from_dict(obj)
+        
+        if type == "TextParameter":
+            from openapi_client.models.adinsight.text_parameter import TextParameter
+            return TextParameter.from_dict(obj)
+        
+        if type == "UrlParameter":
+            from openapi_client.models.adinsight.url_parameter import UrlParameter
+            return UrlParameter.from_dict(obj)
+        
+        
+        # Fallback to base class
         _obj = cls.model_validate({
             "Type": obj.get("Type") if obj.get("Type") is not None else None
         })

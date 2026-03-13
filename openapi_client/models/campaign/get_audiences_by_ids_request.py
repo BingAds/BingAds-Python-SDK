@@ -28,10 +28,10 @@ class GetAudiencesByIdsRequest(BaseModel):
     """
     GetAudiencesByIdsRequest
     """ # noqa: E501
-    audience_ids: Optional[List[StrictStr]] = Field(default=None, alias="AudienceIds")
     type: Optional[AudienceType] = Field(default=None, alias="Type")
     return_additional_fields: Optional[AudienceAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["AudienceIds", "Type", "ReturnAdditionalFields"]
+    audience_ids: Optional[List[StrictStr]] = Field(default=None, alias="AudienceIds")
+    __properties: ClassVar[List[str]] = ["Type", "ReturnAdditionalFields", "AudienceIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,11 +58,6 @@ class GetAudiencesByIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if audience_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.audience_ids is None and "audience_ids" in self.model_fields_set:
-            _dict['AudienceIds'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -72,6 +67,11 @@ class GetAudiencesByIdsRequest(BaseModel):
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
+
+        # set to None if audience_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.audience_ids is None and "audience_ids" in self.model_fields_set:
+            _dict['AudienceIds'] = None
 
         return _dict
 
@@ -85,8 +85,8 @@ class GetAudiencesByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AudienceIds": obj.get("AudienceIds"),
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "AudienceIds": obj.get("AudienceIds")
         })
         return _obj

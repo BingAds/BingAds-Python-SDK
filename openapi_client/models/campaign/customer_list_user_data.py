@@ -32,7 +32,8 @@ class CustomerListUserData(BaseModel):
     customer_list_items: Optional[List[StrictStr]] = Field(default=None, alias="CustomerListItems")
     customer_list_item_sub_type: Optional[CustomerListItemSubType] = Field(default=None, alias="CustomerListItemSubType")
     action_type: Optional[CustomerListActionType] = Field(default=None, alias="ActionType")
-    __properties: ClassVar[List[str]] = ["AudienceId", "CustomerListItems", "CustomerListItemSubType", "ActionType"]
+    accept_customer_match_term: Optional[StrictBool] = Field(default=None, alias="AcceptCustomerMatchTerm")
+    __properties: ClassVar[List[str]] = ["AudienceId", "CustomerListItems", "CustomerListItemSubType", "ActionType", "AcceptCustomerMatchTerm"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +80,11 @@ class CustomerListUserData(BaseModel):
         if self.action_type is None and "action_type" in self.model_fields_set:
             _dict['ActionType'] = None
 
+        # set to None if accept_customer_match_term (nullable) is None
+        # and model_fields_set contains the field
+        if self.accept_customer_match_term is None and "accept_customer_match_term" in self.model_fields_set:
+            _dict['AcceptCustomerMatchTerm'] = None
+
         return _dict
 
     @classmethod
@@ -94,6 +100,7 @@ class CustomerListUserData(BaseModel):
             "AudienceId": obj.get("AudienceId") if obj.get("AudienceId") is not None else None,
                         "CustomerListItems": obj.get("CustomerListItems"),
                         "CustomerListItemSubType": obj.get("CustomerListItemSubType") if obj.get("CustomerListItemSubType") is not None else None,
-                        "ActionType": obj.get("ActionType") if obj.get("ActionType") is not None else None
+                        "ActionType": obj.get("ActionType") if obj.get("ActionType") is not None else None,
+                        "AcceptCustomerMatchTerm": obj.get("AcceptCustomerMatchTerm") if obj.get("AcceptCustomerMatchTerm") is not None else None
         })
         return _obj

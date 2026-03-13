@@ -35,7 +35,6 @@ class AssetGroup(BaseModel):
     """
     AssetGroup
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[AssetGroupStatus] = Field(default=None, alias="Status")
     start_date: Optional[ModelDate] = Field(default=None, alias="StartDate")
@@ -57,8 +56,9 @@ class AssetGroup(BaseModel):
     url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
     editorial_status: Optional[AssetGroupEditorialStatus] = Field(default=None, alias="EditorialStatus")
     asset_group_url_targets: Optional[List[Optional[AssetGroupUrlTarget]]] = Field(default=None, alias="AssetGroupUrlTargets")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "EditorialStatus", "AssetGroupUrlTargets", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "EditorialStatus", "AssetGroupUrlTargets", "Id", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -150,11 +150,6 @@ class AssetGroup(BaseModel):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -260,6 +255,11 @@ class AssetGroup(BaseModel):
         if self.asset_group_url_targets is None and "asset_group_url_targets" in self.model_fields_set:
             _dict['AssetGroupUrlTargets'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -277,8 +277,7 @@ class AssetGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "StartDate": ModelDate.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
                         "EndDate": ModelDate.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
@@ -299,6 +298,7 @@ class AssetGroup(BaseModel):
                         "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "AssetGroupUrlTargets": [AssetGroupUrlTarget.from_dict(_item) for _item in obj["AssetGroupUrlTargets"]] if obj.get("AssetGroupUrlTargets") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

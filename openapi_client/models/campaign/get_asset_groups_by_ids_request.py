@@ -27,10 +27,10 @@ class GetAssetGroupsByIdsRequest(BaseModel):
     """
     GetAssetGroupsByIdsRequest
     """ # noqa: E501
+    return_additional_fields: Optional[AssetGroupAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     asset_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AssetGroupIds")
-    return_additional_fields: Optional[AssetGroupAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["CampaignId", "AssetGroupIds", "ReturnAdditionalFields"]
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "CampaignId", "AssetGroupIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,6 +57,11 @@ class GetAssetGroupsByIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         # set to None if campaign_id (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
@@ -66,11 +71,6 @@ class GetAssetGroupsByIdsRequest(BaseModel):
         # and model_fields_set contains the field
         if self.asset_group_ids is None and "asset_group_ids" in self.model_fields_set:
             _dict['AssetGroupIds'] = None
-
-        # set to None if return_additional_fields (nullable) is None
-        # and model_fields_set contains the field
-        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
-            _dict['ReturnAdditionalFields'] = None
 
         return _dict
 
@@ -84,8 +84,8 @@ class GetAssetGroupsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
-                        "AssetGroupIds": obj.get("AssetGroupIds"),
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+                        "AssetGroupIds": obj.get("AssetGroupIds")
         })
         return _obj

@@ -38,6 +38,7 @@ class Audience(BaseModel):
             type_mapping = [
                 ('CombinedList', 'CombinedList'),
                 ('CustomAudience', 'Custom'),
+                ('CustomSegment', 'CustomSegment'),
                 ('CustomerList', 'CustomerList'),
                 ('ImpressionBasedRemarketingList', 'ImpressionBasedRemarketingList'),
                 ('InMarketAudience', 'InMarket'),
@@ -99,6 +100,10 @@ class Audience(BaseModel):
         if type == "Custom":
             from openapi_client.models.campaign.custom_audience import CustomAudience
             return CustomAudience.from_dict(obj)
+        
+        if type == "CustomSegment":
+            from openapi_client.models.campaign.custom_segment import CustomSegment
+            return CustomSegment.from_dict(obj)
         
         if type == "CustomerList":
             from openapi_client.models.campaign.customer_list import CustomerList

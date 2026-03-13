@@ -27,9 +27,9 @@ class GetAssetGroupsByCampaignIdRequest(BaseModel):
     """
     GetAssetGroupsByCampaignIdRequest
     """ # noqa: E501
-    campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     return_additional_fields: Optional[AssetGroupAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["CampaignId", "ReturnAdditionalFields"]
+    campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "CampaignId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,15 +56,15 @@ class GetAssetGroupsByCampaignIdRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if campaign_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
-            _dict['CampaignId'] = None
-
         # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
+
+        # set to None if campaign_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
+            _dict['CampaignId'] = None
 
         return _dict
 
@@ -78,7 +78,7 @@ class GetAssetGroupsByCampaignIdRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None
         })
         return _obj

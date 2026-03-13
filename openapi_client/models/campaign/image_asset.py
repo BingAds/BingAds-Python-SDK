@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.crop_type import CropType
 from typing_extensions import Self
 from openapi_client.models.campaign.asset import Asset
 class ImageAsset(Asset):
@@ -36,7 +37,8 @@ class ImageAsset(Asset):
     crop_height: Optional[StrictInt] = Field(default=None, alias="CropHeight")
     target_width: Optional[StrictInt] = Field(default=None, alias="TargetWidth")
     target_height: Optional[StrictInt] = Field(default=None, alias="TargetHeight")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight"]
+    cropping_type: Optional[CropType] = Field(default=None, alias="CroppingType")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight", "CroppingType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -126,6 +128,11 @@ class ImageAsset(Asset):
         if self.target_height is None and "target_height" in self.model_fields_set:
             _dict['TargetHeight'] = None
 
+        # set to None if cropping_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.cropping_type is None and "cropping_type" in self.model_fields_set:
+            _dict['CroppingType'] = None
+
         return _dict
 
     @classmethod
@@ -147,6 +154,7 @@ class ImageAsset(Asset):
                         "CropWidth": obj.get("CropWidth") if obj.get("CropWidth") is not None else None,
                         "CropHeight": obj.get("CropHeight") if obj.get("CropHeight") is not None else None,
                         "TargetWidth": obj.get("TargetWidth") if obj.get("TargetWidth") is not None else None,
-                        "TargetHeight": obj.get("TargetHeight") if obj.get("TargetHeight") is not None else None
+                        "TargetHeight": obj.get("TargetHeight") if obj.get("TargetHeight") is not None else None,
+                        "CroppingType": obj.get("CroppingType") if obj.get("CroppingType") is not None else None
         })
         return _obj

@@ -30,19 +30,19 @@ class CustomerList(Audience):
     """
     CustomerList
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
-    name: Optional[StrictStr] = Field(default=None, alias="Name")
-    description: Optional[StrictStr] = Field(default=None, alias="Description")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
-    parent_id: Optional[StrictStr] = Field(default=None, alias="ParentId")
     membership_duration: Optional[StrictInt] = Field(default=None, alias="MembershipDuration")
-    type: Optional[AudienceType] = Field(default=None, alias="Type")
     search_size: Optional[StrictStr] = Field(default=None, alias="SearchSize")
     audience_network_size: Optional[StrictStr] = Field(default=None, alias="AudienceNetworkSize")
     supported_campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="SupportedCampaignTypes")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    name: Optional[StrictStr] = Field(default=None, alias="Name")
+    description: Optional[StrictStr] = Field(default=None, alias="Description")
+    type: Optional[AudienceType] = Field(default=None, alias="Type")
+    parent_id: Optional[StrictStr] = Field(default=None, alias="ParentId")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "Scope", "ParentId", "MembershipDuration", "Type", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Scope", "MembershipDuration", "SearchSize", "AudienceNetworkSize", "SupportedCampaignTypes", "CustomerShare", "Id", "Name", "Description", "Type", "ParentId", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -92,40 +92,15 @@ class CustomerList(Audience):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
-        # set to None if name (nullable) is None
-        # and model_fields_set contains the field
-        if self.name is None and "name" in self.model_fields_set:
-            _dict['Name'] = None
-
-        # set to None if description (nullable) is None
-        # and model_fields_set contains the field
-        if self.description is None and "description" in self.model_fields_set:
-            _dict['Description'] = None
-
         # set to None if scope (nullable) is None
         # and model_fields_set contains the field
         if self.scope is None and "scope" in self.model_fields_set:
             _dict['Scope'] = None
 
-        # set to None if parent_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.parent_id is None and "parent_id" in self.model_fields_set:
-            _dict['ParentId'] = None
-
         # set to None if membership_duration (nullable) is None
         # and model_fields_set contains the field
         if self.membership_duration is None and "membership_duration" in self.model_fields_set:
             _dict['MembershipDuration'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         # set to None if search_size (nullable) is None
         # and model_fields_set contains the field
@@ -147,6 +122,31 @@ class CustomerList(Audience):
         if self.customer_share is None and "customer_share" in self.model_fields_set:
             _dict['CustomerShare'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if name (nullable) is None
+        # and model_fields_set contains the field
+        if self.name is None and "name" in self.model_fields_set:
+            _dict['Name'] = None
+
+        # set to None if description (nullable) is None
+        # and model_fields_set contains the field
+        if self.description is None and "description" in self.model_fields_set:
+            _dict['Description'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
+        # set to None if parent_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.parent_id is None and "parent_id" in self.model_fields_set:
+            _dict['ParentId'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -164,17 +164,17 @@ class CustomerList(Audience):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Description": obj.get("Description") if obj.get("Description") is not None else None,
-                        "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
-                        "ParentId": obj.get("ParentId") if obj.get("ParentId") is not None else None,
+            "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "MembershipDuration": obj.get("MembershipDuration") if obj.get("MembershipDuration") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "SearchSize": obj.get("SearchSize") if obj.get("SearchSize") is not None else None,
                         "AudienceNetworkSize": obj.get("AudienceNetworkSize") if obj.get("AudienceNetworkSize") is not None else None,
                         "SupportedCampaignTypes": obj.get("SupportedCampaignTypes"),
                         "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+                        "Description": obj.get("Description") if obj.get("Description") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ParentId": obj.get("ParentId") if obj.get("ParentId") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

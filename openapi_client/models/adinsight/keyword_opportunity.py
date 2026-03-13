@@ -13,127 +13,59 @@
 
 
 from __future__ import annotations
-import pprint
-import re  # noqa: F401
 import json
-
-from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from typing_extensions import Self
+import pprint
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, ValidationError, field_validator
+from typing import Any, List, Optional
+from pydantic import StrictStr, Field
+from typing import Union, List, Set, Optional, Dict
+from typing_extensions import Literal, Self
 
 class KeywordOpportunity(BaseModel):
     """
     KeywordOpportunity
-    """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
-    ad_group_name: Optional[StrictStr] = Field(default=None, alias="AdGroupName")
-    campaign_name: Optional[StrictStr] = Field(default=None, alias="CampaignName")
-    match_type: Optional[StrictInt] = Field(default=None, alias="MatchType")
-    suggested_keyword: Optional[StrictStr] = Field(default=None, alias="SuggestedKeyword")
-    suggested_bid: Optional[StrictFloat] = Field(default=None, alias="SuggestedBid")
-    monthly_searches: Optional[StrictStr] = Field(default=None, alias="MonthlySearches")
-    competition: Optional[StrictFloat] = Field(default=None, alias="Competition")
-    estimated_increase_in_clicks: Optional[StrictFloat] = Field(default=None, alias="EstimatedIncreaseInClicks")
-    estimated_increase_in_cost: Optional[StrictFloat] = Field(default=None, alias="EstimatedIncreaseInCost")
-    estimated_increase_in_impressions: Optional[StrictStr] = Field(default=None, alias="EstimatedIncreaseInImpressions")
-    opportunity_key: Optional[StrictStr] = Field(default=None, alias="OpportunityKey")
-    type: Optional[StrictStr] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "CampaignId", "AdGroupName", "CampaignName", "MatchType", "SuggestedKeyword", "SuggestedBid", "MonthlySearches", "Competition", "EstimatedIncreaseInClicks", "EstimatedIncreaseInCost", "EstimatedIncreaseInImpressions", "OpportunityKey", "Type"]
+    """
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
-	
 
+    def __init__(self, **kwargs):
+        if 'type' not in kwargs and 'Type' not in kwargs:
+            class_name = self.__class__.__name__
+            type_mapping = [
+                ('BroadMatchKeywordOpportunity', 'BroadMatchKeywordOpportunity'),
+                ('KeywordOpportunityBase', 'KeywordOpportunity'),
+                ('KeywordOpportunityBase', 'KeywordOpportunityBase'),
+            ]
+            for key, value in type_mapping:
+                if class_name == key:
+                    kwargs['type'] = value
+                    break
+        super().__init__(**kwargs)
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        return json.dumps(self.to_dict())
+
+    @classmethod
+    def from_json(cls, json_str: Optional[str]) -> Self:
+        """Create an instance of KeywordOpportunity from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
+    
     def to_dict(self) -> Dict[str, Any]:
-        """Return the dictionary representation of the model using alias.
-
-        This has the following differences from calling pydantic's
-        `self.model_dump(by_alias=True)`:
-
-        * `None` is only added to the output dict for nullable fields that
-          were set at model initialization. Other fields with value `None`
-          are ignored.
-        """
-        excluded_fields: Set[str] = set([
-        ])
+        """Return the dictionary representation of the model using alias."""
+        excluded_fields: Set[str] = set([])
 
         _dict = self.model_dump(
             by_alias=True,
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
-        # set to None if campaign_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_id is None and "campaign_id" in self.model_fields_set:
-            _dict['CampaignId'] = None
-
-        # set to None if ad_group_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_name is None and "ad_group_name" in self.model_fields_set:
-            _dict['AdGroupName'] = None
-
-        # set to None if campaign_name (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_name is None and "campaign_name" in self.model_fields_set:
-            _dict['CampaignName'] = None
-
-        # set to None if match_type (nullable) is None
-        # and model_fields_set contains the field
-        if self.match_type is None and "match_type" in self.model_fields_set:
-            _dict['MatchType'] = None
-
-        # set to None if suggested_keyword (nullable) is None
-        # and model_fields_set contains the field
-        if self.suggested_keyword is None and "suggested_keyword" in self.model_fields_set:
-            _dict['SuggestedKeyword'] = None
-
-        # set to None if suggested_bid (nullable) is None
-        # and model_fields_set contains the field
-        if self.suggested_bid is None and "suggested_bid" in self.model_fields_set:
-            _dict['SuggestedBid'] = None
-
-        # set to None if monthly_searches (nullable) is None
-        # and model_fields_set contains the field
-        if self.monthly_searches is None and "monthly_searches" in self.model_fields_set:
-            _dict['MonthlySearches'] = None
-
-        # set to None if competition (nullable) is None
-        # and model_fields_set contains the field
-        if self.competition is None and "competition" in self.model_fields_set:
-            _dict['Competition'] = None
-
-        # set to None if estimated_increase_in_clicks (nullable) is None
-        # and model_fields_set contains the field
-        if self.estimated_increase_in_clicks is None and "estimated_increase_in_clicks" in self.model_fields_set:
-            _dict['EstimatedIncreaseInClicks'] = None
-
-        # set to None if estimated_increase_in_cost (nullable) is None
-        # and model_fields_set contains the field
-        if self.estimated_increase_in_cost is None and "estimated_increase_in_cost" in self.model_fields_set:
-            _dict['EstimatedIncreaseInCost'] = None
-
-        # set to None if estimated_increase_in_impressions (nullable) is None
-        # and model_fields_set contains the field
-        if self.estimated_increase_in_impressions is None and "estimated_increase_in_impressions" in self.model_fields_set:
-            _dict['EstimatedIncreaseInImpressions'] = None
-
-        # set to None if opportunity_key (nullable) is None
-        # and model_fields_set contains the field
-        if self.opportunity_key is None and "opportunity_key" in self.model_fields_set:
-            _dict['OpportunityKey'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
+        
+        # set to None if type (nullable) is None and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
@@ -148,20 +80,25 @@ class KeywordOpportunity(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
+        # Try to determine the specific media type from the Type field
+        type = obj.get("Type")
+        
+        # Import here to avoid circular imports
+        if type == "BroadMatchKeywordOpportunity":
+            from openapi_client.models.adinsight.broad_match_keyword_opportunity import BroadMatchKeywordOpportunity
+            return BroadMatchKeywordOpportunity.from_dict(obj)
+        
+        if type == "KeywordOpportunity":
+            from openapi_client.models.adinsight.keyword_opportunity_base import KeywordOpportunityBase
+            return KeywordOpportunityBase.from_dict(obj)
+        
+        if type == "KeywordOpportunityBase":
+            from openapi_client.models.adinsight.keyword_opportunity_base import KeywordOpportunityBase
+            return KeywordOpportunityBase.from_dict(obj)
+        
+        
+        # Fallback to base class
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
-                        "AdGroupName": obj.get("AdGroupName") if obj.get("AdGroupName") is not None else None,
-                        "CampaignName": obj.get("CampaignName") if obj.get("CampaignName") is not None else None,
-                        "MatchType": obj.get("MatchType") if obj.get("MatchType") is not None else None,
-                        "SuggestedKeyword": obj.get("SuggestedKeyword") if obj.get("SuggestedKeyword") is not None else None,
-                        "SuggestedBid": obj.get("SuggestedBid") if obj.get("SuggestedBid") is not None else None,
-                        "MonthlySearches": obj.get("MonthlySearches") if obj.get("MonthlySearches") is not None else None,
-                        "Competition": obj.get("Competition") if obj.get("Competition") is not None else None,
-                        "EstimatedIncreaseInClicks": obj.get("EstimatedIncreaseInClicks") if obj.get("EstimatedIncreaseInClicks") is not None else None,
-                        "EstimatedIncreaseInCost": obj.get("EstimatedIncreaseInCost") if obj.get("EstimatedIncreaseInCost") is not None else None,
-                        "EstimatedIncreaseInImpressions": obj.get("EstimatedIncreaseInImpressions") if obj.get("EstimatedIncreaseInImpressions") is not None else None,
-                        "OpportunityKey": obj.get("OpportunityKey") if obj.get("OpportunityKey") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

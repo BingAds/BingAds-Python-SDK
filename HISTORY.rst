@@ -2,6 +2,30 @@
 
 Release History
 
+13.0.27(2027-03-13)
++++++++++++++++++++++++++
+API Updates:
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* New field AutoTargeting in GetAudienceFullEstimationRequest and new field EstCPC in GetAudienceFullEstimationResponse.
+* New column Owner, TimeZone and Currency in BidStrategyReport.
+* Add AcceptNielsenTermsAndConditions AccountProperty.
+* New Setting BaseDomainSetting in AdGroupSetting.
+* New field CustomSegmentCatalogList in CustomSegment.
+* New APIs:AddHTML5s, GetHTML5sByIds, DeleteHTML5s.
+* New option NewPortfolioBidStrategy and NewAIMaxSettings in GoogleImportOption.
+* New APIs:AddLinkedInSegments, DeleteLinkedInSegments, UpdateLinkedInSegments.
+* New AdGroupCriterion: CustomSegment.
+* New ConversionGoal: AppDownloadGoal.
+* New NegativeKeyword: AccountContentNegativeKeywordList.
+* New API: GetOfflineConversionReportByGoalIds.
+* New field TermExclusions and MessagingRestrictions in BrandKit.
+* New field ExperimentSubType and ExperimentArms in Experiment.
+* New field CroppingType in ImageAsset.
+* New Setting AISearchSetting in CampaignSetting.
+ 
+Other:
+* Preserve the Google login refresh token, as Google does not return a new one during token refresh.
+
 13.0.26(2026-12-09)
 +++++++++++++++++++++++++
 API Updates:

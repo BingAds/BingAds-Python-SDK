@@ -27,9 +27,9 @@ class AddAssetGroupsRequest(BaseModel):
     """
     AddAssetGroupsRequest
     """ # noqa: E501
-    asset_groups: Optional[List[Optional[AssetGroup]]] = Field(default=None, alias="AssetGroups")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
-    __properties: ClassVar[List[str]] = ["AssetGroups", "CampaignId"]
+    asset_groups: Optional[List[Optional[AssetGroup]]] = Field(default=None, alias="AssetGroups")
+    __properties: ClassVar[List[str]] = ["CampaignId", "AssetGroups"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,15 +63,15 @@ class AddAssetGroupsRequest(BaseModel):
                 if _item_asset_groups:
                     _items.append(_item_asset_groups.to_dict())
             _dict['AssetGroups'] = _items
-        # set to None if asset_groups (nullable) is None
-        # and model_fields_set contains the field
-        if self.asset_groups is None and "asset_groups" in self.model_fields_set:
-            _dict['AssetGroups'] = None
-
         # set to None if campaign_id (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
             _dict['CampaignId'] = None
+
+        # set to None if asset_groups (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_groups is None and "asset_groups" in self.model_fields_set:
+            _dict['AssetGroups'] = None
 
         return _dict
 
@@ -85,7 +85,7 @@ class AddAssetGroupsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AssetGroups": [AssetGroup.from_dict(_item) for _item in obj["AssetGroups"]] if obj.get("AssetGroups") is not None else None,
-                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None
+            "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+                        "AssetGroups": [AssetGroup.from_dict(_item) for _item in obj["AssetGroups"]] if obj.get("AssetGroups") is not None else None
         })
         return _obj

@@ -410,6 +410,16 @@ class DownloadEntity(str, Enum):
 
     BRANDKIT = 'BrandKit'
 
+    CUSTOMSEGMENT = 'CustomSegment'
+
+    ADGROUPCUSTOMSEGMENTASSOCIATIONS = 'AdGroupCustomSegmentAssociations'
+
+    ACCOUNTCONTENTNEGATIVEKEYWORDLIST = 'AccountContentNegativeKeywordList'
+
+    ACCOUNTCONTENTNEGATIVEKEYWORDLISTASSOCIATION = 'AccountContentNegativeKeywordListAssociation'
+
+    ACCOUNTCONTENTNEGATIVEKEYWORD = 'AccountContentNegativeKeyword'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

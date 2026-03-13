@@ -28,6 +28,8 @@ class AdAdditionalField(Flag):
 
     ADSUBTYPE = auto()
 
+    CROPPINGTYPE = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -47,6 +49,7 @@ class AdAdditionalField(Flag):
             AdAdditionalField.LONGHEADLINES: 'LongHeadlines',
             AdAdditionalField.IMAGETARGETDIMENSION: 'ImageTargetDimension',
             AdAdditionalField.ADSUBTYPE: 'AdSubType',
+            AdAdditionalField.CROPPINGTYPE: 'CroppingType',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AdAdditionalField if flag & self]

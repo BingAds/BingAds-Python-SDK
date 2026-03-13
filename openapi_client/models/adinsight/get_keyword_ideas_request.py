@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.adinsight.keyword_idea_attribute import KeywordIdeaAttribute
+from openapi_client.models.adinsight.search_parameter import SearchParameter
 from typing_extensions import Self
 
 class GetKeywordIdeasRequest(BaseModel):
@@ -29,7 +30,7 @@ class GetKeywordIdeasRequest(BaseModel):
     """ # noqa: E501
     expand_ideas: Optional[StrictBool] = Field(default=None, alias="ExpandIdeas")
     idea_attributes: Optional[List[Optional[KeywordIdeaAttribute]]] = Field(default=None, alias="IdeaAttributes")
-    search_parameters: Optional[List[StrictStr]] = Field(default=None, alias="SearchParameters")
+    search_parameters: Optional[List[Optional[SearchParameter]]] = Field(default=None, alias="SearchParameters")
     __properties: ClassVar[List[str]] = ["ExpandIdeas", "IdeaAttributes", "SearchParameters"]
 
     model_config = ConfigDict(
@@ -57,6 +58,13 @@ class GetKeywordIdeasRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in search_parameters (list)
+        _items = []
+        if self.search_parameters:
+            for _item_search_parameters in self.search_parameters:
+                if _item_search_parameters:
+                    _items.append(_item_search_parameters.to_dict())
+            _dict['SearchParameters'] = _items
         # set to None if expand_ideas (nullable) is None
         # and model_fields_set contains the field
         if self.expand_ideas is None and "expand_ideas" in self.model_fields_set:
@@ -86,6 +94,6 @@ class GetKeywordIdeasRequest(BaseModel):
         _obj = cls.model_validate({
             "ExpandIdeas": obj.get("ExpandIdeas") if obj.get("ExpandIdeas") is not None else None,
                         "IdeaAttributes": obj.get("IdeaAttributes"),
-                        "SearchParameters": obj.get("SearchParameters")
+                        "SearchParameters": [SearchParameter.from_dict(_item) for _item in obj["SearchParameters"]] if obj.get("SearchParameters") is not None else None
         })
         return _obj

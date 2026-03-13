@@ -36,6 +36,7 @@ class SharedList(SharedEntity):
         if 'type' not in kwargs and 'Type' not in kwargs:
             class_name = self.__class__.__name__
             type_mapping = [
+                ('AccountContentNegativeKeywordList', 'AccountContentNegativeKeywordList'),
                 ('AccountNegativeKeywordList', 'AccountNegativeKeywordList'),
                 ('AccountPlacementExclusionList', 'AccountPlacementExclusionList'),
                 ('AccountPlacementInclusionList', 'AccountPlacementInclusionList'),
@@ -87,6 +88,10 @@ class SharedList(SharedEntity):
         type = obj.get("Type")
         
         # Import here to avoid circular imports
+        if type == "AccountContentNegativeKeywordList":
+            from openapi_client.models.campaign.account_content_negative_keyword_list import AccountContentNegativeKeywordList
+            return AccountContentNegativeKeywordList.from_dict(obj)
+        
         if type == "AccountNegativeKeywordList":
             from openapi_client.models.campaign.account_negative_keyword_list import AccountNegativeKeywordList
             return AccountNegativeKeywordList.from_dict(obj)
