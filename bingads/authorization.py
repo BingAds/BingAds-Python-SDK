@@ -790,4 +790,11 @@ class _UriOAuthService:
             raise OAuthTokenRequestException(error_json.get('error'), error_json.get('error_description'))
 
         r_json = json.loads(r.text)
-        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), r_json.get('refresh_token', None), r_json)
+        
+        # Preserve the original refresh token for Google OAuth when refreshing tokens
+        # (Google OAuth doesn't return a new refresh token on refresh)
+        response_refresh_token = r_json.get('refresh_token', None)
+        if response_refresh_token is None and kwargs.get('oauth_scope') == GOOGLE_PROD and kwargs.get('grant_type') == 'refresh_token':
+            response_refresh_token = kwargs.get('refresh_token')
+        
+        return OAuthTokens(r_json['access_token'], int(r_json['expires_in']), response_refresh_token, r_json)

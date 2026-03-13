@@ -3399,6 +3399,7 @@
                   <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="TotalBudget" nillable="true" type="xs:decimal" />
                   <xs:element minOccurs="0" name="IncludeImpressionsBreakdown" nillable="true" type="xs:boolean" />
+                  <xs:element minOccurs="0" name="AutoTargeting" nillable="true" type="xs:boolean" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3873,6 +3874,7 @@
                   <xs:element minOccurs="0" name="EstClick" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
                   <xs:element minOccurs="0" name="EstSpend" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
                   <xs:element minOccurs="0" name="EstCostPerEvent" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
+                  <xs:element minOccurs="0" name="EstCPC" nillable="true" type="tns:RangeResultOfDecimalRoundedResult" />
                   <xs:element minOccurs="0" name="EstCTR" nillable="true" type="tns:RangeResultOfdouble" />
                   <xs:element minOccurs="0" name="SuggestedBid" nillable="true" type="xs:decimal" />
                   <xs:element minOccurs="0" name="SuggestedBudget" nillable="true" type="xs:decimal" />
