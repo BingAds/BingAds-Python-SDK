@@ -12,3 +12,10 @@ from .file_reader import *
 from .file_writer import *
 from .bulk_service_manager import *
 from .entities import *
+
+# Enable REST-style Pydantic model support for bulk entities
+# This allows users to use modern REST models like:
+#   campaign = Campaign(campaign_type=CampaignType.SEARCH, ...)
+# Instead of SOAP-style factory-created objects
+from bingads.v13.internal.rest_adapter import ensure_rest_support
+ensure_rest_support()
