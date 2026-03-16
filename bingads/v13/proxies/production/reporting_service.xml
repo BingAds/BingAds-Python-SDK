@@ -2033,6 +2033,8 @@
                <xs:enumeration value="CompanyName" />
                <xs:enumeration value="IndustryName" />
                <xs:enumeration value="JobFunctionName" />
+               <xs:enumeration value="JobSeniorityName" />
+               <xs:enumeration value="CustomLinkedInName" />
                <xs:enumeration value="AdDistribution" />
                <xs:enumeration value="Impressions" />
                <xs:enumeration value="Clicks" />
