@@ -318,6 +318,7 @@ from openapi_client.models.campaign.customer_share import CustomerShare
 from openapi_client.models.campaign.daily_summary import DailySummary
 from openapi_client.models.campaign.data_exclusion import DataExclusion
 from openapi_client.models.campaign.data_table_ad_extension import DataTableAdExtension
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.day import Day
 from openapi_client.models.campaign.day_time import DayTime
 from openapi_client.models.campaign.day_time_criterion import DayTimeCriterion
@@ -673,7 +674,6 @@ from openapi_client.models.campaign.media_representation_base import MediaRepres
 from openapi_client.models.campaign.migration_status import MigrationStatus
 from openapi_client.models.campaign.migration_status_info import MigrationStatusInfo
 from openapi_client.models.campaign.minute import Minute
-from openapi_client.models.campaign.model_date import ModelDate
 from openapi_client.models.campaign.negative_ad_group_criterion import NegativeAdGroupCriterion
 from openapi_client.models.campaign.negative_campaign_criterion import NegativeCampaignCriterion
 from openapi_client.models.campaign.negative_keyword import NegativeKeyword

@@ -20,7 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.reporting.model_date import ModelDate
+from openapi_client.models.reporting.date import Date
 from openapi_client.models.reporting.report_time_period import ReportTimePeriod
 from openapi_client.models.reporting.report_time_zone import ReportTimeZone
 from typing_extensions import Self
@@ -30,8 +30,8 @@ class ReportTime(BaseModel):
     ReportTime
     """ # noqa: E501
     predefined_time: Optional[ReportTimePeriod] = Field(default=None, alias="PredefinedTime")
-    custom_date_range_start: Optional[ModelDate] = Field(default=None, alias="CustomDateRangeStart")
-    custom_date_range_end: Optional[ModelDate] = Field(default=None, alias="CustomDateRangeEnd")
+    custom_date_range_start: Optional[Date] = Field(default=None, alias="CustomDateRangeStart")
+    custom_date_range_end: Optional[Date] = Field(default=None, alias="CustomDateRangeEnd")
     report_time_zone: Optional[ReportTimeZone] = Field(default=None, alias="ReportTimeZone")
     __properties: ClassVar[List[str]] = ["PredefinedTime", "CustomDateRangeStart", "CustomDateRangeEnd", "ReportTimeZone"]
 
@@ -99,8 +99,8 @@ class ReportTime(BaseModel):
 
         _obj = cls.model_validate({
             "PredefinedTime": obj.get("PredefinedTime") if obj.get("PredefinedTime") is not None else None,
-                        "CustomDateRangeStart": ModelDate.from_dict(obj["CustomDateRangeStart"]) if obj.get("CustomDateRangeStart") is not None else None,
-                        "CustomDateRangeEnd": ModelDate.from_dict(obj["CustomDateRangeEnd"]) if obj.get("CustomDateRangeEnd") is not None else None,
+                        "CustomDateRangeStart": Date.from_dict(obj["CustomDateRangeStart"]) if obj.get("CustomDateRangeStart") is not None else None,
+                        "CustomDateRangeEnd": Date.from_dict(obj["CustomDateRangeEnd"]) if obj.get("CustomDateRangeEnd") is not None else None,
                         "ReportTimeZone": obj.get("ReportTimeZone") if obj.get("ReportTimeZone") is not None else None
         })
         return _obj

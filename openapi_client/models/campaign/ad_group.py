@@ -26,9 +26,9 @@ from openapi_client.models.campaign.ad_rotation import AdRotation
 from openapi_client.models.campaign.bid import Bid
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
 from openapi_client.models.campaign.custom_parameters import CustomParameters
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.frequency_cap_settings import FrequencyCapSettings
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.model_date import ModelDate
 from openapi_client.models.campaign.network import Network
 from openapi_client.models.campaign.rate_bid import RateBid
 from openapi_client.models.campaign.setting import Setting
@@ -40,8 +40,8 @@ class AdGroup(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
-    start_date: Optional[ModelDate] = Field(default=None, alias="StartDate")
-    end_date: Optional[ModelDate] = Field(default=None, alias="EndDate")
+    start_date: Optional[Date] = Field(default=None, alias="StartDate")
+    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     language: Optional[StrictStr] = Field(default=None, alias="Language")
     status: Optional[AdGroupStatus] = Field(default=None, alias="Status")
     privacy_status: Optional[AdGroupPrivacyStatus] = Field(default=None, alias="PrivacyStatus")
@@ -301,8 +301,8 @@ class AdGroup(BaseModel):
         _obj = cls.model_validate({
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "StartDate": ModelDate.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
-                        "EndDate": ModelDate.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
+                        "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
+                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "Language": obj.get("Language") if obj.get("Language") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "PrivacyStatus": obj.get("PrivacyStatus") if obj.get("PrivacyStatus") is not None else None,

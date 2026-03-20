@@ -50,12 +50,12 @@ def main(authorization_data):
             # automatically by Microsoft Advertising to Creating, and the next time you retrieve 
             # the experiment its status will be either Active, Creating, CreationFailed, Paused, or Scheduled.
             experiment_status='Active',
-            start_date=ModelDate(
+            start_date=Date(
                 day=current_date.day,
                 month=current_date.month,
                 year=current_date.year
             ),
-            end_date=ModelDate(
+            end_date=Date(
                 day=31,
                 month=12,
                 year=current_date.year

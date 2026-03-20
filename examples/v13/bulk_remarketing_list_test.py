@@ -66,7 +66,7 @@ def main(authorization_data):
             name="Women's Red Shoe Sale",
             cpc_bid=Bid(amount=0.09),
             start_date=None,
-            end_date=ModelDate(day=31, month=12, year=current_year)
+            end_date=Date(day=31, month=12, year=current_year)
         )
         
         # Applicable for all remarketing lists associated with this ad group

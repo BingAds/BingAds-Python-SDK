@@ -94,7 +94,7 @@ def main(authorization_data):
             day_time_ranges=call_day_time_ranges,
             use_searcher_time_zone=False,
             start_date=None,
-            end_date=ModelDate(day=31, month=12, year=current_year)
+            end_date=Date(day=31, month=12, year=current_year)
         )
         call_ad_extension.Scheduling = call_scheduling
         bulk_call_ad_extension.call_ad_extension = call_ad_extension
@@ -156,7 +156,7 @@ def main(authorization_data):
             ],
             use_searcher_time_zone=False,
             start_date=None,
-            end_date=ModelDate(day=31, month=12, year=current_year)
+            end_date=Date(day=31, month=12, year=current_year)
         )
         location_ad_extension.Scheduling = location_scheduling
         bulk_location_ad_extension.location_ad_extension = location_ad_extension

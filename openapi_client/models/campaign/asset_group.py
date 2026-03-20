@@ -27,8 +27,8 @@ from openapi_client.models.campaign.asset_group_url_target import AssetGroupUrlT
 from openapi_client.models.campaign.asset_link import AssetLink
 from openapi_client.models.campaign.call_to_action import CallToAction
 from openapi_client.models.campaign.custom_parameters import CustomParameters
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.model_date import ModelDate
 from typing_extensions import Self
 
 class AssetGroup(BaseModel):
@@ -37,8 +37,8 @@ class AssetGroup(BaseModel):
     """ # noqa: E501
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[AssetGroupStatus] = Field(default=None, alias="Status")
-    start_date: Optional[ModelDate] = Field(default=None, alias="StartDate")
-    end_date: Optional[ModelDate] = Field(default=None, alias="EndDate")
+    start_date: Optional[Date] = Field(default=None, alias="StartDate")
+    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     path1: Optional[StrictStr] = Field(default=None, alias="Path1")
     path2: Optional[StrictStr] = Field(default=None, alias="Path2")
     business_name: Optional[StrictStr] = Field(default=None, alias="BusinessName")
@@ -279,8 +279,8 @@ class AssetGroup(BaseModel):
         _obj = cls.model_validate({
             "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "StartDate": ModelDate.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
-                        "EndDate": ModelDate.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
+                        "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
+                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
                         "Path2": obj.get("Path2") if obj.get("Path2") is not None else None,
                         "BusinessName": obj.get("BusinessName") if obj.get("BusinessName") is not None else None,

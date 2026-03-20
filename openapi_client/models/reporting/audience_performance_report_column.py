@@ -114,6 +114,28 @@ class AudiencePerformanceReportColumn(str, Enum):
 
     VIEWTHROUGHREVENUE = 'ViewThroughRevenue'
 
+    VIDEOVIEWS = 'VideoViews'
+
+    VIEWTHROUGHRATE = 'ViewThroughRate'
+
+    AVERAGECPV = 'AverageCPV'
+
+    VIDEOVIEWSAT25PERCENT = 'VideoViewsAt25Percent'
+
+    VIDEOVIEWSAT50PERCENT = 'VideoViewsAt50Percent'
+
+    VIDEOVIEWSAT75PERCENT = 'VideoViewsAt75Percent'
+
+    COMPLETEDVIDEOVIEWS = 'CompletedVideoViews'
+
+    VIDEOCOMPLETIONRATE = 'VideoCompletionRate'
+
+    TOTALWATCHTIMEINMS = 'TotalWatchTimeInMS'
+
+    AVERAGEWATCHTIMEPERVIDEOVIEW = 'AverageWatchTimePerVideoView'
+
+    AVERAGEWATCHTIMEPERIMPRESSION = 'AverageWatchTimePerImpression'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

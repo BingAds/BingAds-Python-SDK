@@ -20,8 +20,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.experiment_arm import ExperimentArm
-from openapi_client.models.campaign.model_date import ModelDate
 from typing_extensions import Self
 
 class Experiment(BaseModel):
@@ -30,8 +30,8 @@ class Experiment(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
-    start_date: Optional[ModelDate] = Field(default=None, alias="StartDate")
-    end_date: Optional[ModelDate] = Field(default=None, alias="EndDate")
+    start_date: Optional[Date] = Field(default=None, alias="StartDate")
+    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     base_campaign_id: Optional[StrictStr] = Field(default=None, alias="BaseCampaignId")
     experiment_campaign_id: Optional[StrictStr] = Field(default=None, alias="ExperimentCampaignId")
     traffic_split_percent: Optional[StrictInt] = Field(default=None, alias="TrafficSplitPercent")
@@ -148,8 +148,8 @@ class Experiment(BaseModel):
         _obj = cls.model_validate({
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "StartDate": ModelDate.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
-                        "EndDate": ModelDate.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
+                        "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
+                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "BaseCampaignId": obj.get("BaseCampaignId") if obj.get("BaseCampaignId") is not None else None,
                         "ExperimentCampaignId": obj.get("ExperimentCampaignId") if obj.get("ExperimentCampaignId") is not None else None,
                         "TrafficSplitPercent": obj.get("TrafficSplitPercent") if obj.get("TrafficSplitPercent") is not None else None,

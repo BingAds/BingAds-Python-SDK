@@ -20,16 +20,16 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.day_time import DayTime
-from openapi_client.models.campaign.model_date import ModelDate
 from typing_extensions import Self
 
 class Schedule(BaseModel):
     """
     Schedule
     """ # noqa: E501
-    start_date: Optional[ModelDate] = Field(default=None, alias="StartDate")
-    end_date: Optional[ModelDate] = Field(default=None, alias="EndDate")
+    start_date: Optional[Date] = Field(default=None, alias="StartDate")
+    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     use_searcher_time_zone: Optional[StrictBool] = Field(default=None, alias="UseSearcherTimeZone")
     day_time_ranges: Optional[List[Optional[DayTime]]] = Field(default=None, alias="DayTimeRanges")
     __properties: ClassVar[List[str]] = ["StartDate", "EndDate", "UseSearcherTimeZone", "DayTimeRanges"]
@@ -104,8 +104,8 @@ class Schedule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "StartDate": ModelDate.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
-                        "EndDate": ModelDate.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
+            "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
+                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "UseSearcherTimeZone": obj.get("UseSearcherTimeZone") if obj.get("UseSearcherTimeZone") is not None else None,
                         "DayTimeRanges": [DayTime.from_dict(_item) for _item in obj["DayTimeRanges"]] if obj.get("DayTimeRanges") is not None else None
         })

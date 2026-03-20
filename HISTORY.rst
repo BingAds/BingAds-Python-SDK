@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.27.1(2027-03-20)
++++++++++++++++++++++++++
+* Use Date instead of ModelDate in REST models.
+
 13.0.27(2027-03-13)
 +++++++++++++++++++++++++
 API Updates:

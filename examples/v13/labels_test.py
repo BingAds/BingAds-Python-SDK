@@ -148,7 +148,7 @@ def main(authorization_data):
         ad_group = AdGroup(
             name="Ad Group Women's Red Shoe Sale" + str(uuid.uuid4())[:8],
             cpc_bid=Bid(amount=0.09),
-            end_date=ModelDate(day=31, month=12, year=current_year)
+            end_date=Date(day=31, month=12, year=current_year)
         )
         
         add_ad_groups_request = AddAdGroupsRequest(

@@ -52,8 +52,6 @@ class _CampaignObjectFactoryV13:
             # Handle type name mapping
             if type_name == 'KeyValuePairOfstringstring':
                 type_name = 'KeyValuePairOfstringAndstring'
-            elif type_name == 'Date':
-                type_name = 'ModelDate'
             
             # Handle array types
             if type_name.startswith('ArrayOf'):

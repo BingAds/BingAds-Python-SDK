@@ -56,7 +56,7 @@ def main(authorization_data):
         ad_group = AdGroup()
         ad_group.Name = "Holiday Sale"
         ad_group.StartDate = None
-        end_date = ModelDate()
+        end_date = Date()
         end_date.Day = 31
         end_date.Month = 12
         current_time = gmtime()

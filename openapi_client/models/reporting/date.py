@@ -22,9 +22,9 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
 
-class ModelDate(BaseModel):
+class Date(BaseModel):
     """
-    ModelDate
+    Date
     """ # noqa: E501
     year: Optional[StrictInt] = Field(default=None, alias="Year")
     month: Optional[StrictInt] = Field(default=None, alias="Month")
@@ -75,7 +75,7 @@ class ModelDate(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of ModelDate from a dict"""
+        """Create an instance of Date from a dict"""
         if obj is None:
             return None
 

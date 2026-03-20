@@ -34,7 +34,7 @@ def main(authorization_data):
         ad_group = AdGroup(
             name=f"AdGroup_{uuid.uuid4()}",
             start_date=None,
-            end_date=ModelDate(day=31, month=12, year=datetime.now().year),
+            end_date=Date(day=31, month=12, year=datetime.now().year),
             cpc_bid=Bid(amount=0.10),
             language="English"
         )

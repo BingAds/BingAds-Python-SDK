@@ -23,8 +23,8 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.ad_extension_status import AdExtensionStatus
 from openapi_client.models.campaign.app_url import AppUrl
 from openapi_client.models.campaign.custom_parameters import CustomParameters
+from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.key_value_pair_ofstring_andstring import KeyValuePairOfstringAndstring
-from openapi_client.models.campaign.model_date import ModelDate
 from openapi_client.models.campaign.promotion_discount_modifier import PromotionDiscountModifier
 from openapi_client.models.campaign.promotion_occasion import PromotionOccasion
 from openapi_client.models.campaign.schedule import Schedule
@@ -46,8 +46,8 @@ class PromotionAdExtension(AdExtension):
     money_amount_off: Optional[StrictFloat] = Field(default=None, alias="MoneyAmountOff")
     promotion_code: Optional[StrictStr] = Field(default=None, alias="PromotionCode")
     orders_over_amount: Optional[StrictFloat] = Field(default=None, alias="OrdersOverAmount")
-    promotion_start_date: Optional[ModelDate] = Field(default=None, alias="PromotionStartDate")
-    promotion_end_date: Optional[ModelDate] = Field(default=None, alias="PromotionEndDate")
+    promotion_start_date: Optional[Date] = Field(default=None, alias="PromotionStartDate")
+    promotion_end_date: Optional[Date] = Field(default=None, alias="PromotionEndDate")
     promotion_occasion: Optional[PromotionOccasion] = Field(default=None, alias="PromotionOccasion")
     language: Optional[StrictStr] = Field(default=None, alias="Language")
     currency_code: Optional[StrictStr] = Field(default=None, alias="CurrencyCode")
@@ -268,8 +268,8 @@ class PromotionAdExtension(AdExtension):
                         "MoneyAmountOff": obj.get("MoneyAmountOff") if obj.get("MoneyAmountOff") is not None else None,
                         "PromotionCode": obj.get("PromotionCode") if obj.get("PromotionCode") is not None else None,
                         "OrdersOverAmount": obj.get("OrdersOverAmount") if obj.get("OrdersOverAmount") is not None else None,
-                        "PromotionStartDate": ModelDate.from_dict(obj["PromotionStartDate"]) if obj.get("PromotionStartDate") is not None else None,
-                        "PromotionEndDate": ModelDate.from_dict(obj["PromotionEndDate"]) if obj.get("PromotionEndDate") is not None else None,
+                        "PromotionStartDate": Date.from_dict(obj["PromotionStartDate"]) if obj.get("PromotionStartDate") is not None else None,
+                        "PromotionEndDate": Date.from_dict(obj["PromotionEndDate"]) if obj.get("PromotionEndDate") is not None else None,
                         "PromotionOccasion": obj.get("PromotionOccasion") if obj.get("PromotionOccasion") is not None else None,
                         "Language": obj.get("Language") if obj.get("Language") is not None else None,
                         "CurrencyCode": obj.get("CurrencyCode") if obj.get("CurrencyCode") is not None else None,
