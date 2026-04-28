@@ -398,19 +398,19 @@ class RestToSoapAdapter:
 def enable_rest_entity_support():
     """
     Enable REST-style Pydantic models to be used with bulk entities.
-    
+
     This function monkey-patches the property setters of bulk entity classes
     to automatically convert REST models to SOAP-compatible proxies.
-    
+
     Call this once at module import time to enable the feature globally.
-    
+
     Example:
         from bingads.v13.internal.rest_adapter import enable_rest_entity_support
         enable_rest_entity_support()
-        
+
         # Now REST models work with bulk entities:
         from openapi_client.models.campaign import Campaign, CampaignType
-        
+
         campaign = Campaign(
             campaign_type=CampaignType.SEARCH,
             name="My Campaign"
@@ -418,7 +418,15 @@ def enable_rest_entity_support():
         bulk_campaign = BulkCampaign()
         bulk_campaign.campaign = campaign  # Automatically adapted!
     """
-    # Use the generic auto-discovery approach
+    # Enable PascalCase alias access on Pydantic models (e.g. model.SupportedCampaignTypes
+    # routes to model.supported_campaign_types via the field's alias).
+    # Required so bulk entity _MAPPINGS can use PascalCase attribute names on REST models.
+    try:
+        from openapi_client.model_utils import enable_alias_support
+        enable_alias_support()
+    except ImportError:
+        pass
+
     _auto_discover_and_patch_bulk_entities()
 
 
