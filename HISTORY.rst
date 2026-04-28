@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.27.2(2027-04-28)
++++++++++++++++++++++++++
+* Enable pascal case alias for bulk mapping entities.
+
 13.0.27.1(2027-03-20)
 +++++++++++++++++++++++++
 * Use Date instead of ModelDate in REST models.
