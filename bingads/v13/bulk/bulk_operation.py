@@ -314,7 +314,7 @@ class BulkUploadOperation(BulkOperation):
             poll_interval_in_milliseconds=poll_interval_in_milliseconds,
             environment=environment,
             tracking_id=tracking_id,
-            location=location
+            location=location,
             **suds_options
         )
 
