@@ -960,6 +960,8 @@
                <xs:enumeration value="JobFunction" />
                <xs:enumeration value="Industry" />
                <xs:enumeration value="IncomeRange" />
+               <xs:enumeration value="JobSeniority" />
+               <xs:enumeration value="CustomLinkedIn" />
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="CriterionTypeGroup" nillable="true" type="tns:CriterionTypeGroup" />
@@ -1174,6 +1176,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="XboxStore">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -1225,6 +1234,31 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="AISearchSetting" nillable="true" type="tns:AISearchSetting" />
+         <xs:complexType name="NetworkDistributionSetting">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Setting">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="NetworkOption" nillable="true" type="tns:Network">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="NetworkDistributionSetting" nillable="true" type="tns:NetworkDistributionSetting" />
+         <xs:simpleType name="Network">
+            <xs:restriction base="xs:string">
+               <xs:enumeration value="OwnedAndOperatedAndSyndicatedSearch" />
+               <xs:enumeration value="OwnedAndOperatedOnly" />
+               <xs:enumeration value="SyndicatedSearchOnly" />
+               <xs:enumeration value="InHousePromotion" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:element name="Network" nillable="true" type="tns:Network" />
          <xs:complexType name="ResponsiveSearchAd">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:Ad">
@@ -1610,6 +1644,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="UnifiedCampaign">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1024</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -1749,6 +1790,8 @@
                      <xs:enumeration value="PmaxAppCampaign" />
                      <xs:enumeration value="CrossAccountBidStrategyFields" />
                      <xs:enumeration value="AISearchSetting" />
+                     <xs:enumeration value="PmaxXboxCampaign" />
+                     <xs:enumeration value="NetworkDistributionSetting" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2079,15 +2122,6 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="FrequencyCapTimeGranularity" nillable="true" type="tns:FrequencyCapTimeGranularity" />
-         <xs:simpleType name="Network">
-            <xs:restriction base="xs:string">
-               <xs:enumeration value="OwnedAndOperatedAndSyndicatedSearch" />
-               <xs:enumeration value="OwnedAndOperatedOnly" />
-               <xs:enumeration value="SyndicatedSearchOnly" />
-               <xs:enumeration value="InHousePromotion" />
-            </xs:restriction>
-         </xs:simpleType>
-         <xs:element name="Network" nillable="true" type="tns:Network" />
          <xs:simpleType name="AdGroupPrivacyStatus">
             <xs:restriction base="xs:string">
                <xs:enumeration value="Unknown" />
@@ -2156,6 +2190,8 @@
                      <xs:enumeration value="UsePredictiveTargeting" />
                      <xs:enumeration value="MaxConversionValueWithMaxCpc" />
                      <xs:enumeration value="BaseDomain" />
+                     <xs:enumeration value="TargetSettingForJobSeniority" />
+                     <xs:enumeration value="TargetSettingForCustomLinkedIn" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -2928,6 +2964,20 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">131072</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="ImageMissingWarningOptout">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">262144</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="OptOutFromSystemSourcedImagesInSWF">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">524288</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -4389,6 +4439,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="JobSeniority">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8589934592</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -5607,6 +5664,13 @@
             <xs:sequence>
                <xs:element name="EntityId" type="xs:long" />
                <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="IsExclusion" nillable="true" type="xs:boolean">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="SharedEntityCustomerId" nillable="true" type="xs:long">
                   <xs:annotation>
                      <xs:appinfo>
@@ -5616,6 +5680,13 @@
                </xs:element>
                <xs:element name="SharedEntityId" type="xs:long" />
                <xs:element minOccurs="0" name="SharedEntityType" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="SharedEntityAssociation" nillable="true" type="tns:SharedEntityAssociation" />
@@ -5648,9 +5719,20 @@
                   <xs:element xmlns:q97="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SharedEntityIds" nillable="true" type="q97:ArrayOflong" />
                   <xs:element minOccurs="0" name="SharedEntityType" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="SharedEntityScope" nillable="true" type="tns:EntityScope" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:SharedEntityAssociationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:simpleType name="SharedEntityAssociationAdditionalField">
+            <xs:list>
+               <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                     <xs:enumeration value="BrandListFields" />
+                  </xs:restriction>
+               </xs:simpleType>
+            </xs:list>
+         </xs:simpleType>
+         <xs:element name="SharedEntityAssociationAdditionalField" nillable="true" type="tns:SharedEntityAssociationAdditionalField" />
          <xs:element name="GetSharedEntityAssociationsBySharedEntityIdsResponse">
             <xs:complexType>
                <xs:sequence>
@@ -5666,6 +5748,7 @@
                   <xs:element minOccurs="0" name="EntityType" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="SharedEntityType" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="SharedEntityScope" nillable="true" type="tns:EntityScope" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="tns:SharedEntityAssociationAdditionalField" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -5934,6 +6017,13 @@
                         <xs:annotation>
                            <xs:appinfo>
                               <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8388608</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
+                     <xs:enumeration value="JobSeniority">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16777216</EnumerationValue>
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
@@ -7691,6 +7781,17 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="AppInstallGoal" nillable="true" type="tns:AppInstallGoal" />
+         <xs:complexType name="AppDownloadGoal">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:ConversionGoal">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="AppPlatform" nillable="true" type="xs:string" />
+                     <xs:element minOccurs="0" name="AppStoreId" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AppDownloadGoal" nillable="true" type="tns:AppDownloadGoal" />
          <xs:complexType name="OfflineConversionGoal">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ConversionGoal">
@@ -7715,17 +7816,6 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="InStoreTransactionGoal" nillable="true" type="tns:InStoreTransactionGoal" />
-         <xs:complexType name="AppDownloadGoal">
-            <xs:complexContent mixed="false">
-               <xs:extension base="tns:ConversionGoal">
-                  <xs:sequence>
-                     <xs:element minOccurs="0" name="AppPlatform" nillable="true" type="xs:string" />
-                     <xs:element minOccurs="0" name="AppStoreId" nillable="true" type="xs:string" />
-                  </xs:sequence>
-               </xs:extension>
-            </xs:complexContent>
-         </xs:complexType>
-         <xs:element name="AppDownloadGoal" nillable="true" type="tns:AppDownloadGoal" />
          <xs:element name="GetConversionGoalsByTagIdsRequest">
             <xs:complexType>
                <xs:sequence>
@@ -8263,13 +8353,7 @@
             <xs:sequence>
                <xs:element minOccurs="0" name="BaseCampaignId" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="EndDate" nillable="true" type="tns:Date" />
-               <xs:element minOccurs="0" name="ExperimentArms" nillable="true" type="tns:ArrayOfExperimentArm">
-                  <xs:annotation>
-                     <xs:appinfo>
-                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
-                     </xs:appinfo>
-                  </xs:annotation>
-               </xs:element>
+               <xs:element minOccurs="0" name="ExperimentArms" nillable="true" type="tns:ArrayOfExperimentArm" />
                <xs:element minOccurs="0" name="ExperimentCampaignId" nillable="true" type="xs:long" />
                <xs:element minOccurs="0" name="ExperimentStatus" nillable="true" type="xs:string" />
                <xs:element minOccurs="0" name="ExperimentSubType" nillable="true" type="xs:string">
@@ -8510,6 +8594,13 @@
                      </xs:element>
                      <xs:element minOccurs="0" name="EnableParentLocationMapping" nillable="true" type="xs:boolean" />
                      <xs:element minOccurs="0" name="ImageAssetAutomationOptOut" nillable="true" type="xs:boolean">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:element>
+                     <xs:element minOccurs="0" name="ImportNCAGoalWithSystemGeneratedAudience" nillable="true" type="xs:boolean">
                         <xs:annotation>
                            <xs:appinfo>
                               <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
@@ -9088,6 +9179,13 @@
                            </xs:appinfo>
                         </xs:annotation>
                      </xs:enumeration>
+                     <xs:enumeration value="ImportNCAGoalWithSystemGeneratedAudience">
+                        <xs:annotation>
+                           <xs:appinfo>
+                              <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2147483648</EnumerationValue>
+                           </xs:appinfo>
+                        </xs:annotation>
+                     </xs:enumeration>
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -9373,8 +9471,8 @@
          <xs:element name="ArrayOfCampaignConversionGoal" nillable="true" type="tns:ArrayOfCampaignConversionGoal" />
          <xs:complexType name="CampaignConversionGoal">
             <xs:sequence>
-               <xs:element name="CampaignId" type="xs:long" />
-               <xs:element name="GoalId" type="xs:long" />
+               <xs:element minOccurs="0" name="CampaignId" type="xs:long" />
+               <xs:element minOccurs="0" name="GoalId" type="xs:long" />
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CampaignConversionGoal" nillable="true" type="tns:CampaignConversionGoal" />
@@ -11090,6 +11188,21 @@
          <xs:element name="UpdateLinkedInSegmentsResponse">
             <xs:complexType>
                <xs:sequence>
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetUetTagAuthKeyRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="UetTagId" type="xs:long" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetUetTagAuthKeyResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="UetTagAuthKey" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="tns:ArrayOfBatchError" />
                </xs:sequence>
             </xs:complexType>
@@ -15788,6 +15901,30 @@
    <wsdl:message name="ICampaignManagementService_UpdateLinkedInSegments_ApiFaultDetail2Fault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFaultDetail" />
    </wsdl:message>
+   <wsdl:message name="GetUetTagAuthKeyRequest">
+      <wsdl:part name="parameters" element="tns:GetUetTagAuthKeyRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetUetTagAuthKeyRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="CustomerAccountId" element="tns:CustomerAccountId" />
+      <wsdl:part name="CustomerId" element="tns:CustomerId" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetUetTagAuthKeyResponse">
+      <wsdl:part name="parameters" element="tns:GetUetTagAuthKeyResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetUetTagAuthKeyResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetUetTagAuthKey_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q191="https://adapi.microsoft.com" name="detail" element="q191:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICampaignManagementService_GetUetTagAuthKey_ApiFaultDetail2Fault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFaultDetail" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICampaignManagementService">
       <wsdl:operation name="AddCampaigns">
          <wsdl:input wsaw:Action="AddCampaigns" name="AddCampaignsRequest" message="tns:AddCampaignsRequest" />
@@ -16928,6 +17065,12 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsResponse" name="UpdateLinkedInSegmentsResponse" message="tns:UpdateLinkedInSegmentsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_UpdateLinkedInSegments_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/UpdateLinkedInSegmentsApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_UpdateLinkedInSegments_ApiFaultDetail2Fault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetUetTagAuthKey">
+         <wsdl:input wsaw:Action="GetUetTagAuthKey" name="GetUetTagAuthKeyRequest" message="tns:GetUetTagAuthKeyRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetUetTagAuthKeyResponse" name="GetUetTagAuthKeyResponse" message="tns:GetUetTagAuthKeyResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetUetTagAuthKeyAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICampaignManagementService_GetUetTagAuthKey_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/CampaignManagement/v13/ICampaignManagementService/GetUetTagAuthKeyApiFaultDetail2Fault" name="ApiFaultDetail2Fault" message="tns:ICampaignManagementService_GetUetTagAuthKey_ApiFaultDetail2Fault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICampaignManagementService" type="tns:ICampaignManagementService">
@@ -21294,6 +21437,29 @@
          </wsdl:input>
          <wsdl:output name="UpdateLinkedInSegmentsResponse">
             <soap:header message="tns:UpdateLinkedInSegmentsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFaultDetail2Fault">
+            <soap:fault use="literal" name="ApiFaultDetail2Fault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetUetTagAuthKey">
+         <soap:operation soapAction="GetUetTagAuthKey" style="document" />
+         <wsdl:input name="GetUetTagAuthKeyRequest">
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="CustomerAccountId" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="CustomerId" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetUetTagAuthKeyRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetUetTagAuthKeyResponse">
+            <soap:header message="tns:GetUetTagAuthKeyResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

@@ -2,6 +2,20 @@
 
 Release History
 
+13.0.28(2027-05-13)
++++++++++++++++++++++++++
+API Updates:
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+* New setting AISearchSetting in CampaignSetting.
+* New API in Campaign Management Service: GetUetTagAuthKey.
+* New APIs in Customer Billing Service: GetBillingGroups, GetUngroupedAccounts and UpdateBillingGroupAccounts
+* New report: MSClickIdPerformanceReport.
+
+Bulk Mapping Updates:
+* Add AISearchSetting in BulkCampaign mapping.
+* Add BaseDomainSetting in BulkAdGroup mapping.
+* Add bulk mappings: BulkAppDownloadGoal, BulkAccountContentNegativeKeywordList, BulkAccountContentNegativeKeywordListAssociation and BulkAccountContentSharedNegativeKeyword.
+
 13.0.27(2027-03-13)
 +++++++++++++++++++++++++
 API Updates:

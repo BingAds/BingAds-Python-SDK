@@ -6,6 +6,8 @@ from bingads.v13.internal.bulk.entities.single_record_bulk_entity import _Single
 from bingads.v13.internal.bulk.mappings import _SimpleBulkMapping, _ComplexBulkMapping
 from bingads.v13.internal.extensions import *
 
+_BaseDomainSetting = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BaseDomainSetting'))
+
 def coop_setting_to_csv(bulk_ad_group, row_values):
     if not bulk_ad_group.ad_group.Settings or not bulk_ad_group.ad_group.Settings.Setting:
         return
@@ -58,6 +60,31 @@ def csv_to_bidding_scheme(row_values, bulk_ad_group):
             bulk_ad_group.ad_group.BiddingScheme.InheritedBidStrategyType = None
     else:
         bulk_ad_group.ad_group.BiddingScheme.Type = bid_strategy_type
+
+
+def _get_base_domain_setting(ad_group):
+    if not ad_group.Settings or not ad_group.Settings.Setting:
+        return None
+    settings = [s for s in ad_group.Settings.Setting if isinstance(s, _BaseDomainSetting)]
+    return settings[0] if len(settings) == 1 else None
+
+
+def base_domain_to_csv(bulk_ad_group, row_values):
+    setting = _get_base_domain_setting(bulk_ad_group.ad_group)
+    if setting is not None:
+        row_values[_StringTable.BaseDomain] = setting.BaseDomain
+
+
+def csv_to_base_domain(row_values, bulk_ad_group):
+    success, value = row_values.try_get_value(_StringTable.BaseDomain)
+    if not success or not value:
+        return
+    setting = _get_base_domain_setting(bulk_ad_group.ad_group)
+    if setting is None:
+        setting = _CAMPAIGN_OBJECT_FACTORY_V13.create('BaseDomainSetting')
+        setting.Type = 'BaseDomainSetting'
+        bulk_ad_group.ad_group.Settings.Setting.append(setting)
+    setting.BaseDomain = value.strip().lower()
 
 
 class BulkAdGroup(_SingleRecordBulkEntity):
@@ -267,6 +294,7 @@ class BulkAdGroup(_SingleRecordBulkEntity):
             field_to_csv=lambda c: field_to_csv_bool(c.ad_group.UseOptimizedTargeting),
             csv_to_field=lambda c, v: setattr(c.ad_group, 'UseOptimizedTargeting', parse_bool(v))
         ),
+        _ComplexBulkMapping(base_domain_to_csv, csv_to_base_domain),
         _SimpleBulkMapping(
             header=_StringTable.HotelAdGroupType,
             field_to_csv=lambda c: hotel_setting_to_csv(c.ad_group),

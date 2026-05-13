@@ -242,6 +242,50 @@
                </xs:sequence>
             </xs:complexType>
          </xs:element>
+         <xs:element name="GetBillingGroupsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetBillingGroupsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q32="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="BillingGroups" nillable="true" type="q32:ArrayOfBillingGroup" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetUngroupedAccountsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="GetUngroupedAccountsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q33="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UngroupedAccounts" nillable="true" type="q33:ArrayOfUngroupedAccount" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateBillingGroupAccountsRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
+                  <xs:element minOccurs="0" name="BillingGroupId" type="xs:long" />
+                  <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountsToAdd" nillable="true" type="q34:ArrayOflong" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="UpdateBillingGroupAccountsResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element xmlns:q35="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q35:ArrayOfArrayOfOperationError" />
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
       </xs:schema>
       <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -761,6 +805,36 @@
             </xs:sequence>
          </xs:complexType>
          <xs:element name="CouponInfoData" nillable="true" type="tns:CouponInfoData" />
+         <xs:complexType name="ArrayOfBillingGroup">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="BillingGroup" nillable="true" type="tns:BillingGroup" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfBillingGroup" nillable="true" type="tns:ArrayOfBillingGroup" />
+         <xs:complexType name="BillingGroup">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="BillingGroupId" type="xs:long" />
+               <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
+               <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="BillingGroup" nillable="true" type="tns:BillingGroup" />
+         <xs:complexType name="ArrayOfUngroupedAccount">
+            <xs:sequence>
+               <xs:element minOccurs="0" maxOccurs="unbounded" name="UngroupedAccount" nillable="true" type="tns:UngroupedAccount" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="ArrayOfUngroupedAccount" nillable="true" type="tns:ArrayOfUngroupedAccount" />
+         <xs:complexType name="UngroupedAccount">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="AccountId" type="xs:long" />
+               <xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="AccountName" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="PotentialBillingGroups" nillable="true" type="tns:ArrayOfKeyValueEntityOflongstring" />
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="UngroupedAccount" nillable="true" type="tns:UngroupedAccount" />
       </xs:schema>
       <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
          <xs:complexType name="AdApiFaultDetail">
@@ -1146,6 +1220,72 @@
    <wsdl:message name="ICustomerBillingService_DistributeCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
    </wsdl:message>
+   <wsdl:message name="GetBillingGroupsRequest">
+      <wsdl:part name="parameters" element="tns:GetBillingGroupsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingGroupsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingGroupsResponse">
+      <wsdl:part name="parameters" element="tns:GetBillingGroupsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetBillingGroupsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingGroups_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q14="https://adapi.microsoft.com" name="detail" element="q14:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetBillingGroups_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="GetUngroupedAccountsRequest">
+      <wsdl:part name="parameters" element="tns:GetUngroupedAccountsRequest" />
+   </wsdl:message>
+   <wsdl:message name="GetUngroupedAccountsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="GetUngroupedAccountsResponse">
+      <wsdl:part name="parameters" element="tns:GetUngroupedAccountsResponse" />
+   </wsdl:message>
+   <wsdl:message name="GetUngroupedAccountsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetUngroupedAccounts_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q15="https://adapi.microsoft.com" name="detail" element="q15:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_GetUngroupedAccounts_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBillingGroupAccountsRequest">
+      <wsdl:part name="parameters" element="tns:UpdateBillingGroupAccountsRequest" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBillingGroupAccountsRequest_Headers">
+      <wsdl:part name="ApplicationToken" element="tns:ApplicationToken" />
+      <wsdl:part name="AuthenticationToken" element="tns:AuthenticationToken" />
+      <wsdl:part name="DeveloperToken" element="tns:DeveloperToken" />
+      <wsdl:part name="Password" element="tns:Password" />
+      <wsdl:part name="UserName" element="tns:UserName" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBillingGroupAccountsResponse">
+      <wsdl:part name="parameters" element="tns:UpdateBillingGroupAccountsResponse" />
+   </wsdl:message>
+   <wsdl:message name="UpdateBillingGroupAccountsResponse_Headers">
+      <wsdl:part name="TrackingId" element="tns:TrackingId" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_UpdateBillingGroupAccounts_AdApiFaultDetailFault_FaultMessage">
+      <wsdl:part xmlns:q16="https://adapi.microsoft.com" name="detail" element="q16:AdApiFaultDetail" />
+   </wsdl:message>
+   <wsdl:message name="ICustomerBillingService_UpdateBillingGroupAccounts_ApiFault_FaultMessage">
+      <wsdl:part name="detail" element="tns:ApiFault" />
+   </wsdl:message>
    <wsdl:portType msc:usingSession="false" name="ICustomerBillingService">
       <wsdl:operation name="GetBillingDocumentsInfo">
          <wsdl:input wsaw:Action="GetBillingDocumentsInfo" name="GetBillingDocumentsInfoRequest" message="tns:GetBillingDocumentsInfoRequest" />
@@ -1226,6 +1366,24 @@
          <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsResponse" name="DistributeCouponsResponse" message="tns:DistributeCouponsResponse" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_DistributeCoupons_AdApiFaultDetailFault_FaultMessage" />
          <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/DistributeCouponsApiFault" name="ApiFault" message="tns:ICustomerBillingService_DistributeCoupons_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetBillingGroups">
+         <wsdl:input wsaw:Action="GetBillingGroups" name="GetBillingGroupsRequest" message="tns:GetBillingGroupsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingGroupsResponse" name="GetBillingGroupsResponse" message="tns:GetBillingGroupsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingGroupsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetBillingGroups_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetBillingGroupsApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetBillingGroups_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="GetUngroupedAccounts">
+         <wsdl:input wsaw:Action="GetUngroupedAccounts" name="GetUngroupedAccountsRequest" message="tns:GetUngroupedAccountsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetUngroupedAccountsResponse" name="GetUngroupedAccountsResponse" message="tns:GetUngroupedAccountsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetUngroupedAccountsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_GetUngroupedAccounts_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/GetUngroupedAccountsApiFault" name="ApiFault" message="tns:ICustomerBillingService_GetUngroupedAccounts_ApiFault_FaultMessage" />
+      </wsdl:operation>
+      <wsdl:operation name="UpdateBillingGroupAccounts">
+         <wsdl:input wsaw:Action="UpdateBillingGroupAccounts" name="UpdateBillingGroupAccountsRequest" message="tns:UpdateBillingGroupAccountsRequest" />
+         <wsdl:output wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateBillingGroupAccountsResponse" name="UpdateBillingGroupAccountsResponse" message="tns:UpdateBillingGroupAccountsResponse" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateBillingGroupAccountsAdApiFaultDetailFault" name="AdApiFaultDetailFault" message="tns:ICustomerBillingService_UpdateBillingGroupAccounts_AdApiFaultDetailFault_FaultMessage" />
+         <wsdl:fault wsaw:Action="https://bingads.microsoft.com/Billing/v13/ICustomerBillingService/UpdateBillingGroupAccountsApiFault" name="ApiFault" message="tns:ICustomerBillingService_UpdateBillingGroupAccounts_ApiFault_FaultMessage" />
       </wsdl:operation>
    </wsdl:portType>
    <wsdl:binding name="BasicHttpBinding_ICustomerBillingService" type="tns:ICustomerBillingService">
@@ -1501,6 +1659,69 @@
          </wsdl:input>
          <wsdl:output name="DistributeCouponsResponse">
             <soap:header message="tns:DistributeCouponsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetBillingGroups">
+         <soap:operation soapAction="GetBillingGroups" style="document" />
+         <wsdl:input name="GetBillingGroupsRequest">
+            <soap:header message="tns:GetBillingGroupsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetBillingGroupsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetBillingGroupsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetBillingGroupsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetBillingGroupsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetBillingGroupsResponse">
+            <soap:header message="tns:GetBillingGroupsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="GetUngroupedAccounts">
+         <soap:operation soapAction="GetUngroupedAccounts" style="document" />
+         <wsdl:input name="GetUngroupedAccountsRequest">
+            <soap:header message="tns:GetUngroupedAccountsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:GetUngroupedAccountsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:GetUngroupedAccountsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:GetUngroupedAccountsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:GetUngroupedAccountsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="GetUngroupedAccountsResponse">
+            <soap:header message="tns:GetUngroupedAccountsResponse_Headers" part="TrackingId" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:output>
+         <wsdl:fault name="AdApiFaultDetailFault">
+            <soap:fault use="literal" name="AdApiFaultDetailFault" namespace="" />
+         </wsdl:fault>
+         <wsdl:fault name="ApiFault">
+            <soap:fault use="literal" name="ApiFault" namespace="" />
+         </wsdl:fault>
+      </wsdl:operation>
+      <wsdl:operation name="UpdateBillingGroupAccounts">
+         <soap:operation soapAction="UpdateBillingGroupAccounts" style="document" />
+         <wsdl:input name="UpdateBillingGroupAccountsRequest">
+            <soap:header message="tns:UpdateBillingGroupAccountsRequest_Headers" part="ApplicationToken" use="literal" />
+            <soap:header message="tns:UpdateBillingGroupAccountsRequest_Headers" part="AuthenticationToken" use="literal" />
+            <soap:header message="tns:UpdateBillingGroupAccountsRequest_Headers" part="DeveloperToken" use="literal" />
+            <soap:header message="tns:UpdateBillingGroupAccountsRequest_Headers" part="Password" use="literal" />
+            <soap:header message="tns:UpdateBillingGroupAccountsRequest_Headers" part="UserName" use="literal" />
+            <soap:body use="literal" />
+         </wsdl:input>
+         <wsdl:output name="UpdateBillingGroupAccountsResponse">
+            <soap:header message="tns:UpdateBillingGroupAccountsResponse_Headers" part="TrackingId" use="literal" />
             <soap:body use="literal" />
          </wsdl:output>
          <wsdl:fault name="AdApiFaultDetailFault">

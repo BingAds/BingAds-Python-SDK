@@ -2409,6 +2409,13 @@
                <xs:element minOccurs="0" name="Timestamp" nillable="true" type="xs:base64Binary" />
                <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="ForwardCompatibilityMap" nillable="true" type="q10:ArrayOfKeyValuePairOfstringstring" />
                <xs:element minOccurs="0" name="CustomerLinkPermission" nillable="true" type="xs:string" />
+               <xs:element minOccurs="0" name="ClientEntityCustomerNumber" nillable="true" type="xs:string">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
             </xs:sequence>
          </xs:complexType>
          <xs:element name="ClientLink" nillable="true" type="tns:ClientLink" />
