@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.28.1(2027-05-13)
++++++++++++++++++++++++++
+* Fix syntax error in bulk_operation.py.
+
 13.0.28(2027-05-13)
 +++++++++++++++++++++++++
 API Updates:
@@ -14,10 +18,18 @@ API Updates:
 Bulk Mapping Updates:
 * Add AISearchSetting in BulkCampaign mapping.
 * Add BaseDomainSetting in BulkAdGroup mapping.
-* Add bulk mappings: BulkAppDownloadGoal, BulkAccountContentNegativeKeywordList, BulkAccountContentNegativeKeywordListAssociation and BulkAccountContentSharedNegativeKeyword.
+* Add bulk mappings: BulkAppDownloadGoal, BulkCampaignNegativeAgeCriterion, BulkCampaignNegativeGenderCriterion, BulkAccountContentNegativeKeywordList, BulkAccountContentNegativeKeywordListAssociation and BulkAccountContentSharedNegativeKeyword.
 
 Other:
 * Fix wrong factory type for polymorphic types.
+
+13.0.27.2(2027-04-28)
++++++++++++++++++++++++++
+* Enable pascal case alias for bulk mapping entities.
+
+13.0.27.1(2027-03-20)
++++++++++++++++++++++++++
+* Use Date instead of ModelDate in REST models.
 
 13.0.27(2027-03-13)
 +++++++++++++++++++++++++
