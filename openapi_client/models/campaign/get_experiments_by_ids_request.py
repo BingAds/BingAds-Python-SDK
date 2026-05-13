@@ -28,10 +28,10 @@ class GetExperimentsByIdsRequest(BaseModel):
     """
     GetExperimentsByIdsRequest
     """ # noqa: E501
-    page_info: Optional[Paging] = Field(default=None, alias="PageInfo")
-    experiment_ids: Optional[List[StrictStr]] = Field(default=None, alias="ExperimentIds")
     return_additional_fields: Optional[ExperimentAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["PageInfo", "ExperimentIds", "ReturnAdditionalFields"]
+    experiment_ids: Optional[List[StrictStr]] = Field(default=None, alias="ExperimentIds")
+    page_info: Optional[Paging] = Field(default=None, alias="PageInfo")
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "ExperimentIds", "PageInfo"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -61,20 +61,20 @@ class GetExperimentsByIdsRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of page_info
         if self.page_info:
             _dict['PageInfo'] = self.page_info.to_dict()
-        # set to None if page_info (nullable) is None
+        # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
-        if self.page_info is None and "page_info" in self.model_fields_set:
-            _dict['PageInfo'] = None
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
 
         # set to None if experiment_ids (nullable) is None
         # and model_fields_set contains the field
         if self.experiment_ids is None and "experiment_ids" in self.model_fields_set:
             _dict['ExperimentIds'] = None
 
-        # set to None if return_additional_fields (nullable) is None
+        # set to None if page_info (nullable) is None
         # and model_fields_set contains the field
-        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
-            _dict['ReturnAdditionalFields'] = None
+        if self.page_info is None and "page_info" in self.model_fields_set:
+            _dict['PageInfo'] = None
 
         return _dict
 
@@ -88,8 +88,8 @@ class GetExperimentsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "PageInfo": Paging.from_dict(obj["PageInfo"]) if obj.get("PageInfo") is not None else None,
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
                         "ExperimentIds": obj.get("ExperimentIds"),
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+                        "PageInfo": Paging.from_dict(obj["PageInfo"]) if obj.get("PageInfo") is not None else None
         })
         return _obj

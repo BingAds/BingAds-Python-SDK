@@ -134,6 +134,12 @@ class SearchQueryPerformanceReportColumn(str, Enum):
 
     ALLCONVERSIONSQUALIFIED = 'AllConversionsQualified'
 
+    ASSETGROUPNAME = 'AssetGroupName'
+
+    ASSETGROUPID = 'AssetGroupId'
+
+    ASSETGROUPSTATUS = 'AssetGroupStatus'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

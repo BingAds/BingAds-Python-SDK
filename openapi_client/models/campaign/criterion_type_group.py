@@ -34,6 +34,10 @@ class CriterionTypeGroup(str, Enum):
 
     INCOMERANGE = 'IncomeRange'
 
+    JOBSENIORITY = 'JobSeniority'
+
+    CUSTOMLINKEDIN = 'CustomLinkedIn'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

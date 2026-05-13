@@ -27,10 +27,10 @@ class GetKeywordsByIdsRequest(BaseModel):
     """
     GetKeywordsByIdsRequest
     """ # noqa: E501
+    return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
     keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
-    return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "KeywordIds", "ReturnAdditionalFields"]
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "AdGroupId", "KeywordIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,6 +57,11 @@ class GetKeywordsByIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         # set to None if ad_group_id (nullable) is None
         # and model_fields_set contains the field
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
@@ -66,11 +71,6 @@ class GetKeywordsByIdsRequest(BaseModel):
         # and model_fields_set contains the field
         if self.keyword_ids is None and "keyword_ids" in self.model_fields_set:
             _dict['KeywordIds'] = None
-
-        # set to None if return_additional_fields (nullable) is None
-        # and model_fields_set contains the field
-        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
-            _dict['ReturnAdditionalFields'] = None
 
         return _dict
 
@@ -84,8 +84,8 @@ class GetKeywordsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "KeywordIds": obj.get("KeywordIds"),
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
+                        "KeywordIds": obj.get("KeywordIds")
         })
         return _obj

@@ -28,10 +28,10 @@ class GetConversionGoalsByTagIdsRequest(BaseModel):
     """
     GetConversionGoalsByTagIdsRequest
     """ # noqa: E501
-    tag_ids: Optional[List[StrictStr]] = Field(default=None, alias="TagIds")
     conversion_goal_types: Optional[ConversionGoalType] = Field(default=None, alias="ConversionGoalTypes")
     return_additional_fields: Optional[ConversionGoalAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["TagIds", "ConversionGoalTypes", "ReturnAdditionalFields"]
+    tag_ids: Optional[List[StrictStr]] = Field(default=None, alias="TagIds")
+    __properties: ClassVar[List[str]] = ["ConversionGoalTypes", "ReturnAdditionalFields", "TagIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -58,11 +58,6 @@ class GetConversionGoalsByTagIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if tag_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.tag_ids is None and "tag_ids" in self.model_fields_set:
-            _dict['TagIds'] = None
-
         # set to None if conversion_goal_types (nullable) is None
         # and model_fields_set contains the field
         if self.conversion_goal_types is None and "conversion_goal_types" in self.model_fields_set:
@@ -72,6 +67,11 @@ class GetConversionGoalsByTagIdsRequest(BaseModel):
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
+
+        # set to None if tag_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.tag_ids is None and "tag_ids" in self.model_fields_set:
+            _dict['TagIds'] = None
 
         return _dict
 
@@ -85,8 +85,8 @@ class GetConversionGoalsByTagIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "TagIds": obj.get("TagIds"),
-                        "ConversionGoalTypes": obj.get("ConversionGoalTypes") if obj.get("ConversionGoalTypes") is not None else None,
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ConversionGoalTypes": obj.get("ConversionGoalTypes") if obj.get("ConversionGoalTypes") is not None else None,
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "TagIds": obj.get("TagIds")
         })
         return _obj

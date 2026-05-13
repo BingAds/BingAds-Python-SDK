@@ -160,6 +160,18 @@ class PublisherUsagePerformanceReportColumn(str, Enum):
 
     CPS = 'CPS'
 
+    LOWQUALITYCLICKS = 'LowQualityClicks'
+
+    LOWQUALITYCLICKSPERCENT = 'LowQualityClicksPercent'
+
+    LOWQUALITYIMPRESSIONS = 'LowQualityImpressions'
+
+    LOWQUALITYIMPRESSIONSPERCENT = 'LowQualityImpressionsPercent'
+
+    LOWQUALITYGENERALCLICKS = 'LowQualityGeneralClicks'
+
+    LOWQUALITYSOPHISTICATEDCLICKS = 'LowQualitySophisticatedClicks'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

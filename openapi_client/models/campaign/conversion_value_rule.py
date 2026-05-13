@@ -31,7 +31,6 @@ class ConversionValueRule(BaseModel):
     """
     ConversionValueRule
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     location_condition: Optional[LocationCondition] = Field(default=None, alias="LocationCondition")
     audience_condition: Optional[AudienceCondition] = Field(default=None, alias="AudienceCondition")
@@ -40,7 +39,8 @@ class ConversionValueRule(BaseModel):
     operation: Optional[ConversionValueRuleOperator] = Field(default=None, alias="Operation")
     currency_code: Optional[StrictStr] = Field(default=None, alias="CurrencyCode")
     status: Optional[ConversionValueRuleStatus] = Field(default=None, alias="Status")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "LocationCondition", "AudienceCondition", "DeviceCondition", "Value", "Operation", "CurrencyCode", "Status"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "LocationCondition", "AudienceCondition", "DeviceCondition", "Value", "Operation", "CurrencyCode", "Status", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -76,11 +76,6 @@ class ConversionValueRule(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of device_condition
         if self.device_condition:
             _dict['DeviceCondition'] = self.device_condition.to_dict()
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -121,6 +116,11 @@ class ConversionValueRule(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['Status'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -133,14 +133,14 @@ class ConversionValueRule(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "LocationCondition": LocationCondition.from_dict(obj["LocationCondition"]) if obj.get("LocationCondition") is not None else None,
                         "AudienceCondition": AudienceCondition.from_dict(obj["AudienceCondition"]) if obj.get("AudienceCondition") is not None else None,
                         "DeviceCondition": DeviceCondition.from_dict(obj["DeviceCondition"]) if obj.get("DeviceCondition") is not None else None,
                         "Value": obj.get("Value") if obj.get("Value") is not None else None,
                         "Operation": obj.get("Operation") if obj.get("Operation") is not None else None,
                         "CurrencyCode": obj.get("CurrencyCode") if obj.get("CurrencyCode") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None
+                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

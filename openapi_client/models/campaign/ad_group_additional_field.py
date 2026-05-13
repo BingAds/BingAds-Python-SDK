@@ -44,6 +44,10 @@ class AdGroupAdditionalField(Flag):
 
     BASEDOMAIN = auto()
 
+    TARGETSETTINGFORJOBSENIORITY = auto()
+
+    TARGETSETTINGFORCUSTOMLINKEDIN = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -71,6 +75,8 @@ class AdGroupAdditionalField(Flag):
             AdGroupAdditionalField.USEPREDICTIVETARGETING: 'UsePredictiveTargeting',
             AdGroupAdditionalField.MAXCONVERSIONVALUEWITHMAXCPC: 'MaxConversionValueWithMaxCpc',
             AdGroupAdditionalField.BASEDOMAIN: 'BaseDomain',
+            AdGroupAdditionalField.TARGETSETTINGFORJOBSENIORITY: 'TargetSettingForJobSeniority',
+            AdGroupAdditionalField.TARGETSETTINGFORCUSTOMLINKEDIN: 'TargetSettingForCustomLinkedIn',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AdGroupAdditionalField if flag & self]

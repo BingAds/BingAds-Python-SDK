@@ -56,6 +56,10 @@ class AccountPropertyName(str, Enum):
 
     ACCEPTNIELSENTERMSANDCONDITIONS = 'AcceptNielsenTermsAndConditions'
 
+    IMAGEMISSINGWARNINGOPTOUT = 'ImageMissingWarningOptout'
+
+    OPTOUTFROMSYSTEMSOURCEDIMAGESINSWF = 'OptOutFromSystemSourcedImagesInSWF'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

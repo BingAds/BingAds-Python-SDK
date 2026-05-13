@@ -30,16 +30,16 @@ class Experiment(BaseModel):
     """ # noqa: E501
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
-    start_date: Optional[Date] = Field(default=None, alias="StartDate")
-    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     base_campaign_id: Optional[StrictStr] = Field(default=None, alias="BaseCampaignId")
     experiment_campaign_id: Optional[StrictStr] = Field(default=None, alias="ExperimentCampaignId")
     traffic_split_percent: Optional[StrictInt] = Field(default=None, alias="TrafficSplitPercent")
+    experiment_arms: Optional[List[Optional[ExperimentArm]]] = Field(default=None, alias="ExperimentArms")
+    start_date: Optional[Date] = Field(default=None, alias="StartDate")
+    end_date: Optional[Date] = Field(default=None, alias="EndDate")
     experiment_status: Optional[StrictStr] = Field(default=None, alias="ExperimentStatus")
     experiment_type: Optional[StrictStr] = Field(default=None, alias="ExperimentType")
     experiment_sub_type: Optional[StrictStr] = Field(default=None, alias="ExperimentSubType")
-    experiment_arms: Optional[List[Optional[ExperimentArm]]] = Field(default=None, alias="ExperimentArms")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "StartDate", "EndDate", "BaseCampaignId", "ExperimentCampaignId", "TrafficSplitPercent", "ExperimentStatus", "ExperimentType", "ExperimentSubType", "ExperimentArms"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "BaseCampaignId", "ExperimentCampaignId", "TrafficSplitPercent", "ExperimentArms", "StartDate", "EndDate", "ExperimentStatus", "ExperimentType", "ExperimentSubType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,12 +66,6 @@ class Experiment(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of start_date
-        if self.start_date:
-            _dict['StartDate'] = self.start_date.to_dict()
-        # override the default output from pydantic by calling `to_dict()` of end_date
-        if self.end_date:
-            _dict['EndDate'] = self.end_date.to_dict()
         # override the default output from pydantic by calling `to_dict()` of each item in experiment_arms (list)
         _items = []
         if self.experiment_arms:
@@ -79,6 +73,12 @@ class Experiment(BaseModel):
                 if _item_experiment_arms:
                     _items.append(_item_experiment_arms.to_dict())
             _dict['ExperimentArms'] = _items
+        # override the default output from pydantic by calling `to_dict()` of start_date
+        if self.start_date:
+            _dict['StartDate'] = self.start_date.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of end_date
+        if self.end_date:
+            _dict['EndDate'] = self.end_date.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -88,16 +88,6 @@ class Experiment(BaseModel):
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
             _dict['Name'] = None
-
-        # set to None if start_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.start_date is None and "start_date" in self.model_fields_set:
-            _dict['StartDate'] = None
-
-        # set to None if end_date (nullable) is None
-        # and model_fields_set contains the field
-        if self.end_date is None and "end_date" in self.model_fields_set:
-            _dict['EndDate'] = None
 
         # set to None if base_campaign_id (nullable) is None
         # and model_fields_set contains the field
@@ -114,6 +104,21 @@ class Experiment(BaseModel):
         if self.traffic_split_percent is None and "traffic_split_percent" in self.model_fields_set:
             _dict['TrafficSplitPercent'] = None
 
+        # set to None if experiment_arms (nullable) is None
+        # and model_fields_set contains the field
+        if self.experiment_arms is None and "experiment_arms" in self.model_fields_set:
+            _dict['ExperimentArms'] = None
+
+        # set to None if start_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.start_date is None and "start_date" in self.model_fields_set:
+            _dict['StartDate'] = None
+
+        # set to None if end_date (nullable) is None
+        # and model_fields_set contains the field
+        if self.end_date is None and "end_date" in self.model_fields_set:
+            _dict['EndDate'] = None
+
         # set to None if experiment_status (nullable) is None
         # and model_fields_set contains the field
         if self.experiment_status is None and "experiment_status" in self.model_fields_set:
@@ -129,11 +134,6 @@ class Experiment(BaseModel):
         if self.experiment_sub_type is None and "experiment_sub_type" in self.model_fields_set:
             _dict['ExperimentSubType'] = None
 
-        # set to None if experiment_arms (nullable) is None
-        # and model_fields_set contains the field
-        if self.experiment_arms is None and "experiment_arms" in self.model_fields_set:
-            _dict['ExperimentArms'] = None
-
         return _dict
 
     @classmethod
@@ -148,14 +148,14 @@ class Experiment(BaseModel):
         _obj = cls.model_validate({
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
-                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "BaseCampaignId": obj.get("BaseCampaignId") if obj.get("BaseCampaignId") is not None else None,
                         "ExperimentCampaignId": obj.get("ExperimentCampaignId") if obj.get("ExperimentCampaignId") is not None else None,
                         "TrafficSplitPercent": obj.get("TrafficSplitPercent") if obj.get("TrafficSplitPercent") is not None else None,
+                        "ExperimentArms": [ExperimentArm.from_dict(_item) for _item in obj["ExperimentArms"]] if obj.get("ExperimentArms") is not None else None,
+                        "StartDate": Date.from_dict(obj["StartDate"]) if obj.get("StartDate") is not None else None,
+                        "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "ExperimentStatus": obj.get("ExperimentStatus") if obj.get("ExperimentStatus") is not None else None,
                         "ExperimentType": obj.get("ExperimentType") if obj.get("ExperimentType") is not None else None,
-                        "ExperimentSubType": obj.get("ExperimentSubType") if obj.get("ExperimentSubType") is not None else None,
-                        "ExperimentArms": [ExperimentArm.from_dict(_item) for _item in obj["ExperimentArms"]] if obj.get("ExperimentArms") is not None else None
+                        "ExperimentSubType": obj.get("ExperimentSubType") if obj.get("ExperimentSubType") is not None else None
         })
         return _obj

@@ -430,6 +430,10 @@ def enable_rest_entity_support():
     _auto_discover_and_patch_bulk_entities()
 
 
+def _snake_to_pascal(name):
+    return ''.join(word.capitalize() for word in name.split('_'))
+
+
 def _auto_discover_and_patch_bulk_entities():
     """
     Automatically discover all bulk entity classes and patch ALL their settable properties.
@@ -543,10 +547,34 @@ def _patch_property_setter(cls, prop_name):
     
     if original_setter is None:
         return False
-    
+
+    # For properties defined directly on this class, pre-compute the expected
+    # SOAP type so mismatched factory types can be corrected at runtime.
+    # E.g. if BulkCustomerList.customer_list setter receives create('Audience'),
+    # we replace it with create('CustomerList').
+    # Inherited properties are skipped to avoid overriding correctly-typed values.
+    _expected_soap_type = None
+    _expected_soap_class = None
+    if prop_name in cls.__dict__:
+        candidate = _snake_to_pascal(prop_name)
+        try:
+            _expected_soap_class = type(_CAMPAIGN_OBJECT_FACTORY_V13.create(candidate))
+            _expected_soap_type = candidate
+        except Exception:
+            pass
+
     def adapted_setter(self, value):
-        # Convert REST model to SOAP proxy if needed
         adapted_value = RestToSoapAdapter.adapt(value)
+        # Correct SOAP factory type mismatches (e.g. create('Audience') when
+        # create('CustomerList') is needed) so subtype-specific fields initialise.
+        # Only replace if the value is NOT already a subtype of the expected type —
+        # e.g. BiddableAdGroupCriterion is a valid subtype of AdGroupCriterion and
+        # must not be replaced with the base type (which lacks CriterionBid).
+        if _expected_soap_type is not None:
+            actual_type = RestToSoapAdapter._get_soap_type_name(adapted_value)
+            if actual_type is not None and actual_type != _expected_soap_type:
+                if not isinstance(adapted_value, _expected_soap_class):
+                    adapted_value = _CAMPAIGN_OBJECT_FACTORY_V13.create(_expected_soap_type)
         original_setter(self, adapted_value)
     
     # Create new property with adapted setter

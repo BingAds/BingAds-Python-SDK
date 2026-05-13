@@ -34,10 +34,8 @@ class ConversionGoalBase(ConversionGoal):
     """
     ConversionGoalBase
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[ConversionGoalStatus] = Field(default=None, alias="Status")
-    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     count_type: Optional[ConversionGoalCountType] = Field(default=None, alias="CountType")
     revenue: Optional[ConversionGoalRevenue] = Field(default=None, alias="Revenue")
@@ -50,7 +48,9 @@ class ConversionGoalBase(ConversionGoal):
     attribution_model_type: Optional[AttributionModelType] = Field(default=None, alias="AttributionModelType")
     is_enhanced_conversions_enabled: Optional[StrictBool] = Field(default=None, alias="IsEnhancedConversionsEnabled")
     is_auto_goal: Optional[StrictBool] = Field(default=None, alias="IsAutoGoal")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
+    __properties: ClassVar[List[str]] = ["Name", "Status", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal", "Id", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -93,11 +93,6 @@ class ConversionGoalBase(ConversionGoal):
         # override the default output from pydantic by calling `to_dict()` of revenue
         if self.revenue:
             _dict['Revenue'] = self.revenue.to_dict()
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -107,11 +102,6 @@ class ConversionGoalBase(ConversionGoal):
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
             _dict['Status'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         # set to None if scope (nullable) is None
         # and model_fields_set contains the field
@@ -173,6 +163,16 @@ class ConversionGoalBase(ConversionGoal):
         if self.is_auto_goal is None and "is_auto_goal" in self.model_fields_set:
             _dict['IsAutoGoal'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         return _dict
 
     @classmethod
@@ -185,10 +185,8 @@ class ConversionGoalBase(ConversionGoal):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "CountType": obj.get("CountType") if obj.get("CountType") is not None else None,
                         "Revenue": ConversionGoalRevenue.from_dict(obj["Revenue"]) if obj.get("Revenue") is not None else None,
@@ -200,6 +198,8 @@ class ConversionGoalBase(ConversionGoal):
                         "GoalCategory": obj.get("GoalCategory") if obj.get("GoalCategory") is not None else None,
                         "AttributionModelType": obj.get("AttributionModelType") if obj.get("AttributionModelType") is not None else None,
                         "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None,
-                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None
+                        "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

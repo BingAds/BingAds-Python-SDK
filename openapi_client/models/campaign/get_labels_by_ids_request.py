@@ -27,9 +27,9 @@ class GetLabelsByIdsRequest(BaseModel):
     """
     GetLabelsByIdsRequest
     """ # noqa: E501
-    page_info: Optional[Paging] = Field(default=None, alias="PageInfo")
     label_ids: Optional[List[StrictStr]] = Field(default=None, alias="LabelIds")
-    __properties: ClassVar[List[str]] = ["PageInfo", "LabelIds"]
+    page_info: Optional[Paging] = Field(default=None, alias="PageInfo")
+    __properties: ClassVar[List[str]] = ["LabelIds", "PageInfo"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -59,15 +59,15 @@ class GetLabelsByIdsRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of page_info
         if self.page_info:
             _dict['PageInfo'] = self.page_info.to_dict()
-        # set to None if page_info (nullable) is None
-        # and model_fields_set contains the field
-        if self.page_info is None and "page_info" in self.model_fields_set:
-            _dict['PageInfo'] = None
-
         # set to None if label_ids (nullable) is None
         # and model_fields_set contains the field
         if self.label_ids is None and "label_ids" in self.model_fields_set:
             _dict['LabelIds'] = None
+
+        # set to None if page_info (nullable) is None
+        # and model_fields_set contains the field
+        if self.page_info is None and "page_info" in self.model_fields_set:
+            _dict['PageInfo'] = None
 
         return _dict
 
@@ -81,7 +81,7 @@ class GetLabelsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "PageInfo": Paging.from_dict(obj["PageInfo"]) if obj.get("PageInfo") is not None else None,
-                        "LabelIds": obj.get("LabelIds")
+            "LabelIds": obj.get("LabelIds"),
+                        "PageInfo": Paging.from_dict(obj["PageInfo"]) if obj.get("PageInfo") is not None else None
         })
         return _obj

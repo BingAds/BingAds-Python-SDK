@@ -82,6 +82,8 @@ class AdGroupCriterionType(Flag):
 
     CUSTOMSEGMENT = auto()
 
+    JOBSENIORITY = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -128,6 +130,7 @@ class AdGroupCriterionType(Flag):
             AdGroupCriterionType.PLACEMENT: 'Placement',
             AdGroupCriterionType.TOPIC: 'Topic',
             AdGroupCriterionType.CUSTOMSEGMENT: 'CustomSegment',
+            AdGroupCriterionType.JOBSENIORITY: 'JobSeniority',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AdGroupCriterionType if flag & self]

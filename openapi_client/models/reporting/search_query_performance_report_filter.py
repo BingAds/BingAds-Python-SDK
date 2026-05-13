@@ -24,6 +24,7 @@ from openapi_client.models.reporting.account_status_report_filter import Account
 from openapi_client.models.reporting.ad_group_status_report_filter import AdGroupStatusReportFilter
 from openapi_client.models.reporting.ad_status_report_filter import AdStatusReportFilter
 from openapi_client.models.reporting.ad_type_report_filter import AdTypeReportFilter
+from openapi_client.models.reporting.asset_group_status_report_filter import AssetGroupStatusReportFilter
 from openapi_client.models.reporting.campaign_status_report_filter import CampaignStatusReportFilter
 from openapi_client.models.reporting.delivered_match_type_report_filter import DeliveredMatchTypeReportFilter
 from openapi_client.models.reporting.keyword_status_report_filter import KeywordStatusReportFilter
@@ -44,7 +45,8 @@ class SearchQueryPerformanceReportFilter(BaseModel):
     ad_group_status: Optional[AdGroupStatusReportFilter] = Field(default=None, alias="AdGroupStatus")
     keyword_status: Optional[KeywordStatusReportFilter] = Field(default=None, alias="KeywordStatus")
     exclude_zero_clicks: Optional[StrictBool] = Field(default=None, alias="ExcludeZeroClicks")
-    __properties: ClassVar[List[str]] = ["DeliveredMatchType", "SearchQueries", "AdType", "CampaignStatus", "AdStatus", "Language", "AccountStatus", "AdGroupStatus", "KeywordStatus", "ExcludeZeroClicks"]
+    asset_group_status: Optional[AssetGroupStatusReportFilter] = Field(default=None, alias="AssetGroupStatus")
+    __properties: ClassVar[List[str]] = ["DeliveredMatchType", "SearchQueries", "AdType", "CampaignStatus", "AdStatus", "Language", "AccountStatus", "AdGroupStatus", "KeywordStatus", "ExcludeZeroClicks", "AssetGroupStatus"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -121,6 +123,11 @@ class SearchQueryPerformanceReportFilter(BaseModel):
         if self.exclude_zero_clicks is None and "exclude_zero_clicks" in self.model_fields_set:
             _dict['ExcludeZeroClicks'] = None
 
+        # set to None if asset_group_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_group_status is None and "asset_group_status" in self.model_fields_set:
+            _dict['AssetGroupStatus'] = None
+
         return _dict
 
     @classmethod
@@ -142,6 +149,7 @@ class SearchQueryPerformanceReportFilter(BaseModel):
                         "AccountStatus": obj.get("AccountStatus") if obj.get("AccountStatus") is not None else None,
                         "AdGroupStatus": obj.get("AdGroupStatus") if obj.get("AdGroupStatus") is not None else None,
                         "KeywordStatus": obj.get("KeywordStatus") if obj.get("KeywordStatus") is not None else None,
-                        "ExcludeZeroClicks": obj.get("ExcludeZeroClicks") if obj.get("ExcludeZeroClicks") is not None else None
+                        "ExcludeZeroClicks": obj.get("ExcludeZeroClicks") if obj.get("ExcludeZeroClicks") is not None else None,
+                        "AssetGroupStatus": obj.get("AssetGroupStatus") if obj.get("AssetGroupStatus") is not None else None
         })
         return _obj
