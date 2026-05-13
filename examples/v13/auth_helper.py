@@ -48,17 +48,16 @@ def authenticate(authorization_data):
 
     # Get the current authenticated Bing Ads user
     user = customer_service.GetUser(get_user_request).User
-    #accounts = search_accounts_by_user_id(customer_service, user.Id)
+    accounts = search_accounts_by_user_id(customer_service, user.Id)
 
     # For this example we'll use the first account
-    authorization_data.account_id = '279214503'
-    authorization_data.customer_id = '337575871'
-
+    authorization_data.account_id = accounts[0].Id
+    authorization_data.customer_id = accounts[0].ParentCustomerId
 
 def authenticate_with_oauth(authorization_data):
-    authentication = PasswordAuthentication(
-        user_name='cctest',
-        password='asdlkj'
+    authentication = OAuthDesktopMobileAuthCodeGrant(
+        client_id=CLIENT_ID,
+        env=ENVIRONMENT
     )
 
     # It is recommended that you specify a non guessable 'state' request parameter to help prevent
@@ -67,7 +66,6 @@ def authenticate_with_oauth(authorization_data):
 
     # Assign this authentication instance to the authorization_data.
     authorization_data.authentication = authentication
-    '''
     # Register the callback function to automatically save the refresh token anytime it is refreshed.
     # Uncomment this line if you want to store your refresh token. Be sure to save your refresh token securely.
     authorization_data.authentication.token_refreshed_callback = save_refresh_token
@@ -84,7 +82,6 @@ def authenticate_with_oauth(authorization_data):
         # The user could not be authenticated or the grant is expired.
         # The user must first sign in and if needed grant the client application access to the requested scope.
         request_user_consent(authorization_data)
-    '''
 
 
 def request_user_consent(authorization_data):
