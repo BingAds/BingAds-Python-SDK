@@ -28,9 +28,9 @@ class DeleteLabelAssociationsRequest(BaseModel):
     """
     DeleteLabelAssociationsRequest
     """ # noqa: E501
-    label_associations: Optional[List[Optional[LabelAssociation]]] = Field(default=None, alias="LabelAssociations")
     entity_type: Optional[EntityType] = Field(default=None, alias="EntityType")
-    __properties: ClassVar[List[str]] = ["LabelAssociations", "EntityType"]
+    label_associations: Optional[List[Optional[LabelAssociation]]] = Field(default=None, alias="LabelAssociations")
+    __properties: ClassVar[List[str]] = ["EntityType", "LabelAssociations"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,15 +64,15 @@ class DeleteLabelAssociationsRequest(BaseModel):
                 if _item_label_associations:
                     _items.append(_item_label_associations.to_dict())
             _dict['LabelAssociations'] = _items
-        # set to None if label_associations (nullable) is None
-        # and model_fields_set contains the field
-        if self.label_associations is None and "label_associations" in self.model_fields_set:
-            _dict['LabelAssociations'] = None
-
         # set to None if entity_type (nullable) is None
         # and model_fields_set contains the field
         if self.entity_type is None and "entity_type" in self.model_fields_set:
             _dict['EntityType'] = None
+
+        # set to None if label_associations (nullable) is None
+        # and model_fields_set contains the field
+        if self.label_associations is None and "label_associations" in self.model_fields_set:
+            _dict['LabelAssociations'] = None
 
         return _dict
 
@@ -86,7 +86,7 @@ class DeleteLabelAssociationsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "LabelAssociations": [LabelAssociation.from_dict(_item) for _item in obj["LabelAssociations"]] if obj.get("LabelAssociations") is not None else None,
-                        "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None
+            "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
+                        "LabelAssociations": [LabelAssociation.from_dict(_item) for _item in obj["LabelAssociations"]] if obj.get("LabelAssociations") is not None else None
         })
         return _obj

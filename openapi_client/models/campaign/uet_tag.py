@@ -29,7 +29,6 @@ class UetTag(BaseModel):
     """
     UetTag
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     tracking_script: Optional[StrictStr] = Field(default=None, alias="TrackingScript")
@@ -37,7 +36,8 @@ class UetTag(BaseModel):
     tracking_status: Optional[UetTagTrackingStatus] = Field(default=None, alias="TrackingStatus")
     customer_share: Optional[CustomerShare] = Field(default=None, alias="CustomerShare")
     industry: Optional[UetTagIndustry] = Field(default=None, alias="Industry")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "TrackingScript", "TrackingNoScript", "TrackingStatus", "CustomerShare", "Industry"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "Description", "TrackingScript", "TrackingNoScript", "TrackingStatus", "CustomerShare", "Industry", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -67,11 +67,6 @@ class UetTag(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of customer_share
         if self.customer_share:
             _dict['CustomerShare'] = self.customer_share.to_dict()
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -107,6 +102,11 @@ class UetTag(BaseModel):
         if self.industry is None and "industry" in self.model_fields_set:
             _dict['Industry'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -119,13 +119,13 @@ class UetTag(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
                         "TrackingScript": obj.get("TrackingScript") if obj.get("TrackingScript") is not None else None,
                         "TrackingNoScript": obj.get("TrackingNoScript") if obj.get("TrackingNoScript") is not None else None,
                         "TrackingStatus": obj.get("TrackingStatus") if obj.get("TrackingStatus") is not None else None,
                         "CustomerShare": CustomerShare.from_dict(obj["CustomerShare"]) if obj.get("CustomerShare") is not None else None,
-                        "Industry": obj.get("Industry") if obj.get("Industry") is not None else None
+                        "Industry": obj.get("Industry") if obj.get("Industry") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

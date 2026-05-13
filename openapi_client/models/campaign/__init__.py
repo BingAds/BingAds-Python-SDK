@@ -582,6 +582,8 @@ from openapi_client.models.campaign.get_supported_clipchamp_audio_request import
 from openapi_client.models.campaign.get_supported_clipchamp_audio_response import GetSupportedClipchampAudioResponse
 from openapi_client.models.campaign.get_supported_fonts_request import GetSupportedFontsRequest
 from openapi_client.models.campaign.get_supported_fonts_response import GetSupportedFontsResponse
+from openapi_client.models.campaign.get_uet_tag_auth_key_request import GetUetTagAuthKeyRequest
+from openapi_client.models.campaign.get_uet_tag_auth_key_response import GetUetTagAuthKeyResponse
 from openapi_client.models.campaign.get_uet_tags_by_ids_request import GetUetTagsByIdsRequest
 from openapi_client.models.campaign.get_uet_tags_by_ids_response import GetUetTagsByIdsResponse
 from openapi_client.models.campaign.get_videos_by_ids_request import GetVideosByIdsRequest
@@ -680,6 +682,7 @@ from openapi_client.models.campaign.negative_keyword import NegativeKeyword
 from openapi_client.models.campaign.negative_keyword_list import NegativeKeywordList
 from openapi_client.models.campaign.negative_site import NegativeSite
 from openapi_client.models.campaign.network import Network
+from openapi_client.models.campaign.network_distribution_setting import NetworkDistributionSetting
 from openapi_client.models.campaign.new_customer_acquisition_goal import NewCustomerAcquisitionGoal
 from openapi_client.models.campaign.new_customer_acquisition_goal_setting import NewCustomerAcquisitionGoalSetting
 from openapi_client.models.campaign.news_ad_extension import NewsAdExtension
@@ -778,6 +781,7 @@ from openapi_client.models.campaign.setting import Setting
 from openapi_client.models.campaign.setting_base import SettingBase
 from openapi_client.models.campaign.shared_entity import SharedEntity
 from openapi_client.models.campaign.shared_entity_association import SharedEntityAssociation
+from openapi_client.models.campaign.shared_entity_association_additional_field import SharedEntityAssociationAdditionalField
 from openapi_client.models.campaign.shared_list import SharedList
 from openapi_client.models.campaign.shared_list_base import SharedListBase
 from openapi_client.models.campaign.shared_list_item import SharedListItem

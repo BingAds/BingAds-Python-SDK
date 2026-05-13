@@ -31,7 +31,9 @@ class SharedEntityAssociation(BaseModel):
     entity_id: Optional[StrictStr] = Field(default=None, alias="EntityId")
     entity_type: Optional[StrictStr] = Field(default=None, alias="EntityType")
     shared_entity_customer_id: Optional[StrictStr] = Field(default=None, alias="SharedEntityCustomerId")
-    __properties: ClassVar[List[str]] = ["SharedEntityId", "SharedEntityType", "EntityId", "EntityType", "SharedEntityCustomerId"]
+    is_exclusion: Optional[StrictBool] = Field(default=None, alias="IsExclusion")
+    status: Optional[StrictStr] = Field(default=None, alias="Status")
+    __properties: ClassVar[List[str]] = ["SharedEntityId", "SharedEntityType", "EntityId", "EntityType", "SharedEntityCustomerId", "IsExclusion", "Status"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -83,6 +85,16 @@ class SharedEntityAssociation(BaseModel):
         if self.shared_entity_customer_id is None and "shared_entity_customer_id" in self.model_fields_set:
             _dict['SharedEntityCustomerId'] = None
 
+        # set to None if is_exclusion (nullable) is None
+        # and model_fields_set contains the field
+        if self.is_exclusion is None and "is_exclusion" in self.model_fields_set:
+            _dict['IsExclusion'] = None
+
+        # set to None if status (nullable) is None
+        # and model_fields_set contains the field
+        if self.status is None and "status" in self.model_fields_set:
+            _dict['Status'] = None
+
         return _dict
 
     @classmethod
@@ -99,6 +111,8 @@ class SharedEntityAssociation(BaseModel):
                         "SharedEntityType": obj.get("SharedEntityType") if obj.get("SharedEntityType") is not None else None,
                         "EntityId": obj.get("EntityId") if obj.get("EntityId") is not None else None,
                         "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
-                        "SharedEntityCustomerId": obj.get("SharedEntityCustomerId") if obj.get("SharedEntityCustomerId") is not None else None
+                        "SharedEntityCustomerId": obj.get("SharedEntityCustomerId") if obj.get("SharedEntityCustomerId") is not None else None,
+                        "IsExclusion": obj.get("IsExclusion") if obj.get("IsExclusion") is not None else None,
+                        "Status": obj.get("Status") if obj.get("Status") is not None else None
         })
         return _obj

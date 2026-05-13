@@ -11,3 +11,4 @@ from .bulk_offline_conversion_goal import *
 from .bulk_pages_viewed_per_visit_goal import *
 from .bulk_product_goal import *
 from .bulk_url_goal import *
+from .bulk_app_download_goal import *

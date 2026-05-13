@@ -27,12 +27,12 @@ class AudienceGroup(BaseModel):
     """
     AudienceGroup
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     dimensions: Optional[List[Optional[AudienceGroupDimension]]] = Field(default=None, alias="Dimensions")
     association_count: Optional[StrictInt] = Field(default=None, alias="AssociationCount")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "Dimensions", "AssociationCount"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "Description", "Dimensions", "AssociationCount", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -66,11 +66,6 @@ class AudienceGroup(BaseModel):
                 if _item_dimensions:
                     _items.append(_item_dimensions.to_dict())
             _dict['Dimensions'] = _items
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -91,6 +86,11 @@ class AudienceGroup(BaseModel):
         if self.association_count is None and "association_count" in self.model_fields_set:
             _dict['AssociationCount'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -103,10 +103,10 @@ class AudienceGroup(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
                         "Dimensions": [AudienceGroupDimension.from_dict(_item) for _item in obj["Dimensions"]] if obj.get("Dimensions") is not None else None,
-                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None
+                        "AssociationCount": obj.get("AssociationCount") if obj.get("AssociationCount") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

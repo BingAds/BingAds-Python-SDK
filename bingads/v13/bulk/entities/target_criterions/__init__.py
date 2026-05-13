@@ -23,6 +23,8 @@ from .bulk_campaign_device_criterion import *
 from .bulk_campaign_gender_criterion import *
 from .bulk_campaign_location_criterion import *
 from .bulk_campaign_location_intent_criterion import *
+from .bulk_campaign_negative_age_criterion import *
+from .bulk_campaign_negative_gender_criterion import *
 from .bulk_campaign_negative_location_criterion import *
 from .bulk_campaign_radius_criterion import *
 from .bulk_campaign_profile_criterion import *

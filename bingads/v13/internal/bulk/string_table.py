@@ -614,6 +614,8 @@ class _StringTable:
     CampaignGenderCriterion = 'Campaign Gender Criterion'
     CampaignLocationCriterion = 'Campaign Location Criterion'
     CampaignLocationIntentCriterion = 'Campaign Location Intent Criterion'
+    CampaignNegativeAgeCriterion = 'Campaign Negative Age Criterion'
+    CampaignNegativeGenderCriterion = 'Campaign Negative Gender Criterion'
     CampaignNegativeLocationCriterion = 'Campaign Negative Location Criterion'
     CampaignRadiusCriterion = 'Campaign Radius Criterion'
     CampaignCompanyNameCriterion = 'Campaign Company Name Criterion'
@@ -757,3 +759,11 @@ class _StringTable:
     Topic = "Topic"
     ContentPlacement = "Content Placement"
     TopicParentId = "Topic Parent Id"
+
+    BaseDomain = "Base Domain"
+    AISearchEnabled = "AI Search Enabled"
+    SearchTermMatchingOptOut = "Search Term Matching Opt Out"
+    AccountContentNegativeKeywordList = "Account Content Negative Keyword List"
+    AccountContentNegativeKeywordListAssociation = "Account Content Negative Keyword List Association"
+    AccountContentSharedNegativeKeyword = "Account Content Shared Negative Keyword"
+    AppDownloadGoal = "AppDownload Goal"

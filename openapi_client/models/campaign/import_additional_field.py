@@ -80,6 +80,8 @@ class ImportAdditionalField(Flag):
 
     UPDATEAIMAXSETTINGS = auto()
 
+    IMPORTNCAGOALWITHSYSTEMGENERATEDAUDIENCE = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -125,6 +127,7 @@ class ImportAdditionalField(Flag):
             ImportAdditionalField.NEWAIMAXSETTINGS: 'NewAIMaxSettings',
             ImportAdditionalField.IMAGEASSETAUTOMATIONOPTOUT: 'ImageAssetAutomationOptOut',
             ImportAdditionalField.UPDATEAIMAXSETTINGS: 'UpdateAIMaxSettings',
+            ImportAdditionalField.IMPORTNCAGOALWITHSYSTEMGENERATEDAUDIENCE: 'ImportNCAGoalWithSystemGeneratedAudience',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in ImportAdditionalField if flag & self]

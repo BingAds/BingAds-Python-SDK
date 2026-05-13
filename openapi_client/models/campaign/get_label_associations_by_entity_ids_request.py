@@ -27,9 +27,9 @@ class GetLabelAssociationsByEntityIdsRequest(BaseModel):
     """
     GetLabelAssociationsByEntityIdsRequest
     """ # noqa: E501
-    entity_ids: Optional[List[StrictStr]] = Field(default=None, alias="EntityIds")
     entity_type: Optional[EntityType] = Field(default=None, alias="EntityType")
-    __properties: ClassVar[List[str]] = ["EntityIds", "EntityType"]
+    entity_ids: Optional[List[StrictStr]] = Field(default=None, alias="EntityIds")
+    __properties: ClassVar[List[str]] = ["EntityType", "EntityIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,15 +56,15 @@ class GetLabelAssociationsByEntityIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if entity_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.entity_ids is None and "entity_ids" in self.model_fields_set:
-            _dict['EntityIds'] = None
-
         # set to None if entity_type (nullable) is None
         # and model_fields_set contains the field
         if self.entity_type is None and "entity_type" in self.model_fields_set:
             _dict['EntityType'] = None
+
+        # set to None if entity_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.entity_ids is None and "entity_ids" in self.model_fields_set:
+            _dict['EntityIds'] = None
 
         return _dict
 
@@ -78,7 +78,7 @@ class GetLabelAssociationsByEntityIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "EntityIds": obj.get("EntityIds"),
-                        "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None
+            "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
+                        "EntityIds": obj.get("EntityIds")
         })
         return _obj

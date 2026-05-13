@@ -539,6 +539,16 @@ class _CsvHeaders:
 
         _StringTable.AccountPlacementListItemUrl,
         _StringTable.TopicParentId,
+
+        # AIMax Campaign
+        _StringTable.BaseDomain,
+        _StringTable.AISearchEnabled,
+        _StringTable.SearchTermMatchingOptOut,
+
+        # Account Content Negative Keyword List
+        _StringTable.AccountContentNegativeKeywordList,
+        _StringTable.AccountContentNegativeKeywordListAssociation,
+        _StringTable.AccountContentSharedNegativeKeyword,
     ]
 
     @staticmethod

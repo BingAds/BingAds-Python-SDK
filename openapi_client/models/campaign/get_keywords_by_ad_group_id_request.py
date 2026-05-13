@@ -27,9 +27,9 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
     """
     GetKeywordsByAdGroupIdRequest
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
     return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "ReturnAdditionalFields"]
+    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "AdGroupId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,15 +56,15 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
         # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
+
+        # set to None if ad_group_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
+            _dict['AdGroupId'] = None
 
         return _dict
 
@@ -78,7 +78,7 @@ class GetKeywordsByAdGroupIdRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None
         })
         return _obj

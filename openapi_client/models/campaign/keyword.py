@@ -45,14 +45,14 @@ class Keyword(BaseModel):
     editorial_status: Optional[KeywordEditorialStatus] = Field(default=None, alias="EditorialStatus")
     destination_url: Optional[StrictStr] = Field(default=None, alias="DestinationUrl")
     tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
-    final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
     url_custom_parameters: Optional[CustomParameters] = Field(default=None, alias="UrlCustomParameters")
     final_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalUrls")
     final_mobile_urls: Optional[List[StrictStr]] = Field(default=None, alias="FinalMobileUrls")
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     bidding_scheme: Optional[BiddingScheme] = Field(default=None, alias="BiddingScheme")
+    final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Bid", "MatchType", "Param1", "Param2", "Param3", "Text", "Status", "EditorialStatus", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "BiddingScheme", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Bid", "MatchType", "Param1", "Param2", "Param3", "Text", "Status", "EditorialStatus", "DestinationUrl", "TrackingUrlTemplate", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "BiddingScheme", "FinalUrlSuffix", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -157,11 +157,6 @@ class Keyword(BaseModel):
         if self.tracking_url_template is None and "tracking_url_template" in self.model_fields_set:
             _dict['TrackingUrlTemplate'] = None
 
-        # set to None if final_url_suffix (nullable) is None
-        # and model_fields_set contains the field
-        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
-            _dict['FinalUrlSuffix'] = None
-
         # set to None if url_custom_parameters (nullable) is None
         # and model_fields_set contains the field
         if self.url_custom_parameters is None and "url_custom_parameters" in self.model_fields_set:
@@ -186,6 +181,11 @@ class Keyword(BaseModel):
         # and model_fields_set contains the field
         if self.bidding_scheme is None and "bidding_scheme" in self.model_fields_set:
             _dict['BiddingScheme'] = None
+
+        # set to None if final_url_suffix (nullable) is None
+        # and model_fields_set contains the field
+        if self.final_url_suffix is None and "final_url_suffix" in self.model_fields_set:
+            _dict['FinalUrlSuffix'] = None
 
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
@@ -215,12 +215,12 @@ class Keyword(BaseModel):
                         "EditorialStatus": obj.get("EditorialStatus") if obj.get("EditorialStatus") is not None else None,
                         "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
                         "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
-                        "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
                         "UrlCustomParameters": CustomParameters.from_dict(obj["UrlCustomParameters"]) if obj.get("UrlCustomParameters") is not None else None,
                         "FinalUrls": obj.get("FinalUrls"),
                         "FinalMobileUrls": obj.get("FinalMobileUrls"),
                         "FinalAppUrls": [AppUrl.from_dict(_item) for _item in obj["FinalAppUrls"]] if obj.get("FinalAppUrls") is not None else None,
                         "BiddingScheme": BiddingScheme.from_dict(obj["BiddingScheme"]) if obj.get("BiddingScheme") is not None else None,
+                        "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

@@ -26,11 +26,11 @@ class Label(BaseModel):
     """
     Label
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     color_code: Optional[StrictStr] = Field(default=None, alias="ColorCode")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Description", "ColorCode"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "Description", "ColorCode", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,11 +57,6 @@ class Label(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -77,6 +72,11 @@ class Label(BaseModel):
         if self.color_code is None and "color_code" in self.model_fields_set:
             _dict['ColorCode'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -89,9 +89,9 @@ class Label(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Description": obj.get("Description") if obj.get("Description") is not None else None,
-                        "ColorCode": obj.get("ColorCode") if obj.get("ColorCode") is not None else None
+                        "ColorCode": obj.get("ColorCode") if obj.get("ColorCode") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

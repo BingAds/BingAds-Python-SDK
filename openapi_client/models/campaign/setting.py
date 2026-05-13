@@ -45,6 +45,7 @@ class Setting(BaseModel):
                 ('DynamicFeedSetting', 'DynamicFeedSetting'),
                 ('DynamicSearchAdsSetting', 'DynamicSearchAdsSetting'),
                 ('HotelSetting', 'HotelSetting'),
+                ('NetworkDistributionSetting', 'NetworkDistributionSetting'),
                 ('NewCustomerAcquisitionGoalSetting', 'NewCustomerAcquisitionGoalSetting'),
                 ('PerformanceMaxSetting', 'PerformanceMaxSetting'),
                 ('ResponsiveSearchAdsSetting', 'ResponsiveSearchAdsSetting'),
@@ -133,6 +134,10 @@ class Setting(BaseModel):
         if type == "HotelSetting":
             from openapi_client.models.campaign.hotel_setting import HotelSetting
             return HotelSetting.from_dict(obj)
+        
+        if type == "NetworkDistributionSetting":
+            from openapi_client.models.campaign.network_distribution_setting import NetworkDistributionSetting
+            return NetworkDistributionSetting.from_dict(obj)
         
         if type == "NewCustomerAcquisitionGoalSetting":
             from openapi_client.models.campaign.new_customer_acquisition_goal_setting import NewCustomerAcquisitionGoalSetting

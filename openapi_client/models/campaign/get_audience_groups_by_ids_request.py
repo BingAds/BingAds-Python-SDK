@@ -27,9 +27,9 @@ class GetAudienceGroupsByIdsRequest(BaseModel):
     """
     GetAudienceGroupsByIdsRequest
     """ # noqa: E501
-    audience_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AudienceGroupIds")
     return_additional_fields: Optional[AudienceGroupAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["AudienceGroupIds", "ReturnAdditionalFields"]
+    audience_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AudienceGroupIds")
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "AudienceGroupIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,15 +56,15 @@ class GetAudienceGroupsByIdsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if audience_group_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.audience_group_ids is None and "audience_group_ids" in self.model_fields_set:
-            _dict['AudienceGroupIds'] = None
-
         # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
+
+        # set to None if audience_group_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.audience_group_ids is None and "audience_group_ids" in self.model_fields_set:
+            _dict['AudienceGroupIds'] = None
 
         return _dict
 
@@ -78,7 +78,7 @@ class GetAudienceGroupsByIdsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AudienceGroupIds": obj.get("AudienceGroupIds"),
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+            "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
+                        "AudienceGroupIds": obj.get("AudienceGroupIds")
         })
         return _obj

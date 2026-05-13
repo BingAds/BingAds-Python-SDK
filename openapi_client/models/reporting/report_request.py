@@ -66,6 +66,8 @@ class ReportRequest(BaseModel):
                 ('HotelDimensionPerformanceReportRequest', 'HotelDimensionPerformanceReportRequest'),
                 ('HotelGroupPerformanceReportRequest', 'HotelGroupPerformanceReportRequest'),
                 ('KeywordPerformanceReportRequest', 'KeywordPerformanceReportRequest'),
+                ('MMMPerformanceReportRequest', 'MMMPerformanceReportRequest'),
+                ('MSClickIdPerformanceReportRequest', 'MSClickIdPerformanceReportRequest'),
                 ('NegativeKeywordConflictReportRequest', 'NegativeKeywordConflictReportRequest'),
                 ('ProductDimensionPerformanceReportRequest', 'ProductDimensionPerformanceReportRequest'),
                 ('ProductMatchCountReportRequest', 'ProductMatchCountReportRequest'),
@@ -245,6 +247,14 @@ class ReportRequest(BaseModel):
         if type == "KeywordPerformanceReportRequest":
             from openapi_client.models.reporting.keyword_performance_report_request import KeywordPerformanceReportRequest
             return KeywordPerformanceReportRequest.from_dict(obj)
+        
+        if type == "MMMPerformanceReportRequest":
+            from openapi_client.models.reporting.mmm_performance_report_request import MMMPerformanceReportRequest
+            return MMMPerformanceReportRequest.from_dict(obj)
+        
+        if type == "MSClickIdPerformanceReportRequest":
+            from openapi_client.models.reporting.ms_click_id_performance_report_request import MSClickIdPerformanceReportRequest
+            return MSClickIdPerformanceReportRequest.from_dict(obj)
         
         if type == "NegativeKeywordConflictReportRequest":
             from openapi_client.models.reporting.negative_keyword_conflict_report_request import NegativeKeywordConflictReportRequest

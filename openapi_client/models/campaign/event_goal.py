@@ -36,10 +36,8 @@ class EventGoal(ConversionGoal):
     """
     EventGoal
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[ConversionGoalStatus] = Field(default=None, alias="Status")
-    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     scope: Optional[EntityScope] = Field(default=None, alias="Scope")
     count_type: Optional[ConversionGoalCountType] = Field(default=None, alias="CountType")
     revenue: Optional[ConversionGoalRevenue] = Field(default=None, alias="Revenue")
@@ -52,15 +50,17 @@ class EventGoal(ConversionGoal):
     attribution_model_type: Optional[AttributionModelType] = Field(default=None, alias="AttributionModelType")
     is_enhanced_conversions_enabled: Optional[StrictBool] = Field(default=None, alias="IsEnhancedConversionsEnabled")
     is_auto_goal: Optional[StrictBool] = Field(default=None, alias="IsAutoGoal")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    type: Optional[ConversionGoalType] = Field(default=None, alias="Type")
     category_expression: Optional[StrictStr] = Field(default=None, alias="CategoryExpression")
     category_operator: Optional[ExpressionOperator] = Field(default=None, alias="CategoryOperator")
     action_expression: Optional[StrictStr] = Field(default=None, alias="ActionExpression")
     action_operator: Optional[ExpressionOperator] = Field(default=None, alias="ActionOperator")
     label_expression: Optional[StrictStr] = Field(default=None, alias="LabelExpression")
     label_operator: Optional[ExpressionOperator] = Field(default=None, alias="LabelOperator")
-    value: Optional[StrictFloat] = Field(default=None, alias="Value")
     value_operator: Optional[ValueOperator] = Field(default=None, alias="ValueOperator")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "Type", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal", "CategoryExpression", "CategoryOperator", "ActionExpression", "ActionOperator", "LabelExpression", "LabelOperator", "Value", "ValueOperator"]
+    value: Optional[StrictFloat] = Field(default=None, alias="Value")
+    __properties: ClassVar[List[str]] = ["Name", "Status", "Scope", "CountType", "Revenue", "ConversionWindowInMinutes", "TagId", "TrackingStatus", "ExcludeFromBidding", "ViewThroughConversionWindowInMinutes", "GoalCategory", "AttributionModelType", "IsEnhancedConversionsEnabled", "IsAutoGoal", "Id", "Type", "CategoryExpression", "CategoryOperator", "ActionExpression", "ActionOperator", "LabelExpression", "LabelOperator", "ValueOperator", "Value"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,11 +103,6 @@ class EventGoal(ConversionGoal):
         # override the default output from pydantic by calling `to_dict()` of revenue
         if self.revenue:
             _dict['Revenue'] = self.revenue.to_dict()
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -117,11 +112,6 @@ class EventGoal(ConversionGoal):
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
             _dict['Status'] = None
-
-        # set to None if type (nullable) is None
-        # and model_fields_set contains the field
-        if self.type is None and "type" in self.model_fields_set:
-            _dict['Type'] = None
 
         # set to None if scope (nullable) is None
         # and model_fields_set contains the field
@@ -183,6 +173,16 @@ class EventGoal(ConversionGoal):
         if self.is_auto_goal is None and "is_auto_goal" in self.model_fields_set:
             _dict['IsAutoGoal'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
+        # set to None if type (nullable) is None
+        # and model_fields_set contains the field
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
+
         # set to None if category_expression (nullable) is None
         # and model_fields_set contains the field
         if self.category_expression is None and "category_expression" in self.model_fields_set:
@@ -213,15 +213,15 @@ class EventGoal(ConversionGoal):
         if self.label_operator is None and "label_operator" in self.model_fields_set:
             _dict['LabelOperator'] = None
 
-        # set to None if value (nullable) is None
-        # and model_fields_set contains the field
-        if self.value is None and "value" in self.model_fields_set:
-            _dict['Value'] = None
-
         # set to None if value_operator (nullable) is None
         # and model_fields_set contains the field
         if self.value_operator is None and "value_operator" in self.model_fields_set:
             _dict['ValueOperator'] = None
+
+        # set to None if value (nullable) is None
+        # and model_fields_set contains the field
+        if self.value is None and "value" in self.model_fields_set:
+            _dict['Value'] = None
 
         return _dict
 
@@ -235,10 +235,8 @@ class EventGoal(ConversionGoal):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Scope": obj.get("Scope") if obj.get("Scope") is not None else None,
                         "CountType": obj.get("CountType") if obj.get("CountType") is not None else None,
                         "Revenue": ConversionGoalRevenue.from_dict(obj["Revenue"]) if obj.get("Revenue") is not None else None,
@@ -251,13 +249,15 @@ class EventGoal(ConversionGoal):
                         "AttributionModelType": obj.get("AttributionModelType") if obj.get("AttributionModelType") is not None else None,
                         "IsEnhancedConversionsEnabled": obj.get("IsEnhancedConversionsEnabled") if obj.get("IsEnhancedConversionsEnabled") is not None else None,
                         "IsAutoGoal": obj.get("IsAutoGoal") if obj.get("IsAutoGoal") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
+                        "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "CategoryExpression": obj.get("CategoryExpression") if obj.get("CategoryExpression") is not None else None,
                         "CategoryOperator": obj.get("CategoryOperator") if obj.get("CategoryOperator") is not None else None,
                         "ActionExpression": obj.get("ActionExpression") if obj.get("ActionExpression") is not None else None,
                         "ActionOperator": obj.get("ActionOperator") if obj.get("ActionOperator") is not None else None,
                         "LabelExpression": obj.get("LabelExpression") if obj.get("LabelExpression") is not None else None,
                         "LabelOperator": obj.get("LabelOperator") if obj.get("LabelOperator") is not None else None,
-                        "Value": obj.get("Value") if obj.get("Value") is not None else None,
-                        "ValueOperator": obj.get("ValueOperator") if obj.get("ValueOperator") is not None else None
+                        "ValueOperator": obj.get("ValueOperator") if obj.get("ValueOperator") is not None else None,
+                        "Value": obj.get("Value") if obj.get("Value") is not None else None
         })
         return _obj

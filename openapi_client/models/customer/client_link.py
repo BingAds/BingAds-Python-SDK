@@ -49,7 +49,8 @@ class ClientLink(BaseModel):
     timestamp: Optional[StrictStr] = Field(default=None, alias="Timestamp")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     customer_link_permission: Optional[StrictStr] = Field(default=None, alias="CustomerLinkPermission")
-    __properties: ClassVar[List[str]] = ["Type", "ClientEntityId", "ClientEntityNumber", "ClientEntityName", "ManagingCustomerId", "ManagingCustomerNumber", "ManagingCustomerName", "Note", "Name", "InviterEmail", "InviterName", "InviterPhone", "IsBillToClient", "StartDate", "Status", "SuppressNotification", "LastModifiedDateTime", "LastModifiedByUserId", "Timestamp", "ForwardCompatibilityMap", "CustomerLinkPermission"]
+    client_entity_customer_number: Optional[StrictStr] = Field(default=None, alias="ClientEntityCustomerNumber")
+    __properties: ClassVar[List[str]] = ["Type", "ClientEntityId", "ClientEntityNumber", "ClientEntityName", "ManagingCustomerId", "ManagingCustomerNumber", "ManagingCustomerName", "Note", "Name", "InviterEmail", "InviterName", "InviterPhone", "IsBillToClient", "StartDate", "Status", "SuppressNotification", "LastModifiedDateTime", "LastModifiedByUserId", "Timestamp", "ForwardCompatibilityMap", "CustomerLinkPermission", "ClientEntityCustomerNumber"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -188,6 +189,11 @@ class ClientLink(BaseModel):
         if self.customer_link_permission is None and "customer_link_permission" in self.model_fields_set:
             _dict['CustomerLinkPermission'] = None
 
+        # set to None if client_entity_customer_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.client_entity_customer_number is None and "client_entity_customer_number" in self.model_fields_set:
+            _dict['ClientEntityCustomerNumber'] = None
+
         return _dict
 
     @classmethod
@@ -220,6 +226,7 @@ class ClientLink(BaseModel):
                         "LastModifiedByUserId": obj.get("LastModifiedByUserId") if obj.get("LastModifiedByUserId") is not None else None,
                         "Timestamp": obj.get("Timestamp") if obj.get("Timestamp") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
-                        "CustomerLinkPermission": obj.get("CustomerLinkPermission") if obj.get("CustomerLinkPermission") is not None else None
+                        "CustomerLinkPermission": obj.get("CustomerLinkPermission") if obj.get("CustomerLinkPermission") is not None else None,
+                        "ClientEntityCustomerNumber": obj.get("ClientEntityCustomerNumber") if obj.get("ClientEntityCustomerNumber") is not None else None
         })
         return _obj

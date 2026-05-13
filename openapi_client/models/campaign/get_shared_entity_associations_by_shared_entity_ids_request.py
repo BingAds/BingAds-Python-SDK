@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.entity_scope import EntityScope
+from openapi_client.models.campaign.shared_entity_association_additional_field import SharedEntityAssociationAdditionalField
 from typing_extensions import Self
 
 class GetSharedEntityAssociationsBySharedEntityIdsRequest(BaseModel):
@@ -31,7 +32,8 @@ class GetSharedEntityAssociationsBySharedEntityIdsRequest(BaseModel):
     shared_entity_ids: Optional[List[StrictStr]] = Field(default=None, alias="SharedEntityIds")
     shared_entity_type: Optional[StrictStr] = Field(default=None, alias="SharedEntityType")
     shared_entity_scope: Optional[EntityScope] = Field(default=None, alias="SharedEntityScope")
-    __properties: ClassVar[List[str]] = ["EntityType", "SharedEntityIds", "SharedEntityType", "SharedEntityScope"]
+    return_additional_fields: Optional[SharedEntityAssociationAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
+    __properties: ClassVar[List[str]] = ["EntityType", "SharedEntityIds", "SharedEntityType", "SharedEntityScope", "ReturnAdditionalFields"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -78,6 +80,11 @@ class GetSharedEntityAssociationsBySharedEntityIdsRequest(BaseModel):
         if self.shared_entity_scope is None and "shared_entity_scope" in self.model_fields_set:
             _dict['SharedEntityScope'] = None
 
+        # set to None if return_additional_fields (nullable) is None
+        # and model_fields_set contains the field
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
+
         return _dict
 
     @classmethod
@@ -93,6 +100,7 @@ class GetSharedEntityAssociationsBySharedEntityIdsRequest(BaseModel):
             "EntityType": obj.get("EntityType") if obj.get("EntityType") is not None else None,
                         "SharedEntityIds": obj.get("SharedEntityIds"),
                         "SharedEntityType": obj.get("SharedEntityType") if obj.get("SharedEntityType") is not None else None,
-                        "SharedEntityScope": obj.get("SharedEntityScope") if obj.get("SharedEntityScope") is not None else None
+                        "SharedEntityScope": obj.get("SharedEntityScope") if obj.get("SharedEntityScope") is not None else None,
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
         })
         return _obj

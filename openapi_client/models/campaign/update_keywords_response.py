@@ -27,9 +27,9 @@ class UpdateKeywordsResponse(BaseModel):
     """
     UpdateKeywordsResponse
     """ # noqa: E501
-    partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     inherited_bid_strategy_types: Optional[List[StrictStr]] = Field(default=None, alias="InheritedBidStrategyTypes")
-    __properties: ClassVar[List[str]] = ["PartialErrors", "InheritedBidStrategyTypes"]
+    partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
+    __properties: ClassVar[List[str]] = ["InheritedBidStrategyTypes", "PartialErrors"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,15 +63,15 @@ class UpdateKeywordsResponse(BaseModel):
                 if _item_partial_errors:
                     _items.append(_item_partial_errors.to_dict())
             _dict['PartialErrors'] = _items
-        # set to None if partial_errors (nullable) is None
-        # and model_fields_set contains the field
-        if self.partial_errors is None and "partial_errors" in self.model_fields_set:
-            _dict['PartialErrors'] = None
-
         # set to None if inherited_bid_strategy_types (nullable) is None
         # and model_fields_set contains the field
         if self.inherited_bid_strategy_types is None and "inherited_bid_strategy_types" in self.model_fields_set:
             _dict['InheritedBidStrategyTypes'] = None
+
+        # set to None if partial_errors (nullable) is None
+        # and model_fields_set contains the field
+        if self.partial_errors is None and "partial_errors" in self.model_fields_set:
+            _dict['PartialErrors'] = None
 
         return _dict
 
@@ -85,7 +85,7 @@ class UpdateKeywordsResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "PartialErrors": [BatchError.from_dict(_item) for _item in obj["PartialErrors"]] if obj.get("PartialErrors") is not None else None,
-                        "InheritedBidStrategyTypes": obj.get("InheritedBidStrategyTypes")
+            "InheritedBidStrategyTypes": obj.get("InheritedBidStrategyTypes"),
+                        "PartialErrors": [BatchError.from_dict(_item) for _item in obj["PartialErrors"]] if obj.get("PartialErrors") is not None else None
         })
         return _obj
