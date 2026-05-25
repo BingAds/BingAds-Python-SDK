@@ -328,6 +328,8 @@ class ServiceClient:
         else:
             host = location
 
+        self._authorization_data = authorization_data
+
         # Create configuration with current auth data
         config = Configuration(host=host)
 
@@ -336,9 +338,7 @@ class ServiceClient:
         self._version = self._format_version(version)
 
         # Set up default headers with our auth headers
-        headers = self.create_rest_headers(authorization_data)
-        for header_name, header_value in headers.items():
-            api_client.set_default_header(header_name, header_value)
+        self._set_rest_headers(api_client)
 
         if (service_name == 'campaignmanagement'):
             self._api = CampaignManagementServiceApi(api_client)
@@ -373,14 +373,13 @@ class ServiceClient:
             service = service.replace('service', '')  # remove postfix "service" if any
         return service
 
-    def create_rest_headers(self, authorization_data):
+    def create_rest_headers(self):
         """ Creates headers for REST API calls.
 
-        :param authorization_data: Authorization data for the request
-        :type authorization_data: AuthorizationData
         :return: Dictionary containing all required headers
         :rtype: dict
         """
+        authorization_data = self._authorization_data
         if authorization_data is None:
             raise ValueError("Authorization data cannot be None.")
 
@@ -395,6 +394,11 @@ class ServiceClient:
         authorization_data.authentication.enrich_headers(headers)
 
         return headers
+
+    def _set_rest_headers(self, api_client):
+        headers = self.create_rest_headers()
+        for header_name, header_value in headers.items():
+            api_client.set_default_header(header_name, header_value)
 
     @staticmethod
     def _format_version(version):
@@ -429,17 +433,27 @@ class ServiceClient:
     def __getattr__(self, name):
         """Delegate method calls to the underlying API instance.
         Supports both snake_case and PascalCase method names."""
+        def with_refreshed_headers(attribute):
+            if not callable(attribute):
+                return attribute
+
+            def refreshed_call(*args, **kwargs):
+                self._set_rest_headers(self._api.api_client)
+                return attribute(*args, **kwargs)
+
+            return refreshed_call
+
         # If name is already in snake_case, try to get it directly
         if not name[0].isupper():
             try:
-                return getattr(self._api, name)
+                return with_refreshed_headers(getattr(self._api, name))
             except AttributeError:
                 raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
         # If name is PascalCase, convert to snake_case and try once
         snake_name = _CampaignObjectFactoryV13._convert_to_snake_case(name)
         try:
-            return getattr(self._api, snake_name)
+            return with_refreshed_headers(getattr(self._api, snake_name))
         except AttributeError:
             raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
 
