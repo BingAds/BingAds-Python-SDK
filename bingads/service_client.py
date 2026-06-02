@@ -1,3 +1,6 @@
+import re
+import importlib
+
 from enum import Enum
 from typing import List, Optional, Union
 from pydantic import BaseModel
@@ -12,114 +15,279 @@ from openapi_client.model_utils import enable_alias_support
 from openapi_client.configuration import Configuration
 from openapi_client.api_client import ApiClient
 from .manifest import USER_AGENT
-import importlib
+
+# Pre-compiled patterns — module-level so they are compiled exactly once.
+_CAMEL_RE1 = re.compile(r'(.)([A-Z][a-z]+)')
+_CAMEL_RE2 = re.compile(r'([a-z0-9])([A-Z])')
+_NS_PREFIX_RE = re.compile(r'^ns\d+:')
+
+# Module-level alias — avoids per-call attribute lookup and bypasses any
+# class-level __setattr__ override (Pydantic, dataclass, etc.).
+_osa = object.__setattr__
+
+def _to_snake_case(name: str) -> str:
+    name = _CAMEL_RE1.sub(r'\1_\2', name)
+    return _CAMEL_RE2.sub(r'\1_\2', name).lower()
+
 
 class _CampaignObjectFactoryV13:
     """Factory class for creating campaign management objects."""
 
-    # Per-type template cache: maps class → a fully-initialized instance that is
-    # deep-copied on each create() call.  Built once on first use, reused after.
-    _template_cache: dict = {}
-
-    # Types whose template has no pre-built nested fields (all fields are None/primitives).
-    # For these, model_construct() is called directly — no deepcopy needed.
-    _empty_types: set = set()
-
     # Maps normalized type_name → resolved class (avoids regex + importlib on every call).
     _class_cache: dict = {}
 
+    # Per-type construction spec: class_ → list of (field_name, attr_name, factory_fn).
+    # factory_fn() returns a fresh nested value with no Pydantic validation.
+    # Built once per type in _analyze_type(); used by _create_instance() on every call.
+    _construct_spec: dict = {}
+
+    # Types with no nested fields AND no custom __init__ side-effects.
+    _empty_types: set = set()
+
+    # Types whose __init__ sets discriminator / default fields beyond what the spec covers.
+    _needs_init: set = set()
+
+    # Cached ArrayHolder classes per element-type name.
+    _array_holder_cache: dict = {}
+
+    # Per-type template instance built once in _analyze_type().
+    _template_cache: dict = {}
+
+    # Pre-compiled creator functions: type_name str → callable() → fresh instance.
+    # Bypasses all per-call overhead after the first resolution.
+    _creator_cache: dict = {}
+
+    # Same but keyed by class object — used by nested-field factories.
+    _class_to_creator: dict = {}
+
     @staticmethod
-    def _convert_to_snake_case(name):
-        import re
-        name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', name).lower()
+    def _convert_to_snake_case(name: str) -> str:
+        return _to_snake_case(name)
 
     @classmethod
-    def _build_template(cls, class_):
-        """Build one fully-initialized template instance (slow path, runs once per type).
+    def _make_array_holder(cls, element_type: str):
+        """Return a new ArrayHolder instance using a cached per-element-type class."""
+        holder_class = cls._array_holder_cache.get(element_type)
+        if holder_class is None:
+            _et = element_type
 
-        Uses class_() so that custom __init__ logic (e.g. ConversionGoal setting the
-        Type discriminator) is preserved, then pre-initialises nested BaseModel fields
-        and ArrayHolder wrappers.  This runs once per type; subsequent create() calls
-        return a cheap deepcopy of the cached result.
+            class ArrayHolder(list):
+                def __init__(self):
+                    super().__init__()
+                    self._is_none = False
+
+                def __getattr__(self, name):
+                    if name.lower() in (_et.lower(), 'long'):
+                        return None if self._is_none else self
+                    raise AttributeError(name)
+
+                def __setattr__(self, name, value):
+                    if name == '_is_none':
+                        super().__setattr__(name, value)
+                    elif name.lower() in (_et.lower(), 'long'):
+                        self._is_none = (value is None)
+                        self.clear()
+                        if not self._is_none and value is not None:
+                            self.extend(value)
+                    else:
+                        super().__setattr__(name, value)
+
+                def append(self, value):
+                    super().append(value)
+
+                def extend(self, values):
+                    super().extend(values)
+
+                def clear(self):
+                    while len(self):
+                        self.pop()
+
+            holder_class = ArrayHolder
+            cls._array_holder_cache[element_type] = holder_class
+        inst = list.__new__(holder_class)
+        _osa(inst, '_is_none', False)
+        return inst
+
+    @classmethod
+    def _resolve_element_type_name(cls, element_type) -> Optional[str]:
+        """Extract the string type name from a List element type annotation."""
+        if hasattr(element_type, '__name__'):
+            return element_type.__name__
+        if hasattr(element_type, '__origin__'):
+            if hasattr(element_type.__origin__, '__name__'):
+                name = element_type.__origin__.__name__
+                if isinstance(element_type, dict) and element_type.get('long'):
+                    return 'string'
+                return name
+        else:
+            type_str = str(element_type)
+            if 'models' in type_str:
+                parts = type_str.split('.')
+                return parts[-1].rstrip("']")
+        return None
+
+    @classmethod
+    def _analyze_type(cls, class_):
+        """Build the construction spec for *class_* (runs once per type).
+
+        Calls class_() once to detect any custom __init__ side-effects (e.g.
+        ConversionGoal sets its Type discriminator), then walks model_fields to
+        record a factory lambda for each nested BaseModel or ArrayHolder field.
+
+        Subsequent _create_instance() calls use this spec with model_construct()
+        — no Pydantic validation, no deepcopy.
         """
-        instance = class_()
+        try:
+            probe = class_()
+        except Exception:
+            probe = class_.model_construct()
+
+        init_fields = frozenset(probe.model_fields_set)
+
+        spec = []
+        spec_field_names = set()
+
         for field_name, field_info in class_.model_fields.items():
             field_type = field_info.annotation
-            field_value = None
+            factory = None
             try:
+                # Unwrap Optional[T] → T
                 if hasattr(field_type, '__origin__') and field_type.__origin__ is Union:
-                    field_type = [t for t in field_type.__args__ if t != type(None)][0]
+                    args = [t for t in field_type.__args__ if t is not type(None)]
+                    if not args:
+                        continue
+                    field_type = args[0]
 
                 if hasattr(field_type, '__origin__') and str(field_type).startswith('typing.List'):
                     element_type = field_type.__args__[0]
                     if hasattr(element_type, '__origin__') and element_type.__origin__ is Union:
-                        element_type = [t for t in element_type.__args__ if t != type(None)][0]
+                        element_type = next(
+                            (t for t in element_type.__args__ if t is not type(None)),
+                            element_type,
+                        )
                     if hasattr(element_type, 'mro') and Enum in element_type.mro():
                         continue
-                    element_type_name = None
-                    if hasattr(element_type, '__name__'):
-                        element_type_name = element_type.__name__
-                    elif hasattr(element_type, '__origin__'):
-                        if hasattr(element_type.__origin__, '__name__'):
-                            element_type_name = element_type.__origin__.__name__
-                            if isinstance(element_type, dict) and element_type.get('long'):
-                                element_type_name = 'string'
-                    else:
-                        type_str = str(element_type)
-                        if 'models' in type_str:
-                            type_parts = type_str.split('.')
-                            element_type_name = type_parts[-1].rstrip("']")
+
+                    element_type_name = cls._resolve_element_type_name(element_type)
                     if element_type_name:
                         if element_type_name in ('str', 'long'):
                             element_type_name = 'string'
+                        _atn = f"ArrayOf{element_type_name}"
+                        # Validate the array type exists, then use _make_array_holder
+                        # directly — avoids full create() overhead (regex, cache lookup)
+                        # on every subsequent call.
                         try:
-                            field_value = cls.create(f"ArrayOf{element_type_name}")
+                            cls.create(_atn)
+                            _et = element_type_name
+                            factory = lambda et=_et: cls._make_array_holder(et)
                         except ValueError:
-                            field_value = []
+                            factory = lambda: []
                     else:
-                        field_value = []
+                        factory = lambda: []
+
                 elif isinstance(field_type, type) and issubclass(field_type, BaseModel):
-                    try:
-                        field_value = cls._get_template(field_type)
-                    except Exception:
-                        pass
-                elif hasattr(field_type, '__origin__') and field_type.__origin__ is Union:
-                    non_none_type = [t for t in field_type.__args__ if t != type(None)][0]
-                    if isinstance(non_none_type, type) and issubclass(non_none_type, BaseModel):
-                        try:
-                            field_value = cls._get_template(non_none_type)
-                        except Exception:
-                            pass
-            except (AttributeError, IndexError, TypeError):
+                    _nc = field_type
+                    factory = lambda nc=_nc: cls._create_from_class(nc)
+
+            except (AttributeError, IndexError, TypeError, StopIteration):
                 continue
 
-            if field_value is not None:
-                pascal_case = field_info.alias or field_name
-                snake_case = cls._convert_to_snake_case(pascal_case)
-                instance.model_fields_set.add(field_name)
-                object.__setattr__(instance, snake_case, field_value)
-        return instance
+            if factory is not None:
+                attr_name = _to_snake_case(field_info.alias or field_name)
+                spec.append((field_name, attr_name, factory))
+                spec_field_names.add(field_name)
+
+        cls._construct_spec[class_] = spec
+
+        # If __init__ sets fields the spec doesn't cover, those fields carry discriminator
+        # or default values that model_construct() would miss — fall back to class_().
+        if init_fields - spec_field_names:
+            cls._needs_init.add(class_)
+        elif not spec:
+            cls._empty_types.add(class_)
+
+        # Build the per-type template once.  For _needs_init types reuse probe (already
+        # created by class_() above); otherwise start from model_construct().  Then
+        # populate all spec fields so the template is fully initialised.
+        template = probe if class_ in cls._needs_init else class_.model_construct()
+        for field_name, attr_name, factory in spec:
+            value = factory()
+            template.model_fields_set.add(field_name)
+            object.__setattr__(template, attr_name, value)
+        cls._template_cache[class_] = template
+
+        # Build and cache a pre-compiled creator for this class.
+        cls._build_creator(class_)
 
     @classmethod
-    def _get_template(cls, class_):
-        """Return the cached template for *class_*, building it on first call."""
-        if class_ not in cls._template_cache:
-            template = cls._build_template(class_)
-            cls._template_cache[class_] = template
-            # If _build_template set no fields, all fields are None/primitives.
-            # We can skip deepcopy on every call and just use model_construct().
-            if not template.model_fields_set:
-                cls._empty_types.add(class_)
-        return cls._template_cache[class_]
+    def _build_creator(cls, class_):
+        """Build and cache a zero-overhead creator function for *class_*.
+
+        Captures template state in closure variables so each subsequent call
+        is: object.__new__ + dict.copy() + set.copy() — no Pydantic Rust
+        overhead, no dict lookups for template/spec.
+        """
+        template = cls._template_cache[class_]
+        spec = cls._construct_spec.get(class_, ())
+
+        td = template.__dict__
+        tfs = template.__pydantic_fields_set__
+        try:
+            extra = template.__pydantic_extra__
+        except AttributeError:
+            extra = None
+        try:
+            private = template.__pydantic_private__
+        except AttributeError:
+            private = None
+
+        if not spec:
+            def creator(c=class_, td=td, tfs=tfs, e=extra, p=private):
+                inst = object.__new__(c)
+                _osa(inst, '__dict__', td.copy())
+                _osa(inst, '__pydantic_fields_set__', tfs.copy())
+                _osa(inst, '__pydantic_extra__', e)
+                _osa(inst, '__pydantic_private__', p)
+                return inst
+        else:
+            spec_pairs = tuple((attr, fac) for _, attr, fac in spec)
+
+            def creator(c=class_, td=td, tfs=tfs, e=extra, p=private, sp=spec_pairs):
+                inst = object.__new__(c)
+                d = td.copy()
+                for attr, fac in sp:
+                    d[attr] = fac()
+                _osa(inst, '__dict__', d)
+                _osa(inst, '__pydantic_fields_set__', tfs.copy())
+                _osa(inst, '__pydantic_extra__', e)
+                _osa(inst, '__pydantic_private__', p)
+                return inst
+
+        cls._class_to_creator[class_] = creator
+        cls._creator_cache[class_.__name__] = creator
+        return creator
+
+    @classmethod
+    def _create_from_class(cls, class_):
+        """Return a fresh instance for *class_*, using cached creator if available."""
+        creator = cls._class_to_creator.get(class_)
+        if creator is not None:
+            return creator()
+        cls._analyze_type(class_)
+        return cls._class_to_creator[class_]()
 
     @classmethod
     def _create_instance(cls, class_):
-        """Return a fresh instance: class_() for simple types, deepcopy for nested."""
-        if class_ in cls._empty_types:
-            return class_()
-        import copy
-        return copy.deepcopy(cls._get_template(class_))
+        """Return a fresh instance by copying the cached template.
+
+        Kept for backward compatibility; hot path now goes through _creator_cache.
+        Uses __new__ + dict.copy() instead of model_copy() to bypass Pydantic overhead.
+        """
+        creator = cls._class_to_creator.get(class_)
+        if creator is not None:
+            return creator()
+        cls._analyze_type(class_)
+        return cls._class_to_creator[class_]()
 
     @classmethod
     def create(cls, type_name):
@@ -134,65 +302,29 @@ class _CampaignObjectFactoryV13:
         Raises:
             ValueError: If type_name is not supported
         """
-        # Fast path: type already resolved on a previous call.
-        cached = cls._class_cache.get(type_name)
-        if cached is not None:
-            return cls._create_instance(cached)
+        # Ultra-fast path: pre-compiled creator bypasses all resolution overhead.
+        creator = cls._creator_cache.get(type_name)
+        if creator is not None:
+            return creator()
 
         try:
             original_name = type_name
-            # Strip namespace prefix and map type names
-            import re
-            type_name = re.sub(r'^ns\d+:', '', type_name)
+            type_name = _NS_PREFIX_RE.sub('', type_name)
 
-            # Handle type name mapping
             if type_name == 'KeyValuePairOfstringstring':
                 type_name = 'KeyValuePairOfstringAndstring'
 
-            # Handle array types (not cached — each ArrayHolder is a one-shot closure)
             if type_name.startswith('ArrayOf'):
                 element_type = type_name[len('ArrayOf'):]
-                # Create a class that holds the array
-                class ArrayHolder(list):
-                    def __init__(self):
-                        super().__init__()
-                        # Initialize internal list and None flag
-                        self._internal_list = []
-                        self._is_none = False
+                # Cache a creator for this ArrayOf* type so future calls hit fast path.
+                _et = element_type
+                array_creator = lambda et=_et: cls._make_array_holder(et)
+                cls._creator_cache[type_name] = array_creator
+                if original_name != type_name:
+                    cls._creator_cache[original_name] = array_creator
+                return array_creator()
 
-                    def __getattr__(self, name):
-                        # Support both cases (e.g. both 'string' and 'String')
-                        # Also handle 'long' as 'string'
-                        if name.lower() in (element_type.lower(), 'long'):
-                            return None if self._is_none else self
-                        raise AttributeError(name)
-
-                    def __setattr__(self, name, value):
-                        if name in ('_internal_list', '_is_none'):
-                            super().__setattr__(name, value)
-                        elif name.lower() in (element_type.lower(), 'long'):
-                            self._is_none = (value is None)
-                            # Update list contents
-                            self.clear()
-                            if not self._is_none and value is not None:
-                                self.extend(value)
-                        else:
-                            super().__setattr__(name, value)
-
-                    # List interface implementation
-                    def append(self, value):
-                        super().append(value)
-
-                    def extend(self, values):
-                        super().extend(values)
-
-                    def clear(self):
-                        while len(self):
-                            self.pop()
-
-                return ArrayHolder()
-
-            module_name = cls._convert_to_snake_case(type_name)
+            module_name = _to_snake_case(type_name)
             module = importlib.import_module(f"openapi_client.models.campaign.{module_name}")
             class_ = getattr(module, type_name)
 
@@ -204,11 +336,9 @@ class _CampaignObjectFactoryV13:
 
                     def __getattr__(self, name):
                         try:
-                            # Try to get the enum value directly
                             return getattr(self._enum_class, name)
                         except AttributeError:
                             try:
-                                # Try uppercase version if PascalCase fails
                                 return getattr(self._enum_class, name.upper())
                             except AttributeError:
                                 raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'")
@@ -216,28 +346,30 @@ class _CampaignObjectFactoryV13:
                     def __str__(self):
                         return str(self._enum_class)
 
-                return EnumAccessor(class_)
+                accessor = EnumAccessor(class_)
+                # Enum accessors are stateless — return the same singleton each time.
+                enum_creator = lambda a=accessor: a
+                cls._creator_cache[type_name] = enum_creator
+                if original_name != type_name:
+                    cls._creator_cache[original_name] = enum_creator
+                return accessor
 
             # Handle KeyValuePair creation with default values and dict-style access
             if type_name == 'KeyValuePairOfstringAndstring':
-                # Create instance with required fields and proper model initialization
                 instance = class_(Key="", Value="")
 
-                # Ensure model fields are properly tracked
                 if hasattr(instance, 'model_fields_set'):
-                    instance.model_fields_set.add("Key")
-                    instance.model_fields_set.add("Value")
+                    instance.model_fields_set.update({"Key", "Value"})
                 else:
                     instance.model_fields_set = {"Key", "Value"}
 
-                # Add dict-style access methods
                 def __getitem__(self, key):
                     if key.lower() == 'key':
                         return self.Key
                     elif key.lower() == 'value':
                         return self.Value
                     raise KeyError(key)
-                
+
                 def __setitem__(self, key, value):
                     if key.lower() == 'key':
                         self.Key = value
@@ -257,29 +389,31 @@ class _CampaignObjectFactoryV13:
 
                 def items(self):
                     return [('key', self.Key), ('value', self.Value)]
-                
-                # Add dict-style access to the instance's class
-                methods = {
+
+                for name, method in {
                     '__getitem__': __getitem__,
                     '__setitem__': __setitem__,
                     '__contains__': __contains__,
                     'keys': keys,
                     'values': values,
-                    'items': items
-                }
-                
-                for name, method in methods.items():
+                    'items': items,
+                }.items():
                     setattr(instance.__class__, name, method)
                 return instance
 
-            instance = cls._create_instance(class_)
-            # Cache under both the original call-site name and the normalized name so
-            # callers using namespace prefixes (e.g. 'ns3:HotelGroup') also hit the fast path.
+            # Cache class for backward compat (keeps _class_cache consistent).
             cls._class_cache[type_name] = class_
             if original_name != type_name:
                 cls._class_cache[original_name] = class_
 
-            return instance
+            # Build pre-compiled creator, cache under both string keys.
+            cls._analyze_type(class_)
+            creator = cls._class_to_creator[class_]
+            cls._creator_cache[type_name] = creator
+            if original_name != type_name:
+                cls._creator_cache[original_name] = creator
+
+            return creator()
         except (ImportError, AttributeError):
             raise ValueError(f"Type '{type_name}' is not supported")
 

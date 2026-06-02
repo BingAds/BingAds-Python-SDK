@@ -2,6 +2,10 @@
 
 Release History
 
+13.0.28.2(2027-06-02)
++++++++++++++++++++++++++
+* Set authentication and other headers before every service call.
+
 13.0.28.1(2027-05-13)
 +++++++++++++++++++++++++
 * Fix syntax error in bulk_operation.py.
