@@ -1,5 +1,6 @@
 from auth_helper import *
 from openapi_client.models.billing import *
+from datetime import datetime, timezone
 import uuid
 
 def main(authorization_data):
@@ -9,7 +10,7 @@ def main(authorization_data):
             account_id=authorization_data.account_id,
             booking_country_code='US',
             name='testIO' + str(uuid.uuid4()),
-            start_date=datetime.utcnow(),
+            start_date=datetime.now(timezone.utc),
             is_endless=True,
             comment='Test Insertion Order created by test',
             spend_cap_amount=1000.0
