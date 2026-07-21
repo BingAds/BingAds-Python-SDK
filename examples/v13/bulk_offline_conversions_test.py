@@ -17,7 +17,7 @@ Note: You must provide credentials in auth_helper.py.
 from auth_helper import *
 from bingads.v13.bulk import *
 from openapi_client.models.campaign import OfflineConversion
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 def main(authorization_data):
@@ -38,7 +38,7 @@ def main(authorization_data):
             conversion_name="My Conversion Goal Name",
             # The date and time must be in UTC, should align to the date and time of the
             # recorded click (MicrosoftClickId), and cannot be in the future.
-            conversion_time=datetime.utcnow(),
+            conversion_time=datetime.now(timezone.utc),
             # If you do not specify an offline conversion value,
             # then the 'Value' element of the goal's 'ConversionGoalRevenue' is used.
             conversion_value=10,
