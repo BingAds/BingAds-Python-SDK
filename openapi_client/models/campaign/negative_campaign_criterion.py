@@ -29,13 +29,13 @@ class NegativeCampaignCriterion(CampaignCriterion):
     """
     NegativeCampaignCriterion
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
     status: Optional[CampaignCriterionStatus] = Field(default=None, alias="Status")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
     type: Optional[StrictStr] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["Id", "CampaignId", "Criterion", "ForwardCompatibilityMap", "Status", "Type"]
+    __properties: ClassVar[List[str]] = ["CampaignId", "Criterion", "ForwardCompatibilityMap", "Status", "Id", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -85,11 +85,6 @@ class NegativeCampaignCriterion(CampaignCriterion):
                 if _item_forward_compatibility_map:
                     _items.append(_item_forward_compatibility_map.to_dict())
             _dict['ForwardCompatibilityMap'] = _items
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if campaign_id (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
@@ -110,6 +105,11 @@ class NegativeCampaignCriterion(CampaignCriterion):
         if self.status is None and "status" in self.model_fields_set:
             _dict['Status'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
@@ -127,11 +127,11 @@ class NegativeCampaignCriterion(CampaignCriterion):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+            "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

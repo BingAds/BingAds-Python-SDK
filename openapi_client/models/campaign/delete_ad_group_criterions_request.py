@@ -28,9 +28,9 @@ class DeleteAdGroupCriterionsRequest(BaseModel):
     DeleteAdGroupCriterionsRequest
     """ # noqa: E501
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    ad_group_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupCriterionIds")
     criterion_type: Optional[AdGroupCriterionType] = Field(default=None, alias="CriterionType")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "AdGroupCriterionIds", "CriterionType"]
+    ad_group_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupCriterionIds")
+    __properties: ClassVar[List[str]] = ["AdGroupId", "CriterionType", "AdGroupCriterionIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -62,15 +62,15 @@ class DeleteAdGroupCriterionsRequest(BaseModel):
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
 
-        # set to None if ad_group_criterion_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_criterion_ids is None and "ad_group_criterion_ids" in self.model_fields_set:
-            _dict['AdGroupCriterionIds'] = None
-
         # set to None if criterion_type (nullable) is None
         # and model_fields_set contains the field
         if self.criterion_type is None and "criterion_type" in self.model_fields_set:
             _dict['CriterionType'] = None
+
+        # set to None if ad_group_criterion_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_criterion_ids is None and "ad_group_criterion_ids" in self.model_fields_set:
+            _dict['AdGroupCriterionIds'] = None
 
         return _dict
 
@@ -85,7 +85,7 @@ class DeleteAdGroupCriterionsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AdGroupCriterionIds": obj.get("AdGroupCriterionIds"),
-                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None
+                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
+                        "AdGroupCriterionIds": obj.get("AdGroupCriterionIds")
         })
         return _obj

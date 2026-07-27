@@ -222,6 +222,12 @@ class ProductDimensionPerformanceReportColumn(str, Enum):
 
     FEEDLABEL = 'FeedLabel'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -28,7 +28,8 @@ class DiagnosticsSettings(BaseModel):
     """ # noqa: E501
     enable_cache: Optional[StrictBool] = Field(default=None, alias="EnableCache")
     last_check_time_utc: Optional[StrictStr] = Field(default=None, alias="LastCheckTimeUTC")
-    __properties: ClassVar[List[str]] = ["EnableCache", "LastCheckTimeUTC"]
+    enable_pilot: Optional[StrictBool] = Field(default=None, alias="EnablePilot")
+    __properties: ClassVar[List[str]] = ["EnableCache", "LastCheckTimeUTC", "EnablePilot"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,6 +66,11 @@ class DiagnosticsSettings(BaseModel):
         if self.last_check_time_utc is None and "last_check_time_utc" in self.model_fields_set:
             _dict['LastCheckTimeUTC'] = None
 
+        # set to None if enable_pilot (nullable) is None
+        # and model_fields_set contains the field
+        if self.enable_pilot is None and "enable_pilot" in self.model_fields_set:
+            _dict['EnablePilot'] = None
+
         return _dict
 
     @classmethod
@@ -78,6 +84,7 @@ class DiagnosticsSettings(BaseModel):
 
         _obj = cls.model_validate({
             "EnableCache": obj.get("EnableCache") if obj.get("EnableCache") is not None else None,
-                        "LastCheckTimeUTC": obj.get("LastCheckTimeUTC") if obj.get("LastCheckTimeUTC") is not None else None
+                        "LastCheckTimeUTC": obj.get("LastCheckTimeUTC") if obj.get("LastCheckTimeUTC") is not None else None,
+                        "EnablePilot": obj.get("EnablePilot") if obj.get("EnablePilot") is not None else None
         })
         return _obj

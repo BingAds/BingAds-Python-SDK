@@ -26,6 +26,8 @@ class DeliveredMatchTypeReportFilter(Flag):
 
     PHRASECLOSEVARIANT = auto()
 
+    AIOPTIMIZED = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -44,6 +46,7 @@ class DeliveredMatchTypeReportFilter(Flag):
             DeliveredMatchTypeReportFilter.BROAD: 'Broad',
             DeliveredMatchTypeReportFilter.EXACTCLOSEVARIANT: 'ExactCloseVariant',
             DeliveredMatchTypeReportFilter.PHRASECLOSEVARIANT: 'PhraseCloseVariant',
+            DeliveredMatchTypeReportFilter.AIOPTIMIZED: 'AIOptimized',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in DeliveredMatchTypeReportFilter if flag & self]

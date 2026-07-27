@@ -420,6 +420,8 @@ class DownloadEntity(str, Enum):
 
     ACCOUNTCONTENTNEGATIVEKEYWORD = 'AccountContentNegativeKeyword'
 
+    ASSETGROUPNEGATIVEKEYWORDS = 'AssetGroupNegativeKeywords'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

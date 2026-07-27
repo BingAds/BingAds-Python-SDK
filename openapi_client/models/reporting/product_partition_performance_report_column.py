@@ -176,6 +176,12 @@ class ProductPartitionPerformanceReportColumn(str, Enum):
 
     ASSETGROUPSTATUS = 'AssetGroupStatus'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

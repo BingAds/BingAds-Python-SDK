@@ -56,7 +56,7 @@ class MSClickIdPerformanceReportColumn(str, Enum):
 
     CLICKS = 'Clicks'
 
-    AVERAGECPC = 'AverageCpc'
+    CPC = 'Cpc'
 
     CONVERSIONSQUALIFIED = 'ConversionsQualified'
 

@@ -20,20 +20,18 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.ad_group_criterion_status import AdGroupCriterionStatus
-from openapi_client.models.campaign.criterion import Criterion
+from openapi_client.models.campaign.profile_type import ProfileType
 from typing_extensions import Self
-from openapi_client.models.campaign.ad_group_criterion import AdGroupCriterion
-class AdGroupCriterionBase(AdGroupCriterion):
+from openapi_client.models.campaign.criterion import Criterion
+class CustomLinkedInCriterion(Criterion):
     """
-    AdGroupCriterionBase
+    CustomLinkedInCriterion
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
-    criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     type: Optional[StrictStr] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "Status", "Criterion", "Id", "Type"]
+    profile_id: Optional[StrictStr] = Field(default=None, alias="ProfileId")
+    profile: Optional[StrictStr] = Field(default=None, alias="Profile")
+    profile_type: Optional[ProfileType] = Field(default=None, alias="ProfileType")
+    __properties: ClassVar[List[str]] = ["Type", "ProfileId", "Profile", "ProfileType"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +49,7 @@ class AdGroupCriterionBase(AdGroupCriterion):
 	
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of AdGroupCriterionBase from a JSON string"""
+        """Create an instance of CustomLinkedInCriterion from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 	
 
@@ -73,39 +71,31 @@ class AdGroupCriterionBase(AdGroupCriterion):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of criterion
-        if self.criterion:
-            _dict['Criterion'] = self.criterion.to_dict()
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
-        # set to None if status (nullable) is None
-        # and model_fields_set contains the field
-        if self.status is None and "status" in self.model_fields_set:
-            _dict['Status'] = None
-
-        # set to None if criterion (nullable) is None
-        # and model_fields_set contains the field
-        if self.criterion is None and "criterion" in self.model_fields_set:
-            _dict['Criterion'] = None
-
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
+        # set to None if profile_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.profile_id is None and "profile_id" in self.model_fields_set:
+            _dict['ProfileId'] = None
+
+        # set to None if profile (nullable) is None
+        # and model_fields_set contains the field
+        if self.profile is None and "profile" in self.model_fields_set:
+            _dict['Profile'] = None
+
+        # set to None if profile_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.profile_type is None and "profile_type" in self.model_fields_set:
+            _dict['ProfileType'] = None
+
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of AdGroupCriterionBase from a dict"""
+        """Create an instance of CustomLinkedInCriterion from a dict"""
         if obj is None:
             return None
 
@@ -113,10 +103,9 @@ class AdGroupCriterionBase(AdGroupCriterion):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
-                        "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Type": obj.get("Type") if obj.get("Type") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ProfileId": obj.get("ProfileId") if obj.get("ProfileId") is not None else None,
+                        "Profile": obj.get("Profile") if obj.get("Profile") is not None else None,
+                        "ProfileType": obj.get("ProfileType") if obj.get("ProfileType") is not None else None
         })
         return _obj

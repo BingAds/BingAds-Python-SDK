@@ -29,6 +29,7 @@ from pydantic import SecretStr
 from openapi_client.configuration import Configuration
 from openapi_client.api_response import ApiResponse, T as ApiResponseT
 import openapi_client.models
+from bingads.manifest import SDK_API_REVISION
 from openapi_client import rest
 from openapi_client.exceptions import (
     ApiValueError,
@@ -180,6 +181,7 @@ class ApiClient:
         # header parameters
         header_params = header_params or {}
         header_params.update(self.default_headers)
+        header_params['Api-Revision'] = SDK_API_REVISION
         if self.cookie:
             header_params['Cookie'] = self.cookie
         if header_params:

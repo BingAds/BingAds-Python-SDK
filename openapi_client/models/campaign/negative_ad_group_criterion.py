@@ -29,11 +29,11 @@ class NegativeAdGroupCriterion(AdGroupCriterion):
     NegativeAdGroupCriterion
     """ # noqa: E501
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
     type: Optional[StrictStr] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "Id", "Status", "Criterion", "Type"]
+    __properties: ClassVar[List[str]] = ["AdGroupId", "Status", "Criterion", "Id", "Type"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -81,11 +81,6 @@ class NegativeAdGroupCriterion(AdGroupCriterion):
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
 
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -95,6 +90,11 @@ class NegativeAdGroupCriterion(AdGroupCriterion):
         # and model_fields_set contains the field
         if self.criterion is None and "criterion" in self.model_fields_set:
             _dict['Criterion'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
 
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
@@ -114,9 +114,9 @@ class NegativeAdGroupCriterion(AdGroupCriterion):
 
         _obj = cls.model_validate({
             "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else None
         })
         return _obj

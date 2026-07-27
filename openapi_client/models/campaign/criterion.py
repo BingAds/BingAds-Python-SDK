@@ -38,6 +38,8 @@ class Criterion(BaseModel):
             type_mapping = [
                 ('AgeCriterion', 'AgeCriterion'),
                 ('AudienceCriterion', 'AudienceCriterion'),
+                ('ChannelPlacementCriterion', 'ChannelPlacementCriterion'),
+                ('CustomLinkedInCriterion', 'CustomLinkedInCriterion'),
                 ('DayTimeCriterion', 'DayTimeCriterion'),
                 ('DealCriterion', 'DealCriterion'),
                 ('DeviceCriterion', 'DeviceCriterion'),
@@ -111,6 +113,14 @@ class Criterion(BaseModel):
         if type == "AudienceCriterion":
             from openapi_client.models.campaign.audience_criterion import AudienceCriterion
             return AudienceCriterion.from_dict(obj)
+        
+        if type == "ChannelPlacementCriterion":
+            from openapi_client.models.campaign.channel_placement_criterion import ChannelPlacementCriterion
+            return ChannelPlacementCriterion.from_dict(obj)
+        
+        if type == "CustomLinkedInCriterion":
+            from openapi_client.models.campaign.custom_linked_in_criterion import CustomLinkedInCriterion
+            return CustomLinkedInCriterion.from_dict(obj)
         
         if type == "DayTimeCriterion":
             from openapi_client.models.campaign.day_time_criterion import DayTimeCriterion

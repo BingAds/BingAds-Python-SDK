@@ -44,8 +44,9 @@ class GoogleImportJob(ImportJob):
     credential_id: Optional[StrictStr] = Field(default=None, alias="CredentialId")
     google_account_id: Optional[StrictStr] = Field(default=None, alias="GoogleAccountId")
     campaign_ad_group_ids: Optional[List[Optional[CampaignAdGroupIds]]] = Field(default=None, alias="CampaignAdGroupIds")
+    campaign_types: Optional[List[StrictStr]] = Field(default=None, alias="CampaignTypes")
     google_user_name: Optional[StrictStr] = Field(default=None, alias="GoogleUserName")
-    __properties: ClassVar[List[str]] = ["Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail", "CredentialId", "GoogleAccountId", "CampaignAdGroupIds", "GoogleUserName"]
+    __properties: ClassVar[List[str]] = ["Name", "Id", "Type", "Status", "NotificationType", "CreatedByUserId", "CreatedByUserName", "Frequency", "LastRunTimeInUTC", "CreatedDateTimeInUTC", "ImportOption", "NotificationEmail", "CredentialId", "GoogleAccountId", "CampaignAdGroupIds", "CampaignTypes", "GoogleUserName"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -173,6 +174,11 @@ class GoogleImportJob(ImportJob):
         if self.campaign_ad_group_ids is None and "campaign_ad_group_ids" in self.model_fields_set:
             _dict['CampaignAdGroupIds'] = None
 
+        # set to None if campaign_types (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_types is None and "campaign_types" in self.model_fields_set:
+            _dict['CampaignTypes'] = None
+
         # set to None if google_user_name (nullable) is None
         # and model_fields_set contains the field
         if self.google_user_name is None and "google_user_name" in self.model_fields_set:
@@ -205,6 +211,7 @@ class GoogleImportJob(ImportJob):
                         "CredentialId": obj.get("CredentialId") if obj.get("CredentialId") is not None else None,
                         "GoogleAccountId": obj.get("GoogleAccountId") if obj.get("GoogleAccountId") is not None else None,
                         "CampaignAdGroupIds": [CampaignAdGroupIds.from_dict(_item) for _item in obj["CampaignAdGroupIds"]] if obj.get("CampaignAdGroupIds") is not None else None,
+                        "CampaignTypes": obj.get("CampaignTypes"),
                         "GoogleUserName": obj.get("GoogleUserName") if obj.get("GoogleUserName") is not None else None
         })
         return _obj

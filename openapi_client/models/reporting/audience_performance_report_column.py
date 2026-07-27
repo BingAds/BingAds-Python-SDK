@@ -34,6 +34,10 @@ class AudiencePerformanceReportColumn(str, Enum):
 
     ADGROUPID = 'AdGroupId'
 
+    ASSETGROUPNAME = 'AssetGroupName'
+
+    ASSETGROUPID = 'AssetGroupId'
+
     AUDIENCEID = 'AudienceId'
 
     AUDIENCENAME = 'AudienceName'
@@ -135,6 +139,12 @@ class AudiencePerformanceReportColumn(str, Enum):
     AVERAGEWATCHTIMEPERVIDEOVIEW = 'AverageWatchTimePerVideoView'
 
     AVERAGEWATCHTIMEPERIMPRESSION = 'AverageWatchTimePerImpression'
+
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
 
 	
     @classmethod

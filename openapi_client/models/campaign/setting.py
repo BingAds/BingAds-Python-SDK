@@ -40,18 +40,22 @@ class Setting(BaseModel):
                 ('AppSetting', 'AppSetting'),
                 ('BaseDomainSetting', 'BaseDomainSetting'),
                 ('CallToActionSetting', 'CallToActionSetting'),
+                ('CampaignFrequencyCapSetting', 'CampaignFrequencyCapSetting'),
                 ('CoOpSetting', 'CoOpSetting'),
                 ('DisclaimerSetting', 'DisclaimerSetting'),
                 ('DynamicFeedSetting', 'DynamicFeedSetting'),
                 ('DynamicSearchAdsSetting', 'DynamicSearchAdsSetting'),
                 ('HotelSetting', 'HotelSetting'),
+                ('ImpressionTrackingSetting', 'ImpressionTrackingSetting'),
                 ('NetworkDistributionSetting', 'NetworkDistributionSetting'),
                 ('NewCustomerAcquisitionGoalSetting', 'NewCustomerAcquisitionGoalSetting'),
                 ('PerformanceMaxSetting', 'PerformanceMaxSetting'),
+                ('ReachOptimizationGoalSetting', 'ReachOptimizationGoalSetting'),
                 ('ResponsiveSearchAdsSetting', 'ResponsiveSearchAdsSetting'),
                 ('ShoppingSetting', 'ShoppingSetting'),
                 ('TargetSetting', 'TargetSetting'),
                 ('ThirdPartyMeasurementSetting', 'ThirdPartyMeasurementSetting'),
+                ('UnifiedAutomationSetting', 'UnifiedAutomationSetting'),
                 ('VanityPharmaSetting', 'VanityPharmaSetting'),
                 ('VerifiedTrackingSetting', 'VerifiedTrackingSetting'),
             ]
@@ -115,6 +119,10 @@ class Setting(BaseModel):
             from openapi_client.models.campaign.call_to_action_setting import CallToActionSetting
             return CallToActionSetting.from_dict(obj)
         
+        if type == "CampaignFrequencyCapSetting":
+            from openapi_client.models.campaign.campaign_frequency_cap_setting import CampaignFrequencyCapSetting
+            return CampaignFrequencyCapSetting.from_dict(obj)
+        
         if type == "CoOpSetting":
             from openapi_client.models.campaign.co_op_setting import CoOpSetting
             return CoOpSetting.from_dict(obj)
@@ -135,6 +143,10 @@ class Setting(BaseModel):
             from openapi_client.models.campaign.hotel_setting import HotelSetting
             return HotelSetting.from_dict(obj)
         
+        if type == "ImpressionTrackingSetting":
+            from openapi_client.models.campaign.impression_tracking_setting import ImpressionTrackingSetting
+            return ImpressionTrackingSetting.from_dict(obj)
+        
         if type == "NetworkDistributionSetting":
             from openapi_client.models.campaign.network_distribution_setting import NetworkDistributionSetting
             return NetworkDistributionSetting.from_dict(obj)
@@ -146,6 +158,10 @@ class Setting(BaseModel):
         if type == "PerformanceMaxSetting":
             from openapi_client.models.campaign.performance_max_setting import PerformanceMaxSetting
             return PerformanceMaxSetting.from_dict(obj)
+        
+        if type == "ReachOptimizationGoalSetting":
+            from openapi_client.models.campaign.reach_optimization_goal_setting import ReachOptimizationGoalSetting
+            return ReachOptimizationGoalSetting.from_dict(obj)
         
         if type == "ResponsiveSearchAdsSetting":
             from openapi_client.models.campaign.responsive_search_ads_setting import ResponsiveSearchAdsSetting
@@ -162,6 +178,10 @@ class Setting(BaseModel):
         if type == "ThirdPartyMeasurementSetting":
             from openapi_client.models.campaign.third_party_measurement_setting import ThirdPartyMeasurementSetting
             return ThirdPartyMeasurementSetting.from_dict(obj)
+        
+        if type == "UnifiedAutomationSetting":
+            from openapi_client.models.campaign.unified_automation_setting import UnifiedAutomationSetting
+            return UnifiedAutomationSetting.from_dict(obj)
         
         if type == "VanityPharmaSetting":
             from openapi_client.models.campaign.vanity_pharma_setting import VanityPharmaSetting

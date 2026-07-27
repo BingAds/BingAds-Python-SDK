@@ -20,23 +20,34 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
-from openapi_client.models.campaign.campaign_criterion import CampaignCriterion
-from openapi_client.models.campaign.campaign_criterion_type import CampaignCriterionType
 from typing_extensions import Self
-
-class UpdateCampaignCriterionsRequest(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class ImpressionTrackingSetting(Setting):
     """
-    UpdateCampaignCriterionsRequest
+    ImpressionTrackingSetting
     """ # noqa: E501
-    criterion_type: Optional[CampaignCriterionType] = Field(default=None, alias="CriterionType")
-    campaign_criterions: Optional[List[Optional[CampaignCriterion]]] = Field(default=None, alias="CampaignCriterions")
-    __properties: ClassVar[List[str]] = ["CriterionType", "CampaignCriterions"]
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    impression_tracking_url: Optional[StrictStr] = Field(default=None, alias="ImpressionTrackingUrl")
+    __properties: ClassVar[List[str]] = ["Type", "ImpressionTrackingUrl"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+	
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of ImpressionTrackingSetting from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
 	
 
     def to_dict(self) -> Dict[str, Any]:
@@ -57,28 +68,21 @@ class UpdateCampaignCriterionsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of each item in campaign_criterions (list)
-        _items = []
-        if self.campaign_criterions:
-            for _item_campaign_criterions in self.campaign_criterions:
-                if _item_campaign_criterions:
-                    _items.append(_item_campaign_criterions.to_dict())
-            _dict['CampaignCriterions'] = _items
-        # set to None if criterion_type (nullable) is None
+        # set to None if type (nullable) is None
         # and model_fields_set contains the field
-        if self.criterion_type is None and "criterion_type" in self.model_fields_set:
-            _dict['CriterionType'] = None
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # set to None if campaign_criterions (nullable) is None
+        # set to None if impression_tracking_url (nullable) is None
         # and model_fields_set contains the field
-        if self.campaign_criterions is None and "campaign_criterions" in self.model_fields_set:
-            _dict['CampaignCriterions'] = None
+        if self.impression_tracking_url is None and "impression_tracking_url" in self.model_fields_set:
+            _dict['ImpressionTrackingUrl'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateCampaignCriterionsRequest from a dict"""
+        """Create an instance of ImpressionTrackingSetting from a dict"""
         if obj is None:
             return None
 
@@ -86,7 +90,7 @@ class UpdateCampaignCriterionsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
-                        "CampaignCriterions": [CampaignCriterion.from_dict(_item) for _item in obj["CampaignCriterions"]] if obj.get("CampaignCriterions") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ImpressionTrackingUrl": obj.get("ImpressionTrackingUrl") if obj.get("ImpressionTrackingUrl") is not None else None
         })
         return _obj

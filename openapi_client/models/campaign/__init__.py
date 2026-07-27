@@ -253,12 +253,14 @@ from openapi_client.models.campaign.campaign_criterion import CampaignCriterion
 from openapi_client.models.campaign.campaign_criterion_base import CampaignCriterionBase
 from openapi_client.models.campaign.campaign_criterion_status import CampaignCriterionStatus
 from openapi_client.models.campaign.campaign_criterion_type import CampaignCriterionType
+from openapi_client.models.campaign.campaign_frequency_cap_setting import CampaignFrequencyCapSetting
 from openapi_client.models.campaign.campaign_negative_sites import CampaignNegativeSites
 from openapi_client.models.campaign.campaign_size import CampaignSize
 from openapi_client.models.campaign.campaign_status import CampaignStatus
 from openapi_client.models.campaign.campaign_type import CampaignType
 from openapi_client.models.campaign.cashback_adjustment import CashbackAdjustment
 from openapi_client.models.campaign.category_result import CategoryResult
+from openapi_client.models.campaign.channel_placement_criterion import ChannelPlacementCriterion
 from openapi_client.models.campaign.clipchamp_template_info import ClipchampTemplateInfo
 from openapi_client.models.campaign.co_op_setting import CoOpSetting
 from openapi_client.models.campaign.combination_rule import CombinationRule
@@ -303,6 +305,7 @@ from openapi_client.models.campaign.criterion_type_group import CriterionTypeGro
 from openapi_client.models.campaign.crop_type import CropType
 from openapi_client.models.campaign.custom_audience import CustomAudience
 from openapi_client.models.campaign.custom_events_rule import CustomEventsRule
+from openapi_client.models.campaign.custom_linked_in_criterion import CustomLinkedInCriterion
 from openapi_client.models.campaign.custom_parameter import CustomParameter
 from openapi_client.models.campaign.custom_parameters import CustomParameters
 from openapi_client.models.campaign.custom_segment import CustomSegment
@@ -626,6 +629,7 @@ from openapi_client.models.campaign.import_result import ImportResult
 from openapi_client.models.campaign.import_search_and_replace_for_string_property import ImportSearchAndReplaceForStringProperty
 from openapi_client.models.campaign.impression_based_entity_type import ImpressionBasedEntityType
 from openapi_client.models.campaign.impression_based_remarketing_list import ImpressionBasedRemarketingList
+from openapi_client.models.campaign.impression_tracking_setting import ImpressionTrackingSetting
 from openapi_client.models.campaign.in_market_audience import InMarketAudience
 from openapi_client.models.campaign.in_store_transaction_goal import InStoreTransactionGoal
 from openapi_client.models.campaign.inherit_from_parent_bidding_scheme import InheritFromParentBiddingScheme
@@ -731,6 +735,8 @@ from openapi_client.models.campaign.promotion_occasion import PromotionOccasion
 from openapi_client.models.campaign.radius_criterion import RadiusCriterion
 from openapi_client.models.campaign.rate_amount import RateAmount
 from openapi_client.models.campaign.rate_bid import RateBid
+from openapi_client.models.campaign.reach_optimization_goal import ReachOptimizationGoal
+from openapi_client.models.campaign.reach_optimization_goal_setting import ReachOptimizationGoalSetting
 from openapi_client.models.campaign.recommendation_asset_property import RecommendationAssetProperty
 from openapi_client.models.campaign.recommendation_audio import RecommendationAudio
 from openapi_client.models.campaign.recommendation_background import RecommendationBackground
@@ -812,6 +818,7 @@ from openapi_client.models.campaign.uet_tag import UetTag
 from openapi_client.models.campaign.uet_tag_additional_field import UetTagAdditionalField
 from openapi_client.models.campaign.uet_tag_industry import UetTagIndustry
 from openapi_client.models.campaign.uet_tag_tracking_status import UetTagTrackingStatus
+from openapi_client.models.campaign.unified_automation_setting import UnifiedAutomationSetting
 from openapi_client.models.campaign.update_ad_extensions_request import UpdateAdExtensionsRequest
 from openapi_client.models.campaign.update_ad_extensions_response import UpdateAdExtensionsResponse
 from openapi_client.models.campaign.update_ad_group_criterions_request import UpdateAdGroupCriterionsRequest

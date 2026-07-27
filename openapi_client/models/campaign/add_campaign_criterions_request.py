@@ -28,9 +28,9 @@ class AddCampaignCriterionsRequest(BaseModel):
     """
     AddCampaignCriterionsRequest
     """ # noqa: E501
-    campaign_criterions: Optional[List[Optional[CampaignCriterion]]] = Field(default=None, alias="CampaignCriterions")
     criterion_type: Optional[CampaignCriterionType] = Field(default=None, alias="CriterionType")
-    __properties: ClassVar[List[str]] = ["CampaignCriterions", "CriterionType"]
+    campaign_criterions: Optional[List[Optional[CampaignCriterion]]] = Field(default=None, alias="CampaignCriterions")
+    __properties: ClassVar[List[str]] = ["CriterionType", "CampaignCriterions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,15 +64,15 @@ class AddCampaignCriterionsRequest(BaseModel):
                 if _item_campaign_criterions:
                     _items.append(_item_campaign_criterions.to_dict())
             _dict['CampaignCriterions'] = _items
-        # set to None if campaign_criterions (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_criterions is None and "campaign_criterions" in self.model_fields_set:
-            _dict['CampaignCriterions'] = None
-
         # set to None if criterion_type (nullable) is None
         # and model_fields_set contains the field
         if self.criterion_type is None and "criterion_type" in self.model_fields_set:
             _dict['CriterionType'] = None
+
+        # set to None if campaign_criterions (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_criterions is None and "campaign_criterions" in self.model_fields_set:
+            _dict['CampaignCriterions'] = None
 
         return _dict
 
@@ -86,7 +86,7 @@ class AddCampaignCriterionsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CampaignCriterions": [CampaignCriterion.from_dict(_item) for _item in obj["CampaignCriterions"]] if obj.get("CampaignCriterions") is not None else None,
-                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None
+            "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
+                        "CampaignCriterions": [CampaignCriterion.from_dict(_item) for _item in obj["CampaignCriterions"]] if obj.get("CampaignCriterions") is not None else None
         })
         return _obj
