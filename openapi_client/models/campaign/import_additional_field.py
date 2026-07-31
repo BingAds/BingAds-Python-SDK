@@ -82,6 +82,16 @@ class ImportAdditionalField(Flag):
 
     IMPORTNCAGOALWITHSYSTEMGENERATEDAUDIENCE = auto()
 
+    UPDATEASSETGROUPSASSET = auto()
+
+    NEWBRANDLISTASSOCIATIONS = auto()
+
+    UPDATEBRANDLISTASSOCIATIONS = auto()
+
+    CAMPAIGNTYPES = auto()
+
+    NEWSEARCHTHEMESFOREXISTINGASSETGROUPS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -128,6 +138,11 @@ class ImportAdditionalField(Flag):
             ImportAdditionalField.IMAGEASSETAUTOMATIONOPTOUT: 'ImageAssetAutomationOptOut',
             ImportAdditionalField.UPDATEAIMAXSETTINGS: 'UpdateAIMaxSettings',
             ImportAdditionalField.IMPORTNCAGOALWITHSYSTEMGENERATEDAUDIENCE: 'ImportNCAGoalWithSystemGeneratedAudience',
+            ImportAdditionalField.UPDATEASSETGROUPSASSET: 'UpdateAssetGroupsAsset',
+            ImportAdditionalField.NEWBRANDLISTASSOCIATIONS: 'NewBrandListAssociations',
+            ImportAdditionalField.UPDATEBRANDLISTASSOCIATIONS: 'UpdateBrandListAssociations',
+            ImportAdditionalField.CAMPAIGNTYPES: 'CampaignTypes',
+            ImportAdditionalField.NEWSEARCHTHEMESFOREXISTINGASSETGROUPS: 'NewSearchThemesForExistingAssetGroups',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in ImportAdditionalField if flag & self]

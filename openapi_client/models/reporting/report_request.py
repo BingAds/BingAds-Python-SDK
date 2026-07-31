@@ -80,6 +80,7 @@ class ReportRequest(BaseModel):
                 ('SearchCampaignChangeHistoryReportRequest', 'SearchCampaignChangeHistoryReportRequest'),
                 ('SearchInsightPerformanceReportRequest', 'SearchInsightPerformanceReportRequest'),
                 ('SearchQueryPerformanceReportRequest', 'SearchQueryPerformanceReportRequest'),
+                ('SearchTermLandingPageReportRequest', 'SearchTermLandingPageReportRequest'),
                 ('ShareOfVoiceReportRequest', 'ShareOfVoiceReportRequest'),
                 ('TravelQueryInsightReportRequest', 'TravelQueryInsightReportRequest'),
                 ('UserLocationPerformanceReportRequest', 'UserLocationPerformanceReportRequest'),
@@ -303,6 +304,10 @@ class ReportRequest(BaseModel):
         if type == "SearchQueryPerformanceReportRequest":
             from openapi_client.models.reporting.search_query_performance_report_request import SearchQueryPerformanceReportRequest
             return SearchQueryPerformanceReportRequest.from_dict(obj)
+        
+        if type == "SearchTermLandingPageReportRequest":
+            from openapi_client.models.reporting.search_term_landing_page_report_request import SearchTermLandingPageReportRequest
+            return SearchTermLandingPageReportRequest.from_dict(obj)
         
         if type == "ShareOfVoiceReportRequest":
             from openapi_client.models.reporting.share_of_voice_report_request import ShareOfVoiceReportRequest

@@ -27,10 +27,10 @@ class DeleteCampaignCriterionsRequest(BaseModel):
     """
     DeleteCampaignCriterionsRequest
     """ # noqa: E501
-    campaign_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignCriterionIds")
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
     criterion_type: Optional[CampaignCriterionType] = Field(default=None, alias="CriterionType")
-    __properties: ClassVar[List[str]] = ["CampaignCriterionIds", "CampaignId", "CriterionType"]
+    campaign_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignCriterionIds")
+    __properties: ClassVar[List[str]] = ["CampaignId", "CriterionType", "CampaignCriterionIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,11 +57,6 @@ class DeleteCampaignCriterionsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if campaign_criterion_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.campaign_criterion_ids is None and "campaign_criterion_ids" in self.model_fields_set:
-            _dict['CampaignCriterionIds'] = None
-
         # set to None if campaign_id (nullable) is None
         # and model_fields_set contains the field
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
@@ -71,6 +66,11 @@ class DeleteCampaignCriterionsRequest(BaseModel):
         # and model_fields_set contains the field
         if self.criterion_type is None and "criterion_type" in self.model_fields_set:
             _dict['CriterionType'] = None
+
+        # set to None if campaign_criterion_ids (nullable) is None
+        # and model_fields_set contains the field
+        if self.campaign_criterion_ids is None and "campaign_criterion_ids" in self.model_fields_set:
+            _dict['CampaignCriterionIds'] = None
 
         return _dict
 
@@ -84,8 +84,8 @@ class DeleteCampaignCriterionsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "CampaignCriterionIds": obj.get("CampaignCriterionIds"),
-                        "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
-                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None
+            "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
+                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
+                        "CampaignCriterionIds": obj.get("CampaignCriterionIds")
         })
         return _obj

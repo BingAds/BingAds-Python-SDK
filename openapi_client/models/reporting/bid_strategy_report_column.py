@@ -84,6 +84,12 @@ class BidStrategyReportColumn(str, Enum):
 
     CURRENCY = 'Currency'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

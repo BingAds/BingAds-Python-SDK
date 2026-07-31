@@ -28,9 +28,9 @@ class UpdateAdGroupCriterionsRequest(BaseModel):
     """
     UpdateAdGroupCriterionsRequest
     """ # noqa: E501
-    ad_group_criterions: Optional[List[Optional[AdGroupCriterion]]] = Field(default=None, alias="AdGroupCriterions")
     criterion_type: Optional[AdGroupCriterionType] = Field(default=None, alias="CriterionType")
-    __properties: ClassVar[List[str]] = ["AdGroupCriterions", "CriterionType"]
+    ad_group_criterions: Optional[List[Optional[AdGroupCriterion]]] = Field(default=None, alias="AdGroupCriterions")
+    __properties: ClassVar[List[str]] = ["CriterionType", "AdGroupCriterions"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,15 +64,15 @@ class UpdateAdGroupCriterionsRequest(BaseModel):
                 if _item_ad_group_criterions:
                     _items.append(_item_ad_group_criterions.to_dict())
             _dict['AdGroupCriterions'] = _items
-        # set to None if ad_group_criterions (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_criterions is None and "ad_group_criterions" in self.model_fields_set:
-            _dict['AdGroupCriterions'] = None
-
         # set to None if criterion_type (nullable) is None
         # and model_fields_set contains the field
         if self.criterion_type is None and "criterion_type" in self.model_fields_set:
             _dict['CriterionType'] = None
+
+        # set to None if ad_group_criterions (nullable) is None
+        # and model_fields_set contains the field
+        if self.ad_group_criterions is None and "ad_group_criterions" in self.model_fields_set:
+            _dict['AdGroupCriterions'] = None
 
         return _dict
 
@@ -86,7 +86,7 @@ class UpdateAdGroupCriterionsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupCriterions": [AdGroupCriterion.from_dict(_item) for _item in obj["AdGroupCriterions"]] if obj.get("AdGroupCriterions") is not None else None,
-                        "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None
+            "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
+                        "AdGroupCriterions": [AdGroupCriterion.from_dict(_item) for _item in obj["AdGroupCriterions"]] if obj.get("AdGroupCriterions") is not None else None
         })
         return _obj

@@ -44,6 +44,12 @@ class ProfessionalDemographicsAudienceReportColumn(str, Enum):
 
     CUSTOMLINKEDINNAME = 'CustomLinkedInName'
 
+    LINKEDINSEGMENTNAME = 'LinkedInSegmentName'
+
+    LINKEDINSEGMENTID = 'LinkedInSegmentId'
+
+    LINKEDINSEGMENTTYPE = 'LinkedInSegmentType'
+
     ADDISTRIBUTION = 'AdDistribution'
 
     IMPRESSIONS = 'Impressions'
@@ -97,6 +103,12 @@ class ProfessionalDemographicsAudienceReportColumn(str, Enum):
     ASSETGROUPNAME = 'AssetGroupName'
 
     ASSETGROUPSTATUS = 'AssetGroupStatus'
+
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
 
 	
     @classmethod

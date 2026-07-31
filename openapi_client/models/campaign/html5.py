@@ -26,7 +26,6 @@ class HTML5(BaseModel):
     """
     HTML5
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     url: Optional[StrictStr] = Field(default=None, alias="Url")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
@@ -38,7 +37,8 @@ class HTML5(BaseModel):
     created_date_time_in_utc: Optional[datetime] = Field(default=None, alias="CreatedDateTimeInUTC")
     modified_date_time_in_utc: Optional[datetime] = Field(default=None, alias="ModifiedDateTimeInUTC")
     failure_code: Optional[StrictStr] = Field(default=None, alias="FailureCode")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Url", "Text", "DestinationUrl", "ThumbnailUrl", "Width", "Height", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Name", "Url", "Text", "DestinationUrl", "ThumbnailUrl", "Width", "Height", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,11 +65,6 @@ class HTML5(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if name (nullable) is None
         # and model_fields_set contains the field
         if self.name is None and "name" in self.model_fields_set:
@@ -125,6 +120,11 @@ class HTML5(BaseModel):
         if self.failure_code is None and "failure_code" in self.model_fields_set:
             _dict['FailureCode'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -137,8 +137,7 @@ class HTML5(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Name": obj.get("Name") if obj.get("Name") is not None else None,
+            "Name": obj.get("Name") if obj.get("Name") is not None else None,
                         "Url": obj.get("Url") if obj.get("Url") is not None else None,
                         "Text": obj.get("Text") if obj.get("Text") is not None else None,
                         "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,
@@ -148,6 +147,7 @@ class HTML5(BaseModel):
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "CreatedDateTimeInUTC": obj.get("CreatedDateTimeInUTC") if obj.get("CreatedDateTimeInUTC") is not None else None,
                         "ModifiedDateTimeInUTC": obj.get("ModifiedDateTimeInUTC") if obj.get("ModifiedDateTimeInUTC") is not None else None,
-                        "FailureCode": obj.get("FailureCode") if obj.get("FailureCode") is not None else None
+                        "FailureCode": obj.get("FailureCode") if obj.get("FailureCode") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

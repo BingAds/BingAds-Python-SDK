@@ -30,7 +30,8 @@ class AddKeywordsRequest(BaseModel):
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
     keywords: Optional[List[Optional[Keyword]]] = Field(default=None, alias="Keywords")
     return_inherited_bid_strategy_types: Optional[StrictBool] = Field(default=None, alias="ReturnInheritedBidStrategyTypes")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "Keywords", "ReturnInheritedBidStrategyTypes"]
+    asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
+    __properties: ClassVar[List[str]] = ["AdGroupId", "Keywords", "ReturnInheritedBidStrategyTypes", "AssetGroupId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -79,6 +80,11 @@ class AddKeywordsRequest(BaseModel):
         if self.return_inherited_bid_strategy_types is None and "return_inherited_bid_strategy_types" in self.model_fields_set:
             _dict['ReturnInheritedBidStrategyTypes'] = None
 
+        # set to None if asset_group_id (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
+            _dict['AssetGroupId'] = None
+
         return _dict
 
     @classmethod
@@ -93,6 +99,7 @@ class AddKeywordsRequest(BaseModel):
         _obj = cls.model_validate({
             "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
                         "Keywords": [Keyword.from_dict(_item) for _item in obj["Keywords"]] if obj.get("Keywords") is not None else None,
-                        "ReturnInheritedBidStrategyTypes": obj.get("ReturnInheritedBidStrategyTypes") if obj.get("ReturnInheritedBidStrategyTypes") is not None else None
+                        "ReturnInheritedBidStrategyTypes": obj.get("ReturnInheritedBidStrategyTypes") if obj.get("ReturnInheritedBidStrategyTypes") is not None else None,
+                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None
         })
         return _obj

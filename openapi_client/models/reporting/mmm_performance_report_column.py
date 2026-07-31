@@ -50,6 +50,8 @@ class MMMPerformanceReportColumn(str, Enum):
 
     CONVERSIONSQUALIFIED = 'ConversionsQualified'
 
+    METROAREA = 'MetroArea'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

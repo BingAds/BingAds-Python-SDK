@@ -29,10 +29,10 @@ class GetCampaignCriterionsByIdsRequest(BaseModel):
     GetCampaignCriterionsByIdsRequest
     """ # noqa: E501
     campaign_id: Optional[StrictStr] = Field(default=None, alias="CampaignId")
-    campaign_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignCriterionIds")
-    criterion_type: Optional[CampaignCriterionType] = Field(default=None, alias="CriterionType")
     return_additional_fields: Optional[CriterionAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    __properties: ClassVar[List[str]] = ["CampaignId", "CampaignCriterionIds", "CriterionType", "ReturnAdditionalFields"]
+    criterion_type: Optional[CampaignCriterionType] = Field(default=None, alias="CriterionType")
+    campaign_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignCriterionIds")
+    __properties: ClassVar[List[str]] = ["CampaignId", "ReturnAdditionalFields", "CriterionType", "CampaignCriterionIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,20 +64,20 @@ class GetCampaignCriterionsByIdsRequest(BaseModel):
         if self.campaign_id is None and "campaign_id" in self.model_fields_set:
             _dict['CampaignId'] = None
 
-        # set to None if campaign_criterion_ids (nullable) is None
+        # set to None if return_additional_fields (nullable) is None
         # and model_fields_set contains the field
-        if self.campaign_criterion_ids is None and "campaign_criterion_ids" in self.model_fields_set:
-            _dict['CampaignCriterionIds'] = None
+        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
+            _dict['ReturnAdditionalFields'] = None
 
         # set to None if criterion_type (nullable) is None
         # and model_fields_set contains the field
         if self.criterion_type is None and "criterion_type" in self.model_fields_set:
             _dict['CriterionType'] = None
 
-        # set to None if return_additional_fields (nullable) is None
+        # set to None if campaign_criterion_ids (nullable) is None
         # and model_fields_set contains the field
-        if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
-            _dict['ReturnAdditionalFields'] = None
+        if self.campaign_criterion_ids is None and "campaign_criterion_ids" in self.model_fields_set:
+            _dict['CampaignCriterionIds'] = None
 
         return _dict
 
@@ -92,8 +92,8 @@ class GetCampaignCriterionsByIdsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "CampaignId": obj.get("CampaignId") if obj.get("CampaignId") is not None else None,
-                        "CampaignCriterionIds": obj.get("CampaignCriterionIds"),
+                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
                         "CriterionType": obj.get("CriterionType") if obj.get("CriterionType") is not None else None,
-                        "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None
+                        "CampaignCriterionIds": obj.get("CampaignCriterionIds")
         })
         return _obj

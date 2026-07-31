@@ -92,6 +92,8 @@ class CampaignAdditionalField(Flag):
 
     NETWORKDISTRIBUTIONSETTING = auto()
 
+    PAGEFEEDINAISEARCHSETTINGS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -143,6 +145,7 @@ class CampaignAdditionalField(Flag):
             CampaignAdditionalField.AISEARCHSETTING: 'AISearchSetting',
             CampaignAdditionalField.PMAXXBOXCAMPAIGN: 'PmaxXboxCampaign',
             CampaignAdditionalField.NETWORKDISTRIBUTIONSETTING: 'NetworkDistributionSetting',
+            CampaignAdditionalField.PAGEFEEDINAISEARCHSETTINGS: 'PageFeedInAISearchSettings',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignAdditionalField if flag & self]

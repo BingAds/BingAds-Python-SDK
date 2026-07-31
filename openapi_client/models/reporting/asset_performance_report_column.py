@@ -64,6 +64,12 @@ class AssetPerformanceReportColumn(str, Enum):
 
     REVENUE = 'Revenue'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

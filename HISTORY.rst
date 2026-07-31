@@ -2,6 +2,11 @@
 
 Release History
 
+13.0.29(2026-07-22)
++++++++++++++++++++++++++
+API Updates:
+* Update Bing Ads API Version 13 service proxies to reflect recent interface changes. For details please see the [Bing Ads API Release Notes](https://learn.microsoft.com/en-us/advertising/guides/release-notes?view=bingads-13).
+
 13.0.28.2(2027-06-02)
 +++++++++++++++++++++++++
 * Set authentication and other headers before every service call.

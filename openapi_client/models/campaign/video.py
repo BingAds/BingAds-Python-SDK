@@ -26,7 +26,6 @@ class Video(BaseModel):
     """
     Video
     """ # noqa: E501
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     description: Optional[StrictStr] = Field(default=None, alias="Description")
     thumbnail_url: Optional[StrictStr] = Field(default=None, alias="ThumbnailUrl")
     source_url: Optional[StrictStr] = Field(default=None, alias="SourceUrl")
@@ -37,7 +36,8 @@ class Video(BaseModel):
     created_date_time_in_utc: Optional[datetime] = Field(default=None, alias="CreatedDateTimeInUTC")
     modified_date_time_in_utc: Optional[datetime] = Field(default=None, alias="ModifiedDateTimeInUTC")
     failure_code: Optional[StrictStr] = Field(default=None, alias="FailureCode")
-    __properties: ClassVar[List[str]] = ["Id", "Description", "ThumbnailUrl", "SourceUrl", "Url", "AspectRatio", "DurationInMilliseconds", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode"]
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
+    __properties: ClassVar[List[str]] = ["Description", "ThumbnailUrl", "SourceUrl", "Url", "AspectRatio", "DurationInMilliseconds", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -64,11 +64,6 @@ class Video(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if description (nullable) is None
         # and model_fields_set contains the field
         if self.description is None and "description" in self.model_fields_set:
@@ -119,6 +114,11 @@ class Video(BaseModel):
         if self.failure_code is None and "failure_code" in self.model_fields_set:
             _dict['FailureCode'] = None
 
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
+
         return _dict
 
     @classmethod
@@ -131,8 +131,7 @@ class Video(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Id": obj.get("Id") if obj.get("Id") is not None else None,
-                        "Description": obj.get("Description") if obj.get("Description") is not None else None,
+            "Description": obj.get("Description") if obj.get("Description") is not None else None,
                         "ThumbnailUrl": obj.get("ThumbnailUrl") if obj.get("ThumbnailUrl") is not None else None,
                         "SourceUrl": obj.get("SourceUrl") if obj.get("SourceUrl") is not None else None,
                         "Url": obj.get("Url") if obj.get("Url") is not None else None,
@@ -141,6 +140,7 @@ class Video(BaseModel):
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "CreatedDateTimeInUTC": obj.get("CreatedDateTimeInUTC") if obj.get("CreatedDateTimeInUTC") is not None else None,
                         "ModifiedDateTimeInUTC": obj.get("ModifiedDateTimeInUTC") if obj.get("ModifiedDateTimeInUTC") is not None else None,
-                        "FailureCode": obj.get("FailureCode") if obj.get("FailureCode") is not None else None
+                        "FailureCode": obj.get("FailureCode") if obj.get("FailureCode") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

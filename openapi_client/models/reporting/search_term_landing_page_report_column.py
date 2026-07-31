@@ -17,9 +17,7 @@ import json
 from enum import Enum
 from typing_extensions import Self
 
-class AssetGroupPerformanceReportColumn(str, Enum):
-    TIMEPERIOD = 'TimePeriod'
-
+class SearchTermLandingPageReportColumn(str, Enum):
     ACCOUNTNAME = 'AccountName'
 
     ACCOUNTID = 'AccountId'
@@ -28,15 +26,31 @@ class AssetGroupPerformanceReportColumn(str, Enum):
 
     CAMPAIGNID = 'CampaignId'
 
-    ACCOUNTSTATUS = 'AccountStatus'
+    ADGROUPNAME = 'AdGroupName'
 
-    CAMPAIGNSTATUS = 'CampaignStatus'
+    ADGROUPID = 'AdGroupId'
 
-    ASSETGROUPID = 'AssetGroupId'
+    ADID = 'AdId'
 
-    ASSETGROUPNAME = 'AssetGroupName'
+    ADTYPE = 'AdType'
 
-    ASSETGROUPSTATUS = 'AssetGroupStatus'
+    CAMPAIGNTYPE = 'CampaignType'
+
+    LANGUAGE = 'Language'
+
+    SEARCHQUERY = 'SearchQuery'
+
+    KEYWORD = 'Keyword'
+
+    BIDMATCHTYPE = 'BidMatchType'
+
+    DELIVEREDMATCHTYPE = 'DeliveredMatchType'
+
+    HEADLINE = 'Headline'
+
+    FINALURL = 'FinalUrl'
+
+    FINALURLSOURCE = 'FinalUrlSource'
 
     IMPRESSIONS = 'Impressions'
 
@@ -44,19 +58,27 @@ class AssetGroupPerformanceReportColumn(str, Enum):
 
     CTR = 'Ctr'
 
-    SPEND = 'Spend'
-
     AVERAGECPC = 'AverageCpc'
 
+    SPEND = 'Spend'
+
     CONVERSIONS = 'Conversions'
+
+    CONVERSIONRATE = 'ConversionRate'
+
+    COSTPERCONVERSION = 'CostPerConversion'
+
+    ABSOLUTETOPIMPRESSIONRATEPERCENT = 'AbsoluteTopImpressionRatePercent'
+
+    TOPIMPRESSIONRATEPERCENT = 'TopImpressionRatePercent'
 
     REVENUE = 'Revenue'
 
     RETURNONADSPEND = 'ReturnOnAdSpend'
 
-    CAMPAIGNTYPE = 'CampaignType'
+    TIMEPERIOD = 'TimePeriod'
 
-    COSTPERCONVERSION = 'CostPerConversion'
+    CONVERSIONSQUALIFIED = 'ConversionsQualified'
 
     MARKETINGOBJECTIVE = 'MarketingObjective'
 
@@ -67,7 +89,7 @@ class AssetGroupPerformanceReportColumn(str, Enum):
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of AssetGroupPerformanceReportColumn from a JSON string"""
+        """Create an instance of SearchTermLandingPageReportColumn from a JSON string"""
         return cls(json.loads(json_str))
 
 

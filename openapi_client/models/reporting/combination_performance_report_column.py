@@ -68,6 +68,12 @@ class CombinationPerformanceReportColumn(str, Enum):
 
     CONVERSIONS = 'Conversions'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

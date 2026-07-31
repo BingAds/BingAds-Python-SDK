@@ -172,6 +172,12 @@ class PublisherUsagePerformanceReportColumn(str, Enum):
 
     LOWQUALITYSOPHISTICATEDCLICKS = 'LowQualitySophisticatedClicks'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

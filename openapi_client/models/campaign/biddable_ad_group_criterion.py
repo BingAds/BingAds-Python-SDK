@@ -34,9 +34,9 @@ class BiddableAdGroupCriterion(AdGroupCriterion):
     BiddableAdGroupCriterion
     """ # noqa: E501
     ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    id: Optional[StrictStr] = Field(default=None, alias="Id")
     status: Optional[AdGroupCriterionStatus] = Field(default=None, alias="Status")
     criterion: Optional[Criterion] = Field(default=None, alias="Criterion")
+    id: Optional[StrictStr] = Field(default=None, alias="Id")
     type: Optional[StrictStr] = Field(default=None, alias="Type")
     criterion_bid: Optional[CriterionBid] = Field(default=None, alias="CriterionBid")
     destination_url: Optional[StrictStr] = Field(default=None, alias="DestinationUrl")
@@ -48,7 +48,7 @@ class BiddableAdGroupCriterion(AdGroupCriterion):
     final_app_urls: Optional[List[Optional[AppUrl]]] = Field(default=None, alias="FinalAppUrls")
     editorial_status: Optional[AdGroupCriterionEditorialStatus] = Field(default=None, alias="EditorialStatus")
     criterion_cashback: Optional[CriterionCashback] = Field(default=None, alias="CriterionCashback")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "Id", "Status", "Criterion", "Type", "CriterionBid", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "EditorialStatus", "CriterionCashback"]
+    __properties: ClassVar[List[str]] = ["AdGroupId", "Status", "Criterion", "Id", "Type", "CriterionBid", "DestinationUrl", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "FinalUrls", "FinalMobileUrls", "FinalAppUrls", "EditorialStatus", "CriterionCashback"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -112,11 +112,6 @@ class BiddableAdGroupCriterion(AdGroupCriterion):
         if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
             _dict['AdGroupId'] = None
 
-        # set to None if id (nullable) is None
-        # and model_fields_set contains the field
-        if self.id is None and "id" in self.model_fields_set:
-            _dict['Id'] = None
-
         # set to None if status (nullable) is None
         # and model_fields_set contains the field
         if self.status is None and "status" in self.model_fields_set:
@@ -126,6 +121,11 @@ class BiddableAdGroupCriterion(AdGroupCriterion):
         # and model_fields_set contains the field
         if self.criterion is None and "criterion" in self.model_fields_set:
             _dict['Criterion'] = None
+
+        # set to None if id (nullable) is None
+        # and model_fields_set contains the field
+        if self.id is None and "id" in self.model_fields_set:
+            _dict['Id'] = None
 
         # set to None if type (nullable) is None
         # and model_fields_set contains the field
@@ -195,9 +195,9 @@ class BiddableAdGroupCriterion(AdGroupCriterion):
 
         _obj = cls.model_validate({
             "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Status": obj.get("Status") if obj.get("Status") is not None else None,
                         "Criterion": Criterion.from_dict(obj["Criterion"]) if obj.get("Criterion") is not None else None,
+                        "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "CriterionBid": CriterionBid.from_dict(obj["CriterionBid"]) if obj.get("CriterionBid") is not None else None,
                         "DestinationUrl": obj.get("DestinationUrl") if obj.get("DestinationUrl") is not None else None,

@@ -94,6 +94,12 @@ class FeedItemPerformanceReportColumn(str, Enum):
 
     VIEWTHROUGHCONVERSIONRATE = 'ViewThroughConversionRate'
 
+    MARKETINGOBJECTIVE = 'MarketingObjective'
+
+    CHANNEL = 'Channel'
+
+    SUBCHANNEL = 'SubChannel'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

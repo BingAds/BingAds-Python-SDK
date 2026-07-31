@@ -30,8 +30,6 @@ class CampaignType(Flag):
 
     APP = auto()
 
-    UNIFIEDCAMPAIGN = auto()
-
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -52,7 +50,6 @@ class CampaignType(Flag):
             CampaignType.HOTEL: 'Hotel',
             CampaignType.PERFORMANCEMAX: 'PerformanceMax',
             CampaignType.APP: 'App',
-            CampaignType.UNIFIEDCAMPAIGN: 'UnifiedCampaign',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignType if flag & self]
