@@ -3400,6 +3400,11 @@
                   <xs:element minOccurs="0" name="TotalBudget" nillable="true" type="xs:decimal" />
                   <xs:element minOccurs="0" name="IncludeImpressionsBreakdown" nillable="true" type="xs:boolean" />
                   <xs:element minOccurs="0" name="AutoTargeting" nillable="true" type="xs:boolean" />
+                  <xs:element minOccurs="0" name="JobSeniority" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Genre" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Channel" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="ChannelPlacement" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="SubChannel" nillable="true" type="tns:SelectionOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -3995,6 +4000,11 @@
                   <xs:element minOccurs="0" name="Lcid" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="BreakdownReturnCategory" type="tns:BreakdownCategory" />
                   <xs:element minOccurs="0" name="MultiAdTypes" nillable="true" type="xs:int" />
+                  <xs:element minOccurs="0" name="JobSeniority" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Genre" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="Channel" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="ChannelPlacement" nillable="true" type="tns:SelectionOflong" />
+                  <xs:element minOccurs="0" name="SubChannel" nillable="true" type="tns:SelectionOflong" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>

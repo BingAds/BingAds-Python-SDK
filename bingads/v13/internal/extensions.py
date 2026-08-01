@@ -1,4 +1,4 @@
-﻿from datetime import datetime
+from datetime import datetime
 
 from bingads.v13.internal.bulk.string_table import _StringTable
 import re
@@ -1175,18 +1175,24 @@ def csv_to_field_WebpageParameter_CriterionName(entity, value):
         entity.Criterion = webpage
 
 
-def entity_to_csv_DSAWebpageParameter(entity, row_values):
+def entity_to_csv_DSAWebpageParameter(entity, row_values, condition_header1=None, value_header1=None, condition_operator_header1=None):
     """
     Set Campaign/AdGroup Criterion (WebpagePage) Web page parameters from bulk values
     :param entity: campaign/ad group criterion entity
     :param row_values: bulk row values
+    :param condition_header1: the first condition column header (defaults to Dynamic Ad Target Condition 1)
+    :param value_header1: the first value column header (defaults to Dynamic Ad Target Value 1)
+    :param condition_operator_header1: the first operator column header (defaults to Dynamic Ad Target Condition Operator 1)
     """
+    condition_header1 = condition_header1 if condition_header1 is not None else _StringTable.DynamicAdTargetCondition1
+    value_header1 = value_header1 if value_header1 is not None else _StringTable.DynamicAdTargetValue1
+    condition_operator_header1 = condition_operator_header1 if condition_operator_header1 is not None else _StringTable.DynamicAdTargetConditionOperator1
     if entity is not None and entity.Criterion is not None and isinstance(entity.Criterion, type(Webpage)) and \
             entity.Criterion.Parameter is not None and entity.Criterion.Parameter.Conditions is not None and \
             entity.Criterion.Parameter.Conditions.WebpageCondition is not None:
-        condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
-        value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
-        condition_operator_prefix = _StringTable.DynamicAdTargetConditionOperator1[:-1]
+        condition_prefix = condition_header1[:-1]
+        value_prefix = value_header1[:-1]
+        condition_operator_prefix = condition_operator_header1[:-1]
 
         conditions = entity.Criterion.Parameter.Conditions.WebpageCondition
         for i in range(0, len(conditions)):
@@ -1195,16 +1201,22 @@ def entity_to_csv_DSAWebpageParameter(entity, row_values):
             row_values[condition_operator_prefix + str(i + 1)] = conditions[i].Operator
 
 
-def csv_to_entity_DSAWebpageParameter(row_values, entity):
+def csv_to_entity_DSAWebpageParameter(row_values, entity, condition_header1=None, value_header1=None, condition_operator_header1=None):
     """
     convert Campaign/Ad Group Criterion (WebpagePage) Web page parameters to bulk row values
     :param row_values: bulk row values
     :param entity: campaign/ad group criterion entity
+    :param condition_header1: the first condition column header (defaults to Dynamic Ad Target Condition 1)
+    :param value_header1: the first value column header (defaults to Dynamic Ad Target Value 1)
+    :param condition_operator_header1: the first operator column header (defaults to Dynamic Ad Target Condition Operator 1)
     """
     MAX_NUMBER_OF_CONDITIONS = 3
-    condition_prefix = _StringTable.DynamicAdTargetCondition1[:-1]
-    value_prefix = _StringTable.DynamicAdTargetValue1[:-1]
-    condition_operator_prefix = _StringTable.DynamicAdTargetConditionOperator1[:-1]
+    condition_header1 = condition_header1 if condition_header1 is not None else _StringTable.DynamicAdTargetCondition1
+    value_header1 = value_header1 if value_header1 is not None else _StringTable.DynamicAdTargetValue1
+    condition_operator_header1 = condition_operator_header1 if condition_operator_header1 is not None else _StringTable.DynamicAdTargetConditionOperator1
+    condition_prefix = condition_header1[:-1]
+    value_prefix = value_header1[:-1]
+    condition_operator_prefix = condition_operator_header1[:-1]
 
     conditions = []
     for i in range(0, MAX_NUMBER_OF_CONDITIONS):

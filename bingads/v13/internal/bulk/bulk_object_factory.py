@@ -123,6 +123,7 @@ class _BulkObjectFactory():
         _StringTable.CampaignNegativeInMarketAudienceAssociation: _EntityInfo(lambda : BulkCampaignNegativeInMarketAudienceAssociation()),
         'Campaign Negative Dynamic Search Ad Target': _EntityInfo(lambda: BulkCampaignNegativeDynamicSearchAdTarget()),
         'Ad Group Dynamic Search Ad Target': _EntityInfo(lambda: BulkAdGroupDynamicSearchAdTarget()),
+        _StringTable.AdGroupUrlTarget: _EntityInfo(lambda: BulkAdGroupUrlTarget()),
         'Ad Group Negative Dynamic Search Ad Target': _EntityInfo(lambda: BulkAdGroupNegativeDynamicSearchAdTarget()),
         'Ad Group Age Criterion': _EntityInfo(lambda: BulkAdGroupAgeCriterion()),
         'Ad Group DayTime Criterion': _EntityInfo(lambda: BulkAdGroupDayTimeCriterion()),

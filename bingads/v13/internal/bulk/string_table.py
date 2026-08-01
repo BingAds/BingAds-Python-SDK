@@ -527,6 +527,18 @@ class _StringTable:
     DynamicAdTargetConditionOperator2 = "Dynamic Ad Target Condition Operator 2"
     DynamicAdTargetConditionOperator3 = "Dynamic Ad Target Condition Operator 3"
 
+    # AIMax URL Inclusions (Ad Group Url Target)
+    AdGroupUrlTarget = "Ad Group Url Target"
+    AdGroupUrlTargetCondition1 = "Ad Group Url Target Condition 1"
+    AdGroupUrlTargetCondition2 = "Ad Group Url Target Condition 2"
+    AdGroupUrlTargetCondition3 = "Ad Group Url Target Condition 3"
+    AdGroupUrlTargetValue1 = "Ad Group Url Target Value 1"
+    AdGroupUrlTargetValue2 = "Ad Group Url Target Value 2"
+    AdGroupUrlTargetValue3 = "Ad Group Url Target Value 3"
+    AdGroupUrlTargetOperator1 = "Ad Group Url Target Operator 1"
+    AdGroupUrlTargetOperator2 = "Ad Group Url Target Operator 2"
+    AdGroupUrlTargetOperator3 = "Ad Group Url Target Operator 3"
+
     AdGroupAgeCriterion = "Ad Group Age Criterion"
     AdGroupDayTimeCriterion = "Ad Group DayTime Criterion"
     AdGroupDeviceCriterion = "Ad Group DeviceOS Criterion"

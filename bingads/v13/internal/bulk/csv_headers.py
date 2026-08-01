@@ -415,6 +415,16 @@ class _CsvHeaders:
         _StringTable.DynamicAdTargetConditionOperator2,
         _StringTable.DynamicAdTargetConditionOperator3,
         _StringTable.PageFeedIds,
+        # AIMax URL Inclusions (Ad Group Url Target)
+        _StringTable.AdGroupUrlTargetCondition1,
+        _StringTable.AdGroupUrlTargetCondition2,
+        _StringTable.AdGroupUrlTargetCondition3,
+        _StringTable.AdGroupUrlTargetValue1,
+        _StringTable.AdGroupUrlTargetValue2,
+        _StringTable.AdGroupUrlTargetValue3,
+        _StringTable.AdGroupUrlTargetOperator1,
+        _StringTable.AdGroupUrlTargetOperator2,
+        _StringTable.AdGroupUrlTargetOperator3,
         _StringTable.FeedId,
 
         # Labels
