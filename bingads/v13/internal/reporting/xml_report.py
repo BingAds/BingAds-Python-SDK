@@ -1,12 +1,21 @@
-import codecs
 import xml.etree.cElementTree as et
-import re
+from collections.abc import Iterator
+from typing import Protocol
+
 from bingads.v13.internal.extensions import *
 from bingads.v13.reporting.report_contract import *
 
 '''
 Implement with context.next.xml.etree.cElementTree is far more faster than xml.etree.ElementTree with python 2.7.10
 '''
+
+
+class _XmlIterator(Iterator, Protocol):
+    """
+    Protocol for the XML iterator from ElementTree.
+    """
+    def __next__(self):
+        ...
 
 schema=''
 class _XmlReportRecord:
@@ -29,7 +38,8 @@ class _XmlReportRecord:
 
 class _XmlReportIterator():
     
-    def __init__(self, context, header):
+
+    def __init__(self, context: _XmlIterator, header):
         self._context = context
         self._header = header
         self._row_pattern = schema + 'Row'
@@ -71,10 +81,10 @@ class _XmlReportIterator():
 
 class _XmlReportHeader:
 
-    def __init__(self, context):
+    def __init__(self, context: _XmlIterator):
         self._report_columns = []
         if context is not None:
-            event, root = context.next()
+            event, root = context.__next__()
             if event == 'start':
                 m = re.compile(r'^(.*)Report').match(root.tag)
                 if not m:
