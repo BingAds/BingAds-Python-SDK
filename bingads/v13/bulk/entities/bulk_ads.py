@@ -165,7 +165,7 @@ class _BulkAd(_SingleRecordBulkEntity):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_str(c.ad.TrackingUrlTemplate),
+            field_to_csv=lambda c: bulk_optional_str(c.ad.TrackingUrlTemplate),
             csv_to_field=lambda c, v: setattr(c.ad, 'TrackingUrlTemplate', v if v else None)
         ),
         _SimpleBulkMapping(
