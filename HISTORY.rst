@@ -2,6 +2,19 @@
 
 Release History
 
+13.0.30(2026-09-14)
++++++++++++++++++++++++++
+API Updates:
+* Refresh the production and sandbox Campaign Management, Customer Management, Reporting, and Bulk service proxies.
+* Add Objective Based campaigns, UnifiedCampaignFields, BrandExclusionSetting, and CampaignPageFeedSetting.
+* Add GetKeywordsByAssetGroupId, GetLinkedInSegments, and GetCompanyListDetails; extend keyword get, update, and delete requests with AssetGroupId.
+* Add RON currency, AssetGroupId and AdId asset report columns, and the HeadlineSource search term landing page report column.
+* Send API revision 2026-09-14 with authenticated service requests.
+
+Bulk Mapping Updates:
+* Add BulkCompanyList and BulkCompanyItem with their CSV columns and factory registrations.
+* Add CompanyList, CompanyItem, AdGroupUrlTargets, and AdGroupAIPromptAssociations download selectors.
+
 13.0.29(2026-07-22)
 +++++++++++++++++++++++++
 API Updates:

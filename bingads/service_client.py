@@ -2,7 +2,7 @@ from suds.client import Client, Factory, WebFault, Builder
 from .headerplugin import HeaderPlugin
 from .authorization import *
 from .service_info import SERVICE_INFO_DICT
-from .manifest import USER_AGENT
+from .manifest import USER_AGENT, SDK_API_REVISION
 from .util import DictCache
 from getpass import getuser
 from tempfile import gettempdir
@@ -159,6 +159,7 @@ class ServiceClient:
 
         http_headers = {
             'User-Agent': USER_AGENT,
+            'Api-Revision': SDK_API_REVISION,
         }
 
         kwargs['soapheaders'] = headers

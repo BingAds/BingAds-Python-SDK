@@ -156,6 +156,8 @@ class _BulkObjectFactory():
         _StringTable.CombinedList: _EntityInfo(lambda: BulkCombinedList()),
         _StringTable.CustomerList: _EntityInfo(lambda: BulkCustomerList()),
         _StringTable.CustomerListItem: _EntityInfo(lambda: BulkCustomerListItem()),
+        _StringTable.CompanyList: _EntityInfo(lambda: BulkCompanyList()),
+        _StringTable.CompanyItem: _EntityInfo(lambda: BulkCompanyItem()),
         _StringTable.ProductAudience: _EntityInfo(lambda: BulkProductAudience()),
         _StringTable.AdGroupProductAudienceAssociation: _EntityInfo(lambda: BulkAdGroupProductAudienceAssociation()),
         _StringTable.AdGroupNegativeProductAudienceAssociation: _EntityInfo(lambda: BulkAdGroupNegativeProductAudienceAssociation()),
