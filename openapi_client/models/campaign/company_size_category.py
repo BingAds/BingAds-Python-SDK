@@ -17,19 +17,31 @@ import json
 from enum import Enum
 from typing_extensions import Self
 
-class LeadDelivery(str, Enum):
+class CompanySizeCategory(str, Enum):
     UNKNOWN = 'Unknown'
 
-    CSV = 'CSV'
+    MYSELFONLY = 'MyselfOnly'
 
-    EMAIL = 'Email'
+    SIZE2TO10 = 'Size2To10'
 
-    WEBHOOK = 'Webhook'
+    SIZE11TO50 = 'Size11To50'
+
+    SIZE51TO200 = 'Size51To200'
+
+    SIZE201TO500 = 'Size201To500'
+
+    SIZE501TO1000 = 'Size501To1000'
+
+    SIZE1001TO5000 = 'Size1001To5000'
+
+    SIZE5001TO10000 = 'Size5001To10000'
+
+    SIZE10001PLUS = 'Size10001Plus'
 
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of LeadDelivery from a JSON string"""
+        """Create an instance of CompanySizeCategory from a JSON string"""
         return cls(json.loads(json_str))
 
 

@@ -22,6 +22,10 @@ class ExperimentAdditionalField(Flag):
 
     EXPERIMENTARMS = auto()
 
+    EXPERIMENTCAMPAIGNTYPE = auto()
+
+    MARKETINGOBJECTIVE = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -38,6 +42,8 @@ class ExperimentAdditionalField(Flag):
             ExperimentAdditionalField.NONE: 'None',
             ExperimentAdditionalField.EXPERIMENTSUBTYPE: 'ExperimentSubType',
             ExperimentAdditionalField.EXPERIMENTARMS: 'ExperimentArms',
+            ExperimentAdditionalField.EXPERIMENTCAMPAIGNTYPE: 'ExperimentCampaignType',
+            ExperimentAdditionalField.MARKETINGOBJECTIVE: 'MarketingObjective',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in ExperimentAdditionalField if flag & self]

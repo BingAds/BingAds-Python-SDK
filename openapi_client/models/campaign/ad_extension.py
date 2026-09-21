@@ -40,15 +40,12 @@ class AdExtension(BaseModel):
                 ('AppAdExtension', 'AppAdExtension'),
                 ('CallAdExtension', 'CallAdExtension'),
                 ('CalloutAdExtension', 'CalloutAdExtension'),
-                ('DataTableAdExtension', 'DataTableAdExtension'),
                 ('DisclaimerAdExtension', 'DisclaimerAdExtension'),
                 ('FilterLinkAdExtension', 'FilterLinkAdExtension'),
                 ('FlyerAdExtension', 'FlyerAdExtension'),
                 ('ImageAdExtension', 'ImageAdExtension'),
-                ('LeadFormAdExtension', 'LeadFormAdExtension'),
                 ('LocationAdExtension', 'LocationAdExtension'),
                 ('LogoAdExtension', 'LogoAdExtension'),
-                ('NewsAdExtension', 'NewsAdExtension'),
                 ('PriceAdExtension', 'PriceAdExtension'),
                 ('PromotionAdExtension', 'PromotionAdExtension'),
                 ('ReviewAdExtension', 'ReviewAdExtension'),
@@ -116,10 +113,6 @@ class AdExtension(BaseModel):
             from openapi_client.models.campaign.callout_ad_extension import CalloutAdExtension
             return CalloutAdExtension.from_dict(obj)
         
-        if type == "DataTableAdExtension":
-            from openapi_client.models.campaign.data_table_ad_extension import DataTableAdExtension
-            return DataTableAdExtension.from_dict(obj)
-        
         if type == "DisclaimerAdExtension":
             from openapi_client.models.campaign.disclaimer_ad_extension import DisclaimerAdExtension
             return DisclaimerAdExtension.from_dict(obj)
@@ -136,10 +129,6 @@ class AdExtension(BaseModel):
             from openapi_client.models.campaign.image_ad_extension import ImageAdExtension
             return ImageAdExtension.from_dict(obj)
         
-        if type == "LeadFormAdExtension":
-            from openapi_client.models.campaign.lead_form_ad_extension import LeadFormAdExtension
-            return LeadFormAdExtension.from_dict(obj)
-        
         if type == "LocationAdExtension":
             from openapi_client.models.campaign.location_ad_extension import LocationAdExtension
             return LocationAdExtension.from_dict(obj)
@@ -147,10 +136,6 @@ class AdExtension(BaseModel):
         if type == "LogoAdExtension":
             from openapi_client.models.campaign.logo_ad_extension import LogoAdExtension
             return LogoAdExtension.from_dict(obj)
-        
-        if type == "NewsAdExtension":
-            from openapi_client.models.campaign.news_ad_extension import NewsAdExtension
-            return NewsAdExtension.from_dict(obj)
         
         if type == "PriceAdExtension":
             from openapi_client.models.campaign.price_ad_extension import PriceAdExtension

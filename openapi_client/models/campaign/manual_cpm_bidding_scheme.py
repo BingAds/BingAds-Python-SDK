@@ -27,7 +27,8 @@ class ManualCpmBiddingScheme(BiddingScheme):
     ManualCpmBiddingScheme
     """ # noqa: E501
     type: Optional[StrictStr] = Field(default=None, alias="Type")
-    __properties: ClassVar[List[str]] = ["Type"]
+    max_cpm: Optional[StrictFloat] = Field(default=None, alias="MaxCpm")
+    __properties: ClassVar[List[str]] = ["Type", "MaxCpm"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -72,6 +73,11 @@ class ManualCpmBiddingScheme(BiddingScheme):
         if self.type is None and "type" in self.model_fields_set:
             _dict['Type'] = None
 
+        # set to None if max_cpm (nullable) is None
+        # and model_fields_set contains the field
+        if self.max_cpm is None and "max_cpm" in self.model_fields_set:
+            _dict['MaxCpm'] = None
+
         return _dict
 
     @classmethod
@@ -84,6 +90,7 @@ class ManualCpmBiddingScheme(BiddingScheme):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "Type": obj.get("Type") if obj.get("Type") is not None else None
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "MaxCpm": obj.get("MaxCpm") if obj.get("MaxCpm") is not None else None
         })
         return _obj

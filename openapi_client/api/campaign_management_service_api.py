@@ -229,6 +229,8 @@ from openapi_client.models.campaign.get_campaigns_by_ids_request import GetCampa
 from openapi_client.models.campaign.get_campaigns_by_ids_response import GetCampaignsByIdsResponse
 from openapi_client.models.campaign.get_clipchamp_templates_request import GetClipchampTemplatesRequest
 from openapi_client.models.campaign.get_clipchamp_templates_response import GetClipchampTemplatesResponse
+from openapi_client.models.campaign.get_company_list_details_request import GetCompanyListDetailsRequest
+from openapi_client.models.campaign.get_company_list_details_response import GetCompanyListDetailsResponse
 from openapi_client.models.campaign.get_config_value_request import GetConfigValueRequest
 from openapi_client.models.campaign.get_config_value_response import GetConfigValueResponse
 from openapi_client.models.campaign.get_conversion_goals_by_ids_request import GetConversionGoalsByIdsRequest
@@ -264,6 +266,8 @@ from openapi_client.models.campaign.get_import_results_request import GetImportR
 from openapi_client.models.campaign.get_import_results_response import GetImportResultsResponse
 from openapi_client.models.campaign.get_keywords_by_ad_group_id_request import GetKeywordsByAdGroupIdRequest
 from openapi_client.models.campaign.get_keywords_by_ad_group_id_response import GetKeywordsByAdGroupIdResponse
+from openapi_client.models.campaign.get_keywords_by_asset_group_id_request import GetKeywordsByAssetGroupIdRequest
+from openapi_client.models.campaign.get_keywords_by_asset_group_id_response import GetKeywordsByAssetGroupIdResponse
 from openapi_client.models.campaign.get_keywords_by_editorial_status_request import GetKeywordsByEditorialStatusRequest
 from openapi_client.models.campaign.get_keywords_by_editorial_status_response import GetKeywordsByEditorialStatusResponse
 from openapi_client.models.campaign.get_keywords_by_ids_request import GetKeywordsByIdsRequest
@@ -274,6 +278,8 @@ from openapi_client.models.campaign.get_label_associations_by_label_ids_request 
 from openapi_client.models.campaign.get_label_associations_by_label_ids_response import GetLabelAssociationsByLabelIdsResponse
 from openapi_client.models.campaign.get_labels_by_ids_request import GetLabelsByIdsRequest
 from openapi_client.models.campaign.get_labels_by_ids_response import GetLabelsByIdsResponse
+from openapi_client.models.campaign.get_linked_in_segments_request import GetLinkedInSegmentsRequest
+from openapi_client.models.campaign.get_linked_in_segments_response import GetLinkedInSegmentsResponse
 from openapi_client.models.campaign.get_list_items_by_shared_list_request import GetListItemsBySharedListRequest
 from openapi_client.models.campaign.get_list_items_by_shared_list_response import GetListItemsBySharedListResponse
 from openapi_client.models.campaign.get_media_associations_request import GetMediaAssociationsRequest
@@ -31230,6 +31236,294 @@ class CampaignManagementServiceApi:
 
 
     @validate_call
+    def get_company_list_details(
+        self,
+        get_company_list_details_request: GetCompanyListDetailsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetCompanyListDetailsResponse:
+        """get_company_list_details
+
+
+        :param get_company_list_details_request: (required)
+        :type get_company_list_details_request: GetCompanyListDetailsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_company_list_details_serialize(
+            get_company_list_details_request=get_company_list_details_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCompanyListDetailsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_company_list_details_with_http_info(
+        self,
+        get_company_list_details_request: GetCompanyListDetailsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetCompanyListDetailsResponse]:
+        """get_company_list_details
+
+
+        :param get_company_list_details_request: (required)
+        :type get_company_list_details_request: GetCompanyListDetailsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_company_list_details_serialize(
+            get_company_list_details_request=get_company_list_details_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCompanyListDetailsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_company_list_details_without_preload_content(
+        self,
+        get_company_list_details_request: GetCompanyListDetailsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """get_company_list_details
+
+
+        :param get_company_list_details_request: (required)
+        :type get_company_list_details_request: GetCompanyListDetailsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_company_list_details_serialize(
+            get_company_list_details_request=get_company_list_details_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetCompanyListDetailsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_company_list_details_serialize(
+        self,
+        get_company_list_details_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if get_company_list_details_request is not None:
+            _body_params = get_company_list_details_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/CampaignManagement/v13/CompanyListDetails/Query',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_config_value(
         self,
         get_config_value_request: GetConfigValueRequest,
@@ -36414,6 +36708,294 @@ class CampaignManagementServiceApi:
 
 
     @validate_call
+    def get_keywords_by_asset_group_id(
+        self,
+        get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetKeywordsByAssetGroupIdResponse:
+        """get_keywords_by_asset_group_id
+
+
+        :param get_keywords_by_asset_group_id_request: (required)
+        :type get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_keywords_by_asset_group_id_serialize(
+            get_keywords_by_asset_group_id_request=get_keywords_by_asset_group_id_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetKeywordsByAssetGroupIdResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_keywords_by_asset_group_id_with_http_info(
+        self,
+        get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetKeywordsByAssetGroupIdResponse]:
+        """get_keywords_by_asset_group_id
+
+
+        :param get_keywords_by_asset_group_id_request: (required)
+        :type get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_keywords_by_asset_group_id_serialize(
+            get_keywords_by_asset_group_id_request=get_keywords_by_asset_group_id_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetKeywordsByAssetGroupIdResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_keywords_by_asset_group_id_without_preload_content(
+        self,
+        get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """get_keywords_by_asset_group_id
+
+
+        :param get_keywords_by_asset_group_id_request: (required)
+        :type get_keywords_by_asset_group_id_request: GetKeywordsByAssetGroupIdRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_keywords_by_asset_group_id_serialize(
+            get_keywords_by_asset_group_id_request=get_keywords_by_asset_group_id_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetKeywordsByAssetGroupIdResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_keywords_by_asset_group_id_serialize(
+        self,
+        get_keywords_by_asset_group_id_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if get_keywords_by_asset_group_id_request is not None:
+            _body_params = get_keywords_by_asset_group_id_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/CampaignManagement/v13/Keywords/QueryByAssetGroupId',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
     def get_keywords_by_editorial_status(
         self,
         get_keywords_by_editorial_status_request: GetKeywordsByEditorialStatusRequest,
@@ -37838,6 +38420,294 @@ class CampaignManagementServiceApi:
         return self.api_client.param_serialize(
             method='POST',
             resource_path='/CampaignManagement/v13/Labels/QueryByIds',
+            path_params=_path_params,
+            query_params=_query_params,
+            header_params=_header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            auth_settings=_auth_settings,
+            collection_formats=_collection_formats,
+            _host=_host,
+            _request_auth=_request_auth
+        )
+
+
+
+
+    @validate_call
+    def get_linked_in_segments(
+        self,
+        get_linked_in_segments_request: GetLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> GetLinkedInSegmentsResponse:
+        """get_linked_in_segments
+
+
+        :param get_linked_in_segments_request: (required)
+        :type get_linked_in_segments_request: GetLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linked_in_segments_serialize(
+            get_linked_in_segments_request=get_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        ).data
+
+
+    @validate_call
+    def get_linked_in_segments_with_http_info(
+        self,
+        get_linked_in_segments_request: GetLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> ApiResponse[GetLinkedInSegmentsResponse]:
+        """get_linked_in_segments
+
+
+        :param get_linked_in_segments_request: (required)
+        :type get_linked_in_segments_request: GetLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linked_in_segments_serialize(
+            get_linked_in_segments_request=get_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        response_data.read()
+        return self.api_client.response_deserialize(
+            response_data=response_data,
+            response_types_map=_response_types_map,
+        )
+
+
+    @validate_call
+    def get_linked_in_segments_without_preload_content(
+        self,
+        get_linked_in_segments_request: GetLinkedInSegmentsRequest,
+        _request_timeout: Union[
+            None,
+            Annotated[StrictFloat, Field(gt=0)],
+            Tuple[
+                Annotated[StrictFloat, Field(gt=0)],
+                Annotated[StrictFloat, Field(gt=0)]
+            ]
+        ] = None,
+        _request_auth: Optional[Dict[StrictStr, Any]] = None,
+        _content_type: Optional[StrictStr] = None,
+        _headers: Optional[Dict[StrictStr, Any]] = None,
+        _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
+    ) -> RESTResponseType:
+        """get_linked_in_segments
+
+
+        :param get_linked_in_segments_request: (required)
+        :type get_linked_in_segments_request: GetLinkedInSegmentsRequest
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :type _request_timeout: int, tuple(int, int), optional
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the
+                              authentication in the spec for a single request.
+        :type _request_auth: dict, optional
+        :param _content_type: force content-type for the request.
+        :type _content_type: str, Optional
+        :param _headers: set to override the headers for a single
+                         request; this effectively ignores the headers
+                         in the spec for a single request.
+        :type _headers: dict, optional
+        :param _host_index: set to override the host_index for a single
+                            request; this effectively ignores the host_index
+                            in the spec for a single request.
+        :type _host_index: int, optional
+        :return: Returns the result object.
+        """ # noqa: E501
+
+        _param = self._get_linked_in_segments_serialize(
+            get_linked_in_segments_request=get_linked_in_segments_request,
+            _request_auth=_request_auth,
+            _content_type=_content_type,
+            _headers=_headers,
+            _host_index=_host_index
+        )
+
+        _response_types_map: Dict[str, Optional[str]] = {
+            '200': "GetLinkedInSegmentsResponse",
+            '400': "ApplicationFault",
+            '500': "ApplicationFault",
+            '401': "ApplicationFault",
+            '403': "ApplicationFault",
+        }
+        response_data = self.api_client.call_api(
+            *_param,
+            _request_timeout=_request_timeout
+        )
+        return response_data.response
+
+
+    def _get_linked_in_segments_serialize(
+        self,
+        get_linked_in_segments_request,
+        _request_auth,
+        _content_type,
+        _headers,
+        _host_index,
+    ) -> RequestSerialized:
+
+        _host = None
+
+        _collection_formats: Dict[str, str] = {
+        }
+
+        _path_params: Dict[str, str] = {}
+        _query_params: List[Tuple[str, str]] = []
+        _header_params: Dict[str, Optional[str]] = _headers or {}
+        _form_params: List[Tuple[str, str]] = []
+        _files: Dict[
+            str, Union[str, bytes, List[str], List[bytes], List[Tuple[str, bytes]]]
+        ] = {}
+        _body_params: Optional[bytes] = None
+
+        # process the path parameters
+        # process the query parameters
+        # process the header parameters
+        # process the form parameters
+        # process the body parameter
+        if get_linked_in_segments_request is not None:
+            _body_params = get_linked_in_segments_request
+
+
+        # set the HTTP header `Accept`
+        if 'Accept' not in _header_params:
+            _header_params['Accept'] = self.api_client.select_header_accept(
+                [
+                    'application/json'
+                ]
+            )
+
+        # set the HTTP header `Content-Type`
+        if _content_type:
+            _header_params['Content-Type'] = _content_type
+        else:
+            _default_content_type = (
+                self.api_client.select_header_content_type(
+                    [
+                        'application/json'
+                    ]
+                )
+            )
+            if _default_content_type is not None:
+                _header_params['Content-Type'] = _default_content_type
+
+        # authentication setting
+        _auth_settings: List[str] = [
+            'Authorization', 
+            'UserName', 
+            'CustomerAccountId', 
+            'CustomerId', 
+            'DeveloperToken', 
+            'Password'
+        ]
+
+        return self.api_client.param_serialize(
+            method='POST',
+            resource_path='/CampaignManagement/v13/LinkedInSegments/Query',
             path_params=_path_params,
             query_params=_query_params,
             header_params=_header_params,

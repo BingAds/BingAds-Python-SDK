@@ -30,6 +30,8 @@ class AssetGroupAdditionalField(Flag):
 
     CROPPINGTYPE = auto()
 
+    UNIFIEDCAMPAIGNFIELDS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -50,6 +52,7 @@ class AssetGroupAdditionalField(Flag):
             AssetGroupAdditionalField.FINALURLSUFFIX: 'FinalUrlSuffix',
             AssetGroupAdditionalField.URLCUSTOMPARAMETERS: 'UrlCustomParameters',
             AssetGroupAdditionalField.CROPPINGTYPE: 'CroppingType',
+            AssetGroupAdditionalField.UNIFIEDCAMPAIGNFIELDS: 'UnifiedCampaignFields',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AssetGroupAdditionalField if flag & self]

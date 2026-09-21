@@ -39,8 +39,10 @@ class Setting(BaseModel):
                 ('AISearchSetting', 'AISearchSetting'),
                 ('AppSetting', 'AppSetting'),
                 ('BaseDomainSetting', 'BaseDomainSetting'),
+                ('BrandExclusionSetting', 'BrandExclusionSetting'),
                 ('CallToActionSetting', 'CallToActionSetting'),
                 ('CampaignFrequencyCapSetting', 'CampaignFrequencyCapSetting'),
+                ('CampaignPageFeedSetting', 'CampaignPageFeedSetting'),
                 ('CoOpSetting', 'CoOpSetting'),
                 ('DisclaimerSetting', 'DisclaimerSetting'),
                 ('DynamicFeedSetting', 'DynamicFeedSetting'),
@@ -115,6 +117,10 @@ class Setting(BaseModel):
             from openapi_client.models.campaign.base_domain_setting import BaseDomainSetting
             return BaseDomainSetting.from_dict(obj)
         
+        if type == "BrandExclusionSetting":
+            from openapi_client.models.campaign.brand_exclusion_setting import BrandExclusionSetting
+            return BrandExclusionSetting.from_dict(obj)
+        
         if type == "CallToActionSetting":
             from openapi_client.models.campaign.call_to_action_setting import CallToActionSetting
             return CallToActionSetting.from_dict(obj)
@@ -122,6 +128,10 @@ class Setting(BaseModel):
         if type == "CampaignFrequencyCapSetting":
             from openapi_client.models.campaign.campaign_frequency_cap_setting import CampaignFrequencyCapSetting
             return CampaignFrequencyCapSetting.from_dict(obj)
+        
+        if type == "CampaignPageFeedSetting":
+            from openapi_client.models.campaign.campaign_page_feed_setting import CampaignPageFeedSetting
+            return CampaignPageFeedSetting.from_dict(obj)
         
         if type == "CoOpSetting":
             from openapi_client.models.campaign.co_op_setting import CoOpSetting

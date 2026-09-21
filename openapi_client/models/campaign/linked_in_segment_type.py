@@ -15,22 +15,8 @@
 from __future__ import annotations
 from enum import Flag, auto
 
-class CampaignType(Flag):
-    SEARCH = auto()
-
-    SHOPPING = auto()
-
-    DYNAMICSEARCHADS = auto()
-
-    AUDIENCE = auto()
-
-    HOTEL = auto()
-
-    PERFORMANCEMAX = auto()
-
-    APP = auto()
-
-    OBJECTIVEBASED = auto()
+class LinkedInSegmentType(Flag):
+    COMPANYLIST = auto()
 
 	
     def to_json(self) -> str:
@@ -45,17 +31,10 @@ class CampaignType(Flag):
 
     def _to_str(self) -> str:
         _NAME_MAPPING = {
-            CampaignType.SEARCH: 'Search',
-            CampaignType.SHOPPING: 'Shopping',
-            CampaignType.DYNAMICSEARCHADS: 'DynamicSearchAds',
-            CampaignType.AUDIENCE: 'Audience',
-            CampaignType.HOTEL: 'Hotel',
-            CampaignType.PERFORMANCEMAX: 'PerformanceMax',
-            CampaignType.APP: 'App',
-            CampaignType.OBJECTIVEBASED: 'ObjectiveBased',
+            LinkedInSegmentType.COMPANYLIST: 'CompanyList',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
-        names = [_NAME_MAPPING[flag] for flag in CampaignType if flag & self]
+        names = [_NAME_MAPPING[flag] for flag in LinkedInSegmentType if flag & self]
         if not names:
             return "None"
         if len(names) == 1:
@@ -69,7 +48,7 @@ class CampaignType(Flag):
         yield cls._validate
 		
     @classmethod
-    def _validate(cls, value, handler) -> "CampaignType":
+    def _validate(cls, value, handler) -> "LinkedInSegmentType":
         if isinstance(value, cls):
             return value
         if isinstance(value, int):
@@ -90,7 +69,7 @@ class CampaignType(Flag):
                 try:
                     return getattr(cls, value.strip().upper())
                 except AttributeError:
-                    raise ValueError(f"Invalid CampaignType value: {value}")
-        raise ValueError(f"Cannot convert {value} to CampaignType")
+                    raise ValueError(f"Invalid LinkedInSegmentType value: {value}")
+        raise ValueError(f"Cannot convert {value} to LinkedInSegmentType")
 
 

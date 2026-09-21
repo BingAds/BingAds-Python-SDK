@@ -21,21 +21,33 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
-
-class DeleteKeywordsRequest(BaseModel):
+from openapi_client.models.campaign.setting import Setting
+class BrandExclusionSetting(Setting):
     """
-    DeleteKeywordsRequest
+    BrandExclusionSetting
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
-    keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "AssetGroupId", "KeywordIds"]
+    type: Optional[StrictStr] = Field(default=None, alias="Type")
+    product_ads_opt_out: Optional[StrictBool] = Field(default=None, alias="ProductAdsOptOut")
+    __properties: ClassVar[List[str]] = ["Type", "ProductAdsOptOut"]
 
     model_config = ConfigDict(
         populate_by_name=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
+	
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+    def to_json(self) -> str:
+        """Returns the JSON representation of the model using alias"""
+        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
+        return json.dumps(self.to_dict())
+	
+    @classmethod
+    def from_json(cls, json_str: str) -> Optional[Self]:
+        """Create an instance of BrandExclusionSetting from a JSON string"""
+        return cls.from_dict(json.loads(json_str))
 	
 
     def to_dict(self) -> Dict[str, Any]:
@@ -56,26 +68,21 @@ class DeleteKeywordsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ad_group_id (nullable) is None
+        # set to None if type (nullable) is None
         # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # set to None if asset_group_id (nullable) is None
+        # set to None if product_ads_opt_out (nullable) is None
         # and model_fields_set contains the field
-        if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
-            _dict['AssetGroupId'] = None
-
-        # set to None if keyword_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.keyword_ids is None and "keyword_ids" in self.model_fields_set:
-            _dict['KeywordIds'] = None
+        if self.product_ads_opt_out is None and "product_ads_opt_out" in self.model_fields_set:
+            _dict['ProductAdsOptOut'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of DeleteKeywordsRequest from a dict"""
+        """Create an instance of BrandExclusionSetting from a dict"""
         if obj is None:
             return None
 
@@ -83,8 +90,7 @@ class DeleteKeywordsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None,
-                        "KeywordIds": obj.get("KeywordIds")
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "ProductAdsOptOut": obj.get("ProductAdsOptOut") if obj.get("ProductAdsOptOut") is not None else None
         })
         return _obj

@@ -64,6 +64,10 @@ class CampaignCriterionType(Flag):
 
     JOBSENIORITY = auto()
 
+    CUSTOMLINKEDIN = auto()
+
+    JOBTITLE = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -101,6 +105,8 @@ class CampaignCriterionType(Flag):
             CampaignCriterionType.CUSTOMERLIST: 'CustomerList',
             CampaignCriterionType.IMPRESSIONBASEDREMARKETINGLIST: 'ImpressionBasedRemarketingList',
             CampaignCriterionType.JOBSENIORITY: 'JobSeniority',
+            CampaignCriterionType.CUSTOMLINKEDIN: 'CustomLinkedIn',
+            CampaignCriterionType.JOBTITLE: 'JobTitle',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignCriterionType if flag & self]

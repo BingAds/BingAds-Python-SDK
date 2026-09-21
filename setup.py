@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '13.0.29'
+VERSION = '13.0.30'
 
 with open('README.rst', 'r') as f:
     readme = f.read()
@@ -12,6 +12,7 @@ with open('HISTORY.rst', 'r') as f:
 
 requirements = [
     'requests',
+    'python-dateutil>=2.8.2',
     'enum34;python_version<"3.9"',
     'pydantic>=2.0.0',
     'pydantic-core>=2.0.1',

@@ -84,6 +84,8 @@ class _CsvHeaders:
         _StringTable.CashbackAdjustment,
         _StringTable.RadiusTargetId,
         _StringTable.Name,
+        _StringTable.CompanyName,
+        _StringTable.AudienceSize,
         _StringTable.OsNames,
         _StringTable.Radius,
         _StringTable.Unit,

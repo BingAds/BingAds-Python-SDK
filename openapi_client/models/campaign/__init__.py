@@ -229,6 +229,7 @@ from openapi_client.models.campaign.biddable_ad_group_criterion import BiddableA
 from openapi_client.models.campaign.biddable_campaign_criterion import BiddableCampaignCriterion
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
 from openapi_client.models.campaign.bidding_scheme_base import BiddingSchemeBase
+from openapi_client.models.campaign.brand_exclusion_setting import BrandExclusionSetting
 from openapi_client.models.campaign.brand_item import BrandItem
 from openapi_client.models.campaign.brand_kit import BrandKit
 from openapi_client.models.campaign.brand_kit_color import BrandKitColor
@@ -255,6 +256,8 @@ from openapi_client.models.campaign.campaign_criterion_status import CampaignCri
 from openapi_client.models.campaign.campaign_criterion_type import CampaignCriterionType
 from openapi_client.models.campaign.campaign_frequency_cap_setting import CampaignFrequencyCapSetting
 from openapi_client.models.campaign.campaign_negative_sites import CampaignNegativeSites
+from openapi_client.models.campaign.campaign_page_feed_setting import CampaignPageFeedSetting
+from openapi_client.models.campaign.campaign_privacy_status import CampaignPrivacyStatus
 from openapi_client.models.campaign.campaign_size import CampaignSize
 from openapi_client.models.campaign.campaign_status import CampaignStatus
 from openapi_client.models.campaign.campaign_type import CampaignType
@@ -270,8 +273,8 @@ from openapi_client.models.campaign.company import Company
 from openapi_client.models.campaign.company_list import CompanyList
 from openapi_client.models.campaign.company_name import CompanyName
 from openapi_client.models.campaign.company_name_status import CompanyNameStatus
+from openapi_client.models.campaign.company_size_category import CompanySizeCategory
 from openapi_client.models.campaign.compression_type import CompressionType
-from openapi_client.models.campaign.confirmation_action import ConfirmationAction
 from openapi_client.models.campaign.conversion_goal import ConversionGoal
 from openapi_client.models.campaign.conversion_goal_additional_field import ConversionGoalAdditionalField
 from openapi_client.models.campaign.conversion_goal_base import ConversionGoalBase
@@ -320,7 +323,6 @@ from openapi_client.models.campaign.customer_list_user_data import CustomerListU
 from openapi_client.models.campaign.customer_share import CustomerShare
 from openapi_client.models.campaign.daily_summary import DailySummary
 from openapi_client.models.campaign.data_exclusion import DataExclusion
-from openapi_client.models.campaign.data_table_ad_extension import DataTableAdExtension
 from openapi_client.models.campaign.date import Date
 from openapi_client.models.campaign.day import Day
 from openapi_client.models.campaign.day_time import DayTime
@@ -500,6 +502,8 @@ from openapi_client.models.campaign.get_campaigns_by_ids_request import GetCampa
 from openapi_client.models.campaign.get_campaigns_by_ids_response import GetCampaignsByIdsResponse
 from openapi_client.models.campaign.get_clipchamp_templates_request import GetClipchampTemplatesRequest
 from openapi_client.models.campaign.get_clipchamp_templates_response import GetClipchampTemplatesResponse
+from openapi_client.models.campaign.get_company_list_details_request import GetCompanyListDetailsRequest
+from openapi_client.models.campaign.get_company_list_details_response import GetCompanyListDetailsResponse
 from openapi_client.models.campaign.get_config_value_request import GetConfigValueRequest
 from openapi_client.models.campaign.get_config_value_response import GetConfigValueResponse
 from openapi_client.models.campaign.get_conversion_goals_by_ids_request import GetConversionGoalsByIdsRequest
@@ -535,6 +539,8 @@ from openapi_client.models.campaign.get_import_results_request import GetImportR
 from openapi_client.models.campaign.get_import_results_response import GetImportResultsResponse
 from openapi_client.models.campaign.get_keywords_by_ad_group_id_request import GetKeywordsByAdGroupIdRequest
 from openapi_client.models.campaign.get_keywords_by_ad_group_id_response import GetKeywordsByAdGroupIdResponse
+from openapi_client.models.campaign.get_keywords_by_asset_group_id_request import GetKeywordsByAssetGroupIdRequest
+from openapi_client.models.campaign.get_keywords_by_asset_group_id_response import GetKeywordsByAssetGroupIdResponse
 from openapi_client.models.campaign.get_keywords_by_editorial_status_request import GetKeywordsByEditorialStatusRequest
 from openapi_client.models.campaign.get_keywords_by_editorial_status_response import GetKeywordsByEditorialStatusResponse
 from openapi_client.models.campaign.get_keywords_by_ids_request import GetKeywordsByIdsRequest
@@ -545,6 +551,8 @@ from openapi_client.models.campaign.get_label_associations_by_label_ids_request 
 from openapi_client.models.campaign.get_label_associations_by_label_ids_response import GetLabelAssociationsByLabelIdsResponse
 from openapi_client.models.campaign.get_labels_by_ids_request import GetLabelsByIdsRequest
 from openapi_client.models.campaign.get_labels_by_ids_response import GetLabelsByIdsResponse
+from openapi_client.models.campaign.get_linked_in_segments_request import GetLinkedInSegmentsRequest
+from openapi_client.models.campaign.get_linked_in_segments_response import GetLinkedInSegmentsResponse
 from openapi_client.models.campaign.get_list_items_by_shared_list_request import GetListItemsBySharedListRequest
 from openapi_client.models.campaign.get_list_items_by_shared_list_response import GetListItemsBySharedListResponse
 from openapi_client.models.campaign.get_media_associations_request import GetMediaAssociationsRequest
@@ -645,13 +653,11 @@ from openapi_client.models.campaign.keyword_status import KeywordStatus
 from openapi_client.models.campaign.label import Label
 from openapi_client.models.campaign.label_association import LabelAssociation
 from openapi_client.models.campaign.language_name import LanguageName
-from openapi_client.models.campaign.lead_delivery import LeadDelivery
-from openapi_client.models.campaign.lead_form_ad_extension import LeadFormAdExtension
-from openapi_client.models.campaign.lead_form_call_to_action import LeadFormCallToAction
-from openapi_client.models.campaign.lead_form_question_definition import LeadFormQuestionDefinition
+from openapi_client.models.campaign.linked_in_company_data import LinkedInCompanyData
 from openapi_client.models.campaign.linked_in_segment import LinkedInSegment
 from openapi_client.models.campaign.linked_in_segment_base import LinkedInSegmentBase
 from openapi_client.models.campaign.linked_in_segment_status import LinkedInSegmentStatus
+from openapi_client.models.campaign.linked_in_segment_type import LinkedInSegmentType
 from openapi_client.models.campaign.location_ad_extension import LocationAdExtension
 from openapi_client.models.campaign.location_condition import LocationCondition
 from openapi_client.models.campaign.location_condition_item import LocationConditionItem
@@ -689,7 +695,6 @@ from openapi_client.models.campaign.network import Network
 from openapi_client.models.campaign.network_distribution_setting import NetworkDistributionSetting
 from openapi_client.models.campaign.new_customer_acquisition_goal import NewCustomerAcquisitionGoal
 from openapi_client.models.campaign.new_customer_acquisition_goal_setting import NewCustomerAcquisitionGoalSetting
-from openapi_client.models.campaign.news_ad_extension import NewsAdExtension
 from openapi_client.models.campaign.normal_form import NormalForm
 from openapi_client.models.campaign.number_operator import NumberOperator
 from openapi_client.models.campaign.number_rule_item import NumberRuleItem

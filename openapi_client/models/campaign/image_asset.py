@@ -38,7 +38,8 @@ class ImageAsset(Asset):
     target_width: Optional[StrictInt] = Field(default=None, alias="TargetWidth")
     target_height: Optional[StrictInt] = Field(default=None, alias="TargetHeight")
     cropping_type: Optional[CropType] = Field(default=None, alias="CroppingType")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight", "CroppingType"]
+    excluded: Optional[StrictBool] = Field(default=None, alias="Excluded")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Type", "SubType", "CropX", "CropY", "CropWidth", "CropHeight", "TargetWidth", "TargetHeight", "CroppingType", "Excluded"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -133,6 +134,11 @@ class ImageAsset(Asset):
         if self.cropping_type is None and "cropping_type" in self.model_fields_set:
             _dict['CroppingType'] = None
 
+        # set to None if excluded (nullable) is None
+        # and model_fields_set contains the field
+        if self.excluded is None and "excluded" in self.model_fields_set:
+            _dict['Excluded'] = None
+
         return _dict
 
     @classmethod
@@ -155,6 +161,7 @@ class ImageAsset(Asset):
                         "CropHeight": obj.get("CropHeight") if obj.get("CropHeight") is not None else None,
                         "TargetWidth": obj.get("TargetWidth") if obj.get("TargetWidth") is not None else None,
                         "TargetHeight": obj.get("TargetHeight") if obj.get("TargetHeight") is not None else None,
-                        "CroppingType": obj.get("CroppingType") if obj.get("CroppingType") is not None else None
+                        "CroppingType": obj.get("CroppingType") if obj.get("CroppingType") is not None else None,
+                        "Excluded": obj.get("Excluded") if obj.get("Excluded") is not None else None
         })
         return _obj

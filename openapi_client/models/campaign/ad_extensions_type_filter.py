@@ -26,13 +26,10 @@ class AdExtensionsTypeFilter(Flag):
 
     APPADEXTENSION = auto()
 
-    NEWSADEXTENSION = auto()
+    # Keep the public bit values; removed filters leave reserved gaps.
+    REVIEWADEXTENSION = 64
 
-    REVIEWADEXTENSION = auto()
-
-    DATATABLEADEXTENSION = auto()
-
-    CALLOUTADEXTENSION = auto()
+    CALLOUTADEXTENSION = 256
 
     SITELINKADEXTENSION = auto()
 
@@ -54,8 +51,6 @@ class AdExtensionsTypeFilter(Flag):
 
     LOGOADEXTENSION = auto()
 
-    LEADFORMADEXTENSION = auto()
-
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -74,9 +69,7 @@ class AdExtensionsTypeFilter(Flag):
             AdExtensionsTypeFilter.CALLADEXTENSION: 'CallAdExtension',
             AdExtensionsTypeFilter.IMAGEADEXTENSION: 'ImageAdExtension',
             AdExtensionsTypeFilter.APPADEXTENSION: 'AppAdExtension',
-            AdExtensionsTypeFilter.NEWSADEXTENSION: 'NewsAdExtension',
             AdExtensionsTypeFilter.REVIEWADEXTENSION: 'ReviewAdExtension',
-            AdExtensionsTypeFilter.DATATABLEADEXTENSION: 'DataTableAdExtension',
             AdExtensionsTypeFilter.CALLOUTADEXTENSION: 'CalloutAdExtension',
             AdExtensionsTypeFilter.SITELINKADEXTENSION: 'SitelinkAdExtension',
             AdExtensionsTypeFilter.STRUCTUREDSNIPPETADEXTENSION: 'StructuredSnippetAdExtension',
@@ -88,7 +81,6 @@ class AdExtensionsTypeFilter(Flag):
             AdExtensionsTypeFilter.VIDEOADEXTENSION: 'VideoAdExtension',
             AdExtensionsTypeFilter.DISCLAIMERADEXTENSION: 'DisclaimerAdExtension',
             AdExtensionsTypeFilter.LOGOADEXTENSION: 'LogoAdExtension',
-            AdExtensionsTypeFilter.LEADFORMADEXTENSION: 'LeadFormAdExtension',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AdExtensionsTypeFilter if flag & self]
@@ -128,5 +120,4 @@ class AdExtensionsTypeFilter(Flag):
                 except AttributeError:
                     raise ValueError(f"Invalid AdExtensionsTypeFilter value: {value}")
         raise ValueError(f"Cannot convert {value} to AdExtensionsTypeFilter")
-
 

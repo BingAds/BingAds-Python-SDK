@@ -20,8 +20,10 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.asset_link import AssetLink
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
 from openapi_client.models.campaign.budget_limit_type import BudgetLimitType
+from openapi_client.models.campaign.campaign_privacy_status import CampaignPrivacyStatus
 from openapi_client.models.campaign.campaign_status import CampaignStatus
 from openapi_client.models.campaign.campaign_type import CampaignType
 from openapi_client.models.campaign.custom_parameters import CustomParameters
@@ -43,6 +45,7 @@ class Campaign(BaseModel):
     settings: Optional[List[Optional[Setting]]] = Field(default=None, alias="Settings")
     campaign_type: Optional[CampaignType] = Field(default=None, alias="CampaignType")
     sub_type: Optional[StrictStr] = Field(default=None, alias="SubType")
+    marketing_objective: Optional[StrictStr] = Field(default=None, alias="MarketingObjective")
     audience_ads_bid_adjustment: Optional[StrictInt] = Field(default=None, alias="AudienceAdsBidAdjustment")
     tracking_url_template: Optional[StrictStr] = Field(default=None, alias="TrackingUrlTemplate")
     final_url_suffix: Optional[StrictStr] = Field(default=None, alias="FinalUrlSuffix")
@@ -62,8 +65,12 @@ class Campaign(BaseModel):
     end_date: Optional[datetime] = Field(default=None, alias="EndDate")
     use_campaign_level_dates: Optional[StrictBool] = Field(default=None, alias="UseCampaignLevelDates")
     is_political: Optional[StrictBool] = Field(default=None, alias="IsPolitical")
+    business_name: Optional[StrictStr] = Field(default=None, alias="BusinessName")
+    brand_logo: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="BrandLogo")
+    brand_color: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="BrandColor")
+    privacy_status: Optional[CampaignPrivacyStatus] = Field(default=None, alias="PrivacyStatus")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "BidStrategyScope", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "IsPolitical", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "MarketingObjective", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "BidStrategyScope", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "IsPolitical", "BusinessName", "BrandLogo", "BrandColor", "PrivacyStatus", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -103,6 +110,20 @@ class Campaign(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of bidding_scheme
         if self.bidding_scheme:
             _dict['BiddingScheme'] = self.bidding_scheme.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of each item in brand_logo (list)
+        _items = []
+        if self.brand_logo:
+            for _item_brand_logo in self.brand_logo:
+                if _item_brand_logo:
+                    _items.append(_item_brand_logo.to_dict())
+            _dict['BrandLogo'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in brand_color (list)
+        _items = []
+        if self.brand_color:
+            for _item_brand_color in self.brand_color:
+                if _item_brand_color:
+                    _items.append(_item_brand_color.to_dict())
+            _dict['BrandColor'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in forward_compatibility_map (list)
         _items = []
         if self.forward_compatibility_map:
@@ -154,6 +175,11 @@ class Campaign(BaseModel):
         # and model_fields_set contains the field
         if self.sub_type is None and "sub_type" in self.model_fields_set:
             _dict['SubType'] = None
+
+        # set to None if marketing_objective (nullable) is None
+        # and model_fields_set contains the field
+        if self.marketing_objective is None and "marketing_objective" in self.model_fields_set:
+            _dict['MarketingObjective'] = None
 
         # set to None if audience_ads_bid_adjustment (nullable) is None
         # and model_fields_set contains the field
@@ -250,6 +276,26 @@ class Campaign(BaseModel):
         if self.is_political is None and "is_political" in self.model_fields_set:
             _dict['IsPolitical'] = None
 
+        # set to None if business_name (nullable) is None
+        # and model_fields_set contains the field
+        if self.business_name is None and "business_name" in self.model_fields_set:
+            _dict['BusinessName'] = None
+
+        # set to None if brand_logo (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_logo is None and "brand_logo" in self.model_fields_set:
+            _dict['BrandLogo'] = None
+
+        # set to None if brand_color (nullable) is None
+        # and model_fields_set contains the field
+        if self.brand_color is None and "brand_color" in self.model_fields_set:
+            _dict['BrandColor'] = None
+
+        # set to None if privacy_status (nullable) is None
+        # and model_fields_set contains the field
+        if self.privacy_status is None and "privacy_status" in self.model_fields_set:
+            _dict['PrivacyStatus'] = None
+
         # set to None if forward_compatibility_map (nullable) is None
         # and model_fields_set contains the field
         if self.forward_compatibility_map is None and "forward_compatibility_map" in self.model_fields_set:
@@ -276,6 +322,7 @@ class Campaign(BaseModel):
                         "Settings": [Setting.from_dict(_item) for _item in obj["Settings"]] if obj.get("Settings") is not None else None,
                         "CampaignType": obj.get("CampaignType") if obj.get("CampaignType") is not None else None,
                         "SubType": obj.get("SubType") if obj.get("SubType") is not None else None,
+                        "MarketingObjective": obj.get("MarketingObjective") if obj.get("MarketingObjective") is not None else None,
                         "AudienceAdsBidAdjustment": obj.get("AudienceAdsBidAdjustment") if obj.get("AudienceAdsBidAdjustment") is not None else None,
                         "TrackingUrlTemplate": obj.get("TrackingUrlTemplate") if obj.get("TrackingUrlTemplate") is not None else None,
                         "FinalUrlSuffix": obj.get("FinalUrlSuffix") if obj.get("FinalUrlSuffix") is not None else None,
@@ -295,6 +342,10 @@ class Campaign(BaseModel):
                         "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
                         "UseCampaignLevelDates": obj.get("UseCampaignLevelDates") if obj.get("UseCampaignLevelDates") is not None else None,
                         "IsPolitical": obj.get("IsPolitical") if obj.get("IsPolitical") is not None else None,
+                        "BusinessName": obj.get("BusinessName") if obj.get("BusinessName") is not None else None,
+                        "BrandLogo": [AssetLink.from_dict(_item) for _item in obj["BrandLogo"]] if obj.get("BrandLogo") is not None else None,
+                        "BrandColor": [AssetLink.from_dict(_item) for _item in obj["BrandColor"]] if obj.get("BrandColor") is not None else None,
+                        "PrivacyStatus": obj.get("PrivacyStatus") if obj.get("PrivacyStatus") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None
         })
         return _obj

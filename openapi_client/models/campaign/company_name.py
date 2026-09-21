@@ -21,6 +21,7 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.company_name_status import CompanyNameStatus
+from openapi_client.models.campaign.linked_in_company_data import LinkedInCompanyData
 from typing_extensions import Self
 
 class CompanyName(BaseModel):
@@ -30,7 +31,8 @@ class CompanyName(BaseModel):
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     name: Optional[StrictStr] = Field(default=None, alias="Name")
     status: Optional[CompanyNameStatus] = Field(default=None, alias="Status")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status"]
+    linked_in_company: Optional[LinkedInCompanyData] = Field(default=None, alias="LinkedInCompany")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "LinkedInCompany"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -57,6 +59,9 @@ class CompanyName(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of linked_in_company
+        if self.linked_in_company:
+            _dict['LinkedInCompany'] = self.linked_in_company.to_dict()
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -72,6 +77,11 @@ class CompanyName(BaseModel):
         if self.status is None and "status" in self.model_fields_set:
             _dict['Status'] = None
 
+        # set to None if linked_in_company (nullable) is None
+        # and model_fields_set contains the field
+        if self.linked_in_company is None and "linked_in_company" in self.model_fields_set:
+            _dict['LinkedInCompany'] = None
+
         return _dict
 
     @classmethod
@@ -86,6 +96,7 @@ class CompanyName(BaseModel):
         _obj = cls.model_validate({
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "Name": obj.get("Name") if obj.get("Name") is not None else None,
-                        "Status": obj.get("Status") if obj.get("Status") is not None else None
+                        "Status": obj.get("Status") if obj.get("Status") is not None else None,
+                        "LinkedInCompany": LinkedInCompanyData.from_dict(obj["LinkedInCompany"]) if obj.get("LinkedInCompany") is not None else None
         })
         return _obj

@@ -42,6 +42,7 @@ class AssetGroup(BaseModel):
     path1: Optional[StrictStr] = Field(default=None, alias="Path1")
     path2: Optional[StrictStr] = Field(default=None, alias="Path2")
     business_name: Optional[StrictStr] = Field(default=None, alias="BusinessName")
+    asset_context: Optional[StrictStr] = Field(default=None, alias="AssetContext")
     headlines: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Headlines")
     long_headlines: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="LongHeadlines")
     descriptions: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="Descriptions")
@@ -58,7 +59,7 @@ class AssetGroup(BaseModel):
     asset_group_url_targets: Optional[List[Optional[AssetGroupUrlTarget]]] = Field(default=None, alias="AssetGroupUrlTargets")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "EditorialStatus", "AssetGroupUrlTargets", "Id", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Name", "Status", "StartDate", "EndDate", "Path1", "Path2", "BusinessName", "AssetContext", "Headlines", "LongHeadlines", "Descriptions", "Images", "Videos", "CallToAction", "FinalUrls", "AssetGroupSearchThemes", "FinalMobileUrls", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "EditorialStatus", "AssetGroupUrlTargets", "Id", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -185,6 +186,11 @@ class AssetGroup(BaseModel):
         if self.business_name is None and "business_name" in self.model_fields_set:
             _dict['BusinessName'] = None
 
+        # set to None if asset_context (nullable) is None
+        # and model_fields_set contains the field
+        if self.asset_context is None and "asset_context" in self.model_fields_set:
+            _dict['AssetContext'] = None
+
         # set to None if headlines (nullable) is None
         # and model_fields_set contains the field
         if self.headlines is None and "headlines" in self.model_fields_set:
@@ -284,6 +290,7 @@ class AssetGroup(BaseModel):
                         "Path1": obj.get("Path1") if obj.get("Path1") is not None else None,
                         "Path2": obj.get("Path2") if obj.get("Path2") is not None else None,
                         "BusinessName": obj.get("BusinessName") if obj.get("BusinessName") is not None else None,
+                        "AssetContext": obj.get("AssetContext") if obj.get("AssetContext") is not None else None,
                         "Headlines": [AssetLink.from_dict(_item) for _item in obj["Headlines"]] if obj.get("Headlines") is not None else None,
                         "LongHeadlines": [AssetLink.from_dict(_item) for _item in obj["LongHeadlines"]] if obj.get("LongHeadlines") is not None else None,
                         "Descriptions": [AssetLink.from_dict(_item) for _item in obj["Descriptions"]] if obj.get("Descriptions") is not None else None,

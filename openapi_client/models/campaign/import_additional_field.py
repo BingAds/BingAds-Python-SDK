@@ -92,6 +92,14 @@ class ImportAdditionalField(Flag):
 
     NEWSEARCHTHEMESFOREXISTINGASSETGROUPS = auto()
 
+    UPDATEASSETGROUPS = auto()
+
+    UPDATESEARCHTHEMESFOREXISTINGASSETGROUPS = auto()
+
+    IMPORTNCASETTINGS = auto()
+
+    UPDATENCASETTINGS = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -143,6 +151,10 @@ class ImportAdditionalField(Flag):
             ImportAdditionalField.UPDATEBRANDLISTASSOCIATIONS: 'UpdateBrandListAssociations',
             ImportAdditionalField.CAMPAIGNTYPES: 'CampaignTypes',
             ImportAdditionalField.NEWSEARCHTHEMESFOREXISTINGASSETGROUPS: 'NewSearchThemesForExistingAssetGroups',
+            ImportAdditionalField.UPDATEASSETGROUPS: 'UpdateAssetGroups',
+            ImportAdditionalField.UPDATESEARCHTHEMESFOREXISTINGASSETGROUPS: 'UpdateSearchThemesForExistingAssetGroups',
+            ImportAdditionalField.IMPORTNCASETTINGS: 'ImportNCASettings',
+            ImportAdditionalField.UPDATENCASETTINGS: 'UpdateNCASettings',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in ImportAdditionalField if flag & self]
