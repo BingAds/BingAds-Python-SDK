@@ -70,6 +70,10 @@ class AssetPerformanceReportColumn(str, Enum):
 
     SUBCHANNEL = 'SubChannel'
 
+    ASSETGROUPID = 'AssetGroupId'
+
+    ADID = 'AdId'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

@@ -422,6 +422,14 @@ class DownloadEntity(str, Enum):
 
     ASSETGROUPNEGATIVEKEYWORDS = 'AssetGroupNegativeKeywords'
 
+    COMPANYLIST = 'CompanyList'
+
+    COMPANYITEM = 'CompanyItem'
+
+    ADGROUPURLTARGETS = 'AdGroupUrlTargets'
+
+    ADGROUPAIPROMPTASSOCIATIONS = 'AdGroupAIPromptAssociations'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

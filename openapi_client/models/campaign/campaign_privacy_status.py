@@ -17,19 +17,19 @@ import json
 from enum import Enum
 from typing_extensions import Self
 
-class ConfirmationAction(str, Enum):
+class CampaignPrivacyStatus(str, Enum):
     UNKNOWN = 'Unknown'
 
-    NONE = 'None'
+    ACTIVE = 'Active'
 
-    VISITWEBSITE = 'VisitWebsite'
+    TARGETINGTOONARROW = 'TargetingTooNarrow'
 
-    DOWNLOADFILE = 'DownloadFile'
+    PENDING = 'Pending'
 
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of ConfirmationAction from a JSON string"""
+        """Create an instance of CampaignPrivacyStatus from a JSON string"""
         return cls(json.loads(json_str))
 
 

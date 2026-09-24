@@ -86,6 +86,8 @@ class SearchTermLandingPageReportColumn(str, Enum):
 
     SUBCHANNEL = 'SubChannel'
 
+    HEADLINESOURCE = 'HeadlineSource'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

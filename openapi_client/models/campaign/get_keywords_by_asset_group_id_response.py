@@ -23,15 +23,12 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.keyword import Keyword
 from typing_extensions import Self
 
-class UpdateKeywordsRequest(BaseModel):
+class GetKeywordsByAssetGroupIdResponse(BaseModel):
     """
-    UpdateKeywordsRequest
+    GetKeywordsByAssetGroupIdResponse
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
     keywords: Optional[List[Optional[Keyword]]] = Field(default=None, alias="Keywords")
-    return_inherited_bid_strategy_types: Optional[StrictBool] = Field(default=None, alias="ReturnInheritedBidStrategyTypes")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "AssetGroupId", "Keywords", "ReturnInheritedBidStrategyTypes"]
+    __properties: ClassVar[List[str]] = ["Keywords"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -65,31 +62,16 @@ class UpdateKeywordsRequest(BaseModel):
                 if _item_keywords:
                     _items.append(_item_keywords.to_dict())
             _dict['Keywords'] = _items
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
-        # set to None if asset_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
-            _dict['AssetGroupId'] = None
-
         # set to None if keywords (nullable) is None
         # and model_fields_set contains the field
         if self.keywords is None and "keywords" in self.model_fields_set:
             _dict['Keywords'] = None
 
-        # set to None if return_inherited_bid_strategy_types (nullable) is None
-        # and model_fields_set contains the field
-        if self.return_inherited_bid_strategy_types is None and "return_inherited_bid_strategy_types" in self.model_fields_set:
-            _dict['ReturnInheritedBidStrategyTypes'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of UpdateKeywordsRequest from a dict"""
+        """Create an instance of GetKeywordsByAssetGroupIdResponse from a dict"""
         if obj is None:
             return None
 
@@ -97,9 +79,6 @@ class UpdateKeywordsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None,
-                        "Keywords": [Keyword.from_dict(_item) for _item in obj["Keywords"]] if obj.get("Keywords") is not None else None,
-                        "ReturnInheritedBidStrategyTypes": obj.get("ReturnInheritedBidStrategyTypes") if obj.get("ReturnInheritedBidStrategyTypes") is not None else None
+            "Keywords": [Keyword.from_dict(_item) for _item in obj["Keywords"]] if obj.get("Keywords") is not None else None
         })
         return _obj

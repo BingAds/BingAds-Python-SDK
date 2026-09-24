@@ -23,15 +23,13 @@ from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from openapi_client.models.campaign.keyword_additional_field import KeywordAdditionalField
 from typing_extensions import Self
 
-class GetKeywordsByIdsRequest(BaseModel):
+class GetKeywordsByAssetGroupIdRequest(BaseModel):
     """
-    GetKeywordsByIdsRequest
+    GetKeywordsByAssetGroupIdRequest
     """ # noqa: E501
     return_additional_fields: Optional[KeywordAdditionalField] = Field(default=None, alias="ReturnAdditionalFields")
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
     asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
-    keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
-    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "AdGroupId", "AssetGroupId", "KeywordIds"]
+    __properties: ClassVar[List[str]] = ["ReturnAdditionalFields", "AssetGroupId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -63,26 +61,16 @@ class GetKeywordsByIdsRequest(BaseModel):
         if self.return_additional_fields is None and "return_additional_fields" in self.model_fields_set:
             _dict['ReturnAdditionalFields'] = None
 
-        # set to None if ad_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
         # set to None if asset_group_id (nullable) is None
         # and model_fields_set contains the field
         if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
             _dict['AssetGroupId'] = None
 
-        # set to None if keyword_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.keyword_ids is None and "keyword_ids" in self.model_fields_set:
-            _dict['KeywordIds'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of GetKeywordsByIdsRequest from a dict"""
+        """Create an instance of GetKeywordsByAssetGroupIdRequest from a dict"""
         if obj is None:
             return None
 
@@ -91,8 +79,6 @@ class GetKeywordsByIdsRequest(BaseModel):
 
         _obj = cls.model_validate({
             "ReturnAdditionalFields": obj.get("ReturnAdditionalFields") if obj.get("ReturnAdditionalFields") is not None else None,
-                        "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None,
-                        "KeywordIds": obj.get("KeywordIds")
+                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None
         })
         return _obj

@@ -2,6 +2,21 @@
 
 Release History
 
+13.0.30(2026-09-14)
++++++++++++++++++++++++++
+API Updates:
+* Refresh the Campaign Management, Customer Management, Reporting, and Bulk models for API revision 2026-09-14.
+* Add Objective Based campaigns, UnifiedCampaignFields, BrandExclusionSetting, and CampaignPageFeedSetting.
+* Add GetKeywordsByAssetGroupId, GetLinkedInSegments, and GetCompanyListDetails; extend keyword get, update, and delete requests with AssetGroupId.
+* Add RON currency, AssetGroupId and AdId asset report columns, and the HeadlineSource search term landing page report column.
+* Remove LeadFormAdExtension, NewsAdExtension, DataTableAdExtension, LeadDelivery, LeadFormCallToAction, LeadFormQuestionDefinition, and ConfirmationAction from the REST models and remove their discriminator/filter references.
+* Preserve existing numeric Flag values when adding campaign fields and removing unsupported ad extension filters.
+* Declare the python-dateutil runtime dependency so a clean package installation can import the REST client.
+
+Bulk Mapping Updates:
+* Add BulkCompanyList and BulkCompanyItem with their CSV columns and factory registrations.
+* Add CompanyList, CompanyItem, AdGroupUrlTargets, and AdGroupAIPromptAssociations download selectors.
+
 13.0.29(2026-07-22)
 +++++++++++++++++++++++++
 API Updates:

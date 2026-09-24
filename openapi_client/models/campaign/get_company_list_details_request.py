@@ -22,14 +22,12 @@ from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, Stri
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
 from typing_extensions import Self
 
-class DeleteKeywordsRequest(BaseModel):
+class GetCompanyListDetailsRequest(BaseModel):
     """
-    DeleteKeywordsRequest
+    GetCompanyListDetailsRequest
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
-    keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "AssetGroupId", "KeywordIds"]
+    company_list_id: Optional[StrictStr] = Field(default=None, alias="CompanyListId")
+    __properties: ClassVar[List[str]] = ["CompanyListId"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,26 +54,16 @@ class DeleteKeywordsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ad_group_id (nullable) is None
+        # set to None if company_list_id (nullable) is None
         # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
-
-        # set to None if asset_group_id (nullable) is None
-        # and model_fields_set contains the field
-        if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
-            _dict['AssetGroupId'] = None
-
-        # set to None if keyword_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.keyword_ids is None and "keyword_ids" in self.model_fields_set:
-            _dict['KeywordIds'] = None
+        if self.company_list_id is None and "company_list_id" in self.model_fields_set:
+            _dict['CompanyListId'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of DeleteKeywordsRequest from a dict"""
+        """Create an instance of GetCompanyListDetailsRequest from a dict"""
         if obj is None:
             return None
 
@@ -83,8 +71,6 @@ class DeleteKeywordsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None,
-                        "KeywordIds": obj.get("KeywordIds")
+            "CompanyListId": obj.get("CompanyListId") if obj.get("CompanyListId") is not None else None
         })
         return _obj

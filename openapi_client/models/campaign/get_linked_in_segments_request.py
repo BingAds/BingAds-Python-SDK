@@ -20,16 +20,16 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.linked_in_segment_type import LinkedInSegmentType
 from typing_extensions import Self
 
-class DeleteKeywordsRequest(BaseModel):
+class GetLinkedInSegmentsRequest(BaseModel):
     """
-    DeleteKeywordsRequest
+    GetLinkedInSegmentsRequest
     """ # noqa: E501
-    ad_group_id: Optional[StrictStr] = Field(default=None, alias="AdGroupId")
-    asset_group_id: Optional[StrictStr] = Field(default=None, alias="AssetGroupId")
-    keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
-    __properties: ClassVar[List[str]] = ["AdGroupId", "AssetGroupId", "KeywordIds"]
+    type: Optional[LinkedInSegmentType] = Field(default=None, alias="Type")
+    linked_in_segment_ids: Optional[List[StrictStr]] = Field(default=None, alias="LinkedInSegmentIds")
+    __properties: ClassVar[List[str]] = ["Type", "LinkedInSegmentIds"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -56,26 +56,21 @@ class DeleteKeywordsRequest(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if ad_group_id (nullable) is None
+        # set to None if type (nullable) is None
         # and model_fields_set contains the field
-        if self.ad_group_id is None and "ad_group_id" in self.model_fields_set:
-            _dict['AdGroupId'] = None
+        if self.type is None and "type" in self.model_fields_set:
+            _dict['Type'] = None
 
-        # set to None if asset_group_id (nullable) is None
+        # set to None if linked_in_segment_ids (nullable) is None
         # and model_fields_set contains the field
-        if self.asset_group_id is None and "asset_group_id" in self.model_fields_set:
-            _dict['AssetGroupId'] = None
-
-        # set to None if keyword_ids (nullable) is None
-        # and model_fields_set contains the field
-        if self.keyword_ids is None and "keyword_ids" in self.model_fields_set:
-            _dict['KeywordIds'] = None
+        if self.linked_in_segment_ids is None and "linked_in_segment_ids" in self.model_fields_set:
+            _dict['LinkedInSegmentIds'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of DeleteKeywordsRequest from a dict"""
+        """Create an instance of GetLinkedInSegmentsRequest from a dict"""
         if obj is None:
             return None
 
@@ -83,8 +78,7 @@ class DeleteKeywordsRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "AdGroupId": obj.get("AdGroupId") if obj.get("AdGroupId") is not None else None,
-                        "AssetGroupId": obj.get("AssetGroupId") if obj.get("AssetGroupId") is not None else None,
-                        "KeywordIds": obj.get("KeywordIds")
+            "Type": obj.get("Type") if obj.get("Type") is not None else None,
+                        "LinkedInSegmentIds": obj.get("LinkedInSegmentIds")
         })
         return _obj

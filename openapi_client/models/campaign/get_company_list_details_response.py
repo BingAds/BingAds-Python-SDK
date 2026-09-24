@@ -20,15 +20,15 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.company_name import CompanyName
 from typing_extensions import Self
 
-class LeadFormQuestionDefinition(BaseModel):
+class GetCompanyListDetailsResponse(BaseModel):
     """
-    LeadFormQuestionDefinition
+    GetCompanyListDetailsResponse
     """ # noqa: E501
-    unique_question_id: Optional[StrictInt] = Field(default=None, alias="UniqueQuestionId")
-    answers: Optional[List[StrictStr]] = Field(default=None, alias="Answers")
-    __properties: ClassVar[List[str]] = ["UniqueQuestionId", "Answers"]
+    company_list_details: Optional[List[Optional[CompanyName]]] = Field(default=None, alias="CompanyListDetails")
+    __properties: ClassVar[List[str]] = ["CompanyListDetails"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -55,21 +55,23 @@ class LeadFormQuestionDefinition(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
-        # set to None if unique_question_id (nullable) is None
+        # override the default output from pydantic by calling `to_dict()` of each item in company_list_details (list)
+        _items = []
+        if self.company_list_details:
+            for _item_company_list_details in self.company_list_details:
+                if _item_company_list_details:
+                    _items.append(_item_company_list_details.to_dict())
+            _dict['CompanyListDetails'] = _items
+        # set to None if company_list_details (nullable) is None
         # and model_fields_set contains the field
-        if self.unique_question_id is None and "unique_question_id" in self.model_fields_set:
-            _dict['UniqueQuestionId'] = None
-
-        # set to None if answers (nullable) is None
-        # and model_fields_set contains the field
-        if self.answers is None and "answers" in self.model_fields_set:
-            _dict['Answers'] = None
+        if self.company_list_details is None and "company_list_details" in self.model_fields_set:
+            _dict['CompanyListDetails'] = None
 
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of LeadFormQuestionDefinition from a dict"""
+        """Create an instance of GetCompanyListDetailsResponse from a dict"""
         if obj is None:
             return None
 
@@ -77,7 +79,6 @@ class LeadFormQuestionDefinition(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "UniqueQuestionId": obj.get("UniqueQuestionId") if obj.get("UniqueQuestionId") is not None else None,
-                        "Answers": obj.get("Answers")
+            "CompanyListDetails": [CompanyName.from_dict(_item) for _item in obj["CompanyListDetails"]] if obj.get("CompanyListDetails") is not None else None
         })
         return _obj

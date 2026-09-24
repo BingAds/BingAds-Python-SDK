@@ -94,6 +94,10 @@ class CampaignAdditionalField(Flag):
 
     PAGEFEEDINAISEARCHSETTINGS = auto()
 
+    UNIFIEDCAMPAIGNFIELDS = auto()
+
+    BRANDEXCLUSIONSETTING = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -145,7 +149,9 @@ class CampaignAdditionalField(Flag):
             CampaignAdditionalField.AISEARCHSETTING: 'AISearchSetting',
             CampaignAdditionalField.PMAXXBOXCAMPAIGN: 'PmaxXboxCampaign',
             CampaignAdditionalField.NETWORKDISTRIBUTIONSETTING: 'NetworkDistributionSetting',
+            CampaignAdditionalField.UNIFIEDCAMPAIGNFIELDS: 'UnifiedCampaignFields',
             CampaignAdditionalField.PAGEFEEDINAISEARCHSETTINGS: 'PageFeedInAISearchSettings',
+            CampaignAdditionalField.BRANDEXCLUSIONSETTING: 'BrandExclusionSetting',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignAdditionalField if flag & self]
@@ -185,5 +191,4 @@ class CampaignAdditionalField(Flag):
                 except AttributeError:
                     raise ValueError(f"Invalid CampaignAdditionalField value: {value}")
         raise ValueError(f"Cannot convert {value} to CampaignAdditionalField")
-
 

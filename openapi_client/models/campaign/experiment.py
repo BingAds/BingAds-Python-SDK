@@ -39,7 +39,9 @@ class Experiment(BaseModel):
     experiment_status: Optional[StrictStr] = Field(default=None, alias="ExperimentStatus")
     experiment_type: Optional[StrictStr] = Field(default=None, alias="ExperimentType")
     experiment_sub_type: Optional[StrictStr] = Field(default=None, alias="ExperimentSubType")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "BaseCampaignId", "ExperimentCampaignId", "TrafficSplitPercent", "ExperimentArms", "StartDate", "EndDate", "ExperimentStatus", "ExperimentType", "ExperimentSubType"]
+    experiment_campaign_type: Optional[StrictStr] = Field(default=None, alias="ExperimentCampaignType")
+    marketing_objective: Optional[StrictStr] = Field(default=None, alias="MarketingObjective")
+    __properties: ClassVar[List[str]] = ["Id", "Name", "BaseCampaignId", "ExperimentCampaignId", "TrafficSplitPercent", "ExperimentArms", "StartDate", "EndDate", "ExperimentStatus", "ExperimentType", "ExperimentSubType", "ExperimentCampaignType", "MarketingObjective"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -134,6 +136,16 @@ class Experiment(BaseModel):
         if self.experiment_sub_type is None and "experiment_sub_type" in self.model_fields_set:
             _dict['ExperimentSubType'] = None
 
+        # set to None if experiment_campaign_type (nullable) is None
+        # and model_fields_set contains the field
+        if self.experiment_campaign_type is None and "experiment_campaign_type" in self.model_fields_set:
+            _dict['ExperimentCampaignType'] = None
+
+        # set to None if marketing_objective (nullable) is None
+        # and model_fields_set contains the field
+        if self.marketing_objective is None and "marketing_objective" in self.model_fields_set:
+            _dict['MarketingObjective'] = None
+
         return _dict
 
     @classmethod
@@ -156,6 +168,8 @@ class Experiment(BaseModel):
                         "EndDate": Date.from_dict(obj["EndDate"]) if obj.get("EndDate") is not None else None,
                         "ExperimentStatus": obj.get("ExperimentStatus") if obj.get("ExperimentStatus") is not None else None,
                         "ExperimentType": obj.get("ExperimentType") if obj.get("ExperimentType") is not None else None,
-                        "ExperimentSubType": obj.get("ExperimentSubType") if obj.get("ExperimentSubType") is not None else None
+                        "ExperimentSubType": obj.get("ExperimentSubType") if obj.get("ExperimentSubType") is not None else None,
+                        "ExperimentCampaignType": obj.get("ExperimentCampaignType") if obj.get("ExperimentCampaignType") is not None else None,
+                        "MarketingObjective": obj.get("MarketingObjective") if obj.get("MarketingObjective") is not None else None
         })
         return _obj
