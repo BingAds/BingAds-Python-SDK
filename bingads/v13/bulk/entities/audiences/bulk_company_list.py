@@ -10,11 +10,12 @@ LinkedInSegmentStatus = _CAMPAIGN_OBJECT_FACTORY_V13.create('LinkedInSegmentStat
 class BulkCompanyList(_SingleRecordBulkEntity):
     """Represents a company list that can be read or written in a bulk file."""
 
-    def __init__(self, account_id=None, audience_size=None, company_list=None):
+    def __init__(self, account_id=None, audience_size=None, company_list=None, status=None):
         super(BulkCompanyList, self).__init__()
         self._account_id = account_id
         self._audience_size = audience_size
         self._company_list = company_list
+        self._status = status
 
     @property
     def account_id(self):
@@ -40,11 +41,31 @@ class BulkCompanyList(_SingleRecordBulkEntity):
     def company_list(self, value):
         self._company_list = value
 
+    @property
+    def status(self):
+        """Bulk upload status ('Active' or 'Deleted'), written to the Status column.
+
+        Downloaded processing status remains on company_list.Status.
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, value):
+        self._status = value
+
+    def _read_status(self, value):
+        if value in (_StringTable.EntityActiveStatus, _StringTable.EntityDeletedStatus):
+            self.status = value
+            self.company_list.Status = None
+        else:
+            self.company_list.Status = getattr(LinkedInSegmentStatus, value) if value else None
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             _StringTable.Status,
-            field_to_csv=lambda c: bulk_str(c.company_list.Status),
-            csv_to_field=lambda c, v: csv_to_field_enum(c.company_list, v, 'Status', LinkedInSegmentStatus)
+            field_to_csv=lambda c: bulk_str(c.status),
+            csv_to_field=lambda c, v: c._read_status(v)
         ),
         _SimpleBulkMapping(
             _StringTable.Id,
@@ -70,6 +91,7 @@ class BulkCompanyList(_SingleRecordBulkEntity):
 
     def process_mappings_from_row_values(self, row_values):
         self.company_list = _CAMPAIGN_OBJECT_FACTORY_V13.create('CompanyList')
+        self.status = None
         row_values.convert_to_entity(self, BulkCompanyList._MAPPINGS)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
