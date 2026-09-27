@@ -79,7 +79,7 @@ class BulkFlyerAdExtension(_BulkAdExtensionBase):
         ),
         _SimpleBulkMapping(
             header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_str(c.flyer_ad_extension.TrackingUrlTemplate),
+            field_to_csv=lambda c: bulk_optional_str(c.flyer_ad_extension.TrackingUrlTemplate),
             csv_to_field=lambda c, v: setattr(c.flyer_ad_extension, 'TrackingUrlTemplate', v if v else None)
         ),
         _SimpleBulkMapping(
