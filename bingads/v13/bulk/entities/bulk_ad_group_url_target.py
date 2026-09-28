@@ -5,7 +5,6 @@ from bingads.v13.internal.bulk.string_table import _StringTable
 from bingads.v13.internal.extensions import *
 
 
-_BiddableAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion'))
 class BulkAdGroupUrlTarget(_SingleRecordBulkEntity):
     """ Represents an Ad Group Url Target (AIMax URL Inclusions) that can be read or written in a bulk file.
 
@@ -13,8 +12,8 @@ class BulkAdGroupUrlTarget(_SingleRecordBulkEntity):
     Ad Group Url Target record in a bulk file.
 
     It is the AI Max counterpart of the Ad Group Dynamic Search Ad Target record and shares the same
-    BiddableAdGroupCriterion shape, differing only in the record-type label and the webpage-condition column
-    headers (Ad Group Url Target Condition/Value/Operator N).
+    BiddableAdGroupCriterion shape. It uses a different record type and webpage-condition column
+    headers (Ad Group Url Target Condition/Value/Operator N), and does not map bid or URL tracking fields.
 
     For more information, see Ad Group Dynamic Search Ad Target at https://go.microsoft.com/fwlink/?linkid=836837.
 
@@ -67,11 +66,6 @@ class BulkAdGroupUrlTarget(_SingleRecordBulkEntity):
             csv_to_field=lambda c, v: setattr(c, 'ad_group_name', v)
         ),
         _SimpleBulkMapping(
-            header=_StringTable.Bid,
-            field_to_csv=lambda c: fixed_bid_bulk_str(c.biddable_ad_group_criterion.CriterionBid),
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'CriterionBid', parse_fixed_bid(v))
-        ),
-        _SimpleBulkMapping(
             header=_StringTable.Name,
             field_to_csv=lambda c: field_to_csv_WebpageParameter_CriterionName(c.biddable_ad_group_criterion),
             csv_to_field=lambda c, v: csv_to_field_WebpageParameter_CriterionName(c.biddable_ad_group_criterion, v)
@@ -90,21 +84,6 @@ class BulkAdGroupUrlTarget(_SingleRecordBulkEntity):
                 _StringTable.AdGroupUrlTargetValue1,
                 _StringTable.AdGroupUrlTargetOperator1)
         ),
-        _SimpleBulkMapping(
-            header=_StringTable.TrackingTemplate,
-            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.TrackingUrlTemplate, c.biddable_ad_group_criterion.Id),
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'TrackingUrlTemplate', v if v else None)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.CustomParameter,
-            field_to_csv=lambda c: field_to_csv_UrlCustomParameters(c.biddable_ad_group_criterion),
-            csv_to_field=lambda c, v: csv_to_field_UrlCustomParameters(c.biddable_ad_group_criterion, v)
-        ),
-        _SimpleBulkMapping(
-            header=_StringTable.FinalUrlSuffix,
-            field_to_csv=lambda c: bulk_optional_str(c.biddable_ad_group_criterion.FinalUrlSuffix, c.biddable_ad_group_criterion.Id) if isinstance(c.biddable_ad_group_criterion, _BiddableAdGroupCriterion) else None ,
-            csv_to_field=lambda c, v: setattr(c.biddable_ad_group_criterion, 'FinalUrlSuffix', v) if isinstance(c.biddable_ad_group_criterion, _BiddableAdGroupCriterion) else None
-        )
     ]
 
     @property
@@ -161,8 +140,8 @@ class BulkAdGroupUrlTarget(_SingleRecordBulkEntity):
         self._biddable_ad_group_criterion.Type = 'BiddableAdGroupCriterion'
         self._biddable_ad_group_criterion.Criterion = _CAMPAIGN_OBJECT_FACTORY_V13.create('Webpage')
         self._biddable_ad_group_criterion.Criterion.Type = 'Webpage'
-        self._biddable_ad_group_criterion.CriterionBid = _CAMPAIGN_OBJECT_FACTORY_V13.create('FixedBid')
-        self._biddable_ad_group_criterion.CriterionBid.Type = 'FixedBid'
+        self._biddable_ad_group_criterion.CriterionBid = None
+        self._biddable_ad_group_criterion.UrlCustomParameters = None
 
         row_values.convert_to_entity(self, BulkAdGroupUrlTarget._MAPPINGS)
 
