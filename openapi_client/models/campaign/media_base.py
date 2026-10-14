@@ -20,6 +20,7 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.advertiser_ai_label import AdvertiserAILabel
 from typing_extensions import Self
 from openapi_client.models.campaign.media import Media
 class MediaBase(Media):
@@ -30,7 +31,8 @@ class MediaBase(Media):
     media_type: Optional[StrictStr] = Field(default=None, alias="MediaType")
     type: Optional[StrictStr] = Field(default=None, alias="Type")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
-    __properties: ClassVar[List[str]] = ["Id", "MediaType", "Type", "Text"]
+    advertiser_ai_label: Optional[AdvertiserAILabel] = Field(default=None, alias="AdvertiserAILabel")
+    __properties: ClassVar[List[str]] = ["Id", "MediaType", "Type", "Text", "AdvertiserAILabel"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -90,6 +92,11 @@ class MediaBase(Media):
         if self.text is None and "text" in self.model_fields_set:
             _dict['Text'] = None
 
+        # set to None if advertiser_ai_label (nullable) is None
+        # and model_fields_set contains the field
+        if self.advertiser_ai_label is None and "advertiser_ai_label" in self.model_fields_set:
+            _dict['AdvertiserAILabel'] = None
+
         return _dict
 
     @classmethod
@@ -105,6 +112,7 @@ class MediaBase(Media):
             "Id": obj.get("Id") if obj.get("Id") is not None else None,
                         "MediaType": obj.get("MediaType") if obj.get("MediaType") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else None,
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "AdvertiserAILabel": obj.get("AdvertiserAILabel") if obj.get("AdvertiserAILabel") is not None else None
         })
         return _obj

@@ -68,6 +68,8 @@ class CampaignCriterionType(Flag):
 
     JOBTITLE = auto()
 
+    AIPROMPT = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -107,6 +109,7 @@ class CampaignCriterionType(Flag):
             CampaignCriterionType.JOBSENIORITY: 'JobSeniority',
             CampaignCriterionType.CUSTOMLINKEDIN: 'CustomLinkedIn',
             CampaignCriterionType.JOBTITLE: 'JobTitle',
+            CampaignCriterionType.AIPROMPT: 'AIPrompt',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in CampaignCriterionType if flag & self]

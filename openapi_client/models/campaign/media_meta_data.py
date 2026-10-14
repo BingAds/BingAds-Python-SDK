@@ -20,7 +20,9 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.advertiser_ai_label import AdvertiserAILabel
 from openapi_client.models.campaign.media_representation import MediaRepresentation
+from openapi_client.models.campaign.system_ai_detection_signal import SystemAIDetectionSignal
 from typing_extensions import Self
 
 class MediaMetaData(BaseModel):
@@ -32,7 +34,9 @@ class MediaMetaData(BaseModel):
     type: Optional[StrictStr] = Field(default=None, alias="Type")
     representations: Optional[List[Optional[MediaRepresentation]]] = Field(default=None, alias="Representations")
     text: Optional[StrictStr] = Field(default=None, alias="Text")
-    __properties: ClassVar[List[str]] = ["Id", "MediaType", "Type", "Representations", "Text"]
+    advertiser_ai_label: Optional[AdvertiserAILabel] = Field(default=None, alias="AdvertiserAILabel")
+    system_ai_detection_signal: Optional[SystemAIDetectionSignal] = Field(default=None, alias="SystemAIDetectionSignal")
+    __properties: ClassVar[List[str]] = ["Id", "MediaType", "Type", "Representations", "Text", "AdvertiserAILabel", "SystemAIDetectionSignal"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -91,6 +95,16 @@ class MediaMetaData(BaseModel):
         if self.text is None and "text" in self.model_fields_set:
             _dict['Text'] = None
 
+        # set to None if advertiser_ai_label (nullable) is None
+        # and model_fields_set contains the field
+        if self.advertiser_ai_label is None and "advertiser_ai_label" in self.model_fields_set:
+            _dict['AdvertiserAILabel'] = None
+
+        # set to None if system_ai_detection_signal (nullable) is None
+        # and model_fields_set contains the field
+        if self.system_ai_detection_signal is None and "system_ai_detection_signal" in self.model_fields_set:
+            _dict['SystemAIDetectionSignal'] = None
+
         return _dict
 
     @classmethod
@@ -107,6 +121,8 @@ class MediaMetaData(BaseModel):
                         "MediaType": obj.get("MediaType") if obj.get("MediaType") is not None else None,
                         "Type": obj.get("Type") if obj.get("Type") is not None else None,
                         "Representations": [MediaRepresentation.from_dict(_item) for _item in obj["Representations"]] if obj.get("Representations") is not None else None,
-                        "Text": obj.get("Text") if obj.get("Text") is not None else None
+                        "Text": obj.get("Text") if obj.get("Text") is not None else None,
+                        "AdvertiserAILabel": obj.get("AdvertiserAILabel") if obj.get("AdvertiserAILabel") is not None else None,
+                        "SystemAIDetectionSignal": obj.get("SystemAIDetectionSignal") if obj.get("SystemAIDetectionSignal") is not None else None
         })
         return _obj

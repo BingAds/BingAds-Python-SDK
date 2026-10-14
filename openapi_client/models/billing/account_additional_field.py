@@ -24,6 +24,8 @@ class AccountAdditionalField(Flag):
 
     COUPONCLAIMINFO = auto()
 
+    PARENTCUSTOMERNUMBER = auto()
+
 	
     def to_json(self) -> str:
         """Convert to JSON string representation"""
@@ -41,6 +43,7 @@ class AccountAdditionalField(Flag):
             AccountAdditionalField.TAXCERTIFICATE: 'TaxCertificate',
             AccountAdditionalField.ACCOUNTMODE: 'AccountMode',
             AccountAdditionalField.COUPONCLAIMINFO: 'CouponClaimInfo',
+            AccountAdditionalField.PARENTCUSTOMERNUMBER: 'ParentCustomerNumber',
         }
         """Convert the enum flags to a comma-separated string of quoted, capitalized names"""
         names = [_NAME_MAPPING[flag] for flag in AccountAdditionalField if flag & self]

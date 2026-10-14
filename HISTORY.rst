@@ -2,6 +2,20 @@
 
 Release History
 
+13.0.30.1(2026-10-12)
++++++++++++++++++++++++++
+API Updates:
+* Add AdvertiserAILabel to MediaBase, MediaMetaData, and Video, and SystemAIDetectionSignal to MediaMetaData and Video in Campaign Management REST models.
+* Use AIContent (AICONTENT in the Python enum) for the AdvertiserAILabel value previously named AIContentWithNoVisibleWatermark.
+* Add UpdateMedia operation to Campaign Management REST client.
+* Add TermExclusions to Campaign in Campaign Management REST models.
+* Add AIPrompt to AudienceType, AdGroupCriterionType, and CampaignCriterionType in Campaign Management REST models.
+* Add ParentCustomerNumber to AdvertiserAccount in Customer Management REST models and AccountAdditionalField in Customer Management and Customer Billing REST models.
+
+Bulk API Updates:
+* Add AIPromptAudiences to DownloadEntity in Bulk REST models.
+* Add Bulk AIPromptAudience row mapping and image/video AI metadata and account watermark policy mappings.
+
 13.0.30(2026-09-14)
 +++++++++++++++++++++++++
 API Updates:

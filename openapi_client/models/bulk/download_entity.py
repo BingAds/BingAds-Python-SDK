@@ -430,6 +430,8 @@ class DownloadEntity(str, Enum):
 
     ADGROUPAIPROMPTASSOCIATIONS = 'AdGroupAIPromptAssociations'
 
+    AIPROMPTAUDIENCES = 'AIPromptAudiences'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:
