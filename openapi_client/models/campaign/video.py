@@ -20,6 +20,8 @@ import json
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictFloat, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union, Set
+from openapi_client.models.campaign.advertiser_ai_label import AdvertiserAILabel
+from openapi_client.models.campaign.system_ai_detection_signal import SystemAIDetectionSignal
 from typing_extensions import Self
 
 class Video(BaseModel):
@@ -36,8 +38,10 @@ class Video(BaseModel):
     created_date_time_in_utc: Optional[datetime] = Field(default=None, alias="CreatedDateTimeInUTC")
     modified_date_time_in_utc: Optional[datetime] = Field(default=None, alias="ModifiedDateTimeInUTC")
     failure_code: Optional[StrictStr] = Field(default=None, alias="FailureCode")
+    advertiser_ai_label: Optional[AdvertiserAILabel] = Field(default=None, alias="AdvertiserAILabel")
+    system_ai_detection_signal: Optional[SystemAIDetectionSignal] = Field(default=None, alias="SystemAIDetectionSignal")
     id: Optional[StrictStr] = Field(default=None, alias="Id")
-    __properties: ClassVar[List[str]] = ["Description", "ThumbnailUrl", "SourceUrl", "Url", "AspectRatio", "DurationInMilliseconds", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode", "Id"]
+    __properties: ClassVar[List[str]] = ["Description", "ThumbnailUrl", "SourceUrl", "Url", "AspectRatio", "DurationInMilliseconds", "Status", "CreatedDateTimeInUTC", "ModifiedDateTimeInUTC", "FailureCode", "AdvertiserAILabel", "SystemAIDetectionSignal", "Id"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -114,6 +118,16 @@ class Video(BaseModel):
         if self.failure_code is None and "failure_code" in self.model_fields_set:
             _dict['FailureCode'] = None
 
+        # set to None if advertiser_ai_label (nullable) is None
+        # and model_fields_set contains the field
+        if self.advertiser_ai_label is None and "advertiser_ai_label" in self.model_fields_set:
+            _dict['AdvertiserAILabel'] = None
+
+        # set to None if system_ai_detection_signal (nullable) is None
+        # and model_fields_set contains the field
+        if self.system_ai_detection_signal is None and "system_ai_detection_signal" in self.model_fields_set:
+            _dict['SystemAIDetectionSignal'] = None
+
         # set to None if id (nullable) is None
         # and model_fields_set contains the field
         if self.id is None and "id" in self.model_fields_set:
@@ -141,6 +155,8 @@ class Video(BaseModel):
                         "CreatedDateTimeInUTC": obj.get("CreatedDateTimeInUTC") if obj.get("CreatedDateTimeInUTC") is not None else None,
                         "ModifiedDateTimeInUTC": obj.get("ModifiedDateTimeInUTC") if obj.get("ModifiedDateTimeInUTC") is not None else None,
                         "FailureCode": obj.get("FailureCode") if obj.get("FailureCode") is not None else None,
+                        "AdvertiserAILabel": obj.get("AdvertiserAILabel") if obj.get("AdvertiserAILabel") is not None else None,
+                        "SystemAIDetectionSignal": obj.get("SystemAIDetectionSignal") if obj.get("SystemAIDetectionSignal") is not None else None,
                         "Id": obj.get("Id") if obj.get("Id") is not None else None
         })
         return _obj

@@ -65,7 +65,8 @@ class AdvertiserAccount(BaseModel):
     sold_to_payment_instrument_id: Optional[StrictStr] = Field(default=None, alias="SoldToPaymentInstrumentId")
     tax_certificate: Optional[AccountTaxCertificate] = Field(default=None, alias="TaxCertificate")
     account_mode: Optional[StrictStr] = Field(default=None, alias="AccountMode")
-    __properties: ClassVar[List[str]] = ["BillToCustomerId", "CurrencyCode", "AccountFinancialStatus", "Id", "Language", "LastModifiedByUserId", "LastModifiedTime", "Name", "Number", "ParentCustomerId", "PaymentMethodId", "PaymentMethodType", "PrimaryUserId", "AccountLifeCycleStatus", "TimeStamp", "TimeZone", "PauseReason", "ForwardCompatibilityMap", "LinkedAgencies", "SalesHouseCustomerId", "TaxInformation", "BackUpPaymentInstrumentId", "BillingThresholdAmount", "BusinessAddress", "AutoTagType", "SoldToPaymentInstrumentId", "TaxCertificate", "AccountMode"]
+    parent_customer_number: Optional[StrictStr] = Field(default=None, alias="ParentCustomerNumber")
+    __properties: ClassVar[List[str]] = ["BillToCustomerId", "CurrencyCode", "AccountFinancialStatus", "Id", "Language", "LastModifiedByUserId", "LastModifiedTime", "Name", "Number", "ParentCustomerId", "PaymentMethodId", "PaymentMethodType", "PrimaryUserId", "AccountLifeCycleStatus", "TimeStamp", "TimeZone", "PauseReason", "ForwardCompatibilityMap", "LinkedAgencies", "SalesHouseCustomerId", "TaxInformation", "BackUpPaymentInstrumentId", "BillingThresholdAmount", "BusinessAddress", "AutoTagType", "SoldToPaymentInstrumentId", "TaxCertificate", "AccountMode", "ParentCustomerNumber"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -259,6 +260,11 @@ class AdvertiserAccount(BaseModel):
         if self.account_mode is None and "account_mode" in self.model_fields_set:
             _dict['AccountMode'] = None
 
+        # set to None if parent_customer_number (nullable) is None
+        # and model_fields_set contains the field
+        if self.parent_customer_number is None and "parent_customer_number" in self.model_fields_set:
+            _dict['ParentCustomerNumber'] = None
+
         return _dict
 
     @classmethod
@@ -298,6 +304,7 @@ class AdvertiserAccount(BaseModel):
                         "AutoTagType": obj.get("AutoTagType") if obj.get("AutoTagType") is not None else None,
                         "SoldToPaymentInstrumentId": obj.get("SoldToPaymentInstrumentId") if obj.get("SoldToPaymentInstrumentId") is not None else None,
                         "TaxCertificate": AccountTaxCertificate.from_dict(obj["TaxCertificate"]) if obj.get("TaxCertificate") is not None else None,
-                        "AccountMode": obj.get("AccountMode") if obj.get("AccountMode") is not None else None
+                        "AccountMode": obj.get("AccountMode") if obj.get("AccountMode") is not None else None,
+                        "ParentCustomerNumber": obj.get("ParentCustomerNumber") if obj.get("ParentCustomerNumber") is not None else None
         })
         return _obj
