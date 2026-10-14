@@ -155,6 +155,8 @@ class _CsvHeaders:
         # Image
         _StringTable.Height,
         _StringTable.Width,
+        _StringTable.AdvertiserAILabel,
+        _StringTable.SystemAIDetectionSignal,
 
         # Video
         _StringTable.SourceUrl,
@@ -455,6 +457,7 @@ class _CsvHeaders:
         _StringTable.AdClickParallelTracking,
         _StringTable.AutoApplyRecommendations,
         _StringTable.AllowImageAutoRetrieve,
+        _StringTable.AIDetectedContentWatermarkPolicy,
         _StringTable.BusinessAttributes,
         _StringTable.FinalUrlSuffix,
 

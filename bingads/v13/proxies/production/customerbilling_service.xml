@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://bingads.microsoft.com/Billing/v13" xmlns:i0="http://tempuri.org/" name="CustomerBillingService" targetNamespace="https://bingads.microsoft.com/Billing/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions name="CustomerBillingService" targetNamespace="https://bingads.microsoft.com/Billing/v13" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://bingads.microsoft.com/Billing/v13" xmlns:i0="http://tempuri.org/">
    <wsp:Policy wsu:Id="BasicHttpBinding_ICustomerBillingService_policy">
       <wsp:ExactlyOne>
          <wsp:All>
@@ -33,7 +33,7 @@
          <xs:element name="GetBillingDocumentsInfoRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" />
+                  <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q1:ArrayOflong" xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                   <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:dateTime" />
                   <xs:element minOccurs="0" name="ReturnInvoiceNumber" nillable="true" type="xs:boolean" />
@@ -48,32 +48,32 @@
          <xs:element name="GetBillingDocumentsInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q2="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q2:ArrayOfBillingDocumentInfo" />
+                  <xs:element minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q2:ArrayOfBillingDocumentInfo" xmlns:q2="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="TrackingId" nillable="true" type="xs:string" />
-         <xs:element xmlns:q3="https://bingads.microsoft.com/Customer/v13/Exception" name="ApiBatchFault" nillable="true" type="q3:ApiBatchFault" />
-         <xs:element xmlns:q4="https://bingads.microsoft.com/Customer/v13/Exception" name="ApiFault" nillable="true" type="q4:ApiFault" />
+         <xs:element name="ApiBatchFault" nillable="true" type="q3:ApiBatchFault" xmlns:q3="https://bingads.microsoft.com/Customer/v13/Exception" />
+         <xs:element name="ApiFault" nillable="true" type="q4:ApiFault" xmlns:q4="https://bingads.microsoft.com/Customer/v13/Exception" />
          <xs:element name="GetBillingDocumentsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q5="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q5:ArrayOfBillingDocumentInfo" />
-                  <xs:element xmlns:q6="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Type" type="q6:DataType" />
+                  <xs:element minOccurs="0" name="BillingDocumentsInfo" nillable="true" type="q5:ArrayOfBillingDocumentInfo" xmlns:q5="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Type" type="q6:DataType" xmlns:q6="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="GetBillingDocumentsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q7="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="BillingDocuments" nillable="true" type="q7:ArrayOfBillingDocument" />
+                  <xs:element minOccurs="0" name="BillingDocuments" nillable="true" type="q7:ArrayOfBillingDocument" xmlns:q7="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="AddInsertionOrderRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q8="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="InsertionOrder" nillable="true" type="q8:InsertionOrder" />
+                  <xs:element minOccurs="0" name="InsertionOrder" nillable="true" type="q8:InsertionOrder" xmlns:q8="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -88,7 +88,7 @@
          <xs:element name="UpdateInsertionOrderRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q9="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="InsertionOrder" nillable="true" type="q9:InsertionOrder" />
+                  <xs:element minOccurs="0" name="InsertionOrder" nillable="true" type="q9:InsertionOrder" xmlns:q9="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -102,17 +102,17 @@
          <xs:element name="SearchInsertionOrdersRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q10:ArrayOfPredicate" />
-                  <xs:element xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q11:ArrayOfOrderBy" />
-                  <xs:element xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q12:Paging" />
-                  <xs:element xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q13:InsertionOrderAdditionalField" />
+                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q10:ArrayOfPredicate" xmlns:q10="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q11:ArrayOfOrderBy" xmlns:q11="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q12:Paging" xmlns:q12="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q13:InsertionOrderAdditionalField" xmlns:q13="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchInsertionOrdersResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q14="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="InsertionOrders" nillable="true" type="q14:ArrayOfInsertionOrder" />
+                  <xs:element minOccurs="0" name="InsertionOrders" nillable="true" type="q14:ArrayOfInsertionOrder" xmlns:q14="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -134,7 +134,7 @@
          <xs:element name="DispatchCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SendToEmails" nillable="true" type="q15:ArrayOfstring" />
+                  <xs:element minOccurs="0" name="SendToEmails" nillable="true" type="q15:ArrayOfstring" xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                   <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
                   <xs:element minOccurs="0" name="CouponClassName" nillable="true" type="xs:string" />
                </xs:sequence>
@@ -143,7 +143,7 @@
          <xs:element name="DispatchCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q16="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q16:ArrayOfBatchError" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q16:ArrayOfBatchError" xmlns:q16="https://bingads.microsoft.com/Customer/v13/Exception" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -165,17 +165,17 @@
          <xs:element name="SearchCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q17="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Predicates" nillable="true" type="q17:ArrayOfPredicate" />
-                  <xs:element xmlns:q18="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Ordering" nillable="true" type="q18:ArrayOfOrderBy" />
-                  <xs:element xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="PageInfo" nillable="true" type="q19:Paging" />
-                  <xs:element xmlns:q20="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q20:AccountAdditionalField" />
+                  <xs:element minOccurs="0" name="Predicates" nillable="true" type="q17:ArrayOfPredicate" xmlns:q17="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="Ordering" nillable="true" type="q18:ArrayOfOrderBy" xmlns:q18="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="PageInfo" nillable="true" type="q19:Paging" xmlns:q19="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="ReturnAdditionalFields" nillable="true" type="q20:AccountAdditionalField" xmlns:q20="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="SearchCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q21="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="Coupons" nillable="true" type="q21:ArrayOfCoupon" />
+                  <xs:element minOccurs="0" name="Coupons" nillable="true" type="q21:ArrayOfCoupon" xmlns:q21="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -183,30 +183,30 @@
             <xs:complexType>
                <xs:sequence>
                   <xs:element minOccurs="0" name="FeatureId" type="xs:int" />
-                  <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q22:ArrayOflong" />
+                  <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q22:ArrayOflong" xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="CheckFeatureAdoptionCouponEligibilityResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="EligibleAccountIds" nillable="true" type="q23:ArrayOflong" />
+                  <xs:element minOccurs="0" name="EligibleAccountIds" nillable="true" type="q23:ArrayOflong" xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ClaimFeatureAdoptionCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q24="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="AccountCouponPairs" nillable="true" type="q24:ArrayOfKeyValueEntityOflongstring" />
+                  <xs:element minOccurs="0" name="AccountCouponPairs" nillable="true" type="q24:ArrayOfKeyValueEntityOflongstring" xmlns:q24="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="ClaimFeatureAdoptionCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q25="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="ClaimedDateByAccountId" nillable="true" type="q25:ArrayOfKeyValueEntityOflongdateTime" />
-                  <xs:element xmlns:q26="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q26:ArrayOfOperationError" />
-                  <xs:element xmlns:q27="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q27:ArrayOfArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="ClaimedDateByAccountId" nillable="true" type="q25:ArrayOfKeyValueEntityOflongdateTime" xmlns:q25="https://bingads.microsoft.com/Customer/v13/Entities" />
+                  <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="q26:ArrayOfOperationError" xmlns:q26="https://bingads.microsoft.com/Customer/v13/Exception" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q27:ArrayOfArrayOfOperationError" xmlns:q27="https://bingads.microsoft.com/Customer/v13/Exception" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -220,14 +220,14 @@
          <xs:element name="GetCouponInfoResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q28="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="CouponInfoData" nillable="true" type="q28:ArrayOfCouponInfoData" />
+                  <xs:element minOccurs="0" name="CouponInfoData" nillable="true" type="q28:ArrayOfCouponInfoData" xmlns:q28="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="DistributeCouponsRequest">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountIds" nillable="true" type="q29:ArrayOfint" />
+                  <xs:element minOccurs="0" name="AccountIds" nillable="true" type="q29:ArrayOfint" xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                   <xs:element minOccurs="0" name="ClassName" nillable="true" type="xs:string" />
                   <xs:element minOccurs="0" name="FeatureId" nillable="true" type="xs:int" />
                   <xs:element minOccurs="0" name="SendNotification" type="xs:boolean" />
@@ -237,8 +237,8 @@
          <xs:element name="DistributeCouponsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q30="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="OperationErrors" nillable="true" type="q30:ArrayOfOperationError" />
-                  <xs:element xmlns:q31="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q31:ArrayOfArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="q30:ArrayOfOperationError" xmlns:q30="https://bingads.microsoft.com/Customer/v13/Exception" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q31:ArrayOfArrayOfOperationError" xmlns:q31="https://bingads.microsoft.com/Customer/v13/Exception" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -252,7 +252,7 @@
          <xs:element name="GetBillingGroupsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q32="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="BillingGroups" nillable="true" type="q32:ArrayOfBillingGroup" />
+                  <xs:element minOccurs="0" name="BillingGroups" nillable="true" type="q32:ArrayOfBillingGroup" xmlns:q32="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -266,7 +266,7 @@
          <xs:element name="GetUngroupedAccountsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q33="https://bingads.microsoft.com/Customer/v13/Entities" minOccurs="0" name="UngroupedAccounts" nillable="true" type="q33:ArrayOfUngroupedAccount" />
+                  <xs:element minOccurs="0" name="UngroupedAccounts" nillable="true" type="q33:ArrayOfUngroupedAccount" xmlns:q33="https://bingads.microsoft.com/Customer/v13/Entities" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
@@ -275,19 +275,19 @@
                <xs:sequence>
                   <xs:element minOccurs="0" name="CustomerId" type="xs:long" />
                   <xs:element minOccurs="0" name="BillingGroupId" type="xs:long" />
-                  <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AccountsToAdd" nillable="true" type="q34:ArrayOflong" />
+                  <xs:element minOccurs="0" name="AccountsToAdd" nillable="true" type="q34:ArrayOflong" xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
          <xs:element name="UpdateBillingGroupAccountsResponse">
             <xs:complexType>
                <xs:sequence>
-                  <xs:element xmlns:q35="https://bingads.microsoft.com/Customer/v13/Exception" minOccurs="0" name="PartialErrors" nillable="true" type="q35:ArrayOfArrayOfOperationError" />
+                  <xs:element minOccurs="0" name="PartialErrors" nillable="true" type="q35:ArrayOfArrayOfOperationError" xmlns:q35="https://bingads.microsoft.com/Customer/v13/Exception" />
                </xs:sequence>
             </xs:complexType>
          </xs:element>
       </xs:schema>
-      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/">
          <xs:element name="anyType" nillable="true" type="xs:anyType" />
          <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
          <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
@@ -327,8 +327,18 @@
          <xs:attribute name="FactoryType" type="xs:QName" />
          <xs:attribute name="Id" type="xs:ID" />
          <xs:attribute name="Ref" type="xs:IDREF" />
+         <xs:simpleType name="dateOnly">
+            <xs:restriction base="xs:date">
+               <xs:pattern value="([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])" />
+            </xs:restriction>
+         </xs:simpleType>
+         <xs:simpleType name="timeOnly">
+            <xs:restriction base="xs:time">
+               <xs:pattern value="([01][0-9]|2[0-3]):([0-5][0-9])(:([0-5][0-9])(\.[0-9]{1,7})?)?" />
+            </xs:restriction>
+         </xs:simpleType>
       </xs:schema>
-      <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
          <xs:complexType name="ArrayOflong">
             <xs:sequence>
                <xs:element minOccurs="0" maxOccurs="unbounded" name="long" type="xs:long" />
@@ -348,7 +358,7 @@
          </xs:complexType>
          <xs:element name="ArrayOfint" nillable="true" type="tns:ArrayOfint" />
       </xs:schema>
-      <xs:schema xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities" elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Entities">
          <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
          <xs:complexType name="ArrayOfBillingDocumentInfo">
             <xs:sequence>
@@ -676,6 +686,7 @@
                      <xs:enumeration value="TaxCertificate" />
                      <xs:enumeration value="AccountMode" />
                      <xs:enumeration value="CouponClaimInfo" />
+                     <xs:enumeration value="ParentCustomerNumber" />
                   </xs:restriction>
                </xs:simpleType>
             </xs:list>
@@ -836,7 +847,7 @@
          </xs:complexType>
          <xs:element name="UngroupedAccount" nillable="true" type="tns:UngroupedAccount" />
       </xs:schema>
-      <xs:schema xmlns:tns="https://adapi.microsoft.com" elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://adapi.microsoft.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://adapi.microsoft.com">
          <xs:complexType name="AdApiFaultDetail">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:ApplicationFault">
@@ -869,7 +880,7 @@
          </xs:complexType>
          <xs:element name="AdApiError" nillable="true" type="tns:AdApiError" />
       </xs:schema>
-      <xs:schema xmlns:tns="https://bingads.microsoft.com/Customer/v13/Exception" elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Exception" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:schema elementFormDefault="qualified" targetNamespace="https://bingads.microsoft.com/Customer/v13/Exception" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="https://bingads.microsoft.com/Customer/v13/Exception">
          <xs:import namespace="https://adapi.microsoft.com" />
          <xs:complexType name="ApiBatchFault">
             <xs:complexContent mixed="false">
@@ -883,7 +894,7 @@
          <xs:element name="ApiBatchFault" nillable="true" type="tns:ApiBatchFault" />
          <xs:complexType name="ApiFault">
             <xs:complexContent mixed="false">
-               <xs:extension xmlns:q1="https://adapi.microsoft.com" base="q1:ApplicationFault">
+               <xs:extension base="q1:ApplicationFault" xmlns:q1="https://adapi.microsoft.com">
                   <xs:sequence>
                      <xs:element minOccurs="0" name="OperationErrors" nillable="true" type="tns:ArrayOfOperationError" />
                   </xs:sequence>
@@ -945,7 +956,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingDocumentsInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q1="https://adapi.microsoft.com" name="detail" element="q1:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q1:AdApiFaultDetail" xmlns:q1="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingDocumentsInfo_ApiBatchFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiBatchFault" />
@@ -970,7 +981,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingDocuments_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q2="https://adapi.microsoft.com" name="detail" element="q2:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q2:AdApiFaultDetail" xmlns:q2="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingDocuments_ApiBatchFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiBatchFault" />
@@ -995,7 +1006,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_AddInsertionOrder_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q3="https://adapi.microsoft.com" name="detail" element="q3:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q3:AdApiFaultDetail" xmlns:q3="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_AddInsertionOrder_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1017,7 +1028,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_UpdateInsertionOrder_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q4="https://adapi.microsoft.com" name="detail" element="q4:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q4:AdApiFaultDetail" xmlns:q4="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_UpdateInsertionOrder_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1039,7 +1050,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_SearchInsertionOrders_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q5="https://adapi.microsoft.com" name="detail" element="q5:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q5:AdApiFaultDetail" xmlns:q5="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_SearchInsertionOrders_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1061,7 +1072,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetAccountMonthlySpend_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q6="https://adapi.microsoft.com" name="detail" element="q6:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q6:AdApiFaultDetail" xmlns:q6="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetAccountMonthlySpend_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1083,7 +1094,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_DispatchCoupons_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q7="https://adapi.microsoft.com" name="detail" element="q7:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q7:AdApiFaultDetail" xmlns:q7="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_DispatchCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1105,7 +1116,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_RedeemCoupon_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q8="https://adapi.microsoft.com" name="detail" element="q8:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q8:AdApiFaultDetail" xmlns:q8="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_RedeemCoupon_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1127,7 +1138,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_SearchCoupons_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q9="https://adapi.microsoft.com" name="detail" element="q9:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q9:AdApiFaultDetail" xmlns:q9="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_SearchCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1149,7 +1160,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q10="https://adapi.microsoft.com" name="detail" element="q10:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q10:AdApiFaultDetail" xmlns:q10="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_CheckFeatureAdoptionCouponEligibility_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1171,7 +1182,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_ClaimFeatureAdoptionCoupons_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q11="https://adapi.microsoft.com" name="detail" element="q11:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q11:AdApiFaultDetail" xmlns:q11="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_ClaimFeatureAdoptionCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1193,7 +1204,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetCouponInfo_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q12="https://adapi.microsoft.com" name="detail" element="q12:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q12:AdApiFaultDetail" xmlns:q12="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetCouponInfo_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1215,7 +1226,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_DistributeCoupons_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q13="https://adapi.microsoft.com" name="detail" element="q13:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q13:AdApiFaultDetail" xmlns:q13="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_DistributeCoupons_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1237,7 +1248,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingGroups_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q14="https://adapi.microsoft.com" name="detail" element="q14:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q14:AdApiFaultDetail" xmlns:q14="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetBillingGroups_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1259,7 +1270,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetUngroupedAccounts_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q15="https://adapi.microsoft.com" name="detail" element="q15:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q15:AdApiFaultDetail" xmlns:q15="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_GetUngroupedAccounts_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />
@@ -1281,7 +1292,7 @@
       <wsdl:part name="TrackingId" element="tns:TrackingId" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_UpdateBillingGroupAccounts_AdApiFaultDetailFault_FaultMessage">
-      <wsdl:part xmlns:q16="https://adapi.microsoft.com" name="detail" element="q16:AdApiFaultDetail" />
+      <wsdl:part name="detail" element="q16:AdApiFaultDetail" xmlns:q16="https://adapi.microsoft.com" />
    </wsdl:message>
    <wsdl:message name="ICustomerBillingService_UpdateBillingGroupAccounts_ApiFault_FaultMessage">
       <wsdl:part name="detail" element="tns:ApiFault" />

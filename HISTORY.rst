@@ -2,6 +2,20 @@
 
 Release History
 
+13.0.30.1(2026-10-12)
++++++++++++++++++++++++++
+API Updates:
+* Add AdvertiserAILabel to Media, MediaMetaData, and Video, and SystemAIDetectionSignal to MediaMetaData and Video in Campaign Management Service.
+* Use AIContent for the AdvertiserAILabel value previously named AIContentWithNoVisibleWatermark.
+* Add UpdateMedia operation to Campaign Management Service.
+* Add TermExclusions to Campaign in Campaign Management Service.
+* Add AIPrompt to AudienceType, AdGroupCriterionType, and CampaignCriterionType in Campaign Management Service.
+* Add ParentCustomerNumber to AdvertiserAccount in Customer Management Service and AccountAdditionalField in Customer Management and Customer Billing Services.
+
+Bulk API Updates:
+* Add AIPromptAudiences to DownloadEntity in Bulk Service.
+* Add Bulk AIPromptAudience row mapping and image/video AI metadata and account watermark policy mappings.
+
 13.0.30(2026-09-14)
 +++++++++++++++++++++++++
 API Updates:

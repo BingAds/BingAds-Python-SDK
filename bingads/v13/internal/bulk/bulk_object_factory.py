@@ -117,6 +117,7 @@ class _BulkObjectFactory():
         _StringTable.CampaignCustomAudienceAssociation: _EntityInfo(lambda : BulkCampaignCustomAudienceAssociation()),
         _StringTable.CampaignNegativeCustomAudienceAssociation: _EntityInfo(lambda : BulkCampaignNegativeCustomAudienceAssociation()),
         _StringTable.InMarketAudience: _EntityInfo(lambda : BulkInMarketAudience()),
+        _StringTable.AIPromptAudience: _EntityInfo(lambda : BulkAIPromptAudience()),
         _StringTable.AdGroupAIPromptAssociation: _EntityInfo(lambda : BulkAdGroupAIPromptAssociation()),
         _StringTable.AdGroupInMarketAudienceAssociation: _EntityInfo(lambda : BulkAdGroupInMarketAudienceAssociation()),
         _StringTable.AdGroupNegativeInMarketAudienceAssociation: _EntityInfo(lambda : BulkAdGroupNegativeInMarketAudienceAssociation()),

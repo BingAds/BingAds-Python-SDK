@@ -6,6 +6,7 @@ from .bulk_remarketing_list import *
 from .bulk_custom_audience import *
 from .bulk_ad_group_custom_audience_association import *
 from .bulk_in_market_audience import *
+from .bulk_ai_prompt_audience import *
 from .bulk_combined_list import *
 from .bulk_ad_group_in_market_audience_association import *
 from .bulk_ad_group_ai_prompt_association import *

@@ -24,6 +24,8 @@ class BulkVideo(_SingleRecordBulkEntity):
         super(BulkVideo, self).__init__()
         self._account_id = account_id
         self._video=video
+        self._advertiser_ai_label = None
+        self._system_ai_detection_signal = None
 
     @property
     def video(self):
@@ -48,6 +50,24 @@ class BulkVideo(_SingleRecordBulkEntity):
     @account_id.setter
     def account_id(self, value):
         self._account_id = value
+
+    @property
+    def advertiser_ai_label(self):
+        """The writable 'Advertiser AI Label' field in the bulk file."""
+        return self._advertiser_ai_label
+
+    @advertiser_ai_label.setter
+    def advertiser_ai_label(self, value):
+        self._advertiser_ai_label = value
+
+    @property
+    def system_ai_detection_signal(self):
+        """The read-only 'System AI Detection Signal' field in the bulk file."""
+        return self._system_ai_detection_signal
+
+    @system_ai_detection_signal.setter
+    def system_ai_detection_signal(self, value):
+        self._system_ai_detection_signal = value
 
 
     _MAPPINGS = [
@@ -95,15 +115,31 @@ class BulkVideo(_SingleRecordBulkEntity):
             header=_StringTable.DurationInMillionSeconds,
             field_to_csv=lambda c: bulk_str(c.video.DurationInMilliseconds),
             csv_to_field=lambda c, v: setattr(c.video, 'DurationInMilliseconds', int(v) if v else None)
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdvertiserAILabel,
+            field_to_csv=lambda c: c.advertiser_ai_label,
+            csv_to_field=lambda c, v: setattr(c, 'advertiser_ai_label', v)
         )
+    ]
+
+    _READ_ONLY_MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.SystemAIDetectionSignal,
+            field_to_csv=lambda c: c.system_ai_detection_signal,
+            csv_to_field=lambda c, v: setattr(c, 'system_ai_detection_signal', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
         self.video=_CAMPAIGN_OBJECT_FACTORY_V13.create('Video')
         row_values.convert_to_entity(self, BulkVideo._MAPPINGS)
+        row_values.convert_to_entity(self, BulkVideo._READ_ONLY_MAPPINGS)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
         self.convert_to_values(row_values, BulkVideo._MAPPINGS)
+        if not exclude_readonly_data:
+            self.convert_to_values(row_values, BulkVideo._READ_ONLY_MAPPINGS)
 
     def read_additional_data(self, stream_reader):
         super(BulkVideo, self).read_additional_data(stream_reader)

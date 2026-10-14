@@ -32,6 +32,7 @@ class BulkAccount(_SingleRecordBulkEntity):
         self._auto_apply_recommendations = None
         self._allow_image_auto_retrieve = None
         self._business_attributes = None
+        self._ai_detected_content_watermark_policy = None
 
     @property
     def id(self):
@@ -168,6 +169,15 @@ class BulkAccount(_SingleRecordBulkEntity):
     def business_attributes(self, v):
         self._business_attributes = v
 
+    @property
+    def ai_detected_content_watermark_policy(self):
+        """The 'AI Detected Content Watermark Policy' field in the bulk file."""
+        return self._ai_detected_content_watermark_policy
+
+    @ai_detected_content_watermark_policy.setter
+    def ai_detected_content_watermark_policy(self, v):
+        self._ai_detected_content_watermark_policy = v
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -228,6 +238,11 @@ class BulkAccount(_SingleRecordBulkEntity):
             header=_StringTable.BusinessAttributes,
             field_to_csv=lambda c: multi_bulk_str(c.business_attributes, ';'),
             csv_to_field=lambda c, v: setattr(c, 'business_attributes', parse_multi(v))
+        ),
+        _SimpleBulkMapping(
+            header=_StringTable.AIDetectedContentWatermarkPolicy,
+            field_to_csv=lambda c: c.ai_detected_content_watermark_policy,
+            csv_to_field=lambda c, v: setattr(c, 'ai_detected_content_watermark_policy', v)
         )
     ]
 

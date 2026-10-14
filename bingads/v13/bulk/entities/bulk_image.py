@@ -29,6 +29,8 @@ class BulkImage(_SingleRecordBulkEntity):
         self._url = None
         self._width = None
         self._height = None
+        self._advertiser_ai_label = None
+        self._system_ai_detection_signal = None
         
 
     @property
@@ -108,6 +110,24 @@ class BulkImage(_SingleRecordBulkEntity):
     def height(self, value):
         self._height = value
 
+    @property
+    def advertiser_ai_label(self):
+        """The writable 'Advertiser AI Label' field in the bulk file."""
+        return self._advertiser_ai_label
+
+    @advertiser_ai_label.setter
+    def advertiser_ai_label(self, value):
+        self._advertiser_ai_label = value
+
+    @property
+    def system_ai_detection_signal(self):
+        """The read-only 'System AI Detection Signal' field in the bulk file."""
+        return self._system_ai_detection_signal
+
+    @system_ai_detection_signal.setter
+    def system_ai_detection_signal(self, value):
+        self._system_ai_detection_signal = value
+
     _MAPPINGS = [
         _SimpleBulkMapping(
             header=_StringTable.Id,
@@ -149,13 +169,29 @@ class BulkImage(_SingleRecordBulkEntity):
             field_to_csv=lambda c: bulk_str(c.height),
             csv_to_field=lambda c, v: setattr(c, 'height', int(v) if v else None)
         ),
+        _SimpleBulkMapping(
+            header=_StringTable.AdvertiserAILabel,
+            field_to_csv=lambda c: c.advertiser_ai_label,
+            csv_to_field=lambda c, v: setattr(c, 'advertiser_ai_label', v)
+        ),
+    ]
+
+    _READ_ONLY_MAPPINGS = [
+        _SimpleBulkMapping(
+            header=_StringTable.SystemAIDetectionSignal,
+            field_to_csv=lambda c: c.system_ai_detection_signal,
+            csv_to_field=lambda c, v: setattr(c, 'system_ai_detection_signal', v)
+        ),
     ]
 
     def process_mappings_from_row_values(self, row_values):
         row_values.convert_to_entity(self, BulkImage._MAPPINGS)
+        row_values.convert_to_entity(self, BulkImage._READ_ONLY_MAPPINGS)
 
     def process_mappings_to_row_values(self, row_values, exclude_readonly_data):
         self.convert_to_values(row_values, BulkImage._MAPPINGS)
+        if not exclude_readonly_data:
+            self.convert_to_values(row_values, BulkImage._READ_ONLY_MAPPINGS)
 
     def read_additional_data(self, stream_reader):
         super(BulkImage, self).read_additional_data(stream_reader)

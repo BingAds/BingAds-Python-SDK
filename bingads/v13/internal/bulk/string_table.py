@@ -476,6 +476,7 @@ class _StringTable:
     CampaignCustomAudienceAssociation = "Campaign Custom Audience Association"
     CampaignNegativeCustomAudienceAssociation = "Campaign Negative Custom Audience Association"
     InMarketAudience = "In Market Audience"
+    AIPromptAudience = "AI Prompt Audience"
     AdGroupAIPromptAssociation = "Ad Group AI Prompt Association"
     AdGroupInMarketAudienceAssociation = "Ad Group In Market Audience Association"
     AdGroupNegativeInMarketAudienceAssociation = "Ad Group Negative In Market Audience Association"
@@ -590,6 +591,9 @@ class _StringTable:
     SourceUrl = "Source Url"
     AspectRatio = "Aspect Ratio"
     DurationInMillionSeconds = "Duration In Milliseconds"
+    AIDetectedContentWatermarkPolicy = "AI Detected Content Watermark Policy"
+    AdvertiserAILabel = "Advertiser AI Label"
+    SystemAIDetectionSignal = "System AI Detection Signal"
 
     # Responsive Search Ad
     ResponsiveSearchAd = "Responsive Search Ad"

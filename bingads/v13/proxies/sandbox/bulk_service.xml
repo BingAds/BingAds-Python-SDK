@@ -1506,6 +1506,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
+               <xs:enumeration value="AIPromptAudiences">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">206</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="DownloadEntity" nillable="true" type="tns:DownloadEntity" />
