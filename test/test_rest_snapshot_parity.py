@@ -6,11 +6,28 @@ from openapi_client.models.campaign.ai_prompt_audience import AIPromptAudience
 from openapi_client.models.campaign.bidding_scheme import BiddingScheme
 from openapi_client.models.campaign.campaign import Campaign
 from openapi_client.models.campaign.target_cpm_bidding_scheme import TargetCpmBiddingScheme
+from openapi_client.models.adinsight.get_audience_full_estimation_response import (
+    GetAudienceFullEstimationResponse,
+)
 
 
 def test_nullable_campaign_ids_accept_null_items():
     response = AddCampaignsResponse(CampaignIds=["123", None])
     assert response.to_dict()["CampaignIds"] == ["123", None]
+
+
+def test_audience_estimates_by_type_use_wire_casing():
+    response = GetAudienceFullEstimationResponse.from_dict(
+        {
+            "EstCPCByType": ["1.25", None],
+            "EstCTRByType": ["0.034", None],
+        }
+    )
+
+    assert response.est_cpcby_type == ["1.25", None]
+    assert response.est_ctrby_type == ["0.034", None]
+    assert response.to_dict()["EstCPCByType"] == ["1.25", None]
+    assert response.to_dict()["EstCTRByType"] == ["0.034", None]
 
 
 def test_ai_prompt_audience_dispatch_and_request_serialization():

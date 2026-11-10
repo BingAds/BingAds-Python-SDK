@@ -246,9 +246,9 @@ class GetAudienceFullEstimationResponse(BaseModel):
                         "EstClickByType": obj.get("EstClickByType"),
                         "EstSpendByType": obj.get("EstSpendByType"),
                         "EstCostPerEventByType": obj.get("EstCostPerEventByType"),
-                        "EstCPCByType": obj.get("EstCpcbyType"),
+                        "EstCPCByType": obj.get("EstCPCByType"),
                         "EstViewByType": obj.get("EstViewByType"),
-                        "EstCTRByType": obj.get("EstCtrbyType"),
+                        "EstCTRByType": obj.get("EstCTRByType"),
                         "EstReachImpressionByType": obj.get("EstReachImpressionByType")
         })
         return _obj
