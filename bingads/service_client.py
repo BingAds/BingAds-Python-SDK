@@ -21,7 +21,7 @@ class BingAdsBuilder (Builder):
 
     def skip_value(self, type):
         """ whether or not to skip setting the value """
-        return False
+        return type.optional() and not type.multi_occurrence() and type.resolve().enum()
 
 
 class ServiceClient:

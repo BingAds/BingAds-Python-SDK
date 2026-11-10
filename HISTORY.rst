@@ -2,6 +2,14 @@
 
 Release History
 
+13.0.31(2026-11-09)
++++++++++++++++++++++++++
+API Updates:
+* Refresh the Version 13 SOAP service snapshots and send Api-Revision 2026-11-09 with SDK requests.
+* Add Campaign.MessagingRestrictions to the sandbox Campaign Management contract.
+* Add AbsoluteTopImpressionSharePercent and TopImpressionSharePercent to the sandbox Hotel dimension and Hotel group report column enums.
+* Initialize optional scalar SOAP enum fields to None instead of empty enum objects, preserving complex objects, arrays, and flags.
+
 13.0.30.1(2026-10-12)
 +++++++++++++++++++++++++
 API Updates:
