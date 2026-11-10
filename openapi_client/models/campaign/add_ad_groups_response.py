@@ -27,7 +27,7 @@ class AddAdGroupsResponse(BaseModel):
     """
     AddAdGroupsResponse
     """ # noqa: E501
-    ad_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupIds")
+    ad_group_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AdGroupIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     inherited_bid_strategy_types: Optional[List[StrictStr]] = Field(default=None, alias="InheritedBidStrategyTypes")
     __properties: ClassVar[List[str]] = ["AdGroupIds", "PartialErrors", "InheritedBidStrategyTypes"]

@@ -27,7 +27,7 @@ class AddBudgetsResponse(BaseModel):
     """
     AddBudgetsResponse
     """ # noqa: E501
-    budget_ids: Optional[List[StrictStr]] = Field(default=None, alias="BudgetIds")
+    budget_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="BudgetIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["BudgetIds", "PartialErrors"]
 

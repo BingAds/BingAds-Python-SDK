@@ -26,7 +26,7 @@ class IdCollection(BaseModel):
     """
     IdCollection
     """ # noqa: E501
-    ids: Optional[List[StrictStr]] = Field(default=None, alias="Ids")
+    ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="Ids")
     __properties: ClassVar[List[str]] = ["Ids"]
 
     model_config = ConfigDict(

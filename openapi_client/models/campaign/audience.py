@@ -37,6 +37,7 @@ class Audience(BaseModel):
             class_name = self.__class__.__name__
             type_mapping = [
                 ('CombinedList', 'CombinedList'),
+                ('AIPromptAudience', 'AIPrompt'),
                 ('CustomAudience', 'Custom'),
                 ('CustomSegment', 'CustomSegment'),
                 ('CustomerList', 'CustomerList'),
@@ -93,6 +94,10 @@ class Audience(BaseModel):
         type = obj.get("Type")
         
         # Import here to avoid circular imports
+        if type == "AIPrompt":
+            from openapi_client.models.campaign.ai_prompt_audience import AIPromptAudience
+            return AIPromptAudience.from_dict(obj)
+
         if type == "CombinedList":
             from openapi_client.models.campaign.combined_list import CombinedList
             return CombinedList.from_dict(obj)

@@ -27,7 +27,7 @@ class AddBrandKitsResponse(BaseModel):
     """
     AddBrandKitsResponse
     """ # noqa: E501
-    brand_kit_ids: Optional[List[StrictStr]] = Field(default=None, alias="BrandKitIds")
+    brand_kit_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="BrandKitIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["BrandKitIds", "PartialErrors"]
 

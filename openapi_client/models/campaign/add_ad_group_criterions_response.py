@@ -27,7 +27,7 @@ class AddAdGroupCriterionsResponse(BaseModel):
     """
     AddAdGroupCriterionsResponse
     """ # noqa: E501
-    ad_group_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupCriterionIds")
+    ad_group_criterion_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AdGroupCriterionIds")
     nested_partial_errors: Optional[List[Optional[BatchErrorCollection]]] = Field(default=None, alias="NestedPartialErrors")
     __properties: ClassVar[List[str]] = ["AdGroupCriterionIds", "NestedPartialErrors"]
 

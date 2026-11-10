@@ -27,7 +27,7 @@ class AddDataExclusionsResponse(BaseModel):
     """
     AddDataExclusionsResponse
     """ # noqa: E501
-    data_exclusion_ids: Optional[List[StrictStr]] = Field(default=None, alias="DataExclusionIds")
+    data_exclusion_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="DataExclusionIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["DataExclusionIds", "PartialErrors"]
 

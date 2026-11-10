@@ -27,7 +27,7 @@ class ApplyHotelGroupActionsResponse(BaseModel):
     """
     ApplyHotelGroupActionsResponse
     """ # noqa: E501
-    ad_group_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdGroupCriterionIds")
+    ad_group_criterion_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AdGroupCriterionIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["AdGroupCriterionIds", "PartialErrors"]
 

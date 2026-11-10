@@ -27,7 +27,7 @@ class AddCampaignCriterionsResponse(BaseModel):
     """
     AddCampaignCriterionsResponse
     """ # noqa: E501
-    campaign_criterion_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignCriterionIds")
+    campaign_criterion_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="CampaignCriterionIds")
     nested_partial_errors: Optional[List[Optional[BatchErrorCollection]]] = Field(default=None, alias="NestedPartialErrors")
     __properties: ClassVar[List[str]] = ["CampaignCriterionIds", "NestedPartialErrors"]
 

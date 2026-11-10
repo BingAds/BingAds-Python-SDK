@@ -14,6 +14,8 @@
 
 
 # import models into model package
+# subtype exports from the pinned release snapshot
+from openapi_client.models.campaign.ai_prompt_audience import AIPromptAudience
 from openapi_client.models.campaign.ai_search_setting import AISearchSetting
 from openapi_client.models.campaign.account_content_negative_keyword_list import AccountContentNegativeKeywordList
 from openapi_client.models.campaign.account_migration_statuses_info import AccountMigrationStatusesInfo
@@ -813,6 +815,7 @@ from openapi_client.models.campaign.supported_font import SupportedFont
 from openapi_client.models.campaign.supported_fonts_data import SupportedFontsData
 from openapi_client.models.campaign.system_ai_detection_signal import SystemAIDetectionSignal
 from openapi_client.models.campaign.target_cpa_bidding_scheme import TargetCpaBiddingScheme
+from openapi_client.models.campaign.target_cpm_bidding_scheme import TargetCpmBiddingScheme
 from openapi_client.models.campaign.target_impression_share_bidding_scheme import TargetImpressionShareBiddingScheme
 from openapi_client.models.campaign.target_roas_bidding_scheme import TargetRoasBiddingScheme
 from openapi_client.models.campaign.target_setting import TargetSetting
