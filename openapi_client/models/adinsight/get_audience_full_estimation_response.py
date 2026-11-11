@@ -44,14 +44,14 @@ class GetAudienceFullEstimationResponse(BaseModel):
     est_reach_audience_size: Optional[DecimalRoundedResult] = Field(default=None, alias="EstReachAudienceSize")
     est_reach_impression: Optional[DecimalRoundedResult] = Field(default=None, alias="EstReachImpression")
     currency: Optional[Currency] = Field(default=None, alias="Currency")
-    est_impression_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstImpressionByType")
-    est_click_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstClickByType")
-    est_spend_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstSpendByType")
-    est_cost_per_event_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCostPerEventByType")
-    est_cpcby_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCPCByType")
-    est_view_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstViewByType")
-    est_ctrby_type: Optional[List[StrictStr]] = Field(default=None, alias="EstCTRByType")
-    est_reach_impression_by_type: Optional[List[StrictStr]] = Field(default=None, alias="EstReachImpressionByType")
+    est_impression_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstImpressionByType")
+    est_click_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstClickByType")
+    est_spend_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstSpendByType")
+    est_cost_per_event_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstCostPerEventByType")
+    est_cpcby_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstCPCByType")
+    est_view_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstViewByType")
+    est_ctrby_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstCTRByType")
+    est_reach_impression_by_type: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="EstReachImpressionByType")
     __properties: ClassVar[List[str]] = ["EstImpression", "EstAudienceSize", "EstClick", "EstSpend", "EstCostPerEvent", "EstCPC", "EstCTR", "SuggestedBid", "SuggestedBudget", "EventsLostToBid", "EventsLostToBudget", "EstReachAudienceSize", "EstReachImpression", "Currency", "EstImpressionByType", "EstClickByType", "EstSpendByType", "EstCostPerEventByType", "EstCPCByType", "EstViewByType", "EstCTRByType", "EstReachImpressionByType"]
 
     model_config = ConfigDict(
@@ -246,9 +246,9 @@ class GetAudienceFullEstimationResponse(BaseModel):
                         "EstClickByType": obj.get("EstClickByType"),
                         "EstSpendByType": obj.get("EstSpendByType"),
                         "EstCostPerEventByType": obj.get("EstCostPerEventByType"),
-                        "EstCPCByType": obj.get("EstCpcbyType"),
+                        "EstCPCByType": obj.get("EstCPCByType"),
                         "EstViewByType": obj.get("EstViewByType"),
-                        "EstCTRByType": obj.get("EstCtrbyType"),
+                        "EstCTRByType": obj.get("EstCTRByType"),
                         "EstReachImpressionByType": obj.get("EstReachImpressionByType")
         })
         return _obj

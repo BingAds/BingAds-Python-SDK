@@ -51,6 +51,7 @@ class BiddingScheme(BaseModel):
                 ('PercentCpcBiddingScheme', 'PercentCpcBiddingScheme'),
                 ('TargetCpaBiddingScheme', 'TargetCpa'),
                 ('TargetImpressionShareBiddingScheme', 'TargetImpressionShareBiddingScheme'),
+                ('TargetCpmBiddingScheme', 'TargetCpm'),
                 ('TargetRoasBiddingScheme', 'TargetRoasBiddingScheme'),
                 ('CostPerSaleBiddingScheme', 'CostPerSaleBiddingScheme'),
                 ('EnhancedCpcBiddingScheme', 'EnhancedCpcBiddingScheme'),
@@ -106,6 +107,10 @@ class BiddingScheme(BaseModel):
         type = obj.get("Type")
         
         # Import here to avoid circular imports
+        if type == "TargetCpm":
+            from openapi_client.models.campaign.target_cpm_bidding_scheme import TargetCpmBiddingScheme
+            return TargetCpmBiddingScheme.from_dict(obj)
+
         if type == "CommissionBiddingScheme":
             from openapi_client.models.campaign.commission_bidding_scheme import CommissionBiddingScheme
             return CommissionBiddingScheme.from_dict(obj)

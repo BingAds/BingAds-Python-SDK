@@ -56,7 +56,12 @@ class GetAudienceFullEstimationRequest(BaseModel):
     total_budget: Optional[StrictFloat] = Field(default=None, alias="TotalBudget")
     include_impressions_breakdown: Optional[StrictBool] = Field(default=None, alias="IncludeImpressionsBreakdown")
     auto_targeting: Optional[StrictBool] = Field(default=None, alias="AutoTargeting")
-    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "Placement", "Device", "Topic", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency", "MultiAdTypes", "StartDate", "EndDate", "TotalBudget", "IncludeImpressionsBreakdown", "AutoTargeting"]
+    job_seniority: Optional[SelectionOflong] = Field(default=None, alias="JobSeniority")
+    genre: Optional[SelectionOflong] = Field(default=None, alias="Genre")
+    channel: Optional[SelectionOflong] = Field(default=None, alias="Channel")
+    channel_placement: Optional[SelectionOflong] = Field(default=None, alias="ChannelPlacement")
+    sub_channel: Optional[SelectionOflong] = Field(default=None, alias="SubChannel")
+    __properties: ClassVar[List[str]] = ["Age", "Gender", "Audience", "Company", "Industry", "JobFunction", "Location", "Placement", "Device", "Topic", "RadiusTargets", "CampaignBiddingStrategy", "CampaignSubType", "Feed", "DailyBudget", "Bid", "Currency", "MultiAdTypes", "StartDate", "EndDate", "TotalBudget", "IncludeImpressionsBreakdown", "AutoTargeting", "JobSeniority", "Genre", "Channel", "ChannelPlacement", "SubChannel"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -123,6 +128,21 @@ class GetAudienceFullEstimationRequest(BaseModel):
         # override the default output from pydantic by calling `to_dict()` of feed
         if self.feed:
             _dict['Feed'] = self.feed.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of job_seniority
+        if self.job_seniority:
+            _dict['JobSeniority'] = self.job_seniority.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of genre
+        if self.genre:
+            _dict['Genre'] = self.genre.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of channel
+        if self.channel:
+            _dict['Channel'] = self.channel.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of channel_placement
+        if self.channel_placement:
+            _dict['ChannelPlacement'] = self.channel_placement.to_dict()
+        # override the default output from pydantic by calling `to_dict()` of sub_channel
+        if self.sub_channel:
+            _dict['SubChannel'] = self.sub_channel.to_dict()
         # set to None if age (nullable) is None
         # and model_fields_set contains the field
         if self.age is None and "age" in self.model_fields_set:
@@ -238,6 +258,31 @@ class GetAudienceFullEstimationRequest(BaseModel):
         if self.auto_targeting is None and "auto_targeting" in self.model_fields_set:
             _dict['AutoTargeting'] = None
 
+        # set to None if job_seniority (nullable) is None
+        # and model_fields_set contains the field
+        if self.job_seniority is None and "job_seniority" in self.model_fields_set:
+            _dict['JobSeniority'] = None
+
+        # set to None if genre (nullable) is None
+        # and model_fields_set contains the field
+        if self.genre is None and "genre" in self.model_fields_set:
+            _dict['Genre'] = None
+
+        # set to None if channel (nullable) is None
+        # and model_fields_set contains the field
+        if self.channel is None and "channel" in self.model_fields_set:
+            _dict['Channel'] = None
+
+        # set to None if channel_placement (nullable) is None
+        # and model_fields_set contains the field
+        if self.channel_placement is None and "channel_placement" in self.model_fields_set:
+            _dict['ChannelPlacement'] = None
+
+        # set to None if sub_channel (nullable) is None
+        # and model_fields_set contains the field
+        if self.sub_channel is None and "sub_channel" in self.model_fields_set:
+            _dict['SubChannel'] = None
+
         return _dict
 
     @classmethod
@@ -272,6 +317,11 @@ class GetAudienceFullEstimationRequest(BaseModel):
                         "EndDate": obj.get("EndDate") if obj.get("EndDate") is not None else None,
                         "TotalBudget": obj.get("TotalBudget") if obj.get("TotalBudget") is not None else None,
                         "IncludeImpressionsBreakdown": obj.get("IncludeImpressionsBreakdown") if obj.get("IncludeImpressionsBreakdown") is not None else None,
-                        "AutoTargeting": obj.get("AutoTargeting") if obj.get("AutoTargeting") is not None else None
+                        "AutoTargeting": obj.get("AutoTargeting") if obj.get("AutoTargeting") is not None else None,
+                        "JobSeniority": SelectionOflong.from_dict(obj["JobSeniority"]) if obj.get("JobSeniority") is not None else None,
+                        "Genre": SelectionOflong.from_dict(obj["Genre"]) if obj.get("Genre") is not None else None,
+                        "Channel": SelectionOflong.from_dict(obj["Channel"]) if obj.get("Channel") is not None else None,
+                        "ChannelPlacement": SelectionOflong.from_dict(obj["ChannelPlacement"]) if obj.get("ChannelPlacement") is not None else None,
+                        "SubChannel": SelectionOflong.from_dict(obj["SubChannel"]) if obj.get("SubChannel") is not None else None
         })
         return _obj

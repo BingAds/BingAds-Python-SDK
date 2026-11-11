@@ -27,7 +27,7 @@ class AddExperimentsResponse(BaseModel):
     """
     AddExperimentsResponse
     """ # noqa: E501
-    experiment_ids: Optional[List[StrictStr]] = Field(default=None, alias="ExperimentIds")
+    experiment_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="ExperimentIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["ExperimentIds", "PartialErrors"]
 

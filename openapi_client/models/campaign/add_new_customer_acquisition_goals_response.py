@@ -27,7 +27,7 @@ class AddNewCustomerAcquisitionGoalsResponse(BaseModel):
     """
     AddNewCustomerAcquisitionGoalsResponse
     """ # noqa: E501
-    new_customer_acquisition_goal_ids: Optional[List[StrictStr]] = Field(default=None, alias="NewCustomerAcquisitionGoalIds")
+    new_customer_acquisition_goal_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="NewCustomerAcquisitionGoalIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["NewCustomerAcquisitionGoalIds", "PartialErrors"]
 

@@ -68,10 +68,11 @@ class Campaign(BaseModel):
     business_name: Optional[StrictStr] = Field(default=None, alias="BusinessName")
     brand_logo: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="BrandLogo")
     brand_color: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="BrandColor")
+    messaging_restrictions: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="MessagingRestrictions")
     term_exclusions: Optional[List[Optional[AssetLink]]] = Field(default=None, alias="TermExclusions")
     privacy_status: Optional[CampaignPrivacyStatus] = Field(default=None, alias="PrivacyStatus")
     forward_compatibility_map: Optional[List[Optional[KeyValuePairOfstringAndstring]]] = Field(default=None, alias="ForwardCompatibilityMap")
-    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "MarketingObjective", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "BidStrategyScope", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "IsPolitical", "BusinessName", "BrandLogo", "BrandColor", "TermExclusions", "PrivacyStatus", "ForwardCompatibilityMap"]
+    __properties: ClassVar[List[str]] = ["Id", "Name", "Status", "DailyBudget", "BudgetType", "TimeZone", "Settings", "CampaignType", "SubType", "MarketingObjective", "AudienceAdsBidAdjustment", "TrackingUrlTemplate", "FinalUrlSuffix", "UrlCustomParameters", "BiddingScheme", "BudgetId", "Languages", "ExperimentId", "AdScheduleUseSearcherTimeZone", "BidStrategyId", "BidStrategyScope", "MultimediaAdsBidAdjustment", "GoalIds", "DealIds", "IsDealCampaign", "StartDate", "EndDate", "UseCampaignLevelDates", "IsPolitical", "BusinessName", "BrandLogo", "BrandColor", "MessagingRestrictions", "TermExclusions", "PrivacyStatus", "ForwardCompatibilityMap"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -125,6 +126,13 @@ class Campaign(BaseModel):
                 if _item_brand_color:
                     _items.append(_item_brand_color.to_dict())
             _dict['BrandColor'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in messaging_restrictions (list)
+        _items = []
+        if self.messaging_restrictions:
+            for _item_messaging_restrictions in self.messaging_restrictions:
+                if _item_messaging_restrictions:
+                    _items.append(_item_messaging_restrictions.to_dict())
+            _dict['MessagingRestrictions'] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in term_exclusions (list)
         _items = []
         if self.term_exclusions:
@@ -299,6 +307,11 @@ class Campaign(BaseModel):
         if self.brand_color is None and "brand_color" in self.model_fields_set:
             _dict['BrandColor'] = None
 
+        # set to None if messaging_restrictions (nullable) is None
+        # and model_fields_set contains the field
+        if self.messaging_restrictions is None and "messaging_restrictions" in self.model_fields_set:
+            _dict['MessagingRestrictions'] = None
+
         # set to None if term_exclusions (nullable) is None
         # and model_fields_set contains the field
         if self.term_exclusions is None and "term_exclusions" in self.model_fields_set:
@@ -358,6 +371,7 @@ class Campaign(BaseModel):
                         "BusinessName": obj.get("BusinessName") if obj.get("BusinessName") is not None else None,
                         "BrandLogo": [AssetLink.from_dict(_item) for _item in obj["BrandLogo"]] if obj.get("BrandLogo") is not None else None,
                         "BrandColor": [AssetLink.from_dict(_item) for _item in obj["BrandColor"]] if obj.get("BrandColor") is not None else None,
+                        "MessagingRestrictions": [AssetLink.from_dict(_item) for _item in obj["MessagingRestrictions"]] if obj.get("MessagingRestrictions") is not None else None,
                         "TermExclusions": [AssetLink.from_dict(_item) for _item in obj["TermExclusions"]] if obj.get("TermExclusions") is not None else None,
                         "PrivacyStatus": obj.get("PrivacyStatus") if obj.get("PrivacyStatus") is not None else None,
                         "ForwardCompatibilityMap": [KeyValuePairOfstringAndstring.from_dict(_item) for _item in obj["ForwardCompatibilityMap"]] if obj.get("ForwardCompatibilityMap") is not None else None

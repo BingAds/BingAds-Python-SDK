@@ -116,6 +116,10 @@ class HotelGroupPerformanceReportColumn(str, Enum):
 
     MISSEDIMPRESSIONSINSUFFICIENTBID = 'MissedImpressionsInsufficientBid'
 
+    ABSOLUTETOPIMPRESSIONSHAREPERCENT = 'AbsoluteTopImpressionSharePercent'
+
+    TOPIMPRESSIONSHAREPERCENT = 'TopImpressionSharePercent'
+
 	
     @classmethod
     def from_json(cls, json_str: str) -> Self:

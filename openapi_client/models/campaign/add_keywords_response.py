@@ -27,7 +27,7 @@ class AddKeywordsResponse(BaseModel):
     """
     AddKeywordsResponse
     """ # noqa: E501
-    keyword_ids: Optional[List[StrictStr]] = Field(default=None, alias="KeywordIds")
+    keyword_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="KeywordIds")
     inherited_bid_strategy_types: Optional[List[StrictStr]] = Field(default=None, alias="InheritedBidStrategyTypes")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["KeywordIds", "InheritedBidStrategyTypes", "PartialErrors"]

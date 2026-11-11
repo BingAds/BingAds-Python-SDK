@@ -27,7 +27,7 @@ class AddAssetGroupsResponse(BaseModel):
     """
     AddAssetGroupsResponse
     """ # noqa: E501
-    asset_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AssetGroupIds")
+    asset_group_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AssetGroupIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["AssetGroupIds", "PartialErrors"]
 

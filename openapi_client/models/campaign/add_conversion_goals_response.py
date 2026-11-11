@@ -27,7 +27,7 @@ class AddConversionGoalsResponse(BaseModel):
     """
     AddConversionGoalsResponse
     """ # noqa: E501
-    conversion_goal_ids: Optional[List[StrictStr]] = Field(default=None, alias="ConversionGoalIds")
+    conversion_goal_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="ConversionGoalIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["ConversionGoalIds", "PartialErrors"]
 

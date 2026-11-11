@@ -27,7 +27,7 @@ class AddCampaignsResponse(BaseModel):
     """
     AddCampaignsResponse
     """ # noqa: E501
-    campaign_ids: Optional[List[StrictStr]] = Field(default=None, alias="CampaignIds")
+    campaign_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="CampaignIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["CampaignIds", "PartialErrors"]
 

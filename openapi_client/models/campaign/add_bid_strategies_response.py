@@ -27,7 +27,7 @@ class AddBidStrategiesResponse(BaseModel):
     """
     AddBidStrategiesResponse
     """ # noqa: E501
-    bid_strategy_ids: Optional[List[StrictStr]] = Field(default=None, alias="BidStrategyIds")
+    bid_strategy_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="BidStrategyIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["BidStrategyIds", "PartialErrors"]
 

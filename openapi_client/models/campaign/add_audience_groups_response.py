@@ -27,7 +27,7 @@ class AddAudienceGroupsResponse(BaseModel):
     """
     AddAudienceGroupsResponse
     """ # noqa: E501
-    audience_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AudienceGroupIds")
+    audience_group_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AudienceGroupIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["AudienceGroupIds", "PartialErrors"]
 

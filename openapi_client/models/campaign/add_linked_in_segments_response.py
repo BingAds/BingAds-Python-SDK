@@ -27,7 +27,7 @@ class AddLinkedInSegmentsResponse(BaseModel):
     """
     AddLinkedInSegmentsResponse
     """ # noqa: E501
-    linked_in_segment_ids: Optional[List[StrictStr]] = Field(default=None, alias="LinkedInSegmentIds")
+    linked_in_segment_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="LinkedInSegmentIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["LinkedInSegmentIds", "PartialErrors"]
 

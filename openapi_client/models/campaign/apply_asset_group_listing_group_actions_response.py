@@ -27,7 +27,7 @@ class ApplyAssetGroupListingGroupActionsResponse(BaseModel):
     """
     ApplyAssetGroupListingGroupActionsResponse
     """ # noqa: E501
-    asset_group_listing_group_ids: Optional[List[StrictStr]] = Field(default=None, alias="AssetGroupListingGroupIds")
+    asset_group_listing_group_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AssetGroupListingGroupIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["AssetGroupListingGroupIds", "PartialErrors"]
 

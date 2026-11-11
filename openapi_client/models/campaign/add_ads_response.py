@@ -27,7 +27,7 @@ class AddAdsResponse(BaseModel):
     """
     AddAdsResponse
     """ # noqa: E501
-    ad_ids: Optional[List[StrictStr]] = Field(default=None, alias="AdIds")
+    ad_ids: Optional[List[Optional[StrictStr]]] = Field(default=None, alias="AdIds")
     partial_errors: Optional[List[Optional[BatchError]]] = Field(default=None, alias="PartialErrors")
     __properties: ClassVar[List[str]] = ["AdIds", "PartialErrors"]
 
