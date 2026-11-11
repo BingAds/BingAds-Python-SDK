@@ -1491,6 +1491,13 @@
                      </xs:appinfo>
                   </xs:annotation>
                </xs:element>
+               <xs:element minOccurs="0" name="MessagingRestrictions" nillable="true" type="tns:ArrayOfAssetLink">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:element>
                <xs:element minOccurs="0" name="MultimediaAdsBidAdjustment" nillable="true" type="xs:int">
                   <xs:annotation>
                      <xs:appinfo>
@@ -1658,6 +1665,14 @@
             </xs:complexContent>
          </xs:complexType>
          <xs:element name="ManualCpmBiddingScheme" nillable="true" type="tns:ManualCpmBiddingScheme" />
+         <xs:complexType name="TargetCpmBiddingScheme">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:BiddingScheme">
+                  <xs:sequence />
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="TargetCpmBiddingScheme" nillable="true" type="tns:TargetCpmBiddingScheme" />
          <xs:complexType name="InheritFromParentBiddingScheme">
             <xs:complexContent mixed="false">
                <xs:extension base="tns:BiddingScheme">
@@ -3175,6 +3190,13 @@
                   <xs:annotation>
                      <xs:appinfo>
                         <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">524288</EnumerationValue>
+                     </xs:appinfo>
+                  </xs:annotation>
+               </xs:enumeration>
+               <xs:enumeration value="AIDetectedContentWatermarkPolicy">
+                  <xs:annotation>
+                     <xs:appinfo>
+                        <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1048576</EnumerationValue>
                      </xs:appinfo>
                   </xs:annotation>
                </xs:enumeration>
@@ -7654,6 +7676,16 @@
             </xs:restriction>
          </xs:simpleType>
          <xs:element name="ImpressionBasedEntityType" nillable="true" type="tns:ImpressionBasedEntityType" />
+         <xs:complexType name="AIPromptAudience">
+            <xs:complexContent mixed="false">
+               <xs:extension base="tns:Audience">
+                  <xs:sequence>
+                     <xs:element minOccurs="0" name="Prompt" nillable="true" type="xs:string" />
+                  </xs:sequence>
+               </xs:extension>
+            </xs:complexContent>
+         </xs:complexType>
+         <xs:element name="AIPromptAudience" nillable="true" type="tns:AIPromptAudience" />
          <xs:element name="AddAudiencesResponse">
             <xs:complexType>
                <xs:sequence>
