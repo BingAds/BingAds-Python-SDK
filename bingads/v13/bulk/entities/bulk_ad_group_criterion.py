@@ -8,6 +8,7 @@ from abc import abstractmethod
 _AdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('AdGroupCriterion'))
 _NegativeAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('NegativeAdGroupCriterion'))
 _FixedBid = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('FixedBid'))
+_BidMultiplier = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BidMultiplier'))
 _BiddableAdGroupCriterion = type(_CAMPAIGN_OBJECT_FACTORY_V13.create('BiddableAdGroupCriterion'))
 
 
@@ -61,8 +62,12 @@ def bidding_to_csv(entity, row_values):
             return
         if isinstance(bid, _FixedBid):
             row_values[_StringTable.Bid] = fixed_bid_bulk_str(bid)
-        else:
+        elif isinstance(bid, _BidMultiplier):
             row_values[_StringTable.BidAdjustment] = bid_multiplier_bulk_str(bid)
+        else:
+            raise TypeError(
+                f"Unsupported CriterionBid type: {type(bid).__name__}. Expected FixedBid or BidMultiplier."
+            )
 
 class BulkAdGroupCriterion(_SingleRecordBulkEntity):
     """ Represents a Ad Group Criterion that can be read or written in a bulk file.
